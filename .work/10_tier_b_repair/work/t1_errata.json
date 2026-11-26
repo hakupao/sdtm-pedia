@@ -100,7 +100,8 @@
   "ig34_p0150_a012": "B-CE writer: 原子抽错, KB 按渲染图正确",
   "ig34_p0322_a013": "B-FT review: 原子漏 'see Section 4 of the QRS supplement.'; PDF/KB 均有",
   "ig34_p0327_a015": "B-QS audit: 原子漏 '; see Section 4 of the QRS supplement'; PDF/KB 均有",
-  "ig34_p0121_a011": "B-ML writer: 原子 MLGRID 抽错, PDF/KB 均 MLGRPID (O4 ML 部分关闭)"
+  "ig34_p0121_a011": "B-ML writer: 原子 MLGRID 抽错, PDF/KB 均 MLGRPID (O4 ML 部分关闭)",
+  "ig34_p0169_a0011": "B-HO audit: 原子 '--BODYS' 抽错, PDF/KB 均 --BODSYS"
  },
  "t3_target_remap": {
   "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",

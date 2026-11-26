@@ -1,0 +1,4 @@
+{"ref": "ig34_p0263_a030", "action": "INSERTED", "kb_file": "knowledge_base/domains/MI/assumptions.md", "kb_line_after": 5, "pdf_page": 263, "note": "Description/Overview sentence 1 verbatim (assumptions.md per 主控授权)"}
+{"ref": "ig34_p0263_a031", "action": "INSERTED", "kb_file": "knowledge_base/domains/MI/assumptions.md", "kb_line_after": 7, "pdf_page": 263, "note": "Description/Overview paragraph 2 verbatim"}
+{"ref": "auth:spec_first_sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/MI/assumptions.md", "kb_line_after": 11, "pdf_page": 264, "note": "## MI – Specification + mi.xpt spec first sentence verbatim; headings :3 :9 :13 navigation"}
+{"ref": "census:knowledge_base/domains/MI/examples.md:50:header:MIDRVFL", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/MI/examples.md", "kb_line_after": 50, "pdf_page": 267, "note": "T-1: PDF Ex3 header MIDRVL; Ex2 p266 MIDRVFL + --DRVFL -> KB keeps MIDRVFL"}
