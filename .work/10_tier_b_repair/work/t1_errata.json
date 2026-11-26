@@ -40,6 +40,10 @@
   "ig34_p0217_a015": "B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec)",
   "ig34_p0218_a014": "B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec)",
   "ig34_p0220_a001": "B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec)",
-  "ig34_p0118_a017": "B-EX T-6: verbatim mg/mL 为 PDF 笔误, KB 改 mg/kg"
+  "ig34_p0118_a017": "B-EX T-6: verbatim mg/mL 为 PDF 笔误, KB 改 mg/kg",
+  "ig34_p0236_a008": "B-IS review: verbatim 漏 ISSCAT",
+  "ig34_p0238_a005": "B-IS review: verbatim ISSEQ 记成 3",
+  "ig34_p0240_a011": "B-IS review: verbatim 列错位",
+  "ig34_p0241_a022": "B-IS review: verbatim CA, 记成 CA."
  }
 }

@@ -19,3 +19,7 @@
 - **D6 (用户裁定)**: KB 自写且不与 PDF 矛盾的解释性内容 → 保留, 加前缀 `> KB note (not in SDTMIG):` (多行/表/图放进同一引用块, 或在其上方单独一行标注). 与 PDF 矛盾 → 删 (D2). reviewer 逐条确认.
 - **跨文件重复例子** (如 EX/EC 同一组例子): 按 D2, 留 PDF 所属节那份并修对, 另一处一行交叉引用; 归属由 PDF 章节号判定.
 - D6 范围: 只针对解释性内容. 纯导航 (标题/锚点/交叉引用/表前短标签如 `**CRF:**`) 不加 KB note 标注.
+- D6 标注措辞: chapters/ 与 domains/ 用 `> KB note (not in SDTMIG):`; model/ (源为 SDTM v2.0) 用 `> KB note (not in SDTM v2.0):`.
+- **reviewer 必做全扫 (B-ch04 auditor FAIL 教训)**: 叙述类批次, reviewer 须对本批 PDF 页做双向逐句扫描 (PDF 句→KB, KB 句→PDF), 不只核 writer 声明的改动; R2 丢失短语/URL/交叉引用 ("see Section …") 一律算缺.
+- **终态必经 reviewer**: writer 在 reviewer PASS 之后的任何 KB 改动, 须回给 reviewer 复审 delta 后才派 auditor.
+- **不截断输出**: 判 "无/没有" 之前的 grep/diff 输出不得用 head/cut/tail 截断 (B-PCPP 与 B-model01 reviewer 两次因此误判).

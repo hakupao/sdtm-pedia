@@ -12,6 +12,8 @@
 | T2.B-DS auditor a1 | prose 抽检 + 补抽 N-1..N-12 + p158-167 全量 106 原子正反扫 + 10 随机改动格 (渲染) + D-1..D-5 删除核 | C=0 (P=51) | N=10 | 20261126 | P−C 对照 10 (+N 组 12 补抽) | 0/10 (范围外观察 0; p161_a0012 原子抽取错 DSCAT) | 0 | PASS | 待主控 |
 | T2.B-CP auditor a1 | prose 抽检 + 补抽新增 6/24 + 删除 6/20 + 全量忠实/丢失反扫 + 15 随机格 (渲染) + USUBJID 折行 + fp 回退集 | C=25 (P=100) | N=10 (+12 补抽) | 20261126 | C 5 + P−C 对照 5 | 0/10 (观察 1: CPGATEDEF 照录 vs T-2 改正口径不一) | 0 | PASS | 待主控 |
 | T2.B-EX auditor a1 | prose 抽检 + 10 随机格 (Ex6 ec/ex, Ex7 ec; 渲染) + Ex7 CRF 勾选全核 + 删除行核 + fp 回归 | C=0 (P=36) | N=10 | 20261126 | P−C 对照 10 | 0/10 (观察 1: p118 "mg/mL" 疑 PDF 印刷错未登记) | 0 | PASS | 待主控 |
+| T2.B-ch04 auditor a1 | prose 抽检 + 82 新增句逐字反查 + 本批页 fp 不命中全扫 + lb.xpt/约定表渲染逐格 + KB note 5 + 删除 10 行 | C=30 (P=214) | N=10 | 20261126 | C 7 + P−C 对照 3 | 0/10; 补充全扫 R2 丢失 3 (F1 p42_a015 xref 7.3.1 / F2 p55_a016 原因从句 / F3 p54_a025 URL) | 0 | FAIL | 待主控 (attempt 3 补 F1-F3) |
+| T2.B-IS auditor a1 | prose 抽检 + p233-241 全量正反扫 (独立脚本) + 10 随机格 (Ex5 4 + 其他改动表 6; 渲染) + Ex5 整表目视 + D-1..D-5 删除核 + fp 回归 | C=1 (P=67) | N=10 | 20261126 | C 1 + P−C 对照 9 | 0/10 (观察: T-5 语法补全建议 T4 告知) | 0 | PASS | 待主控 |
 
 ## 失败详情
-(无)
+- T2.B-ch04 auditor a1 FAIL: seeded 样本 0/10, 但本批 kb_files/页内 R2 丢失 3 处 (F1-F3), 详见 evidence/checkpoints/t2_B-ch04_audit.md §3.
