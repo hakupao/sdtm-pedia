@@ -23,3 +23,6 @@
 - **reviewer 必做全扫 (B-ch04 auditor FAIL 教训)**: 叙述类批次, reviewer 须对本批 PDF 页做双向逐句扫描 (PDF 句→KB, KB 句→PDF), 不只核 writer 声明的改动; R2 丢失短语/URL/交叉引用 ("see Section …") 一律算缺.
 - **终态必经 reviewer**: writer 在 reviewer PASS 之后的任何 KB 改动, 须回给 reviewer 复审 delta 后才派 auditor.
 - **不截断输出**: 判 "无/没有" 之前的 grep/diff 输出不得用 head/cut/tail 截断 (B-PCPP 与 B-model01 reviewer 两次因此误判).
+- **全扫必须含表格类原子 (B-ch04 a3 教训)**: 双向扫描要覆盖 TABLE_ROW / TABLE_HEADER / CODE_LITERAL, 不只叙述; census UNPARSEABLE 或无 Row 列的表 census 会漏报, 必须人工逐格对渲染; 反向扫描覆盖全文件, 不只改写过的段.
+- **KB 自写的伪节号** (PDF 不存在的 4.2.1.1 等): 去掉节号; 内容不矛盾 → D6 标注保留, 矛盾 → 删.
+- **PDF 图的 Mermaid 重绘**: 必须与 PDF 图逻辑一致 (分支/顺序), 并加 D6 标注 "rendering of PDF Figure …"; 不一致 → 按 PDF 改正.

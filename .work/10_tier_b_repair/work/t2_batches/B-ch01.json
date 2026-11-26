@@ -212,5 +212,8 @@
   ]
  },
  "out_of_scope": [],
- "notes": []
+ "notes": [
+  "B-ch02 audit: ch02 的 §1 复制块将改为交叉引用 → ch01 须完整承载 p7 §1.2 10 条章节 bullet、p9 guides 句+3 bullet、p9-10 §1.4.1 全部 7 列层级 (按 PDF 逐字); 评估命中看 hit_target=ch01 而非 hit_any",
+  "B-ch02 attempt 2 后: ig34_p0009_a009/a020/a021 与 ig34_p0010_a004 全 KB 不命中 (原只在 ch02 §1 摘录) → B-ch01 必补进 ch01"
+ ]
 }

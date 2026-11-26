@@ -15,6 +15,9 @@
 | T2.B-ch04 auditor a1 | prose 抽检 + 82 新增句逐字反查 + 本批页 fp 不命中全扫 + lb.xpt/约定表渲染逐格 + KB note 5 + 删除 10 行 | C=30 (P=214) | N=10 | 20261126 | C 7 + P−C 对照 3 | 0/10; 补充全扫 R2 丢失 3 (F1 p42_a015 xref 7.3.1 / F2 p55_a016 原因从句 / F3 p54_a025 URL) | 0 | FAIL | 待主控 (attempt 3 补 F1-F3) |
 | T2.B-IS auditor a1 | prose 抽检 + p233-241 全量正反扫 (独立脚本) + 10 随机格 (Ex5 4 + 其他改动表 6; 渲染) + Ex5 整表目视 + D-1..D-5 删除核 + fp 回归 | C=1 (P=67) | N=10 | 20261126 | C 1 + P−C 对照 9 | 0/10 (观察: T-5 语法补全建议 T4 告知) | 0 | PASS | 待主控 |
 | T2.B-model01 auditor a1 | prose 抽检 (正式 N=10 + 扩展 25) + sv20 pp4-12 169 原子正反全扫 (独立脚本) + D-1..D-14 删除核 (含终态 D-13/D-14 对 p15/p20) + T-1 核 + fp/links 回归 | C=28 (P=75; R3 新增 C'=124) | N=10 (+25 扩展) | 20261126 | C 5 + P−C 对照 5; 扩展 C' 13 + 对照 12 | 0/35; 全扫 0 | 0 | PASS | 待主控 (注: 续3 delta 无 reviewer 复审签字, auditor 已独立复核) |
+| T2.B-ch02 auditor a1 | prose 抽检 + p11-16 独立双向全扫 (chk.py) + 3 表→bullet / §2.7 20 bullet 渲染核 + 删除 10 行 + D6 note 2 + §1.4.1 摘录核 + fp 隔离复跑 (回归 0, 仅 p15_a006) + md5 | C=32 (P=104) | N=10 | 20261126 | C 5 + P−C 对照 5 | 0/10; 全扫忠实度 1 (F1 ch02:203 KB 自写标题 "not fully evaluated" vs PDF "have not (yet) been evaluated"); 观察 O1 §1.4.1 截断无标记 (非阻断) | 1 | FAIL | 待主控 (改 :203 → reviewer delta → auditor a2) |
+| T2.B-ch02 auditor a2 | prose 抽检 (新 seed) + p11-16 双向全扫 + KB 自写标题全扫 (F1 :167 / :158 / :178 vs p16) + §1 去重 D-24..27 核 + fp 隔离复跑 + links + md5/trace | C=32 (P=104) | N=10 | 20261127 | C 5 + 余数 5 | 0/10; F1 关闭; hit_any −4 (p9 a009/a020/a021, p10 a004; target=ch01 → B-ch01) | 0 | PASS | 待主控 |
 
 ## 失败详情
 - T2.B-ch04 auditor a1 FAIL: seeded 样本 0/10, 但本批 kb_files/页内 R2 丢失 3 处 (F1-F3), 详见 evidence/checkpoints/t2_B-ch04_audit.md §3.
+- T2.B-ch02 auditor a1 FAIL: seeded 样本 0/10, 但全扫发现 ch02:203 KB 自写小标题 "not fully evaluated" 与 PDF p15/p16 "have not (yet) been evaluated" 改义 (F1), 详见 evidence/checkpoints/t2_B-ch02_audit.md §2.
