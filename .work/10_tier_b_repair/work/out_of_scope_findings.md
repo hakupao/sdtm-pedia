@@ -48,3 +48,5 @@
 | O45 | B-CM audit | p103 §6.1.3 Exposure Domains 父节引言 (ig34_p0103_a021/a022) | 全 KB 0 命中 → 并入 O17 §6.x 类引言扫描 (候选宿主 EX/assumptions.md 顶部, NV/FT 先例); 另: CM spec 脚注 ledger 误记 EQUIVALENT → 佐证 O36 |
 | O46 | B-DI writer | p441 §9 章引言 ("There are occasions…" + 2 bullet) | 已在 ch10_appendices.md:66-69; DI/OI 域文件未收 → 并入 O17 (DI/OI 一起定是否加交叉引用); model/05:257 附近 §9 bullet 未核 |
 | O47 | B-TV writer | B-TE audit 称 §7.3 引言在 TI/assumptions.md | 不准确: §7.3 引言在 TV/assumptions.md:3-11, TI 仅 §7.4/§7.5; B-TV.json pdf_ranges 409-412 应为 407-410 (O20 同类) |
+| O48 | B-TI writer | TI/assumptions.md §7.4 标题 + census_full_manifest | §7.4 标题与 PDF "(TI and TS)" 不同 (规则 6 未改, T4); census_full_manifest TI/TM 页范围偏移 (TI 实为 p416-417); B-TS 报 p417 ti.xpt PDF_ONLY 为 manifest 假阳 (TI census OK) |
+| O49 | B-CE audit | p155 DS Description/Overview 句 | DS 三文件均无 → O16 全域 Description 扫描点名 DS |

@@ -10,10 +10,10 @@ Record start dates of any of the following signs that occurred during the study.
 
 | Clinical Sign | Did it occur? | Start Date of First Episode |
 |---------------|--------------|---------------------------|
-| Rash | ( ) No  ( ) Yes | ___ / ___ / ___ |
-| Wheezing | ( ) No  ( ) Yes | ___ / ___ / ___ |
-| Edema | ( ) No  ( ) Yes | ___ / ___ / ___ |
-| Conjunctivitis | ( ) No  ( ) Yes | ___ / ___ / ___ |
+| Rash | No  Yes | |
+| Wheezing | No  Yes | |
+| Edema | No  Yes | |
+| Conjunctivitis | No  Yes | |
 
 **Rows 1-3:** Show 3 symptoms which occurred and their start dates.
 
@@ -40,10 +40,10 @@ In this example, the use of "Other, Specify" for clinical events is likely to re
 
 | Event | | Date Started | Date Ended | Severity |
 |-------|---|-------------|-----------|----------|
-| Nausea | ( ) Yes  ( ) No | ___ / ___ / ___ (dd/mmm/yyyy) | ___ / ___ / ___ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
-| Vomit | ( ) Yes  ( ) No | ___ / ___ / ___ (dd/mmm/yyyy) | ___ / ___ / ___ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
-| Diarrhea | ( ) Yes  ( ) No | ___ / ___ / ___ (dd/mmm/yyyy) | ___ / ___ / ___ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
-| Other, Specify: ___ | | ___ / ___ / ___ (dd/mmm/yyyy) | ___ / ___ / ___ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
+| Nausea | ( ) Yes  ( ) No | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
+| Vomit | ( ) Yes  ( ) No | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
+| Diarrhea | ( ) Yes  ( ) No | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
+| Other, Specify: | ___ | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
 
 **Rows 1-2:** Show records for 2 instances of the prespecified clinical event, nausea. The CEPRESP value of "Y" indicates that there was a probing question; the response to the probe (CEOCCUR) was "Yes". CEPRESP and CEOCCUR are included in both records for "Nausea". The record includes additional data about the event.
 
@@ -57,7 +57,7 @@ In this example, the use of "Other, Specify" for clinical events is likely to re
 
 | Row | STUDYID | DOMAIN | USUBJID | CESEQ | CETERM | CEDECOD | CEPRESP | CEOCCUR | CESTAT | CESEV | CESTDTC | CEENDTC |
 |-----|---------|--------|---------|-------|--------|---------|---------|---------|--------|-------|---------|---------|
-| 1 | ABC123 | CE | 123 | 1 | NAUSEA | Nausea | Y | Y | | MODERATE | 2005-10-12 | |
+| 1 | ABC123 | CE | 123 | 1 | NAUSEA | Nausea | Y | Y | | MODERATE | 2005-10-12 | 2005-10-12 |
 | 2 | ABC123 | CE | 123 | 2 | NAUSEA | Nausea | Y | Y | | MODERATE | 2005-10-14 | 2005-10-15 |
 | 3 | ABC123 | CE | 123 | 3 | VOMIT | Vomiting | Y | N | | | | |
 | 4 | ABC123 | CE | 123 | 4 | DIARRHEA | Diarrhoea | Y | | NOT DONE | | | |
@@ -72,8 +72,8 @@ In this study, a prior fracture in the previous 5 years was a requirement for st
 | Question | Response Options |
 |----------|-----------------|
 | Which fracture? | ( ) Pre-study fracture, reference number ___  ( ) On-study fracture, reference number ___ |
-| Date of collection | -- / --- / -- |
-| Date of fracture | -- / --- / -- |
+| Date of collection | --/---/-- |
+| Date of fracture | --/---/-- |
 | How did fracture occur? | ( ) Pathologic  ( ) Fall  ( ) Other trauma  ( ) Unknown |
 | What was the location of the fracture? | ___ |
 | What was the laterality? | ( ) Left  ( ) Right  ( ) Not applicable |
@@ -98,8 +98,8 @@ The codelist used for AECONTRT (NY) was used for MHCONTRT and CECONTRT.
 
 | Row | STUDYID | DOMAIN | USUBJID | MHSEQ | MHGRPID | MHSPID | MHTERM | MHCAT | MHSCAT | MHPRESP | MHOCCUR | MHLOC | MHLAT | MHCONTRT | MHDTC | MHSTDTC | MHEVLINT |
 |-----|---------|--------|---------|-------|---------|--------|--------|-------|--------|---------|---------|-------|-------|----------|-------|---------|----------|
-| 1 | ABC | MH | ABC-US-701-002 | 1 | 1 | MH1 | Fracture | FRACTURE-RELATED EVENTS | | Y | Y | RIB 3 | RIGHT | Y | 2006-05-13 | 2005-08-18 | -P5Y |
-| 2 | ABC | MH | ABC-US-701-002 | 2 | 1 | | Soft Tissue Damage | FRACTURE-RELATED EVENTS | COMPLICATIONS | Y | Y | LUNG | | | 2006-05-13 | | |
+| 1 | ABC | MH | ABC -US-701-002 | 1 | 1 | MH1 | Fracture | FRACTURE-RELATED EVENTS | | Y | Y | RIB 3 | RIGHT | Y | 2006-05-13 | 2005-08-18 | -P5Y |
+| 2 | ABC | MH | ABC -US-701-002 | 2 | 1 | | Soft Tissue Damage | FRACTURE-RELATED EVENTS | COMPLICATIONS | Y | Y | LUNG | | | 2006-05-13 | | |
 
 The cause of the fracture and whether there were complications were represented as supplemental qualifiers.
 
@@ -120,9 +120,9 @@ The subject had 2 on-study fractures.
 
 | Row | STUDYID | DOMAIN | USUBJID | CESEQ | CEGRPID | CESPID | CETERM | CECAT | CESCAT | CEPRESP | CEOCCUR | CELOC | CELAT | CECONTRT | CEDTC | CESTDTC |
 |-----|---------|--------|---------|-------|---------|--------|--------|-------|--------|---------|---------|-------|-------|----------|-------|---------|
-| 1 | ABC | CE | ABC-US-701-002 | 1 | | CE1 | Fracture | FRACTURE-RELATED EVENTS | | Y | Y | HUMERUS | RIGHT | Y | 2006-07-09 | 2006-07-03 |
-| 2 | ABC | CE | ABC-US-701-002 | 2 | 1 | CE2 | Fracture | FRACTURE-RELATED EVENTS | | Y | Y | FIBULA | LEFT | N | 2006-10-23 | 2006-10-15 |
-| 3 | ABC | CE | ABC-US-701-002 | 3 | 1 | CE3 | Infection of fracture site | FRACTURE-RELATED EVENTS | COMPLICATIONS | Y | Y | | | | 2006-10-23 | |
+| 1 | ABC | CE | ABC -US-701-002 | 1 | | CE1 | Fracture | FRACTURE-RELATED EVENTS | | Y | Y | HUMERUS | RIGHT | Y | 2006-07-09 | 2006-07-03 |
+| 2 | ABC | CE | ABC -US-701-002 | 2 | 1 | CE2 | Fracture | FRACTURE-RELATED EVENTS | | Y | Y | FIBULA | LEFT | N | 2006-10-23 | 2006-10-15 |
+| 3 | ABC | CE | ABC -US-701-002 | 3 | 1 | CE3 | Infection of fracture site | FRACTURE-RELATED EVENTS | COMPLICATIONS | Y | Y | | | | 2006-10-23 | |
 
 The causes of the fractures and whether there were complications were represented as supplemental qualifiers.
 
@@ -145,9 +145,9 @@ The therapeutic measures in this example were procedures represented in the Proc
 
 | Row | STUDYID | DOMAIN | USUBJID | PRSEQ | PRSPID | PRTRT | PRCAT | PRPRESP | PROCCUR | PRDTC | PRSTDTC |
 |-----|---------|--------|---------|-------|--------|-------|-------|---------|---------|-------|---------|
-| 1 | ABC | PR | ABC-US-701-002 | 1 | MH1 | Casting/Immobilization | FRACTURE TREATMENTS | Y | Y | 2006-05-13 | |
-| 2 | ABC | PR | ABC-US-701-002 | 2 | CE1 | Surgery | FRACTURE TREATMENTS | Y | Y | 2006-07-09 | |
-| 3 | ABC | PR | ABC-US-701-002 | 3 | CE1 | Traction | FRACTURE TREATMENTS | Y | Y | 2006-07-09 | |
+| 1 | ABC | PR | ABC -US-701-002 | 1 | MH1 | Casting/Immobilization | FRACTURE TREATMENTS | Y | Y | 2006-05-13 | |
+| 2 | ABC | PR | ABC -US-701-002 | 2 | CE1 | Surgery | FRACTURE TREATMENTS | Y | Y | 2006-07-09 | |
+| 3 | ABC | PR | ABC -US-701-002 | 3 | CE1 | Traction | FRACTURE TREATMENTS | Y | Y | 2006-07-09 | |
 
 The therapeutic measures are linked to the fracture events in the RELREC dataset. The sponsor anticipated the need to link procedures either to an MH record or a CE record, so included domain prefixes in the values of MHSPID and CESPID and used those in populating PRSPID.
 
