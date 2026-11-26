@@ -1,0 +1,5 @@
+批次 S-MOD3 (T2-post 扫描批, model), attempt 1. 角色: reviewer.
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Reviewer 段执行, 并读它引用的 `t2_reviewer_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含末尾 T2S 段及其后主控裁定, 特别是 S-MOD2 两条与 S-MOD3 标题条) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8) / `t1_user_ack.md` (R1)。样板: `evidence/checkpoints/t2_S-MOD2_review.md`。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-MOD3.json`: `model/05_study_level_data.md`, 源 SDTM v2.0 §5 sv20 p51-63。writer 报告 `evidence/checkpoints/t2_S-MOD3.md` (以文末「更正」节为准; 含 attempt 1 delta: 13 个标题恢复 "(XX)") + `work/t2_batches/S-MOD3.writer.jsonl`。改动未提交: `git diff HEAD -- knowledge_base/model/05_study_level_data.md`。另有扫描批同时改别的文件, 只看本批。census/fp_match 对 sv20 无证明力 —— 以独立 layout 列解析 + 渲染逐格为准。
+重点: 独立双向全扫 p51-63; 13 张表 110 行逐格 (含 9 个 Role 括注); 15 个标题替换为 PDF 编号标题 + 域代码 (核逐字 = PDF 标题, 0 入站链接); 删除 17 条逐条签字 (D-16/D-17 TX/TS Structure 删依据: PDF 表题含 One Record per; DI/OI 保留); TT/TP 两行 D6 列说明措辞属实; 两张 Mermaid 与 PDF 图逻辑一致。
+回主控 ≤ 10 行。

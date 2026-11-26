@@ -1,0 +1,107 @@
+{
+ "batch_id": "S-MOD3",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "model/05_study_level_data.md"
+ ],
+ "kb_files": [
+  "knowledge_base/model/05_study_level_data.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "model/05_study_level_data.md",
+   "sec": "5",
+   "title": "§5 Study-level Data",
+   "lo": 51,
+   "hi": 63,
+   "src": "sv20",
+   "note": "主控粗定, 先复核 (O20)"
+  }
+ ],
+ "pdf_pages": [
+  51,
+  52,
+  53,
+  54,
+  55,
+  56,
+  57,
+  58,
+  59,
+  60,
+  61,
+  62,
+  63
+ ],
+ "pdf_src": "sv20",
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/model/05_study_level_data.md",
+   "src": "sv20",
+   "lo": 51,
+   "hi": 63
+  }
+ ],
+ "gaps": {},
+ "intros": [],
+ "footnote": "本批无域 spec.md",
+ "footnote_moves": [],
+ "census_items": [
+  {
+   "kb": "model/05_study_level_data.md:35 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:35` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  },
+  {
+   "kb": "model/05_study_level_data.md:53 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:53` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  },
+  {
+   "kb": "model/05_study_level_data.md:74 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:74` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  },
+  {
+   "kb": "model/05_study_level_data.md:99 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:99` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role / Notes | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  },
+  {
+   "kb": "model/05_study_level_data.md:117 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:117` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role / Notes | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  },
+  {
+   "kb": "model/05_study_level_data.md:144 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:144` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  },
+  {
+   "kb": "model/05_study_level_data.md:164 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:164` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  },
+  {
+   "kb": "model/05_study_level_data.md:182 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:182` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  },
+  {
+   "kb": "model/05_study_level_data.md:196 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:196` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  },
+  {
+   "kb": "model/05_study_level_data.md:215 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:215` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  },
+  {
+   "kb": "model/05_study_level_data.md:235 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:235` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  },
+  {
+   "kb": "model/05_study_level_data.md:267 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:267` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  },
+  {
+   "kb": "model/05_study_level_data.md:305 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/05_study_level_data.md:305` | sv20:p51-63 | 0 | # / Variable / Label / Type / Role | t2_B-model05_review.md:80-94 (触碰 4 表渲染, 其余 layout+原子 5 列核)"
+  }
+ ],
+ "out_of_scope": [],
+ "notes": "源 SDTM v2.0. B-model05 PARTIAL. D6 措辞 \"KB note (not in SDTM v2.0):\". 行号为 HEAD 时, 以内容定位."
+}
