@@ -1,5 +1,15 @@
 # HO — Assumptions
 
+## HO – Description/Overview
+
+An events domain that contains data for inpatient and outpatient healthcare events (e.g., hospitalization, nursing home stay, rehabilitation facility stay, ambulatory surgery).
+
+## HO – Specification
+
+ho.xpt, Healthcare Encounters — Events. One record per healthcare encounter per subject, Tabulation.
+
+## HO – Assumptions
+
 1. The Healthcare Encounters (HO) dataset includes inpatient and outpatient healthcare events (e.g., hospitalizations, nursing home stays, rehabilitation facility stays, ambulatory surgery).
 
 2. Values of HOTERM typically describe the location or place of the healthcare encounter (e.g., "HOSPITAL" rather than "HOSPITALIZATION"). HOSTDTC should represent the start or admission date and HOENDTC the end or discharge date.

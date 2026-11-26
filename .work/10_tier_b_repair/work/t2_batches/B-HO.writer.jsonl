@@ -1,0 +1,10 @@
+{"ref": "ig34_p0169_a0024", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/HO/examples.md", "kb_line_after": 25, "pdf_page": 170, "note": "T-1: PDF REHABILIATION; KB keeps REHABILITATION FACILITY (Ex2 Row 3 same page)"}
+{"ref": "census:knowledge_base/domains/HO/examples.md:25:5:HOTERM", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/HO/examples.md", "kb_line_after": 25, "pdf_page": 170, "note": "same cell as ig34_p0169_a0024; T-1"}
+{"ref": "ig34_p0171_a0002", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/examples.md", "kb_line_after": 72, "pdf_page": 171, "note": "Row 10 HOSTDTC 2011-06-25T17:00 -> 2011-06-25T10:00"}
+{"ref": "census:knowledge_base/domains/HO/examples.md:72:10:HOSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/examples.md", "kb_line_after": 72, "pdf_page": 171, "note": "same cell as ig34_p0171_a0002"}
+{"ref": "R3:HO_ex1_row5_narrative", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/examples.md", "kb_line_after": 40, "pdf_page": 170, "note": "remove extra 'recorded'"}
+{"ref": "R3:HO_ex1_row6_narrative", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/examples.md", "kb_line_after": 42, "pdf_page": 170, "note": "remove extra 'recorded'"}
+{"ref": "R3:HO_ex2_curly_apostrophe", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/examples.md", "kb_line_after": 75, "pdf_page": 171, "note": "ABC123101's -> ABC123101’s"}
+{"ref": "ig34_p0167_a0020", "action": "INSERTED", "kb_file": "knowledge_base/domains/HO/assumptions.md", "kb_line_after": 5, "pdf_page": 167, "note": "HO – Description/Overview heading + sentence (authorized)"}
+{"ref": "spec_first_sentence:ho.xpt", "action": "INSERTED", "kb_file": "knowledge_base/domains/HO/assumptions.md", "kb_line_after": 9, "pdf_page": 167, "note": "HO – Specification heading + ho.xpt first sentence (authorized)"}
+{"ref": "heading:HO – Assumptions", "action": "INSERTED", "kb_file": "knowledge_base/domains/HO/assumptions.md", "kb_line_after": 11, "pdf_page": 169, "note": "PDF section heading, CM/BE structure"}

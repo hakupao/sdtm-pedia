@@ -37,9 +37,9 @@ In this example, a healthcare encounter CRF collects verbatim descriptions of th
 
 **Rows 3-4:** For the 2 encounters recorded for subject ABC123103, the names of the facilities were recorded.
 
-**Row 5:** For the first encounter recorded for subject ABC123105, the indication/medical condition for the hospitalization was recorded.
+**Row 5:** For the first encounter for subject ABC123105, the indication/medical condition for the hospitalization was recorded.
 
-**Row 6:** For the second encounter recorded for subject ABC123105, the name of the hospital was recorded.
+**Row 6:** For the second encounter for subject ABC123105, the name of the hospital was recorded.
 
 **suppho.xpt**
 
@@ -69,10 +69,10 @@ In this example, the dates of an initial hospitalization are collected as well a
 | 7 | ABC | HO | ABC123101 | 7 | HOSPITAL | REPEAT HOSPITALIZATION | 2011-07-23 | 2011-07-24 | | |
 | 8 | ABC | HO | ABC123102 | 1 | HOSPITAL | INITIAL HOSPITALIZATION | 2011-06-19 | 2011-07-02 | | |
 | 9 | ABC | HO | ABC123102 | 2 | ICU | INITIAL HOSPITALIZATION | 2011-06-19T22:00 | 2011-06-23T09:30 | | |
-| 10 | ABC | HO | ABC123102 | 3 | ICU | INITIAL HOSPITALIZATION | 2011-06-25T17:00 | 2011-06-29T19:30 | | |
+| 10 | ABC | HO | ABC123102 | 3 | ICU | INITIAL HOSPITALIZATION | 2011-06-25T10:00 | 2011-06-29T19:30 | | |
 | 11 | ABC | HO | ABC123102 | 4 | SKILLED NURSING FACILITY | FOLLOW-UP CARE | 2011-07-02 | | ONGOING | END OF STUDY |
 
-The indication/medical condition for subject ABC123101's repeat hospitalization was represented as a supplemental qualifier.
+The indication/medical condition for subject ABC123101’s repeat hospitalization was represented as a supplemental qualifier.
 
 **suppho.xpt**
 
