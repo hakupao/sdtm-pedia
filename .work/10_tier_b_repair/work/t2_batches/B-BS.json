@@ -80,5 +80,7 @@
   "unparseable_kb_tables_hand_check_if_touched": []
  },
  "out_of_scope": [],
- "notes": []
+ "notes": [
+  "B-LB audit: ig34_p0196_a017 (§6.3.5.2 引言) 在 RELSPEC/assumptions.md:3 而非 BS 节 → 判所属; p196_a018 段末 KB 止于 \"SDTMIG.\" 缺 \"publication, after v3.4\" 部分"
+ ]
 }

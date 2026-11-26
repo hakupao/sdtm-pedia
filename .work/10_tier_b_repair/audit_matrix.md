@@ -8,6 +8,7 @@
 | T2.B-PCPP auditor a1 | prose 抽检 + PC Ex1 10 格 + 删除 diff | C=0 (P=56) | N=10 | 20261126 | P−C 对照 10 | 0/10 | 0 | PASS | 待主控 |
 | T2.B-TR auditor a1 | prose 抽检 + Ex3 tr.xpt 10 格 + 删除 diff | C=0 (P=13) | N=10 | 20261126 | P−C 对照 10 | 0/10 (范围外 1: VS Overview 缺) | 0 | PASS | 待主控 |
 | T2.B-MB auditor a1 | prose 抽检 + 10 随机格 + Ex3 mb/di/relrec/Ex4 全格 + D2 删除 10 行 + fp 回归集 | C=3 (P=61) | N=10 | 20261126 | C 3 + P−C 对照 7 | 0/10 (范围外观察 1: MS 假设 3.b 复制于 MB/assumptions) | 0 | PASS | 待主控 |
+| T2.B-LB auditor a1 | prose 抽检 + 补抽 N1-N15 + 通用表 10 格 + Ex1 10 格 (+全格目视) + Ex2/Ex3 全格 + 删除 X-1..X-4 | C=7 (P=45) | N=10 | 20261126 | C 5 + P−C 对照 5 | 0/10 (范围外观察 1: p196_a017 在 RELSPEC 非 BS) | 0 | PASS | 待主控 |
 
 ## 失败详情
 (无)

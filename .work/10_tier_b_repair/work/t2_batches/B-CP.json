@@ -5,7 +5,8 @@
   "domains/CP"
  ],
  "kb_files": [
-  "knowledge_base/domains/CP/examples.md"
+  "knowledge_base/domains/CP/examples.md",
+  "knowledge_base/domains/CP/assumptions.md"
  ],
  "delete_only_source_lines": [],
  "serial_with": [],
@@ -879,6 +880,7 @@
  "notes": [
   "Ex2-8 七张 cp.xpt KB 只占位 (PDF_ONLY)",
   "Ex1a 行 2/4/6 PRESENT 的前提是 KB 已重排改名的列; 修表头 ig34_p0210_a002 时整表 (表头 + 全部行) 同步重排, 不能只改表头",
-  "Ex1b 行 1 列错位 (O10)"
+  "Ex1b 行 1 列错位 (O10)",
+  "主控: kb_files 扩入 CP/assumptions.md (附录 :98-130 与 examples 重复 + p217_a016 矛盾句)"
  ]
 }
