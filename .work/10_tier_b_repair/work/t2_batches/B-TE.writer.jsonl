@@ -1,0 +1,19 @@
+{"ref": "ig34_p0403_a011", "action": "INSERTED", "kb_file": "knowledge_base/domains/TE/assumptions.md", "kb_line_after": 13, "pdf_page": 403, "note": "A valid element… sentence added"}
+{"ref": "ig34_p0404_a012", "action": "INSERTED", "kb_file": "knowledge_base/domains/TE/assumptions.md", "kb_line_after": 49, "pdf_page": 404, "note": "assumption 15 washout sentence added"}
+{"ref": "ig34_p0407_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/TE/examples.md", "kb_line_after": 101, "pdf_page": 407, "note": "special.xpt Row 1"}
+{"ref": "ig34_p0407_a004", "action": "INSERTED", "kb_file": "knowledge_base/domains/TE/examples.md", "kb_line_after": 102, "pdf_page": 407, "note": "special.xpt Row 2; TESTRL 'in Element' verbatim, T-1"}
+{"ref": "ig34_p0407_a005", "action": "INSERTED", "kb_file": "knowledge_base/domains/TE/examples.md", "kb_line_after": 103, "pdf_page": 407, "note": "special.xpt Row 3; TEENRL verbatim, T-2"}
+{"ref": "ig34_p0407_a006", "action": "INSERTED", "kb_file": "knowledge_base/domains/TE/examples.md", "kb_line_after": 104, "pdf_page": 407, "note": "special.xpt Row 4; T-1"}
+{"ref": "pdf_only:p407:special.xpt", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/TE/examples.md", "kb_line_after": 97, "pdf_page": 407, "note": "title + 10-col header + 4 rows"}
+{"ref": "NEW-1", "action": "REPLACED", "kb_file": "knowledge_base/domains/TE/assumptions.md", "kb_line_after": 13, "pdf_page": 403, "note": "valid trial element -> valid element"}
+{"ref": "NEW-2", "action": "REPLACED", "kb_file": "knowledge_base/domains/TE/assumptions.md", "kb_line_after": 11, "pdf_page": 403, "note": "paragraph split per PDF"}
+{"ref": "NEW-3", "action": "INSERTED", "kb_file": "knowledge_base/domains/TE/assumptions.md", "kb_line_after": 17, "pdf_page": 403, "note": "TE — Specification heading + spec first sentence"}
+{"ref": "NEW-4", "action": "INSERTED", "kb_file": "knowledge_base/domains/TE/assumptions.md", "kb_line_after": 19, "pdf_page": 403, "note": "TE — Assumptions heading"}
+{"ref": "NEW-5", "action": "INSERTED", "kb_file": "knowledge_base/domains/TE/assumptions.md", "kb_line_after": 27, "pdf_page": 404, "note": "assumption 4 tail 2 sentences"}
+{"ref": "NEW-6", "action": "REPLACED", "kb_file": "knowledge_base/domains/TE/assumptions.md", "kb_line_after": 45, "pdf_page": 404, "note": "assumption 13 WBC wording"}
+{"ref": "NEW-7", "action": "REPLACED", "kb_file": "knowledge_base/domains/TE/assumptions.md", "kb_line_after": 47, "pdf_page": 404, "note": "assumption 14 drop 'format' (D2)"}
+{"ref": "NEW-8", "action": "REPLACED", "kb_file": "knowledge_base/domains/TE/examples.md", "kb_line_after": 63, "pdf_page": 406, "note": "titration paragraph indented under item 3"}
+{"ref": "NEW-9", "action": "REPLACED", "kb_file": "knowledge_base/domains/TE/examples.md", "kb_line_after": 82, "pdf_page": 406, "note": "3-step table row 2: branch -> branch point (unparseable table :79)"}
+{"ref": "NEW-10", "action": "INSERTED", "kb_file": "knowledge_base/domains/TE/examples.md", "kb_line_after": 87, "pdf_page": 406, "note": "transition narrative + Note that bullets (from PDF; was only in TA copy)"}
+{"ref": "NEW-11", "action": "INSERTED", "kb_file": "knowledge_base/domains/TE/examples.md", "kb_line_after": 106, "pdf_page": 407, "note": "rows 2 and 4 paragraph"}
+{"ref": "X-1", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/assumptions.md", "kb_line_after": 104, "pdf_page": 406, "note": "D2: TA §7.2.2.1 bodies (base 104-122,126-150) -> 2 cross-refs to TE/examples.md; headings kept"}

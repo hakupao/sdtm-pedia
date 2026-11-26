@@ -60,7 +60,7 @@ Deciding how finely to divide trial time when identifying trial elements is a ma
     b. As a titration element of variable length followed by a constant dosing element of variable length
     c. One element with dosing determined by titration.
 
-The choice of elements used to represent this dose titration will depend on the objectives of the trial and how the data will be analyzed and reported. If it is important to examine side effects or lab values at each individual dose, the first model is appropriate. If it is important only to identify the time to completion of titration, the second model might be appropriate. If the titration process is routine and is of little interest, the third model might be adequate for the purposes of the trial.
+    The choice of elements used to represent this dose titration will depend on the objectives of the trial and how the data will be analyzed and reported. If it is important to examine side effects or lab values at each individual dose, the first model is appropriate. If it is important only to identify the time to completion of titration, the second model might be appropriate. If the titration process is routine and is of little interest, the third model might be adequate for the purposes of the trial.
 
 ### Distinguishing Elements, Study Cells, and Epochs
 
@@ -79,7 +79,28 @@ The transition between one element and the next can be thought of as a 3-step pr
 | Step | Step question | How step question is answered by information in the TA datasets |
 |------|---|---|
 | 1 | Should the subject leave the current element? | The criteria for ending the current element are in TEENRL in the TE dataset. |
-| 2 | Which element should the subject enter next? | If there is a branch at this point in the trial, evaluate criteria described in TABRANCH (e.g., randomization results) in the TA dataset. Otherwise, if TATRANS in the TA dataset is populated in this arm at this point, follow those instructions. Otherwise, move to the next element in this arm as specified by TAETORD in the TA dataset. |
+| 2 | Which element should the subject enter next? | If there is a branch point at this point in the trial, evaluate criteria described in TABRANCH (e.g., randomization results) in the TA dataset. Otherwise, if TATRANS in the TA dataset is populated in this arm at this point, follow those instructions. Otherwise, move to the next element in this arm as specified by TAETORD in the TA dataset. |
 | 3 | What does the subject do to enter the next element? | The action or event that marks the start of the next element is specified in TESTRL in the TE dataset. |
 
 Note that the subject is not "in limbo" during this process. The subject remains in the current element until step 3, at which point the subject transitions to the new element. There are no gaps between elements.
+
+As illustrated in the table, executing a transition depends on information that is split between the TE and the TA datasets.
+
+It can be useful, in the process of working out the Trial Design (TD) datasets, to create a dataset that supplements the TA dataset with the TESTRL, TEENRL, and TEDUR variables, so that full information on the transitions is easily accessible. However, such a working dataset is not an SDTM dataset, and should not be submitted.
+
+The following table shows a fragment of such a table for TA Example Trial 4.
+
+Note that
+- for all records that contain a particular element, all the TE variable values are exactly the same; and
+- when both TABRANCH and TATRANS are blank, the implicit decision in step 2 is that the subject moves to the next element in sequence for the arm.
+
+**special.xpt**
+
+| Row | ARM | EPOCH | TAETORD | ELEMENT | TESTRL | TEENRL | TEDUR | TABRANCH | TATRANS |
+|-----|-----|-------|---------|---------|--------|--------|-------|----------|---------|
+| 1 | A | Screen | 1 | Screen | Informed Consent | Screening assessments are complete, up to 2 weeks after start of Element | | Randomized to A | |
+| 2 | A | Treatment | 2 | Trt A | First dose of treatment in Element, where drug is Treatment A | 5 days after start of Element | P5D | | |
+| 3 | A | Treatment | 3 | Rest | Last dose of previous treatment cycle + 24 hrs | 16 days after start of Element and WBC recovers | | | If disease progression, go to Follow-up Epoch |
+| 4 | A | Treatment | 4 | Trt A | First dose of treatment in Element, where drug is Treatment A | 5 days after start of Element | P5D | | |
+
+Note that rows 2 and 4 of this dataset involve the same element (Trt A); thus, TESTRL is the same for both. The activity that marks a subject's entry into the fourth element in arm A is "First dose of treatment Element, where drug is Treatment A." This is not the subject's very first dose of treatment A, but it is their first dose in this element.

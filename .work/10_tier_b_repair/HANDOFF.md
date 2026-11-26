@@ -13,7 +13,7 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - B-VS: 已提交
 - B-TU: 已提交
 - B-BE: 已提交 (F-1 已补; B-BS 同 NOTE 照此办理; O28 待 T4)
-- B-TE: writer 完成 (TE+TA 3 文件; T-1/T-2 照录+T4; pdf_ranges 应为 p402-407 已登记) → reviewer PASS → auditor 在跑 (T-1 维持照录+T4; reviewer 补充 3 无 in / 2 有 in 供 T4)
+- B-TE: 已提交 (T-1/T-2 照录+T4)
 - B-MK: 已提交
 ## 待开 (按 order): B-BS(notes) B-SUPPQUAL(D7) ... 其余见 work/t2_batches/
 ## T2 后: O15/O16/O17/O18/O20/O24 全域扫描小批 (Description/Overview, spec 首句, §6.x 类引言, 漏页, spec.md 记法) → T3 (ledger 回写 + t3_atom_err + target_remap) → T4 (总闸 + T4 用户裁定汇总 + 人工 30 抽样) → push + 提醒 sdtm-rag
