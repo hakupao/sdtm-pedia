@@ -1,0 +1,14 @@
+{"ref": "ig34_p0017_a022", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 24, "pdf_page": 17, "note": "CO Keys COOTC -> CODTC"}
+{"ref": "O5:p18:EG:Keys", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 48, "pdf_page": 18, "note": "remove extra EGREPNUM"}
+{"ref": "O5:p18:IS:Keys", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 52, "pdf_page": 18, "note": "ISSCMBDL,ISSTOPO -> ISSCMBCL,ISTSTOPO; ISSCMBCL T-4 T4 candidate"}
+{"ref": "O5:p19:RS:Keys", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 66, "pdf_page": 19, "note": "RSEVAL,RSPTPNUM -> RSTPTNUM,RSEVAL"}
+{"ref": "O5:p19:UR:Structure", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 71, "pdf_page": 19, "note": "per per visit transcribed from PDF; T-3 T4 candidate"}
+{"ref": "O5:p18:BE:Keys", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 37, "pdf_page": 18, "note": "PDF BESDTC; KB keeps BESTDTC; T-1 needs main-control ruling"}
+{"ref": "O5:p18:FT:Keys", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 49, "pdf_page": 18, "note": "PDF TESTCD; KB keeps FTTESTCD; T-2 needs main-control ruling"}
+{"ref": "R3:p17:3.1-intro", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 7, "pdf_page": 17, "note": "add 'in preparing their datasets'; bullets 9-10 to PDF text"}
+{"ref": "R3:p17:3.2-para", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 16, "pdf_page": 17, "note": "PDF sentence order + 'as shown in Section 3.2.1'; D-1 list removed; D-2 removed-in-v3.4 note deleted (p453)"}
+{"ref": "ig34_p0017_a020", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 20, "pdf_page": 17, "note": "Note that the key variables...; D-3 KB placeholder deleted"}
+{"ref": "R3:p20:3.2.1.1", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 92, "pdf_page": 20, "note": "within a dataset; Definitions paragraphs 96-100"}
+{"ref": "R3:p20:3.2.1.2", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 106, "pdf_page": 20, "note": "For example, the Vital Signs"}
+{"ref": "R3:p21:3.2.2", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 116, "pdf_page": 21, "note": "numbered list -> bullets"}
+{"ref": "unparseable:ch03:29", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch03_submitting_data.md", "kb_line_after": 22, "pdf_page": 17, "note": "touched (5 cells); reviewer must hand-check p17-20 render cell by cell"}
