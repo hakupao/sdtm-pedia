@@ -1,0 +1,41 @@
+{"ref": "ig34_p0171_a0009", "action": "INSERTED", "kb_file": "knowledge_base/domains/MH/assumptions.md", "kb_line_after": 5, "pdf_page": 171, "note": "R3 N-1: ## MH – Description/Overview"}
+{"ref": "ig34_p0171_a0011", "action": "INSERTED", "kb_file": "knowledge_base/domains/MH/assumptions.md", "kb_line_after": 9, "pdf_page": 171, "note": "R3 N-2: ## MH – Specification"}
+{"ref": "ig34_p0171_a0012", "action": "INSERTED", "kb_file": "knowledge_base/domains/MH/assumptions.md", "kb_line_after": 11, "pdf_page": 171, "note": "R3 N-3: spec first sentence"}
+{"ref": "ig34_p0172_a0018", "action": "INSERTED", "kb_file": "knowledge_base/domains/MH/assumptions.md", "kb_line_after": 19, "pdf_page": 172, "note": "R3 N-4: 2b missing sentence"}
+{"ref": "kb_authored:assumptions:15:2d", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/assumptions.md", "kb_line_after": 21, "pdf_page": 173, "note": "D2 D-1: delete AE-leaked sentence"}
+{"ref": "ig34_p0173_a0006", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/assumptions.md", "kb_line_after": 26, "pdf_page": 173, "note": "R3 N-5: Medical Medical History -> Medical History"}
+{"ref": "ig34_p0173_a0010", "action": "INSERTED", "kb_file": "knowledge_base/domains/MH/assumptions.md", "kb_line_after": 31, "pdf_page": 173, "note": "R3 N-6: \", respectively\""}
+{"ref": "ig34_p0174_a0001", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/assumptions.md", "kb_line_after": 36, "pdf_page": 174, "note": "R3 N-7: unparseable 4d table header \"Value of ...\""}
+{"ref": "ig34_p0174_a0012", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/assumptions.md", "kb_line_after": 51, "pdf_page": 174, "note": "PDF_TYPO T-1: MHENDTYP -> MHEVDTYP; expected fp regression"}
+{"ref": "kb_authored:assumptions:47:note", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/assumptions.md", "kb_line_after": 53, "pdf_page": null, "note": "D6 prefix; Chinese body kept (M-1)"}
+{"ref": "ig34_p0173_a0007", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/MH/assumptions.md", "kb_line_after": 27, "pdf_page": 173, "note": "T-3 PDF quote/space typo; KB kept"}
+{"ref": "ig34_p0175_a0004", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 7, "pdf_page": 175, "note": "R3 N-8 D2 D-2: Ex1 Rows 1-3 PDF wording"}
+{"ref": "ig34_p0175_a0005", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 9, "pdf_page": 175, "note": "R3 N-9 D2 D-3: drop leaked MHSTDTC sentence; with->of"}
+{"ref": "ig34_p0176_a0001", "action": "INSERTED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 31, "pdf_page": 176, "note": "R3 N-10: \"on using --STRF and --ENRF\""}
+{"ref": "census:examples.md:13:HEADER:MHEVDTYP", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 13, "pdf_page": 175, "note": "add MHEVDTYP column"}
+{"ref": "census:examples.md:15:1:MHSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 15, "pdf_page": 175, "note": "2004-09-18 -> empty"}
+{"ref": "census:examples.md:15:1:MHENTPT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 15, "pdf_page": 175, "note": "empty -> 2004-09-18"}
+{"ref": "census:examples.md:16:2:MHSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 16, "pdf_page": 175, "note": "2004-09-18 -> empty"}
+{"ref": "census:examples.md:16:2:MHENTPT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 16, "pdf_page": 175, "note": "empty -> 2004-09-18"}
+{"ref": "census:examples.md:17:3:MHSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 17, "pdf_page": 175, "note": "2004-09-18 -> empty"}
+{"ref": "census:examples.md:17:3:MHENTPT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 17, "pdf_page": 175, "note": "empty -> 2004-09-18"}
+{"ref": "census:examples.md:18:4:MHEVDTYP", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 18, "pdf_page": 175, "note": "SYMPTOM ONSET"}
+{"ref": "census:examples.md:19:5:MHEVDTYP", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 19, "pdf_page": 175, "note": "DIAGNOSIS"}
+{"ref": "census:examples.md:39:HEADER:MHBODSYS", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 39, "pdf_page": 176, "note": "column order MHPRESP, MHOCCUR, MHBODSYS"}
+{"ref": "census:examples.md:41:1:MHBODSYS(kb_pos)", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 41, "pdf_page": 176, "note": "reordered"}
+{"ref": "census:examples.md:41:1:MHBODSYS(pdf_pos)", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 41, "pdf_page": 176, "note": "reordered"}
+{"ref": "census:examples.md:42:2:MHBODSYS(kb_pos)", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 42, "pdf_page": 176, "note": "reordered"}
+{"ref": "census:examples.md:42:2:MHBODSYS(pdf_pos)", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 42, "pdf_page": 176, "note": "reordered"}
+{"ref": "census:examples.md:43:3:MHBODSYS(kb_pos)", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 43, "pdf_page": 176, "note": "reordered"}
+{"ref": "census:examples.md:43:3:MHBODSYS(pdf_pos)", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 43, "pdf_page": 176, "note": "reordered; rows 4-8 synced"}
+{"ref": "census:examples.md:65:4:MHREASND", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 65, "pdf_page": 177, "note": "1 -> empty"}
+{"ref": "census:examples.md:65:4:VISITNUM", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 65, "pdf_page": 177, "note": "empty -> 1"}
+{"ref": "census:examples.md:69:8:MHOCCUR", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 69, "pdf_page": 177, "note": "N -> Y"}
+{"ref": "census:examples.md:85:1:MHOCCUR", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 85, "pdf_page": 177, "note": "empty -> Y"}
+{"ref": "census:examples.md:88:4:MHOCCUR", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 88, "pdf_page": 177, "note": "empty -> Y"}
+{"ref": "census:examples.md:106:1:MHDTC", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 106, "pdf_page": 178, "note": "T-2 PDF 2019-011-02; KB 2019-11-02 kept; T4/M-2"}
+{"ref": "census:examples.md:109:4:MHENRTPT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 109, "pdf_page": 178, "note": "BEFORE -> empty"}
+{"ref": "census:examples.md:109:4:MHENTPT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 109, "pdf_page": 178, "note": "2019-12-08 -> empty"}
+{"ref": "kb_authored:assumptions:47:note", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/assumptions.md", "kb_line_after": 53, "pdf_page": 174, "note": "M-1 (attempt 1 \u7eed): Chinese note translated to English under D6 prefix; verified non-contradictory"}
+{"ref": "census:examples.md:106:1:MHDTC", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 106, "pdf_page": 178, "note": "M-2 (attempt 1 \u7eed): keep-correct; 011 -> 11 only valid reading; no longer T4"}
+{"ref": "census:examples.md:106:1:MHDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/examples.md", "kb_line_after": 106, "pdf_page": 178, "note": "attempt 1 续 2 (F-1): transcribed PDF 2019-011-02; T-2 = 照录 + T4 (readings 2019-11-02 or 2019-01-02)"}

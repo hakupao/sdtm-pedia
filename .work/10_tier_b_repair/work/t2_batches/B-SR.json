@@ -5,7 +5,10 @@
   "domains/SR"
  ],
  "kb_files": [
-  "knowledge_base/domains/SR/examples.md"
+  "knowledge_base/domains/SR/examples.md",
+  "knowledge_base/domains/SR/assumptions.md",
+  "knowledge_base/domains/SR/spec.md",
+  "knowledge_base/domains/FA/assumptions.md"
  ],
  "delete_only_source_lines": [],
  "serial_with": [],
@@ -133,5 +136,7 @@
   "unparseable_kb_tables_hand_check_if_touched": []
  },
  "out_of_scope": [],
- "notes": []
+ "notes": [
+  "主控: kb_files 扩入 SR/assumptions.md (Description/Overview + spec 首句), SR/spec.md (:93 BAU mL), FA/assumptions.md (只改 §6.4.5 空标题 → 一行交叉引用)"
+ ]
 }
