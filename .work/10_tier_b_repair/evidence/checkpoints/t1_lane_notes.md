@@ -85,3 +85,5 @@
 - 44 条 IE_CAND 内容逐字在 KB (40 条 §3.2.1 xpt 文件名在 ch03 Location 格; 4 条数据集标题行在 spec.md 顶部) → IE 或 PRESENT 皆可 (T1.4 定)
 - T2 注意: CP Ex1a 行 2/4/6 PRESENT 前提是 KB 列已重排改名; 修表头 ig34_p0210_a002 须同步重排; SE ig34_p0080_a001 PDF CT 列 "*" KB 空 (四字段规则外)
 - T4 汇总须列: B-AE T-3 ('device' vs PDF 'event', 改词判断, 信心中高); B-IS T-5 ('participating in')
+- T4 汇总须列 (keep-correct 但依据为旁证, 请用户知悉): B-ch01 T-1 补 'has' (p49 平行短语为旁证), T-2 --LNKGRP/--LNKID 对调 (p31 定义)
+- T4 统一措辞: RELREC/assumptions.md:5 KB note 'not in SDTMIG' 与后文 'from SDTMIG' 易误读 (B-REL audit LOW); D6 前缀用于 '说明来源/位置' 的 note 是否改用 '> Note:' — T4 定

@@ -1,5 +1,7 @@
 # RELREC — Examples
 
+> Source text: SDTMIG v3.4 §8.2.2, §8.3.1 (also in chapters/ch08_relationships.md).
+
 ## Peer Record Examples
 
 ### Example 1

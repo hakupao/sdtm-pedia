@@ -1,8 +1,18 @@
 # RELSUB — Assumptions
 
+> Source text: SDTMIG v3.4 §8.7 (also in chapters/ch08_relationships.md).
+
+## RELSUB – Description/Overview
+
 A dataset used to represent relationships between study subjects.
 
 Some studies include subjects who are related to each other, and in some cases it is important to record those relationships. A study in which pregnant women are treated and both the mother and her child(ren) are study subjects is the most common case in which relationships between subjects are collected. There are also studies of genetically based diseases where subjects who are related to each other are enrolled, and the relationships between subjects are recorded.
+
+## RELSUB – Specification
+
+relsub.xpt, Related Subjects — Relationship. One record per relationship per related subject per subject, Tabulation.
+
+## RELSUB – Assumptions
 
 1. RELSUB is used to represent relationships between persons, both of whom are study subjects. A relationship between a study subject and a person who is not a study subject may not be represented in RELSUB; this may only be reported in APRELSUB. The existence of the RELSUB dataset should not affect whether relationships are collected; that should remain a decision based on the needs of the particular study.
 

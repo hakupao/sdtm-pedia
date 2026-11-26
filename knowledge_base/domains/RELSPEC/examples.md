@@ -1,10 +1,14 @@
 # RELSPEC — Examples
 
+> Source text: SDTMIG v3.4 §8.8 (also in chapters/ch08_relationships.md).
+
 ## Example 1
 
 This example uses the sample specimen lineage illustrated below.
 
-**Specimen Relationship Diagram:**
+**Figure. Sample Specimen Relationship**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure (Figure. Sample Specimen Relationship); level labels from the figure's row captions are shown as subgroup titles.
 
 ```mermaid
 graph TD

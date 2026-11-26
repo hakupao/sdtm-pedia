@@ -61,7 +61,10 @@
   "ig34_p0361_a016": "B-FA audit: 原子抽错",
   "ig34_p0362_a010": "B-FA audit: 原子抽错",
   "ig34_p0373_a021": "B-FA audit: 原子抽错",
-  "ig34_p0377_a015": "B-SR T-4: verbatim EGTPTREF 为 PDF 笔误, KB 改 SRTPTREF"
+  "ig34_p0377_a015": "B-SR T-4: verbatim EGTPTREF 为 PDF 笔误, KB 改 SRTPTREF",
+  "ig34_p0010_a002": "B-ch01 T-1: PDF 缺 has, KB 补",
+  "ig34_p0010_a023": "B-ch01 T-2: --LNKID/--LNKGRP 对调",
+  "ig34_p0009_a024": "B-ch01 review: 原子缺逗号"
  },
  "t3_target_remap": {
   "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",

@@ -1,5 +1,7 @@
 # RELSUB — Related Subjects
 
+> Source text: SDTMIG v3.4 §8.7 (also in chapters/ch08_relationships.md).
+
 > Class: Relationship | Structure: One record per relationship per related subject per subject
 
 ### STUDYID

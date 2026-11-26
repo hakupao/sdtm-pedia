@@ -1,5 +1,7 @@
 # RELSUB — Examples
 
+> Source text: SDTMIG v3.4 §8.7 (also in chapters/ch08_relationships.md).
+
 ## Example 1
 
 The following data are from a hemophilia study (HEM021) in which the study subjects are a pair of fraternal (dizygotic) twins and their mother.
@@ -20,7 +22,7 @@ Some expected and required variables not needed to illustrate the example are no
 
 The RELSUB table is for the 3 subjects whose demography data is shown in the preceding table.
 
-**Rows 1-2:** The relationships of the mother to the 2 children.
+**Rows 1-2:** The relationship of the mother to the 2 children.
 
 **Rows 3, 5:** The relationships of the children to the mother.
 

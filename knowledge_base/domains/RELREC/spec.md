@@ -1,5 +1,7 @@
 # RELREC — Related Records
 
+> Source text: SDTMIG v3.4 §8.2.1 (also in chapters/ch08_relationships.md).
+
 > Class: Relationship | Structure: One record per related record, group of records or dataset
 
 ### STUDYID

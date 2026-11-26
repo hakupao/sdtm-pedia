@@ -1,5 +1,7 @@
 # RELSPEC — Related Specimens
 
+> Source text: SDTMIG v3.4 §8.8 (also in chapters/ch08_relationships.md).
+
 > Class: Relationship | Structure: One record per specimen identifier per subject
 
 ### STUDYID

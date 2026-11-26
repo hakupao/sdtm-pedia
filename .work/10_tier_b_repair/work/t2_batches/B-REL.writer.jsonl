@@ -1,0 +1,23 @@
+{"ref": "D7:source-line", "action": "INSERTED", "kb_file": "domains/{RELREC,RELSUB,RELSPEC}/{assumptions,examples,spec}.md", "kb_line_after": 3, "pdf_page": "427-440", "note": "9 files Source text line"}
+{"ref": "scan:p0429:8.2-para1", "action": "REPLACED", "kb_file": "domains/RELREC/assumptions.md", "kb_line_after": 5, "pdf_page": 429, "note": "restore '(as described in this section)' / '(as described in Section 8.3, Relating Datasets)'"}
+{"ref": "D6:RELREC-idvar-note", "action": "INSERTED", "kb_file": "domains/RELREC/assumptions.md", "kb_line_after": 17, "pdf_page": null, "note": "KB note: block from §8 intro p427"}
+{"ref": "scan:p0427:8-intro-para", "action": "REPLACED", "kb_file": "domains/RELREC/assumptions.md", "kb_line_after": 19, "pdf_page": 427, "note": "full lead-in paragraph"}
+{"ref": "scan:p0427:idvar-SEQ", "action": "REPLACED", "kb_file": "domains/RELREC/assumptions.md", "kb_line_after": 20, "pdf_page": 427, "note": "truncated bullet restored"}
+{"ref": "scan:p0427:idvar-REFID", "action": "REPLACED", "kb_file": "domains/RELREC/assumptions.md", "kb_line_after": 21, "pdf_page": 427, "note": "truncated bullet restored"}
+{"ref": "scan:p0427:idvar-GRPID", "action": "REPLACED", "kb_file": "domains/RELREC/assumptions.md", "kb_line_after": 22, "pdf_page": 427, "note": "full §8.1 title"}
+{"ref": "scan:p0429:8.2.1-desc", "action": "INSERTED", "kb_file": "domains/RELREC/assumptions.md", "kb_line_after": 26, "pdf_page": 429, "note": "Description/Overview heading + sentence"}
+{"ref": "scan:p0429:8.2.1-spec-title", "action": "INSERTED", "kb_file": "domains/RELREC/assumptions.md", "kb_line_after": 30, "pdf_page": 429, "note": "Specification heading + relrec.xpt title sentence"}
+{"ref": "scan:p0431:reltype-combos", "action": "REPLACED", "kb_file": "domains/RELREC/assumptions.md", "kb_line_after": 40, "pdf_page": 431, "note": "remove bold on item leads x3"}
+{"ref": "scan:p0431:because-idvar", "action": "INSERTED", "kb_file": "domains/RELREC/assumptions.md", "kb_line_after": 46, "pdf_page": 431, "note": "missing closing paragraph"}
+{"ref": "scan:p0437:RELSUB-desc-heading", "action": "INSERTED", "kb_file": "domains/RELSUB/assumptions.md", "kb_line_after": 5, "pdf_page": 437, "note": "heading only; text existed"}
+{"ref": "scan:p0438:RELSUB-spec-title", "action": "INSERTED", "kb_file": "domains/RELSUB/assumptions.md", "kb_line_after": 13, "pdf_page": 438, "note": "Specification heading + relsub.xpt title sentence; Assumptions heading :15"}
+{"ref": "scan:p0439:RELSUB-rows1-2", "action": "REPLACED", "kb_file": "domains/RELSUB/examples.md", "kb_line_after": 25, "pdf_page": 439, "note": "relationships -> relationship"}
+{"ref": "scan:p0438:RELSUB-assump7-period", "action": "SKIPPED_PDF_TYPO", "kb_file": "domains/RELSUB/assumptions.md", "kb_line_after": 29, "pdf_page": 438, "note": "T-9 KB keeps period (same as ch08)"}
+{"ref": "scan:p0439:RELSPEC-desc-spec-headings", "action": "INSERTED", "kb_file": "domains/RELSPEC/assumptions.md", "kb_line_after": 13, "pdf_page": 439, "note": "3 headings + relspec.xpt title sentence"}
+{"ref": "scan:p0440:RELSPEC-assump2", "action": "REPLACED", "kb_file": "domains/RELSPEC/assumptions.md", "kb_line_after": 19, "pdf_page": 440, "note": "T-7 verbatim 'is does' + T4 (mirror ch08)"}
+{"ref": "scan:p0440:fig-title", "action": "REPLACED", "kb_file": "domains/RELSPEC/examples.md", "kb_line_after": 9, "pdf_page": 440, "note": "PDF figure caption"}
+{"ref": "D6:RELSPEC-mermaid-note", "action": "INSERTED", "kb_file": "domains/RELSPEC/examples.md", "kb_line_after": 11, "pdf_page": 440, "note": "Mermaid logic verified vs render, unchanged"}
+{"ref": "scan:spec:RELREC+RELSUB+RELSPEC", "action": "VERIFIED", "kb_file": "domains/*/spec.md", "kb_line_after": null, "pdf_page": "429,438,439", "note": "18/18 vars OK; '*'/codelist-name/footnote systemic -> O15"}
+{"ref": "scan:tables:7", "action": "VERIFIED", "kb_file": "domains/*/examples.md", "kb_line_after": null, "pdf_page": "430,431,439,440", "note": "7 tables cell-by-cell vs renders, no change"}
+{"ref": "relocate:RELREC-assumptions:8.2-para1-2", "action": "MOVED", "kb_file": "domains/RELREC/assumptions.md", "kb_line_after": 7, "pdf_page": 429, "note": "same-file move under ## Relating Peer Records (paras at :7, :9); RELTYPE block already at within-file §8.3.1 position, cross-file move not done"}
+{"ref": "relocate:RELREC-assumptions:8-intro-idvar-block", "action": "MOVED", "kb_file": "domains/RELREC/assumptions.md", "kb_line_after": 5, "pdf_page": 427, "note": "KB note + §8 intro para + 3 bullets moved before ## Relating Peer Records (:5-10); note suffix , not from §8.2 removed"}
