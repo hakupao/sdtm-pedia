@@ -9,15 +9,16 @@ writer 在 reviewer PASS 后再改 → 回 reviewer 复审 delta 才派 auditor.
 check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`); evidence 里 md 链接写法须反引号.
 
 ## 已提交批 (见 git log "Tier B batch")
-## 在途 (2026-11-26; 已提交 50 批, 最新 B-CE)
+## 在途 (2026-11-26; 已提交 51 批, 最新 B-DV)
 - writer 共用 brief: subagent_prompts/t2_writer_common_brief.md; reviewer/auditor 共用 brief: subagent_prompts/t2_reviewer_common_brief.md
-- B-DV: reviewer PASS (E-1 勘误已追加) → auditor 在跑
-- B-ML: writer 完成 → reviewer 在跑 (DV T-1 照录+T4; ML O4 关闭, F-1 spec 脚注→O15)
-- B-SU: writer 完成 (pdf_ranges 漏 p133) → reviewer 在跑
-- B-SV: writer 完成 (O33 已修) → reviewer 在跑
+- B-ML: reviewer PASS (recheck a005 REAL_GAP 已闭合; O4 关闭) → auditor 在跑
+- B-SU: reviewer PASS → auditor 在跑
+- B-SV: reviewer PASS → auditor 在跑
 - B-TV: writer 完成 → reviewer 在跑
-- B-TI: writer a1 完成 → a2 (§7.5 引言合 1 段) 在跑 (TV 对 TI 文件只读)
-- B-DI: writer 完成 (§9 章引言→O46) → reviewer 在跑
-- B-ch03(O5) / B-SUPPQUAL(D7,O2) / B-SC: writer 在跑
+- B-TI: writer a2 完成 → reviewer 在跑
+- B-DI: reviewer PASS → auditor 在跑
+- B-SC: writer a2 完成 (D2 xref) → reviewer 在跑
+- B-SUPPQUAL: writer 完成 (O2 修; 排版字符→O40) → reviewer 在跑
+- B-ch03(O5): writer 在跑
 ## 待开: 无 (T2 最后一组)
 ## T2 后: O15/O16/O17/O18/O20/O24 全域扫描小批 (Description/Overview, spec 首句, §6.x 类引言, 漏页, spec.md 记法) → T3 (ledger 回写 + t3_atom_err + target_remap) → T4 (总闸 + T4 用户裁定汇总 + 人工 30 抽样) → push + 提醒 sdtm-rag

@@ -1,0 +1,5 @@
+{"ref": "census:knowledge_base/domains/DV/examples.md:17:1:DVTERM", "action": "REPLACED", "kb_file": "knowledge_base/domains/DV/examples.md", "kb_line_after": 17, "pdf_page": 179, "note": "add trailing period per PDF render; T-1 registered for T4 (p178 spec quotes value without period)"}
+{"ref": "R3:DV/examples.md:References URL", "action": "REPLACED", "kb_file": "knowledge_base/domains/DV/examples.md", "kb_line_after": 24, "pdf_page": 179, "note": "URL ich-e3-content-... -> ich-e3-structure-content-..."}
+{"ref": "auth:DV Description/Overview", "action": "INSERTED", "kb_file": "knowledge_base/domains/DV/assumptions.md", "kb_line_after": 3, "pdf_page": 178, "note": "heading + sentence verbatim"}
+{"ref": "auth:DV spec first sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/DV/assumptions.md", "kb_line_after": 7, "pdf_page": 178, "note": "## DV – Specification + dv.xpt sentence verbatim"}
+{"ref": "auth:DV Assumptions heading", "action": "INSERTED", "kb_file": "knowledge_base/domains/DV/assumptions.md", "kb_line_after": 11, "pdf_page": 179, "note": "## DV – Assumptions (CM structure)"}

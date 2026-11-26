@@ -40,7 +40,7 @@
 | O37 | B-TS writer | R4 IE 清单 ig34_p0425_a003 (NullFlavor NA 行) | IE 理由误为 spec 表行; 实为 TS NullFlavor 表行 → 主控裁补入 (覆盖 IE), T3 回写 ledger |
 | O38 | B-model06 writer | model/06_relationship_datasets.md | T4 用户裁定: (1) 6.1-6.7 标题与 H1 不同于 PDF (6.6 KB "Related Subjects" vs PDF "Relationships"; 规则 6 未改); (2) Role 括号约定: RELSPEC "(REFID)" 有而 SUPP-- QLABEL 无 "(QNAM)"; (3) RELREC USUBJID/POOLID Notes 为 KB 自写 (PDF 空) 但属 R1 IE 行, 未加 D6 (主控维持 M-2a); (4) RELREC APID Notes 格截断 (缺 POOLDEF 句, 同属 R1 IE 行, B-model06 audit) |
 | O39 | B-DA writer | p180 §6.3 "Models for Findings Domains" 章引言 2 句 | 全 KB 无逐字对应 → 并入 O17 §6.x 类引言扫描 (与 §6.1/§6.2 章引言统一定宿主) |
-| O40 | B-FT writer / 多批 | 全库引号/撇号/破折号风格 | PDF 弯引号/en dash vs KB 直引号/hyphen 普遍不一致 (B-MK L-2, B-NV, B-DD F-2); B-RS QRS 副本已改弯引号, FT/QS 副本仍直引号 → T4 用户定全局口径后统一 (逐词内容已一致) |
+| O40 | B-FT writer / 多批 | 全库引号/撇号/破折号风格 | PDF 弯引号/en dash vs KB 直引号/hyphen 普遍不一致 (B-MK L-2, B-NV, B-DD F-2); B-RS QRS 副本已改弯引号, FT/QS 副本仍直引号 → T4 用户定全局口径后统一 (逐词内容已一致); 含省略号 '…' vs '...' 与 en dash (B-SUPPQUAL/ch08 §8.4 'Scale–Cognitive') |
 | O41 | B-model06 review | model/06_relationship_datasets.md:50 RELTYPE Combinations 表 (D6) + Summary 表 SUPP-- Subject-level "Yes" | KB 自写表按记录级解释 RELTYPE 并列 MANY/ONE, 与 SDTMIG ch08 (数据集级, 3 种组合) 不一致 → T4: 改为指向 ch08 交叉引用或删; Summary "Yes" 为简化 |
 | O42 | B-CE review | 全库 CRF 选项符号 | ○→`( )` / □→`[ ]` 映射 (CE) vs FA 保留 "○" 原样, 口径不统一 → T4 / O40 同批定 |
 | O43 | B-MI review | MI/examples.md:23 "is a represented in a derived record" | PDF 原句语法错, 不可唯一确定 → KB 照录, T4 用户裁定项 |
