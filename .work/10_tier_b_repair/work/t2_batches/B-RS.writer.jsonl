@@ -1,0 +1,22 @@
+{"ref": "census:examples.md:59:1:RSDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/examples.md", "kb_line_after": 59, "pdf_page": 336, "note": "2015-02-18 -> 2010-02-18"}
+{"ref": "census:examples.md:61:3:RSSTRESC", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/RS/examples.md", "kb_line_after": 61, "pdf_page": 336, "note": "T-1: PDF REPSONSE; KB keeps MINIMAL RESPONSE (=RSORRES)"}
+{"ref": "census:examples.md:62:4:VISIT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/examples.md", "kb_line_after": 62, "pdf_page": 336, "note": "FOLLOW-UP MONTH 6 -> 4"}
+{"ref": "census:examples.md:62:4:RSDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/examples.md", "kb_line_after": 62, "pdf_page": 336, "note": "2015-04-02 -> 2010-04-02"}
+{"ref": "census:examples.md:63:5:VISIT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/examples.md", "kb_line_after": 63, "pdf_page": 336, "note": "FOLLOW-UP MONTH 8 -> 6"}
+{"ref": "census:examples.md:63:5:RSDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/examples.md", "kb_line_after": 63, "pdf_page": 336, "note": "2015-06-01 -> 2010-06-01"}
+{"ref": "r3:References_relocate", "action": "MOVED", "kb_file": "knowledge_base/domains/RS/examples.md", "kb_line_after": 65, "pdf_page": 336, "note": "References moved from file end to after DR Ex3 table (PDF order)"}
+{"ref": "auth:RS_Description_Overview", "action": "INSERTED", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": 3, "pdf_page": 329, "note": "## RS – Description/Overview + 2 sentences + 4 bullets verbatim"}
+{"ref": "auth:RS_spec_first_sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": 16, "pdf_page": 329, "note": "## RS – Specification + rs.xpt first sentence verbatim"}
+{"ref": "m1:shared_intro", "action": "INSERTED", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": 18, "pdf_page": 332, "note": "attempt2: use-case shared intro sentence"}
+{"ref": "m1:heading_6.3.9.3.1", "action": "INSERTED", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": 20, "pdf_page": 332, "note": "attempt2: ## §6.3.9.3.1 Disease Response Use Case"}
+{"ref": "m1:DR_intro", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": 24, "pdf_page": 332, "note": "attempt2: KB rewrite -> PDF original sentence (D-3)"}
+{"ref": "m2:DR2a_ONCRSR", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": 29, "pdf_page": 332, "note": "attempt2: ONCRSRR->ONCRSR x2"}
+{"ref": "m2:DR2b_ONCRSR", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": 30, "pdf_page": 332, "note": "attempt2: ONCRSRR->ONCRSR x1"}
+{"ref": "m2:DR5a_the_domain", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": 40, "pdf_page": 333, "note": "attempt2: that domain -> the domain"}
+{"ref": "m2:DR5c_table", "action": "INSERTED", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": 42, "pdf_page": 333, "note": "attempt2: paragraph split + SYMPTDTR example table"}
+{"ref": "m1:heading_6.3.9.3.2", "action": "INSERTED", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": 67, "pdf_page": 336, "note": "attempt2: ## §6.3.9.3.2 Clinical Classifications Use Case"}
+{"ref": "m2:CC3b_curly", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": 80, "pdf_page": 336, "note": "attempt2: sponsor's -> sponsor’s"}
+{"ref": "m3:QRS_shared_1-10", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": 84, "pdf_page": 337, "note": "attempt2: pointer (D-4) -> p337-339 full text; T-5/T-6"}
+{"ref": "pdf_typo:T-2..T-6", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/RS/assumptions.md", "kb_line_after": null, "pdf_page": 332, "note": "attempt2: contained/a a/space-dot/an resolution/STRNC kept correct"}
+{"ref": "C-1:T-7", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/examples.md", "kb_line_after": 50, "pdf_page": 335, "note": "attempt3: RSPLNKGRP -> RSLNKGRP x4 (lines 50-53)"}
+{"ref": "C-2:T-8", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/examples.md", "kb_line_after": 12, "pdf_page": 334, "note": "attempt3: symptomatic determination -> symptomatic deterioration"}

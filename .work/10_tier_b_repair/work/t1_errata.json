@@ -80,7 +80,19 @@
   "ig34_p0311_a035": "B-RE T-1: PDF 叙述 IREEA2 印刷错, KB 改 IRREA2 后不命中 (预期)",
   "ig34_p0086_a011": "B-SM audit: verbatim 错, 以渲染图为准 (SV Description)",
   "ig34_p0289_a024": "B-CV review: verbatim 漏 'Cross-sec.' 的点; KB 与渲染图一致",
-  "ig34_p0289_a025": "B-CV review: verbatim 漏 'Cross-sec.' 的点; KB 与渲染图一致"
+  "ig34_p0289_a025": "B-CV review: verbatim 漏 'Cross-sec.' 的点; KB 与渲染图一致",
+  "ig34_p0419_a004": "B-TS writer: 原子抽取错, KB 正确",
+  "ig34_p0337_a002": "B-RS audit: verbatim 与 PDF 页文本不符 实为 p336 CC 3b; KB 与页文本一致",
+  "ig34_p0337_a003": "B-RS audit: verbatim 与 PDF 页文本不符 实为 p336 CC 3c; KB 与页文本一致",
+  "ig34_p0337_a006": "B-RS audit: verbatim 与 PDF 页文本不符; KB 与页文本一致",
+  "ig34_p0337_a015": "B-RS audit: verbatim 与 PDF 页文本不符; KB 与页文本一致",
+  "ig34_p0338_a002": "B-RS audit: verbatim 与 PDF 页文本不符; KB 与页文本一致",
+  "ig34_p0338_a003": "B-RS audit: verbatim 与 PDF 页文本不符; KB 与页文本一致",
+  "ig34_p0338_a006": "B-RS audit: verbatim 与 PDF 页文本不符; KB 与页文本一致",
+  "ig34_p0338_a010": "B-RS audit: verbatim 与 PDF 页文本不符; KB 与页文本一致",
+  "ig34_p0338_a013": "B-RS audit: verbatim 与 PDF 页文本不符; KB 与页文本一致",
+  "ig34_p0339_a001": "B-RS audit: verbatim 与 PDF 页文本不符; KB 与页文本一致",
+  "ig34_p0334_a011": "B-RS audit: verbatim 与 PDF 页文本不符 Rows 4-7 段被拆; KB 与页文本一致"
  },
  "t3_target_remap": {
   "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",

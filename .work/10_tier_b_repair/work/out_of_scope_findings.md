@@ -34,3 +34,8 @@
 | O31 | B-NV writer | p285 §6.3.6 MO "Domain Decommissioning Update" 框 | 全 KB 无; 无 MO 域目录 → 与 O17 §6.x 类引言扫描同批定宿主 (候选: NV/assumptions.md §6.3.7 前单列 §6.3.6 节) |
 | O32 | B-SM review | SM/examples.md p85 Row1 叙述 "SMDY" | 非 SM 变量 (疑 SMSTDY), PDF 自身不能唯一确定 → KB 照录, T4 用户裁定项 (并入 O25) |
 | O33 | B-SM audit | SV/assumptions.md Description/Overview | 缺 p86 a003-a007 + 改义改写 → 已写入 B-SV notes (通用授权内修) |
+| O34 | B-DM writer | DM/spec.md p64 spec 表 FDA 脚注 2 (REAL_GAP ig34_p0064_a012) + B-DM.json pdf_ranges 漏 p79 | 脚注 → O26 spec 脚注扫描 (DEFERRED); 页范围 O20 同类 |
+| O35 | B-model05 writer | model/05_study_level_data.md | T4 用户裁定: (1) 既有标题缺 PDF 节号/原名、层级扁平 (规则 6 未改); (2) TT/TP "Notes" 列实为 Usage Restrictions; (3) TS 缺 Usage Restrictions "Not in nonclinical trials" (R1 缺列不补); (4) Role 括注不统一 |
+| O36 | B-TS writer | fp_match / coverage ledger 全局 | EQUIVALENT 判得过宽: TS §7.4.2.1 语义不同的 KB 改写句被判 EQUIVALENT (他批可能同样) → T3/T4: 对 ledger EQUIVALENT 原子做语义抽检 (Rule A), 不只看 hit_target |
+| O37 | B-TS writer | R4 IE 清单 ig34_p0425_a003 (NullFlavor NA 行) | IE 理由误为 spec 表行; 实为 TS NullFlavor 表行 → 主控裁补入 (覆盖 IE), T3 回写 ledger |
+| O38 | B-model06 writer | model/06_relationship_datasets.md | T4 用户裁定: (1) 6.1-6.7 标题与 H1 不同于 PDF (6.6 KB "Related Subjects" vs PDF "Relationships"; 规则 6 未改); (2) Role 括号约定: RELSPEC "(REFID)" 有而 SUPP-- QLABEL 无 "(QNAM)" |
