@@ -8,10 +8,13 @@ writer 在 reviewer PASS 后再改 → 回 reviewer 复审 delta 才派 auditor.
 范围外发现 → work/out_of_scope_findings.md (O1-O25); 原子抽错 → work/t1_errata.json `t3_atom_err`; target 迁移 → `t3_target_remap`; T4 用户裁定项散落各 checkpoint, T4 前汇总 (O25).
 check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`); evidence 里 md 链接写法须反引号.
 
-## 状态 (2026-11-26): T2 完成 — 60/60 批本地 commit (未 push, 领先 origin ~70 commit)
-- 全局核查: `evidence/t2_census_global_triage.md` (C3 60 张 UNPARSEABLE 无逐格证据: ch04 23 / model02 15 / EX 8 / model03 7 / ch10 5 / model04 1 / TR 1; C1 3 张 SE:44,:79 BIRTHDTC / TD:161 TDTGPAI 待补登 T-n), `evidence/t2_fp_expected_regressions.md` (60 条 R4=0, errata 已并入 t1_errata.json; 扫描批 reviewer 对 `work/t2_fp_expected_regressions.jsonl` diff, 不再各判 "他批"), `evidence/t2_coverage_matrix.md` (扫描范围)。
-- 用户规则裁定 U1-U4: `evidence/checkpoints/t2_post_user_ack.md` (排版字符全照 PDF; spec 脚注进 spec.md + CT "*"; 章引言放该章首域 assumptions 顶部; CRF ○□)。
-- 复跑脚本归档: `work/scratch/t2/agents/` (gitignored; 原 session scratchpad 副本) + `work/scratch/t2/global/`。
-## 下一步: T2 后扫描批 (按覆盖矩阵 §7 分组, 每文件只进一批; writer/reviewer/auditor 同 T2 流程, brief 须加 U1-U4)
-S-INT (AG PR EX EC; §6.1/§6.1.3 引言放首域) · S-EVT (AE DS; §6.2 引言) · S-SPC1 (CP GF IS LB) · S-SPC2 (MB MS PC PP) · S-FND (EG OE UR PE SS; §6.3 引言) · S-TUFA (TR FA SR) · S-TDM (TA TD TM; TD C1 T-n) · S-SPREL (SE RELREC RELSUB RELSPEC OI; SE C1 T-n; §9 引言放 DI 顶部) · S-CH (ch01/02/04/08/10; ch04 C3 23 表) · S-MODEL (model/01-05; C3) · S-SPEC (终版域 spec.md 全扫+脚注, U2) · S-TYPO (U1/U4 全库排版字符统一, 脚本+抽检) · S-HOST (TI §7.3 重复 / NV §6.3.6 MO 框)
-## 之后: T3 (ledger 回写; t3_recompute 前先减去预期回归清单) → T4 (O25 用户裁定汇总含 "KB 写正确值" 项 + 一致性复核 NV an→a / TI that with vs MI / DV 照录; O51 Mermaid 渲染; Chain D; 人工 30 抽样) → push + 提醒 sdtm-rag
+## 状态 (2026-11-26 晚): T2S 扫描批 21/23 完成 (本地 commit, 未 push; 领先 origin ~88 commit)
+- 扫描批流程: brief `subagent_prompts/t2s_scan_writer_v1.0.md` + `t2s_scan_review_audit_v1.0.md`; 每批派发 prompt 存 `subagent_prompts/t2s/<批>_<role>_a1.md`; 用户/主控裁定 U1-U8 见 `evidence/checkpoints/t2_post_user_ack.md`, 批中主控口径追加在 `subagent_prompts/t2_dispatch_notes.md` 末尾 (T2S 段之后各条).
+- 已提交 (writer→reviewer→auditor 全 PASS): S-EVT S-INT S-FND S-SPC1 S-SPC2 S-HOST S-TDM S-TUFA S-SPREL S-CH1 S-CH4 S-CH8 S-CH10 S-MOD1 S-MOD2 S-MOD3 S-SPEC1..4.
+- 覆盖矩阵 (`scripts/t2s/t2_coverage_matrix.py`, `MATRIX_TAG=<tag>` 输出到 scratch): 全部 domains/chapters/model 文件 FINAL; 残留 fn 缺口 3 个均假阳 (DI 无 spec 表 / ML O61 / SE O58).
+- 共用工具: `scripts/t2s/{sc2.py,sc2w.py,speccmp2.py}` (spec 表 bbox 比对; 各有盲区, 交叉用 + 计数闸; 旧 speccmp.py 有 4 种失效勿用).
+## 下一步 (advisor 2026-11-26 意见, 必须照做)
+1. **S-CT** (`work/t2_batches/S-CT.json`): 先 **dry-run 只出报告不写**: 每变量 CT 单元格分类 (1:1 / 数量不符 / KB 空 PDF 有名 / KB 有码 PDF 空或 * / 名对应别的码); 短名以 PDF 单元格为准, xlsx 只作交叉核; 同一 dry-run 用修正版解析器对 S-EVT…S-SPREL 各域 spec.md 全字段重比 (那些批用过有缺陷的 speccmp.py), 报非 U5/U6 差异. 非 1:1 类先定规则 (多则问用户) 再授权写. tools/ web/src 无 Controlled Terms 解析器; push 时提醒 sdtm-rag CT 字段格式变了.
+2. **S-TYPO** (`work/t2_batches/S-TYPO.json`): 先建 PDF_TYPO/T-n 登记表 (= O25 汇总底稿) 作 do-not-touch 清单; 断言改为 "每个 diff 都是闭表替换, 无非空白字符增删" (比 alnum-equal 严); ○□/上标 pdftotext 给不出 → 枚举清单对渲染; 只在文件自身页范围内找、多命中一致即可; 报覆盖率 (已解决行 / 含排版字符行); fp_match 与矩阵对排版盲, 不作闸; Rule A 按替换类分层抽.
+3. 两批新断言都做变异测试 (retrospective 规则 5): 植入 alnum 改动 / 删连字符 / 改标题 / 改 `--VAR` / 改 T-n 段 / S-CT 改非 CT 行, 闸必须红. 变换与断言脚本放 `scripts/t2s/` (提交), 不放 session scratch.
+## 之后: T3 (ledger 回写; t3_recompute 前先减去 `work/t2_fp_expected_regressions.jsonl`) → T4 (O25 用户裁定汇总: 含各批 "照录 + T4" 项、TR T-5 TAETORD、TD U-1 every 24 weeks、UR U-1/O55 per per、O56 PP 摘要节、O60 标题口径统一; O51 Mermaid; Chain D; 人工 30 抽样) → push + 提醒 sdtm-rag

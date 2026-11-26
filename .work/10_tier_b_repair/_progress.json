@@ -3,9 +3,9 @@
   "tier": 3,
   "plan": "PLAN.md",
   "plan_version": "v1.3",
-  "status": "EXECUTING — T2S 扫描批 (试点 S-EVT)",
-  "current_step": "T2S.S-EVT",
-  "next_step": "S-* 扫描批 (evidence/t2_coverage_matrix.md 分组) → T3",
+  "status": "EXECUTING — T2S 21/23 批完成 (S-CT / S-TYPO 待做, 先 dry-run)",
+  "current_step": "T2S.S-CT (dry-run)",
+  "next_step": "S-CT dry-run → S-CT → S-TYPO (registry + strict assert + mutation) → T3",
   "baseline": {
     "tier_b_p4b_orig": {
       "SIBLING_DROPPED": 56,
@@ -325,5 +325,29 @@
     "scripts/t1_merge.py (T1.4-apply)": "b4e3984443a63d226191d3b0be21ee34",
     "scripts/helpers/t14_rulings.py (T1.4-apply)": "467c72d9411c502ec284fe717bec6f57",
     "scripts/helpers/t2_pkg.py (T1.4-apply)": "dbc8a57e81d544dd1f6b205873fc1515"
+  },
+  "t2s": {
+    "committed": [
+      "S-EVT",
+      "S-INT",
+      "S-FND",
+      "S-SPC1",
+      "S-SPC2",
+      "S-HOST",
+      "S-TDM",
+      "S-TUFA",
+      "S-SPREL",
+      "S-CH1",
+      "S-CH4",
+      "S-CH8",
+      "S-CH10",
+      "S-MOD1",
+      "S-MOD2",
+      "S-MOD3",
+      "S-SPEC1",
+      "S-SPEC2",
+      "S-SPEC3",
+      "S-SPEC4"
+    ]
   }
 }
