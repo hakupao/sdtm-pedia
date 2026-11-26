@@ -9,12 +9,11 @@ writer 在 reviewer PASS 后再改 → 回 reviewer 复审 delta 才派 auditor.
 check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`); evidence 里 md 链接写法须反引号.
 
 ## 已提交批 (见 git log "Tier B batch")
-## 在途 (2026-11-26; 已提交 55 批, 最新 B-SV)
+## 在途 (2026-11-26; 已提交 56 批, 最新 B-TI)
 - writer 共用 brief: subagent_prompts/t2_writer_common_brief.md; reviewer/auditor 共用 brief: subagent_prompts/t2_reviewer_common_brief.md
-- B-TV: reviewer CONDITIONAL (Mermaid 缺 3 arm + Randomization) → writer a2 完成 → reviewer 复审 delta 在跑
-- B-TI: reviewer PASS → auditor 在跑
-- B-SC: writer a2 完成 (D2 xref) → reviewer 在跑
-- B-SUPPQUAL: writer 完成 (O2 修; 排版字符→O40) → reviewer 在跑
-- B-ch03(O5): writer 在跑
+- B-TV: reviewer a2 PASS (O51 Mermaid 待渲染) → auditor 在跑
+- B-SC: reviewer CONDITIONAL (仅证据修正, 主控已追加勘误 + O52) → auditor 在跑
+- B-SUPPQUAL: reviewer PASS → auditor 在跑
+- B-ch03: writer 完成 (O5 全表 63 行核; T-1/T-2 KB 正确值; T-3/T-4 照录+T4) → reviewer 在跑
 ## 待开: 无 (T2 最后一组)
 ## T2 后: O15/O16/O17/O18/O20/O24 全域扫描小批 (Description/Overview, spec 首句, §6.x 类引言, 漏页, spec.md 记法) → T3 (ledger 回写 + t3_atom_err + target_remap) → T4 (总闸 + T4 用户裁定汇总 + 人工 30 抽样) → push + 提醒 sdtm-rag

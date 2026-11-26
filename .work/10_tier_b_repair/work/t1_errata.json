@@ -107,7 +107,8 @@
   "ig34_p0122_a017": "B-ML review: 原子 verbatim 多 'not'; KB 与 PDF 一致",
   "ig34_p0123_a012": "B-ML review: 原子 verbatim 写成 'row.'; KB 与 PDF 一致",
   "ig34_p0124_a001": "B-ML review: 原子 verbatim MIDSDTC 截断; KB 与 PDF 一致",
-  "ig34_p0133_a003": "B-SU review: 原子 verbatim 串列 (多 '2006-01-01'); KB 按渲染图正确"
+  "ig34_p0133_a003": "B-SU review: 原子 verbatim 串列 (多 '2006-01-01'); KB 按渲染图正确",
+  "ig34_p0018_a046": "B-ch03 writer: 原子漏 'specimen'; KB 正确"
  },
  "t3_target_remap": {
   "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",

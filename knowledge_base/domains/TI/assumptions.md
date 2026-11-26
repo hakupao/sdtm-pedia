@@ -9,11 +9,21 @@ This section contains the Trial Design (TD) datasets that describe:
 
 The TI and TS datasets are tabular synopses of parts of the study protocol.
 
-## TI – Assumptions
+## TI – Proposed Removal of Variable TIRL
 
 The variable TIRL was included in the Trial Inclusion/Exclusion Criteria (TI) domain in anticipation of developing a way to represent eligibility criteria in a computer-executable manner. However, such a method has not been developed, and it is not clear that an SDTM dataset would be the best place to represent such a computer-executable representation.
 
+## TI – Description/Overview
+
+A trial design domain that contains one record for each of the inclusion and exclusion criteria for the trial. This domain is not subject oriented.
+
 TI contains all the inclusion and exclusion criteria for the trial, and thus provides information that may not be present in the subject-level data on inclusion and exclusion criteria. The IE domain (described in Section 6.3.4, Inclusion/Exclusion Criteria Not Met) contains records only for inclusion and exclusion criteria that subjects did not meet.
+
+## TI – Specification
+
+ti.xpt, Trial Inclusion/Exclusion Criteria — Trial Design. One record per I/E criterion, Tabulation.
+
+## TI – Assumptions
 
 1. If inclusion/exclusion criteria were amended during the trial, then each complete set of criteria must be included in the TI domain. TIVERS is used to distinguish between the versions.
 
@@ -27,11 +37,7 @@ TI contains all the inclusion and exclusion criteria for the trial, and thus pro
 
 ## §7.5 How to Model the Design of a Clinical Trial
 
-The following steps allow the modeler to move from more-familiar concepts, such as arms, to less-familiar concepts, such as elements and epochs.
-
-The actual process of modeling a trial may depart from these numbered steps.
-
-Some steps will overlap; there may be several iterations; and not all steps are relevant for all studies.
+The following steps allow the modeler to move from more-familiar concepts, such as arms, to less-familiar concepts, such as elements and epochs. The actual process of modeling a trial may depart from these numbered steps. Some steps will overlap; there may be several iterations; and not all steps are relevant for all studies.
 
 1. Start from the flow chart or schema diagram usually included in the trial protocol. This diagram will show how many arms the trial has, and the branch points or decision points where the arms diverge.
 2. Write down the decision rule for each branching point in the diagram. Does the assignment of a subject to an arm depend on a randomization? On whether the subject responded to treatment? On some other criterion?

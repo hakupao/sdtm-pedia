@@ -51,3 +51,5 @@
 | O48 | B-TI writer | TI/assumptions.md §7.4 标题 + census_full_manifest | §7.4 标题与 PDF "(TI and TS)" 不同 (规则 6 未改, T4); census_full_manifest TI/TM 页范围偏移 (TI 实为 p416-417); B-TS 报 p417 ti.xpt PDF_ONLY 为 manifest 假阳 (TI census OK) |
 | O49 | B-CE audit | p155 DS Description/Overview 句 | DS 三文件均无 → O16 全域 Description 扫描点名 DS |
 | O50 | B-SU audit | p133 §6.2 "Models for Events Domains" 章引言 + 域列表 (a011-a018) | KB 无对应节引言 → 并入 O17 §6.x 类引言扫描 (与 O39 §6.3、O45 §6.1.3 同批) |
+| O51 | B-TV writer/review | TV/examples.md Mermaid (及 T2 期间新/改的全部 Mermaid: TA/DM/model05/TV) | agent 环境 mermaid-cli 权限被拒, 仅语法对照核 → T4 前用渲染器 (或 web build) 统一渲染一次确认无语法错 |
+| O52 | B-SC review | SC/examples.md p342 Ex2 Row 3 SCDTC 2017-06-10 vs SCDY 297 | PDF 自身矛盾 (推算应 296), KB 照录 → T4 用户裁定项 |
