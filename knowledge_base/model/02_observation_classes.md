@@ -1,18 +1,40 @@
-# SDTM v2.0 — Chapter 3.1: The General Observation Classes
+# SDTM v2.0 — Sections 3-3.1: Study Subject Data; The General Observation Classes
 
-Source: SDTM v2.0, Section 3.1 (Pages 11-39)
+Source: SDTM v2.0, Sections 3-3.1 (Pages 11-39)
 
-## Overview
+## 3 Study Subject Data
 
-The majority of observations collected during a study can be divided among 3 general observation classes: Interventions, Events, and Findings. SDTM datasets that represent data about study subjects are of 2 types: general observation class datasets and special-purpose datasets.
+Observations about study subjects are normally represented in a series of domains. A domain is defined as a collection of logically related observations with a common topic. The logic of the relationship may pertain to the scientific subject matter of the data or to its role in the trial. For example, "Subject 101 had an adverse event of mild nausea starting on study day 6" is an observation belonging to the Adverse Events (AE) domain in a clinical trial.
 
-Domains based on the general observation classes share a set of common identifier and timing variables (see Section 3.1.4, Identifiers for All Classes, and Section 3.1.5, Timing Variables for All Classes). As a general rule, any valid identifier or timing variable is permissible for use in any dataset based on a general observation class.
+SDTM datasets that represent data about study subjects are of 2 types: general observation class datasets and special-purpose datasets. General observation class domains conform to general structures for 1 of 3 classes: findings, events, and interventions. The data for a study would generally include multiple domains in each general observation class. In contrast to general observation class models on which individual domains can be based, special-purpose domains are specified completely.
+
+Domains based on the general observation classes are specified in SDTM implementation guides (see Section 1.2, Implementation Advice for this Model).
+
+Each study subject domain dataset is distinguished by a unique 2-character code. This code, which is stored in the SDTM variable named DOMAIN, is used in the dataset name, as the value of the DOMAIN variable in that dataset, and as a prefix for most variable names in that dataset.
+
+Domain codes are also used in RDOMAIN, a variable that is included in several relationship datasets and in the Comments special-purpose domain.
+
+## 3.1 The General Observation Classes
+
+The majority of observations collected during a study can be divided among 3 general observation classes: Interventions, Events, and Findings.
+
+- The Interventions Observation Class represents investigational, therapeutic, and other treatments that are administered to or used by a subject (with some actual or expected physiological effect). This includes treatments specified by the study protocol (i.e., "exposure").
+- The Events Observation Class represents planned protocol milestones such as randomization and study completion, and occurrences, conditions, or incidents independent of planned study evaluations occurring during the study (e.g., adverse events) or prior to the study (e.g., medical history).
+- The Findings Observation Class represents observations resulting from planned evaluations to address specific tests or questions such as laboratory tests, electrocardiogram (ECG) testing, and questions listed on questionnaires. The Findings class also includes a subtype, Findings About, which is used to record findings related to observations in the Interventions or Events classes.
+
+Datasets based on any of the general observation classes share a set of common identifier and timing variables (see Section 3.1.4, Identifiers for All Classes, and Section 3.1.5, Timing Variables for All Classes). As a general rule, any valid identifier or timing variable is permissible for use in any dataset based on a general observation class.
+
+The SDTM is the foundation for many implementations. SDTM implementation guides specify particular domains based on the general observation classes. Domain specification tables in the implementation guides describe which variables must be included in the domain. Not all variables described in the tables in this document (SDTM tables) are appropriate for all domains in all implementations. The SDTM includes information on variables which are not to be used in human clinical trials. Refer to the implementation guides for specific information on any identifier or timing variables that are not allowed in a particular observation class domain.
+
+In the tables in this document, the presence of 2 hyphens before the variable name (e.g., --TRT) is used to indicate the required use of a prefix based on the 2-character domain code. The domain code is used as a variable prefix to minimize the risk of difficulty when merging or joining domains for reporting purposes. The variable with 2 hyphens may be referred to as a "root" variable.
+
+Domain-specific variables, a concept introduced in SDTM v1.5, are for use in a limited number of designated domains based on general observation classes and will be identified in the appropriate implementation guide. The variable names include the specific domain prefix. Domain-specific variables are included in the table of general observation class variables; the Usage Restrictions column of the table indicates the domains in which the variable is allowed.
+
+In addition to the 3 general observation classes, a study will generally include a set of other special-purpose datasets; see Section 3.2, Special-purpose Domains.
 
 ## 3.1.1 The Interventions Observation Class
 
 **Structure:** One Record per Constant-dosing Interval or Intervention Episode
-
-The Interventions Observation Class represents investigational, therapeutic, and other treatments that are administered to or used by a subject (with some actual or expected physiological effect). This includes treatments specified by the study protocol (i.e., "exposure").
 
 ### Topic and Qualifier Variables (43 variables)
 
@@ -65,8 +87,6 @@ The Interventions Observation Class represents investigational, therapeutic, and
 ## 3.1.2 The Events Observation Class
 
 **Structure:** One Record per Event
-
-The Events Observation Class represents planned protocol milestones such as randomization and study completion, and occurrences, conditions, or incidents independent of planned study evaluations occurring during the study (e.g., adverse events) or prior to the study (e.g., medical history).
 
 ### Topic and Qualifier Variables (56 variables)
 
@@ -132,8 +152,6 @@ The Events Observation Class represents planned protocol milestones such as rand
 ## 3.1.3 The Findings Observation Class
 
 **Structure:** One Record per Finding
-
-The Findings Observation Class represents observations resulting from planned evaluations to address specific tests or questions such as laboratory tests, ECG testing, and questions listed on questionnaires. The Findings class also includes a subtype, Findings About, which is used to record findings related to observations in the Interventions or Events classes.
 
 ### Topic and Qualifier Variables (100 variables)
 

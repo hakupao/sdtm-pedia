@@ -5,7 +5,8 @@
   "model/01_concepts_and_terms.md"
  ],
  "kb_files": [
-  "knowledge_base/model/01_concepts_and_terms.md"
+  "knowledge_base/model/01_concepts_and_terms.md",
+  "knowledge_base/model/02_observation_classes.md"
  ],
  "delete_only_source_lines": [],
  "serial_with": [],
@@ -454,6 +455,7 @@
  "out_of_scope": [],
  "notes": [
   "R1: sv20 §1 Introduction 22 句 → 在 '## 2.1' 前新增 §1 (PDF 原标题与子标题), 逐字",
-  "D5: 另补 sv20_p0004_a016 (§1, 原 whitelist IE; 按 R1 补进 model/01 新 §1)"
+  "D5: 另补 sv20_p0004_a016 (§1, 原 whitelist IE; 按 R1 补进 model/01 新 §1)",
+  "主控: kb_files 扩入 model/02 (O-r3: Domain Codes 下 3 块为 p11 §3 内容改写, 错挂 model/01 §2.1)"
  ]
 }
