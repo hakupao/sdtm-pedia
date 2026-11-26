@@ -84,8 +84,8 @@ t2_recheck = 0 条 (无 R2 判定项)。
 | TE/ex:99–100 表头+分隔线 | p407 表头 | 结构行, 签字 |
 | TE/ex:101–104 | p407 Row 1–4 | 逐格见上 |
 | TE/ex:106 | p407 "Note that rows 2 and 4 … their first dose in this element." | 有出处 |
-| TA/asm:104 `> See `[../TE/examples.md#distinguishing-elements-study-cells-and-epochs](…)` for this text.` | D2 交叉引用 (导航, 无需 D6) | 结构行, 签字; 锚点 slug 对应 TE/examples.md:65 标题 |
-| TA/asm:108 `> See `[../TE/examples.md#transitions-between-elements](…)` for this text.` | 同上 | 结构行, 签字; slug 对应 :75 |
+| TA/asm:104 `> See [../TE/examples.md#distinguishing-elements-study-cells-and-epochs](…) for this text.` | D2 交叉引用 (导航, 无需 D6) | 结构行, 签字; 锚点 slug 对应 TE/examples.md:65 标题 |
+| TA/asm:108 `> See [../TE/examples.md#transitions-between-elements](…) for this text.` | 同上 | 结构行, 签字; slug 对应 :75 |
 新增/改动行 21 处 (含结构行 6), 无出处 0。
 
 ## TA D2 去重核实
