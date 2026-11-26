@@ -1,0 +1,82 @@
+{
+ "batch_id": "S-CH10",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "chapters/ch10_appendices.md"
+ ],
+ "kb_files": [
+  "knowledge_base/chapters/ch10_appendices.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "chapters/ch10_appendices.md",
+   "sec": "10",
+   "title": "§10 Appendices",
+   "lo": 444,
+   "hi": 461,
+   "src": "ig34",
+   "note": "主控粗定, 先复核 (O20)"
+  }
+ ],
+ "pdf_pages": [
+  444,
+  445,
+  446,
+  447,
+  448,
+  449,
+  450,
+  451,
+  452,
+  453,
+  454,
+  455,
+  456,
+  457,
+  458,
+  459,
+  460,
+  461
+ ],
+ "pdf_src": "ig34",
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/chapters/ch10_appendices.md",
+   "src": "ig34",
+   "lo": 444,
+   "hi": 461
+  }
+ ],
+ "gaps": {},
+ "intros": [],
+ "footnote": "本批无域 spec.md",
+ "footnote_moves": [],
+ "census_items": [
+  {
+   "kb": "chapters/ch10_appendices.md:19 (HEAD 行号, 以内容定位)",
+   "triage_row": "36 | C3 | UNPARSEABLE | `chapters/ch10_appendices.md:19` | ig34:p444-461 | None / None | Abbreviation / Full Term | 无 T2 批"
+  },
+  {
+   "kb": "chapters/ch10_appendices.md:93 (HEAD 行号, 以内容定位)",
+   "triage_row": "37 | C3 | UNPARSEABLE | `chapters/ch10_appendices.md:93` | ig34:p444-461 | None / None | QNAM / QLABEL / Applicable Domains | 无 T2 批"
+  },
+  {
+   "kb": "chapters/ch10_appendices.md:119 (HEAD 行号, 以内容定位)",
+   "triage_row": "38 | C3 | UNPARSEABLE | `chapters/ch10_appendices.md:119` | ig34:p444-461 | None / None | Keyword(s) / Fragment /  / Keyword(s) / Fragment | 无 T2 批"
+  },
+  {
+   "kb": "chapters/ch10_appendices.md:208 (HEAD 行号, 以内容定位)",
+   "triage_row": "39 | C3 | UNPARSEABLE | `chapters/ch10_appendices.md:208` | ig34:p444-461 | None / None | Domain / Description | 无 T2 批"
+  },
+  {
+   "kb": "chapters/ch10_appendices.md:230 (HEAD 行号, 以内容定位)",
+   "triage_row": "40 | C3 | UNPARSEABLE | `chapters/ch10_appendices.md:230` | ig34:p444-461 | None / None | Section Number / Section Name / Change(s) | 无 T2 批"
+  }
+ ],
+ "out_of_scope": [
+  "O46"
+ ],
+ "notes": "从未开批. 5 张 C3 表渲染逐格. :218-224 MO 相关句: 核其是否为 PDF §10 自身内容 (变更附录), 是则保留; §6.3.6 MO 框正身由 S-HOST 放 NV 顶. §9 引言 (ch10:66-69 命中) 核是否 PDF §10 内容, 否则 D2 (§9 宿主 = DI, S-SPREL). 行号为 HEAD 时, 以内容定位. [S-HOST 转来] ch10:222 \"deprecate MO in SDTMIG v3.4\" 与 p285 \"in a future version of the SDTMIG\" 不一致: 先核 ch10 该句是否为 PDF §10 变更附录原文 (是则照 PDF §10), 否则按 p285 改. [S-SPREL 转来] §9 引言已放 DI/assumptions.md 顶 (U3); ch10:64-69 的同文若非 PDF §10 自身内容 → D2 替换为一行交叉引用到 DI."
+}

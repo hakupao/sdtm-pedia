@@ -1,0 +1,220 @@
+{
+ "batch_id": "S-SPREL",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "domains/SE",
+  "domains/RELREC",
+  "domains/RELSUB",
+  "domains/RELSPEC",
+  "domains/OI"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/OI/assumptions.md",
+  "knowledge_base/domains/OI/examples.md",
+  "knowledge_base/domains/OI/spec.md",
+  "knowledge_base/domains/RELREC/assumptions.md",
+  "knowledge_base/domains/RELREC/examples.md",
+  "knowledge_base/domains/RELREC/spec.md",
+  "knowledge_base/domains/RELSPEC/assumptions.md",
+  "knowledge_base/domains/RELSPEC/examples.md",
+  "knowledge_base/domains/RELSPEC/spec.md",
+  "knowledge_base/domains/RELSUB/assumptions.md",
+  "knowledge_base/domains/RELSUB/examples.md",
+  "knowledge_base/domains/RELSUB/spec.md",
+  "knowledge_base/domains/SE/assumptions.md",
+  "knowledge_base/domains/SE/examples.md",
+  "knowledge_base/domains/SE/spec.md"
+ ],
+ "narrow_files": [
+  {
+   "file": "knowledge_base/domains/DI/assumptions.md",
+   "scope": "(a) 文件顶部加 §9 章引言; (b) DI spec 表脚注 (DI 无 spec.md, 脚注按先例放 assumptions.md 的 spec 段之后); 其余不动"
+  }
+ ],
+ "sections": [
+  {
+   "unit": "domains/SE",
+   "sec": "5.3",
+   "title": "§5.3 Subject Elements (SE)",
+   "lo": 79,
+   "hi": 84,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/RELREC",
+   "sec": "8.2",
+   "title": "§8.2 Relating Peer Records",
+   "lo": 429,
+   "hi": 430,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/RELSUB",
+   "sec": "8.7",
+   "title": "§8.7 Related Subjects (RELSUB)",
+   "lo": 437,
+   "hi": 439,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/RELSPEC",
+   "sec": "8.8",
+   "title": "§8.8 Related Specimens (RELSPEC)",
+   "lo": 439,
+   "hi": 440,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/OI",
+   "sec": "9.2",
+   "title": "§9.2 Non-host Organism Identifiers (OI)",
+   "lo": 441,
+   "hi": 443,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  }
+ ],
+ "pdf_pages": [
+  79,
+  80,
+  81,
+  82,
+  83,
+  84,
+  429,
+  430,
+  437,
+  438,
+  439,
+  440,
+  441,
+  442,
+  443
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/OI/assumptions.md",
+   "src": "ig34",
+   "lo": 441,
+   "hi": 443
+  },
+  {
+   "file": "knowledge_base/domains/OI/examples.md",
+   "src": "ig34",
+   "lo": 441,
+   "hi": 443
+  },
+  {
+   "file": "knowledge_base/domains/OI/spec.md",
+   "src": "ig34",
+   "lo": 441,
+   "hi": 443
+  },
+  {
+   "file": "knowledge_base/domains/RELREC/assumptions.md",
+   "src": "ig34",
+   "lo": 429,
+   "hi": 430
+  },
+  {
+   "file": "knowledge_base/domains/RELREC/examples.md",
+   "src": "ig34",
+   "lo": 429,
+   "hi": 430
+  },
+  {
+   "file": "knowledge_base/domains/RELREC/spec.md",
+   "src": "ig34",
+   "lo": 429,
+   "hi": 430
+  },
+  {
+   "file": "knowledge_base/domains/RELSPEC/assumptions.md",
+   "src": "ig34",
+   "lo": 439,
+   "hi": 440
+  },
+  {
+   "file": "knowledge_base/domains/RELSPEC/examples.md",
+   "src": "ig34",
+   "lo": 439,
+   "hi": 440
+  },
+  {
+   "file": "knowledge_base/domains/RELSPEC/spec.md",
+   "src": "ig34",
+   "lo": 439,
+   "hi": 440
+  },
+  {
+   "file": "knowledge_base/domains/RELSUB/assumptions.md",
+   "src": "ig34",
+   "lo": 437,
+   "hi": 439
+  },
+  {
+   "file": "knowledge_base/domains/RELSUB/examples.md",
+   "src": "ig34",
+   "lo": 437,
+   "hi": 439
+  },
+  {
+   "file": "knowledge_base/domains/RELSUB/spec.md",
+   "src": "ig34",
+   "lo": 437,
+   "hi": 439
+  },
+  {
+   "file": "knowledge_base/domains/SE/assumptions.md",
+   "src": "ig34",
+   "lo": 79,
+   "hi": 84
+  },
+  {
+   "file": "knowledge_base/domains/SE/examples.md",
+   "src": "ig34",
+   "lo": 79,
+   "hi": 84
+  },
+  {
+   "file": "knowledge_base/domains/SE/spec.md",
+   "src": "ig34",
+   "lo": 79,
+   "hi": 84
+  }
+ ],
+ "gaps": {
+  "SE": "SF (fn 原子 ig34_p0080_a010)",
+  "RELREC": "F (fn 原子 ig34_p0429_a030)",
+  "RELSUB": "F (fn 原子 ig34_p0438_a011)",
+  "RELSPEC": "F (fn 原子 ig34_p0439_a039)",
+  "OI": "DSAF (fn 原子 ig34_p0443_a001)"
+ },
+ "intros": [
+  {
+   "sec": "9",
+   "title": "Study References",
+   "pages": [
+    441
+   ],
+   "host": "knowledge_base/domains/DI/assumptions.md",
+   "ruling": "U3/O46: §9 首节 §9.1 = DI"
+  }
+ ],
+ "footnote": "U2: 本批各域 spec.md 最后一个变量块之后、Cross References 之前补 (U7) spec 表脚注 (逐字); CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
+ "footnote_moves": [],
+ "census_items": [
+  {
+   "kb": "domains/SE/examples.md:44 (HEAD 行号, 以内容定位)",
+   "triage_row": "9 | C1 | DIFF | `domains/SE/examples.md:44` | ig34:p82/83 | 1 / dm.xpt | 表头 KB BRTHDTC vs PDF p82 BIRTHDTC; PDF p63-68 DM spec/例均 BRTHDTC → PDF 笔误, KB 值正确; 处置=补登 T-n, KB 不改 | 无 (SE 无 T2 批; 全 evidence/work 无 BIRTHDTC 登记)"
+  },
+  {
+   "kb": "domains/SE/examples.md:79 (HEAD 行号, 以内容定位)",
+   "triage_row": "10 | C1 | DIFF | `domains/SE/examples.md:79` | ig34:p83/84 | 2 / dm.xpt | 同上 (PDF p83-84) | 同上"
+  }
+ ],
+ "out_of_scope": [
+  "O46"
+ ],
+ "notes": "SE 表头 C1 (examples :44/:79 BRTHDTC vs PDF BIRTHDTC 笔误) → 补登 T-n, KB 不改. RELREC 节 §8.2/§8.2.1/§8.2.2/§8.3; ch08 有同节文字 (D2 归属: §8.2-8.3 属 ch08 还是 RELREC 先查 B-REL/B-SUPPQUAL 先例, 不确定写 需主控定). §9 引言现在 ch10:66-69 (变更附录近似?) 复核. 行号均为 HEAD 时, 以内容定位."
+}

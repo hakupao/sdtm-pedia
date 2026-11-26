@@ -58,3 +58,4 @@
 | O55 | S-FND review L1 | UR/spec.md:3 Structure 行 "per per" | 与 UR spec 首句 U-1 同源; T4 用户裁 U-1 时两处一并改 (O25 汇总) |
 | O56 | S-SPC2 audit 观察 1 | PP/examples.md "RELREC Method Quick Reference (PP-side view)" 整节 | KB 自写摘要 (含 Method 映射表), 与 PC/examples.md 内容部分重复; 本批按主控裁定 D6 整节保留. 备选 = dispatch notes "KB 自写摘要与 PDF 重复 → 一行交叉引用". T4 用户裁定 (O25 汇总) |
 | O57 | S-SPC2 audit 观察 2 | pdf_atoms p252_a011 / p271_a011 / p276_a008 / p278_a051 | 原子抽取错, KB 与渲染一致 → T3 t3_atom_err |
+| O58 | S-SPREL writer | SE spec 脚注原子 ig34_p0080_a010 抽成 `*In…` | 覆盖矩阵 SE fn 0/1 为原子抽取错假阳 (KB 已承载脚注); T3 t3_atom_err + 矩阵终版判读时豁免 |

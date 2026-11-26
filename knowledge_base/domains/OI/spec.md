@@ -60,11 +60,13 @@
 - **Order:** 7
 - **Label:** Non-host Organism ID Element Value
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Result Qualifier
 - **Core:** Req
 - **CDISC Notes:** Value for the taxon in OIPARMCD/OIPARM for the organism identified by NHOID.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

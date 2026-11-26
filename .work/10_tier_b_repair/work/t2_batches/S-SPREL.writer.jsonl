@@ -1,0 +1,23 @@
+{"ref": "ig34_p0079_a004", "action": "REPLACED", "kb_file": "knowledge_base/domains/SE/assumptions.md", "kb_line_after": 7, "pdf_page": 79, "note": "study elements -> epochs and elements"}
+{"ref": "ig34_p0079_a006", "action": "REPLACED", "kb_file": "knowledge_base/domains/SE/assumptions.md", "kb_line_after": 11, "pdf_page": 79, "note": "of ELEMENT values -> (TESTRL values)"}
+{"ref": "ig34_p0079_a009", "action": "REPLACED", "kb_file": "knowledge_base/domains/SE/assumptions.md", "kb_line_after": 17, "pdf_page": 79, "note": "'– DTC' -> '--DTC'"}
+{"ref": "ig34_p0079_a010", "action": "REPLACED", "kb_file": "knowledge_base/domains/SE/assumptions.md", "kb_line_after": 18, "pdf_page": 79, "note": "can relate -> relate; (–DY) -> (--DY)"}
+{"ref": "pdf:p79:SE – Specification + se.xpt sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/SE/assumptions.md", "kb_line_after": 21, "pdf_page": 79, "note": "gap S"}
+{"ref": "pdf:p80:ETCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SE/spec.md", "kb_line_after": 45, "pdf_page": 80, "note": "'' -> *"}
+{"ref": "pdf:p80:ELEMENT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SE/spec.md", "kb_line_after": 54, "pdf_page": 80, "note": "'' -> *"}
+{"ref": "ig34_p0080_a010", "action": "INSERTED", "kb_file": "knowledge_base/domains/SE/spec.md", "kb_line_after": 123, "pdf_page": 80, "note": "spec footnote (gap F)"}
+{"ref": "pdf:p83:Ex2 Row 2 Rescue sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/SE/examples.md", "kb_line_after": 75, "pdf_page": 83, "note": "R3 new atom"}
+{"ref": "census:SE/examples.md:44:header:7", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/SE/examples.md", "kb_line_after": 44, "pdf_page": 82, "note": "SE T-1 BIRTHDTC; KB BRTHDTC kept"}
+{"ref": "census:SE/examples.md:79:header:7", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/SE/examples.md", "kb_line_after": 79, "pdf_page": 83, "note": "SE T-1 BIRTHDTC; KB BRTHDTC kept"}
+{"ref": "pdf:p429:IDVAR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RELREC/spec.md", "kb_line_after": 38, "pdf_page": 429, "note": "'' -> *"}
+{"ref": "ig34_p0429_a030", "action": "INSERTED", "kb_file": "knowledge_base/domains/RELREC/spec.md", "kb_line_after": 71, "pdf_page": 429, "note": "spec footnote (gap F)"}
+{"ref": "ig34_p0438_a011", "action": "INSERTED", "kb_file": "knowledge_base/domains/RELSUB/spec.md", "kb_line_after": 53, "pdf_page": 438, "note": "spec footnote (gap F)"}
+{"ref": "ig34_p0439_a039", "action": "INSERTED", "kb_file": "knowledge_base/domains/RELSPEC/spec.md", "kb_line_after": 62, "pdf_page": 439, "note": "spec footnote (gap F)"}
+{"ref": "pdf:p441:OIVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OI/spec.md", "kb_line_after": 63, "pdf_page": 441, "note": "'' -> *"}
+{"ref": "ig34_p0443_a001", "action": "INSERTED", "kb_file": "knowledge_base/domains/OI/spec.md", "kb_line_after": 69, "pdf_page": 441, "note": "spec footnote (gap F); content on p441"}
+{"ref": "pdf:p441:OI – Description/Overview", "action": "INSERTED", "kb_file": "knowledge_base/domains/OI/assumptions.md", "kb_line_after": 3, "pdf_page": 441, "note": "gap D heading"}
+{"ref": "pdf:p441:OI – Specification + oi.xpt sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/OI/assumptions.md", "kb_line_after": 9, "pdf_page": 441, "note": "gap S"}
+{"ref": "pdf:p442:OI – Assumptions", "action": "INSERTED", "kb_file": "knowledge_base/domains/OI/assumptions.md", "kb_line_after": 13, "pdf_page": 442, "note": "gap A heading"}
+{"ref": "intro:§9 (O46)", "action": "INSERTED", "kb_file": "knowledge_base/domains/DI/assumptions.md", "kb_line_after": 3, "pdf_page": 441, "note": "§9 chapter intro + 2 bullets (U3)"}
+{"ref": "narrow:DI spec footnote", "action": "SKIPPED_STRUCT", "kb_file": "knowledge_base/domains/DI/assumptions.md", "kb_line_after": null, "pdf_page": 441, "note": "not applicable: no DI spec table in IG v3.4"}
+{"ref": "scan:RELREC/RELSUB/RELSPEC asm+ex, OI/examples", "action": "VERIFIED", "kb_file": null, "kb_line_after": null, "pdf_page": "427-443", "note": "no diff"}

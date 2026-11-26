@@ -59,6 +59,8 @@
 - **CDISC Notes:** Identifies the generation number of the sample where the collected sample is considered the first generation.
 ---
 
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
 ## Cross References
 
 ### Controlled Terminology

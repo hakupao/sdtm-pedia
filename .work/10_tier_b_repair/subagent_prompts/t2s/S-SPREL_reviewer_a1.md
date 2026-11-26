@@ -1,0 +1,6 @@
+批次 S-SPREL (T2-post 扫描批), attempt 1. 角色: reviewer.
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Reviewer 段执行, 并读它引用的 `t2_reviewer_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含末尾 T2S 段及其后主控裁定) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8) / `t1_user_ack.md`。样板: `evidence/checkpoints/t2_S-EVT_review.md`。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-SPREL.json` (已更正: OI p441-443, RELSPEC 止 p440)。writer 报告 `evidence/checkpoints/t2_S-SPREL.md` (以末尾「更正」段为准) + `work/t2_batches/S-SPREL.writer.jsonl`。改动未提交: `git diff HEAD -- knowledge_base/domains/{SE,RELREC,RELSUB,RELSPEC,OI,DI}`。另有扫描批同时改别的文件, 只看本批。
+主控已裁定: DI narrow (b) 不适用 (IG §9.1 无 DI spec 表, p441 脚注属 OI); §8 章引言留在 ch08 (S-CH8 批), 不放 RELREC; ch10 §9 重复由 S-CH10 处理; SE `– DTC`→`--DTC` 属变量名前缀修正 (CODE_LITERAL), 本批保留 —— 核 PDF 原文确为 `--DTC`; fp 预期回归 ig34_p0079_a004/a006/a009/a010 已并入 expected (仍须核理由: 对 p79 渲染确认 KB 新词 = PDF); SE fn 矩阵 0/1 为原子抽取错 (O58)。
+重点: 独立双向全扫 SE/RELREC/RELSUB/RELSPEC/OI; DI narrow 文件 diff 只能是顶部 §9 引言 (逐字); SE asm 4 处改词 + Ex2 Row 2 补句; CT `*` (ETCD/ELEMENT/IDVAR×3/OIVAL) 逐变量核; 各 spec 脚注 (U7); SE T-1/T-2, OI T-1/T-2 依据; census_items 渲染逐格。
+回主控 ≤ 10 行。

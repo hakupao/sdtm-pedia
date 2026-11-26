@@ -66,3 +66,7 @@
 {"atom_id": "ig34_p0200_a006", "class": "R2", "note": "S-SPC1 CP T-17 sting→string | errata: t3_atom_err/PDF_TYPO"}
 {"atom_id": "ig34_p0206_a003", "class": "R2", "note": "S-SPC1 CP T-18 CSMRKS→CPCSMRKS | errata: t3_atom_err/PDF_TYPO"}
 {"atom_id": "ig34_p0240_a004", "class": "R2", "note": "S-SPC1 IS 附录 D2 去重删除; 原子为 PDF nucleoar 原文, examples.md 保留 T-4 改正值 | errata: t3_atom_err/PDF_TYPO"}
+{"atom_id": "ig34_p0079_a004", "class": "R1", "note": "S-SPREL SE asm 按 p79 渲染改词; 原子 verbatim 抄自旧错误 KB → t3_atom_err"}
+{"atom_id": "ig34_p0079_a006", "class": "R1", "note": "S-SPREL SE asm 按 p79 渲染改词; 原子 verbatim 抄自旧错误 KB → t3_atom_err"}
+{"atom_id": "ig34_p0079_a009", "class": "R1", "note": "S-SPREL SE asm 按 p79 渲染改词; 原子 verbatim 抄自旧错误 KB → t3_atom_err"}
+{"atom_id": "ig34_p0079_a010", "class": "R1", "note": "S-SPREL SE asm 按 p79 渲染改词; 原子 verbatim 抄自旧错误 KB → t3_atom_err"}
