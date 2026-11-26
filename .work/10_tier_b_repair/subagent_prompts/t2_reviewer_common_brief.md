@@ -9,3 +9,4 @@
 - 工作树可能同时有别批未提交改动, 只看本批文件。
 - scratch 只用 `/private/tmp/claude-501/-Volumes-DevSSD-Project-sdtm-pedia/855742cf-a178-484a-8229-67de708e11e7/scratchpad/t2_<batch>_<role>/`。只读 KB; 禁止 git stash/checkout/reset/commit。evidence 里 markdown 链接用反引号包住 (不嵌套)。trace ts 用 `date -u` 真实时间。
 - 输出: reviewer → `evidence/checkpoints/t2_<batch>_review.md` + trace 一行; auditor → `t2_<batch>_audit.md` + `audit_matrix.md` 追加一行 (格式照已有 T2 行) + trace 一行。`python3 tools/check_links.py 2>&1 | grep "live docs"` 记录 (基线 42)。回主控 ≤ 10 行。
+- 用 Bash heredoc 写证据时一律 `<<'EOF'` (加引号), 否则反引号内容会被 shell 执行 (B-CV reviewer 事故).

@@ -9,9 +9,9 @@ writer 在 reviewer PASS 后再改 → 回 reviewer 复审 delta 才派 auditor.
 check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`); evidence 里 md 链接写法须反引号.
 
 ## 已提交批 (见 git log "Tier B batch")
-## 在途 (2026-11-26; 已提交 34 批, 最新 B-NV)
-- B-CV: writer 完成 → reviewer 在跑
-- B-model05 / B-DM / B-RS: writer 在跑
+## 在途 (2026-11-26; 已提交 35 批, 最新 B-CV)
+- B-RS: writer a1 完成, 主控裁 M-1 (p332 引言+小标题恢复) / M-2 (assumptions 列表逐字修+SYMPTDTR 表) / M-3 (QRS 共用 assumptions 全文替换指针, 重复副本都留) → writer a2 完成 → reviewer 在跑
+- B-model05 / B-DM / B-TS / B-model06: writer 在跑
 - writer 共用 brief: subagent_prompts/t2_writer_common_brief.md; reviewer/auditor 共用 brief: subagent_prompts/t2_reviewer_common_brief.md
-## 待开 (按 order): B-TS B-model06 B-CE ... B-SUPPQUAL(D7) ... B-SC (其余见 work/t2_batches/)
+## 待开 (按 order): B-CE ... B-SUPPQUAL(D7) ... B-SC (其余见 work/t2_batches/)
 ## T2 后: O15/O16/O17/O18/O20/O24 全域扫描小批 (Description/Overview, spec 首句, §6.x 类引言, 漏页, spec.md 记法) → T3 (ledger 回写 + t3_atom_err + target_remap) → T4 (总闸 + T4 用户裁定汇总 + 人工 30 抽样) → push + 提醒 sdtm-rag

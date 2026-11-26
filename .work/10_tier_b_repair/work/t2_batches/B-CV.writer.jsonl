@@ -1,0 +1,5 @@
+{"ref": "ig34_p0286_a017", "action": "INSERTED", "kb_file": "knowledge_base/domains/CV/assumptions.md", "kb_line_after": 5, "pdf_page": 286, "note": "CV – Description/Overview 段新增, 逐字 (cmp IDENTICAL)"}
+{"ref": "auth:spec_first_sentence:CV", "action": "INSERTED", "kb_file": "knowledge_base/domains/CV/assumptions.md", "kb_line_after": 9, "pdf_page": 286, "note": "CV – Specification + cv.xpt spec 首句, 主控授权, 逐字"}
+{"ref": "census:knowledge_base/domains/CV/examples.md:25:1:CVTEST", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/examples.md", "kb_line_after": 25, "pdf_page": 289, "note": "Native Cardiac Valve Intervention Type (渲染图 + CT C139050)"}
+{"ref": "census:knowledge_base/domains/CV/examples.md:31:7:CVTEST", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/examples.md", "kb_line_after": 31, "pdf_page": 289, "note": "Minor Axis Cross-sec. Diameter, MVS (渲染图 + CT C139052)"}
+{"ref": "census:knowledge_base/domains/CV/examples.md:32:8:CVTEST", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/examples.md", "kb_line_after": 32, "pdf_page": 289, "note": "Major Axis Cross-sec. Diameter, MVS (渲染图 + CT C139053)"}
