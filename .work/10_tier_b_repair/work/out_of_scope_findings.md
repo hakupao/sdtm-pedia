@@ -13,3 +13,4 @@
 | O10 | T1.2 lane B | EX Ex6/Ex7, FA, TA Ex5/Ex7, CE Ex2, CP Ex1b | 系统错值 (见 t1_lane_notes § lane B) |
 | O11 | T1.3 C | ig34_p0139_a010 | KB 把 "…/etc." 扩写成 6 项 (超出 PDF) |
 | O12 | T1.3 D | ch04:879 | PDF p42 Week 1 VISITDY / LBDY = 7, KB 两格空 |
+| O13 | T2 B-TR audit | domains/VS | ig34_p0358_a014 VS Description/Overview 定义句 VS 域文件无 (仅 terminology general_part4.md:239); ledger EQUIVALENT 疑配到术语表 → B-VS 补 |

@@ -1,0 +1,26 @@
+{"ref": "ig34_p0355_a002", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "17", "pdf_page": 355, "note": "header TREASND->TRREASND"}
+{"ref": "ig34_p0355_a009", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "25", "pdf_page": 355, "note": "row7 TRDY -2->-3"}
+{"ref": "ig34_p0355_a010", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "26", "pdf_page": 355, "note": "row8 TRDY ''->-2"}
+{"ref": "ig34_p0355_a014", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "30", "pdf_page": 355, "note": "Row/TRSEQ only (T-1)"}
+{"ref": "ig34_p0355_a015", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "31", "pdf_page": 355, "note": "Row/TRSEQ only (T-1)"}
+{"ref": "ig34_p0355_a016", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "32", "pdf_page": 355, "note": "VISIT/TRDTC column shift fixed; Row/TRSEQ T-1"}
+{"ref": "ig34_p0355_a017", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "33", "pdf_page": 355, "note": "VISIT/TRDTC column shift fixed; TRTEST Non Lymph; Row/TRSEQ T-1"}
+{"ref": "ig34_p0355_a018", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "34", "pdf_page": 355, "note": "VISIT/TRDTC column shift fixed; Row/TRSEQ T-1"}
+{"ref": "ig34_p0355_a019", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "35", "pdf_page": 355, "note": "VISIT/TRDTC column shift fixed; Row/TRSEQ T-1"}
+{"ref": "ig34_p0355_a020", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "36", "pdf_page": 355, "note": "VISIT/TRDTC column shift fixed; Row/TRSEQ T-1"}
+{"ref": "ig34_p0355_a021", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "37", "pdf_page": 355, "note": "VISIT/TRDTC column shift fixed; Row/TRSEQ T-1"}
+{"ref": "ig34_p0355_a022", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "38", "pdf_page": 355, "note": "Row/TRSEQ only (T-1)"}
+{"ref": "ig34_p0355_a023", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "39", "pdf_page": 355, "note": "Row/TRSEQ only (T-1)"}
+{"ref": "ig34_p0355_a024", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "40", "pdf_page": 355, "note": "Row/TRSEQ only (T-1)"}
+{"ref": "ig34_p0355_a025", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "41", "pdf_page": 355, "note": "Row/TRSEQ only (T-1)"}
+{"ref": "ig34_p0355_a026", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "42", "pdf_page": 355, "note": "extra TRDTC removed; Row/TRSEQ T-1"}
+{"ref": "ig34_p0355_a027", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "43", "pdf_page": 355, "note": "TRREASND -> NOT ASSESSABLE: POOR IMAGE QUALITY (T-3 spacing); Row/TRSEQ T-1"}
+{"ref": "ig34_p0356_a001", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "44", "pdf_page": 356, "note": "TRSTAT/TRREASND cleared; Row/TRSEQ T-1; candidate T-4 (result-less TUMSTATE row w/o NOT DONE, followed PDF per T1)"}
+{"ref": "ig34_p0356_a002", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "45", "pdf_page": 356, "note": "Row/TRSEQ only (T-1)"}
+{"ref": "census:knowledge_base/domains/TR/examples.md:21:3:TRDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "21", "pdf_page": 355, "note": "2010-01-01 -> 2010-01-02"}
+{"ref": "census:knowledge_base/domains/TR/examples.md:21:3:TRDY", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "21", "pdf_page": 355, "note": "-3 -> -2"}
+{"ref": "census:knowledge_base/domains/TR/examples.md:24:6:TRTEST", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "24", "pdf_page": 355, "note": "Non Lymph"}
+{"ref": "census:knowledge_base/domains/TR/examples.md:68", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "68-101", "pdf_page": 356, "note": "Ex3 tr.xpt TABLE_REBUILT 32 rows (p356-358), TRNAM/TRMETHOD order per PDF; old KB row 20 (R1-NEW01 DIAMETER) not in PDF"}
+{"ref": "census:knowledge_base/domains/TR/examples.md:68:15:TRSTRESC", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "84", "pdf_page": 357, "note": "PDF -60 vs ORRES/STRESN -50 (T-2)"}
+{"ref": "pdf_only:p358:relrec.xpt", "action": "INSERTED", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "103-110", "pdf_page": 358, "note": "Ex3 RELREC lead sentence + 2-row table"}
+{"ref": "census:knowledge_base/domains/TR/examples.md:17", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": "30-45", "pdf_page": 355, "note": "residual 32 diffs = Row/TRSEQ x16 rows (T-1)"}
