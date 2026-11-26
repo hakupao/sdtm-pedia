@@ -1,0 +1,313 @@
+diff --git a/knowledge_base/chapters/ch04_general_assumptions.md b/knowledge_base/chapters/ch04_general_assumptions.md
+index d61dcf0..529a236 100644
+--- a/knowledge_base/chapters/ch04_general_assumptions.md
++++ b/knowledge_base/chapters/ch04_general_assumptions.md
+@@ -46,7 +46,7 @@ Three categories are specified in the Core column in the domain models:
+ | **Exp** (Expected) | Must be included in the dataset | Value should be populated when available; null values allowed when data not collected/applicable; must still include the column and add a comment in the Define-XML document to state that the study does not include the data item |
+ | **Perm** (Permissible) | May be included in the dataset | If a study includes a data item that would be represented in a Permissible variable, then that variable must be included (even if null) and declared in Define-XML; if a study did not collect the data, do not include the variable and do not declare it in Define-XML |
+ 
+-Although domain specification tables list only some of the identifier, timing, and general observation class variables listed in the SDTM, all are permissible unless specifically restricted in this implementation guide (see Section 2.7, SDTM Variables Not Allowed in the SDTMIG) or by specific domain assumptions.
++A Permissible variable should be used in an SDTM dataset wherever appropriate. Although domain specification tables list only some of the identifier, timing, and general observation class variables listed in the SDTM, all are permissible unless specifically restricted in this implementation guide (see Section 2.7, SDTM Variables Not Allowed in the SDTMIG) or by specific domain assumptions.
+ 
+ - Domain assumptions that say a Permissible variable is "generally not used" do not prohibit use of the variable.
+ - If a study includes a data item that would be represented in a Permissible variable, then that variable must be included in the SDTM dataset, even if null. Indicate no data were available for that variable in the Define-XML document.
+@@ -96,11 +96,11 @@ QRS datasets are routinely created and reviewed for the individual QRS instrumen
+ 
+ | Row | STUDYID | DOMAIN | USUBJID | QSSEQ | QSTESTCD | QSTEST | QSCAT | QSORRES | QSSTRESC | QSSTRESN | QSLOBXFL | VISITNUM | VISIT | VISITDY | QSDTC | QSDY |
+ |-----|---------|--------|---------|-------|----------|--------|-------|---------|----------|----------|----------|----------|-------|---------|-------|------|
+-| 1 | CDISC01 | QS | CDISC01.100008 | 1 | CGI0201 | CGI02-Severity | CGI | Moderate | 4 | 4 | | 1 | WEEK 1 | 7 | 2003-04-15 | 1 |
++| 1 | CDISC01 | QS | CDISC01.100008 | 1 | CGI0201 | CGI02-Severity | CGI | Moderate | 4 | 4 | Y | 1 | WEEK 1 | 1 | 2003-04-15 | 1 |
+ | 2 | CDISC01 | QS | CDISC01.100008 | 2 | CGI0201 | CGI02-Severity | CGI | Mild | 3 | 3 | | 2 | WEEK 2 | 7 | 2003-04-21 | 7 |
+ | 3 | CDISC01 | QS | CDISC01.100008 | 3 | CGI0202 | CGI02-Change | CGI | Minimally Improved | 3 | 3 | | 2 | WEEK 2 | 7 | 2003-04-21 | 7 |
+ | 4 | CDISC01 | QS | CDISC01.100008 | 4 | CGI0203 | CGI02-Improvement | CGI | A little better | 3 | 3 | | 2 | WEEK 2 | 7 | 2003-04-21 | 7 |
+-| 5 | CDISC01 | QS | CDISC01.100014 | 1 | CGI0201 | CGI02-Severity | CGI | Moderate | 4 | 4 | | 1 | WEEK 1 | 7 | 2003-04-15 | 1 |
++| 5 | CDISC01 | QS | CDISC01.100014 | 1 | CGI0201 | CGI02-Severity | CGI | Moderate | 4 | 4 | Y | 1 | WEEK 1 | 1 | 2003-04-15 | 1 |
+ | 6 | CDISC01 | QS | CDISC01.100014 | 2 | CGI0201 | CGI02-Severity | CGI | Mild | 3 | 3 | | 2 | WEEK 2 | 7 | 2003-04-21 | 7 |
+ | 7 | CDISC01 | QS | CDISC01.100014 | 3 | CGI0202 | CGI02-Change | CGI | Minimally Improved | 3 | 3 | | 2 | WEEK 2 | 7 | 2003-04-21 | 7 |
+ | 8 | CDISC01 | QS | CDISC01.100014 | 4 | CGI0203 | CGI02-Improvement | CGI | A little better | 3 | 3 | | 2 | WEEK 2 | 7 | 2003-04-21 | 7 |
+@@ -120,16 +120,16 @@ QRS datasets are routinely created and reviewed for the individual QRS instrumen
+ 
+ | Row | STUDYID | DOMAIN | USUBJID | QSSEQ | QSTESTCD | QSTEST | QSCAT | QSORRES | QSSTRESC | QSSTRESN | QSLOBXFL | VISITNUM | QSDTC | QSDY |
+ |-----|---------|--------|---------|-------|----------|--------|-------|---------|----------|----------|----------|----------|-------|------|
+-| 1 | CDISC01 | QS | CDISC01.100008 | 1 | SWLS01 | SWLS01-My Life is Close to Ideal | SWLS | Slightly agree | 5 | 5 | Y | 1 | 2003-04-15 | 1 |
+-| 2 | CDISC01 | QS | CDISC01.100008 | 2 | SWLS02 | SWLS01-My Life Conditions are Excellent | SWLS | Neither agree nor disagree | 4 | 4 | | 1 | 2003-04-15 | 1 |
+-| 3 | CDISC01 | QS | CDISC01.100008 | 3 | SWLS03 | SWLS01-I Am Satisfied with my Life | SWLS | Agree | 6 | 6 | | 1 | 2003-04-15 | 1 |
+-| 4 | CDISC01 | QS | CDISC01.100008 | 4 | SWLS04 | SWLS01-Have Gotten Important Things | SWLS | Disagree | 2 | 2 | | 1 | 2003-04-15 | 1 |
+-| 5 | CDISC01 | QS | CDISC01.100008 | 5 | SWLS05 | SWLS01-Live Life Over Change Nothing | SWLS | Strongly disagree | 1 | 1 | | 1 | 2003-04-15 | 1 |
+-| 6 | CDISC01 | QS | CDISC01.100014 | 6 | SWLS01 | SWLS01-My Life is Close to Ideal | SWLS | Slightly agree | 5 | 5 | Y | 1 | 2003-04-15 | 1 |
+-| 7 | CDISC01 | QS | CDISC01.100014 | 7 | SWLS02 | SWLS01-My Life Conditions are Excellent | SWLS | Neither agree nor disagree | 4 | 4 | | 1 | 2003-04-15 | 1 |
+-| 8 | CDISC01 | QS | CDISC01.100014 | 8 | SWLS03 | SWLS01-I Am Satisfied with my Life | SWLS | Agree | 6 | 6 | | 1 | 2003-04-15 | 1 |
+-| 9 | CDISC01 | QS | CDISC01.100014 | 9 | SWLS04 | SWLS01-Have Gotten Important Things | SWLS | Disagree | 2 | 2 | | 1 | 2003-04-15 | 1 |
+-| 10 | CDISC01 | QS | CDISC01.100014 | 10 | SWLS05 | SWLS01-Live Life Over Change Nothing | SWLS | Strongly disagree | 1 | 1 | | 1 | 2003-04-15 | 1 |
++| 1 | CDISC01 | QS | CDISC01.100008 | 1 | SWLS0101 | SWLS01-My Life is Close to Ideal | SWLS | Slightly agree | 5 | 5 | Y | 1 | 2003-04-15 | 1 |
++| 2 | CDISC01 | QS | CDISC01.100008 | 2 | SWLS0102 | SWLS01-My Life Conditions are Excellent | SWLS | Neither agree nor disagree | 4 | 4 | Y | 1 | 2003-04-15 | 1 |
++| 3 | CDISC01 | QS | CDISC01.100008 | 3 | SWLS0103 | SWLS01-I Am Satisfied with My Life | SWLS | Agree | 6 | 6 | Y | 1 | 2003-04-15 | 1 |
++| 4 | CDISC01 | QS | CDISC01.100008 | 4 | SWLS0104 | SWLS01-Have Gotten Important Things | SWLS | Disagree | 2 | 2 | Y | 1 | 2003-04-15 | 1 |
++| 5 | CDISC01 | QS | CDISC01.100008 | 5 | SWLS0105 | SWLS01-Live Life Over Change Nothing | SWLS | Strongly disagree | 1 | 1 | Y | 1 | 2003-04-15 | 1 |
++| 6 | CDISC01 | QS | CDISC01.100014 | 6 | SWLS0101 | SWLS01-My Life is Close to Ideal | SWLS | Slightly agree | 5 | 5 | Y | 1 | 2003-04-15 | 1 |
++| 7 | CDISC01 | QS | CDISC01.100014 | 7 | SWLS0102 | SWLS01-My Life Conditions are Excellent | SWLS | Neither agree nor disagree | 4 | 4 | Y | 1 | 2003-04-15 | 1 |
++| 8 | CDISC01 | QS | CDISC01.100014 | 8 | SWLS0103 | SWLS01-I Am Satisfied with My Life | SWLS | Agree | 6 | 6 | Y | 1 | 2003-04-15 | 1 |
++| 9 | CDISC01 | QS | CDISC01.100014 | 9 | SWLS0104 | SWLS01-Have Gotten Important Things | SWLS | Disagree | 2 | 2 | Y | 1 | 2003-04-15 | 1 |
++| 10 | CDISC01 | QS | CDISC01.100014 | 10 | SWLS0105 | SWLS01-Live Life Over Change Nothing | SWLS | Strongly disagree | 1 | 1 | Y | 1 | 2003-04-15 | 1 |
+ 
+ **SUPP-- Domains**
+ 
+@@ -297,7 +297,7 @@ It is recommended that text data be submitted in text that is all upper case (e.
+ 
+ ### 4.2.5 Convention for Missing Values
+ 
+-Missing values are represented as null. When a test is not performed, use --STAT = "NOT DONE" and --REASND for the reason. See Section 4.5.1.2 for details.
++Missing values are represented as null. When a test is not performed, use --STAT = "NOT DONE" and --REASND for the reason. See Section 4.5.1.2 for details. Conventions for representing observations not done, using the SDTM --STAT and --REASND variables, are addressed in Section 4.5.1.2, Tests Not Done, and the individual domain models.
+ 
+ ### 4.2.6 Grouping Variables and Categorization
+ 
+@@ -821,13 +821,13 @@ Note that a leading zero is required with decimal values less than 1.
+ 
+ #### 4.4.3.2 Interval with Uncertainty
+ 
+-When an interval of time is an amount of time (duration) following an event whose start date/time is recorded (with some level of precision), the correct ISO 8601 usage to represent this interval is:
++When an interval of time is an amount of time (duration) following an event whose start date/time is recorded (with some level of precision, e.g., when one knows the start date/time and the duration following the start date/time), the correct ISO 8601 usage to represent this interval is:
+ 
+ `YYYY-MM-DDThh:mm:ss/PnYnMnDTnHnMnS`
+ 
+ where the start date/time is represented before the solidus [/], the "Pn..." following the solidus represents a "duration," and the entire representation is known as an "interval." Note that this is the recommended representation of elapsed time, given a start date/time and the duration elapsed.
+ 
+-When an interval of time is an amount of time (duration) measured prior to an event whose start date/time is recorded (with some level of precision), the syntax is:
++When an interval of time is an amount of time (duration) measured prior to an event whose start date/time is recorded (with some level of precision, e.g., where one knows the end date/time and the duration preceding that end date/time), the syntax is:
+ 
+ `PnYnMnDTnHnMnS/YYYY-MM-DDThh:mm:ss`
+ 
+@@ -845,30 +845,39 @@ The study day value is incremented by 1 for each date following RFSTDTC.
+ 
+ Dates prior to RFSTDTC are decreased by 1, with the date preceding RFSTDTC designated as study day -1 (there is no study day 0).
+ 
+-This algorithm for determining Study Day is consistent with how people typically describe sequential days relative to a reference day, and is consistent with the ICH E3 recommendation for the calculation of study day.
++This algorithm for determining Study Day is consistent with how people typically describe sequential days relative to a fixed reference point, but creates problems if used for mathematical calculations because it does not allow for a day 0. As such, Study Day is not suited for use in subsequent numerical computations, such as calculating duration. The raw date values should be used rather than Study Day in those calculations.
++
++All study day values are integers. Thus, to calculate Study Day:
++
++```
++--DY = (date portion of --DTC) - (date portion of RFSTDTC) + 1 if --DTC is on or after RFSTDTC
++--DY = (date portion of --DTC) - (date portion of RFSTDTC) if --DTC precedes RFSTDTC
++```
++
++This method should be used across all domains.
+ 
+ **Derivation notes:**
+ 
+-- --DY is calculated as: `--DTC - RFSTDTC` (with no day 0)
+ - If --DTC is on or after RFSTDTC: DY = date portion of --DTC − date portion of RFSTDTC + 1
+ - If --DTC is before RFSTDTC: DY = date portion of --DTC − date portion of RFSTDTC
+-- Partial dates should not be used to derive study day
++- > KB note (not in SDTMIG): Partial dates should not be used to derive study day
+ - Study Day is not suitable for mathematical calculations (e.g., computing durations); use original date values instead
+ 
+ ### 4.4.5 Clinical Encounters and Visits
+ 
+-All domains based on the 3 general observation classes should have at least 1 timing variable. For domains in the Events or Interventions observation classes, this could be the start date of the event or intervention. In the Findings observation class, where data are usually collected at multiple visits, at least 1 timing variable must be used.
++All domains based on the 3 general observation classes should have at least 1 timing variable. For domains in the Events or Interventions observation classes, and for domains in the Findings observation class, for which data are collected only once during the study, the most appropriate timing variable may be a date (e.g., --DTC, --STDTC) or some other timing variable. For studies that are designed with a prospectively defined schedule of visit-based activities, domains for data that are to be collected more than once per subject (e.g., labs, ECG, vital signs) are expected to include VISITNUM as a timing variable.
+ 
+-For planned visits, values of VISIT, VISITNUM, and VISITDY must be those defined in the Trial Visits (TV) dataset. For planned visits:
++Clinical encounters are described by the CDISC visit variables. For planned visits, values of VISIT, VISITNUM, and VISITDY must be those defined in the Trial Visits (TV) dataset. For planned visits:
+ 
+ - **VISITNUM**: numeric, used for sorting; values should wherever possible match the planned chronological order of visits. Occasionally, a protocol will define a planned visit whose timing is unpredictable (e.g., planned in response to an adverse event, a threshold test value, or a disease event), and completely chronological values of VISITNUM may not be possible in such cases.
+-- **VISIT**: character name of the visit from the protocol
+-- **VISITDY**: the planned study day **of the start of the visit** (not the actual study day; do not use --DY); for visits that may last more than 1 calendar day, VISITDY should be the planned day of the start of the visit
+-- There must be a **one-to-one relationship** between VISIT and VISITNUM
++- > KB note (not in SDTMIG): **VISIT**: character name of the visit from the protocol
++- **VISITDY**: the planned study day **of the start of the visit**; for visits that may last more than 1 calendar day, VISITDY should be the planned day of the start of the visit
++  > KB note (not in SDTMIG): VISITDY is the planned study day, not the actual study day; do not use --DY.
++- There should be a **one-to-one relationship** between VISIT and VISITNUM
+ 
+ Sponsor practices for populating visit variables for **unplanned visits** may vary:
+ 
+-- VISITNUM should generally be populated, even for unplanned visits, as it is expected in many Findings domains. The easiest method of populating VISITNUM for unplanned visits is to assign the **same value (e.g., 99)** to all unplanned visits, although this method provides no differentiation between the unplanned visits and does not provide chronological sorting. Methods that provide a one-to-one relationship between values of VISITNUM, that are consistent across domains, and that assign VISITNUM values that sort chronologically require more work and must be applied after all of a subject's unplanned visits are known.
++- VISITNUM should generally be populated, even for unplanned visits, as it is expected in many Findings domains, as described above. The easiest method of populating VISITNUM for unplanned visits is to assign the **same value (e.g., 99)** to all unplanned visits, although this method provides no differentiation between the unplanned visits and does not provide chronological sorting. Methods that provide a one-to-one relationship between visits and values of VISITNUM, that are consistent across domains, and that assign VISITNUM values that sort chronologically require more work and must be applied after all of a subject's unplanned visits are known.
+ - VISIT may be left null or may be populated with a generic value (e.g., "Unscheduled") for all unplanned visits, or individual values may be assigned to different unplanned visits.
+ - VISITDY must **not** be populated for unplanned visits; VISITDY is, by definition, the planned study day of visit. The actual study day of an unplanned visit belongs in a --DY variable.
+ 
+@@ -876,16 +885,17 @@ Sponsor practices for populating visit variables for **unplanned visits** may va
+ 
+ | USUBJID | VISIT | VISITNUM | VISITDY | LBDY |
+ |---------|-------|----------|---------|------|
+-| 001 | Week 1 | 2 | | |
++| 001 | Week 1 | 2 | 7 | 7 |
+ | 001 | Week 2 | 3 | 14 | 13 |
+ | 001 | Week 2 Unscheduled | 3.1 | | 17 |
+ 
+ ### 4.4.6 Representing Additional Study Days
+ 
+-- --XSTDY and --CHSTDY may be used for study designs with multiple reference start dates (e.g., crossover studies)
+-- The reference date/time may use Subject Elements (SE) dataset element start date/time
++The SDTM allows for the representation of study days relative to the RFSTDTC reference start date variable in the DM dataset, using variables --DY, as described in Section 4.4.4, Use of the "Study Day" Variables. The calculation of additional study days within subdivisions of time in a clinical trial may be based on 1 or more sponsor-defined reference dates not represented by RFSTDTC. In such cases, the sponsor may define supplemental qualifier variables and the Define-XML document should reflect the reference dates used to calculate such study days. If the sponsor wishes to define "day within element" or "day within epoch", the reference date/time will be an element start date/time in the Subject Elements (SE) dataset (see Section 5.3, Subject Elements).
++
++> KB note (not in SDTMIG): The reference date/time may use Subject Elements (SE) dataset element start date/time
+ 
+-See also: Section 5.3, Subject Elements (for additional study day representation guidance).
++> KB note (not in SDTMIG): See also: Section 5.3, Subject Elements (for additional study day representation guidance).
+ 
+ ### 4.4.7 Use of Relative Timing Variables
+ 
+@@ -893,18 +903,26 @@ See also: Section 5.3, Subject Elements (for additional study day representation
+ 
+ The variables --STRF and --ENRF represent the timing of an observation relative to the sponsor-defined study reference period, when information such as "BEFORE", "PRIOR", "ONGOING", or "CONTINUING" is collected in lieu of a date and this collected information is in relation to the sponsor-defined study reference period. The sponsor-defined study reference period is the continuous period of time defined by the discrete starting point, RFSTDTC, and the discrete ending point, RFENDTC, for each subject in the Demographics (DM) dataset.
+ 
++--STRF is used to identify the start of an observation relative to the sponsor-defined study reference period. --ENRF is used to identify the end of an observation relative to the sponsor-defined study reference period.
++
+ | Variable | Allowable Values | Purpose |
+ |----------|-----------------|---------|
+ | --STRF | BEFORE, DURING, DURING/AFTER, AFTER, UNKNOWN | Start relative to the sponsor-defined reference period |
+ | --ENRF | BEFORE, DURING, DURING/AFTER, AFTER, UNKNOWN | End relative to the sponsor-defined reference period |
+ 
+-**Important restriction on --ENRF:** Although "COINCIDENT" and "ONGOING" are in the STENRF codelist, they describe timing relative to a point in time rather than an interval of time, so are **not appropriate for use with --ENRF variables**. As an example, a CRF checkbox that identifies concomitant medication use that began prior to the study reference period would translate into CMSTRF = "BEFORE", if selected. Note that in this example, the information collected is with respect to the start of the concomitant medication use only, and therefore the collected data corresponds to variable CMSTRF, not CMENRF.
++Although "COINCIDENT" and "ONGOING" are in the STENRF codelist, they describe timing relative to a point in time rather than an interval of time, so are not appropriate for use with --STRF variables. It would be unusual for an event or intervention to be recorded as starting "AFTER" the study reference period, but could be possible, depending on how the study reference period is defined in a particular study.
++
++If --ENRF is used, then --ENRF = "AFTER" means that the event did not end before or during the study reference period.
+ 
+-**Caution on mixing collected and derived values:** Sponsors are cautioned that deriving --STRF and --ENRF for analysis or reporting purposes even when dates are collected may blur the distinction between collected and derived values within the domain. Sponsors wishing to do such derivations are instead encouraged to use analysis datasets for this derived data.
++**Important restriction on --ENRF:** Although "COINCIDENT" and "ONGOING" are in the STENRF codelist, they describe timing relative to a point in time rather than an interval of time, so are **not appropriate for use with --ENRF variables**. As an example, a CRF checkbox that identifies concomitant medication use that began prior to the study reference period would translate into CMSTRF = "BEFORE", if selected. Note that in this example, the information collected is with respect to the start of the concomitant medication use only, and therefore the collected data corresponds to variable CMSTRF, not CMENRF. Note also that the information collected is relative to the study reference period, which meets the definition of CMSTRF.
++
++**Caution on mixing collected and derived values:** Some sponsors may wish to derive --STRF and --ENRF for analysis or reporting purposes even when dates are collected. Sponsors are cautioned that doing so in conjunction with directly collecting or mapping data such as "BEFORE", "PRIOR", and "ONGOING" to --STRF and --ENRF will blur the distinction between collected and derived values within the domain. Sponsors wishing to do such derivations are instead encouraged to use analysis datasets for this derived data.
++
++In general, sponsors are cautioned that representing information using variables --STRF and --ENRF may not be as precise as other methods, particularly because information is often collected relative to a point in time or to a period of time other than the one defined as the study reference period. SDTMIG v3.1.2 attempted to address these limitations by the addition of 4 new relative timing variables, which are described in the following section. Sponsors should use the set of variables that allows for accurate representation of collected data. In many cases, this will mean using these new relative timing variables in place of --STRF and --ENRF.
+ 
+ #### --STRTPT, --STTPT, --ENRTPT, and --ENTPT
+ 
+-Although --STRF and --ENRF are useful when relative timing assessments are made coincident with the start and end of the study reference period, they may not be suitable for expressing relative timing assessments collected at other times of the study. The variables --STRTPT and --ENRTPT contain values similar to --STRF and --ENRF, but may be anchored with any timing description or date/time value expressed in the respective --STTPT and --ENTPT variables.
++Although --STRF and --ENRF are useful when relative timing assessments are made coincident with the start and end of the study reference period, they may not be suitable for expressing relative timing assessments collected at other times of the study. As a result, 4 new timing variables were added in SDTMIG v3.1.2 to express a similar concept at any point in time. The variables --STRTPT and --ENRTPT contain values similar to --STRF and --ENRF, but may be anchored with any timing description or date/time value expressed in the respective --STTPT and --ENTPT variables. Unlike the variables --STRF and --ENRF, which for all domains are defined relative to one study reference period, the timing variables --STRTPT, --STTPT, --ENRTPT, and --ENTPT are defined by each sponsor for each study.
+ 
+ | Variable | Allowable Values | Purpose |
+ |----------|-----------------|---------|
+@@ -913,14 +931,27 @@ Although --STRF and --ENRF are useful when relative timing assessments are made
+ | --ENRTPT | BEFORE, COINCIDENT, AFTER, ONGOING, UNKNOWN | End relative to a specific reference time point |
+ | --ENTPT | (free text) | Description of the reference time point for --ENRTPT |
+ 
++Allowable values for --STRTPT and --ENRTPT are as follows.
++
++If the reference time point corresponds to the date of collection or assessment:
++
++- Start values: An observation can start BEFORE that time point, can start COINCIDENT with that time point, or it can be UNKNOWN when it started.
++- End values: An observation can end BEFORE that time point, can end COINCIDENT with that time point, can be known that it did not end but was ONGOING, or it can be UNKNOWN when it ended or if it was ongoing.
++- AFTER is not a valid value in this case because it would represent an event after the date of collection.
++
++If the reference time point is prior to the date of collection or assessment:
++
++- Start values: An observation can start BEFORE the reference point, can start COINCIDENT with the reference point, can start AFTER the reference point, or it can be UNKNOWN when it started.
++- End values: An observation can end BEFORE the reference point, can end COINCIDENT with the reference point, can end AFTER the reference point, can be known that it did not end but was ONGOING, or it can be UNKNOWN when it ended or if it was ongoing.
++
+ **Restriction on --STRTPT values:** If the reference time point corresponds to the date of collection or assessment, **AFTER is not a valid value** for --STRTPT because it would represent an event after the date of collection. If the reference time point is prior to the date of collection or assessment, AFTER is valid for --STRTPT.
+ 
+ **Note:** "DURING" and "DURING/AFTER" are in the STENRF codelist but describe timing relative to an interval of time rather than a point in time, so are **not allowable for use with --STRTPT and --ENRTPT** variables.
+ 
+-**Example applications:**
+-- **Medical History (--STRTPT/--ENRTPT):** --STRTPT = "BEFORE", --STTPT = "INFORMED CONSENT"
+-- **Concomitant Medications (--STRF/--ENRF):** --STRF = "BEFORE", --ENRF = "DURING"
+-- **Adverse Events (--ENRTPT):** --ENRTPT = "ONGOING", --ENTPT = "DATE OF LAST DOSE"
++> KB note (not in SDTMIG): **Example applications:**
++> - **Medical History (--STRTPT/--ENRTPT):** --STRTPT = "BEFORE", --STTPT = "INFORMED CONSENT"
++> - **Concomitant Medications (--STRF/--ENRF):** --STRF = "BEFORE", --ENRF = "DURING"
++> - **Adverse Events (--ENRTPT):** --ENRTPT = "ONGOING", --ENTPT = "DATE OF LAST DOSE"
+ 
+ **Example 1: Medical History**
+ 
+@@ -930,6 +961,8 @@ CRF contains "Year Started" and a checkbox for "Active"; "Date of Assessment" is
+ - MHENRTPT = "ONGOING"
+ - MHENTPT = date of assessment value (e.g., "2006-11-02")
+ 
++> KB note (not in SDTMIG): the following Mermaid diagram and caption are a KB rendering of the PDF figure (Figure. Example of --ENRTPT and --ENTPT for Medical History).
++
+ ```mermaid
+ graph LR
+     REF["Reference Time Point 2006-11-02"]
+@@ -944,6 +977,12 @@ graph LR
+ 
+ **Example 2: Prior and Concomitant Medications**
+ 
++Assumptions:
++
++- CRF includes collection of "Start Date" and "Stop Date", and checkboxes for
++  - "Prior" if start date was before the screening visit and was unknown or uncollected
++  - "Continuing" if medication had not stopped as of the final study visit, so no end date was collected
++
+ CRF includes "Start Date" and "Stop Date", and checkboxes for "Prior" (if start date was before screening visit and unknown/uncollected) and "Continuing" (if medication had not stopped as of the final study visit). When both "Prior" and "Continuing" are checked:
+ - CMSTDTC is null
+ - CMENDTC is null
+@@ -954,6 +993,12 @@ CRF includes "Start Date" and "Stop Date", and checkboxes for "Prior" (if start
+ 
+ **Example 3: Adverse Events**
+ 
++Assumptions:
++
++- CRF contains "Start Date", "Stop Date"
++- Collection of "Outcome" includes checkboxes for "Continuing" and "Unknown", to be used, if necessary, at the end of the subject's participation in the trial
++- No assessment date or visit information was collected
++
+ CRF contains "Start Date", "Stop Date", and "Outcome" checkboxes for "Continuing" and "Unknown". No assessment date or visit information was collected. When "Unknown" is checked:
+ - AESTDTC = start date (e.g., "2006-10-01")
+ - AEENDTC is null
+@@ -1229,9 +1274,9 @@ The following examples illustrate the use of Findings results variables and are
+ | 2 | ALT | CHEMISTRY | 12.1 | mg/L | 12.1 | 12.1 | mg/L | | | 1 | 2016-02-01 |
+ | 3 | BACT | URINALYSIS | MODERATE | | MODERATE | | | | | 1 | 2016-02-01 |
+ | 4 | RBC | URINALYSIS | TRACE | | TRACE | | | | | 1 | 2016-02-01 |
+-| 5 | RBC | URINALYSIS | 2+ | | 2+ | | | | | 1 | 2016-02-01 |
+-| 6 | KETONES | CHEMISTRY | BLQ | mg/L | BLQ | | mg/L | | | 1 | 2016-02-15 |
+-| 7 | MCHC | HEMATOLOGY | | | 33.8 | 33.8 | g/dL | | | 2 | 2016-02-15 |
++| 5 | WBC | URINALYSIS | ++ | | 2+ | | | | | 1 | 2016-02-01 |
++| 6 | KETONES | CHEMISTRY | BLQ | mg/L | BLQ | | mg/L | | | 1 | 2016-02-01 |
++| 7 | MCHC | HEMATOLOGY | | | 33.8 | 33.8 | g/dL | | Y | 3 | 2016-02-15 |
+ | 8 | HCT | HEMATOLOGY | | | | | | NOT DONE | | 2 | 2016-02-08 |
+ | 9 | LBALL | HEMATOLOGY | | | | | | NOT DONE | | 3 | 2016-02-29 |
+ | 10 | LBALL | | | | | | | NOT DONE | | 4 | 2016-02-22 |
+@@ -1318,10 +1363,10 @@ mh.xpt:
+ 
+ suppmh.xpt:
+ 
+-| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG |
+-|-----|---------|---------|---------|-------|----------|------|--------|------|-------|
+-| 1 | 12345 | MH | 99-123 | MHSEQ | 6 | MHTERM1 | Reported Term for the Medical History | 2nd ~200 chars of text, split between words | CRF |
+-| 2 | 12345 | MH | 99-123 | MHSEQ | 6 | MHTERM2 | Reported Term for the Medical History | last 100 or more chars of text | CRF |
++| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL |
++|-----|---------|---------|---------|-------|----------|------|--------|------|-------|-------|
++| 1 | 12345 | MH | 99-123 | MHSEQ | 6 | MHTERM1 | Reported Term for the Medical History | 2nd ~200 chars of text, split between words | CRF | |
++| 2 | 12345 | MH | 99-123 | MHSEQ | 6 | MHTERM2 | Reported Term for the Medical History | last 100 or more chars of text | CRF | |
+ 
+ **Example 2 (ae.xpt / suppae.xpt):** AEACNOTH was longer than 200 characters, but required only 1 supplemental qualifier for the text that extended beyond what could be represented in the standard variable.
+ 
+@@ -1333,9 +1378,9 @@ ae.xpt:
+ 
+ suppae.xpt:
+ 
+-| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG |
+-|-----|---------|---------|---------|-------|----------|------|--------|------|-------|
+-| 1 | 12345 | AE | 99-123 | AESEQ | 4 | AEACNOT1 | Other Action Taken | remaining characters of text | CRF |
++| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL |
++|-----|---------|---------|---------|-------|----------|------|--------|------|-------|-------|
++| 1 | 12345 | AE | 99-123 | AESEQ | 4 | AEACNOT1 | Other Action Taken | remaining characters of text | CRF | |
+ 
+ **Example 3 (pr.xpt / supppr.xpt):** PRREAS was longer than 200 characters, but required only 1 supplemental qualifier to represent the remaining text.
+ 
+@@ -1356,11 +1401,20 @@ supppr.xpt:
+ 
+ The following domains have specialized conventions: CO (Section 5.1), IE (Section 6.3.4), TS (Section 7.4.2), and TI (Section 7.4.1).
+ 
+-| Convention | General Observation Class and Supplemental Qualifier Variables | CO.COVAL | TS.TSVAL | TI.IETEST and IE.IETEST |
++The following domains have specialized conventions for representing values longer than 200 characters:
++
++- CO (see Section 5.1, Comments, assumption 4)
++- IE (see Section 6.3.4, Inclusion/Exclusion Criteria Not Met, assumption 3)
++- TS (see Section 7.4.2, Trial Summary Information, assumption 4)
++- TI (see Section 7.4.1, Trial Inclusion/Exclusion Criteria, assumption 5)
++
++The following table summarizes the conventions and notes the specializations.
++
++| Convention | Text Strings >200 Char Conventions General Observation Class and Supplemental Qualifier Variables | Text Strings >200 Char Conventions CO.COVAL | Text Strings >200 Char Conventions TS.TSVAL | Text Strings >200 Char Conventions TI.IETEST and IE.IETEST |
+ |------------|---------------------------------------------------------------|----------|----------|------------------------|
+-| Storage | First 200 chars in parent domain variable; each additional 200 chars in a SUPP-- record | First 200 chars in COVAL; each additional 200 chars in a CO domain record linked to COVALn | First 200 chars in TSVAL; each additional 200 chars in a TS domain record linked to TSVALn | If text >200 chars, put meaningful text in IETEST and describe full text in study metadata |
+-| Split rule | Split between words to improve readability | Split between words | Split between words | Not applicable |
+-| Label | QLABEL should be the original domain variable label | Variable labels for COVAL1 to COVALn should be "Comment" | Variable labels for TSVAL1 to TSVALn should be "Parameter Value" | Not applicable |
++| Storage | The first 200 characters of text should be stored in the variable and each additional 200 characters of text should be stored as a record in the SUPP-- dataset | The first 200 characters of text should be stored in COVAL and each additional 200 characters of text should be stored in COVAL1 to COVALn. | The first 200 characters of text should be stored in TSVAL and each additional 200 characters of text should be stored in TSVAL1 to TSVALn. | If the inclusion/exclusion criteria text is >200 characters, put meaningful text in IETEST and describe the full text in the study metadata. |
++| Split rule | When splitting a text string into several records, the text should be split between words to improve readability. | When splitting a text string into several records, the text should be split between words to improve readability. | When splitting a text string into several records, the text should be split between words to improve readability. | Not applicable. |
++| Label | The value for QLABEL should be the original domain variable label. | The variable labels for COVAL1 to COVALn should be "Comment". | The variable labels for TSVAL1 to TSVALn should be "Parameter Value". | Not applicable. |
+ 
+ ### 4.5.4 Evaluators in the Interventions and Events Observation Classes
+ 

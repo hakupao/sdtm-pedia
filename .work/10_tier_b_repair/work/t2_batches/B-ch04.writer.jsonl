@@ -1,0 +1,130 @@
+{"ref": "ig34_p0042_a007", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "850", "pdf_page": 42, "note": "§4.4.4 'All study day values are integers...' + PDF 公式块插在 Derivation notes 前"}
+{"ref": "ig34_p0042_a009", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "857", "pdf_page": 42, "note": "§4.4.4 'This method should be used across all domains.'"}
+{"ref": "ig34_p0042_a013", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "869", "pdf_page": 42, "note": ":860 句2-3 (KB 自写 Findings must) → PDF a012+a013 原文"}
+{"ref": "ig34_p0042_a014", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "871", "pdf_page": 42, "note": "句首插入 'Clinical encounters are described by the CDISC visit variables.'"}
+{"ref": "ig34_p0043_a016", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "912", "pdf_page": 43, "note": "--STRF 表后新段 (与 O3 a015 同段)"}
+{"ref": "ig34_p0043_a018", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "914", "pdf_page": 43, "note": "--ENRF=AFTER 含义句, 独立段"}
+{"ref": "ig34_p0043_a026", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "920", "pdf_page": 43, "note": "新段 'In general, sponsors are cautioned...' (a026-a029)"}
+{"ref": "ig34_p0043_a027", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "920", "pdf_page": 43, "note": "同上段"}
+{"ref": "ig34_p0043_a028", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "920", "pdf_page": 43, "note": "同上段"}
+{"ref": "ig34_p0043_a029", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "920", "pdf_page": 43, "note": "同上段"}
+{"ref": "ig34_p0043_a034", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "924", "pdf_page": 43, "note": "与 p44_a001 合为一句插入 :907 段末; 原子 verbatim 带截断标记, fp 不命中属预期"}
+{"ref": "ig34_p0044_a001", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "924", "pdf_page": 44, "note": "同上句"}
+{"ref": "ig34_p0055_a026", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1363", "pdf_page": 55, "note": "suppmh 表头加 QEVAL 列 (含分隔行与空格)"}
+{"ref": "ig34_p0056_a005", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1412", "pdf_page": 56, "note": "约定表 3 行 4 PDF 列逐字 (COVAL1 to COVALn / TSVAL1 to TSVALn / stored as a record); 保留 KB Convention 标签列; 原子 verbatim 与页面不符, fp 不命中属预期"}
+{"ref": "ig34_p0056_a006", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1413", "pdf_page": 56, "note": "Split 行 CO/TS 列补 'to improve readability' (R2)"}
+{"ref": "ig34_p0029_a028", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "300", "pdf_page": 29, "note": ":300 行末补 a028 原文"}
+{"ref": "ig34_p0023_a003", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "49", "pdf_page": 23, "note": ":49 句首补 'A Permissible variable should be used ... wherever appropriate.'"}
+{"ref": "ig34_p0041_a036", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "824", "pdf_page": 41, "note": "括号内补 e.g. 子句"}
+{"ref": "ig34_p0041_a040", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "830", "pdf_page": 41, "note": "括号内补 e.g. 子句"}
+{"ref": "ig34_p0042_a012", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "869", "pdf_page": 42, "note": ":860 改写走样 → PDF 原文 (同 a013)"}
+{"ref": "ig34_p0043_a022", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "916", "pdf_page": 43, "note": ":901 行末补 Note also 句"}
+{"ref": "ig34_p0043_a024", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "918", "pdf_page": 43, "note": ":903 首句 (丢限定 + will→may) → a023+a024 原文; 粗体标签保留"}
+{"ref": "ig34_p0043_a032", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "924", "pdf_page": 43, "note": ":907 两句间插入"}
+{"ref": "ig34_p0044_a005", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "937", "pdf_page": 44, "note": "--STRTPT 表后补 p44 两情形清单逐字"}
+{"ref": "ig34_p0044_a009", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "943", "pdf_page": 44, "note": "同上"}
+{"ref": "ig34_p0044_a006", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "939", "pdf_page": 44, "note": "同上"}
+{"ref": "ig34_p0045_a005", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "981", "pdf_page": 45, "note": "Ex2 前补 PDF Assumptions 列表逐字; KB 改写行保留"}
+{"ref": "ig34_p0045_a018", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "996", "pdf_page": 45, "note": "Ex3 前补 PDF Assumptions 列表逐字; KB 改写行保留"}
+{"ref": "ig34_p0043_a012", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "905", "pdf_page": 43, "note": "--STRF 表前新段 (a012+a013)"}
+{"ref": "ig34_p0043_a013", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "905", "pdf_page": 43, "note": "t2_recheck, 按派发 R2 补"}
+{"ref": "ig34_p0044_a003", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "935", "pdf_page": 44, "note": "t2_recheck, p44 两情形清单"}
+{"ref": "ig34_p0044_a004", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "936", "pdf_page": 44, "note": "t2_recheck"}
+{"ref": "ig34_p0044_a008", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "942", "pdf_page": 44, "note": "t2_recheck"}
+{"ref": "O3:ig34_p0043_a015", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "912", "pdf_page": 43, "note": "--STRF 限制句补入 (KB 原仅有 --ENRF 版)"}
+{"ref": "O12", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "888", "pdf_page": 42, "note": "lb.xpt Week 1 VISITDY/LBDY 空 → 7/7 (不可机检表, 渲染人工核)"}
+{"ref": "census:ch04:99:1:QSLOBXFL+VISITDY", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "99", "pdf_page": 25, "note": "'' → Y; 7 → 1"}
+{"ref": "census:ch04:103:5:QSLOBXFL+VISITDY", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "103", "pdf_page": 25, "note": "'' → Y; 7 → 1"}
+{"ref": "census:ch04:123-132:1-10:QSTESTCD", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "123-132", "pdf_page": 25, "note": "SWLS0n → SWLS010n (10 格)"}
+{"ref": "census:ch04:124-132:2-10:QSLOBXFL", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "124-132", "pdf_page": 25, "note": "'' → Y (9 格)"}
+{"ref": "census:ch04:125,130:3,8:QSTEST", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "125,130", "pdf_page": 25, "note": "with my Life → with My Life"}
+{"ref": "census:ch04:1232:5:LBTESTCD+LBORRES", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1274", "pdf_page": 53, "note": "RBC→WBC; 2+→++ (LBSTRESC 2+ 不变)"}
+{"ref": "census:ch04:1233:6:LBDTC", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1275", "pdf_page": 53, "note": "2016-02-15 → 2016-02-01"}
+{"ref": "census:ch04:1234:7:LBLOBXFL+VISITNUM", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1276", "pdf_page": 53, "note": "'' → Y; 2 → 3 (登记 T-2)"}
+{"ref": "census:ch04:1256-1257:5-6:Row", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1297-1298", "pdf_page": 54, "note": "T-1: PDF 表行号 6/5 与 Row 5/6 说明自相矛盾, KB 与说明一致"}
+{"ref": "census:ch04:1336:hdr:QEVAL", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1378", "pdf_page": 56, "note": "suppae 表头加 QEVAL"}
+{"ref": "R3:ig34_p0042_a008", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "853-854", "pdf_page": 42, "note": "PDF 公式块 (随 a007 一起)"}
+{"ref": "R3:ig34_p0044_a002", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "933", "pdf_page": 44, "note": "'Allowable values for --STRTPT and --ENRTPT are as follows.'"}
+{"ref": "R3:ig34_p0045_a002-a004,a016,a017", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "977-981,992-997", "pdf_page": 45, "note": "Ex2/Ex3 Assumptions 列表其余条"}
+{"ref": "R3:ig34_p0043_a023", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "918", "pdf_page": 43, "note": "随 a024 替换"}
+{"ref": "R3:p56 CO/IE/TS/TI list+summary", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1401-1408", "pdf_page": 56, "note": "专门约定域清单 (含 assumption 号) + 'The following table summarizes...'; KB 原压缩行保留"}
+{"ref": "ruling:T-2", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1276", "pdf_page": 53, "note": "表照录 PDF; 叙述矛盾 → T4 用户裁定"}
+{"ref": "ruling:ICH_E3", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "848", "pdf_page": 42, "note": "D2 删扩写 → p42 a004-a006 原文"}
+{"ref": "ruling:4.4.5_should", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "875", "pdf_page": 42, "note": "must→should (PDF 原词 should)"}
+{"ref": "ruling:4.4.5_visits_and", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "879", "pdf_page": 42, "note": "补 'visits and' + ', as described above'"}
+{"ref": "R3:ig34_p0043_a002-a007", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "893", "pdf_page": 43, "note": "§4.4.6 PDF 整段补入"}
+{"ref": "D2:ch04:894_XSTDY", "action": "DELETED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "893", "pdf_page": 43, "note": "KB 自写 --XSTDY/--CHSTDY bullet 删 (与 PDF 矛盾)"}
+{"ref": "D2:ch04:861_DY_formula", "action": "DELETED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "852-853", "pdf_page": 42, "note": "KB 自写错公式删"}
+{"ref": "D6:863", "action": "ANNOTATED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "863", "pdf_page": null, "note": "D6 KB note prefix"}
+{"ref": "D6:873", "action": "ANNOTATED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "873", "pdf_page": null, "note": "D6 KB note prefix"}
+{"ref": "D6:874_VISITDY_paren", "action": "ANNOTATED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "874-875", "pdf_page": null, "note": "D6 KB note prefix"}
+{"ref": "D6:896", "action": "ANNOTATED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "896", "pdf_page": null, "note": "D6 KB note prefix"}
+{"ref": "D6:898", "action": "ANNOTATED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "898", "pdf_page": null, "note": "D6 KB note prefix"}
+{"ref": "D6:951-954_example_applications", "action": "ANNOTATED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "951-954", "pdf_page": null, "note": "D6 KB note prefix"}
+{"ref": "D6:964_mermaid", "action": "ANNOTATED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "964", "pdf_page": null, "note": "D6 KB note prefix"}
+{"ref": "attempt2:C1", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "300", "pdf_page": 29, "note": "D2: 旧改写句删, a027 原文"}
+{"ref": "attempt2:C2", "action": "DELETED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "859", "pdf_page": 42, "note": "D2: Derivation notes 标签+3 条删; KB note 独立行"}
+{"ref": "attempt2:C3", "action": "DELETED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "893", "pdf_page": 43, "note": "D2: KB note ×2 删"}
+{"ref": "attempt2:C4", "action": "DELETED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "942", "pdf_page": 44, "note": "D2: Restriction on --STRTPT 删"}
+{"ref": "attempt2:C5", "action": "DELETED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1397", "pdf_page": 56, "note": "D2: 旧压缩 CO/IE/TS/TI 行删"}
+{"ref": "attempt2:C6", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "916", "pdf_page": 43, "note": "段落 = PDF 原文 (a030/a031/a033)"}
+{"ref": "attempt2:C7", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "838,840", "pdf_page": 41, "note": "a044/a045 原文"}
+{"ref": "attempt2:C8", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "828", "pdf_page": 41, "note": "or foreword slash"}
+{"ref": "attempt2:C9", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "945,949-952", "pdf_page": 44, "note": "Examples 小节标题 a011 + Ex1 Assumptions a013-a015"}
+{"ref": "attempt2:C10", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "871", "pdf_page": 42, "note": "a019 原文"}
+{"ref": "attempt2:T-2", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1276", "pdf_page": 53, "note": "T4; 补 reviewer 参考 (疑表头 LBDRVFL 误标)"}
+{"ref": "attempt2b:ig34_p0044_a016", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "954", "pdf_page": 44, "note": "D2: 旧改写行 → PDF 原句 'Example when … checked:'"}
+{"ref": "attempt2b:ig34_p0045_a006", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "982", "pdf_page": 45, "note": "D2: 旧改写行 → PDF 原句 'Example when … checked:'"}
+{"ref": "attempt2b:ig34_p0045_a020", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "998", "pdf_page": 45, "note": "D2: 旧改写行 → PDF 原句 'Example when … checked:'"}
+{"ref": "attempt3:F1:ig34_p0042_a015", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "866", "pdf_page": 42, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:F2:ig34_p0055_a016", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1365", "pdf_page": 55, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:F3:ig34_p0054_a025", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1344", "pdf_page": 54, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p55_a010-a017", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1359-1366", "pdf_page": 55, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p55_a021,a032,p56_Ex3", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1368-1409", "pdf_page": 55, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p55_a004", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1351", "pdf_page": 55, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p23_a019", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "66", "pdf_page": 23, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p25_a001,a035", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "95,136", "pdf_page": 25, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p26_a021", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "171", "pdf_page": 26, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p27_a014", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "198", "pdf_page": 27, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p31_a025", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "376", "pdf_page": 31, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p35_a026,a039", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "552,573", "pdf_page": 35, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p37_a005,a006", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "635", "pdf_page": 37, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p37_a021-a026", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "647-653", "pdf_page": 37, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p38_a014,a015", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "675", "pdf_page": 38, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p39_a022,a024,a027", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "730-732", "pdf_page": 39, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p41_a002,a008,a011,a042", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "796-835", "pdf_page": 41, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p42_a018,a020,a021,a025", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "868-882", "pdf_page": 42, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p43_a014,a017,a019", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "907-911", "pdf_page": 43, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p44_a010", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "941", "pdf_page": 44, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p45_a011,a014,a021,a025", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "989-1006", "pdf_page": 45, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p45_a030,a031,a034", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1011", "pdf_page": 45, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p46_a009,a012,a034", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1032-1071", "pdf_page": 46, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p47_a010-a013", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1084-1112", "pdf_page": 47, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p48_a021-a036", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1135-1141", "pdf_page": 48, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:§4.4.11 p48-51", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1145-1199", "pdf_page": 48, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:§4.5.1 p51-52", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1203-1226", "pdf_page": 51, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p52_a033,a034,a038", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1267-1273", "pdf_page": 52, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p57 QEVAL ex/a008/PRESP", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1443-1482", "pdf_page": 57, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt3:scan:p58-59", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1509,1520", "pdf_page": 58, "note": "见 checkpoint §attempt 3"}
+{"ref": "attempt4:H1", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "832-836", "pdf_page": 41, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:H2", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "223-225", "pdf_page": 28, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:H3", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "248-261", "pdf_page": 28, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:H4", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "514-528", "pdf_page": 34, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:M1", "action": "MOVED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "803-813", "pdf_page": 40, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:M2", "action": "ANNOTATED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "7,17", "pdf_page": 22, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:M3", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "663", "pdf_page": 37, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:M4", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "43-56", "pdf_page": 23, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:M5", "action": "ANNOTATED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "919", "pdf_page": 43, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:M6", "action": "ANNOTATED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "940", "pdf_page": 44, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:L1", "action": "DELETED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "554", "pdf_page": 35, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:L2", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "92,402", "pdf_page": 24, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:L4", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "190", "pdf_page": 26, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:L5", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1055,1234", "pdf_page": 46, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:L6", "action": "MOVED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1284", "pdf_page": 52, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:L7", "action": "MOVED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "886-895", "pdf_page": 42, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:L9", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "231,380", "pdf_page": 28, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:L10", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1321", "pdf_page": 53, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:L12", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "636", "pdf_page": 36, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:L13", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "1261-1262", "pdf_page": 52, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:N1", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "773-774", "pdf_page": 40, "note": "见 checkpoint §attempt 4"}
+{"ref": "attempt4:N2", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch04_general_assumptions.md", "kb_line_after": "421-447", "pdf_page": 32, "note": "见 checkpoint §attempt 4"}

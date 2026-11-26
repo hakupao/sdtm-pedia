@@ -20,6 +20,7 @@
 | T2.B-EG auditor a1 | prose 抽检 + Ex1 10 格渲染 + Ex2/Ex4 改格 + 删除 diff | C=1 (P=17) | N=10 | 20261126 | C 1 + P−C 9 (含 DD 对照 3) | 0/10 | 0 | PASS (F-1 spec 首句非阻断待主控) | 待主控 |
 | T2.B-AE auditor a1 | prose 抽检 + Ex3/Ex5/Ex6 10 格 + T-1/T-3 独立复核 + 删除行核对 + G-TB8 | C=5 (P=45) | N=10 | 20261126 | C 5 + P−C 5 | 0/9 (1 范围外 OOS-1 §6.2 引言) | 0 | PASS | 待主控 |
 | T2.B-GF auditor a1 | prose 抽检 + Ex1/Ex2/Ex4 10 格渲染 (seed 抽格) + D-5..D-8 删除核 + 锚点 + md5/G-TB8 | C=1 (P=20) | N=10 | 20261126 | C 1 + P−C 9 | 0/10 | 0 | PASS | 待主控 |
+| T2.B-ch04 auditor a2 | prose 抽检 (C 扩为 a1-a4 改动原子) + F1-F3 复核 + 重点区 7 处对渲染 (§4.4.10-4.5.1 / D6 伪节号块 / --OBJ Mermaid / 时长表 / MK 表 / 4.2.7.1 小表 ×5 / 缺项日期表 / 基线表) + 独立正反全扫 (含表格原子) | C=115 (P=730) | N=23 | 20261127 | C 12 + P−C 对照 11 | 0/23; 全扫无 R2 丢失 (观察 1: :1080 U+2212) | 0 | PASS | 待主控 (live docs 45 的 +3 来自 B-GF evidence) |
 
 ## 失败详情
 - T2.B-ch04 auditor a1 FAIL: seeded 样本 0/10, 但本批 kb_files/页内 R2 丢失 3 处 (F1-F3), 详见 evidence/checkpoints/t2_B-ch04_audit.md §3.

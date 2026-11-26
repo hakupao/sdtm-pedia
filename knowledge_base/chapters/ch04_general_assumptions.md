@@ -4,7 +4,7 @@ Source: SDTMIG v3.4, Section 4 (Pages 22-59)
 
 ## Overview
 
-This section describes basic concepts, business rules, and assumptions that should be taken into consideration before applying the domain models. It covers general domain assumptions, general variable assumptions, coding and controlled terminology assumptions, actual and relative time assumptions, and other assumptions.
+> KB note (not in SDTMIG): This section describes basic concepts, business rules, and assumptions that should be taken into consideration before applying the domain models. It covers general domain assumptions, general variable assumptions, coding and controlled terminology assumptions, actual and relative time assumptions, and other assumptions.
 
 ---
 
@@ -12,7 +12,9 @@ This section describes basic concepts, business rules, and assumptions that shou
 
 ### 4.1.1 Review Study Data Tabulation Model and Implementation Guide
 
-Review the SDTM as well as this complete implementation guide before attempting to use any of the individual domain models. The SDTM describes the general conceptual framework, including the general observation classes (Interventions, Events, Findings), special-purpose domains, trial design model datasets, relationship datasets, and study references.
+Review the SDTM as well as this complete implementation guide before attempting to use any of the individual domain models.
+
+> KB note (not in SDTMIG): The SDTM describes the general conceptual framework, including the general observation classes (Interventions, Events, Findings), special-purpose domains, trial design model datasets, relationship datasets, and study references.
 
 ### 4.1.2 Relationship to Analysis Datasets
 
@@ -38,19 +40,20 @@ The order of variables in the Define-XML document must reflect the order of vari
 
 Three categories are specified in the Core column in the domain models:
 
-- An **Expected** variable is any variable necessary to make a record useful in the context of a specific domain. Expected variables may contain some null values, but in most cases will not contain null values for every record. When the study does not include the data item for an expected variable, however, a null column must still be included in the dataset, and a comment must be included in the Define-XML document to state that the study does not include the data item.
+- A Required variable is any variable that is basic to the identification of a data record (i.e., essential key variables and a topic variable) or is necessary to make the record meaningful. Required variables must always be included in the dataset and cannot be null for any record.
+- An Expected variable is any variable necessary to make a record useful in the context of a specific domain. Expected variables may contain some null values, but in most cases will not contain null values for every record. When the study does not include the data item for an expected variable, however, a null column must still be included in the dataset, and a comment must be included in the Define-XML document to state that the study does not include the data item.
+- A Permissible variable should be used in an SDTM dataset wherever appropriate. Although domain specification tables list only some of the identifier, timing, and general observation class variables listed in the SDTM, all are permissible unless specifically restricted in this implementation guide (see Section 2.7, SDTM Variables Not Allowed in the SDTMIG) or by specific domain assumptions.
+  - Domain assumptions that say a Permissible variable is "generally not used" do not prohibit use of the variable.
+  - If a study includes a data item that would be represented in a Permissible variable, then that variable must be included in the SDTM dataset, even if null. Indicate no data were available for that variable in the Define-XML document.
+  - If a study did not include a data item that would be represented in a Permissible variable, then that variable should not be included in the SDTM dataset and should not be declared in the Define-XML document.
+
+> KB note (not in SDTMIG): summary table of the Core designations above.
 
 | Core Value | Meaning | Rule |
 |------------|---------|------|
 | **Req** (Required) | A Required variable is any variable that is basic to the identification of a data record (i.e., essential key variables and a topic variable) or is necessary to make the record meaningful. Required variables must always be included in the dataset and cannot be null for any record. | Must always be populated; cannot be null for any record |
 | **Exp** (Expected) | Must be included in the dataset | Value should be populated when available; null values allowed when data not collected/applicable; must still include the column and add a comment in the Define-XML document to state that the study does not include the data item |
 | **Perm** (Permissible) | May be included in the dataset | If a study includes a data item that would be represented in a Permissible variable, then that variable must be included (even if null) and declared in Define-XML; if a study did not collect the data, do not include the variable and do not declare it in Define-XML |
-
-Although domain specification tables list only some of the identifier, timing, and general observation class variables listed in the SDTM, all are permissible unless specifically restricted in this implementation guide (see Section 2.7, SDTM Variables Not Allowed in the SDTMIG) or by specific domain assumptions.
-
-- Domain assumptions that say a Permissible variable is "generally not used" do not prohibit use of the variable.
-- If a study includes a data item that would be represented in a Permissible variable, then that variable must be included in the SDTM dataset, even if null. Indicate no data were available for that variable in the Define-XML document.
-- If a study did not include a data item that would be represented in a Permissible variable, then that variable should not be included in the SDTM dataset and should not be declared in the Define-XML document.
 
 ### 4.1.6 Additional Guidance on Dataset Naming
 
@@ -63,7 +66,7 @@ In some cases, sponsors may need to define new custom domains and may be concern
 Sponsors may choose to split a domain of topically related information into physically separate datasets.
 
 - A domain based on a general observation class may be split according to values in --CAT. When a domain is split on --CAT, --CAT must not be null.
-- A Findings About (FA) domain (see Section 6.4.4, Findings About Events or Interventions) may alternatively be split based on the domain of the value in --OBJ. For example, FACM would store findings about Concomitant/Prior Medications (CM) records. See Section 6.4.2, Naming Findings About Domains, for more details.
+- The Findings About (FA) domain (see Section 6.4.4, Findings About Events or Interventions) may alternatively be split based on the domain of the value in --OBJ. For example, FACM would store findings about Concomitant/Prior Medications (CM) records. See Section 6.4.2, Naming Findings About Domains, for more details.
 
 The following rules must be adhered to when splitting a domain into separate datasets to ensure they can be appended back into 1 domain dataset:
 
@@ -86,21 +89,23 @@ The following rules must be adhered to when splitting a domain into separate dat
 9. See the SDTM Implementation Guide: Associated Persons (https://www.cdisc.org/standards/foundational/sdtmig/) for the naming of split AP datasets.
 10. See the SDTM Define-XML specification (https://www.cdisc.org/standards/data-exchange/define-xml) for details regarding metadata representation when a domain is split into different datasets. For additional examples, see the Metadata Submission Guideline (MSG) for SDTMIG (https://www.cdisc.org/standards/foundational/sdtmig/).
 
-> **Note:** Submission of split SDTM domains may be subject to additional dataset-splitting conventions as defined by regulators via technical specifications and/or as negotiated with regulatory reviewers.
+Note that submission of split SDTM domains may be subject to additional dataset-splitting conventions as defined by regulators via technical specifications and/or as negotiated with regulatory reviewers.
 
 #### 4.1.7.1 Example of Splitting Questionnaires
 
 QRS datasets are routinely created and reviewed for the individual QRS instrument. This example shows the QS domain data split into 3 datasets: Clinical Global Impression (QSCG), Pain Intensity (QSPI), and Satisfaction of Life Scale (QSSW). Each dataset represents a subset of the QS domain data and has only 1 value of QSCAT.
 
+**QS Domains**
+
 **Dataset for Clinical Global Impressions — qscg.xpt**
 
 | Row | STUDYID | DOMAIN | USUBJID | QSSEQ | QSTESTCD | QSTEST | QSCAT | QSORRES | QSSTRESC | QSSTRESN | QSLOBXFL | VISITNUM | VISIT | VISITDY | QSDTC | QSDY |
 |-----|---------|--------|---------|-------|----------|--------|-------|---------|----------|----------|----------|----------|-------|---------|-------|------|
-| 1 | CDISC01 | QS | CDISC01.100008 | 1 | CGI0201 | CGI02-Severity | CGI | Moderate | 4 | 4 | | 1 | WEEK 1 | 7 | 2003-04-15 | 1 |
+| 1 | CDISC01 | QS | CDISC01.100008 | 1 | CGI0201 | CGI02-Severity | CGI | Moderate | 4 | 4 | Y | 1 | WEEK 1 | 1 | 2003-04-15 | 1 |
 | 2 | CDISC01 | QS | CDISC01.100008 | 2 | CGI0201 | CGI02-Severity | CGI | Mild | 3 | 3 | | 2 | WEEK 2 | 7 | 2003-04-21 | 7 |
 | 3 | CDISC01 | QS | CDISC01.100008 | 3 | CGI0202 | CGI02-Change | CGI | Minimally Improved | 3 | 3 | | 2 | WEEK 2 | 7 | 2003-04-21 | 7 |
 | 4 | CDISC01 | QS | CDISC01.100008 | 4 | CGI0203 | CGI02-Improvement | CGI | A little better | 3 | 3 | | 2 | WEEK 2 | 7 | 2003-04-21 | 7 |
-| 5 | CDISC01 | QS | CDISC01.100014 | 1 | CGI0201 | CGI02-Severity | CGI | Moderate | 4 | 4 | | 1 | WEEK 1 | 7 | 2003-04-15 | 1 |
+| 5 | CDISC01 | QS | CDISC01.100014 | 1 | CGI0201 | CGI02-Severity | CGI | Moderate | 4 | 4 | Y | 1 | WEEK 1 | 1 | 2003-04-15 | 1 |
 | 6 | CDISC01 | QS | CDISC01.100014 | 2 | CGI0201 | CGI02-Severity | CGI | Mild | 3 | 3 | | 2 | WEEK 2 | 7 | 2003-04-21 | 7 |
 | 7 | CDISC01 | QS | CDISC01.100014 | 3 | CGI0202 | CGI02-Change | CGI | Minimally Improved | 3 | 3 | | 2 | WEEK 2 | 7 | 2003-04-21 | 7 |
 | 8 | CDISC01 | QS | CDISC01.100014 | 4 | CGI0203 | CGI02-Improvement | CGI | A little better | 3 | 3 | | 2 | WEEK 2 | 7 | 2003-04-21 | 7 |
@@ -120,18 +125,18 @@ QRS datasets are routinely created and reviewed for the individual QRS instrumen
 
 | Row | STUDYID | DOMAIN | USUBJID | QSSEQ | QSTESTCD | QSTEST | QSCAT | QSORRES | QSSTRESC | QSSTRESN | QSLOBXFL | VISITNUM | QSDTC | QSDY |
 |-----|---------|--------|---------|-------|----------|--------|-------|---------|----------|----------|----------|----------|-------|------|
-| 1 | CDISC01 | QS | CDISC01.100008 | 1 | SWLS01 | SWLS01-My Life is Close to Ideal | SWLS | Slightly agree | 5 | 5 | Y | 1 | 2003-04-15 | 1 |
-| 2 | CDISC01 | QS | CDISC01.100008 | 2 | SWLS02 | SWLS01-My Life Conditions are Excellent | SWLS | Neither agree nor disagree | 4 | 4 | | 1 | 2003-04-15 | 1 |
-| 3 | CDISC01 | QS | CDISC01.100008 | 3 | SWLS03 | SWLS01-I Am Satisfied with my Life | SWLS | Agree | 6 | 6 | | 1 | 2003-04-15 | 1 |
-| 4 | CDISC01 | QS | CDISC01.100008 | 4 | SWLS04 | SWLS01-Have Gotten Important Things | SWLS | Disagree | 2 | 2 | | 1 | 2003-04-15 | 1 |
-| 5 | CDISC01 | QS | CDISC01.100008 | 5 | SWLS05 | SWLS01-Live Life Over Change Nothing | SWLS | Strongly disagree | 1 | 1 | | 1 | 2003-04-15 | 1 |
-| 6 | CDISC01 | QS | CDISC01.100014 | 6 | SWLS01 | SWLS01-My Life is Close to Ideal | SWLS | Slightly agree | 5 | 5 | Y | 1 | 2003-04-15 | 1 |
-| 7 | CDISC01 | QS | CDISC01.100014 | 7 | SWLS02 | SWLS01-My Life Conditions are Excellent | SWLS | Neither agree nor disagree | 4 | 4 | | 1 | 2003-04-15 | 1 |
-| 8 | CDISC01 | QS | CDISC01.100014 | 8 | SWLS03 | SWLS01-I Am Satisfied with my Life | SWLS | Agree | 6 | 6 | | 1 | 2003-04-15 | 1 |
-| 9 | CDISC01 | QS | CDISC01.100014 | 9 | SWLS04 | SWLS01-Have Gotten Important Things | SWLS | Disagree | 2 | 2 | | 1 | 2003-04-15 | 1 |
-| 10 | CDISC01 | QS | CDISC01.100014 | 10 | SWLS05 | SWLS01-Live Life Over Change Nothing | SWLS | Strongly disagree | 1 | 1 | | 1 | 2003-04-15 | 1 |
+| 1 | CDISC01 | QS | CDISC01.100008 | 1 | SWLS0101 | SWLS01-My Life is Close to Ideal | SWLS | Slightly agree | 5 | 5 | Y | 1 | 2003-04-15 | 1 |
+| 2 | CDISC01 | QS | CDISC01.100008 | 2 | SWLS0102 | SWLS01-My Life Conditions are Excellent | SWLS | Neither agree nor disagree | 4 | 4 | Y | 1 | 2003-04-15 | 1 |
+| 3 | CDISC01 | QS | CDISC01.100008 | 3 | SWLS0103 | SWLS01-I Am Satisfied with My Life | SWLS | Agree | 6 | 6 | Y | 1 | 2003-04-15 | 1 |
+| 4 | CDISC01 | QS | CDISC01.100008 | 4 | SWLS0104 | SWLS01-Have Gotten Important Things | SWLS | Disagree | 2 | 2 | Y | 1 | 2003-04-15 | 1 |
+| 5 | CDISC01 | QS | CDISC01.100008 | 5 | SWLS0105 | SWLS01-Live Life Over Change Nothing | SWLS | Strongly disagree | 1 | 1 | Y | 1 | 2003-04-15 | 1 |
+| 6 | CDISC01 | QS | CDISC01.100014 | 6 | SWLS0101 | SWLS01-My Life is Close to Ideal | SWLS | Slightly agree | 5 | 5 | Y | 1 | 2003-04-15 | 1 |
+| 7 | CDISC01 | QS | CDISC01.100014 | 7 | SWLS0102 | SWLS01-My Life Conditions are Excellent | SWLS | Neither agree nor disagree | 4 | 4 | Y | 1 | 2003-04-15 | 1 |
+| 8 | CDISC01 | QS | CDISC01.100014 | 8 | SWLS0103 | SWLS01-I Am Satisfied with My Life | SWLS | Agree | 6 | 6 | Y | 1 | 2003-04-15 | 1 |
+| 9 | CDISC01 | QS | CDISC01.100014 | 9 | SWLS0104 | SWLS01-Have Gotten Important Things | SWLS | Disagree | 2 | 2 | Y | 1 | 2003-04-15 | 1 |
+| 10 | CDISC01 | QS | CDISC01.100014 | 10 | SWLS0105 | SWLS01-Live Life Over Change Nothing | SWLS | Strongly disagree | 1 | 1 | Y | 1 | 2003-04-15 | 1 |
 
-**SUPP-- Domains**
+**SUPPQS Domains**
 
 **Supplemental Qualifiers for QSCG — suppqscg.xpt**
 
@@ -166,7 +171,7 @@ QRS datasets are routinely created and reviewed for the individual QRS instrumen
 
 #### 4.1.8.1 Origin Metadata for Variables
 
-The origin element in the Define-XML file is used to indicate where the data originated. Its purpose is to unambiguously communicate to the reviewer the origin of the data source. For example, data could be collected (on the CRF, from a vendor, or from a device), derived, or assigned; CRF data should be traceable to an annotated CRF and derived data should be traceable to some derivation algorithm. The Define-XML specification is the definitive source of allowable origin values. Additional guidance and supporting examples can be referenced using the Metadata Submission Guidelines (MSG) for SDTMIG.
+The origin element in the Define-XML document file is used to indicate where the data originated. Its purpose is to unambiguously communicate to the reviewer the origin of the data source. For example, data could be collected (on the CRF, from a vendor, or from a device), derived, or assigned; CRF data should be traceable to an annotated CRF and derived data should be traceable to some derivation algorithm. The Define-XML specification is the definitive source of allowable origin values. Additional guidance and supporting examples can be referenced using the Metadata Submission Guidelines (MSG) for SDTMIG.
 
 #### 4.1.8.2 Origin Metadata for Records
 
@@ -193,7 +198,7 @@ In this example, sponsor B might have collected data that used different imaging
     STUDYID, USUBJID, SPDEVID, VISITNUM, MKTESTCD, MKLOC, MKLAT, MKMETHOD,
     QNAM.MKHNDPOS
 
-where the notation "QNAM.MKHNDPOS" means the Supplemental Qualifier whose QNAM is "MKHNDPOS". This approach becomes very useful in a Findings domain when --TESTCD values are "generic" and rely on other variables to completely describe the test. The use of generic test codes helps to create distinct lists of manageable controlled terminology for --TESTCD. In studies where multiple repetitive tests or measurements are being made, for example in a rheumatoid arthritis study where repetitive measurements of bone erosion in the hands and wrists might be made using both X-ray and MRI equipment, the generic MKTEST "Sharp/Genari Bone Erosion Score" would be used in combination with other variables to fully identify the result.
+where the notation "QNAM.MKHNDPOS" means the Supplemental Qualifier whose QNAM is "MKHNDPOS". This approach becomes very useful in a Findings domain when --TESTCD values are "generic" and rely on other variables to completely describe the test. The use of generic test codes helps to create distinct lists of manageable controlled terminology for --TESTCD. In studies where multiple repetitive tests or measurements are being made, for example in a rheumatoid arthritis study where repetitive measurements of bone erosion in the hands and wrists might be made using both X-ray and MRI equipment, the generic MKTEST "Sharp/Genant Bone Erosion Score" would be used in combination with other variables to fully identify the result.
 
 Taking just the phalanges, a sponsor might want to express the following in a test in order to make it unique:
 
@@ -215,11 +220,15 @@ The MKTESTCD value "SGBESCR" is a generic test code, and additional information 
 
 The following variables would be used to fully describe the test. The natural key for this domain includes both parent dataset variables and a supplemental qualifier variable that contribute to the natural key of each row and to describe the uniqueness of the test.
 
+| SPDEVID | MKTESTCD | MKTEST | MKLOC | MKLAT | MKMETHOD | QNAM.MKHNDPOS |
+|---------|----------|--------|-------|-------|----------|---------------|
+| ACME3000 | SGBESCR | Sharp/Genant Bone Erosion Score | METACARPOPHALANGEAL JOINT 1 | LEFT | X-RAY | PALM UP |
+
 ---
 
 ## 4.2 General Variable Assumptions
 
-### 4.2.1 Variable-Naming Conventions
+### 4.2.1 Variable-naming Conventions
 
 SDTM variables are named according to a set of conventions, using fragment names (see Appendix D, CDISC Variable-naming Fragments). Variables with names ending in "CD" are "short" versions of associated variables that do not include the "CD" suffix (e.g., --TESTCD is the short version of --TEST).
 
@@ -236,21 +245,20 @@ Variable descriptive names (labels), up to 40 characters, should be provided as 
 
 Use of variable names (other than domain prefixes), formats, decodes, terminology, and data types for the same type of data (even for custom domains and Supplemental Qualifiers) should be consistent within and across studies within a submission.
 
-#### 4.2.1.1 --TEST and --TESTCD Conventions (Findings)
-
-- --TESTCD: standardized or dictionary-derived short sequence, up to 8 characters
-- --TEST: full descriptive name of the test
-- Both are subject to controlled terminology where available
-
-#### 4.2.1.2 --TRT Conventions (Interventions)
-
-- Contains the verbatim name of the treatment, drug, procedure, or therapy
-- Should represent the name as reported on the CRF
-
-#### 4.2.1.3 --TERM Conventions (Events)
-
-- Contains the verbatim or prespecified name of the event
-- Should represent the term as reported on the CRF
+> KB note (not in SDTMIG): topic/test variable conventions (KB summary).
+>
+> --TEST and --TESTCD (Findings):
+> - --TESTCD: standardized or dictionary-derived short sequence, up to 8 characters
+> - --TEST: full descriptive name of the test
+> - Both are subject to controlled terminology where available
+>
+> --TRT (Interventions):
+> - Contains the verbatim name of the treatment, drug, procedure, or therapy
+> - Should represent the name as reported on the CRF
+>
+> --TERM (Events):
+> - Contains the verbatim or prespecified name of the event
+> - Should represent the term as reported on the CRF
 
 ### 4.2.2 Two-character Domain Identifier
 
@@ -297,7 +305,7 @@ It is recommended that text data be submitted in text that is all upper case (e.
 
 ### 4.2.5 Convention for Missing Values
 
-Missing values are represented as null. When a test is not performed, use --STAT = "NOT DONE" and --REASND for the reason. See Section 4.5.1.2 for details.
+Missing values for individual data items should be represented by nulls. Conventions for representing observations not done, using the SDTM --STAT and --REASND variables, are addressed in Section 4.5.1.2, Tests Not Done, and the individual domain models.
 
 ### 4.2.6 Grouping Variables and Categorization
 
@@ -369,9 +377,9 @@ In domains based on the Findings general observation class, the --RESCAT variabl
 
 Sponsors often collect free-text data on a CRF to supplement a standard field. This often occurs as part of a list of choices accompanied by "Other, specify." The manner in which these data are submitted will vary based on their role.
 
-#### 4.2.7.1 "Specify" Values for Non-Result Qualifier Variables
+#### 4.2.7.1 "Specify" Values for Non-result Qualifier Variables
 
-When free-text information is collected to supplement a standard non-result qualifier field, the free-text value should be placed in the SUPP-- dataset described in Section 8.4, Relating Non-standard Variable Values to a Parent Domain. When applicable, controlled terminology should be used for SUPP-- field names (QNAM) and their associated labels (QLABEL; see Section 8.4 and Appendix C1, Supplemental Qualifiers Name Codes).
+When free-text information is collected to supplement a standard non-result qualifier field, the free-text value should be placed in the SUPP-- dataset described in Section 8.4, Relating Non-standard Variable Values to a Parent Domain. When applicable, controlled terminology should be used for SUPP-- field names (QNAM) and their associated labels (QLABEL; see Section 8.4, Relating Non-standard Variable Values to a Parent Domain, and Appendix C1, Supplemental Qualifiers Name Codes).
 
 For example, when a description of "Other Medically Important Serious Adverse Event" category is collected on a CRF, the free-text description should be stored in the SUPPAE dataset.
 
@@ -391,7 +399,7 @@ The free-text description should be stored in the SUPPEX dataset.
 - EXADJ = "NONMEDICAL REASON"
 - SUPPEX QNAM = "EXADJDSC", QLABEL = "Reason For Dose Adjustment Description", QVAL = "PATIENT MISUNDERSTOOD INSTRUCTIONS"
 
-> **Note:** QNAM references the "parent" variable name with the addition of "DSC". Likewise, the label is a modification of the parent variable label.
+Note that QNAM references the "parent" variable name with the addition of "DSC". Likewise, the label is a modification of the parent variable label.
 
 When the CRF includes a list of values for a qualifier field that includes "Other" and the "Other" is supplemented with a "Specify" free-text field, then the manner in which the free-text "Specify" value is submitted will vary based on the sponsor's coding practice and analysis requirements.
 
@@ -410,19 +418,31 @@ An investigator has selected "OTHER" and specified "Broken arm". Several options
 
 1. If the sponsor wishes to maintain controlled terminology for the CMINDC field and limit the terminology to the 5 prespecified choices, then the free text is placed in SUPPCM.
 
-   - CMINDC = "OTHER"
-   - SUPPCM QNAM = "CMINDOTH", QLABEL = "Other Indication", QVAL = "BROKEN ARM"
+   | CMINDC |
+   |--------|
+   | OTHER |
+
+   | QNAM | QLABEL | QVAL |
+   |------|--------|------|
+   | CMINDOTH | Other Indication | BROKEN ARM |
 
 2. If the sponsor wishes to maintain controlled terminology for CMINDC but will expand the terminology based on values seen in the "Other, specify" field, then the value of CMINDC will reflect the sponsor's coding decision and SUPPCM could be used to store the verbatim text.
 
-   - CMINDC = "FRACTURE"
-   - SUPPCM QNAM = "CMINDOTH", QLABEL = "Other Indication", QVAL = "BROKEN ARM"
+   | CMINDC |
+   |--------|
+   | FRACTURE |
+
+   | QNAM | QLABEL | QVAL |
+   |------|--------|------|
+   | CMINDOTH | Other Indication | BROKEN ARM |
 
    Note that the sponsor might choose a different value for CMINDC (e.g., "BONE FRACTURE") depending on the sponsor's coding practice and analysis requirements.
 
 3. If the sponsor does not require that controlled terminology be maintained and wishes for all responses to be stored in a single variable, then CMINDC will be used and SUPPCM is not required.
 
-   - CMINDC = "BROKEN ARM"
+   | CMINDC |
+   |--------|
+   | BROKEN ARM |
 
 #### 4.2.7.2 "Specify" Values for Result Qualifier Variables
 
@@ -493,16 +513,18 @@ As illustrated in the following figure, when findings are collected about an eve
 
 **Figure. Decision Tree for Populating --OBJ**
 
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure (Figure. Decision Tree for Populating --OBJ).
+
 ```mermaid
 graph TD
     A["Findings about data for an event or intervention<br/>where the name of the event or intervention<br/>was entered as free text"]
-    A --> B{"Topic variable<br/>coded?"}
-    B -->|Yes| C["Populate --OBJ<br/>with --DECOD"]
-    B -->|No| D{"Parent record<br/>exists?"}
-    D -->|Yes| E{"Name of event<br/>or intervention<br/>coded?"}
-    D -->|No| F["Populate --OBJ<br/>with topic<br/>variable value"]
-    E -->|Yes| G["Populate --OBJ<br/>with coded value"]
-    E -->|No| H["Populate --OBJ<br/>with verbatim<br/>value"]
+    A --> P{"Parent record<br/>exists?"}
+    P -->|Yes| T{"Topic variable<br/>coded?"}
+    P -->|No| N{"Name of event<br/>or intervention<br/>coded?"}
+    T -->|Yes| C["Populate --OBJ<br/>with --DECOD"]
+    T -->|No| F["Populate --OBJ<br/>with topic<br/>variable value"]
+    N -->|Yes| G["Populate --OBJ<br/>with coded value"]
+    N -->|No| H["Populate --OBJ<br/>with verbatim<br/>value"]
 ```
 
 ### 4.2.8 Multiple Values for a Variable
@@ -529,7 +551,7 @@ The SDTM permits 1 value for each qualifier variable per record. If multiple val
 
 The following example includes selected variables from the ae.xpt and suppae.xpt datasets for a rash with locations on the face, neck, and chest.
 
-**Example 1:** A rash with locations on the face, neck, and chest:
+**Example 1:**
 
 ae.xpt:
 
@@ -547,7 +569,7 @@ suppae.xpt:
 
 In some cases, values for QNAM and QLABEL more specific than these may be needed.
 
-**Example 2:** A study with 2 study drugs (Abcicin + Xyzamin), requiring causality and action for each drug:
+**Example 2:** For example, a sponsor might conduct a study with 2 study drugs (e.g., open-label study of Abcicin + Xyzamin), and may require the investigator assess causality and describe action taken for each drug for the rash:
 
 ae.xpt:
 
@@ -568,7 +590,7 @@ In each of these examples, the use of SUPPAE should be documented in the Define-
 
 If the sponsor has clearly documented that one response is of primary interest (e.g., in the CRF, protocol, or analysis plan), the standard domain variable may be populated with the primary response and SUPP-- may be used to store the secondary response(s).
 
-**Example 3:** If Abcicin is designated as the primary study drug in the example above:
+**Example 3:** For example, if Abcicin is designated as the primary study drug in the example above:
 
 ae.xpt:
 
@@ -611,7 +633,7 @@ Very large transport files have become an issue for certain regulatory authoriti
 
 ## 4.3 Coding and Controlled Terminology Assumptions
 
-> **Note:** Examples provided in the CDISC Notes column and domain examples are only examples and not intended to imply controlled terminology. For current CDISC Controlled Terminology, visit https://datascience.cancer.gov/resources/cancer-vocabulary/cdisc-terminology.
+Examples provided in the CDISC Notes column and domain examples are only examples and not intended to imply controlled terminology. For current CDISC Controlled Terminology, visit https://datascience.cancer.gov/resources/cancer-vocabulary/cdisc-terminology.
 
 ### 4.3.1 Controlled Terms, Codelist or Format Column
 
@@ -630,7 +652,7 @@ Terms from controlled terminology should be in the case that appears in the sour
 
 ### 4.3.3 Controlled Terminology Values
 
-The controlled terminology or a reference to it should be included in the Define-XML document wherever applicable. All values in the permissible value set for the study should be included, whether or not they are represented in submitted data. Note that a null value should not be included in the permissible value set. A null value is implied for any list of controlled terms unless the variable is "Required" (see Section 4.1.5, SDTM Core Designations).
+The controlled terminology or a reference to the controlled terminology should be included in the Define-XML document file wherever applicable. All values in the permissible value set for the study should be included, whether or not they are represented in the submitted data. Note that a null value should not be included in the permissible value set. A null value is implied for any list of controlled terms unless the variable is "Required" (see Section 4.1.5, SDTM Core Designations).
 
 When a domain or dataset specification includes a codelist for a variable, not every value in that codelist may have been part of planned data collection; only values that were part of planned data collection should be included in the Define-XML document. For example, --PRESP variables are associated with the NY codelist, but only the value "Y" is allowed in --PRESP variables. Future versions of the Define-XML specification are expected to include information on representing subsets of controlled terminology.
 
@@ -638,18 +660,12 @@ When a domain or dataset specification includes a codelist for a variable, not e
 
 Controlled terminology or human-readable text should be used instead of arbitrary number codes in order to reduce ambiguity for submission reviewers. For example, CMDECOD would contain human-readable dictionary text rather than a numeric code. Numeric code values may be submitted as Supplemental Qualifiers if necessary.
 
-### 4.3.5 Storing Controlled Terminology for Synonym Qualifier Variables (MedDRA and WHODrug)
+### 4.3.5 Storing Controlled Terminology for Synonym Qualifier Variables
 
-#### MedDRA Coding (Events)
-
-- For events such as adverse events and medical history, populate **--DECOD** with the dictionary's preferred term and populate **--BODSYS** with the preferred body system name. If a dictionary is multi-axial, the value in --BODSYS should represent the system organ class (SOC) used for the sponsor's analysis and summary tables, which may not necessarily be the primary SOC. If a dictionary is multi-axial, the value in --BODSYS should represent the system organ class (SOC) used for the sponsor's analysis. Populate --SOC with the dictionary-derived primary SOC. In cases where the primary SOC was used for analysis, --BODSYS and --SOC are the same.
-- If MedDRA is used to code events, the intermediate levels in the MedDRA hierarchy should also be represented in the dataset. A pair of variables has been defined for each of the levels of the hierarchy other than SOC and Preferred Term (PT): one to represent a code and one to represent a text label. For example, **--LLT** should be used to represent the Lowest Level Term text description and **--LLTCD** should be used to represent the Lowest Level Term code value.
-
-#### WHODrug Coding (Interventions)
-
-- For concomitant medications, populate **CMDECOD** with the drug's generic name and populate **CMCLAS** with the drug class used for the sponsor's analysis and summary tables
-- If coding to multiple classes, follow Section 4.2.8.1 (Multiple Values for an Intervention or Event Topic Variable), or omit CMCLAS
-- For concomitant medications, supplemental qualifiers may be used to represent additional coding dictionary information (e.g., a drug's ATC codes from the WHO Drug Dictionary); see Section 8.4, Relating Non-standard Variable Values to a Parent Domain
+- For events such as adverse events and medical history, populate --DECOD with the dictionary's preferred term and populate --BODSYS with the preferred body system name. If a dictionary is multi-axial, the value in --BODSYS should represent the system organ class (SOC) used for the sponsor's analysis and summary tables, which may not necessarily be the primary SOC. Populate --SOC with the dictionary-derived primary SOC. In cases where the primary SOC was used for analysis, --BODSYS and --SOC are the same.
+- If MedDRA is used to code events, the intermediate levels in the MedDRA hierarchy should also be represented in the dataset. A pair of variables has been defined for each of the levels of the hierarchy other than SOC and Preferred Term (PT): one to represent the text description and the other to represent the code value associated with it. For example, --LLT should be used to represent the Lowest Level Term text description and --LLTCD should be used to represent the Lowest Level Term code value.
+- For concomitant medications, populate CMDECOD with the drug's generic name and populate CMCLAS with the drug class used for the sponsor's analysis and summary tables. If coding to multiple classes, follow Section 4.2.8.1, Multiple Values for an Intervention or Event Topic Variable, or omit CMCLAS.
+- For concomitant medications, supplemental qualifiers may be used to represent additional coding dictionary information (e.g., a drug's ATC codes from the WHO Drug Dictionary; see Section 8.4, Relating Non-standard Variable Values to a Parent Domain).
 
 The sponsor is expected to provide the dictionary name and version used to map the terms by utilizing the Define-XML external codelist attributes.
 
@@ -671,7 +687,7 @@ The variables used in each of the defined domains are:
 
 Variables where the response is "Yes" or "No" ("Y" or "N") should normally be populated for both "Y" and "N" responses. This eliminates confusion regarding whether a blank response indicates "N" or is a missing value.
 
-However, some variables are collected or derived in a manner that allows only 1 response, such as when a single checkbox indicates "Yes". In such situations, where it is unambiguous to populate only the response of interest, it is permissible to populate only 1 value ("Y" or "N") and leave the alternate value blank. An example of when it would be acceptable to use only a value of "Y" would be for Last Observation Before Exposure Flag (--LOBXFL), where "N" is not necessary to indicate that a value is not the last observation before exposure.
+However, some variables are collected or derived in a manner that allows only 1 response, such as when a single checkbox indicates "Yes". In situations such as these, where it is unambiguous to populate only the response of interest, it is permissible to populate only 1 value ("Y" or "N") and leave the alternate value blank. An example of when it would be acceptable to use only a value of "Y" would be for Last Observation Before Exposure Flag (--LOBXFL) variables, where "N" is not necessary to indicate that a value is not the last observation before exposure.
 
 > **Note:** Permissible values for variables with controlled terms of "Y" or "N" may be extended to include "U" or "NA" if it is the sponsor's practice to explicitly collect or derive values indicating "Unknown" or "Not Applicable" for that variable.
 
@@ -726,9 +742,9 @@ Implementation of the ISO 8601 standard means that date/time variables are chara
 
 ### 4.4.2 Date/Time Precision
 
-The concept of representing date/time precision is handled through use of the ISO 8601 standard. According to ISO 8601, precision (also referred to as "completeness" or "representations with reduced accuracy") can be inferred from the presence or absence of components in the date and/or time values. Missing components are represented by right truncation or a hyphen (for intermediate components that are missing). If the date and time values are completely missing, the SDTM date time field should be null. Every component except year is represented as 2 digits. Years are represented as 4 digits; for all other components, 1-digit numbers are always padded with a leading zero.
+The concept of representing date/time precision is handled through use of the ISO 8601 standard. According to ISO 8601, precision (also referred to by ISO 8601 as "completeness" or "representations with reduced accuracy") can be inferred from the presence or absence of components in the date and/or time values. Missing components are represented by right truncation or a hyphen (for intermediate components that are missing). If the date and time values are completely missing, the SDTM date field should be null. Every component except year is represented as 2 digits. Years are represented as 4 digits; for all other components, 1-digit numbers are always padded with a leading zero.
 
-The following table provides examples of ISO 8601 representations of complete and truncated date/time values. Note that if no time component is represented, the [T] time designator (in addition to the missing time) must be omitted in ISO 8601 representation.
+The following table provides examples of ISO 8601 representations of complete and truncated date/time values using ISO 8601 "appropriate right truncations" of incomplete date/time representations. Note that if no time component is represented, the [T] time designator (in addition to the missing time) must be omitted in ISO 8601 representation.
 
 | # | Date and Time as Originally Recorded | Precision | ISO 8601 Date/Time |
 |---|--------------------------------------|-----------|-------------------|
@@ -754,8 +770,8 @@ Other uncertainty intervals may be represented by the omission of components of 
 | # | Date and Time as Originally Recorded | Level of Uncertainty | ISO 8601 Date/Time |
 |---|--------------------------------------|---------------------|-------------------|
 | 1 | December 15, 2003 13:15:17 | Date/time to the nearest second | 2003-12-15T13:15:17 |
-| 2 | December 15, 2003 ??:15 | Unknown hour with known minutes | 2003-12-15T--:15 |
-| 3 | December 15, 2003 13:??:17 | Unknown minutes with known date, hours, and seconds | 2003-12-15T13:--:17 |
+| 2 | December 15, 2003 ??:15 | Unknown hour with known minutes | 2003-12-15T-:15 |
+| 3 | December 15, 2003 13:??:17 | Unknown minutes with known date, hours, and seconds | 2003-12-15T13:-:17 |
 | 4 | The 15th of some month in 2003, time not collected | Unknown month and time with known year and day | 2003---15 |
 | 5 | December 15, but can't remember the year, time not collected | Unknown year with known month and day | --12-15 |
 | 6 | 7:15 of some unknown date | Unknown date with known hour and minute | -----T07:15 |
@@ -786,21 +802,23 @@ where the letter designation is defined as:
 
 - [P] (duration designator): precedes the alphanumeric text string that represents the duration. Note that the use of the character "P" is based on the historical use of the term "period" for duration.
 - [n] represents a positive number or zero.
-- [Y] is used as year designator.
-- [M] is used as month designator (when before "T") or minute designator (when after "T").
-- [D] is used as day designator.
-- [T] is used as the date/time format separator.
-- [H] is used as hour designator.
-- [S] is used as second designator.
-- [W] is used as week designator, preceding a data element that represents the number of calendar weeks (e.g., P6W represents 6 weeks of calendar time).
+- [W] is used as week designator, preceding a data element that represents the number of calendar weeks within the calendar year (e.g., P6W represents 6 weeks of calendar time).
+
+> KB note (not in SDTMIG): other ISO 8601 duration designators:
+> - [Y] is used as year designator.
+> - [M] is used as month designator (when before "T") or minute designator (when after "T").
+> - [D] is used as day designator.
+> - [T] is used as the date/time format separator.
+> - [H] is used as hour designator.
+> - [S] is used as second designator.
 
 The letter "P" must precede other values in the ISO 8601 representation of duration. The "n" preceding each letter represents the number of years, months, days, hours, minutes, seconds, or the number of weeks. As with the date/time format, "T" is used to separate the date components from time components.
 
 Note that weeks cannot be mixed with any other date/time components such as days or months in duration expressions.
 
-As is the case with the date/time representation in --DTC, --STDTC, or --ENDTC, only the components of duration that are known or collected need to be represented. If no time component is represented, the [T] time designator must be omitted in ISO 8601 representation.
+As is the case with the date/time representation in --DTC, --STDTC, or --ENDTC, only the components of duration that are known or collected need to be represented. As is the case with the date/time representation, if no time component is represented, the [T] time designator (in addition to the missing time) must be omitted in ISO 8601 representation.
 
-ISO 8601 also allows that the "lowest-order components" of duration being represented may be represented in decimal format. This may be useful if data are collected in formats such as "one and one-half years", "two and a half weeks", "half a week" or "quarter of an hour" and the sponsor wishes to represent this "precision" (or lack of precision) in ISO 8601 representation. This is ONLY allowed in the lowest-order (right-most) component in any ISO 8601 duration representation.
+ISO 8601 also allows that the "lowest-order components" of duration being represented may be represented in decimal format. This may be useful if data are collected in formats such as "one and one-half years", "two and a half weeks", "half a week" or "quarter of an hour" and the sponsor wishes to represent this "precision" (or lack of precision) in ISO 8601 representation. This is ONLY allowed in the lowest-order (right-most) component in any duration representation.
 
 The following table provides some examples of ISO 8601-compliant representations of durations.
 
@@ -811,33 +829,33 @@ The following table provides some examples of ISO 8601-compliant representations
 | 3 months 14 days | P3M14D |
 | 3 days | P3D |
 | 6 months 17 days 3 hours | P6M17DT3H |
-| 14 days 2 hours 57 minutes | P14DT2H57M |
+| 14 days 7 hours 57 minutes | P14DT7H57M |
 | 42 minutes 18 seconds | PT42M18S |
 | One-half hour | PT0.5H |
-| 5 days 12 1/4 hours | P5DT12.25H |
-| 4 1/2 weeks | P4.5W |
+| 5 days 12¼ hours | P5DT12.25H |
+| 4 ½ weeks | P4.5W |
 
 Note that a leading zero is required with decimal values less than 1.
 
 #### 4.4.3.2 Interval with Uncertainty
 
-When an interval of time is an amount of time (duration) following an event whose start date/time is recorded (with some level of precision), the correct ISO 8601 usage to represent this interval is:
+When an interval of time is an amount of time (duration) following an event whose start date/time is recorded (with some level of precision, e.g., when one knows the start date/time and the duration following the start date/time), the correct ISO 8601 usage to represent this interval is:
 
 `YYYY-MM-DDThh:mm:ss/PnYnMnDTnHnMnS`
 
-where the start date/time is represented before the solidus [/], the "Pn..." following the solidus represents a "duration," and the entire representation is known as an "interval." Note that this is the recommended representation of elapsed time, given a start date/time and the duration elapsed.
+where the start date/time is represented before the solidus or foreword slash [/], the "Pn..." following the solidus represents a "duration," and the entire representation is known as an "interval." Note that this is the recommended representation of elapsed time, given a start date/time and the duration elapsed.
 
-When an interval of time is an amount of time (duration) measured prior to an event whose start date/time is recorded (with some level of precision), the syntax is:
+When an interval of time is an amount of time (duration) measured prior to an event whose start date/time is recorded (with some level of precision, e.g., where one knows the end date/time and the duration preceding that end date/time), the syntax is:
 
 `PnYnMnDTnHnMnS/YYYY-MM-DDThh:mm:ss`
 
-where the duration "Pn..." is represented before the solidus [/], the end date/time is represented following the solidus, and the entire representation is known as an "interval."
+where the duration, "Pn...", is represented before the solidus [/], the end date/time is represented following the solidus, and the entire representation is known as an "interval."
 
 ### 4.4.4 Use of the Study Day Variables
 
-The permissible study day variables (i.e., --DY, --STDY, --ENDY) describe the relative day of the observation starting with the subject reference start date.
+The permissible study day variables (i.e., --DY, --STDY, --ENDY) describe the relative day of the observation starting with the reference date as day 1.
 
-They are determined by comparing the date portion of the respective date/time variables (--DTC, --STDTC, and --ENDTC) to the subject reference start date (RFSTDTC in the Demographics domain).
+They are determined by comparing the date portion of the respective date/time variables (--DTC, --STDTC, and --ENDTC) to the date portion of the subject reference start date (RFSTDTC from the Demographics domain).
 
 The subject reference start date (RFSTDTC) is designated as study day 1.
 
@@ -845,47 +863,50 @@ The study day value is incremented by 1 for each date following RFSTDTC.
 
 Dates prior to RFSTDTC are decreased by 1, with the date preceding RFSTDTC designated as study day -1 (there is no study day 0).
 
-This algorithm for determining Study Day is consistent with how people typically describe sequential days relative to a reference day, and is consistent with the ICH E3 recommendation for the calculation of study day.
+This algorithm for determining Study Day is consistent with how people typically describe sequential days relative to a fixed reference point, but creates problems if used for mathematical calculations because it does not allow for a day 0. As such, Study Day is not suited for use in subsequent numerical computations, such as calculating duration. The raw date values should be used rather than Study Day in those calculations.
 
-**Derivation notes:**
+All study day values are integers. Thus, to calculate Study Day:
 
-- --DY is calculated as: `--DTC - RFSTDTC` (with no day 0)
-- If --DTC is on or after RFSTDTC: DY = date portion of --DTC − date portion of RFSTDTC + 1
-- If --DTC is before RFSTDTC: DY = date portion of --DTC − date portion of RFSTDTC
-- Partial dates should not be used to derive study day
-- Study Day is not suitable for mathematical calculations (e.g., computing durations); use original date values instead
+```
+--DY = (date portion of --DTC) - (date portion of RFSTDTC) + 1 if --DTC is on or after RFSTDTC
+--DY = (date portion of --DTC) - (date portion of RFSTDTC) if --DTC precedes RFSTDTC
+```
+
+This method should be used across all domains.
+
+> KB note (not in SDTMIG): Partial dates should not be used to derive study day
 
 ### 4.4.5 Clinical Encounters and Visits
 
-All domains based on the 3 general observation classes should have at least 1 timing variable. For domains in the Events or Interventions observation classes, this could be the start date of the event or intervention. In the Findings observation class, where data are usually collected at multiple visits, at least 1 timing variable must be used.
+All domains based on the 3 general observation classes should have at least 1 timing variable. For domains in the Events or Interventions observation classes, and for domains in the Findings observation class, for which data are collected only once during the study, the most appropriate timing variable may be a date (e.g., --DTC, --STDTC) or some other timing variable. For studies that are designed with a prospectively defined schedule of visit-based activities, domains for data that are to be collected more than once per subject (e.g., labs, ECG, vital signs) are expected to include VISITNUM as a timing variable.
 
-For planned visits, values of VISIT, VISITNUM, and VISITDY must be those defined in the Trial Visits (TV) dataset. For planned visits:
+Clinical encounters are described by the CDISC visit variables. For planned visits, values of VISIT, VISITNUM, and VISITDY must be those defined in the Trial Visits (TV) dataset (see Section 7.3.1, Trial Visits). For planned visits:
 
-- **VISITNUM**: numeric, used for sorting; values should wherever possible match the planned chronological order of visits. Occasionally, a protocol will define a planned visit whose timing is unpredictable (e.g., planned in response to an adverse event, a threshold test value, or a disease event), and completely chronological values of VISITNUM may not be possible in such cases.
-- **VISIT**: character name of the visit from the protocol
-- **VISITDY**: the planned study day **of the start of the visit** (not the actual study day; do not use --DY); for visits that may last more than 1 calendar day, VISITDY should be the planned day of the start of the visit
-- There must be a **one-to-one relationship** between VISIT and VISITNUM
+- Values of VISITNUM are used for sorting and should, wherever possible, match the planned chronological order of visits. Occasionally, a protocol will define a planned visit whose timing is unpredictable (e.g., planned in response to an adverse event, a threshold test value, or a disease event), and completely chronological values of VISITNUM may not be possible in such cases.
+- There should be a one-to-one relationship between values of VISIT and VISITNUM.
+- For visits that may last more than 1 calendar day, VISITDY should be the planned day of the start of the visit.
+  > KB note (not in SDTMIG): VISITDY is the planned study day, not the actual study day; do not use --DY.
+- > KB note (not in SDTMIG): **VISIT**: character name of the visit from the protocol
 
-Sponsor practices for populating visit variables for **unplanned visits** may vary:
+Sponsor practices for populating visit variables for unplanned visits may vary.
 
-- VISITNUM should generally be populated, even for unplanned visits, as it is expected in many Findings domains. The easiest method of populating VISITNUM for unplanned visits is to assign the **same value (e.g., 99)** to all unplanned visits, although this method provides no differentiation between the unplanned visits and does not provide chronological sorting. Methods that provide a one-to-one relationship between values of VISITNUM, that are consistent across domains, and that assign VISITNUM values that sort chronologically require more work and must be applied after all of a subject's unplanned visits are known.
+- VISITNUM should generally be populated, even for unplanned visits, as it is expected in many Findings domains, as described above. The easiest method of populating VISITNUM for unplanned visits is to assign the same value (e.g., 99) to all unplanned visits, although this method provides no differentiation between the unplanned visits and does not provide chronological sorting. Methods that provide a one-to-one relationship between visits and values of VISITNUM, that are consistent across domains, and that assign VISITNUM values that sort chronologically require more work and must be applied after all of a subject's unplanned visits are known.
 - VISIT may be left null or may be populated with a generic value (e.g., "Unscheduled") for all unplanned visits, or individual values may be assigned to different unplanned visits.
-- VISITDY must **not** be populated for unplanned visits; VISITDY is, by definition, the planned study day of visit. The actual study day of an unplanned visit belongs in a --DY variable.
+- VISITDY must not be populated for unplanned visits; VISITDY is, by definition, the planned study day of visit. The actual study day of an unplanned visit belongs in a --DY variable.
 
-**Example** (lb.xpt sample rows showing how visit identifiers might be used for lab data):
+The following lb.xpt sample rows show how visit identifiers might be used for lab data.
+
+lb.xpt
 
 | USUBJID | VISIT | VISITNUM | VISITDY | LBDY |
 |---------|-------|----------|---------|------|
-| 001 | Week 1 | 2 | | |
+| 001 | Week 1 | 2 | 7 | 7 |
 | 001 | Week 2 | 3 | 14 | 13 |
 | 001 | Week 2 Unscheduled | 3.1 | | 17 |
 
 ### 4.4.6 Representing Additional Study Days
 
-- --XSTDY and --CHSTDY may be used for study designs with multiple reference start dates (e.g., crossover studies)
-- The reference date/time may use Subject Elements (SE) dataset element start date/time
-
-See also: Section 5.3, Subject Elements (for additional study day representation guidance).
+The SDTM allows for the representation of study days relative to the RFSTDTC reference start date variable in the DM dataset, using variables --DY, as described in Section 4.4.4, Use of the "Study Day" Variables. The calculation of additional study days within subdivisions of time in a clinical trial may be based on 1 or more sponsor-defined reference dates not represented by RFSTDTC. In such cases, the sponsor may define supplemental qualifier variables and the Define-XML document should reflect the reference dates used to calculate such study days. If the sponsor wishes to define "day within element" or "day within epoch", the reference date/time will be an element start date/time in the Subject Elements (SE) dataset (see Section 5.3, Subject Elements).
 
 ### 4.4.7 Use of Relative Timing Variables
 
@@ -893,18 +914,30 @@ See also: Section 5.3, Subject Elements (for additional study day representation
 
 The variables --STRF and --ENRF represent the timing of an observation relative to the sponsor-defined study reference period, when information such as "BEFORE", "PRIOR", "ONGOING", or "CONTINUING" is collected in lieu of a date and this collected information is in relation to the sponsor-defined study reference period. The sponsor-defined study reference period is the continuous period of time defined by the discrete starting point, RFSTDTC, and the discrete ending point, RFENDTC, for each subject in the Demographics (DM) dataset.
 
+--STRF is used to identify the start of an observation relative to the sponsor-defined study reference period. --ENRF is used to identify the end of an observation relative to the sponsor-defined study reference period.
+
+> KB note (not in SDTMIG): summary table of --STRF / --ENRF (allowable values as stated below).
+
 | Variable | Allowable Values | Purpose |
 |----------|-----------------|---------|
 | --STRF | BEFORE, DURING, DURING/AFTER, AFTER, UNKNOWN | Start relative to the sponsor-defined reference period |
 | --ENRF | BEFORE, DURING, DURING/AFTER, AFTER, UNKNOWN | End relative to the sponsor-defined reference period |
 
-**Important restriction on --ENRF:** Although "COINCIDENT" and "ONGOING" are in the STENRF codelist, they describe timing relative to a point in time rather than an interval of time, so are **not appropriate for use with --ENRF variables**. As an example, a CRF checkbox that identifies concomitant medication use that began prior to the study reference period would translate into CMSTRF = "BEFORE", if selected. Note that in this example, the information collected is with respect to the start of the concomitant medication use only, and therefore the collected data corresponds to variable CMSTRF, not CMENRF.
+Allowable values for --STRF are "BEFORE", "DURING", "DURING/AFTER", "AFTER", and "UNKNOWN". Although "COINCIDENT" and "ONGOING" are in the STENRF codelist, they describe timing relative to a point in time rather than an interval of time, so are not appropriate for use with --STRF variables. It would be unusual for an event or intervention to be recorded as starting "AFTER" the study reference period, but could be possible, depending on how the study reference period is defined in a particular study.
 
-**Caution on mixing collected and derived values:** Sponsors are cautioned that deriving --STRF and --ENRF for analysis or reporting purposes even when dates are collected may blur the distinction between collected and derived values within the domain. Sponsors wishing to do such derivations are instead encouraged to use analysis datasets for this derived data.
+Allowable values for --ENRF are "BEFORE", "DURING", "DURING/AFTER", "AFTER" and "UNKNOWN". If --ENRF is used, then --ENRF = "AFTER" means that the event did not end before or during the study reference period.
+
+**Important restriction on --ENRF:** Although "COINCIDENT" and "ONGOING" are in the STENRF codelist, they describe timing relative to a point in time rather than an interval of time, so are not appropriate for use with --ENRF variables. As an example, a CRF checkbox that identifies concomitant medication use that began prior to the study reference period would translate into CMSTRF = "BEFORE", if selected. Note that in this example, the information collected is with respect to the start of the concomitant medication use only, and therefore the collected data corresponds to variable CMSTRF, not CMENRF. Note also that the information collected is relative to the study reference period, which meets the definition of CMSTRF.
+
+**Caution on mixing collected and derived values:** Some sponsors may wish to derive --STRF and --ENRF for analysis or reporting purposes even when dates are collected. Sponsors are cautioned that doing so in conjunction with directly collecting or mapping data such as "BEFORE", "PRIOR", and "ONGOING" to --STRF and --ENRF will blur the distinction between collected and derived values within the domain. Sponsors wishing to do such derivations are instead encouraged to use analysis datasets for this derived data.
+
+In general, sponsors are cautioned that representing information using variables --STRF and --ENRF may not be as precise as other methods, particularly because information is often collected relative to a point in time or to a period of time other than the one defined as the study reference period. SDTMIG v3.1.2 attempted to address these limitations by the addition of 4 new relative timing variables, which are described in the following section. Sponsors should use the set of variables that allows for accurate representation of collected data. In many cases, this will mean using these new relative timing variables in place of --STRF and --ENRF.
 
 #### --STRTPT, --STTPT, --ENRTPT, and --ENTPT
 
-Although --STRF and --ENRF are useful when relative timing assessments are made coincident with the start and end of the study reference period, they may not be suitable for expressing relative timing assessments collected at other times of the study. The variables --STRTPT and --ENRTPT contain values similar to --STRF and --ENRF, but may be anchored with any timing description or date/time value expressed in the respective --STTPT and --ENTPT variables.
+Although the variables --STRF and --ENRF are useful in the case when relative timing assessments are made coincident with the start and end of the study reference period, they may not be suitable for expressing relative timing assessments (e.g., "Prior", "Ongoing") that are collected at other times of the study. As a result, 4 new timing variables were added in SDTMIG v3.1.2 to express a similar concept at any point in time. The variables --STRTPT and --ENRTPT contain values similar to --STRF and --ENRF, but may be anchored with any timing description or date/time value expressed in the respective --STTPT and --ENTPT variables, and are not limited to the study reference period. Unlike the variables --STRF and --ENRF, which for all domains are defined relative to one study reference period, the timing variables --STRTPT, --STTPT, --ENRTPT, and --ENTPT are defined by each sponsor for each study.
+
+> KB note (not in SDTMIG): summary table of --STRTPT / --STTPT / --ENRTPT / --ENTPT. AFTER is valid for --STRTPT / --ENRTPT only when the reference time point is prior to the date of collection or assessment; it is not valid when the reference time point corresponds to the date of collection or assessment (see the allowable values below).
 
 | Variable | Allowable Values | Purpose |
 |----------|-----------------|---------|
@@ -913,22 +946,42 @@ Although --STRF and --ENRF are useful when relative timing assessments are made 
 | --ENRTPT | BEFORE, COINCIDENT, AFTER, ONGOING, UNKNOWN | End relative to a specific reference time point |
 | --ENTPT | (free text) | Description of the reference time point for --ENRTPT |
 
-**Restriction on --STRTPT values:** If the reference time point corresponds to the date of collection or assessment, **AFTER is not a valid value** for --STRTPT because it would represent an event after the date of collection. If the reference time point is prior to the date of collection or assessment, AFTER is valid for --STRTPT.
+Allowable values for --STRTPT and --ENRTPT are as follows.
 
-**Note:** "DURING" and "DURING/AFTER" are in the STENRF codelist but describe timing relative to an interval of time rather than a point in time, so are **not allowable for use with --STRTPT and --ENRTPT** variables.
+If the reference time point corresponds to the date of collection or assessment:
 
-**Example applications:**
-- **Medical History (--STRTPT/--ENRTPT):** --STRTPT = "BEFORE", --STTPT = "INFORMED CONSENT"
-- **Concomitant Medications (--STRF/--ENRF):** --STRF = "BEFORE", --ENRF = "DURING"
-- **Adverse Events (--ENRTPT):** --ENRTPT = "ONGOING", --ENTPT = "DATE OF LAST DOSE"
+- Start values: An observation can start BEFORE that time point, can start COINCIDENT with that time point, or it can be UNKNOWN when it started.
+- End values: An observation can end BEFORE that time point, can end COINCIDENT with that time point, can be known that it did not end but was ONGOING, or it can be UNKNOWN when it ended or if it was ongoing.
+- AFTER is not a valid value in this case because it would represent an event after the date of collection.
+
+If the reference time point is prior to the date of collection or assessment:
+
+- Start values: An observation can start BEFORE the reference point, can start COINCIDENT with the reference point, can start AFTER the reference point, or it can be UNKNOWN when it started.
+- End values: An observation can end BEFORE the reference point, can end COINCIDENT with the reference point, can end AFTER the reference point, can be known that it did not end but was ONGOING, or it can be UNKNOWN when it ended or if it was ongoing.
+
+Although "DURING" and "DURING/AFTER" are in the STENRF codelist, they describe timing relative to an interval of time rather than a point in time, so are not allowable for use with --STRTPT and --ENRTPT variables.
+
+> KB note (not in SDTMIG): **Example applications:**
+> - **Medical History (--STRTPT/--ENRTPT):** --STRTPT = "BEFORE", --STTPT = "INFORMED CONSENT"
+> - **Concomitant Medications (--STRF/--ENRF):** --STRF = "BEFORE", --ENRF = "DURING"
+> - **Adverse Events (--ENRTPT):** --ENRTPT = "ONGOING", --ENTPT = "DATE OF LAST DOSE"
+
+#### Examples of --STRTPT, --STTPT, --ENRTPT, and --ENTPT
 
 **Example 1: Medical History**
 
-CRF contains "Year Started" and a checkbox for "Active"; "Date of Assessment" is also collected. When "Active" is checked:
+Assumptions:
+
+- CRF contains "Year Started" and checkbox for "Active"
+- "Date of Assessment" is collected
+
+Example when "Active" is checked:
 - MHDTC = date of assessment value (e.g., "2006-11-02")
 - MHSTDTC = year of condition start (e.g., "2002")
 - MHENRTPT = "ONGOING"
 - MHENTPT = date of assessment value (e.g., "2006-11-02")
+
+> KB note (not in SDTMIG): the following Mermaid diagram and caption are a KB rendering of the PDF figure (Figure. Example of --ENRTPT and --ENTPT for Medical History).
 
 ```mermaid
 graph LR
@@ -944,40 +997,44 @@ graph LR
 
 **Example 2: Prior and Concomitant Medications**
 
-CRF includes "Start Date" and "Stop Date", and checkboxes for "Prior" (if start date was before screening visit and unknown/uncollected) and "Continuing" (if medication had not stopped as of the final study visit). When both "Prior" and "Continuing" are checked:
+Assumptions:
+
+- CRF includes collection of "Start Date" and "Stop Date", and checkboxes for
+  - "Prior" if start date was before the screening visit and was unknown or uncollected
+  - "Continuing" if medication had not stopped as of the final study visit, so no end date was collected
+
+Example when both "Prior" and "Continuing" are checked:
 - CMSTDTC is null
 - CMENDTC is null
 - CMSTRTPT = "BEFORE"
-- CMSTTPT = screening date (e.g., "2006-10-21")
+- CMSTTPT is screening date (e.g., "2006-10-21")
 - CMENRTPT = "ONGOING"
-- CMENTPT = final study visit date (e.g., "2006-11-02")
+- CMENTPT is final study visit date (e.g., "2006-11-02")
 
 **Example 3: Adverse Events**
 
-CRF contains "Start Date", "Stop Date", and "Outcome" checkboxes for "Continuing" and "Unknown". No assessment date or visit information was collected. When "Unknown" is checked:
-- AESTDTC = start date (e.g., "2006-10-01")
+Assumptions:
+
+- CRF contains "Start Date", "Stop Date"
+- Collection of "Outcome" includes checkboxes for "Continuing" and "Unknown", to be used, if necessary, at the end of the subject's participation in the trial
+- No assessment date or visit information was collected
+
+Example when "Unknown" is checked:
+- AESTDTC is start date (e.g., "2006-10-01")
 - AEENDTC is null
 - AEENRTPT = "UNKNOWN"
-- AEENTPT = final subject contact date (e.g., "2006-11-02")
+- AEENTPT is final subject contact date (e.g., "2006-11-02")
 
 ### 4.4.8 Date and Time Reported in a Domain Based on Findings
 
 When the date/time of collection is reported in any domain, the date/time should go into the --DTC field (e.g., EGDTC for Date/Time of ECG). For any domain based on the Findings general observation class (e.g., lab tests based on a specimen), the collection date is likely to be tied to when the source of the finding was captured, not necessarily when the data were recorded. In order to ensure that the critical timing information is always represented in the same variable, the --DTC variable is used to represent the time of specimen collection.
 
-**LB domain specific rules:**
-- For **single-point blood collections or spot urine collections**: use **LBDTC** for the date/time of collection
-- For **timed lab collections** (e.g., 24-hour urine collections): use **LBDTC** for the start date/time of the collection and **LBENDTC** for the end date/time of the collection
-
-This approach allows the single-point and interval collections to use the same date/time variables consistently across all datasets for the Findings general observation class. The following table illustrates the proper use of these variables.
-
-**Collection type and variable usage (--STDTC should not be used in Findings):**
+For example, in the Laboratory Test Results (LB) domain, the LBDTC variable would be used for all single-point blood collections or spot urine collections. For timed lab collections (e.g., 24-hour urine collections) the LBDTC variable would be used for the start date/time of the collection and LBENDTC for the end date/time of the collection. This approach allows the single-point and interval collections to use the same date/time variables consistently across all datasets for the Findings general observation class. The following table illustrates the proper use of these variables. Note that --STDTC should not be used in the Findings general observation class and is therefore blank in this table.
 
 | Collection Type | --DTC | --STDTC | --ENDTC |
 |-----------------|-------|---------|---------|
 | Single-point Collection | X | | |
 | Interval Collection | X | | X |
-
-**Note:** --STDTC should not be used in the Findings general observation class and is therefore blank in this table.
 
 ### 4.4.9 Use of Dates as Result Variables
 
@@ -993,7 +1050,9 @@ Again, use extreme caution when storing dates as the results of findings. Rememb
 
 ### 4.4.10 Representing Time Points
 
-Time points can be represented using the time point variables --TPT, --TPTNUM, --ELTM, and the time-point anchors --TPTREF (text description) and --RFTDTC (date/time). Note that time-point data will usually have an associated --DTC value. The interrelationship of these variables is shown in the following figure.
+Time points can be represented using the time point variables --TPT, --TPTNUM, --ELTM, and the time-point anchors --TPTREF (text description) and --RFTDTC (the date/time). Note that time-point data will usually have an associated --DTC value. The interrelationship of these variables is shown in the following figure.
+
+> KB note (not in SDTMIG): the following variable table and Mermaid diagram are a KB rendering of the PDF figure (Figure. Representing Time Points), with added variable labels/examples not in the figure.
 
 | Variable | Purpose |
 |----------|---------|
@@ -1030,11 +1089,9 @@ Values for these variables for urine collections taken pre-dose, and from 0-12 h
 
 > Note that the value in LBELTM represents the end of the specimen collection interval.
 
-When time points are represented in SDTMIG domains, both --TPT and --TPTNUM must be used. Time points may or may not have an associated --TPTREF. Sometimes, --TPTNUM may be used as a key for multiple values collected for the same test within a visit, rather than to define time relative to a reference point. In such cases, there is no dependence upon an anchor such as --TPTREF, but there will be a dependency upon VISITNUM. In such cases, VISITNUM will be required to confer uniqueness to values of --TPTNUM.
+When time points are represented in SDTMIG domains, both --TPT and --TPTNUM must be used. Time points may or may not have an associated --TPTREF. Sometimes, --TPTNUM may be used as a key for multiple values collected for the same test within a visit; as such, there is no dependence upon an anchor such as --TPTREF, but there will be a dependency upon VISITNUM. In such cases, VISITNUM will be required to confer uniqueness to values of --TPTNUM.
 
 If the protocol describes the scheduling of a dose using a reference intervention or assessment, then --TPTREF should be populated, even if it does not contribute to uniqueness. The fact that time points are related to a reference time point, and what that reference time point is, are important for interpreting the data collected at the time point.
-
-For trials with many time points, the requirement to provide uniqueness using only VISITNUM, --TPTREF, and --TPTNUM may lead to a scheme where multiple natural keys are combined into the values of one of these variables.
 
 **Scenarios where not all 3 uniqueness variables (VISITNUM, --TPTREF, --TPTNUM) are needed:**
 
@@ -1045,9 +1102,12 @@ Not all time points will require all 3 variables to provide uniqueness. In fact,
 3. A trial may have only 1 reference time point per visit, and all reference time points may be similar, so that only 1 value of --TPTREF (e.g., "DOSE") is needed. (--TPTREF would be populated, but would not contribute to uniqueness.)
 4. A trial may have time points not related to a reference time point. For instance, --TPTNUM values could be used to distinguish first, second, and third repeats of a measurement scheduled without any relationship to dosing (--TPTREF and --ELTM would not be included.) In this case, where the protocol calls for repeated measurements but does not specify timing of the measurements, the --REPNUM variable could be used instead of time-point variables.
 
-**Crossover trials with multiple doses on multiple days within each period:**
+For trials with many time points, the requirement to provide uniqueness using only VISITNUM, --TPTREF, and --TPTNUM may lead to a scheme where multiple natural keys are combined into the values of one of these variables. For instance, in a crossover trial with multiple doses on multiple days within each period, either of the following options could be used.
 
-Option 1 — VISITNUM designates period; --TPTREF designates day and dose; --TPTNUM designates timing relative to reference time point:
+1. VISITNUM might be used to designate period, --TPTREF might be used to designate the day and the dose, and --TPTNUM might be used to designate the timing relative to the reference time point.
+2. VISITNUM might be used to designate period and day within period, --TPTREF might be used to designate the dose within the day, and --TPTNUM might be used to designate the timing relative to the reference time point.
+
+Option 1
 
 | VISIT | VISITNUM | --TPT | --TPTNUM | --TPTREF |
 |-------|----------|-------|----------|----------|
@@ -1070,7 +1130,7 @@ Option 1 — VISITNUM designates period; --TPTREF designates day and dose; --TPT
 | | | 1H | 2 | |
 | | | 4H | 3 | |
 
-Option 2 — VISITNUM designates period and day within period; --TPTREF designates dose within the day; --TPTNUM designates timing relative to reference time point:
+Option 2
 
 | VISIT | VISITNUM | --TPT | --TPTNUM | --TPTREF |
 |-------|----------|-------|----------|----------|
@@ -1093,58 +1153,85 @@ Option 2 — VISITNUM designates period and day within period; --TPTREF designat
 | | | 1H | 2 | |
 | | | 4H | 3 | |
 
+Within the context that defines uniqueness for a time point (which may include domain, visit, and reference time point), there must be a one-to-one relationship between values of --TPT and --TPTNUM. In other words, if domain, visit, and reference time point uniquely identify subject data, then if 2 subjects have records with the same values of DOMAIN, VISITNUM, --TPTREF, and --TPTNUM, these records may not have different time point descriptions in --TPT.
+
+Within the context that defines uniqueness for a time point, there is likely to be a one-to-one relationship between most values of --TPT and --ELTM. However, because --ELTM can only be populated with ISO 8601 periods of time (as described in Section 4.4.3, Intervals of Time and Use of Duration for --DUR Variables), --ELTM may not be populated for all time points. For example, --ELTM is likely to be null for time points described by text such as "pre-dose" or "before breakfast." When --ELTM is populated, if 2 subjects have records with the same values of DOMAIN, VISITNUM, --TPTREF, and --TPTNUM, then these records may not have different values in --ELTM.
+
+When the protocol describes a time point with text (e.g., "4-6 hours after dose," "12 hours +/- 2 hours after dose"), the sponsor may choose whether and how to populate --ELTM. For example, a time point described as "4-6 hours after dose" might be associated with an --ELTM value of PT4H. A time point described as "12 hours +/- 2 hours after dose" might be associated with an --ELTM value of PT12H. Conventions for populating --ELTM should be consistent (the examples just given would probably not both be used in the same trial). It would be good practice to indicate the range of intended timings by some convention in the values used to populate --TPT.
+
+Sponsors may, of course, use more stringent requirements for populating --TPTNUM, --TPT, and --ELTM. For instance, a sponsor could decide that all time points with a particular --ELTM value would have the same values of --TPTNUM, and --TPT, across all visits, reference time points, and domains.
+
 ### 4.4.11 Disease Milestones and Disease Milestone Timing Variables
 
-A disease milestone is an event or activity that can be anticipated in the course of a disease, but whose timing is not controlled by the study schedule. A disease milestone may be something that occurred pre-study (e.g., diagnosis of the disease under study), or something anticipated to occur during the study (e.g., an adverse event of interest). The types of disease milestones for a study are defined in the study-level Trial Disease Milestones (TM) dataset; the times at which disease milestones occurred for a particular subject are summarized in the special-purpose Subject Disease Milestones (SM) domain.
+A disease milestone is an event or activity that can be anticipated in the course of a disease, but whose timing is not controlled by the study schedule. A disease milestone may be something that occurred pre-study, but which represents a time at which data would have been collected (e.g., diagnosis of the disease under study). A disease milestone may also be something which is anticipated to occur during a study and which, if it occurs, triggers the collection of related data outside the regular schedule of visits (e.g., adverse event of interest). The types of disease milestones for a study are defined in the study-level Trial Disease Milestones (TM) dataset (see Section 7.3.3, Trial Disease Milestones). The times at which disease milestones occurred for a particular subject are summarized in the special-purpose Subject Disease Milestones (SM) domain (see Section 5.4, Subject Disease Milestones), a domain similar in structure to the Subject Visits (SV) and Subject Elements (SE) domains.
 
-Not all studies will have disease milestones. If a study does not have disease milestones, the TM and SM domains will not be present and the disease milestone timing variables may not be included in other domains.
+Not all studies will have disease milestones. If a study does not have disease milestones, the TM and SM domains will not be present and the disease milestones timing variables may not be included in other domains.
 
-#### Disease Milestone Naming (MIDS)
+#### Disease Milestone Naming
 
 Instances of disease milestones are given names at a subject level. The name of a disease milestone is composed of a character string that depends on the disease milestone type (MIDSTYPE in TM and SM) and, if the type of disease milestone is one that may occur multiple times, a chronological sequence number for this disease milestone among other instances of the same type for the subject. The character string used in the name of a disease milestone is usually a short form of the disease milestone type. For example, if the type of disease milestone is "EPISODE OF DISEASE UNDER STUDY", the values of MIDS for instances of this type of event could include "EPISODE1", "EPISODE2"; or "EPISODE01", "EPISODE02", and so on. The association between the longer text in MIDSTYPE and the shorter text in MIDS can be seen in SM, which includes both variables.
 
+#### Disease Milestone Name (MIDS)
+
+If something that has been defined as a disease milestone for a particular study occurs for a particular subject, it is represented as usual: in the appropriate findings, intervention, or events class record. In addition, this record will include the MIDS timing variable, populated with the name of the disease milestone. The timing of a disease milestone is also represented in the special-purpose SM domain.
+
+The record that represents a disease milestone does not include values for the timing variables RELMIDS and MIDSDTC, which are used to represent the timing of other observations relative to a disease milestone. The usual timing variables in the record for a disease milestone (e.g., --DTC, --STDTC, --ENDTC) provide the needed timing for this observation and for the timing information represented in the SM domain.
+
 #### Timing Relative to a Disease Milestone (MIDS, RELMIDS, MIDSDTC)
 
-Disease Milestones (defined in TM, recorded in SM) provide a way to anchor observations to clinically significant time points. For an observation triggered by the occurrence of a disease milestone, the relationship of the observation to the disease milestone can be represented using the disease milestone timing variables MIDS, RELMIDS, and MIDSDTC:
+For an observation triggered by the occurrence of a disease milestone, the relationship of the observation to the disease milestone can be represented using the disease milestones timing variables MIDS, RELMIDS, and MIDSDTC to describe the timing of the observation.
 
-| Variable | Purpose |
-|----------|---------|
-| MIDS | Disease Milestone Instance Name (e.g., EPISODE1, EPISODE2). MIDS is the "anchor" for describing the timing of the observation relative to the disease milestone — its function is similar to --TPTREF for time points. |
-| RELMIDS | Relationship to Disease Milestone Instance. Usually populated with a textual description of the temporal relationship between the observation and the disease milestone named in MIDS. Its function is similar to --ELTM, except that RELMIDS is represented as ISO 8601 duration. CT has not yet been developed for RELMIDS, but is likely to include terms such as "IMMEDIATELY BEFORE", "AT START OF", "DURING", "AT END OF", and "SHORTLY AFTER". |
-| MIDSDTC | Disease Milestone Instance Date/Time. This is the --DTC for a finding, or the --STDTC for an event or intervention, and is the date recorded in SMSTDTC in the SM domain. Its function is similar to --RFTDTC for time points. |
+- MIDS is populated with the name of a disease milestone for this subject. MIDS is the "anchor" for describing the timing of the observation relative to the disease milestone. In this sense, its function is similar to --TPTREF for time points.
+- RELMIDS is usually populated with a textual description of the temporal relationship between the observation and the disease milestone named in MIDS. Controlled Terminology has not yet been developed for RELMIDS, but is likely to include terms such as "IMMEDIATELY BEFORE", "AT START OF", "DURING", "AT END OF", and "SHORTLY AFTER". It is similar to --ELTM, except that --ELTM is represented ISO 8601 duration.
+- MIDSDTC is populated with the date/time of the disease milestone. This is the --DTC for a finding, or the --STDTC for an event or intervention, and is the date recorded in SMSTDTC in the SM domain. Its function is similar to --RFTDTC for time points.
 
-**Special use of RELMIDS for findings about a disease milestone:** When a disease milestone is an event or intervention, some data triggered by the disease milestone may be modeled as findings about the disease milestone (i.e., FAOBJ is the disease milestone). In such cases, RELMIDS should be used to describe the temporal relationship between the disease milestone and the subject of the question being asked in the finding, rather than as describing when the question was asked:
+In some cases, data collected in conjunction with a disease milestone do not include the collection of a separate date for the related observation. This is particularly common for pre-study disease milestones, but may occur with on-study disease milestones as well. In such cases, MIDSDTC provides a related date/time in records that would not otherwise contain any date. In records that do contain date/time(s) of the observation, MIDSDTC allows easy comparison of the date(s) of the observation to the (start) date of the disease milestone. In such cases, it functions much like the reference time point date/time (--RFTDTC) in observations at time points.
 
-- When the subject of the question is the disease milestone itself, RELMIDS may be populated with a value such as **"ENTIRE EVENT"** or **"ENTIRE TREATMENT"**
-- When the subject of the question is a question about the occurrence of some activity or event related to the disease milestone, RELMIDS acts like an evaluation interval, describing the period of time on which the question is focused:
-  - For questions about a possible cause of an event or about the indication for a treatment, RELMIDS would have a value such as "WEEK PRIOR" or "IMMEDIATELY BEFORE", or even just "BEFORE"
-  - RELMIDS would be "DURING" for questions about things that may have occurred while an event or intervention disease milestone was in progress
-  - For sequelae of a disease milestone, RELMIDS would have a value such as "AT DISCHARGE" or "WEEK AFTER", or simply "AFTER"
+When a disease milestone is an event or intervention, some data triggered by the disease milestone may be modeled as findings about the disease milestone (i.e., FAOBJ is the disease milestone). In such cases, RELMIDS should be used to describe the temporal relationship between the disease milestone and the subject of the question being asked in the finding, rather than as describing when the question was asked.
+
+- When the subject of the question is the disease milestone itself, RELMIDS may be populated with a value such as "ENTIRE EVENT" or "ENTIRE TREATMENT".
+- When the subject of the question is a question about the occurrence of some activity or event related to the disease milestone, RELMIDS acts like an evaluation interval, describing the period of time on which the question is focused.
+  - For questions about a possible cause of an event or about the indication for a treatment, RELMIDS would have a value such as "WEEK PRIOR" or "IMMEDIATELY BEFORE", or even just "BEFORE".
+  - RELMIDS would be "DURING" for questions about things that may have occurred while an event or intervention disease milestone was in progress.
+  - For sequelae of a disease milestone, RELMIDS would have a value such as "AT DISCHARGE" or "WEEK AFTER", or simply "AFTER".
 
 #### Use of Disease Milestone Timing Variables with Other Timing Variables
 
-The disease milestone timing variables provide timing relative to an activity or event that has been identified, for the particular study, as a disease milestone. Their use does not preclude the use of variables that collect actual date/times or timing relative to the study schedule:
+The disease milestone timing variables provide timing relative to an activity or event that has been identified, for the particular study, as a disease milestone. Their use does not preclude the use of variables that collect actual date/times or timing relative to the study schedule.
 
-- The use of actual date/times is unaffected — disease milestone timing variables may provide timing information in cases where actual date/times are unavailable, particularly for pre-study disease milestones
-- Study-day variables should be populated wherever complete actual date/times are populated, including negative study days for pre-study observations
-- The timing variables EPOCH and TAETORD may be populated for on-study observations associated with disease milestones; however, pre-study disease milestones do not have an associated EPOCH or TAETORD
-- Visit variables are expected in many Findings domains, but findings triggered by a disease milestone may not occur at a scheduled visit; practices for populating VISITNUM for an unscheduled visit should be followed
-- The timing variables for start and end of an event or intervention relative to the study reference period (--STRF and --ENRF) or relative to a reference time point (--STRTPT and --STTPT, --ENRTPT and --ENTPT) can be used in conjunction with disease milestone variables
+- The use of actual date/times is unaffected. The disease milestone timing variables may provide timing information in cases where actual date/times are unavailable, particularly for pre-study disease milestones. When the question text for an observation references a disease milestone but a separate date for the observation is not collected, the disease milestone timing variables should be populated but the actual date/s should not be imputed by populating them with the date of the disease milestone. Examples of such questions include disease stage at initial diagnosis of disease under study, or treatment for most recent disease episode.
+- Study-day variables should be populated wherever complete actual date/times are populated. This includes negative study days for pre-study observations.
+- The timing variables EPOCH and TAETORD (Planned Order of Element within Arm) may be populated for on-study observations associated with disease milestones. However, pre-study disease milestones—those which occur before the start of study participation when informed consent is obtained—by definition do not have an associated EPOCH or TAETORD.
+- Visit variables are expected in many Findings domains, but findings triggered by the occurrence of a study milestone might not occur at a scheduled visit.
+  - Findings associated with pre-study disease milestones are often collected at a screening visit, although the test was not performed at that visit.
+  - For findings associated with on-study disease milestones but not conducted at a scheduled visit, practices for populating VISITNUM as for an unscheduled visit should be followed.
+- The use of time-point variables with disease milestone variables may occur in cases where a disease milestone triggers treatment, and time points relative to treatment are part of the study schedule. For instance, a migraine trial may call for assessments of symptom severity at prescribed times after treatment of the migraine. If the migraine episodes were treated as disease milestones, then the disease milestone timing variables might be populated in the exposure and symptom-severity records. If the study planned to treat multiple migraine episodes, the MIDS variable would provide a convenient way to determine the episode with which data were associated.
+  - An evaluation interval variable (--EVLINT or --EVINTX) can be used in conjunction with disease milestone variables. For instance, patient-reported outcome (PRO) instruments might be administered at the time of a disease milestone, and the questions in the instrument might include an evaluation interval.
+- The timing variables for start and end of an event or intervention relative to the study reference period (--STRF and --ENRF) or relative to a reference time point (--STRTPT and --STTPT, --ENRTPT and --ENTPT) can be used in conjunction with disease milestone variables. For example, a concomitant medication could be collected in association with a disease milestone, so that the disease milestone timing variables were populated but relative timing variables used for the start or end of the concomitant medication.
+- The timing variables for start and end of a planned assessment interval might be populated for an assessment triggered by a disease milestone, if applicable. For example, the occurrence of a particular event might trigger both a treatment and Holter monitoring for 24 hours after the treatment.
 
 #### Linking and Disease Milestones
 
-When disease milestones have been defined for a study, the MIDS variable serves to link observations associated with a disease milestone in a way similar to how VISITNUM links observations collected at a visit. If disease milestones were not defined for the study, it would be possible to link records associated with a disease milestone using RELREC, but the use of disease milestones has certain advantages over RELREC:
+When disease milestones have been defined for a study, the MIDS variable serves to link observations associated with a disease milestone in a way similar to the way that VISITNUM links observations collected at a visit. If disease milestones were not defined for the study, it would be possible to link records associated with a disease milestone using RELREC, but the use of disease milestones has certain advantages:
 
-- RELREC indicates that there is a relationship between records or datasets, but not the nature of the relationship; records with the same MIDS value are related to the same disease milestone
-- When disease milestones are defined, it is not necessary to create RELREC records to establish relationships between observations associated with a disease milestone
+- RELREC indicates that there is a relationship between records or datasets, but not the nature of the relationship. Records with the same MIDS value are related to the same disease milestone.
+- When disease milestones are defined, it is not necessary to create RELREC records to establish relationships between observations associated with a disease milestone.
 
 ---
 
 ## 4.5 Other Assumptions
 
-### 4.5.1 Original and Standardized Results
+### 4.5.1 Original and Standardized Results of Findings and Tests Not Done
 
-The SDTM provides a 3-level result framework for Findings:
+#### 4.5.1.1 Original and Standardized Results
+
+The --ORRES variable contains the result of the measurement or finding as originally received or collected. --ORRES is an expected variable and should always be populated, except (1) when --STAT = "NOT DONE" (because there is no result for such a record) or (2) for derived records.
+
+Note: Records with --DRVFL = "Y" may combine data collected at more than 1 visit. In such cases, sponsors must define the value for VISITNUM, addressing the correct temporal sequence. If a new record is derived for a dataset by the sponsor or their agent (e.g., a CRO), then that new record should be flagged as derived. For example, in electrocardiogram (ECG) data, if a corrected QT interval value derived in-house by the sponsor were represented in an SDTM record, then EGDRVFL would be "Y". If a corrected QT interval value was received from a vendor or was produced by the ECG machine, the derived flag would be null.
+
+When --ORRES is populated, --STRESC must also be populated, regardless of whether the data values are character or numeric. The variable --STRESC is populated either by the conversion of values in --ORRES to values with standard units, or by the assignment of the value of --ORRES, as in the Physical Examination (PE) domain, where --STRESC could contain a dictionary-derived term. A further step is necessary when --STRESC contains numeric values. These are converted to numeric type and written to --STRESN. Because --STRESC may contain a mixture of numeric and character values, --STRESN may contain null values, as shown in the following figure.
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure (Figure. Original to Standardized Results), with added --ORRESU/--STRESU edge and edge labels not in the figure.
 
 ```mermaid
 graph LR
@@ -1153,20 +1240,9 @@ graph LR
     ORRESU["--ORRESU"] -->|"convert or copy"| STRESU["--STRESU"]
 ```
 
-**Key rules:**
-- --ORRES: always the originally collected/reported value
-- --STRESC: standardized character result; must be populated whenever --ORRES is populated (regardless of whether data values are character or numeric)
-- --STRESN: numeric version of --STRESC (null when result is non-numeric)
-- --ORRESU / --STRESU: original and standard units
-- Values with comparison operators (e.g., >10,000, <1): place in --STRESC; --STRESN should be null
+When the original measurement or finding is a selection from a defined codelist, in general, the --ORRES and --STRESC variables contain results in decoded format (i.e., the textual interpretation of whichever code was selected from the codelist). In some cases where the code values in the codelist are statistically meaningful standardized values or scores, which are defined by sponsors or by valid methodologies such as SF36 questionnaires, the --ORRES variables will contain the decoded format, whereas the --STRESC variables as well as the --STRESN variables will contain the standardized values or scores.
 
-**Tests Not Done (§4.5.1.2):**
-- When a test is not performed: --STAT = "NOT DONE", --REASND = reason (if explicitly collected; --REASND is populated only if a reason was explicitly collected except for QRS logically skipped items)
-- --ORRES, --STRESC, --STRESN must all be null when --STAT = "NOT DONE"
-- --ORRESU and --STRESU should also be null
-- If CRF does not explicitly collect "Done/Not Done", do not create NOT DONE records (exception: QRS datasets)
-- A sponsor has 2 options: (1) submit individual records for each test not done, or (2) submit 1 record for a group of tests that were not done
-- A single record can represent a group of tests not done: --TESTCD = "--ALL", --TEST = domain description, --CAT = name of group; for example, if urinalysis tests were not done: LBTESTCD = "LBALL", LBTEST = "Laboratory Test Results", LBCAT = "URINALYSIS", LBORRES = null, LBSTAT = "NOT DONE", LBREASND (if collected) = "Subject could not void"
+Occasionally data that are intended to be numeric are collected with characters attached that cause the character-to-numeric conversion to fail. For example, numeric cell counts in the source data may be specified with a greater than (>) or less than (<) sign attached (e.g., >10,000, <1). In these cases, the value with the greater than (>) or less than (<) sign attached should be moved to the --STRESC variable, and --STRESN should be null. The rules for modifying the value for analysis purposes should be defined in the analysis plan and a numeric value should only be imputed in the ADaM datasets. If the value in --STRESC has different units, the greater than (>) or less than (<) sign should be maintained. See Example 1, Rows 11 and 12, in Section 4.5.1.3, Examples of Original and Standard Units and Test Not Done.
 
 #### 4.5.1.2 Tests Not Done
 
@@ -1182,8 +1258,8 @@ The reason for the missing information may or may not have been collected.
 
 A sponsor has the following options:
 
-- Submit individual records for each test not done.
-- Submit 1 record for a group of tests that were not done.
+1. Submit individual records for each test not done.
+2. Submit 1 record for a group of tests that were not done.
 
 The following example illustrates the single-record approach for representing a group of tests not done.
 
@@ -1205,15 +1281,17 @@ For example, if urinalysis tests were not done, then:
 - LBSTAT would be "NOT DONE"
 - LBREASND, if collected, might be "Subject could not void"
 
+> KB note (not in SDTMIG): --ORRES, --STRESC, and --STRESN are null when --STAT = "NOT DONE"; --ORRESU and --STRESU should also be null.
+
 #### 4.5.1.3 Examples of Original and Standard Units and Test Not Done
 
-The following examples illustrate the use of Findings results variables and are not meant as comprehensive domain examples. Certain required and expected variables are omitted (e.g., USUBJID), and the samples may represent data from more than 1 subject.
+The following examples are meant to illustrate the use of Findings results variables, and are not meant as comprehensive domain examples. Certain required and expected variables are omitted (e.g., USUBJID), and the samples may represent data for more than 1 subject.
 
 **Example 1 (lb.xpt)**
 
 - **Row 1:** A numeric value was converted to the standard unit.
 - **Row 2:** A numeric value was copied; the original unit was the standard unit so conversion was not needed.
-- **Rows 3-4:** A character result was copied from LBORRES to LBSTRESC. Since this is not a numeric result, LBSTRESN is null.
+- **Rows 3-4:** A character result was copied from the LBORRES to LBSTRESC. Since this is not a numeric result, LBSTRESN is null.
 - **Row 5:** A character result was converted to a standardized format.
 - **Row 6:** A result of "BLQ" was collected and copied to LBSTRESC. Note that the sponsor populated both LBORRESU and LBSTRESU with standard units, but these could have been left null.
 - **Row 7:** A result was derived from multiple results, so LBDRVFL = "Y". Note that the original collected data are not shown in this example.
@@ -1229,9 +1307,9 @@ The following examples illustrate the use of Findings results variables and are 
 | 2 | ALT | CHEMISTRY | 12.1 | mg/L | 12.1 | 12.1 | mg/L | | | 1 | 2016-02-01 |
 | 3 | BACT | URINALYSIS | MODERATE | | MODERATE | | | | | 1 | 2016-02-01 |
 | 4 | RBC | URINALYSIS | TRACE | | TRACE | | | | | 1 | 2016-02-01 |
-| 5 | RBC | URINALYSIS | 2+ | | 2+ | | | | | 1 | 2016-02-01 |
-| 6 | KETONES | CHEMISTRY | BLQ | mg/L | BLQ | | mg/L | | | 1 | 2016-02-15 |
-| 7 | MCHC | HEMATOLOGY | | | 33.8 | 33.8 | g/dL | | | 2 | 2016-02-15 |
+| 5 | WBC | URINALYSIS | ++ | | 2+ | | | | | 1 | 2016-02-01 |
+| 6 | KETONES | CHEMISTRY | BLQ | mg/L | BLQ | | mg/L | | | 1 | 2016-02-01 |
+| 7 | MCHC | HEMATOLOGY | | | 33.8 | 33.8 | g/dL | | Y | 3 | 2016-02-15 |
 | 8 | HCT | HEMATOLOGY | | | | | | NOT DONE | | 2 | 2016-02-08 |
 | 9 | LBALL | HEMATOLOGY | | | | | | NOT DONE | | 3 | 2016-02-29 |
 | 10 | LBALL | | | | | | | NOT DONE | | 4 | 2016-02-22 |
@@ -1240,7 +1318,7 @@ The following examples illustrate the use of Findings results variables and are 
 
 **Example 2 (eg.xpt)**
 
-- **Row 1:** A numeric value was collected in standard units. Because no conversion was necessary, the result was copied into EGSTRESC and EGSTRESN.
+- **Row 1:** A numeric result was collected in standard units. Because no conversion was necessary, the result was copied into EGSTRESC and EGSTRESN.
 - **Rows 2-3:** Numeric results were converted to standard units.
 - **Row 4:** Character values were copied to EGSTRESC. EGSTRESN is null.
 - **Row 5:** The overall interpretation of the ECG is represented as a separate test.
@@ -1284,14 +1362,14 @@ See Section 8, Representing Relationships and Data, for guidance on expressing r
 
 #### 4.5.3.1 Test Name (--TEST) Greater than 40 Characters
 
-Sponsors may have test descriptions (--TEST) longer than 40 characters in their operational database. Because the --TEST variable is meant to serve as a label for a --TESTCD when a Findings dataset is transposed to a more horizontal format, the length of --TEST is limited to 40 characters (except as noted below) to conform to the limitations of the SAS V5 transport file format. Therefore, sponsors have the choice to either insert the first 40 characters or a text string abbreviated to 40 characters in --TEST. Sponsors have the following options for including the full description for these variables in the study metadata:
+Sponsors may have test descriptions (--TEST) longer than 40 characters in their operational database. Because the --TEST variable is meant to serve as a label for a --TESTCD when a Findings dataset is transposed to a more horizontal format, the length of --TEST is limited to 40 characters (except as noted below) to conform to the limitations of the SAS V5 transport file format (https://documentation.sas.com/). Therefore, sponsors have the choice to either insert the first 40 characters or a text string abbreviated to 40 characters in --TEST. Sponsors have the following options for including the full description for these variables in the study metadata:
 
 - If the annotated CRF contains the full text, provide a reference to the aCRF page containing the full test description in the Define-XML document origin definition for --TEST.
 - If the annotated CRF does not specify the full text, then the full text should be documented in the Define-XML document and/or other submission materials (e.g., the clinical study data reviewer's guide).
 
 This convention should also be applied to the qualifier value label (QLABEL) in Supplemental Qualifiers (SUPP--) datasets.
 
-**Exception — IETEST in IE and TI domains:** IETEST values in the Inclusion/Exclusion Criteria Not Met (IE) and Trial Inclusion/Exclusion Criteria (TI) domains are exceptions to the 40-character rule and are limited to 200 characters, because these are not expected to be transformed to column labels. Values of IETEST that exceed 200 characters should be described in study metadata as per the convention above.
+**Exception — IETEST in IE and TI domains:** IETEST values in the Inclusion/Exclusion Criteria Not Met (IE) and Trial Inclusion/Exclusion Criteria (TI) domains are exceptions to the 40-character rule and are limited to 200 characters, because these are not expected to be transformed to column labels. Values of IETEST that exceed 200 characters should be described in study metadata as per the convention above. See Section 6.3.4, Inclusion/Exclusion Criteria Not Met, assumption 3; and Section 7.4.1, Trial Inclusion/Exclusion Criteria, assumption 5.
 
 #### 4.5.3.2 Text Strings Greater than 200 Characters in Other Variables
 
@@ -1299,16 +1377,18 @@ Some sponsors may collect data values longer than 200 characters for some variab
 
 For general observation-class variables and supplemental qualifiers (i.e., non-standard variables, NSVs), the conventions are as follows:
 
-- The **first 200 characters** of text should be stored in the parent domain variable and each additional 200 characters of text should be stored in a record in the SUPP-- dataset (see Section 8.4, Relating Non-standard Variable Values to a Parent Domain)
-- When splitting a text string into several records, the text should be **split between words** to improve readability
-- When the text longer than 200 characters is for a supplemental qualifier, the **first QNAM should describe the NSV without any numeric suffix**
-- The value for QNAMs for additional text (>200 characters) should contain a **sequential variable name formed by appending a 1-digit integer, beginning with 1**, to the original domain variable name
-- The value for **QLABEL should be the original domain variable label**:
-  - The reason a digit integer or suffix is not appended to the label is because the long text string represents a single value for a variable; the physical representation (SAS V5 transport file format) does not change the concept described by the label
-  - This is conceptually different from when there are multiple values for a non-result qualifier variable and values are individually stored in SUPP-- (in that case, both QNAM and QLABEL must be uniquely named per Section 4.2.8.3, Multiple Values for a Non-result Qualifier Variable)
-  - In cases where the standard domain variable name is already 8 characters in length, sponsors should **replace the last character with a digit** when creating values for QNAM; for example, for Other Action Taken in Adverse Events (AEACNOTH), values for QNAM for the SUPPAE records would have the values AEACNOT1, AEACNOT2, and so on
+- The first 200 characters of text should be stored in the parent domain variable and each additional 200 characters of text should be stored in a record in the SUPP-- dataset (see Section 8.4, Relating Non-standard Variable Values to a Parent Domain).
+- When splitting a text string into several records, the text should be split between words to improve readability.
+- When the text longer than 200 characters is for a supplemental qualifier, the first QNAM should describe the NSV without any numeric suffix.
+- The value for QNAMs for additional text (>200 characters) should contain a sequential variable name, which is formed by appending a 1-digit integer, beginning with 1, to the original domain variable name.
+- The value for QLABEL should be the original domain variable label.
+  - The reason a digit integer or suffix is not appended to the label is because the long text string represents a single value for a variable. The physical representation (i.e., SAS V5 transport file format) does not change the concept described by the label.
+  - This is different conceptually from when there are multiple values for a non-result qualifier variable and values are individually stored in SUPP--. In that case, both QNAM and QLABEL must be uniquely named (see Section 4.2.8.3, Multiple Values for a Non-result Qualifier Variable) because they represent multiple values for a single variable.
+  - In cases where the standard domain variable name is already 8 characters in length, sponsors should replace the last character with a digit when creating values for QNAM. As an example, for Other Action Taken in Adverse Events (AEACNOTH), values for QNAM for the SUPPAE records would have the values AEACNOT1, AEACNOT2, and so on.
 
-**Example 1 (mh.xpt / suppmh.xpt):** MHTERM was longer than 200 characters and required 2 supplemental qualifier variables for the text that extended beyond what could be represented in the standard variable.
+**Example 1**
+
+In this example, the text entered for MHTERM was longer than 200 characters and required 2 supplemental qualifier variables for the text that extended beyond what could be represented in the standard variable.
 
 mh.xpt:
 
@@ -1318,12 +1398,14 @@ mh.xpt:
 
 suppmh.xpt:
 
-| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG |
-|-----|---------|---------|---------|-------|----------|------|--------|------|-------|
-| 1 | 12345 | MH | 99-123 | MHSEQ | 6 | MHTERM1 | Reported Term for the Medical History | 2nd ~200 chars of text, split between words | CRF |
-| 2 | 12345 | MH | 99-123 | MHSEQ | 6 | MHTERM2 | Reported Term for the Medical History | last 100 or more chars of text | CRF |
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL |
+|-----|---------|---------|---------|-------|----------|------|--------|------|-------|-------|
+| 1 | 12345 | MH | 99-123 | MHSEQ | 6 | MHTERM1 | Reported Term for the Medical History | 2nd ~200 chars of text, split between words | CRF | |
+| 2 | 12345 | MH | 99-123 | MHSEQ | 6 | MHTERM2 | Reported Term for the Medical History | last 100 or more chars of text | CRF | |
 
-**Example 2 (ae.xpt / suppae.xpt):** AEACNOTH was longer than 200 characters, but required only 1 supplemental qualifier for the text that extended beyond what could be represented in the standard variable.
+**Example 2**
+
+In this example, the text entered for AEACNOTH was longer than 200 characters, but required only 1 supplemental qualifier for the text that extended beyond what could be represented in the standard variable.
 
 ae.xpt:
 
@@ -1333,17 +1415,19 @@ ae.xpt:
 
 suppae.xpt:
 
-| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG |
-|-----|---------|---------|---------|-------|----------|------|--------|------|-------|
-| 1 | 12345 | AE | 99-123 | AESEQ | 4 | AEACNOT1 | Other Action Taken | remaining characters of text | CRF |
+| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL |
+|-----|---------|---------|---------|-------|----------|------|--------|------|-------|-------|
+| 1 | 12345 | AE | 99-123 | AESEQ | 4 | AEACNOT1 | Other Action Taken | remaining characters of text | CRF | |
 
-**Example 3 (pr.xpt / supppr.xpt):** PRREAS was longer than 200 characters, but required only 1 supplemental qualifier to represent the remaining text.
+**Example 3**
 
 pr.xpt:
 
 | Row | STUDYID | DOMAIN | USUBJID | PRSEQ | PRTRT |
 |-----|---------|--------|---------|-------|-------|
 | 1 | 12345 | PR | 99-123 | 4 | KIDNEY TRANSPLANT |
+
+In this example, the text of the supplemental qualifier PRREAS was longer than 200 characters, but required only 1 additional supplemental qualifier to represent the remaining text.
 
 supppr.xpt:
 
@@ -1354,13 +1438,20 @@ supppr.xpt:
 
 **Domain-specific conventions for text > 200 characters:**
 
-The following domains have specialized conventions: CO (Section 5.1), IE (Section 6.3.4), TS (Section 7.4.2), and TI (Section 7.4.1).
+The following domains have specialized conventions for representing values longer than 200 characters:
 
-| Convention | General Observation Class and Supplemental Qualifier Variables | CO.COVAL | TS.TSVAL | TI.IETEST and IE.IETEST |
+- CO (see Section 5.1, Comments, assumption 4)
+- IE (see Section 6.3.4, Inclusion/Exclusion Criteria Not Met, assumption 3)
+- TS (see Section 7.4.2, Trial Summary Information, assumption 4)
+- TI (see Section 7.4.1, Trial Inclusion/Exclusion Criteria, assumption 5)
+
+The following table summarizes the conventions and notes the specializations.
+
+| Convention | Text Strings >200 Char Conventions General Observation Class and Supplemental Qualifier Variables | Text Strings >200 Char Conventions CO.COVAL | Text Strings >200 Char Conventions TS.TSVAL | Text Strings >200 Char Conventions TI.IETEST and IE.IETEST |
 |------------|---------------------------------------------------------------|----------|----------|------------------------|
-| Storage | First 200 chars in parent domain variable; each additional 200 chars in a SUPP-- record | First 200 chars in COVAL; each additional 200 chars in a CO domain record linked to COVALn | First 200 chars in TSVAL; each additional 200 chars in a TS domain record linked to TSVALn | If text >200 chars, put meaningful text in IETEST and describe full text in study metadata |
-| Split rule | Split between words to improve readability | Split between words | Split between words | Not applicable |
-| Label | QLABEL should be the original domain variable label | Variable labels for COVAL1 to COVALn should be "Comment" | Variable labels for TSVAL1 to TSVALn should be "Parameter Value" | Not applicable |
+| Storage | The first 200 characters of text should be stored in the variable and each additional 200 characters of text should be stored as a record in the SUPP-- dataset | The first 200 characters of text should be stored in COVAL and each additional 200 characters of text should be stored in COVAL1 to COVALn. | The first 200 characters of text should be stored in TSVAL and each additional 200 characters of text should be stored in TSVAL1 to TSVALn. | If the inclusion/exclusion criteria text is >200 characters, put meaningful text in IETEST and describe the full text in the study metadata. |
+| Split rule | When splitting a text string into several records, the text should be split between words to improve readability. | When splitting a text string into several records, the text should be split between words to improve readability. | When splitting a text string into several records, the text should be split between words to improve readability. | Not applicable. |
+| Label | The value for QLABEL should be the original domain variable label. | The variable labels for COVAL1 to COVALn should be "Comment". | The variable labels for TSVAL1 to TSVALn should be "Parameter Value". | Not applicable. |
 
 ### 4.5.4 Evaluators in the Interventions and Events Observation Classes
 
@@ -1370,7 +1461,7 @@ The QEVAL variable can be used to describe the evaluator for any data item in a 
 
 For observations that have primary and secondary evaluations of specific qualifier variables, sponsors should put data from the primary evaluation into the standard domain dataset and data from the secondary evaluation into the Supplemental Qualifier datasets (SUPP--). Within each SUPP-- record, the value for QNAM should be formed by appending a "1" to the corresponding standard domain variable name. In cases where the standard domain variable name is already 8 characters in length, sponsors should replace the last character with a "1" (incremented for each additional attribution).
 
-**Example:** An adjudication committee evaluated an adverse event. The evaluations of the adverse event by the primary investigator were represented in the standard AE dataset. The evaluations of the adjudication committee were represented in SUPPAE. See Section 8.4, Relating Non-standard Variable Values to a Parent Domain. Note that the QNAM for the "Relationship to Non-study Treatment" supplemental qualifier is AERELNS1, rather than AERELNST1, because AERELNST is already 8 characters in length.
+This example illustrates a case where an adjudication committee evaluated an adverse event. The evaluations of the adverse event by the primary investigator were represented in the standard AE dataset. The evaluations of the adjudication committee were represented in SUPPAE. See Section 8.4, Relating Non-standard Variable Values to a Parent Domain. Note that the QNAM for the "Relationship to Non-study Treatment" supplemental qualifier is AERELNS1, rather than AERELNST1, because AERELNST is already 8 characters in length.
 
 suppae.xpt:
 
@@ -1382,7 +1473,7 @@ suppae.xpt:
 
 ### 4.5.5 Clinical Significance for Findings Observation Class Data
 
-For assessments of clinical significance when the overall interpretation is in the domain, use the --CLSIG (Clinically Significant) variable on the record that contains the overall interpretation or a particular result. For example, EGCLSIG = "Y" indicates that an ECG result of "ATRIAL FIBRILLATION" was clinically significant.
+For assessments of clinical significance when the overall interpretation is a record in the domain, use the --CLSIG (Clinically Significant) variable on the record that contains the overall interpretation or a particular result. For example, EGCLSIG = "Y" indicates that an ECG result of "ATRIAL FIBRILLATION" was clinically significant.
 
 Separate from clinical significance are results of "NORMAL" or "ABNORMAL", or lab values that are out of normal range. Examples of the latter include:
 
@@ -1409,7 +1500,7 @@ suppho.xpt:
 
 Interventions (e.g., concomitant medications) and events (e.g., medical history) can generally be collected in 2 different ways, by recording either verbatim free text or the responses to a prespecified list of treatments or terms. Because the method of solicitation for information on treatments and terms may affect the frequency at which they are reported, whether they were prespecified may be of interest to reviewers.
 
-The --PRESP variable is used to indicate whether a specific intervention (--TRT) or event (--TERM) was solicited. It has controlled terminology of "Y" (for "Yes") or a null value. It is a permissible variable, and should only be used when the topic variable values come from a prespecified list. Questions such as "Did the subject have any concomitant medications?" or "Did the subject have any medical history?" should not have records in an SDTM domain because (1) these are not valid values for the respective topic variables of CMTRT and MHTERM, and (2) records whose sole purpose is to indicate whether or not a subject had records are not meaningful.
+The --PRESP variable is used to indicate whether a specific intervention (--TRT) or event (--TERM) was solicited. The --PRESP variable has controlled terminology of "Y" (for "Yes") or a null value. It is a permissible variable, and should only be used when the topic variable values come from a prespecified list. Questions such as "Did the subject have any concomitant medications?" or "Did the subject have any medical history?" should not have records in an SDTM domain because (1) these are not valid values for the respective topic variables of CMTRT and MHTERM, and (2) records whose sole purpose is to indicate whether or not a subject had records are not meaningful.
 
 The --OCCUR variable is used to indicate whether a prespecified intervention or event occurred or did not occur. It has controlled terminology of "Y" and "N" (for "Yes" and "No"). It is a permissible variable and may be omitted from the dataset if no topic-variable values were prespecified.
 
@@ -1434,7 +1525,9 @@ Studies often include long-term follow-up assessments to monitor a subject's con
 
 Overall study conclusion in the Disposition (DS) domain occurs once all contact with the subject ceases. If a study has a clinical treatment phase followed by a long-term follow-up phase, these 2 segments of the study can be represented as separate epochs within the overall study, each with its own epoch disposition record.
 
-The following example illustrates the recommended SDTM approach to storing these data. An oncology study encompasses 2 months of clinical treatment and assessments followed by once-monthly telephone contacts. The contacts continue until the subject dies. During the telephone contact, the investigator collects information on the subject's survival status and medication use. The answers to certain questions may trigger other data collection. For example, if the subject's survival status is "dead", then this indicates that the subject has ceased participation in the study, so a study discontinuation record would need to be created. In SDTM, the data related to these follow-up telephone contacts should be stored as follows:
+The following example illustrates the recommended SDTM approach to storing these data.
+
+An oncology study encompasses 2 months of clinical treatment and assessments followed by once-monthly telephone contacts. The contacts continue until the subject dies. During the telephone contact, the investigator collects information on the subject's survival status and medication use. The answers to certain questions may trigger other data collection. For example, if the subject's survival status is "dead", then this indicates that the subject has ceased participation in the study, so a study discontinuation record would need to be created. In SDTM, the data related to these follow-up telephone contacts should be stored as follows:
 
 1. Concomitant medications reported during the contact should be stored in the CM domain.
 2. The subject's survival status should be stored in the Subject Status (SS) domain.
@@ -1445,7 +1538,7 @@ The following example illustrates the recommended SDTM approach to storing these
 
 ### 4.5.9 Baseline Values
 
-The variable --LOBXFL was introduced in SDTMIG v3.3 to address the need for a consistent definition of a value that can serve as a reference with which to compare post-treatment values. This generic definition approximates the concept of baseline and can be used to calculate post-treatment changes. In domains where --BLFL was expected, its core value was changed from expected to permissible and the variable --LOBXFL was added to contain the consistent definition, with a core value of expected. In domains where --BLFL was permissible, the variable --LOBXFL was added with a core value of permissible.
+The variable --LOBXFL was introduced in SDTMIG v3.3 to address the need for a consistent definition of a value that can serve as a reference with which to compare post-treatment values. This generic definition approximates the concept of baseline and can be used to calculate post-treatment changes. In domains where --BLFL was expected, its core value was changed from expected to permissible and the variable --LOBXFL, with a core value of expected, was added to contain the consistent definition. In domains where --BLFL was permissible, the variable --LOBXFL was added with a core value of permissible.
 
 The following table shows a set of similar flag variables and their usage across the SDTM and ADaM.
 

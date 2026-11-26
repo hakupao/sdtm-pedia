@@ -23,7 +23,7 @@
 | ref | 检查项 | 问题 | 证据 |
 |---|---|---|---|
 | assumptions.md:41 (T-6) | PDF_TYPO 取舍 | writer 只登记逗号空格, 漏 `ORNRHI` 缺 `--` (KB 照录) → C-1 | p224 "--ORNRLO, ORNRHI,--STNRLO, --STNRHI" |
-| assumptions.md:43 | 导航措辞 (LOW, 不阻断) | 标题删后 "for this content" 无指代, 置于 assumption 9 后; 可选改 "Examples 4 and 5 are in [examples.md](...)" 之类, 主控定 | — (KB 导航行) |
+| assumptions.md:43 | 导航措辞 (LOW, 不阻断) | 标题删后 "for this content" 无指代, 置于 assumption 9 后; 可选改 `Examples 4 and 5 are in [examples.md](...)` 之类, 主控定 | — (KB 导航行) |
 | examples.md:147 | 段落 (LOW, 不阻断) | PDF "Next, a series…" / "Findings from this testing…" 两段, KB 合一段; 逐字一致 | p227 |
 
 ### 必查项结论

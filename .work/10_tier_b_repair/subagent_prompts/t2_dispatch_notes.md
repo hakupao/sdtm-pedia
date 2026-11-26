@@ -27,3 +27,4 @@
 - **KB 自写的伪节号** (PDF 不存在的 4.2.1.1 等): 去掉节号; 内容不矛盾 → D6 标注保留, 矛盾 → 删.
 - **PDF 图的 Mermaid 重绘**: 必须与 PDF 图逻辑一致 (分支/顺序), 并加 D6 标注 "rendering of PDF Figure …"; 不一致 → 按 PDF 改正.
 - **域 spec 首句** ("xx.xpt, <Domain> — <Class>. One record per …"): 按 CM/IS 先例放在 `<XX>/assumptions.md` 的 Description/Overview 与 Assumptions 之间 (逐字); spec 表脚注属 spec.md. 各批遇到缺失即补 (O15/O16 全域扫描会兜底).
+- **evidence 文件里引用 markdown 链接写法时一律用反引号包住** (否则 check_links 把它算成坏链, B-GF 曾使 live docs 42→45).

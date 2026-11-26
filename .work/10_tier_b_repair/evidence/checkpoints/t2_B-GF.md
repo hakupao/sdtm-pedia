@@ -147,7 +147,7 @@ python3 tools/check_links.py | tail -1   # live docs: 42 (基线 42)
 | # | kb_file:line | ref | action | before → after 摘要 | PDF 页 |
 |---|---|---|---|---|---|
 | 16 | GF/assumptions.md:41 | C-1 / T-6 ig34_p0224_a010 | REPLACED | "--ORNRLO, ORNRHI, --STNRLO" → "--ORNRLO, --ORNRHI, --STNRLO" | 224 |
-| 17 | GF/assumptions.md:43 | LOW (O-GF-1 交叉引用措辞) | REPLACED | 去掉无指代的 "for this content" → "> See [Example 4](examples.md#example-4) for the microsatellite instability example and [Example 5](examples.md#example-5) for the NHOID note." | 227 |
+| 17 | GF/assumptions.md:43 | LOW (O-GF-1 交叉引用措辞) | REPLACED | 去掉无指代的 "for this content" → `> See [Example 4](examples.md#example-4) for the microsatellite instability example and [Example 5](examples.md#example-5) for the NHOID note.` | 227 |
 | 18 | GF/examples.md:147-149 | LOW (段落切分) | REPLACED | "Next, a series … testing)." 与 "Findings from this testing …" 按 PDF 拆回两段 (插空行; 文字不变). 此后行号 +2: a021 段 :151, NHOID Note :153, GFLNKID 句 :169 | 227 |
 
 - **T-6 重登记** (替代续 1 的 T-6 "KB 未动"): PDF "ORNRHI,--STNRLO" 有两处印刷错 — ORNRHI 缺 "--" 前缀，逗号后缺空格。同一列表其余 21 项均带 "--"，且以 ", " 分隔，正确值可由 PDF 自身确定，所以 KB 写 "--ORNRHI" 并保持 ", --STNRLO"。
