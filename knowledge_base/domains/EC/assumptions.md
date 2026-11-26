@@ -1,5 +1,15 @@
 # EC — Assumptions
 
+## EC – Description/Overview
+
+An interventions domain that contains information about protocol-specified study treatment administrations, as collected.
+
+## EC – Specification
+
+ec.xpt, Exposure as Collected — Interventions. One record per protocol-specified study treatment, collected-dosing interval, per subject, per mood, Tabulation.
+
+## EC – Assumptions
+
 1. The EC domain model reflects protocol-specified study treatment administrations, as collected.
    a. EC should be used in all cases where collected exposure information cannot or should not be directly represented in the Exposure (EX) domain. For example, administrations collected in tablets when the protocol-specified unit is mg, or administrations collected in mL when the protocol-specified unit is mg/kg. Product accountability details (e.g., amount dispensed, amount returned) are represented in the DA domain, not in EC.
    b. Collected exposure data are in most cases represented in a combination of 1 or more of EC, DA, or Findings About Events or Interventions (FA) domains. If the entire EC dataset is an exact duplicate of the entire EX dataset, then EC is optional and at the sponsor's discretion.

@@ -1,6 +1,6 @@
 # EX — Examples
 
-> KB note (not in SDTMIG): Examples for EX and EC are shared in Section 6.1.3.3 of the SDTMIG. See also [EC Examples](../EC/examples.md).
+> KB note (not in SDTMIG): Examples for EX and EC are shared in Section 6.1.3.3 of the SDTMIG; EC/examples.md points here.
 
 ## Example 1
 
