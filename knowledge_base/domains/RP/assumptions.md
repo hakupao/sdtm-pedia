@@ -1,5 +1,9 @@
 # RP — Assumptions
 
+## RP – Description/Overview
+
+A findings domain that contains physiological and morphological findings related to the male and female reproductive systems.
+
 ## RP – Specification
 
 rp.xpt, Reproductive System Findings — Findings. One record per finding or result per time point per visit per subject, Tabulation.

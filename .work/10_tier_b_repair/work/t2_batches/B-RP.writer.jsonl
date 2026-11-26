@@ -1,0 +1,9 @@
+{"ref": "census:knowledge_base/domains/RP/examples.md:21:11:RPDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/examples.md", "kb_line_after": 21, "pdf_page": 307, "note": "2008-04-29 -> 2008-04-16"}
+{"ref": "census:knowledge_base/domains/RP/examples.md:22:12:RPDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/examples.md", "kb_line_after": 22, "pdf_page": 307, "note": "2009-03-10 -> 2009-03-09"}
+{"ref": "census:knowledge_base/domains/RP/examples.md:23:13:RPDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/examples.md", "kb_line_after": 23, "pdf_page": 307, "note": "2009-03-10 -> 2009-03-09"}
+{"ref": "census:knowledge_base/domains/RP/examples.md:26:16:RPDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/examples.md", "kb_line_after": 26, "pdf_page": 307, "note": "2009-03-10 -> 2009-03-09"}
+{"ref": "census:knowledge_base/domains/RP/examples.md:27:17:RPDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/examples.md", "kb_line_after": 27, "pdf_page": 307, "note": "2009-03-10 -> 2009-03-09"}
+{"ref": "census:knowledge_base/domains/RP/examples.md:28:18:RPDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/examples.md", "kb_line_after": 28, "pdf_page": 307, "note": "2009-03-10 -> 2009-03-09"}
+{"ref": "census:knowledge_base/domains/RP/examples.md:29:19:RPDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/examples.md", "kb_line_after": 29, "pdf_page": 307, "note": "2009-03-10 -> 2009-03-09"}
+{"ref": "ig34_p0305_a013", "action": "SKIPPED_STRUCT", "kb_file": "knowledge_base/domains/RP/assumptions.md", "kb_line_after": null, "pdf_page": 305, "note": "Description/Overview 缺; 目标 assumptions.md 不在白名单, 主控定"}
+{"ref": "ig34_p0305_a013", "action": "INSERTED", "kb_file": "knowledge_base/domains/RP/assumptions.md", "kb_line_after": 5, "pdf_page": 305, "note": "attempt 1 续: 白名单扩入后补 Description/Overview, 取代前行 SKIPPED_STRUCT"}

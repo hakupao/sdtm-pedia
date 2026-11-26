@@ -26,3 +26,4 @@
 | O23 | T2 B-OE writer | OE/assumptions.md | 缺 p298 Description/Overview 句 + p299 spec 首句 → 并入 O16/O17 sweep |
 | O24 | T2 B-REL writer | 全库 spec.md 记法 | IDVAR 等 CT 列 "*" 写成空; codelist 名用 C-code; spec 表脚注 ¹ 缺失 — 全库 spec.md 共性 → 并入 O15 spec 扫描 (先定统一口径再改) |
 | O25 | 主控 | T4 汇总 | 各批 checkpoint 中 '照录 + T4' 项分散登记 → T4.2 前生成 evidence/checkpoints/t4_user_decisions.md 汇总表 (批次 / 位置 / PDF 原值 / 候选值 / 依据) |
+| O26 | T2 B-RP review | 全库 domains/*/spec.md | spec 表脚注 0/64 域收录 → O15 spec 扫描 (与 O24 合并) |
