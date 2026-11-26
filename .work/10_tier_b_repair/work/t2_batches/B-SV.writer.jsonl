@@ -1,0 +1,9 @@
+{"ref": "ig34_p0086_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/SV/assumptions.md", "kb_line_after": 5, "pdf_page": 86, "note": "O33 Description first sentence"}
+{"ref": "ig34_p0086_a004", "action": "INSERTED", "kb_file": "knowledge_base/domains/SV/assumptions.md", "kb_line_after": 7, "pdf_page": 86, "note": "O33"}
+{"ref": "ig34_p0086_a005", "action": "INSERTED", "kb_file": "knowledge_base/domains/SV/assumptions.md", "kb_line_after": 7, "pdf_page": 86, "note": "O33"}
+{"ref": "ig34_p0086_a006", "action": "INSERTED", "kb_file": "knowledge_base/domains/SV/assumptions.md", "kb_line_after": 7, "pdf_page": 86, "note": "O33"}
+{"ref": "ig34_p0086_a007", "action": "INSERTED", "kb_file": "knowledge_base/domains/SV/assumptions.md", "kb_line_after": 7, "pdf_page": 86, "note": "O33"}
+{"ref": "ig34_p0086_a011", "action": "REPLACED", "kb_file": "knowledge_base/domains/SV/assumptions.md", "kb_line_after": 9, "pdf_page": 86, "note": "O33 meaning-changing rewrite restored to PDF (rendered image); deletion D-1"}
+{"ref": "R3:assumption15b:recorded", "action": "REPLACED", "kb_file": "knowledge_base/domains/SV/assumptions.md", "kb_line_after": 51, "pdf_page": 88, "note": "collected -> recorded (word-level, authorized)"}
+{"ref": "census:knowledge_base/domains/SV/examples.md:53:6:DSSTDY", "action": "REPLACED", "kb_file": "knowledge_base/domains/SV/examples.md", "kb_line_after": 53, "pdf_page": 90, "note": "28 -> 26"}
+{"ref": "R3:ex1_ds_row5_period", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/SV/examples.md", "kb_line_after": 40, "pdf_page": 89, "note": "T-1 PDF missing period; KB keeps"}
