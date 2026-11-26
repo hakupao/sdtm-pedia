@@ -1,31 +1,29 @@
 # SDTMIG v3.4 — Chapter 8: Representing Relationships and Data
 
-Source: SDTMIG v3.4, Section 8 (Pages 427-446)
+Source: SDTMIG v3.4, Section 8 (Pages 427-440)
 
 ## Overview
 
 The defined variables of the SDTM general observation classes could restrict the ability of sponsors to represent all the data they wish to submit. Collected data that may not entirely fit includes relationships between records within a domain, records in separate domains, and sponsor-defined "variables." As a result, the SDTM has methods to represent distinct types of relationships, all of which are described in more detail in subsequent sections:
 
-- **Section 8.1**, Relating Groups of Records Within a Domain Using the --GRPID Variable — representing a relationship between a group of records for a given subject within the same domain
-- **Section 8.2**, Relating Peer Records — representing relationships between independent records (usually in separate domains) for a subject, such as a concomitant medication taken to treat an adverse event
-- **Section 8.3**, Relating Datasets — representing a relationship between 2 (or more) datasets where records of 1 (or more) dataset(s) are related to record(s) in another dataset (or datasets)
-- **Section 8.4**, Relating Non-standard Variable Values to a Parent Domain — the method for representing the dependent relationship where data that cannot be represented by a standard variable within DM or a GOC domain record can be related back to that record
-- **Section 8.5**, Relating Comments to a Parent Domain — representing a dependent relationship between a comment in the CO domain and a parent record in other domains
-- **Section 8.6**, How to Determine Where Data Belong in SDTM-Compliant Data Tabulations — the concept of related datasets and where to place additional data
-- **Section 8.7**, Relating Subjects — representing collected relationships between persons, both of whom are study subjects (e.g., "MOTHER, BIOLOGICAL"; "CHILD, BIOLOGICAL"; "TWIN, DIZYGOTIC")
-- **Section 8.8**, Related Specimens — a dataset used to represent relationships between specimens
+- Section 8.1, Relating Groups of Records Within a Domain Using the --GRPID Variable, describes representing a relationship between a group of records for a given subject within the same domain.
+- Section 8.2, Relating Peer Records, describes representing relationships between independent records (usually in separate domains) for a subject, such as a concomitant medication taken to treat an adverse event.
+- Section 8.3, Relating Datasets, describes representing a relationship between 2 (or more) datasets where records of 1 (or more) dataset(s) are related to record(s) in another dataset (or datasets).
+- Section 8.4, Relating Non-standard Variable Values to a Parent Domain, describes the method for representing the dependent relationship where data that cannot be represented by a standard variable within the demographics domain (DM) or a general observation-class domain record (or records) can be related back to that record (or records).
+- Section 8.5, Relating Comments to a Parent Domain, describes representing a dependent relationship between a comment in the Comments (CO) domain (see also Section 5.1, Comments) and a parent record (or records) in other domains, such as a comment recorded in association with an adverse event.
+- Section 8.6, How to Determine Where Data Belong in SDTM-Compliant Data Tabulations, discusses the concept of related datasets and whether to place additional data in a separate domain or a supplemental qualifier special-purpose dataset, and the concept of modeling findings data that refer to data in another general observation class domain.
+- Section 8.7, Relating Subjects, describes representing collected relationships between persons, both of whom are study subjects. For example: "MOTHER, BIOLOGICAL"; "CHILD, BIOLOGICAL"; "TWIN, DIZYGOTIC".
+- Section 8.8, Related Specimens, is a dataset used to represent relationships between specimens.
 
-All relationships make use of the standard domain identifiers STUDYID, DOMAIN, and USUBJID. In addition, the variables IDVAR and IDVARVAL are used for identifying the record-level merge/join keys. These keys are used to tie information together by linking records. The following are examples of variables that could be used in IDVAR:
+All relationships make use of the standard domain identifiers STUDYID, DOMAIN, and USUBJID. In addition, the variables IDVAR and IDVARVAL are used for identifying the record-level merge/join keys. These keys are used to tie information together by linking records. The specific set of identifiers necessary to properly identify each type of relationship is described in detail in the following sections. The following are examples of variables that could be used in IDVAR:
 
-- The sequence number (--SEQ) variable uniquely identifies a record for a given USUBJID within a domain. --SEQ is required in all domains except DM. Conventions for establishing and maintaining --SEQ values are sponsor-defined. Values may or may not be sequential depending on data processes and sources.
-- The reference identifier (--REFID) variable can be used to capture a sponsor-defined or external identifier, such as lab-specimen identifiers and ECG identifiers. --REFID is permissible in all general observation-class domains, but is never required. Values are sponsor-defined.
-- The grouping identifier (--GRPID) variable, used to link related records for a subject within a domain, is explained in Section 8.1.
-
-The specific set of identifiers necessary to properly identify each type of relationship is described in detail in the following sections.
+- The sequence number (--SEQ) variable uniquely identifies a record for a given USUBJID within a domain. The variable --SEQ is required in all domains except DM. For example, if a subject has 25 adverse events in the Adverse Event (AE) domain, then 25 unique AESEQ values should be established for this subject. Conventions for establishing and maintaining --SEQ values are sponsor-defined. Values may or may not be sequential depending on data processes and sources.
+- The reference identifier (--REFID) variable can be used to capture a sponsor-defined or external identifier, such as an identifier provided in an electronic data transfer. Some examples are lab-specimen identifiers and ECG identifiers. --REFID is permissible in all general observation-class domains, but is never required. Values for --REFID are sponsor-defined and can be any alphanumeric strings the sponsor chooses, consistent with their internal practices.
+- The grouping identifier (--GRPID) variable, used to link related records for a subject within a domain, is explained in Section 8.1, Relating Groups of Records Within a Domain Using the --GRPID Variable.
 
 ---
 
-## 8.1 Relating Groups of Records Within a Domain Using --GRPID
+## 8.1 Relating Groups of Records Within a Domain Using the --GRPID Variable
 
 The optional grouping identifier variable --GRPID is Permissible in all domains that are based on the general observation classes. It is used to identify relationships between records within a USUBJID within a single domain (e.g., intervention records for a combination therapy where treatments in the combination varies from subject to subject). In such cases, the relationship is defined by assigning the same unique character value to the --GRPID variable. The values used for --GRPID can be any values the sponsor chooses; however, if the sponsor uses values with some embedded meaning (rather than arbitrary numbers), those values should be consistent across the submission to avoid confusion. It is important to note that --GRPID has no inherent meaning across subjects or across domains.
 
@@ -47,18 +45,18 @@ cm.xpt:
 
 | Row | STUDYID | DOMAIN | USUBJID | CMSEQ | CMGRPID | CMTRT | CMDECOD | CMDOSE | CMDOSU | CMSTDTC | CMENDTC |
 |-----|---------|--------|---------|-------|---------|-------|---------|--------|--------|---------|---------|
-| 1 | 1234 | CM | 1234 | 1 | COMBO THPY 1 | Verbatim Med A | Generic Med | 100 | mg | 2004-01-17 | 2004-01-19 |
-| 2 | 1234 | CM | 1234 | 2 | COMBO THPY 1 | Verbatim Med B | Generic Med | 50 | mg | 2004-01-17 | 2004-01-19 |
-| 3 | 1234 | CM | 1234 | 3 | COMBO THPY 1 | Verbatim Med C | Generic Med | 200 | mg | 2004-01-17 | 2004-01-19 |
-| 4 | 1234 | CM | 1234 | 4 | COMBO THPY 2 | Verbatim Med D | Generic Med | 150 | mg | 2004-01-21 | 2004-01-22 |
-| 5 | 1234 | CM | 1234 | 5 | COMBO THPY 2 | Verbatim Med E | Generic Med | 100 | mg | 2004-01-21 | 2004-01-22 |
-| 6 | 1234 | CM | 1234 | 6 | COMBO THPY 2 | Verbatim Med F | Generic Med | 75 | mg | 2004-01-21 | 2004-01-22 |
-| 7 | 1234 | CM | 5678 | 1 | COMBO THPY 1 | Verbatim Med G | Generic Med | 37.5 | mg | 2004-03-17 | 2004-03-25 |
-| 8 | 1234 | CM | 5678 | 2 | COMBO THPY 1 | Verbatim Med H | Generic Med | 60 | mg | 2004-03-17 | 2004-03-25 |
+| 1 | 1234 | CM | 1234 | 1 | COMBO THPY 1 | Verbatim Med A | Generic Med A | 100 | mg | 2004-01-17 | 2004-01-19 |
+| 2 | 1234 | CM | 1234 | 2 | COMBO THPY 1 | Verbatim Med B | Generic Med B | 50 | mg | 2004-01-17 | 2004-01-19 |
+| 3 | 1234 | CM | 1234 | 3 | COMBO THPY 1 | Verbatim Med C | Generic Med C | 200 | mg | 2004-01-17 | 2004-01-19 |
+| 4 | 1234 | CM | 1234 | 4 | COMBO THPY 2 | Verbatim Med D | Generic Med D | 150 | mg | 2004-01-21 | 2004-01-22 |
+| 5 | 1234 | CM | 1234 | 5 | COMBO THPY 2 | Verbatim Med E | Generic Med E | 100 | mg | 2004-01-21 | 2004-01-22 |
+| 6 | 1234 | CM | 1234 | 6 | COMBO THPY 2 | Verbatim Med F | Generic Med F | 75 | mg | 2004-01-21 | 2004-01-22 |
+| 7 | 1234 | CM | 5678 | 1 | COMBO THPY 1 | Verbatim Med G | Generic Med G | 37.5 | mg | 2004-03-17 | 2004-03-25 |
+| 8 | 1234 | CM | 5678 | 2 | COMBO THPY 1 | Verbatim Med H | Generic Med H | 60 | mg | 2004-03-17 | 2004-03-25 |
 | 9 | 1234 | CM | 5678 | 3 | COMBO THPY 1 | Verbatim Med I | Generic Med I | 20 | mg | 2004-03-17 | 2004-03-25 |
-| 10 | 1234 | CM | 5678 | 4 | COMBO THPY 2 | Verbatim Med J | Generic Med | 100 | mg | 2004-03-21 | 2004-03-22 |
-| 11 | 1234 | CM | 5678 | 5 | COMBO THPY 2 | Verbatim Med K | Generic Med | 50 | mg | 2004-03-21 | 2004-03-22 |
-| 12 | 1234 | CM | 5678 | 6 | COMBO THPY 2 | Verbatim Med L | Generic Med | 10 | mg | 2004-03-21 | 2004-03-22 |
+| 10 | 1234 | CM | 5678 | 4 | COMBO THPY 2 | Verbatim Med J | Generic Med J | 100 | mg | 2004-03-21 | 2004-03-22 |
+| 11 | 1234 | CM | 5678 | 5 | COMBO THPY 2 | Verbatim Med K | Generic Med K | 50 | mg | 2004-03-21 | 2004-03-22 |
+| 12 | 1234 | CM | 5678 | 6 | COMBO THPY 2 | Verbatim Med L | Generic Med L | 10 | mg | 2004-03-21 | 2004-03-22 |
 
 ---
 
@@ -99,7 +97,9 @@ relrec.xpt, Related Records — Relationship. One record per related record, gro
 
 ### 8.2.2 RELREC Dataset Examples
 
-**Example 1:** This example illustrates the use of the RELREC dataset to relate records stored in separate domains for USUBJID = "123456". This example represents a situation in which a single adverse event is part of 2 collected relationships, one with 2 concomitant medications and the other with 2 laboratory findings, but there is no collected relationship between the 2 laboratory findings and the 2 concomitant medications.
+**Example 1**
+
+This example illustrates the use of the RELREC dataset to relate records stored in separate domains for USUBJID = "123456". This example represents a situation in which a single adverse event is part of 2 collected relationships, one with 2 concomitant medications and the other with 2 laboratory findings, but there is no collected relationship between the 2 laboratory findings and the 2 concomitant medications.
 
 **Rows 1-3:** Show the representation of a relationship between an AE record and 2 concomitant medication records.
 
@@ -116,7 +116,9 @@ relrec.xpt:
 | 5 | EFC1234 | LB | 123456 | LBSEQ | 47 | | 2 |
 | 6 | EFC1234 | LB | 123456 | LBSEQ | 48 | | 2 |
 
-**Example 2:** Same scenario as Example 1, but in this case the way the data were collected indicated that the concomitant medications and laboratory findings were all in a single relationship to each other and the adverse event.
+**Example 2**
+
+Example 2 is the same scenario as Example 1. In this case, however, the way the data were collected indicated that the concomitant medications and laboratory findings were all in a single relationship to each other and the adverse event.
 
 relrec.xpt:
 
@@ -128,7 +130,9 @@ relrec.xpt:
 | 4 | EFC1234 | LB | 123456 | LBSEQ | 47 | | 1 |
 | 5 | EFC1234 | LB | 123456 | LBSEQ | 48 | | 1 |
 
-**Example 3:** Same scenario as Example 2, but the sponsor grouped the 2 concomitant medications in the CM domain using CMGRPID = "COMBO 1", allowing the relationship among these 5 records to be represented with 4, rather than 5, records in the RELREC dataset.
+**Example 3**
+
+Example 3 is the same scenario as Example 2. However, the sponsor grouped the 2 concomitant medications in the CM domain using CMGRPID = "COMBO 1", allowing the relationship among these 5 records to be represented with 4, rather than 5, records in the RELREC dataset.
 
 relrec.xpt:
 
@@ -143,7 +147,7 @@ Additional examples may be found in the domain examples such as Section 6.2.4, D
 
 ---
 
-## 8.3 Relating Datasets Using RELREC
+## 8.3 Relating Datasets
 
 The Related Records (RELREC) special-purpose dataset can also be used to identify relationships between datasets (e.g., a one-to-many or parent-child relationship). The relationship is defined by including a single record for each related dataset that identifies the key(s) of the dataset that can be used to relate the respective records.
 
@@ -164,11 +168,11 @@ In the sponsor's operational database, these datasets may have existed as either
 
 The variable RELTYPE identifies the type of relationship between the datasets. The allowable values are ONE and MANY (controlled terminology is expected). This information defines how a merge/join would be written, and what would be the result of the merge/join. The possible combinations are:
 
-1. **ONE and ONE.** This combination indicates that there is NO hierarchical relationship between the datasets and the records in the datasets. Only 1 record from each dataset will potentially have the same value of the IDVAR within USUBJID.
+1. ONE and ONE. This combination indicates that there is **NO** hierarchical relationship between the datasets and the records in the datasets. Only 1 record from each dataset will potentially have the same value of the IDVAR within USUBJID.
 
-2. **ONE and MANY.** This combination indicates that there IS a hierarchical (parent-child) relationship between the datasets. One record within USUBJID in the dataset identified by RELTYPE = "ONE" will potentially have the same value of the IDVAR with many (1 or more) records in the dataset identified by RELTYPE = "MANY".
+2. ONE and MANY. This combination indicates that there **IS** a hierarchical (parent-child) relationship between the datasets. One record within USUBJID in the dataset identified by RELTYPE = "ONE" will potentially have the same value of the IDVAR with many (1 or more) records in the dataset identified by RELTYPE = "MANY".
 
-3. **MANY and MANY.** This combination is unusual and challenging to manage in a merge/join, and may represent a relationship that was never intended to convey a usable merge/join, such as described in Section 6.3.5.9.3, Relating PP Records to PC Records.
+3. MANY and MANY. This combination is unusual and challenging to manage in a merge/join, and may represent a relationship that was never intended to convey a usable merge/join, such as described in Section 6.3.5.9.3, Relating PP Records to PC Records.
 
 Because IDVAR identifies the keys that can be used to merge/join records between the datasets, --SEQ cannot be used. --SEQ only has meaning within a subject within a dataset, not across datasets.
 
@@ -180,7 +184,7 @@ The SDTM does not allow the addition of new variables. Therefore, the Supplement
 
 SUPP-- represents the metadata and data for each NSV/value combination. As the name suggests, this dataset is intended to capture additional qualifiers for an observation. Data that represent separate observations should be treated as separate observations. The Supplemental Qualifiers dataset is structured similarly to the RELREC dataset, in that it uses the same set of keys to identify parent records. Each SUPP-- record also includes the name of the qualifier variable being added (QNAM), the label for the variable (QLABEL), the actual value for each instance or record (QVAL), the origin (QORIG) of the value (see Section 4.1.8, Origin Metadata), and the evaluator (QEVAL) to specify the role of the individual who assigned the value (e.g., "ADJUDICATION COMMITTEE", "SPONSOR"). Controlled terminology for certain expected values for QNAM and QLABEL is included in Appendix C1, Supplemental Qualifiers Name Codes.
 
-SUPP-- datasets are also used to capture **attributions**. An attribution is typically an interpretation or subjective classification of 1 or more observations by a specific evaluator, such as a flag that indicates whether an observation was considered to be clinically significant. It is possible that different attributions may be necessary in some cases; SUPP-- provides a mechanism for incorporating as many attributions as are necessary. A SUPP-- dataset can contain both objective data (where values are collected or derived algorithmically) and subjective data (attributions where values are assigned by a person or committee). For objective data, the value in QEVAL will be null. For subjective data, the value in QEVAL should reflect the role of the person or institution assigning the value (e.g., "SPONSOR", "ADJUDICATION COMMITTEE").
+SUPP-- datasets are also used to capture attributions. An attribution is typically an interpretation or subjective classification of 1 or more observations by a specific evaluator, such as a flag that indicates whether an observation was considered to be clinically significant. It is possible that different attributions may be necessary in some cases; SUPP-- provides a mechanism for incorporating as many attributions as are necessary. A SUPP-- dataset can contain both objective data (where values are collected or derived algorithmically) and subjective data (attributions where values are assigned by a person or committee). For objective data, the value in QEVAL will be null. For subjective data, the value in QEVAL should reflect the role of the person or institution assigning the value (e.g., "SPONSOR", "ADJUDICATION COMMITTEE").
 
 The combined set of values for the first 6 columns (STUDYID...QNAM) should be unique for every record. That is, there should not be multiple records in a SUPP-- dataset for the same QNAM value, as it relates to IDVAR/IDVARVAL for a USUBJID in a domain. For example, if 2 individuals (e.g., the investigator and an independent adjudicator) provide a determination regarding whether an adverse event is treatment-emergent, then separate QNAM values should be used for each set of information (e.g., "AETRTEMI", "AETRTEMA"). This is necessary to ensure that reviewers can join/merge/transpose the information back with the records in the original domain without risk of losing information.
 
@@ -205,20 +209,19 @@ supp--.xpt, Supplemental Qualifiers for [domain name] — Relationship. One reco
 
 ^1^ In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
-### Key Rules
+A record in a SUPP-- dataset relates back to its parent record(s) via the key identified by the STUDYID, RDOMAIN, USUBJID, and IDVAR/IDVARVAL variables. An exception is SUPP-- dataset records that are related to Demographics (DM) records, where both IDVAR and IDVARVAL will be null because the key variables STUDYID, RDOMAIN, and USUBJID are sufficient to identify the unique parent record in DM (DM has 1 record per USUBJID).
 
-- A record in a SUPP-- dataset relates back to its parent record(s) via the key identified by the STUDYID, RDOMAIN, USUBJID, and IDVAR/IDVARVAL variables. An exception is SUPP-- dataset records that are related to Demographics (DM) records, where both IDVAR and IDVARVAL will be null because STUDYID, RDOMAIN, and USUBJID are sufficient to identify the unique parent record in DM (DM has 1 record per USUBJID)
-- All records in the SUPP-- datasets must have a value for QVAL. Transposing source variables with missing/null values may generate SUPP-- records with null values for QVAL, causing the SUPP-- datasets to be extremely large. When this happens, the sponsor must delete the records where QVAL is null prior to submission
-- See Section 4.5.3, Text Strings that Exceed the Maximum Length for General Observation-class Domain Variables, for information on representing data values greater than 200 characters in length
-- See Appendix C1, Supplemental Qualifiers Name Codes, for controlled terminology for QNAM and QLABEL for some of the most common supplemental qualifiers. Additional QNAM values may be created as needed, following the guidelines provided in the CDISC Notes for QVAL
-
-### 8.4.2 Submitting Supplemental Qualifiers in Separate Datasets
-
-There is a one-to-one correspondence between a domain dataset and its Supplemental Qualifier dataset. The single SUPPQUAL dataset option that was introduced in SDTMIGv3.1 was **deprecated**. The set of supplemental qualifiers for each domain is included in a separate dataset with the name SUPP-- (where "--" denotes the source domain which the supplemental qualifiers relate back to). For example, Demographics (DM) qualifiers would be submitted in suppdm.xpt. When data have been split into multiple datasets (see Section 4.1.7, Splitting Domains), longer names such as SUPPFAMH may be needed. In cases where data about associated persons have been collected, supplemental qualifiers for Findings About events or interventions for an associated person may need to be represented (see the SDTMIG for Associated Persons). A dataset name with the SUPP fragment (e.g., SUPPAPFAMH) would be too long. In this case only, the "SUPP" portion should be shortened to "SQ" (e.g., resulting in the dataset name SQAPFAMH).
+All records in the SUPP-- datasets must have a value for QVAL. Transposing source variables with missing/null values may generate SUPP-- records with null values for QVAL, causing the SUPP-- datasets to be extremely large. When this happens, the sponsor must delete the records where QVAL is null prior to submission.
 
 See Section 4.5.3, Text Strings that Exceed the Maximum Length for General Observation-class Domain Variables, for information on representing data values greater than 200 characters in length.
 
-### 8.4.3 Examples
+See Appendix C1, Supplemental Qualifiers Name Codes, for controlled terminology for QNAM and QLABEL for some of the most common supplemental qualifiers. Additional QNAM values may be created as needed, following the guidelines provided in the CDISC Notes for QVAL.
+
+### 8.4.2 Submitting Supplemental Qualifiers in Separate Datasets
+
+There is a one-to-one correspondence between a domain dataset and its Supplemental Qualifier dataset. The single SUPPQUAL dataset option that was introduced in SDTMIG v3.1 was deprecated. The set of supplemental qualifiers for each domain is included in a separate dataset with the name SUPP-- (where "--" denotes the source domain which the supplemental qualifiers relate back to). For example, Demographics (DM) qualifiers would be submitted in suppdm.xpt. When data have been split into multiple datasets (see Section 4.1.7, Splitting Domains), longer names such as SUPPFAMH may be needed. In cases where data about associated persons have been collected, supplemental qualifiers for Findings About events or interventions for an associated person may need to be represented (see the SDTMIG for Associated Persons, https://www.cdisc.org/standards/foundational/sdtmig/). A dataset name with the SUPP fragment (e.g., SUPPAPFAMH) would be too long. In this case only, the "SUPP" portion should be shortened to "SQ" (e.g., resulting in the dataset name SQAPFAMH).
+
+### 8.4.3 SUPP-- Examples
 
 These examples illustrate how a set of SUPP-- datasets could be used to relate non-standard information to a parent domain.
 
@@ -242,16 +245,16 @@ suppqs.xpt:
 | 3 | 1996001 | QS | 99-802 | QSCAT | BPI | QSLANG | Questionnaire Language | GERMAN | CRF | |
 | 4 | 1996001 | QS | 99-802 | QSCAT | ADAS-COG | QSLANG | Questionnaire Language | GERMAN | CRF | |
 
-Additional examples may be found in the domain examples such as Section 5.2 Demographics, Examples 3 and 4, in Section 6.3.3, ECG Test Results, Example 1, and in Section 6.3.5.6, Laboratory Test Results, Example 1.
+Additional examples may be found in the domain examples, such as in Section 5.2 Demographics, Examples 3 and 4, in Section 6.3.3, ECG Test Results, Example 1, and in Section 6.3.5.6, Laboratory Test Results, Example 1.
 
 ### 8.4.4 When Not to Use Supplemental Qualifiers
 
 The following are examples of data that should **not** be submitted as supplemental qualifiers:
 
 - Subject-level objective data that fit in Subject Characteristics (SC; e.g., national origin, twin type)
-- Findings interpretations that should be added as an additional test code and result. An example of this would be a record for electrocardiogram interpretation where EGTESTCD = "INTP", and the same EGGRPID or EGREFID value would be assigned for all records associated with that ECG (see Section 4.5.5, Clinical Significance for Findings Observation Class Data)
-- Comments related to a record or records contained within a parent dataset. Although they may have been collected in the same record by the sponsor, comments should instead be captured in the CO special-purpose domain
-- Data not directly related to records in a parent domain. Such records should instead be captured in either a separate general observation class domain or special-purpose domain
+- Findings interpretations that should be added as an additional test code and result. An example of this would be a record for electrocardiogram interpretation where EGTESTCD = "INTP", and the same EGGRPID or EGREFID value would be assigned for all records associated with that ECG (see Section 4.5.5, Clinical Significance for Findings Observation Class Data).
+- Comments related to a record or records contained within a parent dataset. Although they may have been collected in the same record by the sponsor, comments should instead be captured in the CO special-purpose domain.
+- Data not directly related to records in a parent domain. Such records should instead be captured in either a separate general observation class domain or special-purpose domain.
 
 ---
 
@@ -270,13 +273,13 @@ For additional information collected further describing the comment relationship
 1. Values (e.g., CRF page number or name) may be placed in COREF.
 2. Timing variables (e.g., VISITNUM, VISIT) may be added to the CO special-purpose domain. See Section 5.1, Comments, assumption 5 for a complete list of identifier and timing variables that can be added to the CO special-purpose domain.
 
-As with Supplemental Qualifiers (SUPP--) and Related Records (RELREC), --GRPID and other grouping variables can be used as the value in IDVAR to identify comments with relationships to multiple domain records. The limitation of this is that a single comment may only be related to a group of records in 1 domain (RDOMAIN can have only 1 value). If a single comment relates to records in multiple domains, the comment may need to be repeated in the CO special-purpose domain to facilitate the understanding of the relationships.
+As with Supplemental Qualifiers (SUPP--) and Related Records (RELREC), --GRPID and other grouping variables can be used as the value in IDVAR to identify comments with relationships to multiple domain records, for example a comment that applies to a group of concomitant medications, perhaps taken as a combination therapy. The limitation of this is that a single comment may only be related to a group of records in 1 domain (RDOMAIN can have only 1 value). If a single comment relates to records in multiple domains, the comment may need to be repeated in the CO special-purpose domain to facilitate the understanding of the relationships.
 
 See examples for CO data in Section 5.1, Comments.
 
 ---
 
-## 8.6 Where Data Belong
+## 8.6 How to Determine Where Data Belong in SDTM-Compliant Data Tabulations
 
 ### 8.6.1 Guidelines for Determining the General Observation Class
 
@@ -290,25 +293,11 @@ Findings general observation class data include measurements, tests, assessments
 
 ### 8.6.2 Guidelines for Forming New Domains
 
-It may not always be clear whether a set of data represents a single topic or more, and thus whether it should be combined into 1 domain or split into 2 or more domains.
+It may not always be clear whether a set of data represents a single topic or more, and thus whether it should be combined into 1 domain or split into 2 or more domains. This implementation guide shows examples of both.
 
-This implementation guide shows examples of both.
+In some cases, a single data structure works well for a variety of types of data. For example, all questionnaire data are placed in the QS domain, with particular questionnaires identified by QSCAT (see Section 6.3.9, Questionnaires, Ratings, and Scales (QRS) Domains (FT, QS, RS)). Although some operational databases may store urinalysis data in a separate dataset, the SDTM places all lab data in the LB domain (see Section 6.3.5.6, Laboratory Test Results (LB)) with urinalysis tests identified using LBSPEC.
 
-In some cases, a single data structure works well for a variety of types of data.
-
-For example, all questionnaire data are placed in the QS domain, with particular questionnaires identified by QSCAT (see Section 6.3.9, Questionnaires, Ratings, and Scales (QRS) Domains (FT, QS, RS)).
-
-Although some operational databases may store urinalysis data in a separate dataset, the SDTM places all lab data in the LB domain (see Section 6.3.5.6, Laboratory Test Results (LB)) with urinalysis tests identified using LBSPEC.
-
-In other cases, a particular topic may be very broad and/or require more than 1 data structure (and therefore require more than 1 dataset).
-
-This implementation guide includes examples in microbiology and pharmacokinetics (see Section 6.3.5.7, Microbiology Domains, and Section 6.3.5.9, Pharmacokinetics Domains).
-
-These examples use 2 domain datasets because within these scientific areas there is more than 1 topic, and each topic results in a different data structure.
-
-In the Pharmacokinetics domain example, the topic for PC is plasma (or other specimen) drug concentration as a function of time, and the structure is 1 record per analyte per time point per reference time point (e.g., dosing event) per subject.
-
-PP contains characteristics of the time-concentration curve (e.g., AUC, Cmax, Tmax, half-life) and elimination rate constant; the structure is 1 record per parameter per analyte per reference time point per subject.
+In other cases, a particular topic may be very broad and/or require more than 1 data structure (and therefore require more than 1 dataset). This implementation guide includes examples in microbiology and pharmacokinetics (see Section 6.3.5.7, Microbiology Domains, and Section 6.3.5.9, Pharmacokinetics Domains). These examples use 2 domain datasets because within these scientific areas there is more than 1 topic, and each topic results in a different data structure. In the Pharmacokinetics domain example, the topic for PC is plasma (or other specimen) drug concentration as a function of time, and the structure is 1 record per analyte per time point per reference time point (e.g., dosing event) per subject. PP contains characteristics of the time-concentration curve (e.g., AUC, Cmax, Tmax, half-life) and elimination rate constant; the structure is 1 record per parameter per analyte per reference time point per subject.
 
 ### 8.6.3 Guidelines for Differentiating Between Interventions, Events, Findings, and Findings About Events or Interventions
 
@@ -325,16 +314,16 @@ There may be several sources of confusion about whether a particular piece of da
 - Some assessments of events (e.g., severity, relationship to study treatment) have been built into the SDTM Events model as qualifiers, rather than being treated as findings about events.
 - Sponsors may choose how they define an event. See Section 6.2.1, Adverse Events, assumption 7e.
 
-The structure of the data being considered, although not definitive, will often help determine whether the data represent an event or a finding. The following table presents questions that may assist sponsors in deciding where data should be placed in SDTM.
+The structure of the data being considered, although not definitive, will often help determine whether the data represent as an event or a finding. The following table presents questions that may assist sponsors in deciding where data should be placed in SDTM.
 
 | Question | Interpretation of Answers |
 |----------|--------------------------|
-| Is this a measurement, with units, etc.? | A "Yes" answer indicates a finding. If the measurement is of some aspect of an event, it may be represented as a finding about the event. A "No" answer is inconclusive. |
-| Are the data collected in a CRF for each visit, or an overall CRF log form? | Log forms (forms that are completed over the course of the study rather than at a single visit) suggest Events or Interventions general observation class data. Dates collected are usually start and end dates of an event or intervention. Dates when the information was collected are generally not of interest and are usually not recorded by the investigator. Observations made at individual visits are usually planned findings. Data collected at an initial visit may include information about past events and interventions, as well as findings. |
-| What date/times are collected? | If the dates collected are start and/or end dates, then data are probably about an event or intervention. If the dates collected are dates of assessments, then data probably represent a finding. If dates of collection are different from other dates collected, it suggests that data are historical or are about an event or intervention that happened independently of the study schedule for data collection. |
-| Is verbatim text collected and then coded? | A "Yes" answer suggests that this is Events or Interventions general observation class data. However, Findings general observation class data from an examination (e.g., physical examination) that identifies abnormalities may also be coded. Note that for Events and Interventions general observation class data, the topic variable is coded, whereas for Findings general observation class data, the result is coded. |
-| If this is data about an event, does it apply to the event as a whole? | A "Yes" answer suggests this is traditional Events general observation class data, and it should have a record in an Events domain. A "No" answer suggests that there are multiple time-based findings about an event, and that these data should be treated as Findings About data. |
-| Does this data meet the criteria for representation in a Questionnaires, Ratings, and Scales (QRS) domain? | The criteria for QRS are available at: https://www.cdisc.org/foundational/qrs. There are many standard questionnaires and rating scales that collect information about symptoms. The fact that these data are findings about symptoms does not mean that the data should be represented in FA rather than a QRS domain (QS, FT, or RS). Data about symptoms may be collected in a format that is usually associated with questionnaires and rating scales (e.g., visual analog scale). This format alone does not mean that the data should be represented in a QRS domain. |
+| Is this a measurement, with units, etc.? | • A "Yes" answer indicates a finding. If the measurement is of some aspect of an event, it may be represented as a finding about the event.<br>• A "No" answer is inconclusive. |
+| Are the data collected in a CRF for each visit, or an overall CRF log form? | • Log forms (forms that are completed over the course of the study rather than at a single visit) suggest Events or Interventions general observation class data. Dates collected are usually start and end dates of an event or intervention. Dates when the information was collected are generally not of interest and are usually not recorded by the investigator.<br>• Observations made at individual visits are usually planned findings.<br>◦ Data collected at an initial visit may include information about past events and interventions, as well as findings. |
+| What date/times are collected? | • If the dates collected are start and/or end dates, then data are probably about an event or intervention.<br>• If the dates collected are dates of assessments, then data probably represent a finding.<br>• If dates of collection are different from other dates collected, it suggests that data are historical or are about an event or intervention that happened independently of the study schedule for data collection. |
+| Is verbatim text collected and then coded? | • A "Yes" answer suggests that this is Events or Interventions general observation class data. However, Findings general observation class data from an examination (e.g., physical examination) that identifies abnormalities may also be coded. Note that for Events and Interventions general observation class data, the topic variable is coded, whereas for Findings general observation class data, the result is coded.<br>• A "No" answer is inconclusive. This does not rule out Events or Interventions general observation class data, because events or interventions are not always collected as verbatim text, but may be prespecified or chosen from a list; it also does not rule out Findings general observation class data. |
+| If this is data about an event, does it apply to the event as a whole? | • A "Yes" answer suggests this is traditional Events general observation class data, and it should have a record in an Events domain.<br>• A "No" answer suggests that there are multiple time-based findings about an event, and that these data should be treated as Findings About data. |
+| Does this data meet the criteria for representation in a Questionnaires, Ratings, and Scales (QRS) domain? | • The criteria for QRS are available at: https://www.cdisc.org/foundational/qrs.<br>• There are many standard questionnaires and rating scales that collect information about symptoms. The fact that these data are findings about symptoms does not mean that the data should be represented in FA rather than a QRS domain (QS, FT, or RS).<br>• Data about symptoms may be collected in a format that is usually associated with questionnaires and rating scales (e.g., visual analog scale). This format alone does not mean that the data should be represented in a QRS domain. |
 
 A record in the Events general observation class is intended to represent the event as a whole. (Note that sponsors may choose how they define the "event as a whole." See Section 6.2.1, Adverse Events, assumption 7e.) Such a record typically includes what the condition was (captured in --TERM, the topic variable) and when it happened (captured in its start and/or end dates). Other qualifier values (e.g., severity, seriousness) apply to the totality of the event.
 
@@ -349,28 +338,38 @@ When data related to an event do not fit into one of the existing Event general 
 
 ## 8.7 Related Subjects (RELSUB)
 
-### Specification
+### RELSUB — Description/Overview
 
-| Variable | Label | Type | Core |
-|----------|-------|------|------|
-| STUDYID | Study Identifier | Char | Req |
-| USUBJID | Unique Subject Identifier | Char | Exp |
-| POOLID | Pool Identifier | Char | Perm |
-| RSUBJID | Related Subject or Pool Identifier | Char | Req |
-| SREL | Subject Relationship to Related Subject/Pool | Char | Req |
+A dataset used to represent relationships between study subjects.
 
-### Assumptions
+Some studies include subjects who are related to each other, and in some cases it is important to record those relationships. A study in which pregnant women are treated and both the mother and her child(ren) are study subjects is the most common case in which relationships between subjects are collected. There are also studies of genetically based diseases where subjects who are related to each other are enrolled, and the relationships between subjects are recorded.
+
+### RELSUB — Specification
+
+relsub.xpt, Related Subjects — Relationship. One record per relationship per related subject per subject, Tabulation.
+
+| Variable Name | Variable Label | Type | Controlled Terms, Codelist or Format | Role | CDISC Notes | Core |
+|--------------|----------------|------|--------------------------------------|------|-------------|------|
+| STUDYID | Study Identifier | Char | | Identifier | Unique identifier for a study. | Req |
+| USUBJID | Unique Subject Identifier | Char | | Identifier | Identifier used to uniquely identify a subject across all studies for all applications or submissions involving the product. Either USUBJID or POOLID must be populated. | Exp |
+| POOLID | Pool Identifier | Char | | Identifier | Identifier used to identify a pool of subjects. If POOLID is entered, POOLDEF records must exist for each subject in the pool and USUBJID must be null. Either USUBJID or POOLID must be populated. | Perm |
+| RSUBJID | Related Subject or Pool Identifier | Char | | Identifier | Identifier used to identify a related subject or pool of subjects. RSUBJID will be populated with either the USUBJID of the related subject or the POOLID of the related pool. | Req |
+| SREL | Subject Relationship | Char | (RELSUB) | Record Qualifier | Describes the relationship of the subject identified in USUBJID or the pool identified in POOLID to the subject or pool identified in RSUBJID. | Req |
+
+^1^ In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+### RELSUB — Assumptions
 
 1. RELSUB is used to represent relationships between persons, both of whom are study subjects. A relationship between a study subject and a person who is not a study subject may not be represented in RELSUB; this may only be reported in APRELSUB. The existence of the RELSUB dataset should not affect whether relationships are collected; that should remain a decision based on the needs of the particular study.
 2. The variable POOLID was developed for nonclinical studies, where assessments may be made for groups of animals, and identifiers are needed for those groups (pools). It is included here because POOLID can be used for human clinical trials, if necessary. If POOLID is submitted, the POOLDEF dataset must be submitted.
 3. If POOLID is submitted, then in any record, 1 and only 1 of USUBJID and POOLID must be populated.
-4. If the study does not include the use of POOLID, then USUBJID must be populated in every record.
+4. If a study does not include the use of POOLID, then USUBJID must be populated in every record.
 5. RSUBJID must be a USUBJID value present in the Demographics (DM) domain. RSUBJID must be populated in every record.
 6. Values of SREL should be taken from the CDISC Controlled Terminology codelist RELSUB wherever possible. However, if an appropriate term does not exist in the codelist, another term may be used. The SREL term should not be less specific than the verbatim term collected. For instance, it would be inappropriate to record a relationship using the term "RELATIVE, FIRST DEGREE" when the collected relationship was "brother".
-7. Every relationship between 2 study subjects is represented in RELSUB as 2 directional representations: (1) with the first subject's identifier in USUBJID and the second subject's identifier in RSUBJID, and (2) with the second subject's identifier in USUBJID and the first subject's identifier in RSUBJID. The SREL values in the 2 records will describe the same relationship, but from the viewpoint of each subject (e.g., "MOTHER, BIOLOGICAL"; "CHILD, BIOLOGICAL").
+7. Every relationship between 2 study subjects is represented in RELSUB as 2 directional relationships: (1) with the first subject's identifier in USUBJID and the second subject's identifier in RSUBJID, and (2) with the second subject's identifier in USUBJID and the first subject's identifier in RSUBJID. The SREL values in the 2 records will describe the same relationship, but from the viewpoint of each subject (e.g., "MOTHER, BIOLOGICAL"; "CHILD, BIOLOGICAL").
 8. All collected relationships between subjects should be recorded in RELSUB. In some cases, 2 subjects may have more than 1 relationship. For instance, a woman might be both maternal aunt and wet nurse to an infant. When there are multiple relationships between 2 subjects, each relationship will be represented by 2 records in RELSUB.
 
-### Example
+### RELSUB — Examples
 
 Example 1: The following data are from a hemophilia study (HEM021) in which the study subjects are a pair of fraternal (dizygotic) twins and their mother.
 
@@ -408,13 +407,13 @@ relsub.xpt:
 
 ## 8.8 Related Specimens (RELSPEC)
 
-> **Note:** BE, BS, and RELSPEC domain specifications, assumptions, and examples were copied and minimally updated from the provisional SDTMIG-PGx, published 2015-05-26. This was done in preparation for the retirement of the SDTMIG-PGx upon publication of SDTMIG v3.4. These domains are currently under extensive revision for inclusion in a future SDTMIG.
+> BE, BS, and RELSPEC domain specifications, assumptions, and examples were copied and minimally updated from the provisional SDTMIG-PGx, published 2015-05-26. This was done in preparation for the retirement of the SDTMIG-PGx upon publication of SDTMIG v3.4. These domains are currently under extensive revision for inclusion in a future SDTMIG.
 
 ### RELSPEC — Description/Overview
 
 A dataset used to represent relationships between specimens.
 
-### Specification
+### RELSPEC — Specification
 
 relspec.xpt, Related Specimens — Relationship. One record per specimen identifier per subject, Tabulation.
 
@@ -427,17 +426,21 @@ relspec.xpt, Related Specimens — Relationship. One record per specimen identif
 | PARENT | Specimen Parent | Char | | Identifier | Identifies the REFID of the parent of a specimen to support tracking its genealogy. | Exp |
 | LEVEL | Specimen Level | Num | | Variable Qualifier | Identifies the generation number of the sample where the collected sample is considered the first generation. | Req |
 
-### Assumptions
+^1^ In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+### RELSPEC — Assumptions
 
 1. The RELSPEC dataset is not used to manage relationships between any other datasets or domains.
-2. The RELSPEC dataset is only used to maintain relationships between specimens, therefore it does not require any additional variables such as those used in RELREC.
+2. The RELSPEC dataset is only used to maintain relationships between specimens, therefore is does not require any additional variables such as those used in RELREC.
 3. There are three CDISC controlled terminology codelists that may be applicable to SPEC: SPEC (C77529), SPECTYPE (C78734), and GENSMP (C111114). Sponsors are responsible for determining the most appropriate codelist(s) for their submission.
 
-### Example
+### RELSPEC — Examples
 
 Example 1: This example uses the sample specimen lineage illustrated below.
 
 **Figure. Sample Specimen Relationship**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure (Figure. Sample Specimen Relationship); level labels from the figure's row captions are shown inside the nodes.
 
 ```mermaid
 graph TD

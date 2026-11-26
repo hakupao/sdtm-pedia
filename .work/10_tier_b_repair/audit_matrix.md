@@ -27,3 +27,4 @@
 - T2.B-ch02 auditor a1 FAIL: seeded 样本 0/10, 但全扫发现 ch02:203 KB 自写小标题 "not fully evaluated" 与 PDF p15/p16 "have not (yet) been evaluated" 改义 (F1), 详见 evidence/checkpoints/t2_B-ch02_audit.md §2.
 | T2.B-OE auditor a1 | prose 抽检 + 10 格 seeded 渲染 (ae.xpt 4 + 他表 6) + 全部改动格目视 + D-1 删除核 + 独立双向扫 + fp OE + G-TB8 md5 | C=0 (P=31) | N=10 | 20261126 | C 0 + P−C 10 | 0/10 | 0 | PASS | 待主控 |
 | T2.B-MS auditor a1 | prose 抽检 + 补抽 10 (MS 假设/例) + Ex1/Ex2 ms 10 格 (渲染) + MB 删除 40 行 (抽 10) + 锚点 + 独立双向扫 77 原子 + fp p248-263 + G-TB8 | C=0 (P=24) | N=10 (+补抽 10) | 20261126 | P−C 对照 10 + 补抽 10 | 0/20 (观察: p0257_a016 未入 t1_errata) | 0 | PASS | 待主控 |
+| T2.B-ch08 auditor a1 | prose 抽检 + R3 补抽 10 + 独立双向扫 p427-440 + 10 seeded 格 (cm/RELSUB spec/Q表, 渲染) + 删除核 (Key Rules / §8.4.2 重复) + Mermaid vs p440 + fp ch08 + G-TB8 md5 | C=3 (P=40) | N=10 (+R3 补抽 10) | 20261126 | C 3 + P−C 7 | 0/10 (补抽 0/10) | 0 | PASS | 待主控 |

@@ -54,7 +54,10 @@
   "ig34_p0304_a023": "B-OE review: verbatim 抽错 (多值/乱码/installation→instillation)",
   "ig34_p0262_a029": "B-MS T-3: verbatim IDVAR=MBREFID 为 PDF 笔误, KB 改 MSREFID",
   "ig34_p0262_a030": "B-MS T-3: verbatim IDVAR=MBREFID 为 PDF 笔误, KB 改 MSREFID",
-  "ig34_p0257_a016": "B-MS T-1: MSSTRESC PDF 空, KB 保留 25"
+  "ig34_p0257_a016": "B-MS T-1: MSSTRESC PDF 空, KB 保留 25",
+  "ig34_p0370_a021": "B-FA T-7: PDF parent CE record → KB AE",
+  "ig34_p0373_a013": "B-FA T-9: FAEVINTX → FAEVLINT",
+  "ig34_p0374_a011": "B-FA: 原子把 AE ID 与合并格抽在同一行, 与渲染不符"
  },
  "t3_target_remap": {
   "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",
