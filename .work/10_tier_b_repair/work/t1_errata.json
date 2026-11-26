@@ -69,7 +69,9 @@
   "ig34_p0360_a021": "B-VS audit: VSDY 读空 / VSTPT 截成 BASELINE",
   "ig34_p0360_a022": "B-VS audit: VSDY 读空 / VSTPT 截成 BASELINE",
   "ig34_p0360_a023": "B-VS audit: VSDY 读空 / VSTPT 截成 BASELINE",
-  "ig34_p0360_a024": "B-VS audit: VSDY 读空 / VSTPT 截成 BASELINE"
+  "ig34_p0360_a024": "B-VS audit: VSDY 读空 / VSTPT 截成 BASELINE",
+  "ig34_p0347_a003": "B-TU audit: verbatim 'TULORRES' 为抽取错, PDF 文本层 TUORRES; KB 与 PDF 一致",
+  "ig34_p0348_a010": "B-TU audit: verbatim 'TUTEST' 为抽取错, PDF 文本层 TUTESTs; KB 与 PDF 一致"
  },
  "t3_target_remap": {
   "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",

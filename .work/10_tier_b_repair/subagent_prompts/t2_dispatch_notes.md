@@ -6,7 +6,7 @@
 - PDF_TYPO: KB 保留合理值, 登记 T-n; PDF 自身拼写错 (如 pre-corrdinating) KB 保留正确拼写.
 - KB_AUTHORED (KB 自写, PDF 无对应): 与 PDF 矛盾 → D2 删扩写; 纯导航且不矛盾 → 保留并在 checkpoint 列出.
 - 叙述段: 即使不在 atoms 里, 批内发现的 PDF 叙述缺失也补 (R3 全部纳入), checkpoint 记 "新增 atom 清单".
-- 每个 agent 的 scratch 只用 `/private/tmp/claude-501/-Volumes-DevSSD-Project-sdtm-pedia/7fe38595-6d99-4b86-881d-0dfb0d270167/scratchpad/t2_<BATCH>_<role>/`, 绝不写进仓库目录.
+- 每个 agent 的 scratch 只用 `/private/tmp/claude-501/-Volumes-DevSSD-Project-sdtm-pedia/855742cf-a178-484a-8229-67de708e11e7/scratchpad/t2_<BATCH>_<role>/` (当前 session; 换 session 改此路径), 绝不写进仓库目录.
 - 不 commit (主控按批 commit). 多批并行: 只改本批 kb_files, 不碰别批文件.
 
 ## 补充口径 (B-CP 后, 主控 2026-11-26)
@@ -30,3 +30,4 @@
 - **evidence 文件里引用 markdown 链接写法时一律用反引号包住** (否则 check_links 把它算成坏链, B-GF 曾使 live docs 42→45).
 - **同文件内顺序/归节** 与 PDF 不一致 (段落挂错标题、属于下一小节): 允许在同一文件内按 PDF 顺序移位 (记 RELOCATE, 不留指针), 不需另授权.
 - **抽样页范围**: 全量重写的批次, auditor 抽样 P 以该文件对应 PDF 的完整页范围为准 (不只 batch json 的 pdf_pages).
+- **禁止 git stash / checkout / reset 等改动共享工作树的命令** (多批并行; 取基线用 `git show HEAD:<file>` 或 `git worktree`/临时副本). B-TE writer 曾 stash+pop, 已核其他批文件 md5 未受影响.
