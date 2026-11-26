@@ -45,6 +45,18 @@
   "ig34_p0238_a005": "B-IS review: verbatim ISSEQ 记成 3",
   "ig34_p0240_a011": "B-IS review: verbatim 列错位",
   "ig34_p0241_a022": "B-IS review: verbatim CA, 记成 CA.",
-  "ig34_p0190_a011": "B-EG review: verbatim P0W 应为 PQW, VISIT 漏折行 1"
+  "ig34_p0190_a011": "B-EG review: verbatim P0W 应为 PQW, VISIT 漏折行 1",
+  "ig34_p0301_a017": "B-OE review: verbatim 抽错 (多值/乱码/installation→instillation)",
+  "ig34_p0301_a018": "B-OE review: verbatim 抽错 (多值/乱码/installation→instillation)",
+  "ig34_p0304_a020": "B-OE review: verbatim 抽错 (多值/乱码/installation→instillation)",
+  "ig34_p0304_a021": "B-OE review: verbatim 抽错 (多值/乱码/installation→instillation)",
+  "ig34_p0304_a022": "B-OE review: verbatim 抽错 (多值/乱码/installation→instillation)",
+  "ig34_p0304_a023": "B-OE review: verbatim 抽错 (多值/乱码/installation→instillation)",
+  "ig34_p0262_a029": "B-MS T-3: verbatim IDVAR=MBREFID 为 PDF 笔误, KB 改 MSREFID",
+  "ig34_p0262_a030": "B-MS T-3: verbatim IDVAR=MBREFID 为 PDF 笔误, KB 改 MSREFID"
+ },
+ "t3_target_remap": {
+  "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",
+  "ig34_p0254_a042": "knowledge_base/domains/MS/spec.md"
  }
 }

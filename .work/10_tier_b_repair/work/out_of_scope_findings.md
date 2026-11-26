@@ -20,3 +20,7 @@
 | O17 | T2 B-EG audit | 各域 spec 首句 | D3 的 5 条 R4-blocked 数据集标题行 (CE/EG/DD/SU/AE) 按新口径应补进 assumptions.md; AE 已在 B-AE 补, 其余 4 域 (含 ig34_p0185_a022 EG) 并入 O15/O16 全域扫描; 届时 D3 对这 5 条的 IE 改为 PRESENT |
 | O18 | T2 B-AE audit | §6.x 各观察类引言 | p133 §6.2 Events 类引言句 + 7 项域列表全 KB 无 (triage 未收); 对 §6.1/6.2/6.3/6.4 等类引言做全库扫描, 并入 O16 sweep, 归属按 PDF 节 (候选 chapters/ 或 model/) |
 | O19 | T2 B-ch04 review L8 | ch04:1534-1536 Appendix 引导段 | "Appendix: Cross-References to Chapter 6 Examples" 引导句为 KB 自写未标 D6; 内容属 p115/p261 → 并入 O16 sweep 或 ch04 收尾小批 |
+| O20 | T2 B-FA writer | 各批 pdf_ranges | B-FA pdf_ranges 从 p364 起, 漏了 §6.4 引言/§6.4.1 (p361-363), T1 从未分诊 → T3 前全检: 每个 KB 文件对应 PDF 节的完整页范围 vs 已分诊页, 漏页的补扫 |
+| O21 | T2 B-FA writer | FA/spec.md (p365-366) | 不在任何批 kb_files, 未核 → 并入 O15 spec 扫描 |
+| O22 | T2 B-FA writer | ledger targets | FA §6.4.2/§6.4.3 原子 targets 仍指 ch02/model02 (24 条) → T3 回写时 target 改为 FA/assumptions.md |
+| O23 | T2 B-OE writer | OE/assumptions.md | 缺 p298 Description/Overview 句 + p299 spec 首句 → 并入 O16/O17 sweep |

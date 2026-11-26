@@ -1,0 +1,17 @@
+{"ref": "census:knowledge_base/domains/OE/examples.md:14:1:OEMETHOD", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 14, "pdf_page": 302, "note": "SLIT LAMP BIOMICROSCOPY -> SLIT LAMP (CT C75583)"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:15:2:OEMETHOD", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 15, "pdf_page": 302, "note": "同上"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:16:3:OEMETHOD", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 16, "pdf_page": 302, "note": "同上"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:24:1:QNAM", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 24, "pdf_page": 302, "note": "OEDIRT -> OEDIR1"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:77:1:OECLSIG", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 77, "pdf_page": 303, "note": "N -> Y"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:78:2:OELAT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 78, "pdf_page": 303, "note": "LEFT -> RIGHT"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:78:2:OECLSIG", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 78, "pdf_page": 303, "note": "空 -> N"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:102:3:PRSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 102, "pdf_page": 303, "note": "08:30:00 -> 08:00:00"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:121:header:IDVARVAL", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 121, "pdf_page": 304, "note": "T-1 PDF IDVARAL; KB IDVARVAL 保留"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:142:1:OECAT", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 142, "pdf_page": 304, "note": "T-2 PDF OCCULAR; KB OCULAR 保留 (suppoe IDVARVAL)"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:143:2:OECAT", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 143, "pdf_page": 304, "note": "T-2"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:144:3:OECAT", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 144, "pdf_page": 304, "note": "T-2"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:145:4:OECAT", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 145, "pdf_page": 304, "note": "T-2"}
+{"ref": "census:knowledge_base/domains/OE/examples.md:153:1:QLABEL", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 153, "pdf_page": 305, "note": "Rating Scale -> Result Criteria"}
+{"ref": "pdf_only:p305:ae.xpt", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 159, "pdf_page": 305, "note": "Ex4 ae.xpt 整表补 19 列 3 行"}
+{"ref": "ig34_p0305_a001", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 147, "pdf_page": 305, "note": "R3 N-1: KB 改写句换 PDF 原句 (D-1)"}
+{"ref": "ig34_p0305_a005", "action": "INSERTED", "kb_file": "knowledge_base/domains/OE/examples.md", "kb_line_after": 155, "pdf_page": 305, "note": "R3 N-2: AE 引导段"}
