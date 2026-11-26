@@ -12,7 +12,7 @@ The GF domain is used for findings from characteristics assessed from nucleic ac
 
 gf.xpt, Genomics Findings — Findings. One record per finding per observation per biospecimen per subject, Tabulation.
 
-> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelists will be available in CDISC Controlled Terminology, available at https://www.cancer.gov/research/resources/terminology/cdisc.
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## GF – Assumptions
 
@@ -38,10 +38,6 @@ gf.xpt, Genomics Findings — Findings. One record per finding per observation p
 
 8. GFMETHOD lists wet lab techniques for the execution of genomics or genetic testing. Methods related to specimen processing or reagents are not represented in GFMETHOD.
 
-9. The following variables generally would not be used in GF: --POS, --BODSYS, --ORNRLO, ORNRHI, --STNRLO, --STNRHI, --STNRC, --NRIND, --CHRON, --DISTR, --ANTREG, --LOC, --LAT, --DIR, --PORTOT, --LEAD, --CSTATE, --SPCCND, --FAST, --TOX, --TOXGR, --SEV.
+9. The following variables generally would not be used in GF: --POS, --BODSYS, --ORNRLO, --ORNRHI, --STNRLO, --STNRHI, --STNRC, --NRIND, --CHRON, --DISTR, --ANTREG, --LOC, --LAT, --DIR, --PORTOT, --LEAD, --CSTATE, --SPCCND, --FAST, --TOX, --TOXGR, --SEV.
 
-## GF – Example 4 (p227)
-
-This example shows findings from an assessment of microsatellite instability for genetic subregions that are known to be unstable. DNA extracted from tumor tissue is amplified and the resulting amplicons are resolved using wet laboratory methodology capillary electrophoresis.
-
-Note the use of NHOID, which is populated with the name of the organism to which the testing applies. Note: It is important to use this identifier to distinguish between tests that apply to a non-host organism and tests that apply to the study subject/host.
+> See [Example 4](examples.md#example-4) for the microsatellite instability example and [Example 5](examples.md#example-5) for the NHOID note.

@@ -5,7 +5,8 @@
   "domains/GF"
  ],
  "kb_files": [
-  "knowledge_base/domains/GF/examples.md"
+  "knowledge_base/domains/GF/examples.md",
+  "knowledge_base/domains/GF/assumptions.md"
  ],
  "delete_only_source_lines": [],
  "serial_with": [],
@@ -183,5 +184,7 @@
   "unparseable_kb_tables_hand_check_if_touched": []
  },
  "out_of_scope": [],
- "notes": []
+ "notes": [
+  "主控: kb_files 扩入 GF/assumptions.md (O-GF-1 错位副本)"
+ ]
 }
