@@ -5,7 +5,8 @@
   "domains/EG"
  ],
  "kb_files": [
-  "knowledge_base/domains/EG/examples.md"
+  "knowledge_base/domains/EG/examples.md",
+  "knowledge_base/domains/EG/assumptions.md"
  ],
  "delete_only_source_lines": [],
  "serial_with": [],
@@ -149,5 +150,7 @@
  "out_of_scope": [
   "O6"
  ],
- "notes": []
+ "notes": [
+  "主控: kb_files 扩入 EG/assumptions.md (补 Description/Overview ig34_p0185_a020)"
+ ]
 }

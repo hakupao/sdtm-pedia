@@ -1,5 +1,11 @@
 # EG — Assumptions
 
+## EG – Description/Overview
+
+A findings domain that contains ECG data, including position of the subject, method of evaluation, all cycle measurements and all findings from the ECG including an overall interpretation if collected or derived.
+
+## EG – Assumptions
+
 1. EGREFID is intended to store an identifier (e.g., UUID) for the associated ECG tracing. EGXFN is intended to store the name of and path to the electrocardiogram (ECG) waveform file when it is submitted.
 
 2. There are separate codelists for tests and results based on regular 10-second ECGs and for tests and results based on Holter monitoring.

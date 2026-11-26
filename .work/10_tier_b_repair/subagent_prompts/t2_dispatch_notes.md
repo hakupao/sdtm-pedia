@@ -26,3 +26,4 @@
 - **全扫必须含表格类原子 (B-ch04 a3 教训)**: 双向扫描要覆盖 TABLE_ROW / TABLE_HEADER / CODE_LITERAL, 不只叙述; census UNPARSEABLE 或无 Row 列的表 census 会漏报, 必须人工逐格对渲染; 反向扫描覆盖全文件, 不只改写过的段.
 - **KB 自写的伪节号** (PDF 不存在的 4.2.1.1 等): 去掉节号; 内容不矛盾 → D6 标注保留, 矛盾 → 删.
 - **PDF 图的 Mermaid 重绘**: 必须与 PDF 图逻辑一致 (分支/顺序), 并加 D6 标注 "rendering of PDF Figure …"; 不一致 → 按 PDF 改正.
+- **域 spec 首句** ("xx.xpt, <Domain> — <Class>. One record per …"): 按 CM/IS 先例放在 `<XX>/assumptions.md` 的 Description/Overview 与 Assumptions 之间 (逐字); spec 表脚注属 spec.md. 各批遇到缺失即补 (O15/O16 全域扫描会兜底).

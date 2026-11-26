@@ -17,6 +17,7 @@
 | T2.B-model01 auditor a1 | prose 抽检 (正式 N=10 + 扩展 25) + sv20 pp4-12 169 原子正反全扫 (独立脚本) + D-1..D-14 删除核 (含终态 D-13/D-14 对 p15/p20) + T-1 核 + fp/links 回归 | C=28 (P=75; R3 新增 C'=124) | N=10 (+25 扩展) | 20261126 | C 5 + P−C 对照 5; 扩展 C' 13 + 对照 12 | 0/35; 全扫 0 | 0 | PASS | 待主控 (注: 续3 delta 无 reviewer 复审签字, auditor 已独立复核) |
 | T2.B-ch02 auditor a1 | prose 抽检 + p11-16 独立双向全扫 (chk.py) + 3 表→bullet / §2.7 20 bullet 渲染核 + 删除 10 行 + D6 note 2 + §1.4.1 摘录核 + fp 隔离复跑 (回归 0, 仅 p15_a006) + md5 | C=32 (P=104) | N=10 | 20261126 | C 5 + P−C 对照 5 | 0/10; 全扫忠实度 1 (F1 ch02:203 KB 自写标题 "not fully evaluated" vs PDF "have not (yet) been evaluated"); 观察 O1 §1.4.1 截断无标记 (非阻断) | 1 | FAIL | 待主控 (改 :203 → reviewer delta → auditor a2) |
 | T2.B-ch02 auditor a2 | prose 抽检 (新 seed) + p11-16 双向全扫 + KB 自写标题全扫 (F1 :167 / :158 / :178 vs p16) + §1 去重 D-24..27 核 + fp 隔离复跑 + links + md5/trace | C=32 (P=104) | N=10 | 20261127 | C 5 + 余数 5 | 0/10; F1 关闭; hit_any −4 (p9 a009/a020/a021, p10 a004; target=ch01 → B-ch01) | 0 | PASS | 待主控 |
+| T2.B-EG auditor a1 | prose 抽检 + Ex1 10 格渲染 + Ex2/Ex4 改格 + 删除 diff | C=1 (P=17) | N=10 | 20261126 | C 1 + P−C 9 (含 DD 对照 3) | 0/10 | 0 | PASS (F-1 spec 首句非阻断待主控) | 待主控 |
 
 ## 失败详情
 - T2.B-ch04 auditor a1 FAIL: seeded 样本 0/10, 但本批 kb_files/页内 R2 丢失 3 处 (F1-F3), 详见 evidence/checkpoints/t2_B-ch04_audit.md §3.
