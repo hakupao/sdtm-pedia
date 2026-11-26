@@ -1,0 +1,7 @@
+{"ref": "pdf:p285:ig34_p0285_a001", "action": "INSERTED", "kb_file": "knowledge_base/domains/NV/assumptions.md", "kb_line_after": 3, "pdf_page": 285, "note": "U3/O31 §6.3.6 heading"}
+{"ref": "pdf:p285:ig34_p0285_a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/NV/assumptions.md", "kb_line_after": 5, "pdf_page": 285, "note": "box title bold"}
+{"ref": "pdf:p285:ig34_p0285_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/NV/assumptions.md", "kb_line_after": 7, "pdf_page": 285, "note": "box sentence"}
+{"ref": "pdf:p285:ig34_p0285_a004", "action": "INSERTED", "kb_file": "knowledge_base/domains/NV/assumptions.md", "kb_line_after": 9, "pdf_page": 285, "note": "box para 1"}
+{"ref": "pdf:p285:ig34_p0285_a005", "action": "INSERTED", "kb_file": "knowledge_base/domains/NV/assumptions.md", "kb_line_after": 11, "pdf_page": 285, "note": "box para 2"}
+{"ref": "pdf:p407:ig34_p0407_a011", "action": "VERIFIED", "kb_file": "knowledge_base/domains/TI/assumptions.md", "kb_line_after": 5, "pdf_page": 407, "note": "§7.3 host false positive (shared sentence with §7.4 intro); §7.3 intro in TV/assumptions.md:3-11 (O47)"}
+{"ref": "pdf:p415-426:§7.4intro+§7.5", "action": "VERIFIED", "kb_file": "knowledge_base/domains/TI/assumptions.md", "kb_line_after": "3-10,38-53", "pdf_page": 415, "note": "rescan 0 gaps; heading (TI, TS) = O48"}

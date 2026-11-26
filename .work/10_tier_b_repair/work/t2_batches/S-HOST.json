@@ -1,0 +1,69 @@
+{
+ "batch_id": "S-HOST",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [],
+ "kb_files": [
+  "knowledge_base/domains/TI/assumptions.md"
+ ],
+ "narrow_files": [
+  {
+   "file": "knowledge_base/domains/NV/assumptions.md",
+   "scope": "仅在 `## §6.3.7 Morphology/Physiology Domains — Overview` 之前插入 PDF p285 §6.3.6 Morphology (MO) 节: 标题 `## §6.3.6 Morphology (MO)` + 该节框内全部文字逐字 (U3/O31); 其余一字不动"
+  }
+ ],
+ "sections": [
+  {
+   "unit": "domains/TI (宿主)",
+   "sec": "7.3",
+   "title": "Schedule for Assessments (TV, TD, and TM) — 引言",
+   "lo": 407,
+   "hi": 407,
+   "note": "覆盖矩阵称 TI/assumptions.md 承载 §7.3 引言原子 (TI:F 但节页不在 B-TI 范围). 疑为与 §7.4 引言共享首句 'This section contains the Trial Design (TD) datasets that describe:' 的假阳; §7.3 引言正身在 TV/assumptions.md:3-11 (O47). 核实: 若 TI 中有 §7.3 专属内容 → 按 D2 处置 (TV 为宿主), 若仅共享句 → 记假阳, TI 不改"
+  },
+  {
+   "unit": "domains/TI",
+   "sec": "7.4 / 7.5",
+   "title": "§7.4 引言 + §7.5 How to Model the Design of a Clinical Trial (TI 宿主)",
+   "lo": 415,
+   "hi": 426,
+   "note": "B-TI 已 FINAL, 但 §7.4 引言 (p415) 与 §7.5 (p425-427) 是否在其全扫范围内须核; 未核则补全扫"
+  },
+  {
+   "unit": "domains/NV (narrow)",
+   "sec": "6.3.6",
+   "title": "Morphology (MO) — Domain Decommissioning 框",
+   "lo": 285,
+   "hi": 285,
+   "note": "p285 上部; 下部 §6.3.7 起 (NV 已承载 §6.3.7/§6.3.7.1)"
+  }
+ ],
+ "pdf_pages": [
+  285,
+  407,
+  415,
+  425,
+  426
+ ],
+ "pdf_ranges": [],
+ "gaps": {},
+ "intros": [
+  {
+   "sec": "6.3.6",
+   "title": "Morphology (MO)",
+   "pages": [
+    285
+   ],
+   "host": "knowledge_base/domains/NV/assumptions.md",
+   "ruling": "U3/O31: §6.3.6 无域目录, 放其后首域 NV 顶部 (§6.3.7 前)"
+  }
+ ],
+ "footnote": "本批无 spec.md",
+ "footnote_moves": [],
+ "census_items": [],
+ "out_of_scope": [
+  "O31",
+  "O47"
+ ],
+ "notes": "小批. ch10_appendices.md 变更附录中也有 MO 相关句 (:218-224), 属 PDF §10 自身内容还是 KB 搬运, 由 S-CH 批定, 本批不碰 ch10. 行号为 HEAD 时, 以内容定位."
+}

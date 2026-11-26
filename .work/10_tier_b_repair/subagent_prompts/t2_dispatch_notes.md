@@ -42,3 +42,4 @@
 - (S-FND 主控定) 文字逐字一致、仅段落拆分/合并不同 (如 PE CDASH 段 PDF 1 段 KB 6 段) → 不改, 不算缺口; 既有标题层级不一致 (如 SS `#####`) → 规则 6 不改, checkpoint 记录即可.
 - (S-SPC2 主控定) KB 自写的解释性 `*Note:*` 段 → 一律 D6 标注 (B-MS "纯导航不标" 口径作废); 纯交叉引用 ("See … for …") 才算导航不标.
 - audit_matrix 唯一路径 = `.work/10_tier_b_repair/audit_matrix.md` (不是 evidence/ 下; S-INT auditor 曾写错, 主控已合并).
+- (S-TDM 主控定) 补入 PDF 原标题后, 紧邻的 KB 自拟同义标题 (如 `## TA-Specific Assumptions` 紧跟 `## TA – Assumptions`) 若全 KB 无入站锚点链接 → 删除该冗余标题行 (列入删除清单, D2); 有入站链接 → 保留并记录.

@@ -1,0 +1,4 @@
+批次 S-HOST (T2-post 扫描批), attempt 1. 角色: auditor (Rule A 独立抽检)。
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Auditor 段执行, 并读 `t2_auditor_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含 T2S 段) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8)。样板: `evidence/checkpoints/t2_S-EVT_audit.md`。audit_matrix 唯一路径 `.work/10_tier_b_repair/audit_matrix.md`。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-HOST.json`: 总体 P = §6.3.6 MO 框 (p285 上部) + TI 承载的 §7.4 引言 (p415) + §7.5 (p425-426) 原子; P 小于 20 时 N = |P| (全检)。改动未提交: `git diff HEAD -- knowledge_base/domains/NV knowledge_base/domains/TI` (NV 只新增 §6.3.6 框, TI 0 改动); 别批并行改其他文件, 只看本批。先独立判, 判完才读 `evidence/checkpoints/t2_S-HOST.md` 与 `t2_S-HOST_review.md`。seed 20261126。
+回主控 ≤ 8 行。
