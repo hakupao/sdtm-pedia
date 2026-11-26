@@ -1,0 +1,254 @@
+{
+ "batch_id": "S-INT",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "domains/AG",
+  "domains/PR",
+  "domains/EX",
+  "domains/EC"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/AG/assumptions.md",
+  "knowledge_base/domains/AG/examples.md",
+  "knowledge_base/domains/AG/spec.md",
+  "knowledge_base/domains/EC/assumptions.md",
+  "knowledge_base/domains/EC/examples.md",
+  "knowledge_base/domains/EC/spec.md",
+  "knowledge_base/domains/EX/assumptions.md",
+  "knowledge_base/domains/EX/examples.md",
+  "knowledge_base/domains/EX/spec.md",
+  "knowledge_base/domains/PR/assumptions.md",
+  "knowledge_base/domains/PR/examples.md",
+  "knowledge_base/domains/PR/spec.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "domains/AG",
+   "sec": "6.1.1",
+   "title": "§6.1.1 Procedure Agents (AG)",
+   "lo": 92,
+   "hi": 97,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20); writer O20 复核后更正"
+  },
+  {
+   "unit": "domains/PR",
+   "sec": "6.1.5",
+   "title": "§6.1.5 Procedures (PR)",
+   "lo": 125,
+   "hi": 128,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20); writer O20 复核后更正"
+  },
+  {
+   "unit": "domains/EX",
+   "sec": "6.1.3.1",
+   "title": "§6.1.3.1 Exposure (EX)",
+   "lo": 104,
+   "hi": 107,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20); writer O20 复核后更正"
+  },
+  {
+   "unit": "domains/EC",
+   "sec": "6.1.3.2",
+   "title": "§6.1.3.2 Exposure as Collected (EC)",
+   "lo": 107,
+   "hi": 110,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20); writer O20 复核后更正"
+  },
+  {
+   "unit": "domains/EX+EC",
+   "sec": "6.1.3",
+   "title": "Exposure Domains (含 §6.1.3.3 EX/EC 共用例 p111-120)",
+   "lo": 103,
+   "hi": 120,
+   "note": "共用/父节, 须一并全扫; writer O20 复核后更正"
+  }
+ ],
+ "pdf_pages": [
+  92,
+  93,
+  94,
+  95,
+  96,
+  97,
+  103,
+  104,
+  105,
+  106,
+  107,
+  108,
+  109,
+  110,
+  111,
+  112,
+  113,
+  114,
+  115,
+  116,
+  117,
+  118,
+  119,
+  120,
+  125,
+  126,
+  127,
+  128
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/AG/assumptions.md",
+   "src": "ig34",
+   "lo": 92,
+   "hi": 97
+  },
+  {
+   "file": "knowledge_base/domains/AG/examples.md",
+   "src": "ig34",
+   "lo": 92,
+   "hi": 97
+  },
+  {
+   "file": "knowledge_base/domains/AG/spec.md",
+   "src": "ig34",
+   "lo": 92,
+   "hi": 97
+  },
+  {
+   "file": "knowledge_base/domains/EC/assumptions.md",
+   "src": "ig34",
+   "lo": 103,
+   "hi": 120
+  },
+  {
+   "file": "knowledge_base/domains/EC/examples.md",
+   "src": "ig34",
+   "lo": 103,
+   "hi": 120
+  },
+  {
+   "file": "knowledge_base/domains/EC/spec.md",
+   "src": "ig34",
+   "lo": 103,
+   "hi": 120
+  },
+  {
+   "file": "knowledge_base/domains/EX/assumptions.md",
+   "src": "ig34",
+   "lo": 103,
+   "hi": 120
+  },
+  {
+   "file": "knowledge_base/domains/EX/examples.md",
+   "src": "ig34",
+   "lo": 103,
+   "hi": 120
+  },
+  {
+   "file": "knowledge_base/domains/EX/spec.md",
+   "src": "ig34",
+   "lo": 103,
+   "hi": 120
+  },
+  {
+   "file": "knowledge_base/domains/PR/assumptions.md",
+   "src": "ig34",
+   "lo": 125,
+   "hi": 128
+  },
+  {
+   "file": "knowledge_base/domains/PR/examples.md",
+   "src": "ig34",
+   "lo": 125,
+   "hi": 128
+  },
+  {
+   "file": "knowledge_base/domains/PR/spec.md",
+   "src": "ig34",
+   "lo": 125,
+   "hi": 128
+  }
+ ],
+ "gaps": {
+  "AG": "DSAF (fn 原子 ig34_p0094_a007)",
+  "PR": "DSAF (fn 原子 ig34_p0126_a025)",
+  "EX": "DSAF (fn 原子 ig34_p0105_a016)",
+  "EC": "F (fn 原子 ig34_p0109_a010)"
+ },
+ "intros": [
+  {
+   "sec": "6.1",
+   "title": "Models for Interventions Domains",
+   "pages": [
+    92
+   ],
+   "host": "knowledge_base/domains/AG/assumptions.md",
+   "ruling": "U3: §6.1 首域 = AG (§6.1.1)"
+  },
+  {
+   "sec": "6.1.3",
+   "title": "Exposure Domains",
+   "pages": [
+    103
+   ],
+   "host": "knowledge_base/domains/EX/assumptions.md",
+   "ruling": "U3/O45: §6.1.3 首域 = EX (§6.1.3.1)"
+  }
+ ],
+ "footnote": "U2: 本批各域 spec.md 最后一个变量块之后、Cross References 之前补 (U7) spec 表脚注 (逐字); CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
+ "footnote_moves": [],
+ "census_items": [
+  {
+   "kb": "domains/EX/examples.md:13 (HEAD 行号, 以内容定位)",
+   "triage_row": "1 | C3 | UNPARSEABLE | `domains/EX/examples.md:13` | ig34:p104-120 | 1 / None | Bottle / Number of Tablets Taken Daily / Reason for Variatio | t2_B-EX.md:70 (未改, 未逐格)"
+  },
+  {
+   "kb": "domains/EX/examples.md:19 (HEAD 行号, 以内容定位)",
+   "triage_row": "2 | C3 | UNPARSEABLE | `domains/EX/examples.md:19` | ig34:p104-120 | 1 / None | Bottle / Number of Tablets Taken Daily / Reason for Variatio | t2_B-EX.md:70 (未改, 未逐格)"
+  },
+  {
+   "kb": "domains/EX/examples.md:65 (HEAD 行号, 以内容定位)",
+   "triage_row": "3 | C3 | UNPARSEABLE | `domains/EX/examples.md:65` | ig34:p104-120 | 2 / None | / | t2_B-EX.md:70 (未改, 未逐格)"
+  },
+  {
+   "kb": "domains/EX/examples.md:173 (HEAD 行号, 以内容定位)",
+   "triage_row": "4 | C3 | UNPARSEABLE | `domains/EX/examples.md:173` | ig34:p104-120 | 5 / None | Bottle / Time Point / Number of Tablets Taken / Start Date / | t2_B-EX.md:70 (未改, 未逐格)"
+  },
+  {
+   "kb": "domains/EX/examples.md:180 (HEAD 行号, 以内容定位)",
+   "triage_row": "5 | C3 | UNPARSEABLE | `domains/EX/examples.md:180` | ig34:p104-120 | 5 / None | Bottle / Time Point / Number of Tablets Taken / Start Date / | t2_B-EX.md:70 (未改, 未逐格)"
+  },
+  {
+   "kb": "domains/EX/examples.md:187 (HEAD 行号, 以内容定位)",
+   "triage_row": "6 | C3 | UNPARSEABLE | `domains/EX/examples.md:187` | ig34:p104-120 | 5 / None | Bottle / Time Point / Number of Tablets Taken / Start Date / | t2_B-EX.md:70 (未改, 未逐格)"
+  },
+  {
+   "kb": "domains/EX/examples.md:422 (HEAD 行号, 以内容定位)",
+   "triage_row": "7 | C3 | UNPARSEABLE | `domains/EX/examples.md:422` | ig34:p104-120 | 8 / None | First Dose Date / Last Dose Date | t2_B-EX.md:70 (未改, 未逐格)"
+  },
+  {
+   "kb": "domains/EX/examples.md:426 (HEAD 行号, 以内容定位)",
+   "triage_row": "8 | C3 | UNPARSEABLE | `domains/EX/examples.md:426` | ig34:p104-120 | 8 / None | Date / Number of Doses Daily If/When Deviated from Plan | t2_B-EX.md:70 (未改, 未逐格)"
+  },
+  {
+   "kb": "domains/EX/examples.md:243 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/EX/examples.md:243` | ig34:p104-120 | 0 | Period 1 /  /  /  /  / Period 2 /  /  /  / | t2_B-EX_review.md:52-53 (Ex6 CRF)"
+  },
+  {
+   "kb": "domains/EX/examples.md:252 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/EX/examples.md:252` | ig34:p104-120 | 0 | Period 1 /  /  /  /  / Period 2 /  /  /  / | t2_B-EX_review.md:52-53 (Ex6 CRF)"
+  },
+  {
+   "kb": "domains/EX/examples.md:339 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/EX/examples.md:339` | ig34:p104-120 | 0 | Visit / 1 / 2 / 3 | t2_B-EX_review.md:31 (Ex7 CRF)"
+  },
+  {
+   "kb": "domains/EX/examples.md:407 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/EX/examples.md:407` | ig34:p119 | 3 | T-1 Row 1,2,6,3,4,6 (3) | t2_B-EX.md:76; t2_B-EX_review.md:58"
+  }
+ ],
+ "out_of_scope": [
+  "O45"
+ ],
+ "notes": "EX/EC 共用 §6.1.3.3 例 (p111-120): 按 dispatch notes \"跨文件重复例子\" D2 规则, 归属按 PDF 节号; EC/examples.md 现仅 3 行. EX examples 有 8 张 C3 UNPARSEABLE 须渲染逐格. 行号均为 HEAD 时, 以内容定位."
+}

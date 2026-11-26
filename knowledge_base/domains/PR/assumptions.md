@@ -1,5 +1,15 @@
 # PR — Assumptions
 
+## PR – Description/Overview
+
+An interventions domain that contains interventional activity intended to have diagnostic, preventive, therapeutic, or palliative effects.
+
+## PR – Specification
+
+pr.xpt, Procedures — Interventions. One record per recorded procedure per occurrence per subject, Tabulation.
+
+## PR – Assumptions
+
 1. Some examples of procedures, by type, include the following:
    a. Disease screening (e.g., mammogram, pap smear)
    b. Endoscopic examinations (e.g., arthroscopy, diagnostic colonoscopy, therapeutic colonoscopy, diagnostic laparoscopy, therapeutic laparoscopy)

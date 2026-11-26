@@ -1,5 +1,19 @@
 # AG — Assumptions
 
+## §6.1 Models for Interventions Domains
+
+Most subject-level observations collected during the study should be represented according to one of the 3 SDTM general observation classes. The domains in the Interventions class include:
+
+## AG – Description/Overview
+
+An interventions domain that contains the agents administered to the subject as part of a procedure or assessment, as opposed to drugs, medications and therapies administered with therapeutic intent.
+
+## AG – Specification
+
+ag.xpt, Procedure Agents — Interventions. One record per recorded intervention occurrence per subject, Tabulation.
+
+## AG – Assumptions
+
 1. Purpose of the domain: Some tests involve administration of substances, and it has been unclear in which domain these should be represented.
    a. The Concomitant/Prior Medications (CM) domain seemed particularly inappropriate when the substance was one that would never be given as a medication. Even substances that are medications are not being used as such when they are given as part of a testing procedure.
    b. The Exposure (EX) domain also seemed inappropriate; although the testing procedure might be part of the study plan, these data would not be used or analyzed in the same way as data about study treatments. The AG domain was created to fill this gap.

@@ -1,0 +1,57 @@
+{"ref": "ig34_p0092_a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/AG/assumptions.md", "kb_line_after": 3, "pdf_page": 92, "note": "§6.1 heading (U3)"}
+{"ref": "ig34_p0092_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/AG/assumptions.md", "kb_line_after": 5, "pdf_page": 92, "note": "§6.1 intro sentence"}
+{"ref": "ig34_p0092_a005", "action": "INSERTED", "kb_file": "knowledge_base/domains/AG/assumptions.md", "kb_line_after": 7, "pdf_page": 92, "note": "AG – Description/Overview"}
+{"ref": "ig34_p0092_a006", "action": "INSERTED", "kb_file": "knowledge_base/domains/AG/assumptions.md", "kb_line_after": 9, "pdf_page": 92, "note": "description sentence"}
+{"ref": "ig34_p0092_a007", "action": "INSERTED", "kb_file": "knowledge_base/domains/AG/assumptions.md", "kb_line_after": 11, "pdf_page": 92, "note": "AG – Specification"}
+{"ref": "ig34_p0092_a009", "action": "INSERTED", "kb_file": "knowledge_base/domains/AG/assumptions.md", "kb_line_after": 13, "pdf_page": 92, "note": "spec first sentence"}
+{"ref": "ig34_p0094_a008", "action": "INSERTED", "kb_file": "knowledge_base/domains/AG/assumptions.md", "kb_line_after": 15, "pdf_page": 94, "note": "AG – Assumptions"}
+{"ref": "pdf:p92:AGDECOD:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 99, "pdf_page": 92, "note": "CT * (U2)"}
+{"ref": "pdf:p92:AGCAT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 108, "pdf_page": 92, "note": "CT * (U2)"}
+{"ref": "pdf:p92:AGSCAT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 117, "pdf_page": 92, "note": "CT * (U2)"}
+{"ref": "pdf:p93:AGCLAS:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 162, "pdf_page": 93, "note": "CT * (U2)"}
+{"ref": "pdf:p93:AGCLASCD:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 171, "pdf_page": 93, "note": "CT * (U2)"}
+{"ref": "ig34_p0094_a007", "action": "INSERTED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 375, "pdf_page": 94, "note": "footnote (U2/U7)"}
+{"ref": "ig34_p0096_a017", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/examples.md", "kb_line_after": 40, "pdf_page": 96, "note": "SDTM-MD -> SDTMIG-MD"}
+{"ref": "ig34_p0125_a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/PR/assumptions.md", "kb_line_after": 3, "pdf_page": 125, "note": "PR – Description/Overview"}
+{"ref": "ig34_p0125_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/PR/assumptions.md", "kb_line_after": 5, "pdf_page": 125, "note": "description sentence"}
+{"ref": "ig34_p0125_a004", "action": "INSERTED", "kb_file": "knowledge_base/domains/PR/assumptions.md", "kb_line_after": 7, "pdf_page": 125, "note": "PR – Specification"}
+{"ref": "ig34_p0125_a005", "action": "INSERTED", "kb_file": "knowledge_base/domains/PR/assumptions.md", "kb_line_after": 9, "pdf_page": 125, "note": "spec first sentence"}
+{"ref": "ig34_p0127_a001", "action": "INSERTED", "kb_file": "knowledge_base/domains/PR/assumptions.md", "kb_line_after": 11, "pdf_page": 127, "note": "PR – Assumptions"}
+{"ref": "pdf:p125:PRCAT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 99, "pdf_page": 125, "note": "CT * (U2)"}
+{"ref": "pdf:p125:PRSCAT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 108, "pdf_page": 125, "note": "CT * (U2)"}
+{"ref": "ig34_p0126_a025", "action": "INSERTED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 411, "pdf_page": 126, "note": "footnote"}
+{"ref": "ig34_p0103_a020", "action": "INSERTED", "kb_file": "knowledge_base/domains/EX/assumptions.md", "kb_line_after": 3, "pdf_page": 103, "note": "§6.1.3 heading (U3/O45)"}
+{"ref": "ig34_p0103_a021", "action": "INSERTED", "kb_file": "knowledge_base/domains/EX/assumptions.md", "kb_line_after": 5, "pdf_page": 103, "note": "§6.1.3 intro s1"}
+{"ref": "ig34_p0103_a022", "action": "INSERTED", "kb_file": "knowledge_base/domains/EX/assumptions.md", "kb_line_after": 5, "pdf_page": 103, "note": "§6.1.3 intro s2"}
+{"ref": "ig34_p0104_a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/EX/assumptions.md", "kb_line_after": 7, "pdf_page": 104, "note": "EX – Description/Overview"}
+{"ref": "ig34_p0104_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/EX/assumptions.md", "kb_line_after": 9, "pdf_page": 104, "note": "description s1"}
+{"ref": "ig34_p0104_a004", "action": "INSERTED", "kb_file": "knowledge_base/domains/EX/assumptions.md", "kb_line_after": 9, "pdf_page": 104, "note": "description s2"}
+{"ref": "ig34_p0104_a005", "action": "INSERTED", "kb_file": "knowledge_base/domains/EX/assumptions.md", "kb_line_after": 11, "pdf_page": 104, "note": "EX – Specification"}
+{"ref": "ig34_p0104_a006", "action": "INSERTED", "kb_file": "knowledge_base/domains/EX/assumptions.md", "kb_line_after": 13, "pdf_page": 104, "note": "spec first sentence"}
+{"ref": "ig34_p0105_a017", "action": "INSERTED", "kb_file": "knowledge_base/domains/EX/assumptions.md", "kb_line_after": 15, "pdf_page": 105, "note": "EX – Assumptions"}
+{"ref": "pdf:p104:EXTRT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 90, "pdf_page": 104, "note": "CT * (U2)"}
+{"ref": "pdf:p104:EXCAT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 99, "pdf_page": 104, "note": "CT * (U2)"}
+{"ref": "pdf:p104:EXSCAT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 108, "pdf_page": 104, "note": "CT * (U2)"}
+{"ref": "pdf:p105:EXADJ:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 225, "pdf_page": 105, "note": "CT * (U2)"}
+{"ref": "ig34_p0105_a016", "action": "INSERTED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 339, "pdf_page": 105, "note": "footnote"}
+{"ref": "census:EX/examples.md:65:Injection1-3", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 69, "pdf_page": 112, "note": "bold removed x3 (69/73/77); PDF not bold"}
+{"ref": "pdf:p107:ECTRT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 90, "pdf_page": 107, "note": "CT * (U2)"}
+{"ref": "pdf:p108:ECCAT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 108, "pdf_page": 108, "note": "CT * (U2)"}
+{"ref": "pdf:p108:ECSCAT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 117, "pdf_page": 108, "note": "CT * (U2)"}
+{"ref": "ig34_p0109_a010", "action": "INSERTED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 411, "pdf_page": 109, "note": "footnote"}
+{"ref": "census:EX/examples.md:13", "action": "VERIFIED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 13, "pdf_page": 111, "note": "rendered cell-by-cell: Ex1 CRF ABC1001"}
+{"ref": "census:EX/examples.md:19", "action": "VERIFIED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 19, "pdf_page": 111, "note": "rendered cell-by-cell: Ex1 CRF ABC2001"}
+{"ref": "census:EX/examples.md:65", "action": "VERIFIED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 65, "pdf_page": 112, "note": "rendered cell-by-cell: Ex2 CRF (bold fixed #18)"}
+{"ref": "census:EX/examples.md:173", "action": "VERIFIED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 173, "pdf_page": 114, "note": "rendered cell-by-cell: Ex5 CRF"}
+{"ref": "census:EX/examples.md:180", "action": "VERIFIED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 180, "pdf_page": 114, "note": "rendered cell-by-cell: Ex5 CRF"}
+{"ref": "census:EX/examples.md:187", "action": "VERIFIED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 187, "pdf_page": 114, "note": "rendered cell-by-cell: Ex5 CRF"}
+{"ref": "census:EX/examples.md:243", "action": "VERIFIED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 243, "pdf_page": 115, "note": "rendered cell-by-cell: Ex6 CRF 220dpi"}
+{"ref": "census:EX/examples.md:252", "action": "VERIFIED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 252, "pdf_page": 116, "note": "rendered cell-by-cell: Ex6 CRF 220dpi"}
+{"ref": "census:EX/examples.md:339", "action": "VERIFIED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 339, "pdf_page": 118, "note": "rendered cell-by-cell: Ex7 CRF 200dpi"}
+{"ref": "census:EX/examples.md:407", "action": "VERIFIED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 407, "pdf_page": 119, "note": "rendered cell-by-cell: relrec T-1 PDF_TYPO kept"}
+{"ref": "census:EX/examples.md:422", "action": "VERIFIED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 422, "pdf_page": 119, "note": "rendered cell-by-cell: Ex8 CRF"}
+{"ref": "census:EX/examples.md:426", "action": "VERIFIED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 426, "pdf_page": 119, "note": "rendered cell-by-cell: Ex8 CRF"}
+{"ref": "EX:T-7", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/EX/assumptions.md", "kb_line_after": 41, "pdf_page": 107, "note": "stray 'Additional interventions qualifiers' after item 5"}
+{"ref": "EX:T-8", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/EX/assumptions.md", "kb_line_after": 47, "pdf_page": 107, "note": "–PRESP -> --PRESP kept"}
+{"ref": "PR:T-1", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/PR/assumptions.md", "kb_line_after": 20, "pdf_page": 127, "note": "collected.Measurements missing space"}
+{"ref": "ig34_p0111_a001", "action": "INSERTED", "kb_file": "knowledge_base/domains/EX/examples.md", "kb_line_after": 3, "pdf_page": 111, "note": "delta: §6.1.3.3 heading per coordinator ruling; later lines +2"}

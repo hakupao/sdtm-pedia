@@ -1,5 +1,7 @@
 # EX — Examples
 
+## §6.1.3.3 Exposure/Exposure as Collected Examples
+
 > KB note (not in SDTMIG): Examples for EX and EC are shared in Section 6.1.3.3 of the SDTMIG; EC/examples.md points here.
 
 ## Example 1
@@ -66,15 +68,15 @@ This example shows data from an open-label study. A subject received drug X as a
 |---|---|
 | Visit | 3 |
 | Date | 2009-05-10 |
-| **Injection 1** | |
+| Injection 1 | |
 | Volume Given (mL) | 5 |
 | Location | ABDOMEN |
 | Side | LEFT |
-| **Injection 2** | |
+| Injection 2 | |
 | Volume Given (mL) | 5 |
 | Location | ABDOMEN |
 | Side | CENTER |
-| **Injection 3** | |
+| Injection 3 | |
 | Volume Given (mL) | 5 |
 | Location | ABDOMEN |
 | Side | RIGHT |

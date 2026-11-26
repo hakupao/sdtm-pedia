@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Name of Treatment
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Name of the protocol-specified study treatment given during the dosing period for the observation.
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Category of Treatment
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of EXTRT values.
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Subcategory of Treatment
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A further categorization of EXCAT values.
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** Reason for Dose Adjustment
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Describes reason or explanation of why a dose is adjusted.
@@ -335,6 +335,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by EXTPTREF.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Name of Treatment
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Name of the intervention treatment known to the subject and/or administrator.
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Category of Treatment
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of related ECTRT values.
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Subcategory of Treatment
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A further categorization of ECCAT values.
@@ -407,6 +407,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by ECTPTREF.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

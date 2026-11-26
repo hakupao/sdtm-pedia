@@ -1,0 +1,5 @@
+批次 S-INT (T2-post 扫描批), attempt 1. 角色: reviewer.
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Reviewer 段执行, 并读它引用的 `t2_reviewer_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含末尾 T2S 段) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8) / `t1_user_ack.md`。样板: `evidence/checkpoints/t2_S-EVT_review.md`。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-INT.json` (页范围已按 writer O20 更正: AG p92-97, PR p125-128, EX p104-107, EC p107-110, §6.1.3 父节+共用例 p103-120)。writer 报告 `evidence/checkpoints/t2_S-INT.md` (逐页计数以文末「更正」段为准; 含 attempt 1 delta) + `work/t2_batches/S-INT.writer.jsonl`。改动未提交: `git diff HEAD -- knowledge_base/domains/{AG,PR,EX,EC}`。另有 3 个扫描批 (S-SPC1/S-SPC2/S-FND) 同时改别的文件, 只看本批。
+重点: 独立双向全扫; §6.1 引言 (writer 称 PDF 以 "include:" 结尾且无域列表 —— 必须渲染 p92 亲自确认) 与 §6.1.3 引言; AG/PR/EX 的 D/S/A; CT `*` 14 格逐变量核; 12 张 census_items 渲染逐格; 新 PDF_TYPO EX T-7/T-8、PR T-1 依据; EX Ex2 去粗体; AG "SDTMIG-MD"; §6.1.3.3 新标题。
+回主控 ≤ 10 行。

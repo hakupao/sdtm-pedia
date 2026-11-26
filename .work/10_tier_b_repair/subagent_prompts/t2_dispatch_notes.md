@@ -38,3 +38,7 @@
 - 扫描批 brief: `t2s_scan_writer_v1.0.md` / `t2s_scan_review_audit_v1.0.md` (覆盖本文件冲突处). 当前 session scratch 根 = `/private/tmp/claude-501/-Volumes-DevSSD-Project-sdtm-pedia/d6800696-3318-4d1d-9806-05c60470220c/scratchpad/` (上面 855742cf… 路径作废).
 - 覆盖矩阵脚本已识别 `S-*.json` / `t2_S-*.md`; 主控每批过闸后 `MATRIX_TAG=<批> python3 .work/10_tier_b_repair/work/scratch/t2/global/t2_coverage_matrix.py` (输出到 scratch, 不覆盖已提交 evidence), 该批文件须全 F、缺口清零.
 - (S-EVT 试点后) U5-U8 见 `evidence/checkpoints/t2_post_user_ack.md`: 各 S 批 spec 脚注放最后一个变量块之后、Cross References 之前; 不改 CT C-code 记法与 DOMAIN CT (归 S-CT 批); `> Class|Structure` 行与 Cross References 属导航, 不 D6, 不计忠实错误.
+- (S-INT 主控定) 无正文的章级编号标题 (§5 / §6 / §7 等, 标题下直接是子节) 不单独补进 KB (无内容可承载, 章结构由 chapters/ + 首域引言表达), checkpoint 记 "章标题不落地" 即可; 有正文的父节/共用例节标题 (如 §6.1.3.3 Exposure/Exposure as Collected Examples) 按 PDF 原标题补成该文件 H2 (`## §6.1.3.3 …`).
+- (S-FND 主控定) 文字逐字一致、仅段落拆分/合并不同 (如 PE CDASH 段 PDF 1 段 KB 6 段) → 不改, 不算缺口; 既有标题层级不一致 (如 SS `#####`) → 规则 6 不改, checkpoint 记录即可.
+- (S-SPC2 主控定) KB 自写的解释性 `*Note:*` 段 → 一律 D6 标注 (B-MS "纯导航不标" 口径作废); 纯交叉引用 ("See … for …") 才算导航不标.
+- audit_matrix 唯一路径 = `.work/10_tier_b_repair/audit_matrix.md` (不是 evidence/ 下; S-INT auditor 曾写错, 主控已合并).
