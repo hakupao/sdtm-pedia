@@ -1,0 +1,5 @@
+批次 S-CH4 (T2-post 扫描批, chapters), attempt 1. 角色: reviewer.
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Reviewer 段执行, 并读它引用的 `t2_reviewer_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含末尾 T2S 段及其后主控裁定, 特别是 S-CH4 条) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8) / `t1_user_ack.md`。样板: `evidence/checkpoints/t2_S-INT_review.md`; 历史 `t2_B-ch04_review*.md` (B-ch04 auditor 曾 FAIL, 教训: 全扫必须含表格原子、反向扫覆盖全文件)。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-CH4.json` (§4 p22-59)。writer 报告 `evidence/checkpoints/t2_S-CH4.md` (含 attempt 1 delta: 8 处粗体标签删除 D-7..D-14, Convention 列直接删) + `work/t2_batches/S-CH4.writer.jsonl`。改动未提交: `git diff HEAD -- knowledge_base/chapters/ch04_general_assumptions.md` (1566→1584 行)。另有扫描批同时改别的文件, 只看本批。
+重点: 独立双向全扫 p22-59 每页 (含表格/列表/代码字面量), R2 口径; 39 个 census_items 中 23 张 C3 表渲染逐格 (不采信 writer); 删除 D-1..D-14 逐条签字 —— 特别核 "Example 1/2/3" 三个标签: 若 PDF 原页确有 Example N 标签 (哪怕版式不同) 则删除错误, 列 CONDITIONAL; S-3 Convention 列删除后信息确有承载; S-5 Appendix 去重的交叉引用锚点有效; Mermaid (p44) 与渲染图逻辑一致; T-8..T-10 依据; 列表层级/编号改动对渲染。
+回主控 ≤ 10 行。

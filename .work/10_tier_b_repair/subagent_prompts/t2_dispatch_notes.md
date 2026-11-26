@@ -44,3 +44,6 @@
 - audit_matrix 唯一路径 = `.work/10_tier_b_repair/audit_matrix.md` (不是 evidence/ 下; S-INT auditor 曾写错, 主控已合并).
 - (S-TDM 主控定) 补入 PDF 原标题后, 紧邻的 KB 自拟同义标题 (如 `## TA-Specific Assumptions` 紧跟 `## TA – Assumptions`) 若全 KB 无入站锚点链接 → 删除该冗余标题行 (列入删除清单, D2); 有入站链接 → 保留并记录.
 - (S-CH1 主控定) 强调格式差异 (KB 多/少粗体, PDF 粗体+下划线如 "NEVER") 不算缺口, 不改, S-TYPO 也不处理 (只管引号/dash/省略号/○□).
+- (S-MOD2 主控定, model/ 文件通用) KB 变量表的 "Key Notes" 等 KB 自拟汇总列 (不对应单一 PDF 列; R1 已豁免 PDF 缺列): 每张表上方加一行 `> KB note (not in SDTM v2.0): the Key Notes column condenses the PDF Description/Usage text; …` (D6), 逐字/简写格保留; 与 PDF 矛盾格改为 PDF 原文 (D2); "无 PDF 依据" 格: 不矛盾留在 D6 下, 矛盾改 PDF. 新增行的 Key Notes 填 PDF Usage Restrictions 原文可接受. PDF 表题已含 "One Record per…" 时, 其下 KB `**Structure:**` 改写残留行按 D2 删除 (B-model06 的 D6 保留适用于 PDF 无表题的情形).
+- (S-CH4 主控定) KB 自造粗体标签: 仅为加在 PDF 原句前的标签 ("Important restriction:" / "Caution:" 等, 后接 PDF 原文) → 删标签恢复 PDF 原文 (D2 删扩写); 标签后接 KB 自写句 → 整段 D6. KB 表格中 PDF 没有的自造列 → 按规则 3 删列 (表格跟 PDF 走), 列内信息若无他处承载且不矛盾, 改为表下一行 D6. PDF 自身合法写法 (如 "e.g." 无逗号) 照 PDF, 不算 PDF_TYPO.
+- (S-MOD2 review 教训) model/ (sv20) 文件: table_census 与 fp_match 对 sv20 页基本是空比较 (census 0 格, fp 不含该节原子), "GREEN / 回归 0" 无证明力 → reviewer / auditor 必须以独立 layout 列解析 + 渲染逐格为准, 并在证据中注明. D6 列说明措辞须属实 (列内有 KB 补充值就要说 "condenses and supplements"; 不写编辑历史式措辞).

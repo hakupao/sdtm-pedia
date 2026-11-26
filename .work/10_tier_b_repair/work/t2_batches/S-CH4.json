@@ -1,0 +1,236 @@
+{
+ "batch_id": "S-CH4",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "chapters/ch04_general_assumptions.md"
+ ],
+ "kb_files": [
+  "knowledge_base/chapters/ch04_general_assumptions.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "chapters/ch04_general_assumptions.md",
+   "sec": "4",
+   "title": "§4 Assumptions for Domain Models",
+   "lo": 22,
+   "hi": 59,
+   "src": "ig34",
+   "note": "主控粗定, 先复核 (O20)"
+  }
+ ],
+ "pdf_pages": [
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+  32,
+  33,
+  34,
+  35,
+  36,
+  37,
+  38,
+  39,
+  40,
+  41,
+  42,
+  43,
+  44,
+  45,
+  46,
+  47,
+  48,
+  49,
+  50,
+  51,
+  52,
+  53,
+  54,
+  55,
+  56,
+  57,
+  58,
+  59
+ ],
+ "pdf_src": "ig34",
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+   "src": "ig34",
+   "lo": 22,
+   "hi": 59
+  }
+ ],
+ "gaps": {},
+ "intros": [],
+ "footnote": "本批无域 spec.md",
+ "footnote_moves": [],
+ "census_items": [
+  {
+   "kb": "chapters/ch04_general_assumptions.md:391 (HEAD 行号, 以内容定位)",
+   "triage_row": "13 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:391` | ig34:p22-59 | None / None | Reason for Dose Adjustment (EXADJ) / Describe | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:408 (HEAD 行号, 以内容定位)",
+   "triage_row": "14 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:408` | ig34:p22-59 | None / None | Indication for analgesic / Options | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:453 (HEAD 行号, 以内容定位)",
+   "triage_row": "15 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:453` | ig34:p22-59 | None / None | Eye Color / Options | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:465 (HEAD 行号, 以内容定位)",
+   "triage_row": "16 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:465` | ig34:p22-59 | None / None | SCTEST / SCORRES / SCSTRESC | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:471 (HEAD 行号, 以内容定位)",
+   "triage_row": "17 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:471` | ig34:p22-59 | None / None | SCTEST / SCORRES / SCSTRESC | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:477 (HEAD 行号, 以内容定位)",
+   "triage_row": "18 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:477` | ig34:p22-59 | None / None | SCTEST / SCORRES / SCSTRESC | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:487 (HEAD 行号, 以内容定位)",
+   "triage_row": "19 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:487` | ig34:p22-59 | None / None | Indicate which of the following concomitant medications was | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:497 (HEAD 行号, 以内容定位)",
+   "triage_row": "20 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:497` | ig34:p22-59 | None / None | CMTRT / CMPRESP | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:558 (HEAD 行号, 以内容定位)",
+   "triage_row": "21 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:558` | ig34:p22-59 | 1 / ae.xpt | AETERM / AELOC | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:564 (HEAD 行号, 以内容定位)",
+   "triage_row": "22 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:564` | ig34:p22-59 | 1 / suppae.xpt | QNAM / QLABEL / QVAL | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:576 (HEAD 行号, 以内容定位)",
+   "triage_row": "23 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:576` | ig34:p22-59 | 1 / ae.xpt | AETERM / AEREL / AEACN | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:582 (HEAD 行号, 以内容定位)",
+   "triage_row": "24 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:582` | ig34:p22-59 | 1 / suppae.xpt | QNAM / QLABEL / QVAL | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:597 (HEAD 行号, 以内容定位)",
+   "triage_row": "25 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:597` | ig34:p22-59 | 1 / ae.xpt | AETERM / AEREL / AEACN | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:603 (HEAD 行号, 以内容定位)",
+   "triage_row": "26 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:603` | ig34:p22-59 | 1 / suppae.xpt | QNAM / QLABEL / QVAL | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:678 (HEAD 行号, 以内容定位)",
+   "triage_row": "27 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:678` | ig34:p22-59 | None / None | Domain / Original Verbatim / Modified Verbatim / Standardize | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:749 (HEAD 行号, 以内容定位)",
+   "triage_row": "28 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:749` | ig34:p22-59 | None / None | # / Date and Time as Originally Recorded / Precision / ISO 8 | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:761 (HEAD 行号, 以内容定位)",
+   "triage_row": "29 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:761` | ig34:p22-59 | None / None | # / Interval of Uncertainty / ISO 8601 Date/Time | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:1034 (HEAD 行号, 以内容定位)",
+   "triage_row": "30 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:1034` | ig34:p22-59 | None / None | Collection Type / --DTC / --STDTC / --ENDTC | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:1074 (HEAD 行号, 以内容定位)",
+   "triage_row": "31 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:1074` | ig34:p22-59 | None / None | VSTPTNUM / VSTPT / VSELTM / VSTPTREF / VSRFTDTC / VSDTC | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:1084 (HEAD 行号, 以内容定位)",
+   "triage_row": "32 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:1084` | ig34:p22-59 | None / None | LBTPTNUM / LBTPT / LBELTM / LBTPTREF / LBRFTDTC / LBDTC | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:1112 (HEAD 行号, 以内容定位)",
+   "triage_row": "33 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:1112` | ig34:p22-59 | None / None | VISIT / VISITNUM / --TPT / --TPTNUM / --TPTREF | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:1135 (HEAD 行号, 以内容定位)",
+   "triage_row": "34 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:1135` | ig34:p22-59 | None / None | VISIT / VISITNUM / --TPT / --TPTNUM / --TPTREF | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:1511 (HEAD 行号, 以内容定位)",
+   "triage_row": "35 | C3 | UNPARSEABLE | `chapters/ch04_general_assumptions.md:1511` | ig34:p22-59 | None / None | Situation / Value of --PRESP / Value of --OCCUR / Value of - | 仅 t2_B-ch04.md:358-361 全文件表格去空白子串反向扫 clean; 无按列定位/渲染逐格 (review_a3.md:96 建议 9 未见逐表落实)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:52 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:52` | ig34:p22-59 | 0 | Core Value / Meaning / Rule | KB_AUTHORED D6 Core 表, 无 PDF 对应; t2_B-ch04_review_a3.md M4 落实 (p23 渲染)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:223 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:223` | ig34:p22-59 | 0 | SPDEVID / MKTESTCD / MKTEST / MKLOC / MKLAT / MKMETHOD / QNA | t2_B-ch04_audit.md:127 (p28 渲染); review_a3 H2"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:421 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:421` | ig34:p22-59 | 0 | CMINDC | t2_B-ch04_audit.md:128 (p32 渲染)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:425 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:425` | ig34:p22-59 | 0 | QNAM / QLABEL / QVAL | t2_B-ch04_audit.md:128 (p32 渲染)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:431 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:431` | ig34:p22-59 | 0 | CMINDC | t2_B-ch04_audit.md:128 (p32 渲染)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:435 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:435` | ig34:p22-59 | 0 | QNAM / QLABEL / QVAL | t2_B-ch04_audit.md:128 (p32 渲染)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:443 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:443` | ig34:p22-59 | 0 | CMINDC | t2_B-ch04_audit.md:128 (p32 渲染)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:770 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:770` | ig34:p22-59 | 0 | # / Date and Time as Originally Recorded / Level of Uncertai | t2_B-ch04_audit.md:129 (p40 渲染)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:825 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:825` | ig34:p22-59 | 0 | Duration as originally recorded / ISO 8601 Duration | t2_B-ch04_audit.md:126 (p41 渲染); review_a3 H1"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:901 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:901` | ig34:p22-59 | 0 | USUBJID / VISIT / VISITNUM / VISITDY / LBDY | t2_B-ch04_audit.md:33 (p42 lb.xpt 渲染)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:921 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:921` | ig34:p22-59 | 0 | Variable / Allowable Values / Purpose | KB_AUTHORED D6 --STRF 表, 无 PDF 对应; review_a3 M5/M6 落实 (p43 渲染)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:942 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:942` | ig34:p22-59 | 0 | Variable / Allowable Values / Purpose | KB_AUTHORED D6 --STRTPT 表, 无 PDF 对应; review_a3 M5/M6 落实 (p44 渲染)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:1057 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:1057` | ig34:p22-59 | 0 | Variable / Purpose | KB_AUTHORED D6 (§4.4.10 图的 KB 表达), 无 PDF 表对应"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:1328 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `chapters/ch04_general_assumptions.md:1328` | ig34:p53/54 | 2 | T-1 eg.xpt Row 5/6 (2) | t2_B-ch04.md:70; t2_B-ch04_review.md:37"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:1450 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:1450` | ig34:p22-59 | 0 | Convention / Text Strings >200 Char Conventions General Obse | t2_B-ch04_audit.md:33 (p56 约定表渲染)"
+  },
+  {
+   "kb": "chapters/ch04_general_assumptions.md:1545 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch04_general_assumptions.md:1545` | ig34:p22-59 | 0 | Variable / Structure Where It Is Defined / Requirement in Th | t2_B-ch04_audit.md:130 (p59 渲染)"
+  }
+ ],
+ "out_of_scope": [],
+ "notes": "B-ch04 NARROW (auditor 曾 FAIL 后修); 23 张 C3 UNPARSEABLE 表全部渲染逐格. 大文件 (~1500 行): 可按 §4.1-§4.5 分段逐页做, checkpoint 逐页日志必须覆盖 p22-59 每页. 行号为 HEAD 时, 以内容定位."
+}
