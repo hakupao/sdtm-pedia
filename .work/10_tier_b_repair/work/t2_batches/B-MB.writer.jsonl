@@ -1,0 +1,31 @@
+{"ref": "ig34_p0263_a001", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "261", "pdf_page": 263, "note": "DI 句"}
+{"ref": "ig34_p0263_a004", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "263-268", "pdf_page": 263, "note": "di.xpt 整表补, 行 1"}
+{"ref": "ig34_p0263_a005", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "268", "pdf_page": 263, "note": "di.xpt 行 2"}
+{"ref": "ig34_p0263_a006", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "270", "pdf_page": 263, "note": "RELREC 说明句"}
+{"ref": "ig34_p0263_a009", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "272-281", "pdf_page": 263, "note": "Ex3 relrec.xpt 整表补, 行 1"}
+{"ref": "ig34_p0263_a011", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "278", "pdf_page": 263, "note": "relrec 行 3"}
+{"ref": "ig34_p0263_a013", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "280", "pdf_page": 263, "note": "relrec 行 5"}
+{"ref": "ig34_p0263_a014", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "281", "pdf_page": 263, "note": "relrec 行 6"}
+{"ref": "ig34_p0261_a014", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "227", "pdf_page": 261, "note": "MBSPCND->MBSPCCND (随 base:140-170 块 MOVED 入保留副本)"}
+{"ref": "ig34_p0262_a003", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "241-248", "pdf_page": 262, "note": "base:151 移入; 表头按 PDF 24 列重建, 6 行同步"}
+{"ref": "ig34_p0260_a009", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "170", "pdf_page": 260, "note": "BEREFID 100->100.3"}
+{"ref": "ig34_p0260_a015", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "176", "pdf_page": 260, "note": "BELNKID 3->空"}
+{"ref": "census:MB/examples.md:11:*:*", "action": "DELETED_D2", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "-", "pdf_page": 256, "note": "副本1 Ex1 mb; 保留 :13"}
+{"ref": "census:MB/examples.md:33:*:*", "action": "DELETED_D2", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "-", "pdf_page": 257, "note": "副本1 Ex2 be; 保留 :70"}
+{"ref": "census:MB/examples.md:63:*:*", "action": "DELETED_D2", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "-", "pdf_page": 258, "note": "副本1 Ex2 mb; 保留 :105"}
+{"ref": "census:MB/examples.md:76:*:*", "action": "DELETED_D2", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "-", "pdf_page": 258, "note": "副本1 Ex2 suppmb; 保留 :118"}
+{"ref": "census:MB/examples.md:98:*:*", "action": "DELETED_D2", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "-", "pdf_page": 260, "note": "副本1 Ex3 be; 保留 :163"}
+{"ref": "census:MB/examples.md:151:*:*", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "241-248", "pdf_page": 262, "note": "= ig34_p0262_a003"}
+{"ref": "census:MB/examples.md:162:1:QVAL", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "254", "pdf_page": 262, "note": "Smear Quantitation->Quantification"}
+{"ref": "census:MB/examples.md:162:5-6:*", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "258-259", "pdf_page": 262, "note": "T-1: PDF Row 标号 7/8 跳号, KB 5/6; 行序按 PDF"}
+{"ref": "census:MB/examples.md:212:3:MSORRES,MSSTRESC", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "46", "pdf_page": 257, "note": "空->1"}
+{"ref": "census:MB/examples.md:277:1-6:VISIT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "109-114", "pdf_page": 258, "note": "VISIT->VISIT 1"}
+{"ref": "census:MB/examples.md:335:4,10", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "170,176", "pdf_page": 260, "note": "= atoms a009/a015"}
+{"ref": "census:MB/examples.md:388:1-2:VISIT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "295-296", "pdf_page": 263, "note": "WEEK 1->WEEK 5"}
+{"ref": "census:MB/examples.md:388:header:MBGRPID", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "293", "pdf_page": 263, "note": "T-2: PDF MBGPRID"}
+{"ref": "pdf_only:p263:di.xpt", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "263-268", "pdf_page": 263, "note": "整表 2 行"}
+{"ref": "pdf_only:p263:relrec.xpt", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "272-281", "pdf_page": 263, "note": "整表 6 行"}
+{"ref": "ig34_p0261_a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "210", "pdf_page": 261, "note": "R3 新增: RELSPEC Row 1 说明"}
+{"ref": "ig34_p0261_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "212", "pdf_page": 261, "note": "R3 新增: RELSPEC Rows 2-6 说明"}
+{"ref": "census:MB/examples.md:388:header:MBTRESN", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "295", "pdf_page": 263, "note": "T-3: PDF MBTRESN 印刷错, KB 改为 MBSTRESN (主控裁定)"}
+{"ref": "O-a", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/examples.md", "kb_line_after": "261", "pdf_page": 262, "note": "KB_AUTHORED 导航: 指向 MS/examples.md#example-3"}

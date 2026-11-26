@@ -17,5 +17,20 @@
   103,
   107,
   109
- ]
+ ],
+ "t3_atom_err": {
+  "ig34_p0257_a010": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
+  "ig34_p0258_a019": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
+  "ig34_p0258_a020": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
+  "ig34_p0258_a021": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
+  "ig34_p0258_a022": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
+  "ig34_p0258_a023": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
+  "ig34_p0258_a024": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
+  "ig34_p0260_a009": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
+  "ig34_p0260_a015": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
+  "ig34_p0263_a021": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
+  "ig34_p0263_a022": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
+  "ig34_p0263_a020": "B-MB T-3: verbatim MBTRESN 为 PDF 印刷错, KB 改 MBSTRESN 后不命中 (预期)",
+  "ig34_p0215_a018": "B-CP T-2: verbatim CPCSMRKR 为 PDF 笔误, KB 改 CPCSMRKS 后不命中 (预期)"
+ }
 }

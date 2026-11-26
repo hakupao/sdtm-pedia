@@ -99,5 +99,9 @@
   "unparseable_kb_tables_hand_check_if_touched": []
  },
  "out_of_scope": [],
- "notes": []
+ "notes": [
+  "B-MB review: MB Ex1/Ex2 ms.xpt 与 MS 跨文件重复 (O-b) — 按 D2 统一: PDF 所属节 (§6.3.5.7.3 MB/MS 共用) 归 MS 则 MB 留一行引用; MS Ex2 行 10 疑似错值",
+  "B-MB review: MS Ex3 叙述含 KB 扩写 \"(see MB Example 3)\" (D2 删扩写) 且缺 PF 一句 (补)",
+  "B-MB audit: MS 假设 3.b 在 MB/assumptions.md:28 也有一份 (疑 MS 复制) — 按 D2 判所属节, 非所属处换交叉引用 (MB/assumptions.md 不在 B-MB 已提交改动内, 本批可扩入)"
+ ]
 }
