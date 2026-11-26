@@ -38,7 +38,7 @@
 | O35 | B-model05 writer | model/05_study_level_data.md | T4 用户裁定: (1) 既有标题缺 PDF 节号/原名、层级扁平 (规则 6 未改); (2) TT/TP "Notes" 列实为 Usage Restrictions; (3) TS 缺 Usage Restrictions "Not in nonclinical trials" (R1 缺列不补); (4) Role 括注不统一 |
 | O36 | B-TS writer | fp_match / coverage ledger 全局 | EQUIVALENT 判得过宽: TS §7.4.2.1 语义不同的 KB 改写句被判 EQUIVALENT (他批可能同样) → T3/T4: 对 ledger EQUIVALENT 原子做语义抽检 (Rule A), 不只看 hit_target |
 | O37 | B-TS writer | R4 IE 清单 ig34_p0425_a003 (NullFlavor NA 行) | IE 理由误为 spec 表行; 实为 TS NullFlavor 表行 → 主控裁补入 (覆盖 IE), T3 回写 ledger |
-| O38 | B-model06 writer | model/06_relationship_datasets.md | T4 用户裁定: (1) 6.1-6.7 标题与 H1 不同于 PDF (6.6 KB "Related Subjects" vs PDF "Relationships"; 规则 6 未改); (2) Role 括号约定: RELSPEC "(REFID)" 有而 SUPP-- QLABEL 无 "(QNAM)"; (3) RELREC USUBJID/POOLID Notes 为 KB 自写 (PDF 空) 但属 R1 IE 行, 未加 D6 (主控维持 M-2a) |
+| O38 | B-model06 writer | model/06_relationship_datasets.md | T4 用户裁定: (1) 6.1-6.7 标题与 H1 不同于 PDF (6.6 KB "Related Subjects" vs PDF "Relationships"; 规则 6 未改); (2) Role 括号约定: RELSPEC "(REFID)" 有而 SUPP-- QLABEL 无 "(QNAM)"; (3) RELREC USUBJID/POOLID Notes 为 KB 自写 (PDF 空) 但属 R1 IE 行, 未加 D6 (主控维持 M-2a); (4) RELREC APID Notes 格截断 (缺 POOLDEF 句, 同属 R1 IE 行, B-model06 audit) |
 | O39 | B-DA writer | p180 §6.3 "Models for Findings Domains" 章引言 2 句 | 全 KB 无逐字对应 → 并入 O17 §6.x 类引言扫描 (与 §6.1/§6.2 章引言统一定宿主) |
 | O40 | B-FT writer / 多批 | 全库引号/撇号/破折号风格 | PDF 弯引号/en dash vs KB 直引号/hyphen 普遍不一致 (B-MK L-2, B-NV, B-DD F-2); B-RS QRS 副本已改弯引号, FT/QS 副本仍直引号 → T4 用户定全局口径后统一 (逐词内容已一致) |
 | O41 | B-model06 review | model/06_relationship_datasets.md:50 RELTYPE Combinations 表 (D6) + Summary 表 SUPP-- Subject-level "Yes" | KB 自写表按记录级解释 RELTYPE 并列 MANY/ONE, 与 SDTMIG ch08 (数据集级, 3 种组合) 不一致 → T4: 改为指向 ch08 交叉引用或删; Summary "Yes" 为简化 |
