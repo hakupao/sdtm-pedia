@@ -1,0 +1,70 @@
+{"ref": "census:DS/examples.md:28:4:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "28", "pdf_page": 159, "note": "2003-10-15->2003-10-31"}
+{"ref": "census:DS/examples.md:29:5:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "29", "pdf_page": 159, "note": "2003-11-21->2003-11-15"}
+{"ref": "census:DS/examples.md:31:7:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "31", "pdf_page": 159, "note": "2003-11-22->2003-11-20"}
+{"ref": "census:DS/examples.md:34:10:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "34", "pdf_page": 159, "note": "2003-09-30->2003-09-22"}
+{"ref": "census:DS/examples.md:35:11:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "35", "pdf_page": 159, "note": "2003-10-20->2003-10-31"}
+{"ref": "census:DS/examples.md:37:13:DSSEQ", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "37", "pdf_page": 159, "note": "2->3 (U-3)"}
+{"ref": "census:DS/examples.md:38:14:DSSEQ", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "38", "pdf_page": 159, "note": "3->2 (U-3)"}
+{"ref": "census:DS/examples.md:38:14:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "38", "pdf_page": 159, "note": "2003-09-30->2003-09-22"}
+{"ref": "census:DS/examples.md:40:16:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "40", "pdf_page": 159, "note": "2003-10-31->2003-10-29"}
+{"ref": "census:DS/examples.md:101:header:AESCAN", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "101", "pdf_page": 161, "note": "add AESCAN after AEOUT"}
+{"ref": "census:DS/examples.md:103:1:ROW_SHAPE", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "103", "pdf_page": 161, "note": "flags 6->8 cells"}
+{"ref": "census:DS/examples.md:103:1:AESTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "103", "pdf_page": 161, "note": "2003-09-28->2003-09-29"}
+{"ref": "census:DS/examples.md:103:1:AESMIE", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "103", "pdf_page": 161, "note": "N"}
+{"ref": "census:DS/examples.md:103:1:AESCAN", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "103", "pdf_page": 161, "note": "N"}
+{"ref": "census:DS/examples.md:130:1:DSTERM", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "130", "pdf_page": 161, "note": "'. PER'->', PER'"}
+{"ref": "census:DS/examples.md:150:1:DSTERM", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "150", "pdf_page": 162, "note": "'. PER'->', PER'"}
+{"ref": "census:DS/examples.md:206:3:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "206", "pdf_page": 163, "note": "2016-04-10->2016-04-12"}
+{"ref": "census:DS/examples.md:231:4:TESTRL", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "231", "pdf_page": 163, "note": "add trailing period"}
+{"ref": "census:DS/examples.md:232:5:TESTRL", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "232", "pdf_page": 163, "note": "add trailing period"}
+{"ref": "census:DS/examples.md:233:6:TESTRL", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "233", "pdf_page": 163, "note": "add trailing period"}
+{"ref": "census:DS/examples.md:292:header:ELEMENT", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "292", "pdf_page": 165, "note": "add ELEMENT col; header SDSEQ->SESEQ (T-1)"}
+{"ref": "census:DS/examples.md:294:1:ELEMENT", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "294", "pdf_page": 165, "note": "Screen"}
+{"ref": "census:DS/examples.md:295:2:ELEMENT", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "295", "pdf_page": 165, "note": "Drug-1"}
+{"ref": "census:DS/examples.md:296:3:ELEMENT", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "296", "pdf_page": 165, "note": "Drug 1 + Investigational Drug"}
+{"ref": "census:DS/examples.md:297:4:SESTDTC", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "297", "pdf_page": 165, "note": "2016-04-19->2016-04-24"}
+{"ref": "census:DS/examples.md:297:4:SEENDTC", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "297", "pdf_page": 165, "note": "2016-04-29->2016-04-24"}
+{"ref": "census:DS/examples.md:297:4:ELEMENT", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "297", "pdf_page": 165, "note": "Follow-up"}
+{"ref": "census:DS/examples.md:298:5:SESTDTC", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "298", "pdf_page": 165, "note": "2016-02-21->2016-02-04"}
+{"ref": "census:DS/examples.md:298:5:SEENDTC", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "298", "pdf_page": 165, "note": "2016-03-23->2016-02-21"}
+{"ref": "census:DS/examples.md:298:5:ELEMENT", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "298", "pdf_page": 165, "note": "Screen"}
+{"ref": "census:DS/examples.md:299:6:SESTDTC", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "299", "pdf_page": 165, "note": "2016-03-23->2016-02-21"}
+{"ref": "census:DS/examples.md:299:6:ELEMENT", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "299", "pdf_page": 165, "note": "Drug-2"}
+{"ref": "census:DS/examples.md:300:7:ELEMENT", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "300", "pdf_page": 165, "note": "Drug 2 + Investigational Drug"}
+{"ref": "census:DS/examples.md:301:8:SESTDTC", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "301", "pdf_page": 165, "note": "2016-04-24->2016-04-29"}
+{"ref": "census:DS/examples.md:301:8:ELEMENT", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "301", "pdf_page": 165, "note": "Follow-up"}
+{"ref": "census:DS/examples.md:320:2:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "320", "pdf_page": 165, "note": "2016-03-13->2016-02-13"}
+{"ref": "census:DS/examples.md:321:3:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "321", "pdf_page": 165, "note": "2016-03-14->2016-03-13"}
+{"ref": "census:DS/examples.md:322:4:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "322", "pdf_page": 165, "note": "2016-03-19->2016-03-14"}
+{"ref": "census:DS/examples.md:323:5:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "323", "pdf_page": 165, "note": "2016-04-20->2016-04-19"}
+{"ref": "census:DS/examples.md:327:9:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "327", "pdf_page": 165, "note": "2016-03-23->2016-02-20"}
+{"ref": "census:DS/examples.md:330:12:DSSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "330", "pdf_page": 165, "note": "2016-04-25->2016-04-24"}
+{"ref": "census:DS/examples.md:346:3:TESTRL", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "346", "pdf_page": 166, "note": "T-2: 'is AB+C'->'is AB +C'; 'is' kept (row2 parallel, deviates from PDF); spacing per PDF (U-6)"}
+{"ref": "census:DS/examples.md:365:9:TATRANS", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "363", "pdf_page": 166, "note": "TAETORD=\"5\"->\"6\""}
+{"ref": "census:DS/examples.md:366:10:TATRANS", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "364", "pdf_page": 166, "note": "TAETORD=\"5\"->\"7\""}
+{"ref": "census:DS/examples.md:383:1:SEUPDES", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "383", "pdf_page": 166, "note": "value moved SEUPDES->TAETORD (column shift)"}
+{"ref": "census:DS/examples.md:383:1:TAETORD", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "383", "pdf_page": 166, "note": "value moved SEUPDES->TAETORD (column shift)"}
+{"ref": "census:DS/examples.md:384:2:SEUPDES", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "384", "pdf_page": 166, "note": "value moved SEUPDES->TAETORD (column shift)"}
+{"ref": "census:DS/examples.md:384:2:TAETORD", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "384", "pdf_page": 166, "note": "value moved SEUPDES->TAETORD (column shift)"}
+{"ref": "census:DS/examples.md:385:3:SEUPDES", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "385", "pdf_page": 166, "note": "value moved SEUPDES->TAETORD (column shift)"}
+{"ref": "census:DS/examples.md:385:3:TAETORD", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "385", "pdf_page": 166, "note": "value moved SEUPDES->TAETORD (column shift)"}
+{"ref": "census:DS/examples.md:386:4:SEUPDES", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "386", "pdf_page": 166, "note": "value moved SEUPDES->TAETORD (column shift)"}
+{"ref": "census:DS/examples.md:386:4:TAETORD", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "386", "pdf_page": 166, "note": "value moved SEUPDES->TAETORD (column shift)"}
+{"ref": "census:DS/examples.md:387:5:SEUPDES", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "387", "pdf_page": 166, "note": "value moved SEUPDES->TAETORD (column shift)"}
+{"ref": "census:DS/examples.md:387:5:TAETORD", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "387", "pdf_page": 166, "note": "value moved SEUPDES->TAETORD (column shift)"}
+{"ref": "R3:N-1:ig34_p0158_a0023", "action": "INSERTED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "15", "pdf_page": 158, "note": "non-completion of"}
+{"ref": "R3:N-2:ig34_p0160_a0026", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "87", "pdf_page": 160, "note": "rewrite->PDF wording (D-5)"}
+{"ref": "R3:N-3:ig34_p0160_a0028", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "89", "pdf_page": 160, "note": "T-3: (DSDTDTC)(PDF)->(DSSTDTC) (KB deviates from PDF; no such variable)"}
+{"ref": "R3:N-4:ig34_p0161_a0013", "action": "INSERTED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "122", "pdf_page": 161, "note": "as indicated by DSSCAT ISONIAZID"}
+{"ref": "R3:N-5:ig34_p0162_a0019", "action": "INSERTED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "175", "pdf_page": 162, "note": "for each of the 2 treatments"}
+{"ref": "R3:N-6:ig34_p0165_a0013", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "307", "pdf_page": 165, "note": "garbled->PDF (D-4)"}
+{"ref": "R3:N-7:ig34_p0165_a0016", "action": "INSERTED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "313", "pdf_page": 165, "note": "the"}
+{"ref": "R3:N-8:ig34_p0165_a0034", "action": "INSERTED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "336", "pdf_page": 165, "note": "drugs A and B to treatment with"}
+{"ref": "R3:N-9:ig34_p0166_a0009-a0011", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "349", "pdf_page": 166, "note": "AB/ABC arm sentences (D-1)"}
+{"ref": "R3:N-10:ig34_p0166_a0029-a0032", "action": "MOVED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "371", "pdf_page": 166, "note": "para moved after ta.xpt; wrong sentence fixed (D-2)"}
+{"ref": "R3:N-11:ig34_p0167_a0004", "action": "INSERTED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "393", "pdf_page": 167, "note": "the"}
+{"ref": "R3:N-12:ig34_p0167_a0005/a0007", "action": "MOVED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "399", "pdf_page": 167, "note": "Row4 tail -> Row6; element->epoch (D-3)"}
+{"ref": "T-1:se.xpt header SDSEQ", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "292", "pdf_page": 165, "note": "T-1: header SDSEQ(PDF)->SESEQ (KB deviates from PDF; spec + Ex11)"}
+{"ref": "T-4:epocch", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "120", "pdf_page": 161, "note": "KB epoch kept"}
+{"ref": "T-5:recieved", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "377", "pdf_page": 166, "note": "KB received kept"}
+{"ref": "T-6:' DG2INDG'", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/DS/examples.md", "kb_line_after": "241", "pdf_page": 164, "note": "KB DG2INDG kept"}

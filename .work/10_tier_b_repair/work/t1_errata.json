@@ -31,6 +31,8 @@
   "ig34_p0263_a021": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
   "ig34_p0263_a022": "B-MB review: verbatim 为旧 KB 错值, 按 PDF 改",
   "ig34_p0263_a020": "B-MB T-3: verbatim MBTRESN 为 PDF 印刷错, KB 改 MBSTRESN 后不命中 (预期)",
-  "ig34_p0215_a018": "B-CP T-2: verbatim CPCSMRKR 为 PDF 笔误, KB 改 CPCSMRKS 后不命中 (预期)"
+  "ig34_p0215_a018": "B-CP T-2: verbatim CPCSMRKR 为 PDF 笔误, KB 改 CPCSMRKS 后不命中 (预期)",
+  "ig34_p0161_a0012": "B-DS audit: verbatim DSCAT 应为 DSSCAT (渲染页)",
+  "ig34_p0167_a0010": "B-DS writer: 表头 DSEQ 应为 DSSEQ"
  }
 }
