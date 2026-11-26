@@ -4,6 +4,10 @@
 
 A findings domain that contains subject-related data not collected in other domains.
 
+## SC – Specification
+
+sc.xpt, Subject Characteristics — Findings. One record per characteristic per visit per subject., Tabulation.
+
 ## SC – Assumptions
 
 1. The structure of subject characteristics is based on the Findings general observation class and is an extension of the demographics data, including socioeconomic or other broad characteristics. The structure for demographic data is fixed and includes date of birth, age, sex, race, ethnicity, and country. Subject characteristics may be collected periodically over time. Some examples of subject characteristics include education level, marital status, and national origin.
