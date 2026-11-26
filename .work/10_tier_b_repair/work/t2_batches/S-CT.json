@@ -1,0 +1,20 @@
+{
+ "batch_id": "S-CT",
+ "scan": true,
+ "script_batch": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": ["knowledge_base/domains/*/spec.md (全部 63 个有 spec.md 的域)"],
+ "kb_files": ["knowledge_base/domains/*/spec.md"],
+ "narrow_files": [],
+ "scope": "仅 `- **Controlled Terms:**` 字段: (U5) 每个 C-code 前补 PDF 括号短名, 写成 `(NY) C66742`; 多 codelist 单元格 `C78734; C111114` → `(SHORT1) C78734; (SHORT2) C111114` (顺序按 KB 现序, 与 PDF 单元格顺序不一致时登记); (U6) DOMAIN 变量 CT 填 PDF 原值 (通常为该域代码). `*`、MedDRA、ISO 8601 等非 C-code 值不动. 每个 spec.md 末尾脚注之后 (Cross References 之前) 加一行 `> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).` —— 措辞照实, 每文件一次.",
+ "sources": {
+  "short_name_map": "source/cdisc/SDTM Terminology.xlsx (codelist 行的 CDISC Submission Value = 括号短名; 只读, 勿提交)",
+  "pdf_truth": "各域 PDF spec 表 CT 列 (bbox 分列; 可复用 work/scratch/t2s_tools/speccmp.py)",
+  "also_check": "source/cdisc/SDTMIG_v3.4.xlsx 若含变量级 CT 列, 作第三来源"
+ },
+ "rule_a": "脚本化改动 → auditor 按 Rule A 抽检: N = min(30, max(20, ceil(0.05 × 改动格数))), seed 20261126, 每样本对 PDF 渲染 CT 列逐格核",
+ "gate": "改动集 ⊆ Controlled Terms 行 + 每文件 1 行 KB note (diff 断言); xlsx 映射 vs PDF 单元格不一致清单逐条处理 (以 PDF 为准, 登记); DOMAIN 63/63; check_links 42",
+ "serial_after": ["S-SPEC1", "S-SPEC2", "S-SPEC3", "S-SPEC4"],
+ "out_of_scope": ["O24"],
+ "notes": "必须在 S-SPEC1-4 全部提交后才跑 (同改 spec.md). 不改 Controlled Terms 以外任何字段."
+}

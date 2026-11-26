@@ -1,0 +1,153 @@
+{
+ "batch_id": "S-SPEC3",
+ "scan": true,
+ "spec_only": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "domains/CV/spec.md",
+  "domains/MI/spec.md",
+  "domains/MK/spec.md",
+  "domains/NV/spec.md",
+  "domains/RE/spec.md",
+  "domains/RP/spec.md",
+  "domains/QS/spec.md",
+  "domains/FT/spec.md"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/CV/spec.md",
+  "knowledge_base/domains/MI/spec.md",
+  "knowledge_base/domains/MK/spec.md",
+  "knowledge_base/domains/NV/spec.md",
+  "knowledge_base/domains/RE/spec.md",
+  "knowledge_base/domains/RP/spec.md",
+  "knowledge_base/domains/QS/spec.md",
+  "knowledge_base/domains/FT/spec.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "domains/CV",
+   "sec": "6.3.7.2",
+   "title": "§6.3.7.2 Cardiovascular System Findings (CV)",
+   "lo": 286,
+   "hi": 290,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/MI",
+   "sec": "6.3.5.8",
+   "title": "§6.3.5.8 Microscopic Findings (MI)",
+   "lo": 263,
+   "hi": 267,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/MK",
+   "sec": "6.3.7.3",
+   "title": "§6.3.7.3 Musculoskeletal System Findings (MK)",
+   "lo": 290,
+   "hi": 294,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/NV",
+   "sec": "6.3.7.4",
+   "title": "§6.3.7.4 Nervous System Findings (NV)",
+   "lo": 294,
+   "hi": 298,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/RE",
+   "sec": "6.3.7.7",
+   "title": "§6.3.7.7 Respiratory System Findings (RE)",
+   "lo": 308,
+   "hi": 312,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/RP",
+   "sec": "6.3.7.6",
+   "title": "§6.3.7.6 Reproductive System Findings (RP)",
+   "lo": 305,
+   "hi": 308,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/QS",
+   "sec": "6.3.9.2",
+   "title": "§6.3.9.2 Questionnaires (QS)",
+   "lo": 324,
+   "hi": 329,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/FT",
+   "sec": "6.3.9.1",
+   "title": "§6.3.9.1 Functional Tests (FT)",
+   "lo": 319,
+   "hi": 324,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  }
+ ],
+ "pdf_pages": [
+  263,
+  264,
+  265,
+  266,
+  267,
+  286,
+  287,
+  288,
+  289,
+  290,
+  291,
+  292,
+  293,
+  294,
+  295,
+  296,
+  297,
+  298,
+  305,
+  306,
+  307,
+  308,
+  309,
+  310,
+  311,
+  312,
+  319,
+  320,
+  321,
+  322,
+  323,
+  324,
+  325,
+  326,
+  327,
+  328,
+  329
+ ],
+ "pdf_ranges": [],
+ "gaps": {
+  "CV": "F (fn 原子 ig34_p0288_a018)",
+  "MI": "F (fn 原子 page_txt p265)",
+  "MK": "F (fn 原子 ig34_p0291_a025)",
+  "RE": "F (fn 原子 ig34_p0310_a005)",
+  "RP": "F (fn 原子 ig34_p0306_a022)",
+  "QS": "F (fn 原子 ig34_p0326_a005)",
+  "FT": "F (fn 原子 ig34_p0320_a023)"
+ },
+ "intros": [],
+ "footnote": "U2/U7: 每个 spec.md 最后一个变量块之后、Cross References 之前补 spec 表脚注 (逐字, 多条各一段); CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
+ "footnote_moves": [],
+ "census_items": [],
+ "out_of_scope": [
+  "O15",
+  "O21",
+  "O24",
+  "O26"
+ ],
+ "notes": "spec-only 批: 只改本组 spec.md (CO 例外见 footnote_moves). 每个 spec.md 对 PDF spec 表逐变量逐字段核 (Order/Label/Type/CT/Role/Core/CDISC Notes, 变量顺序与数量), 用 bbox 分列 (可复用 work/scratch/t2s_tools/speccmp.py; 用法见脚本头, 先 pdftotext -bbox 取页) + 渲染图复核. 不改 CT C-code 记法与 DOMAIN CT (U5/U6 归 S-CT). 各域 assumptions/examples 已终版, 不碰. 行号为 HEAD 时, 以内容定位."
+}

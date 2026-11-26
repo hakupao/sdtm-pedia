@@ -1,0 +1,150 @@
+{
+ "batch_id": "S-SPEC2",
+ "scan": true,
+ "spec_only": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "domains/CE/spec.md",
+  "domains/HO/spec.md",
+  "domains/MH/spec.md",
+  "domains/DV/spec.md",
+  "domains/DA/spec.md",
+  "domains/DD/spec.md",
+  "domains/IE/spec.md",
+  "domains/BS/spec.md"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/CE/spec.md",
+  "knowledge_base/domains/HO/spec.md",
+  "knowledge_base/domains/MH/spec.md",
+  "knowledge_base/domains/DV/spec.md",
+  "knowledge_base/domains/DA/spec.md",
+  "knowledge_base/domains/DD/spec.md",
+  "knowledge_base/domains/IE/spec.md",
+  "knowledge_base/domains/BS/spec.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "domains/CE",
+   "sec": "6.2.3",
+   "title": "§6.2.3 Clinical Events (CE)",
+   "lo": 148,
+   "hi": 155,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/HO",
+   "sec": "6.2.5",
+   "title": "§6.2.5 Healthcare Encounters (HO)",
+   "lo": 167,
+   "hi": 171,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/MH",
+   "sec": "6.2.6",
+   "title": "§6.2.6 Medical History (MH)",
+   "lo": 171,
+   "hi": 178,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/DV",
+   "sec": "6.2.7",
+   "title": "§6.2.7 Protocol Deviations (DV)",
+   "lo": 178,
+   "hi": 180,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/DA",
+   "sec": "6.3.1",
+   "title": "§6.3.1 Product Accountability (DA)",
+   "lo": 180,
+   "hi": 183,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/DD",
+   "sec": "6.3.2",
+   "title": "§6.3.2 Death Details (DD)",
+   "lo": 183,
+   "hi": 185,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/IE",
+   "sec": "6.3.4",
+   "title": "§6.3.4 Inclusion/Exclusion Criteria Not Met (IE)",
+   "lo": 193,
+   "hi": 194,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/BS",
+   "sec": "6.3.5.2",
+   "title": "§6.3.5.2 Biospecimen Findings (BS)",
+   "lo": 196,
+   "hi": 199,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  }
+ ],
+ "pdf_pages": [
+  148,
+  149,
+  150,
+  151,
+  152,
+  153,
+  154,
+  155,
+  167,
+  168,
+  169,
+  170,
+  171,
+  172,
+  173,
+  174,
+  175,
+  176,
+  177,
+  178,
+  179,
+  180,
+  181,
+  182,
+  183,
+  184,
+  185,
+  193,
+  194,
+  196,
+  197,
+  198,
+  199
+ ],
+ "pdf_ranges": [],
+ "gaps": {
+  "CE": "F (fn 原子 ig34_p0150_a004)",
+  "HO": "F (fn 原子 ig34_p0169_a0003)",
+  "MH": "F (fn 原子 ig34_p0172_a0013)",
+  "DV": "F (fn 原子 ig34_p0179_a0005)",
+  "DA": "F (fn 原子 ig34_p0181_a013)",
+  "DD": "F (fn 原子 ig34_p0183_a020)",
+  "IE": "F (fn 原子 ig34_p0193_a025)",
+  "BS": "F (fn 原子 ig34_p0198_a008)"
+ },
+ "intros": [],
+ "footnote": "U2/U7: 每个 spec.md 最后一个变量块之后、Cross References 之前补 spec 表脚注 (逐字, 多条各一段); CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
+ "footnote_moves": [],
+ "census_items": [],
+ "out_of_scope": [
+  "O15",
+  "O21",
+  "O24",
+  "O26"
+ ],
+ "notes": "spec-only 批: 只改本组 spec.md (CO 例外见 footnote_moves). 每个 spec.md 对 PDF spec 表逐变量逐字段核 (Order/Label/Type/CT/Role/Core/CDISC Notes, 变量顺序与数量), 用 bbox 分列 (可复用 work/scratch/t2s_tools/speccmp.py; 用法见脚本头, 先 pdftotext -bbox 取页) + 渲染图复核. 不改 CT C-code 记法与 DOMAIN CT (U5/U6 归 S-CT). 各域 assumptions/examples 已终版, 不碰. 行号为 HEAD 时, 以内容定位."
+}

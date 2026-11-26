@@ -1,0 +1,162 @@
+{
+ "batch_id": "S-SPEC4",
+ "scan": true,
+ "spec_only": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "domains/RS/spec.md",
+  "domains/SC/spec.md",
+  "domains/TU/spec.md",
+  "domains/VS/spec.md",
+  "domains/SUPPQUAL/spec.md",
+  "domains/TE/spec.md",
+  "domains/TI/spec.md",
+  "domains/TS/spec.md"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/RS/spec.md",
+  "knowledge_base/domains/SC/spec.md",
+  "knowledge_base/domains/TU/spec.md",
+  "knowledge_base/domains/VS/spec.md",
+  "knowledge_base/domains/SUPPQUAL/spec.md",
+  "knowledge_base/domains/TE/spec.md",
+  "knowledge_base/domains/TI/spec.md",
+  "knowledge_base/domains/TS/spec.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "domains/RS",
+   "sec": "6.3.9.3",
+   "title": "§6.3.9.3 Disease Response and Clin Classification (RS)",
+   "lo": 329,
+   "hi": 339,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/SC",
+   "sec": "6.3.10",
+   "title": "§6.3.10 Subject Characteristics (SC)",
+   "lo": 339,
+   "hi": 342,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/TU",
+   "sec": "6.3.12.1",
+   "title": "§6.3.12.1 Tumor/Lesion Identification (TU)",
+   "lo": 344,
+   "hi": 350,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/VS",
+   "sec": "6.3.13",
+   "title": "§6.3.13 Vital Signs (VS)",
+   "lo": 358,
+   "hi": 361,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/SUPPQUAL",
+   "sec": "8.4",
+   "title": "§8.4 Relating Non-standard Variable Values to a Parent Domain",
+   "lo": 431,
+   "hi": 434,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/TE",
+   "sec": "7.2.2",
+   "title": "§7.2.2 Trial Elements (TE)",
+   "lo": 402,
+   "hi": 407,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/TI",
+   "sec": "7.4.1",
+   "title": "§7.4.1 Trial Inclusion/Exclusion Criteria (TI)",
+   "lo": 416,
+   "hi": 417,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/TS",
+   "sec": "7.4.2",
+   "title": "§7.4.2 Trial Summary (TS)",
+   "lo": 417,
+   "hi": 425,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  }
+ ],
+ "pdf_pages": [
+  329,
+  330,
+  331,
+  332,
+  333,
+  334,
+  335,
+  336,
+  337,
+  338,
+  339,
+  340,
+  341,
+  342,
+  344,
+  345,
+  346,
+  347,
+  348,
+  349,
+  350,
+  358,
+  359,
+  360,
+  361,
+  402,
+  403,
+  404,
+  405,
+  406,
+  407,
+  416,
+  417,
+  418,
+  419,
+  420,
+  421,
+  422,
+  423,
+  424,
+  425,
+  431,
+  432,
+  433,
+  434
+ ],
+ "pdf_ranges": [],
+ "gaps": {
+  "RS": "F (fn 原子 ig34_p0332_a003)",
+  "SC": "F (fn 原子 ig34_p0341_a005)",
+  "TU": "F (fn 原子 page_txt p346)",
+  "VS": "F (fn 原子 ig34_p0360_a005)",
+  "SUPPQUAL": "F (fn 原子 ig34_p0432_a026)",
+  "TE": "F (fn 原子 ig34_p0403_a022)",
+  "TI": "F (fn 原子 ig34_p0416_a022)",
+  "TS": "F (fn 原子 ig34_p0418_a005)"
+ },
+ "intros": [],
+ "footnote": "U2/U7: 每个 spec.md 最后一个变量块之后、Cross References 之前补 spec 表脚注 (逐字, 多条各一段); CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
+ "footnote_moves": [],
+ "census_items": [],
+ "out_of_scope": [
+  "O15",
+  "O21",
+  "O24",
+  "O26"
+ ],
+ "notes": "spec-only 批: 只改本组 spec.md (CO 例外见 footnote_moves). 每个 spec.md 对 PDF spec 表逐变量逐字段核 (Order/Label/Type/CT/Role/Core/CDISC Notes, 变量顺序与数量), 用 bbox 分列 (可复用 work/scratch/t2s_tools/speccmp.py; 用法见脚本头, 先 pdftotext -bbox 取页) + 渲染图复核. 不改 CT C-code 记法与 DOMAIN CT (U5/U6 归 S-CT). 各域 assumptions/examples 已终版, 不碰. 行号为 HEAD 时, 以内容定位."
+}

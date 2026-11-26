@@ -1,0 +1,131 @@
+{
+ "batch_id": "S-MOD2",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "model/02_observation_classes.md"
+ ],
+ "kb_files": [
+  "knowledge_base/model/02_observation_classes.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "model/02_observation_classes.md",
+   "sec": "3.1",
+   "title": "§3.1 The General Observation Classes",
+   "lo": 11,
+   "hi": 39,
+   "src": "sv20",
+   "note": "主控粗定, 先复核 (O20)"
+  }
+ ],
+ "pdf_pages": [
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+  32,
+  33,
+  34,
+  35,
+  36,
+  37,
+  38,
+  39
+ ],
+ "pdf_src": "sv20",
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/model/02_observation_classes.md",
+   "src": "sv20",
+   "lo": 11,
+   "hi": 39
+  }
+ ],
+ "gaps": {},
+ "intros": [],
+ "footnote": "本批无域 spec.md",
+ "footnote_moves": [],
+ "census_items": [
+  {
+   "kb": "model/02_observation_classes.md:41 (HEAD 行号, 以内容定位)",
+   "triage_row": "41 | C3 | UNPARSEABLE | `model/02_observation_classes.md:41` | sv20:p11-39 | None / None | # / Variable / Label / Type / Role / Key Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:93 (HEAD 行号, 以内容定位)",
+   "triage_row": "42 | C3 | UNPARSEABLE | `model/02_observation_classes.md:93` | sv20:p11-39 | None / None | # / Variable / Label / Type / Role / Key Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:162 (HEAD 行号, 以内容定位)",
+   "triage_row": "43 | C3 | UNPARSEABLE | `model/02_observation_classes.md:162` | sv20:p11-39 | None / None | Variable / Label / Type / Role | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:169 (HEAD 行号, 以内容定位)",
+   "triage_row": "44 | C3 | UNPARSEABLE | `model/02_observation_classes.md:169` | sv20:p11-39 | None / None | Variable / Label / Type / Role / Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:179 (HEAD 行号, 以内容定位)",
+   "triage_row": "45 | C3 | UNPARSEABLE | `model/02_observation_classes.md:179` | sv20:p11-39 | None / None | Variable / Label / Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:190 (HEAD 行号, 以内容定位)",
+   "triage_row": "46 | C3 | UNPARSEABLE | `model/02_observation_classes.md:190` | sv20:p11-39 | None / None | Variable / Label / Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:202 (HEAD 行号, 以内容定位)",
+   "triage_row": "47 | C3 | UNPARSEABLE | `model/02_observation_classes.md:202` | sv20:p11-39 | None / None | Variable / Label / Type / Role / Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:212 (HEAD 行号, 以内容定位)",
+   "triage_row": "48 | C3 | UNPARSEABLE | `model/02_observation_classes.md:212` | sv20:p11-39 | None / None | # / Variable / Label / Type / Role / Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:237 (HEAD 行号, 以内容定位)",
+   "triage_row": "49 | C3 | UNPARSEABLE | `model/02_observation_classes.md:237` | sv20:p11-39 | None / None | # / Variable / Label / Type / Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:251 (HEAD 行号, 以内容定位)",
+   "triage_row": "50 | C3 | UNPARSEABLE | `model/02_observation_classes.md:251` | sv20:p11-39 | None / None | # / Variable / Label / Type / Format / Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:259 (HEAD 行号, 以内容定位)",
+   "triage_row": "51 | C3 | UNPARSEABLE | `model/02_observation_classes.md:259` | sv20:p11-39 | None / None | # / Variable / Label / Type / Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:279 (HEAD 行号, 以内容定位)",
+   "triage_row": "52 | C3 | UNPARSEABLE | `model/02_observation_classes.md:279` | sv20:p11-39 | None / None | # / Variable / Label / Type / Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:289 (HEAD 行号, 以内容定位)",
+   "triage_row": "53 | C3 | UNPARSEABLE | `model/02_observation_classes.md:289` | sv20:p11-39 | None / None | # / Variable / Label / Type / Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:302 (HEAD 行号, 以内容定位)",
+   "triage_row": "54 | C3 | UNPARSEABLE | `model/02_observation_classes.md:302` | sv20:p11-39 | None / None | # / Variable / Label / Type / Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  },
+  {
+   "kb": "model/02_observation_classes.md:310 (HEAD 行号, 以内容定位)",
+   "triage_row": "55 | C3 | UNPARSEABLE | `model/02_observation_classes.md:310` | sv20:p11-39 | None / None | # / Variable / Label / Type / Notes | B-FA / B-model01 触碰过本文件, 但变量表未逐格 (t2_B-model01_review.md:102)"
+  }
+ ],
+ "out_of_scope": [],
+ "notes": "源 SDTM v2.0. 15 张 C3 变量表渲染逐格 (sv20 p11-39). D6 措辞 \"KB note (not in SDTM v2.0):\". R1 规则见 t1_user_ack.md. 行号为 HEAD 时, 以内容定位."
+}

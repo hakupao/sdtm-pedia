@@ -1,0 +1,4 @@
+批次 S-MOD2 (T2-post 扫描批, model), attempt 2 终态. 角色: auditor (Rule A 独立抽检)。
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Auditor 段执行, 并读 `t2_auditor_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含 T2S 段及其后主控裁定, 特别是 S-MOD2 两条) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8) / `t1_user_ack.md` (R1)。audit_matrix 唯一路径 `.work/10_tier_b_repair/audit_matrix.md`。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-MOD2.json`: `model/02_observation_classes.md`, 源 SDTM v2.0 §3.1 sv20 p11-39 (`source/cdisc/SDTM_v2.0.pdf`; 原子前缀 sv20_)。改动未提交: `git diff HEAD -- knowledge_base/model/02_observation_classes.md`; 别批并行改其他文件, 只看本批。注意 census/fp_match 对 sv20 无证明力, TABLE_ROW 样本必须渲染逐格。先独立判, 判完才读 `evidence/checkpoints/t2_S-MOD2.md` 与 `t2_S-MOD2_review.md`。seed 20261126。
+回主控 ≤ 8 行。

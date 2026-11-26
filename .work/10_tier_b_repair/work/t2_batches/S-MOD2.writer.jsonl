@@ -1,0 +1,87 @@
+{"ref": "pdf:p12:sv20_p0012_a004", "action": "INSERTED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 39, "pdf_page": 12, "note": "表题 Interventions"}
+{"ref": "pdf:p15:sv20_p0015_a006", "action": "INSERTED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 91, "pdf_page": 15, "note": "表题 Events"}
+{"ref": "pdf:p20:sv20_p0020_a007", "action": "INSERTED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 158, "pdf_page": 20, "note": "表题 Findings"}
+{"ref": "pdf:p20-32:findings_table", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 160, "pdf_page": 20, "note": "4 子表 16 行 -> 单表 100 行 (新增 84)"}
+{"ref": "pdf:p26:FND37:--STRESC:Label", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 198, "pdf_page": 26, "note": "Label -> PDF"}
+{"ref": "pdf:p25:FND33:--ORNRLO:Label", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 194, "pdf_page": 25, "note": "Label -> PDF"}
+{"ref": "pdf:p26:FND34:--ORNRHI:Label", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 195, "pdf_page": 26, "note": "Label -> PDF"}
+{"ref": "pdf:p27:FND41:--STNRLO:Label", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 202, "pdf_page": 27, "note": "Label -> PDF"}
+{"ref": "pdf:p27:FND42:--STNRHI:Label", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 203, "pdf_page": 27, "note": "Label -> PDF"}
+{"ref": "pdf:p27:FND43:--STNRC:Label", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 204, "pdf_page": 27, "note": "Label -> PDF"}
+{"ref": "pdf:p27:FND46:--NRIND:Label", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 207, "pdf_page": 27, "note": "Label -> PDF"}
+{"ref": "pdf:p25:FND29:--ORRESU:Role", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 190, "pdf_page": 25, "note": "Role 括注补全 Qualified"}
+{"ref": "pdf:p26:FND40:--STRESU:Role", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 201, "pdf_page": 26, "note": "Role 括注补全 Qualified (8)"}
+{"ref": "pdf:p32:sv20_p0032_a006", "action": "INSERTED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 263, "pdf_page": 32, "note": "H3 3.1.3.1 取代 KB 自拟 H3 (D-7)"}
+{"ref": "pdf:p32:sv20_p0032_a007", "action": "INSERTED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 265, "pdf_page": 32, "note": "FA 首句原文; 旧改写 D2 删 (D-8)"}
+{"ref": "pdf:p32:sv20_p0032_a009", "action": "INSERTED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 267, "pdf_page": 32, "note": "表题 FA"}
+{"ref": "pdf:p32:FA1:--OBJ:#", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 271, "pdf_page": 32, "note": "补 # 列"}
+{"ref": "pdf:p33:sv20_p0033_a001", "action": "INSERTED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 279, "pdf_page": 33, "note": "表题 Identifiers"}
+{"ref": "pdf:p34:sv20_p0034_a009", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 302, "pdf_page": 34, "note": "去 KB 拼接 (48 variables): (D-9)"}
+{"ref": "pdf:p34:sv20_p0034_a010", "action": "INSERTED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 302, "pdf_page": 34, "note": "See Section 3.2 句"}
+{"ref": "pdf:p35:sv20_p0035_a001", "action": "INSERTED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 304, "pdf_page": 35, "note": "表题 Timing"}
+{"ref": "kb:timing_split_note", "action": "D6", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 306, "pdf_page": 35, "note": "KB note 子表拆分说明"}
+{"ref": "pdf:p35-39:TIM:Role", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 310, "pdf_page": 35, "note": "7 子表补 Role=Timing (48 格)"}
+{"ref": "pdf:p35:TIM10-12:Format", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 326, "pdf_page": 35, "note": "ISO 8601 -> ISO 8601 datetime or interval x3"}
+{"ref": "pdf:p39:TIM48:--PDUR:Label", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 389, "pdf_page": 39, "note": "Label -> Planned Duration"}
+{"ref": "pdf:p39:TIM47-48:Usage", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 388, "pdf_page": 39, "note": "Notes 补全 Usage 域列表 (--PTFL/--PDUR)"}
+{"ref": "kb:findings_intro", "action": "D6", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 156, "pdf_page": null, "note": "KB note; 尾 Key variable groups include: 删 (D-4)"}
+{"ref": "pdf:p12:INT9:--REASOC:KeyNotes", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 51, "pdf_page": 12, "note": "D2 矛盾 -> PDF Notes"}
+{"ref": "pdf:p13:INT21:--FTDOSD:KeyNotes", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 63, "pdf_page": 13, "note": "D2 矛盾 -> PDF Notes"}
+{"ref": "pdf:p14:INT29:--METHOD:KeyNotes", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 71, "pdf_page": 14, "note": "D2 矛盾 -> PDF Examples"}
+{"ref": "pdf:p14:INT37:--VAMT:KeyNotes", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 79, "pdf_page": 14, "note": "D2 矛盾 -> PDF Definition+Notes"}
+{"ref": "pdf:p17:EVT35:--ACNDEV:KeyNotes", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 129, "pdf_page": 17, "note": "D2 矛盾 -> PDF Definition"}
+{"ref": "pdf:p29:FND69:--SPCUFL:KeyNotes", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 230, "pdf_page": 29, "note": "D2 矛盾 -> PDF Notes"}
+{"ref": "kb:structure_lines_x3", "action": "DELETED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": null, "note": "D-1..D-3 Structure 行 (表题残留改写)"}
+{"ref": "kb:findings_subtables", "action": "DELETED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": null, "note": "D-5 子表组名/表头 (并表)"}
+{"ref": "kb:additional_findings_placeholder", "action": "DELETED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": null, "note": "D-6 占位句 (含 --LNKID/--LNKGRP 误列)"}
+{"ref": "pdf:p11:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 11, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p12:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 12, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p13:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 13, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p14:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 14, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p15:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 15, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p16:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 16, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p17:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 17, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p18:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 18, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p19:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 19, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p20:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 20, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p21:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 21, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p22:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 22, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p23:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 23, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p24:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 24, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p25:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 25, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p26:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 26, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p27:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 27, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p28:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 28, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p29:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 29, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p30:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 30, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p31:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 31, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p32:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 32, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p33:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 33, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p34:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 34, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p35:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 35, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p36:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 36, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p37:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 37, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p38:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 38, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "pdf:p39:page_scan", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 39, "note": "双向全扫 + 渲染逐格, 见 checkpoint"}
+{"ref": "kb:keynotes_note:INT", "action": "D6", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 41, "pdf_page": null, "note": "attempt1 delta M-1: D6 列说明"}
+{"ref": "kb:keynotes_note:EVT", "action": "D6", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 95, "pdf_page": null, "note": "attempt1 delta M-1: D6 列说明"}
+{"ref": "kb:keynotes_note:FND", "action": "D6", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 164, "pdf_page": null, "note": "attempt1 delta M-1: D6 列说明"}
+{"ref": "kb:notes_note:ID", "action": "D6", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 287, "pdf_page": null, "note": "attempt1 delta M-1: D6 列说明"}
+{"ref": "kb:notes_note:TIM", "action": "D6", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 316, "pdf_page": null, "note": "attempt1 delta M-1: D6 列说明"}
+{"ref": "kb:M-1b:FND--SPEC", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 233, "pdf_page": null, "note": "attempt1 delta M-1: 无依据格, 不矛盾, 保留在 D6 下"}
+{"ref": "kb:M-1b:FND--SPCCND", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 235, "pdf_page": null, "note": "attempt1 delta M-1: 无依据格, 不矛盾, 保留在 D6 下"}
+{"ref": "kb:M-1b:ID--LNKID", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 304, "pdf_page": null, "note": "attempt1 delta M-1: 无依据格, 不矛盾, 保留在 D6 下"}
+{"ref": "kb:M-1b:ID--LNKGRP", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 305, "pdf_page": null, "note": "attempt1 delta M-1: 无依据格, 不矛盾, 保留在 D6 下"}
+{"ref": "kb:M-1b:TIM--STRF", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 372, "pdf_page": null, "note": "attempt1 delta M-1: 无依据格, 不矛盾, 保留在 D6 下"}
+{"ref": "kb:M-1b:TIM--ENRF", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 373, "pdf_page": null, "note": "attempt1 delta M-1: 无依据格, 不矛盾, 保留在 D6 下"}
+{"ref": "kb:M-1b:TIM--STRTPT", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 376, "pdf_page": null, "note": "attempt1 delta M-1: 无依据格, 不矛盾, 保留在 D6 下"}
+{"ref": "kb:M-1b:TIM--ENRTPT", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 378, "pdf_page": null, "note": "attempt1 delta M-1: 无依据格, 不矛盾, 保留在 D6 下"}
+{"ref": "kb:M-1b:TIM--STRF", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 374, "pdf_page": 38, "note": "行号更正 (取代上一条同 ref)"}
+{"ref": "kb:M-1b:TIM--ENRF", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 375, "pdf_page": 38, "note": "行号更正 (取代上一条同 ref)"}
+{"ref": "kb:M-1b:TIM--STRTPT", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 378, "pdf_page": 38, "note": "行号更正 (取代上一条同 ref)"}
+{"ref": "kb:M-1b:TIM--ENRTPT", "action": "VERIFIED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 380, "pdf_page": 38, "note": "行号更正 (取代上一条同 ref)"}
+{"ref": "kb:col_note:INT", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 41, "pdf_page": null, "note": "attempt 2 F-1: D6 列说明改为 reviewer 属实措辞"}
+{"ref": "kb:col_note:EVT", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 95, "pdf_page": null, "note": "attempt 2 F-1: D6 列说明改为 reviewer 属实措辞"}
+{"ref": "kb:col_note:FND", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 164, "pdf_page": null, "note": "attempt 2 F-1: D6 列说明改为 reviewer 属实措辞"}
+{"ref": "kb:col_note:ID", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 287, "pdf_page": null, "note": "attempt 2 F-1: D6 列说明改为 reviewer 属实措辞"}
+{"ref": "kb:col_note:TIM", "action": "REPLACED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": 316, "pdf_page": null, "note": "attempt 2 F-1: D6 列说明改为 reviewer 属实措辞"}

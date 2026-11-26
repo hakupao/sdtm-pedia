@@ -1,0 +1,173 @@
+{
+ "batch_id": "S-SPEC1",
+ "scan": true,
+ "spec_only": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "domains/CO/spec.md",
+  "domains/DM/spec.md",
+  "domains/SM/spec.md",
+  "domains/SV/spec.md",
+  "domains/CM/spec.md",
+  "domains/ML/spec.md",
+  "domains/SU/spec.md",
+  "domains/BE/spec.md"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/CO/spec.md",
+  "knowledge_base/domains/DM/spec.md",
+  "knowledge_base/domains/SM/spec.md",
+  "knowledge_base/domains/SV/spec.md",
+  "knowledge_base/domains/CM/spec.md",
+  "knowledge_base/domains/ML/spec.md",
+  "knowledge_base/domains/SU/spec.md",
+  "knowledge_base/domains/BE/spec.md"
+ ],
+ "narrow_files": [
+  {
+   "file": "knowledge_base/domains/CO/assumptions.md",
+   "scope": "仅删除已迁到 CO/spec.md 的 spec 表脚注段 (MOVED 源), 其余不动"
+  }
+ ],
+ "sections": [
+  {
+   "unit": "domains/CO",
+   "sec": "5.1",
+   "title": "§5.1 Comments (CO)",
+   "lo": 60,
+   "hi": 62,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/DM",
+   "sec": "5.2",
+   "title": "§5.2 Demographics (DM)",
+   "lo": 62,
+   "hi": 79,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/SM",
+   "sec": "5.4",
+   "title": "§5.4 Subject Disease Milestones (SM)",
+   "lo": 84,
+   "hi": 86,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/SV",
+   "sec": "5.5",
+   "title": "§5.5 Subject Visits (SV)",
+   "lo": 86,
+   "hi": 92,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/CM",
+   "sec": "6.1.2",
+   "title": "§6.1.2 Concomitant/Prior Medications (CM)",
+   "lo": 98,
+   "hi": 103,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/ML",
+   "sec": "6.1.4",
+   "title": "§6.1.4 Meal Data (ML)",
+   "lo": 121,
+   "hi": 125,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/SU",
+   "sec": "6.1.6",
+   "title": "§6.1.6 Substance Use (SU)",
+   "lo": 129,
+   "hi": 133,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/BE",
+   "sec": "6.2.2",
+   "title": "§6.2.2 Biospecimen Events (BE)",
+   "lo": 143,
+   "hi": 148,
+   "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  }
+ ],
+ "pdf_pages": [
+  60,
+  61,
+  62,
+  63,
+  64,
+  65,
+  66,
+  67,
+  68,
+  69,
+  70,
+  71,
+  72,
+  73,
+  74,
+  75,
+  76,
+  77,
+  78,
+  79,
+  84,
+  85,
+  86,
+  87,
+  88,
+  89,
+  90,
+  91,
+  92,
+  98,
+  99,
+  100,
+  101,
+  102,
+  103,
+  121,
+  122,
+  123,
+  124,
+  125,
+  129,
+  130,
+  131,
+  132,
+  133,
+  143,
+  144,
+  145,
+  146,
+  147,
+  148
+ ],
+ "pdf_ranges": [],
+ "gaps": {
+  "DM": "F (fn 原子 ig34_p0064_a011,ig34_p0064_a012)",
+  "SM": "F (fn 原子 ig34_p0084_a018)",
+  "SV": "F (fn 原子 ig34_p0087_a009)",
+  "CM": "F (fn 原子 ig34_p0100_a005)",
+  "ML": "F (fn 原子 ig34_p0122_a015)",
+  "SU": "F (fn 原子 ig34_p0131_a003)"
+ },
+ "intros": [],
+ "footnote": "U2/U7: 每个 spec.md 最后一个变量块之后、Cross References 之前补 spec 表脚注 (逐字, 多条各一段); CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
+ "footnote_moves": [
+  "knowledge_base/domains/CO/assumptions.md 的 spec 脚注 (现 :17 附近) → CO/spec.md (先插后删, MOVED; CO/assumptions.md 授权仅删该脚注段)"
+ ],
+ "census_items": [],
+ "out_of_scope": [
+  "O15",
+  "O21",
+  "O24",
+  "O26"
+ ],
+ "notes": "spec-only 批: 只改本组 spec.md (CO 例外见 footnote_moves). 每个 spec.md 对 PDF spec 表逐变量逐字段核 (Order/Label/Type/CT/Role/Core/CDISC Notes, 变量顺序与数量), 用 bbox 分列 (可复用 work/scratch/t2s_tools/speccmp.py; 用法见脚本头, 先 pdftotext -bbox 取页) + 渲染图复核. 不改 CT C-code 记法与 DOMAIN CT (U5/U6 归 S-CT). 各域 assumptions/examples 已终版, 不碰. 行号为 HEAD 时, 以内容定位."
+}
