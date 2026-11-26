@@ -354,6 +354,8 @@
 - **CDISC Notes:** Date/time of the reference time point, SRTPTREF.
 ---
 
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
 ## Cross References
 
 ### Controlled Terminology

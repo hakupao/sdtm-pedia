@@ -1,0 +1,26 @@
+{"ref": "ig34_p0350_a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/TR/assumptions.md", "kb_line_after": 3, "pdf_page": 350, "note": "## TR – Description/Overview (gap D)"}
+{"ref": "ig34_p0350_a003", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/assumptions.md", "kb_line_after": 5, "note": "Description 句与下段拆开成独立段 (PDF 两段); 文字不变", "pdf_page": 350}
+{"ref": "ig34_p0350_a006..a011", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/assumptions.md", "kb_line_after": 7, "pdf_page": 350, "note": "KB 把 5 项列表并成逗号句并自加 'and' → 恢复 PDF 冒号 + 5 项 bullet (:9-13)"}
+{"ref": "ig34_p0350_a015/a016", "action": "INSERTED", "kb_file": "knowledge_base/domains/TR/assumptions.md", "kb_line_after": 17, "pdf_page": 350, "note": "## TR – Specification + tr.xpt 首句 (gap S)"}
+{"ref": "ig34_p0352_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/TR/assumptions.md", "kb_line_after": 21, "pdf_page": 352, "note": "## TR – Assumptions (gap A)"}
+{"ref": "ig34_p0352_a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 294, "pdf_page": 352, "note": "spec 脚注 (U2/U7, gap F)"}
+{"ref": "ig34_p0366_a014", "action": "INSERTED", "kb_file": "knowledge_base/domains/FA/assumptions.md", "kb_line_after": 103, "pdf_page": 366, "note": "## FA – Assumptions (gap A)"}
+{"ref": "ig34_p0366_a015..p0367_a003", "action": "MOVED", "kb_file": "knowledge_base/domains/FA/assumptions.md", "kb_line_after": 105, "pdf_page": 366, "note": "假设 1-6 (base :3-15, 文件顶部 §6.4 之前) 原样移到 FA – Specification 之后 (PDF 顺序 p366-367); 先插后删, 块逐字节一致"}
+{"ref": "pdf:p365:FACAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 90, "pdf_page": 365, "note": "CT 空 → *"}
+{"ref": "pdf:p365:FASCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 99, "pdf_page": 365, "note": "CT 空 → *"}
+{"ref": "ig34_p0366_a013", "action": "INSERTED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 276, "pdf_page": 366, "note": "spec 脚注 (U2/U7, gap F)"}
+{"ref": "ig34_p0377_a018", "action": "INSERTED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 357, "pdf_page": 377, "note": "spec 脚注 (U2/U7, gap F)"}
+{"ref": "census:TR/assumptions.md:31", "action": "VERIFIED", "kb_file": "knowledge_base/domains/TR/assumptions.md", "kb_line_after": 31, "pdf_page": 352, "note": "C3 UNPARSEABLE; 渲染逐格 8 列 × 2 行一致"}
+{"ref": "census:FA/assumptions.md:83", "action": "VERIFIED", "kb_file": "knowledge_base/domains/FA/assumptions.md", "kb_line_after": 83, "pdf_page": 364, "note": "FATESTCD/FATEST 4 行 × 2 格一致"}
+{"ref": "census:FA/examples.md:7", "action": "VERIFIED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 7, "pdf_page": 367, "note": "Ex1 CRF 13 行一致 (症状同格多行 → KB 1 行; 粗体未保留)"}
+{"ref": "census:FA/examples.md:76", "action": "VERIFIED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 76, "pdf_page": 369, "note": "Ex2 CRF 11 行一致 (填空线长度版面)"}
+{"ref": "census:FA/examples.md:133", "action": "VERIFIED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 133, "pdf_page": 371, "note": "Ex3 CRF 上半 3 行一致 (PDF 单表, KB 拆两表 + ### 表题, 基线既有)"}
+{"ref": "census:FA/examples.md:138", "action": "VERIFIED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 138, "pdf_page": 371, "note": "Ex3 CRF 下半 表头 + 5 行一致"}
+{"ref": "census:FA/examples.md:176", "action": "VERIFIED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 176, "pdf_page": 372, "note": "Ex4 CRF 一致 (3 症状同格 → KB 3 行)"}
+{"ref": "census:FA/examples.md:219", "action": "VERIFIED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 219, "pdf_page": 373, "note": "Ex5 CRF 5 行 × 5 列一致 (灰底格未表达)"}
+{"ref": "census:FA/examples.md:263", "action": "VERIFIED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 263, "pdf_page": 374, "note": "Ex6 纸质 CRF 9 列 × 5 行一致"}
+{"ref": "census:FA/examples.md:273", "action": "VERIFIED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 273, "pdf_page": 374, "note": "AE 模块 4 列 × 2 行一致"}
+{"ref": "census:FA/examples.md:279", "action": "VERIFIED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 279, "pdf_page": 374, "note": "严重度模块 3 列 × 2 行一致"}
+{"ref": "census:SR/examples.md:14", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/SR/examples.md", "kb_line_after": 22, "pdf_page": 378, "note": "B-SR T-1 沿用 (BAU mL); 其余 8 行 × 17 列渲染一致"}
+{"ref": "census:TR/examples.md:17", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": 17, "pdf_page": 355, "note": "B-TR T-1 沿用 (PDF 跳 Row/TRSEQ 12, 32 格); 其余格渲染 p355-356 逐行一致"}
+{"ref": "census:TR/examples.md:68", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TR/examples.md", "kb_line_after": 84, "pdf_page": 357, "note": "B-TR T-2 沿用 (r15 TRSTRESC -60); 32 行渲染 p356-358 逐行一致"}

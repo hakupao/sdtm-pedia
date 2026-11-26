@@ -1,0 +1,209 @@
+{
+ "batch_id": "S-TUFA",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "domains/TR",
+  "domains/FA",
+  "domains/SR"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/FA/assumptions.md",
+  "knowledge_base/domains/FA/examples.md",
+  "knowledge_base/domains/FA/spec.md",
+  "knowledge_base/domains/SR/assumptions.md",
+  "knowledge_base/domains/SR/examples.md",
+  "knowledge_base/domains/SR/spec.md",
+  "knowledge_base/domains/TR/assumptions.md",
+  "knowledge_base/domains/TR/examples.md",
+  "knowledge_base/domains/TR/spec.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "domains/TR",
+   "sec": "6.3.12.2",
+   "title": "§6.3.12.2 Tumor/Lesion Results (TR)",
+   "lo": 350,
+   "hi": 353,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/FA",
+   "sec": "6.4.4",
+   "title": "§6.4.4 Findings About Events or Interventions (FA)",
+   "lo": 364,
+   "hi": 375,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/SR",
+   "sec": "6.4.5",
+   "title": "§6.4.5 Skin Response (SR)",
+   "lo": 375,
+   "hi": 381,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/TR (+TU 共用)",
+   "sec": "6.3.12.3",
+   "title": "Tumor Identification/Tumor Results Examples",
+   "lo": 353,
+   "hi": 358,
+   "note": "共用/父节, 须一并全扫"
+  }
+ ],
+ "pdf_pages": [
+  350,
+  351,
+  352,
+  353,
+  354,
+  355,
+  356,
+  357,
+  358,
+  364,
+  365,
+  366,
+  367,
+  368,
+  369,
+  370,
+  371,
+  372,
+  373,
+  374,
+  375,
+  376,
+  377,
+  378,
+  379,
+  380,
+  381
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/FA/assumptions.md",
+   "src": "ig34",
+   "lo": 364,
+   "hi": 375
+  },
+  {
+   "file": "knowledge_base/domains/FA/examples.md",
+   "src": "ig34",
+   "lo": 364,
+   "hi": 375
+  },
+  {
+   "file": "knowledge_base/domains/FA/spec.md",
+   "src": "ig34",
+   "lo": 364,
+   "hi": 375
+  },
+  {
+   "file": "knowledge_base/domains/SR/assumptions.md",
+   "src": "ig34",
+   "lo": 375,
+   "hi": 381
+  },
+  {
+   "file": "knowledge_base/domains/SR/examples.md",
+   "src": "ig34",
+   "lo": 375,
+   "hi": 381
+  },
+  {
+   "file": "knowledge_base/domains/SR/spec.md",
+   "src": "ig34",
+   "lo": 375,
+   "hi": 381
+  },
+  {
+   "file": "knowledge_base/domains/TR/assumptions.md",
+   "src": "ig34",
+   "lo": 350,
+   "hi": 358
+  },
+  {
+   "file": "knowledge_base/domains/TR/examples.md",
+   "src": "ig34",
+   "lo": 350,
+   "hi": 358
+  },
+  {
+   "file": "knowledge_base/domains/TR/spec.md",
+   "src": "ig34",
+   "lo": 350,
+   "hi": 358
+  }
+ ],
+ "gaps": {
+  "TR": "DSAF (fn 原子 ig34_p0352_a002)",
+  "FA": "AF (fn 原子 ig34_p0366_a013)",
+  "SR": "F (fn 原子 ig34_p0377_a018)"
+ },
+ "intros": [],
+ "footnote": "U2: 本批各域 spec.md 最后一个变量块之后、Cross References 之前补 (U7) spec 表脚注 (逐字); CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
+ "footnote_moves": [],
+ "census_items": [
+  {
+   "kb": "domains/TR/assumptions.md:15 (HEAD 行号, 以内容定位)",
+   "triage_row": "12 | C3 | UNPARSEABLE | `domains/TR/assumptions.md:15` | ig34:p350-358 | None / None | TRLNKID / TRTESTCD / TRTEST / TRORRES / TRORRESU / TRSTRESC | t2_B-TR.md:44 (未触碰, 未逐格)"
+  },
+  {
+   "kb": "domains/FA/assumptions.md:97 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/FA/assumptions.md:97` | ig34:p361-375 | 0 | FATESTCD / FATEST | t2_B-FA_review.md:101"
+  },
+  {
+   "kb": "domains/FA/examples.md:7 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/FA/examples.md:7` | ig34:p361-375 | 0 | Migraine Symptoms Diary / | t2_B-FA_review.md:97-108,131"
+  },
+  {
+   "kb": "domains/FA/examples.md:76 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/FA/examples.md:76` | ig34:p361-375 | 0 | Rash Assessment / | t2_B-FA_review.md:97-108,131"
+  },
+  {
+   "kb": "domains/FA/examples.md:133 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/FA/examples.md:133` | ig34:p361-375 | 0 | Date of assessment / DD-MMM-YYYY | t2_B-FA_review.md:97-108,131"
+  },
+  {
+   "kb": "domains/FA/examples.md:138 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/FA/examples.md:138` | ig34:p361-375 | 0 | Symptom / Was the symptom present? / If yes, what was the se | t2_B-FA_review.md:97-108,131"
+  },
+  {
+   "kb": "domains/FA/examples.md:176 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/FA/examples.md:176` | ig34:p361-375 | 0 | Date of assessment / DD-MMM-YYYY | t2_B-FA_review.md:97-108,131"
+  },
+  {
+   "kb": "domains/FA/examples.md:219 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/FA/examples.md:219` | ig34:p361-375 | 0 | Symptoms /  / Investigator GERD Symptom Measurement (if symp | t2_B-FA_review.md:97-108,131"
+  },
+  {
+   "kb": "domains/FA/examples.md:263 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/FA/examples.md:263` | ig34:p361-375 | 0 | /  /  /  / At each visit, record the maximum severity of th | t2_B-FA_review.md:97-108,131"
+  },
+  {
+   "kb": "domains/FA/examples.md:273 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/FA/examples.md:273` | ig34:p361-375 | 0 | AE ID / Adverse Event / Start Date / End Date | t2_B-FA_review.md:97-108,131"
+  },
+  {
+   "kb": "domains/FA/examples.md:279 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/FA/examples.md:279` | ig34:p361-375 | 0 | Visit / AE ID / Maximum severity since last visit | t2_B-FA_review.md:97-108,131"
+  },
+  {
+   "kb": "domains/SR/examples.md:14 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/SR/examples.md:14` | ig34:p378 | 1 | T-1 BAU mL (1) | t2_B-SR.md:12"
+  },
+  {
+   "kb": "domains/TR/examples.md:17 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/TR/examples.md:17` | ig34:p355/356 | 32 | T-1 Row/TRSEQ 跳号 (32) | t2_B-TR.md:67; t2_B-TR_review.md:21"
+  },
+  {
+   "kb": "domains/TR/examples.md:68 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/TR/examples.md:68` | ig34:p356/357/358 | 1 | T-2 TRSTRESC -60 (1) | t2_B-TR.md:68"
+  }
+ ],
+ "out_of_scope": [],
+ "notes": "TU 已 FINAL (不在本批); §6.3.12.3 共用例若在 TU/examples.md, 只读对照, 不改 TU 文件 → 需改时写 \"需主控定\". FA 含 §6.4-§6.4.3 引言 (FA 顶已有, 复核). 行号均为 HEAD 时, 以内容定位."
+}
