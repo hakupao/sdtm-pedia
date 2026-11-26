@@ -1,0 +1,4 @@
+{"ref": "ig34_p0129_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/SU/assumptions.md", "kb_line_after": 5, "pdf_page": 129, "note": "SU Description/Overview heading + sentence"}
+{"ref": "spec_first_sentence:ig34_p0129 (O17)", "action": "INSERTED", "kb_file": "knowledge_base/domains/SU/assumptions.md", "kb_line_after": 9, "pdf_page": 129, "note": "SU Specification heading + spec first sentence (authorized, formerly R4-blocked)"}
+{"ref": "R3:heading:SU – Assumptions", "action": "INSERTED", "kb_file": "knowledge_base/domains/SU/assumptions.md", "kb_line_after": 11, "pdf_page": 131, "note": "CE/CM structure precedent"}
+{"ref": "pdf_typo:T-1:p132 SUENTTP", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/SU/examples.md", "kb_line_after": 23, "pdf_page": 132, "note": "KB keeps SUENTPT (spec/Row 3/table header confirm)"}

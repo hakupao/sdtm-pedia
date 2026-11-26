@@ -1,5 +1,15 @@
 # SU — Assumptions
 
+## SU – Description/Overview
+
+An interventions domain that contains substance use information that may be used to assess the efficacy and/or safety of therapies that look to mitigate the effects of chronic substance use.
+
+## SU – Specification
+
+su.xpt, Substance Use — Interventions. One record per substance type per reported occurrence per subject, Tabulation.
+
+## SU – Assumptions
+
 1. Substance use information may be independent of planned study evaluations, or may be a key outcome (e.g., planned evaluation) of a clinical trial.
    a. In many clinical trials, detailed substance use information as provided for in the domain model above may not be required (e.g., the only information collected may be a response to the question "Have you ever smoked tobacco?"); in such cases, many of the qualifier variables would not be submitted.
    b. SU may contain responses to questions about use of prespecified substances as well as records of substance use collected as free text.

@@ -50,3 +50,4 @@
 | O47 | B-TV writer | B-TE audit 称 §7.3 引言在 TI/assumptions.md | 不准确: §7.3 引言在 TV/assumptions.md:3-11, TI 仅 §7.4/§7.5; B-TV.json pdf_ranges 409-412 应为 407-410 (O20 同类) |
 | O48 | B-TI writer | TI/assumptions.md §7.4 标题 + census_full_manifest | §7.4 标题与 PDF "(TI and TS)" 不同 (规则 6 未改, T4); census_full_manifest TI/TM 页范围偏移 (TI 实为 p416-417); B-TS 报 p417 ti.xpt PDF_ONLY 为 manifest 假阳 (TI census OK) |
 | O49 | B-CE audit | p155 DS Description/Overview 句 | DS 三文件均无 → O16 全域 Description 扫描点名 DS |
+| O50 | B-SU audit | p133 §6.2 "Models for Events Domains" 章引言 + 域列表 (a011-a018) | KB 无对应节引言 → 并入 O17 §6.x 类引言扫描 (与 O39 §6.3、O45 §6.1.3 同批) |
