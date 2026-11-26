@@ -1,0 +1,16 @@
+{
+ "batch_id": "S-TYPO",
+ "scan": true,
+ "script_batch": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": ["knowledge_base/chapters/*.md", "knowledge_base/domains/*/*.md", "knowledge_base/model/*.md"],
+ "kb_files": ["knowledge_base/chapters/*.md", "knowledge_base/domains/*/*.md", "knowledge_base/model/*.md"],
+ "scope": "只改排版字符, 不改任何字母数字: (U1) 直引号/弯引号、- / – / —、... / … 按 PDF 原字符; (U4) CRF 选项符号 ( ) [ ] o → PDF 的 ○ □; (O59) em dash 两侧空格按 PDF; spec 脚注上标写法 `^1^` / 行首 `1In this column` → `¹In this column` (以 PDF 原字符为准); CH4 的 U+2212 减号、'--' 代 en dash 等 (S-CH4 范围外条目) 按 PDF.",
+ "method": "脚本: 对每个 KB 行, 用去排版归一化 (NFKC + 引号/dash/省略号/○□ 归一 + 空白折叠) 在对应 PDF 页文本 (ig34/sv20 pdftotext) 中定位同一句/同一格; 命中唯一时, 把 KB 行中的排版字符逐位替换为 PDF 原字符 (字母数字序列必须逐字相等, 否则跳过并登记); 命中 0 或多处 → 不改, 列入人工清单. 变量名前缀 `--XXX` (两个 ASCII 连字符) 一律不动; CODE_LITERAL / 代码块 / URL / Markdown 语法字符 (列表 `-`, 表格 `|`, `---`) 不动.",
+ "forbidden": "不改标题行 (# 开头) —— 标题内排版字符差异只登记 (O60 T4 统一), 防锚点变化; 不改 terminology/ INDEX ROUTING VARIABLE_INDEX; 不改 archive/ releases/.",
+ "rule_a": "auditor: 从全部被改行中按 seed 20261126 抽 N = min(30, max(20, ceil(0.02 × 改动行数))) 行, 每行对 PDF 渲染核排版字符; 另抽 10 个 '跳过/人工清单' 项核其判断; diff 断言: 每个改动行去排版归一化后与改前逐字相等 (脚本化全量断言, 0 例外)",
+ "gate": "全量断言 alnum-equal 0 例外; check_links live docs 42 (不升); fp_match 不新增 RED (排版归一化后匹配); 覆盖矩阵复跑无新缺口",
+ "serial_after": ["S-SPEC1", "S-SPEC2", "S-SPEC3", "S-SPEC4", "S-CT"],
+ "out_of_scope": ["O40", "O42", "O59"],
+ "notes": "全库最后一批, 串行, 单 writer. 改动量大时可按目录分 attempt (chapters → model → domains), 每段跑断言."
+}

@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Category for Microscopic Finding
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of related records.
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Subcategory for Microscopic Finding
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a further categorization of MICAT.
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Result Category
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to categorize the result of a finding. Examples: "MALIGNANT" or "BENIGN" for tumor findings.
@@ -335,6 +335,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Study day of specimen collection, in integer days. The algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in the Demographics (DM) domain.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

@@ -381,6 +381,8 @@
 - **CDISC Notes:** Date/time for a fixed reference time point defined by --TPTREF in ISO 8601 character format.
 ---
 
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
 ## Cross References
 
 ### Controlled Terminology

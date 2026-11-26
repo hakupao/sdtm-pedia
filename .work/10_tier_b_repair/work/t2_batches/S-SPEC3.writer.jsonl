@@ -1,0 +1,29 @@
+{"ref": "pdf:p264:MICAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 99, "pdf_page": 264, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p264:MISCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 108, "pdf_page": 264, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p264:MIRESCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 162, "pdf_page": 264, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "page_txt:p265:footnote", "action": "INSERTED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 339, "pdf_page": 265, "note": "spec 表脚注 (U2/U7), --- 后 Cross References 前"}
+{"ref": "scan:MI:spec", "action": "VERIFIED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": null, "pdf_page": null, "note": "变量数/顺序/Label/Type/Role/Core/CDISC Notes 全一致 (sc2w+speccmp2+渲染)"}
+{"ref": "pdf:p287:CVCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 108, "pdf_page": 287, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p287:CVSCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 117, "pdf_page": 287, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p287:CVSTRESC CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 153, "pdf_page": 287, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "ig34_p0288_a018", "action": "INSERTED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 384, "pdf_page": 288, "note": "spec 表脚注 (U2/U7), --- 后 Cross References 前"}
+{"ref": "scan:CV:spec", "action": "VERIFIED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": null, "pdf_page": null, "note": "变量数/顺序/Label/Type/Role/Core/CDISC Notes 全一致 (sc2w+speccmp2+渲染)"}
+{"ref": "pdf:p290:MKCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 108, "pdf_page": 290, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p290:MKSCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 117, "pdf_page": 290, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "ig34_p0291_a025", "action": "INSERTED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 384, "pdf_page": 291, "note": "spec 表脚注 (U2/U7), --- 后 Cross References 前"}
+{"ref": "scan:MK:spec", "action": "VERIFIED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": null, "pdf_page": null, "note": "变量数/顺序/Label/Type/Role/Core/CDISC Notes 全一致 (sc2w+speccmp2+渲染)"}
+{"ref": "pdf:p296:spec footnote (new atom, not in gaps)", "action": "INSERTED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 384, "pdf_page": 296, "note": "spec 表脚注 (U2/U7), --- 后 Cross References 前"}
+{"ref": "scan:NV:spec", "action": "VERIFIED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": null, "pdf_page": null, "note": "变量数/顺序/Label/Type/Role/Core/CDISC Notes 全一致 (sc2w+speccmp2+渲染)"}
+{"ref": "ig34_p0306_a022", "action": "INSERTED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": 330, "pdf_page": 306, "note": "spec 表脚注 (U2/U7), --- 后 Cross References 前"}
+{"ref": "scan:RP:spec", "action": "VERIFIED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": null, "pdf_page": null, "note": "变量数/顺序/Label/Type/Role/Core/CDISC Notes 全一致 (sc2w+speccmp2+渲染)"}
+{"ref": "ig34_p0310_a005", "action": "INSERTED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 429, "pdf_page": 310, "note": "spec 表脚注 (U2/U7), --- 后 Cross References 前"}
+{"ref": "scan:RE:spec", "action": "VERIFIED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": null, "pdf_page": null, "note": "变量数/顺序/Label/Type/Role/Core/CDISC Notes 全一致 (sc2w+speccmp2+渲染)"}
+{"ref": "pdf:p319:FTTESTCD CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 72, "pdf_page": 319, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p319:FTTEST CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 81, "pdf_page": 319, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "ig34_p0320_a023", "action": "INSERTED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 348, "pdf_page": 320, "note": "spec 表脚注 (U2/U7), --- 后 Cross References 前"}
+{"ref": "scan:FT:spec", "action": "VERIFIED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": null, "pdf_page": null, "note": "变量数/顺序/Label/Type/Role/Core/CDISC Notes 全一致 (sc2w+speccmp2+渲染)"}
+{"ref": "pdf:p324:QSTESTCD CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 63, "pdf_page": 324, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p324:QSTEST CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 72, "pdf_page": 324, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p324:QSSCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 90, "pdf_page": 324, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "ig34_p0326_a005", "action": "INSERTED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 321, "pdf_page": 326, "note": "spec 表脚注 (U2/U7), --- 后 Cross References 前"}
+{"ref": "scan:QS:spec", "action": "VERIFIED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": null, "pdf_page": null, "note": "变量数/顺序/Label/Type/Role/Core/CDISC Notes 全一致 (sc2w+speccmp2+渲染)"}
