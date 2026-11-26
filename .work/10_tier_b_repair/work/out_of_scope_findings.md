@@ -53,3 +53,4 @@
 | O50 | B-SU audit | p133 §6.2 "Models for Events Domains" 章引言 + 域列表 (a011-a018) | KB 无对应节引言 → 并入 O17 §6.x 类引言扫描 (与 O39 §6.3、O45 §6.1.3 同批) |
 | O51 | B-TV writer/review | TV/examples.md Mermaid (及 T2 期间新/改的全部 Mermaid: TA/DM/model05/TV) | agent 环境 mermaid-cli 权限被拒, 仅语法对照核 → T4 前用渲染器 (或 web build) 统一渲染一次确认无语法错 |
 | O52 | B-SC review | SC/examples.md p342 Ex2 Row 3 SCDTC 2017-06-10 vs SCDY 297 | PDF 自身矛盾 (推算应 296), KB 照录 → T4 用户裁定项 |
+| O53 | B-ch03 writer/review | ch03 数据集表 T-3 UR "per per" / T-4 ISSCMBCL | 照录 PDF → T4 用户裁定 (T-4 候选: p456 IS 新增变量 ISMSCBCE, PDF 自身不足断定); O5 已在本批关闭 |

@@ -1,5 +1,7 @@
 # SUPPQUAL — Supplemental Qualifiers for [domain name]
 
+> Source text: SDTMIG v3.4 §8.4.1 (also in chapters/ch08_relationships.md).
+
 > Class: Relationship | Structure: One record per supplemental qualifier per related parent domain record(s)
 
 ### STUDYID

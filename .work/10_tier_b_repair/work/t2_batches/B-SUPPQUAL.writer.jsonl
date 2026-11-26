@@ -1,0 +1,18 @@
+{"ref": "D7:source_line", "action": "INSERTED", "kb_file": "knowledge_base/domains/SUPPQUAL/assumptions.md", "kb_line_after": 3, "pdf_page": 431, "note": "Source text line (also examples.md:3, spec.md:3)"}
+{"ref": "R3:p0432:grpid-para", "action": "INSERTED", "kb_file": "knowledge_base/domains/SUPPQUAL/assumptions.md", "kb_line_after": 13, "pdf_page": 432, "note": "--GRPID paragraph"}
+{"ref": "R3:p0432:8.4.1-title+spec_first_sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/SUPPQUAL/assumptions.md", "kb_line_after": 17, "pdf_page": 432, "note": "## Supplemental Qualifiers (SUPP--) + supp--.xpt sentence"}
+{"ref": "R3:p0433:see-4.5.3", "action": "INSERTED", "kb_file": "knowledge_base/domains/SUPPQUAL/assumptions.md", "kb_line_after": 23, "pdf_page": 433, "note": ""}
+{"ref": "R3:p0433:see-C1", "action": "INSERTED", "kb_file": "knowledge_base/domains/SUPPQUAL/assumptions.md", "kb_line_after": 25, "pdf_page": 433, "note": ""}
+{"ref": "R3:p0433:8.4.2-associated-persons", "action": "INSERTED", "kb_file": "knowledge_base/domains/SUPPQUAL/assumptions.md", "kb_line_after": 29, "pdf_page": 433, "note": "3 sentences; T-3 closing paren added"}
+{"ref": "R3:p0434:8.4.4-bullet3", "action": "REPLACED", "kb_file": "knowledge_base/domains/SUPPQUAL/assumptions.md", "kb_line_after": 37, "pdf_page": 434, "note": "parent domain -> parent dataset"}
+{"ref": "O2:ex1-intro", "action": "REPLACED", "kb_file": "knowledge_base/domains/SUPPQUAL/examples.md", "kb_line_after": 9, "pdf_page": 433, "note": "AEOSP -> AESOSP"}
+{"ref": "census:knowledge_base/domains/SUPPQUAL/examples.md:13:1:QNAM", "action": "REPLACED", "kb_file": "knowledge_base/domains/SUPPQUAL/examples.md", "kb_line_after": 15, "pdf_page": 433, "note": "AEOSP -> AESOSP"}
+{"ref": "census:knowledge_base/domains/SUPPQUAL/examples.md:13:1:QLABEL", "action": "REPLACED", "kb_file": "knowledge_base/domains/SUPPQUAL/examples.md", "kb_line_after": 15, "pdf_page": 433, "note": "-> Other Medically Important SAE"}
+{"ref": "census:knowledge_base/domains/SUPPQUAL/examples.md:14:2:QNAM", "action": "REPLACED", "kb_file": "knowledge_base/domains/SUPPQUAL/examples.md", "kb_line_after": 16, "pdf_page": 433, "note": "AETRTEMA -> AETRTEM"}
+{"ref": "R3:p0433:ex2-intro", "action": "REPLACED", "kb_file": "knowledge_base/domains/SUPPQUAL/examples.md", "kb_line_after": 20, "pdf_page": 433, "note": "ADAS-COG -> ADAS-Cog"}
+{"ref": "R3:p0434:additional-examples", "action": "REPLACED", "kb_file": "knowledge_base/domains/SUPPQUAL/examples.md", "kb_line_after": 31, "pdf_page": 434, "note": "phrase per PDF"}
+{"ref": "census:knowledge_base/domains/SUPPQUAL/examples.md:22:NO_PDF", "action": "VERIFIED", "kb_file": "knowledge_base/domains/SUPPQUAL/examples.md", "kb_line_after": 24, "pdf_page": 434, "note": "hand-checked vs render, 0 diff"}
+{"ref": "spec:p0432", "action": "VERIFIED", "kb_file": "knowledge_base/domains/SUPPQUAL/spec.md", "kb_line_after": null, "pdf_page": 432, "note": "10 vars match; CT notation -> O15"}
+{"ref": "T-1:p0433:llustrate", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/SUPPQUAL/examples.md", "kb_line_after": 5, "pdf_page": 433, "note": "keep illustrate"}
+{"ref": "T-2:p0433:Example-no-number", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/SUPPQUAL/examples.md", "kb_line_after": 18, "pdf_page": 433, "note": "keep ## Example 2"}
+{"ref": "T-3:p0433:SQAPFAMH-paren", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/SUPPQUAL/assumptions.md", "kb_line_after": 29, "pdf_page": 433, "note": "KB adds closing paren"}
