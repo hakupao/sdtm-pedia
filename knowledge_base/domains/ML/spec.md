@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** ML
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** ML Pre-specified
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used when a specific meal is prespecified on a CRF. Values should be "Y" or null.
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** ML Occurrence
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to record whether a prespecified meal occurred when information about the occurrence of a specific meal is solicited.
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate when a question about the occurrence of a prespecified meal was not answered. Should be null or have a value of "NOT DONE".
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Dose Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Units for MLDOSE, MLDOSTOT, or MLDOSTXT.
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Dose Form
 - **Type:** Char
-- **Controlled Terms:** C66726
+- **Controlled Terms:** (FRM) C66726
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Dosage form for MLTRT. Example: "BAR, CHEWABLE".
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the meal.
@@ -337,6 +337,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

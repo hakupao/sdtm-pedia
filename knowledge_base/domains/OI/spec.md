@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** OI
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -42,7 +42,7 @@
 - **Order:** 5
 - **Label:** Non-host Organism ID Element Short Name
 - **Type:** Char
-- **Controlled Terms:** C179591
+- **Controlled Terms:** (OIPRMCD) C179591
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the taxon being described. Examples: "GROUP", "GENTYP", "SUBTYP".
@@ -51,7 +51,7 @@
 - **Order:** 6
 - **Label:** Non-host Organism ID Element Name
 - **Type:** Char
-- **Controlled Terms:** C179590
+- **Controlled Terms:** (OIPRM) C179590
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Name of the taxon being described. Examples: "Group", "Genotype", "Subtype".
@@ -67,6 +67,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

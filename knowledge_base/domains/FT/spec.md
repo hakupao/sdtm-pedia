@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** FT
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Category
 - **Type:** Char
-- **Controlled Terms:** C115304
+- **Controlled Terms:** (FTCAT) C115304
 - **Role:** Grouping Qualifier
 - **Core:** Req
 - **CDISC Notes:** Used to specify the functional test in which the functional test question identified by FTTEST and FTTESTCD was included.
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Position of Subject During Observation
 - **Type:** Char
-- **Controlled Terms:** C71148
+- **Controlled Terms:** (POSITION) C71148
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Position of the subject during the test. Examples: "SUPINE", "STANDING", "SITTING".
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Original units in which the data were collected. Unit for FTORRES.
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Standardized units used for FTSTRESC and FTSTRESN.
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate that a test was not done, or a test was attempted but did not generate a result. Should be null or have a value of "NOT DONE".
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Method of Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C158113
+- **Controlled Terms:** (QRSMTHOD) C158113
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Method of the test or examination.
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Last Observation Before Exposure Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Operationally-derived indicator used to identify the last non-missing value prior to RFXSTDTC. The value should be "Y" or null.
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A baseline defined by the sponsor (could be derived in the same manner as FTLOBXFL or ABLFL, but is not required to be). The value should be "Y" or null. Note that FTBLFL is retained for backward compatibility. The authoritative baseline flag for statistical analysis is in an ADaM dataset.
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** Derived Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a derived record (e.g., a record that represents the average of other records such as a computed baseline). Should be "Y" or null.
@@ -276,7 +276,7 @@
 - **Order:** 31
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the observation date/time of the functional tests finding.
@@ -346,6 +346,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

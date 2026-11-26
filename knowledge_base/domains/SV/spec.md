@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** SV
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain most relevant to the observation. The domain abbreviation is also used as a prefix for variables to ensure uniqueness when datasets are merged.
@@ -51,7 +51,7 @@
 - **Order:** 6
 - **Label:** Pre-specified
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Used to indicate whether the visit was planned (i.e., visits specified in the TV domain). Value is "Y" for planned visits, null for unplanned visits.
@@ -60,7 +60,7 @@
 - **Order:** 7
 - **Label:** Occurrence
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Used to record whether a planned visit occurred. The value is null for unplanned visits.
@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Contact Mode
 - **Type:** Char
-- **Controlled Terms:** C171445
+- **Controlled Terms:** (CNTMODE) C171445
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The way in which the visit was conducted. Examples: "IN PERSON", "TELEPHONE CALL", "IVRS".
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Epi/Pandemic Related Change Indicator
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicates whether the visit was changed due to an epidemic or pandemic.
@@ -148,6 +148,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

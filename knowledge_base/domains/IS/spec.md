@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** IS
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Immunogenicity Test/Exam Short Name
 - **Type:** Char
-- **Controlled Terms:** C120525
+- **Controlled Terms:** (ISTESTCD) C120525
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the measurement, test, or examination described in ISTEST. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in ISTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). ISTESTCD cannot contain characters other than letters, numbers, or underscores.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Immunogenicity Test or Examination Name
 - **Type:** Char
-- **Controlled Terms:** C120526
+- **Controlled Terms:** (ISTEST) C120526
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Verbatim name of the test or examination used to obtain the measurement or finding. The value in ISTEST cannot be longer than 40 characters. Example: "Immunoglobulin E".
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Test Condition
 - **Type:** Char
-- **Controlled Terms:** C181175
+- **Controlled Terms:** (TESTCOND) C181175
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Identifies any planned condition imposed by the assay system on the specimen at the time the test is performed.
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Binding Agent
 - **Type:** Char
-- **Controlled Terms:** C85491; C181169
+- **Controlled Terms:** (MICROORG) C85491; (ISBDAGT) C181169
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Text description of the agent that is binding to the entity in the ISTEST variable. ISBDAGNT is used to indicate that there is a binding relationship between the entities in the ISTEST and ISBDAGNT variables, regardless of direction.  ISBDAGNT is not a method qualifier. It should only be used when the actual interest of the measurement is the binding interaction between the 2 entities in ISTEST and ISBDAGNT. In other words, the combination of ISTEST and ISBDAGNT should describe the entity or the analyte being measured, without the need for additional variables.  The binding agent may be (but is not limited to) a test article, a portion of the test article, a related compound, an endogenous molecule, an allergen, or an infectious agent.
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Test Operational Objective
 - **Type:** Char
-- **Controlled Terms:** C181170
+- **Controlled Terms:** (TSTOPOBJ) C181170
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Text description of the high-level purpose of the test at the operational level. If populated, valid values are "SCREEN", "CONFIRM", and "QUANTIFY".
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Original units in which the data were collected. The unit for ISORRES. Examples: "Index Value", "gpELISA", "unit/mL".
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Standardized units used for ISSTRESC and ISSTRESN. Examples: "Index Value", "gpELISA", "unit/mL".
@@ -258,7 +258,7 @@
 - **Order:** 29
 - **Label:** Reference Range Indicator
 - **Type:** Char
-- **Controlled Terms:** C78736
+- **Controlled Terms:** (NRIND) C78736
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Indicates where the value falls with respect to reference range defined by ISORNRLO and ISORNRHI, ISSTNRLO and ISSTNRHI, or by ISSTNRC. Examples: "NORMAL", "ABNORMAL", "HIGH", "LOW".  Sponsors should specify in the study metadata (Comments column in the Define-XML document) whether ISNRIND refers to the original or standard reference ranges and results.  Should not be used to indicate clinical significance.
@@ -267,7 +267,7 @@
 - **Order:** 30
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a test was not done. Should be null if a result exists in ISORRES.
@@ -294,7 +294,7 @@
 - **Order:** 33
 - **Label:** Specimen Type
 - **Type:** Char
-- **Controlled Terms:** C78734
+- **Controlled Terms:** (SPECTYPE) C78734
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Defines the types of specimen used for a measurement. Example: "SERUM".
@@ -303,7 +303,7 @@
 - **Order:** 34
 - **Label:** Specimen Condition
 - **Type:** Char
-- **Controlled Terms:** C78733
+- **Controlled Terms:** (SPECCOND) C78733
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Free or standardized text describing the condition of the specimen. Examples: "HEMOLYZED", "ICTERIC", "LIPEMIC".
@@ -312,7 +312,7 @@
 - **Order:** 35
 - **Label:** Specimen Usability for the Test
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Describes the usability of the specimen for the test. The value will be "N" if the specimen is not usable, and null if the specimen is usable.
@@ -321,7 +321,7 @@
 - **Order:** 36
 - **Label:** Method of Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C85492
+- **Controlled Terms:** (METHOD) C85492
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Method of the test or examination. Examples: "ELISA", "ELISPOT".
@@ -330,7 +330,7 @@
 - **Order:** 37
 - **Label:** Last Observation Before Exposure Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Operationally derived indicator used to identify the last non-missing value prior to RFXSTDTC. The value should be "Y" or null.
@@ -339,7 +339,7 @@
 - **Order:** 38
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify a baseline value. Should be "Y" or null. Note that ISBLFL is retained for backward compatibility. The authoritative baseline for statistical analysis is in an ADaM dataset.
@@ -348,7 +348,7 @@
 - **Order:** 39
 - **Label:** Derived Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a derived record. The value should be "Y" or null. Examples of records that might be derived for the submission datasets include those that represent the average of other records, do not come from the CRF, or are not as originally received or collected. If ISDRVFL="Y", then ISORRES may be null, with ISSTRESC and (if numeric) ISSTRESN having the derived value.
@@ -402,7 +402,7 @@
 - **Order:** 45
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the observation, or the date/time of collection if start date/time is not collected.
@@ -490,6 +490,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

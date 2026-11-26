@@ -1,0 +1,689 @@
+{"ref": "pdf:p134:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 18, "pdf_page": 134, "note": "U6: '' -> 'AE'"}
+{"ref": "pdf:p134:AEPRESP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 189, "pdf_page": 134, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p135:AELOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 234, "pdf_page": 135, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p135:AESEV CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 243, "pdf_page": 135, "note": "U5: 'C66769' -> '(AESEV) C66769'"}
+{"ref": "pdf:p135:AESER CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 252, "pdf_page": 135, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p135:AEACN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 261, "pdf_page": 135, "note": "U5: 'C66767' -> '(ACN) C66767'"}
+{"ref": "pdf:p135:AEACNDEV CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 279, "pdf_page": 135, "note": "U5: 'C111110' -> '(DEACNDEV) C111110'"}
+{"ref": "pdf:p135:AEOUT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 324, "pdf_page": 135, "note": "U5: 'C66768' -> '(OUT) C66768'"}
+{"ref": "pdf:p135:AESCAN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 333, "pdf_page": 135, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p135:AESCONG CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 342, "pdf_page": 135, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p135:AESDISAB CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 351, "pdf_page": 135, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p135:AESDTH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 360, "pdf_page": 135, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p136:AESHOSP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 369, "pdf_page": 136, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p136:AESLIFE CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 378, "pdf_page": 136, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p136:AESOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 387, "pdf_page": 136, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p136:AESMIE CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 396, "pdf_page": 136, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p136:AESINTV CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 405, "pdf_page": 136, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p136:AEUNANT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 414, "pdf_page": 136, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p136:AECONTRT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 441, "pdf_page": 136, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p136:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 468, "pdf_page": 136, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "pdf:p137:AEENRF CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 522, "pdf_page": 137, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p137:AEENRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 531, "pdf_page": 137, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/AE/spec.md", "kb_line_after": 548, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p92:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 18, "pdf_page": 92, "note": "U6: '' -> 'AG'"}
+{"ref": "pdf:p92:AGPRESP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 126, "pdf_page": 92, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p93:AGOCCUR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 135, "pdf_page": 93, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p93:AGSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 144, "pdf_page": 93, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p93:AGDOSU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 198, "pdf_page": 93, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p93:AGDOSFRM CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 207, "pdf_page": 93, "note": "U5: 'C66726' -> '(FRM) C66726'"}
+{"ref": "pdf:p93:AGDOSFRQ CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 216, "pdf_page": 93, "note": "U5: 'C71113' -> '(FREQ) C71113'"}
+{"ref": "pdf:p93:AGROUTE CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 225, "pdf_page": 93, "note": "U5: 'C66729' -> '(ROUTE) C66729'"}
+{"ref": "pdf:p93:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 270, "pdf_page": 93, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "pdf:p93:AGSTRF CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 324, "pdf_page": 93, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p94:AGENRF CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 333, "pdf_page": 94, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p94:AGSTRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 342, "pdf_page": 94, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p94:AGENRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 360, "pdf_page": 94, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/AG/spec.md", "kb_line_after": 377, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p143:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BE/spec.md", "kb_line_after": 18, "pdf_page": 143, "note": "U6: '' -> 'BE'"}
+{"ref": "pdf:p143:BEDECOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BE/spec.md", "kb_line_after": 99, "pdf_page": 143, "note": "U5: 'C124297' -> '(BEDECOD) C124297'"}
+{"ref": "pdf:p143:BELOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BE/spec.md", "kb_line_after": 126, "pdf_page": 143, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/BE/spec.md", "kb_line_after": 231, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p196:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 18, "pdf_page": 196, "note": "U6: '' -> 'BS'"}
+{"ref": "pdf:p197:BSTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 81, "pdf_page": 197, "note": "U5: 'C124300' -> '(BSTESTCD) C124300'"}
+{"ref": "pdf:p197:BSTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 90, "pdf_page": 197, "note": "U5: 'C124299' -> '(BSTEST) C124299'"}
+{"ref": "pdf:p197:BSORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 126, "pdf_page": 197, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p197:BSSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 153, "pdf_page": 197, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p197:BSSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 162, "pdf_page": 197, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p197:BSSPEC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 189, "pdf_page": 197, "note": "U5: 'C78734; C111114' -> '(SPECTYPE) C78734; (GENSMP) C111114'"}
+{"ref": "pdf:p197:BSSPCCND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 207, "pdf_page": 197, "note": "U5: 'C78733' -> '(SPECCOND) C78733'"}
+{"ref": "pdf:p197:BSMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 216, "pdf_page": 197, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p197:BSBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 225, "pdf_page": 197, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 323, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p148:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 18, "pdf_page": 148, "note": "U6: '' -> 'CE'"}
+{"ref": "pdf:p149:CEPRESP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 108, "pdf_page": 149, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p149:CEOCCUR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 117, "pdf_page": 149, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p149:CESTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 126, "pdf_page": 149, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p149:CESEV CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 153, "pdf_page": 149, "note": "U5: 'C165643' -> '(SEVRS) C165643'"}
+{"ref": "pdf:p149:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 180, "pdf_page": 149, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "pdf:p149:CESTRF CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 243, "pdf_page": 149, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p149:CEENRF CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 252, "pdf_page": 149, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p149:CESTRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 261, "pdf_page": 149, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p150:CEENRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 279, "pdf_page": 150, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 296, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p98:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 18, "pdf_page": 98, "note": "U6: '' -> 'CM'"}
+{"ref": "pdf:p98:CMPRESP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 108, "pdf_page": 98, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p98:CMOCCUR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 117, "pdf_page": 98, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p98:CMSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 126, "pdf_page": 98, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p99:CMDOSU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 189, "pdf_page": 99, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p99:CMDOSFRM CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 198, "pdf_page": 99, "note": "U5: 'C66726' -> '(FRM) C66726'"}
+{"ref": "pdf:p99:CMDOSFRQ CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 207, "pdf_page": 99, "note": "U5: 'C71113' -> '(FREQ) C71113'"}
+{"ref": "pdf:p99:CMROUTE CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 234, "pdf_page": 99, "note": "U5: 'C66729' -> '(ROUTE) C66729'"}
+{"ref": "pdf:p99:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 270, "pdf_page": 99, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "pdf:p99:CMSTRF CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 324, "pdf_page": 99, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p99:CMENRF CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 333, "pdf_page": 99, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p100:CMSTRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 342, "pdf_page": 100, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p100:CMENRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 360, "pdf_page": 100, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 377, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p60:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CO/spec.md", "kb_line_after": 18, "pdf_page": 60, "note": "U6: '' -> 'CO'"}
+{"ref": "pdf:p60:RDOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CO/spec.md", "kb_line_after": 27, "pdf_page": 60, "note": "U5: 'C66734' -> '(DOMAIN) C66734'"}
+{"ref": "pdf:p60:COEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CO/spec.md", "kb_line_after": 90, "pdf_page": 60, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p60:COEVALID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CO/spec.md", "kb_line_after": 99, "pdf_page": 60, "note": "U5: 'C96777' -> '(MEDEVAL) C96777'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/CO/spec.md", "kb_line_after": 125, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p200:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 18, "pdf_page": 200, "note": "U6: '' -> 'CP'"}
+{"ref": "pdf:p200:CPTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 90, "pdf_page": 200, "note": "U5: 'C181173' -> '(CPTESTCD) C181173'"}
+{"ref": "pdf:p200:CPTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 99, "pdf_page": 200, "note": "U5: 'C181174' -> '(CPTEST) C181174'"}
+{"ref": "pdf:p201:CPCELSTA CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 117, "pdf_page": 201, "note": "U5: 'C181172' -> '(CELSTATE) C181172'"}
+{"ref": "pdf:p201:CPTSTCND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 135, "pdf_page": 201, "note": "U5: 'C181175' -> '(TESTCOND) C181175'"}
+{"ref": "pdf:p202:CPCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 207, "pdf_page": 202, "note": "U5: 'C181171' -> '(CPCAT) C181171'"}
+{"ref": "pdf:p202:CPORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 243, "pdf_page": 202, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p202:CPRESSCL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 252, "pdf_page": 202, "note": "U5: 'C177910' -> '(RSLSCLRS) C177910'"}
+{"ref": "pdf:p202:CPRESTYP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 261, "pdf_page": 202, "note": "U5: 'C179588' -> '(RESTYPRS) C179588'"}
+{"ref": "pdf:p202:CPCOLSRT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 270, "pdf_page": 202, "note": "U5: 'C177908' -> '(COLSTYP) C177908'"}
+{"ref": "pdf:p203:CPSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 315, "pdf_page": 203, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p203:CPNRIND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 342, "pdf_page": 203, "note": "U5: 'C78736' -> '(NRIND) C78736'"}
+{"ref": "pdf:p203:CPSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 351, "pdf_page": 203, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p203:CPSPEC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 387, "pdf_page": 203, "note": "U5: 'C78734' -> '(SPECTYPE) C78734'"}
+{"ref": "pdf:p203:CPSPCCND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 396, "pdf_page": 203, "note": "U5: 'C78733' -> '(SPECCOND) C78733'"}
+{"ref": "pdf:p203:CPMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 405, "pdf_page": 203, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p203:CPLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 423, "pdf_page": 203, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p203:CPBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 432, "pdf_page": 203, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p203:CPDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 441, "pdf_page": 203, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p203:CPCLSIG CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 450, "pdf_page": 203, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p203:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 495, "pdf_page": 203, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 566, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p287:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 18, "pdf_page": 287, "note": "U6: '' -> 'CV'"}
+{"ref": "pdf:p287:CVTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 90, "pdf_page": 287, "note": "U5: 'C101847' -> '(CVTESTCD) C101847'"}
+{"ref": "pdf:p287:CVTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 99, "pdf_page": 287, "note": "U5: 'C101846' -> '(CVTEST) C101846'"}
+{"ref": "pdf:p287:CVPOS CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 126, "pdf_page": 287, "note": "U5: 'C71148' -> '(POSITION) C71148'"}
+{"ref": "pdf:p287:CVORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 144, "pdf_page": 287, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p287:CVSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 171, "pdf_page": 287, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p287:CVSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 180, "pdf_page": 287, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p287:CVLOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 198, "pdf_page": 287, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p287:CVLAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 207, "pdf_page": 287, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p287:CVDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 216, "pdf_page": 287, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p287:CVMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 225, "pdf_page": 287, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p288:CVLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 234, "pdf_page": 288, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p288:CVBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 243, "pdf_page": 288, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p288:CVDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 252, "pdf_page": 288, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p288:CVEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 261, "pdf_page": 288, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p288:CVEVALID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 270, "pdf_page": 288, "note": "U5: 'C96777' -> '(MEDEVAL) C96777'"}
+{"ref": "pdf:p288:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 315, "pdf_page": 288, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/CV/spec.md", "kb_line_after": 386, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p180:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/spec.md", "kb_line_after": 18, "pdf_page": 180, "note": "U6: '' -> 'DA'"}
+{"ref": "pdf:p180:DATESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/spec.md", "kb_line_after": 90, "pdf_page": 180, "note": "U5: 'C78732' -> '(DATESTCD) C78732'"}
+{"ref": "pdf:p180:DATEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/spec.md", "kb_line_after": 99, "pdf_page": 180, "note": "U5: 'C78731' -> '(DATEST) C78731'"}
+{"ref": "pdf:p180:DAORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/spec.md", "kb_line_after": 135, "pdf_page": 180, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p181:DASTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/spec.md", "kb_line_after": 162, "pdf_page": 181, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p181:DASTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/spec.md", "kb_line_after": 171, "pdf_page": 181, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p181:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/spec.md", "kb_line_after": 225, "pdf_page": 181, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/DA/spec.md", "kb_line_after": 251, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p183:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DD/spec.md", "kb_line_after": 18, "pdf_page": 183, "note": "U6: '' -> 'DD'"}
+{"ref": "pdf:p183:DDTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DD/spec.md", "kb_line_after": 45, "pdf_page": 183, "note": "U5: 'C116108' -> '(DTHDXCD) C116108'"}
+{"ref": "pdf:p183:DDTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DD/spec.md", "kb_line_after": 54, "pdf_page": 183, "note": "U5: 'C116107' -> '(DTHDX) C116107'"}
+{"ref": "pdf:p183:DDEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DD/spec.md", "kb_line_after": 90, "pdf_page": 183, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/DD/spec.md", "kb_line_after": 116, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p62:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 18, "pdf_page": 62, "note": "U6: '' -> 'DM'"}
+{"ref": "pdf:p63:DTHFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 126, "pdf_page": 63, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p63:AGEU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 180, "pdf_page": 63, "note": "U5: 'C66781' -> '(AGEU) C66781'"}
+{"ref": "pdf:p63:SEX CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 189, "pdf_page": 63, "note": "U5: 'C66731' -> '(SEX) C66731'"}
+{"ref": "pdf:p63:RACE CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 198, "pdf_page": 63, "note": "U5: 'C74457' -> '(RACE) C74457'"}
+{"ref": "pdf:p63:ETHNIC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 207, "pdf_page": 63, "note": "U5: 'C66790' -> '(ETHNIC) C66790'"}
+{"ref": "pdf:p64:ARMNRS CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 252, "pdf_page": 64, "note": "U5: 'C142179' -> '(ARMNULRS) C142179'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 298, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p155:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/spec.md", "kb_line_after": 18, "pdf_page": 155, "note": "U6: '' -> 'DS'"}
+{"ref": "pdf:p155:DSDECOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/spec.md", "kb_line_after": 81, "pdf_page": 155, "note": "U5: 'C66727; C114118; C150811' -> '(NCOMPLT) C66727; (PROTMLST) C114118; (OTHEVENT) C150811'"}
+{"ref": "pdf:p155:DSCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/spec.md", "kb_line_after": 90, "pdf_page": 155, "note": "U5: 'C74558' -> '(DSCAT) C74558'"}
+{"ref": "pdf:p156:DSSCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/spec.md", "kb_line_after": 99, "pdf_page": 156, "note": "U5: 'C170443' -> '(DSSCAT) C170443'"}
+{"ref": "pdf:p156:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DS/spec.md", "kb_line_after": 108, "pdf_page": 156, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/DS/spec.md", "kb_line_after": 152, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p178:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DV/spec.md", "kb_line_after": 18, "pdf_page": 178, "note": "U6: '' -> 'DV'"}
+{"ref": "pdf:p178:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DV/spec.md", "kb_line_after": 108, "pdf_page": 178, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/DV/spec.md", "kb_line_after": 152, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p107:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 18, "pdf_page": 107, "note": "U6: '' -> 'EC'"}
+{"ref": "pdf:p107:ECMOOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 99, "pdf_page": 107, "note": "U5: 'C125923' -> '(BRDGMOOD) C125923'"}
+{"ref": "pdf:p108:ECPRESP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 126, "pdf_page": 108, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p108:ECOCCUR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 135, "pdf_page": 108, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p108:ECDOSU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 171, "pdf_page": 108, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p108:ECDOSFRM CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 180, "pdf_page": 108, "note": "U5: 'C66726' -> '(FRM) C66726'"}
+{"ref": "pdf:p108:ECDOSFRQ CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 189, "pdf_page": 108, "note": "U5: 'C71113' -> '(FREQ) C71113'"}
+{"ref": "pdf:p108:ECROUTE CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 216, "pdf_page": 108, "note": "U5: 'C66729' -> '(ROUTE) C66729'"}
+{"ref": "pdf:p108:ECLOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 234, "pdf_page": 108, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p108:ECLAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 243, "pdf_page": 108, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p108:ECDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 252, "pdf_page": 108, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p108:ECPORTOT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 261, "pdf_page": 108, "note": "U5: 'C99075' -> '(PORTOT) C99075'"}
+{"ref": "pdf:p108:ECFAST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 270, "pdf_page": 108, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p108:ECPSTRGU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 288, "pdf_page": 108, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p108:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 315, "pdf_page": 108, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/EC/spec.md", "kb_line_after": 413, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p185:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 18, "pdf_page": 185, "note": "U6: '' -> 'EG'"}
+{"ref": "pdf:p186:EGTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 90, "pdf_page": 186, "note": "U5: 'C71153; C120523' -> '(EGTESTCD) C71153; (HETESTCD) C120523'"}
+{"ref": "pdf:p186:EGTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 99, "pdf_page": 186, "note": "U5: 'C71152; C120524' -> '(EGTEST) C71152; (HETEST) C120524'"}
+{"ref": "pdf:p186:EGPOS CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 126, "pdf_page": 186, "note": "U5: 'C71148' -> '(POSITION) C71148'"}
+{"ref": "pdf:p186:EGORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 144, "pdf_page": 186, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p186:EGSTRESC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 153, "pdf_page": 186, "note": "U5: 'C71150; C120522; C101834' -> '(EGSTRESC) C71150; (HESTRESC) C120522; (NORMABNM) C101834'"}
+{"ref": "pdf:p186:EGSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 171, "pdf_page": 186, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p186:EGSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 180, "pdf_page": 186, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p187:EGMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 216, "pdf_page": 187, "note": "U5: 'C71151' -> '(EGMETHOD) C71151'"}
+{"ref": "pdf:p187:EGLEAD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 225, "pdf_page": 187, "note": "U5: 'C90013' -> '(EGLEAD) C90013'"}
+{"ref": "pdf:p187:EGLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 234, "pdf_page": 187, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p187:EGBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 243, "pdf_page": 187, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p187:EGDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 252, "pdf_page": 187, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p187:EGEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 261, "pdf_page": 187, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p187:EGEVALID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 270, "pdf_page": 187, "note": "U5: 'C96777' -> '(MEDEVAL) C96777'"}
+{"ref": "pdf:p187:EGCLSIG CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 279, "pdf_page": 187, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p187:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 333, "pdf_page": 187, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/EG/spec.md", "kb_line_after": 404, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p104:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 18, "pdf_page": 104, "note": "U6: '' -> 'EX'"}
+{"ref": "pdf:p104:EXDOSU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 135, "pdf_page": 104, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p104:EXDOSFRM CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 144, "pdf_page": 104, "note": "U5: 'C66726' -> '(FRM) C66726'"}
+{"ref": "pdf:p104:EXDOSFRQ CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 153, "pdf_page": 104, "note": "U5: 'C71113' -> '(FREQ) C71113'"}
+{"ref": "pdf:p104:EXROUTE CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 171, "pdf_page": 104, "note": "U5: 'C66729' -> '(ROUTE) C66729'"}
+{"ref": "pdf:p104:EXLOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 189, "pdf_page": 104, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p104:EXLAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 198, "pdf_page": 104, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p105:EXDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 207, "pdf_page": 105, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p105:EXFAST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 216, "pdf_page": 105, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p105:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 243, "pdf_page": 105, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/EX/spec.md", "kb_line_after": 341, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p365:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 18, "pdf_page": 365, "note": "U6: '' -> 'FA'"}
+{"ref": "pdf:p365:FATESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 63, "pdf_page": 365, "note": "U5: 'C101832' -> '(FATESTCD) C101832'"}
+{"ref": "pdf:p365:FATEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 72, "pdf_page": 365, "note": "U5: 'C101833' -> '(FATEST) C101833'"}
+{"ref": "pdf:p365:FAORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 117, "pdf_page": 365, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p365:FASTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 144, "pdf_page": 365, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p365:FASTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 153, "pdf_page": 365, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p366:FALOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 171, "pdf_page": 366, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p366:FALAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 180, "pdf_page": 366, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p366:FALOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 189, "pdf_page": 366, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p366:FABLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 198, "pdf_page": 366, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p366:FAEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 207, "pdf_page": 366, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p366:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 252, "pdf_page": 366, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/FA/spec.md", "kb_line_after": 278, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p319:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 18, "pdf_page": 319, "note": "U6: '' -> 'FT'"}
+{"ref": "pdf:p319:FTCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 90, "pdf_page": 319, "note": "U5: 'C115304' -> '(FTCAT) C115304'"}
+{"ref": "pdf:p319:FTPOS CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 108, "pdf_page": 319, "note": "U5: 'C71148' -> '(POSITION) C71148'"}
+{"ref": "pdf:p319:FTORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 126, "pdf_page": 319, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p320:FTSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 153, "pdf_page": 320, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p320:FTSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 162, "pdf_page": 320, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p320:FTMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 198, "pdf_page": 320, "note": "U5: 'C158113' -> '(QRSMTHOD) C158113'"}
+{"ref": "pdf:p320:FTLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 207, "pdf_page": 320, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p320:FTBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 216, "pdf_page": 320, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p320:FTDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 225, "pdf_page": 320, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p320:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 279, "pdf_page": 320, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/FT/spec.md", "kb_line_after": 350, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p221:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 18, "pdf_page": 221, "note": "U6: '' -> 'GF'"}
+{"ref": "pdf:p221:GFTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 108, "pdf_page": 221, "note": "U5: 'C181178' -> '(GFTESTCD) C181178'"}
+{"ref": "pdf:p221:GFTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 117, "pdf_page": 221, "note": "U5: 'C181179' -> '(GFTEST) C181179'"}
+{"ref": "pdf:p221:GFTSTDTL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 126, "pdf_page": 221, "note": "U5: 'C181180' -> '(GFTSDTL) C181180'"}
+{"ref": "pdf:p221:GFORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 162, "pdf_page": 221, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p221:GFSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 198, "pdf_page": 221, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p222:GFINHERT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 234, "pdf_page": 222, "note": "U5: 'C181177' -> '(INHERTGF) C181177'"}
+{"ref": "pdf:p222:GFSYMTYP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 270, "pdf_page": 222, "note": "U5: 'C181176' -> '(SYMTYPGF) C181176'"}
+{"ref": "pdf:p222:GFSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 324, "pdf_page": 222, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p222:GFSPEC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 360, "pdf_page": 222, "note": "U5: 'C111114' -> '(GENSMP) C111114'"}
+{"ref": "pdf:p222:GFMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 369, "pdf_page": 222, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p222:GFANMETH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 387, "pdf_page": 222, "note": "U5: 'C181181' -> '(GFANMET) C181181'"}
+{"ref": "pdf:p222:GFBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 396, "pdf_page": 222, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p222:GFDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 405, "pdf_page": 222, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 521, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p167:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": 18, "pdf_page": 167, "note": "U6: '' -> 'HO'"}
+{"ref": "pdf:p168:HODECOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": 81, "pdf_page": 168, "note": "U5: 'C171444' -> '(HODECOD) C171444'"}
+{"ref": "pdf:p168:HOPRESP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": 108, "pdf_page": 168, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p168:HOOCCUR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": 117, "pdf_page": 168, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p168:HOSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": 126, "pdf_page": 168, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p168:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": 153, "pdf_page": 168, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "pdf:p168:HOSTRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": 225, "pdf_page": 168, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p169:HOENRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": 243, "pdf_page": 169, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": 260, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p193:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IE/spec.md", "kb_line_after": 18, "pdf_page": 193, "note": "U6: '' -> 'IE'"}
+{"ref": "pdf:p193:IECAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IE/spec.md", "kb_line_after": 72, "pdf_page": 193, "note": "U5: 'C66797' -> '(IECAT) C66797'"}
+{"ref": "pdf:p193:IEORRES CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IE/spec.md", "kb_line_after": 90, "pdf_page": 193, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p193:IESTRESC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IE/spec.md", "kb_line_after": 99, "pdf_page": 193, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p193:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IE/spec.md", "kb_line_after": 144, "pdf_page": 193, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/IE/spec.md", "kb_line_after": 170, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p229:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 18, "pdf_page": 229, "note": "U6: '' -> 'IS'"}
+{"ref": "pdf:p229:ISTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 81, "pdf_page": 229, "note": "U5: 'C120525' -> '(ISTESTCD) C120525'"}
+{"ref": "pdf:p229:ISTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 90, "pdf_page": 229, "note": "U5: 'C120526' -> '(ISTEST) C120526'"}
+{"ref": "pdf:p229:ISTSTCND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 99, "pdf_page": 229, "note": "U5: 'C181175' -> '(TESTCOND) C181175'"}
+{"ref": "pdf:p229:ISBDAGNT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 117, "pdf_page": 229, "note": "U5: 'C85491; C181169' -> '(MICROORG) C85491; (ISBDAGT) C181169'"}
+{"ref": "pdf:p229:ISTSTOPO CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 126, "pdf_page": 229, "note": "U5: 'C181170' -> '(TSTOPOBJ) C181170'"}
+{"ref": "pdf:p230:ISORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 180, "pdf_page": 230, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p230:ISSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 225, "pdf_page": 230, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p230:ISNRIND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 261, "pdf_page": 230, "note": "U5: 'C78736' -> '(NRIND) C78736'"}
+{"ref": "pdf:p230:ISSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 270, "pdf_page": 230, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p230:ISSPEC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 297, "pdf_page": 230, "note": "U5: 'C78734' -> '(SPECTYPE) C78734'"}
+{"ref": "pdf:p230:ISSPCCND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 306, "pdf_page": 230, "note": "U5: 'C78733' -> '(SPECCOND) C78733'"}
+{"ref": "pdf:p230:ISSPCUFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 315, "pdf_page": 230, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p230:ISMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 324, "pdf_page": 230, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p230:ISLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 333, "pdf_page": 230, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p230:ISBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 342, "pdf_page": 230, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p230:ISDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 351, "pdf_page": 230, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p231:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 405, "pdf_page": 231, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 494, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p242:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 18, "pdf_page": 242, "note": "U6: '' -> 'LB'"}
+{"ref": "pdf:p242:LBTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 72, "pdf_page": 242, "note": "U5: 'C65047' -> '(LBTESTCD) C65047'"}
+{"ref": "pdf:p242:LBTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 81, "pdf_page": 242, "note": "U5: 'C67154' -> '(LBTEST) C67154'"}
+{"ref": "pdf:p242:LBTSTCND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 90, "pdf_page": 242, "note": "U5: 'C181175' -> '(TESTCOND) C181175'"}
+{"ref": "pdf:p242:LBTSTOPO CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 108, "pdf_page": 242, "note": "U5: 'C181170' -> '(TSTOPOBJ) C181170'"}
+{"ref": "pdf:p242:LBORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 144, "pdf_page": 242, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p242:LBRESSCL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 153, "pdf_page": 242, "note": "U5: 'C177910' -> '(RSLSCLRS) C177910'"}
+{"ref": "pdf:p242:LBRESTYP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 162, "pdf_page": 242, "note": "U5: 'C179588' -> '(RESTYPRS) C179588'"}
+{"ref": "pdf:p242:LBCOLSRT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 171, "pdf_page": 242, "note": "U5: 'C177908' -> '(COLSTYP) C177908'"}
+{"ref": "pdf:p243:LBSTRESC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 207, "pdf_page": 243, "note": "U5: 'C102580' -> '(LBSTRESC) C102580'"}
+{"ref": "pdf:p243:LBSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 225, "pdf_page": 243, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p243:LBNRIND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 261, "pdf_page": 243, "note": "U5: 'C78736' -> '(NRIND) C78736'"}
+{"ref": "pdf:p243:LBSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 270, "pdf_page": 243, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p243:LBSPEC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 306, "pdf_page": 243, "note": "U5: 'C78734' -> '(SPECTYPE) C78734'"}
+{"ref": "pdf:p243:LBSPCCND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 315, "pdf_page": 243, "note": "U5: 'C78733' -> '(SPECCOND) C78733'"}
+{"ref": "pdf:p243:LBSPCUFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 324, "pdf_page": 243, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p244:LBMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 333, "pdf_page": 244, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p244:LBANMETH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 342, "pdf_page": 244, "note": "U5: 'C160922' -> '(LBANMET) C160922'"}
+{"ref": "pdf:p244:LBTMTHSN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 351, "pdf_page": 244, "note": "U5: 'C179589' -> '(TSTMTHSN) C179589'"}
+{"ref": "pdf:p244:LBLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 360, "pdf_page": 244, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p244:LBBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 369, "pdf_page": 244, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p244:LBFAST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 378, "pdf_page": 244, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p244:LBDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 387, "pdf_page": 244, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p244:LBCLSIG CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 414, "pdf_page": 244, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p244:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 459, "pdf_page": 244, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "pdf:p245:LBPTFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 549, "pdf_page": 245, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 566, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p249:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 18, "pdf_page": 249, "note": "U6: '' -> 'MB'"}
+{"ref": "pdf:p249:MBTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 99, "pdf_page": 249, "note": "U5: 'C120527' -> '(MBTESTCD) C120527'"}
+{"ref": "pdf:p249:MBTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 108, "pdf_page": 249, "note": "U5: 'C120528' -> '(MBTEST) C120528'"}
+{"ref": "pdf:p249:MBTSTDTL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 117, "pdf_page": 249, "note": "U5: 'C174225' -> '(MBFTSDTL) C174225'"}
+{"ref": "pdf:p249:MBORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 153, "pdf_page": 249, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p250:MBSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 180, "pdf_page": 250, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p250:MBSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 198, "pdf_page": 250, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p250:MBSPEC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 234, "pdf_page": 250, "note": "U5: 'C78734' -> '(SPECTYPE) C78734'"}
+{"ref": "pdf:p250:MBSPCCND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 243, "pdf_page": 250, "note": "U5: 'C78733' -> '(SPECCOND) C78733'"}
+{"ref": "pdf:p250:MBLOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 252, "pdf_page": 250, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p250:MBLAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 261, "pdf_page": 250, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p250:MBDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 270, "pdf_page": 250, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p250:MBMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 279, "pdf_page": 250, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p250:MBLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 288, "pdf_page": 250, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p250:MBBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 297, "pdf_page": 250, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p250:MBFAST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 306, "pdf_page": 250, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p250:MBDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 315, "pdf_page": 250, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p250:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 360, "pdf_page": 250, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/MB/spec.md", "kb_line_after": 431, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p171:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 18, "pdf_page": 171, "note": "U6: '' -> 'MH'"}
+{"ref": "pdf:p171:MHEVDTYP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 99, "pdf_page": 171, "note": "U5: 'C124301' -> '(MHEDTTYP) C124301'"}
+{"ref": "pdf:p171:MHPRESP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 126, "pdf_page": 171, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p171:MHOCCUR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 135, "pdf_page": 171, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p172:MHSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 144, "pdf_page": 172, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p172:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 180, "pdf_page": 172, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "pdf:p172:MHENRF CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 225, "pdf_page": 172, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p172:MHENRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 234, "pdf_page": 172, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 251, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p264:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 18, "pdf_page": 264, "note": "U6: '' -> 'MI'"}
+{"ref": "pdf:p264:MITESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 72, "pdf_page": 264, "note": "U5: 'C132263' -> '(MITSCD) C132263'"}
+{"ref": "pdf:p264:MITEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 81, "pdf_page": 264, "note": "U5: 'C132262' -> '(MITS) C132262'"}
+{"ref": "pdf:p264:MITSTDTL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 90, "pdf_page": 264, "note": "U5: 'C125922' -> '(MIFTSDTL) C125922'"}
+{"ref": "pdf:p264:MIORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 126, "pdf_page": 264, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p264:MISTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 153, "pdf_page": 264, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p264:MISTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 171, "pdf_page": 264, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p265:MISPEC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 198, "pdf_page": 265, "note": "U5: 'C78734' -> '(SPECTYPE) C78734'"}
+{"ref": "pdf:p265:MISPCCND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 207, "pdf_page": 265, "note": "U5: 'C78733' -> '(SPECCOND) C78733'"}
+{"ref": "pdf:p265:MILOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 216, "pdf_page": 265, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p265:MILAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 225, "pdf_page": 265, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p265:MIDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 234, "pdf_page": 265, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p265:MIMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 243, "pdf_page": 265, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p265:MILOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 252, "pdf_page": 265, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p265:MIBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 261, "pdf_page": 265, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p265:MIEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 270, "pdf_page": 265, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p265:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 315, "pdf_page": 265, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/MI/spec.md", "kb_line_after": 341, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p290:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 18, "pdf_page": 290, "note": "U6: '' -> 'MK'"}
+{"ref": "pdf:p290:MKTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 90, "pdf_page": 290, "note": "U5: 'C127269' -> '(MUSCTSCD) C127269'"}
+{"ref": "pdf:p290:MKTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 99, "pdf_page": 290, "note": "U5: 'C127270' -> '(MUSCTS) C127270'"}
+{"ref": "pdf:p290:MKPOS CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 126, "pdf_page": 290, "note": "U5: 'C71148' -> '(POSITION) C71148'"}
+{"ref": "pdf:p290:MKORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 144, "pdf_page": 290, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p291:MKSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 171, "pdf_page": 291, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p291:MKSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 180, "pdf_page": 291, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p291:MKLOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 198, "pdf_page": 291, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p291:MKLAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 207, "pdf_page": 291, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p291:MKDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 216, "pdf_page": 291, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p291:MKMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 225, "pdf_page": 291, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p291:MKLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 234, "pdf_page": 291, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p291:MKBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 243, "pdf_page": 291, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p291:MKDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 252, "pdf_page": 291, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p291:MKEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 261, "pdf_page": 291, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p291:MKEVALID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 270, "pdf_page": 291, "note": "U5: 'C96777' -> '(MEDEVAL) C96777'"}
+{"ref": "pdf:p291:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 315, "pdf_page": 291, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/MK/spec.md", "kb_line_after": 386, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p121:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/ML/spec.md", "kb_line_after": 18, "pdf_page": 121, "note": "U6: '' -> 'ML'"}
+{"ref": "pdf:p121:MLPRESP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/ML/spec.md", "kb_line_after": 90, "pdf_page": 121, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p121:MLOCCUR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/ML/spec.md", "kb_line_after": 99, "pdf_page": 121, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p121:MLSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/ML/spec.md", "kb_line_after": 108, "pdf_page": 121, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p121:MLDOSU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/ML/spec.md", "kb_line_after": 144, "pdf_page": 121, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p121:MLDOSFRM CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/ML/spec.md", "kb_line_after": 153, "pdf_page": 121, "note": "U5: 'C66726' -> '(FRM) C66726'"}
+{"ref": "pdf:p121:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/ML/spec.md", "kb_line_after": 198, "pdf_page": 121, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/ML/spec.md", "kb_line_after": 341, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p252:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 18, "pdf_page": 252, "note": "U6: '' -> 'MS'"}
+{"ref": "pdf:p253:MSTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 90, "pdf_page": 253, "note": "U5: 'C128688' -> '(MSTESTCD) C128688'"}
+{"ref": "pdf:p253:MSTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 99, "pdf_page": 253, "note": "U5: 'C128687' -> '(MSTEST) C128687'"}
+{"ref": "pdf:p253:MSCONCU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 126, "pdf_page": 253, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p253:MSORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 171, "pdf_page": 253, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p253:MSSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 198, "pdf_page": 253, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p253:MSNRIND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 207, "pdf_page": 253, "note": "U5: 'C78736' -> '(NRIND) C78736'"}
+{"ref": "pdf:p253:MSRESCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 216, "pdf_page": 253, "note": "U5: 'C85495' -> '(MSRESCAT) C85495'"}
+{"ref": "pdf:p253:MSSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 225, "pdf_page": 253, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p254:MSSPEC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 270, "pdf_page": 254, "note": "U5: 'C78734' -> '(SPECTYPE) C78734'"}
+{"ref": "pdf:p254:MSSPCCND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 279, "pdf_page": 254, "note": "U5: 'C78733' -> '(SPECCOND) C78733'"}
+{"ref": "pdf:p254:MSLOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 288, "pdf_page": 254, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p254:MSLAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 297, "pdf_page": 254, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p254:MSDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 306, "pdf_page": 254, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p254:MSMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 315, "pdf_page": 254, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p254:MSLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 333, "pdf_page": 254, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p254:MSBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 342, "pdf_page": 254, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p254:MSFAST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 351, "pdf_page": 254, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p254:MSDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 360, "pdf_page": 254, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p254:MSEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 369, "pdf_page": 254, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p254:MSEVALID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 378, "pdf_page": 254, "note": "U5: 'C96777' -> '(MEDEVAL) C96777'"}
+{"ref": "pdf:p254:MSACPTFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 387, "pdf_page": 254, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p254:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 459, "pdf_page": 254, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/MS/spec.md", "kb_line_after": 557, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p294:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 18, "pdf_page": 294, "note": "U6: '' -> 'NV'"}
+{"ref": "pdf:p294:NVTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 99, "pdf_page": 294, "note": "U5: 'C116104' -> '(NVTESTCD) C116104'"}
+{"ref": "pdf:p295:NVTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 108, "pdf_page": 295, "note": "U5: 'C116103' -> '(NVTEST) C116103'"}
+{"ref": "pdf:p295:NVORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 144, "pdf_page": 295, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p295:NVSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 171, "pdf_page": 295, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p295:NVSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 180, "pdf_page": 295, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p295:NVLOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 198, "pdf_page": 295, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p295:NVLAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 207, "pdf_page": 295, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p295:NVDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 216, "pdf_page": 295, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p295:NVMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 225, "pdf_page": 295, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p295:NVLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 234, "pdf_page": 295, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p295:NVBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 243, "pdf_page": 295, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p295:NVDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 252, "pdf_page": 295, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p295:NVEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 261, "pdf_page": 295, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p295:NVEVALID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 270, "pdf_page": 295, "note": "U5: 'C96777' -> '(MEDEVAL) C96777'"}
+{"ref": "pdf:p295:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 315, "pdf_page": 295, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/NV/spec.md", "kb_line_after": 386, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p299:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 18, "pdf_page": 299, "note": "U6: '' -> 'OE'"}
+{"ref": "pdf:p299:FOCID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 36, "pdf_page": 299, "note": "U5: 'C119013' -> '(OEFOCUS) C119013'"}
+{"ref": "pdf:p299:OETESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 81, "pdf_page": 299, "note": "U5: 'C117743' -> '(OETESTCD) C117743'"}
+{"ref": "pdf:p299:OETEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 90, "pdf_page": 299, "note": "U5: 'C117742' -> '(OETEST) C117742'"}
+{"ref": "pdf:p299:OEORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 135, "pdf_page": 299, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p299:OESTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 180, "pdf_page": 299, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p300:OENRIND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 216, "pdf_page": 300, "note": "U5: 'C78736' -> '(NRIND) C78736'"}
+{"ref": "pdf:p300:OESTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 234, "pdf_page": 300, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p300:OELOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 261, "pdf_page": 300, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p300:OELAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 270, "pdf_page": 300, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p300:OEDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 279, "pdf_page": 300, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p300:OEPORTOT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 288, "pdf_page": 300, "note": "U5: 'C99075' -> '(PORTOT) C99075'"}
+{"ref": "pdf:p300:OEMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 297, "pdf_page": 300, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p300:OELOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 306, "pdf_page": 300, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p300:OEBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 315, "pdf_page": 300, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p300:OEDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 324, "pdf_page": 300, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p300:OEEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 333, "pdf_page": 300, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p300:OEEVALID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 342, "pdf_page": 300, "note": "U5: 'C96777' -> '(MEDEVAL) C96777'"}
+{"ref": "pdf:p300:OEACPTFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 351, "pdf_page": 300, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p301:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 405, "pdf_page": 301, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/OE/spec.md", "kb_line_after": 476, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p441:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OI/spec.md", "kb_line_after": 18, "pdf_page": 441, "note": "U6: '' -> 'OI'"}
+{"ref": "pdf:p441:OIPARMCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OI/spec.md", "kb_line_after": 45, "pdf_page": 441, "note": "U5: 'C179591' -> '(OIPRMCD) C179591'"}
+{"ref": "pdf:p441:OIPARM CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/OI/spec.md", "kb_line_after": 54, "pdf_page": 441, "note": "U5: 'C179590' -> '(OIPRM) C179590'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/OI/spec.md", "kb_line_after": 71, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p267:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PC/spec.md", "kb_line_after": 18, "pdf_page": 267, "note": "U6: '' -> 'PC'"}
+{"ref": "pdf:p268:PCORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PC/spec.md", "kb_line_after": 117, "pdf_page": 268, "note": "U5: 'C85494' -> '(PKUNIT) C85494'"}
+{"ref": "pdf:p268:PCSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PC/spec.md", "kb_line_after": 144, "pdf_page": 268, "note": "U5: 'C85494' -> '(PKUNIT) C85494'"}
+{"ref": "pdf:p268:PCSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PC/spec.md", "kb_line_after": 153, "pdf_page": 268, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p268:PCSPEC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PC/spec.md", "kb_line_after": 180, "pdf_page": 268, "note": "U5: 'C78734' -> '(SPECTYPE) C78734'"}
+{"ref": "pdf:p268:PCSPCCND CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PC/spec.md", "kb_line_after": 189, "pdf_page": 268, "note": "U5: 'C78733' -> '(SPECCOND) C78733'"}
+{"ref": "pdf:p268:PCMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PC/spec.md", "kb_line_after": 198, "pdf_page": 268, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p268:PCFAST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PC/spec.md", "kb_line_after": 207, "pdf_page": 268, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p268:PCDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PC/spec.md", "kb_line_after": 216, "pdf_page": 268, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p269:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PC/spec.md", "kb_line_after": 279, "pdf_page": 269, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/PC/spec.md", "kb_line_after": 377, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p316:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 18, "pdf_page": 316, "note": "U6: '' -> 'PE'"}
+{"ref": "pdf:p316:PEORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 126, "pdf_page": 316, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p316:PESTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 144, "pdf_page": 316, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p316:PELOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 162, "pdf_page": 316, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p316:PELAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 171, "pdf_page": 316, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p316:PEMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 180, "pdf_page": 316, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p317:PELOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 189, "pdf_page": 317, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p317:PEBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 198, "pdf_page": 317, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p317:PEEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 207, "pdf_page": 317, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p317:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 252, "pdf_page": 317, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/PE/spec.md", "kb_line_after": 278, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p271:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PP/spec.md", "kb_line_after": 18, "pdf_page": 271, "note": "U6: '' -> 'PP'"}
+{"ref": "pdf:p271:PPTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PP/spec.md", "kb_line_after": 54, "pdf_page": 271, "note": "U5: 'C85839' -> '(PKPARMCD) C85839'"}
+{"ref": "pdf:p271:PPTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PP/spec.md", "kb_line_after": 63, "pdf_page": 271, "note": "U5: 'C85493' -> '(PKPARM) C85493'"}
+{"ref": "pdf:p271:PPORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PP/spec.md", "kb_line_after": 99, "pdf_page": 271, "note": "U5: 'C85494; C128684; C128683; C128685; C128686' -> '(PKUNIT) C85494; (PKUWG) C128684; (PKUWKG) C128683; (PKUDMG) C128685; (PKUDUG) C128686'"}
+{"ref": "pdf:p272:PPSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PP/spec.md", "kb_line_after": 126, "pdf_page": 272, "note": "U5: 'C85494; C128684; C128683; C128685; C128686' -> '(PKUNIT) C85494; (PKUWG) C128684; (PKUWKG) C128683; (PKUDMG) C128685; (PKUDUG) C128686'"}
+{"ref": "pdf:p272:PPSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PP/spec.md", "kb_line_after": 135, "pdf_page": 272, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p272:PPSPEC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PP/spec.md", "kb_line_after": 153, "pdf_page": 272, "note": "U5: 'C78734' -> '(SPECTYPE) C78734'"}
+{"ref": "pdf:p272:PPANMETH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PP/spec.md", "kb_line_after": 162, "pdf_page": 272, "note": "U5: 'C172330' -> '(PKANMET) C172330'"}
+{"ref": "pdf:p272:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PP/spec.md", "kb_line_after": 180, "pdf_page": 272, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/PP/spec.md", "kb_line_after": 242, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p125:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 18, "pdf_page": 125, "note": "U6: '' -> 'PR'"}
+{"ref": "pdf:p125:PRDECOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 90, "pdf_page": 125, "note": "U5: 'C101858' -> '(PROCEDUR) C101858'"}
+{"ref": "pdf:p125:PRPRESP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 117, "pdf_page": 125, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p125:PROCCUR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 126, "pdf_page": 125, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p125:PRDOSU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 162, "pdf_page": 125, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p125:PRDOSFRM CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 171, "pdf_page": 125, "note": "U5: 'C66726' -> '(FRM) C66726'"}
+{"ref": "pdf:p125:PRDOSFRQ CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 180, "pdf_page": 125, "note": "U5: 'C71113' -> '(FREQ) C71113'"}
+{"ref": "pdf:p125:PRROUTE CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 198, "pdf_page": 125, "note": "U5: 'C66729' -> '(ROUTE) C66729'"}
+{"ref": "pdf:p126:PRLOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 207, "pdf_page": 126, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p126:PRLAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 216, "pdf_page": 126, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p126:PRDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 225, "pdf_page": 126, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p126:PRPORTOT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 234, "pdf_page": 126, "note": "U5: 'C99075' -> '(PORTOT) C99075'"}
+{"ref": "pdf:p126:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 279, "pdf_page": 126, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "pdf:p126:PRSTRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 378, "pdf_page": 126, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p126:PRENRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 396, "pdf_page": 126, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/PR/spec.md", "kb_line_after": 413, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p324:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 18, "pdf_page": 324, "note": "U6: '' -> 'QS'"}
+{"ref": "pdf:p324:QSCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 81, "pdf_page": 324, "note": "U5: 'C100129' -> '(QSCAT) C100129'"}
+{"ref": "pdf:p325:QSORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 108, "pdf_page": 325, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p325:QSSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 135, "pdf_page": 325, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p325:QSSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 144, "pdf_page": 325, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p325:QSMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 162, "pdf_page": 325, "note": "U5: 'C158113' -> '(QRSMTHOD) C158113'"}
+{"ref": "pdf:p325:QSLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 171, "pdf_page": 325, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p325:QSBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 180, "pdf_page": 325, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p325:QSDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 189, "pdf_page": 325, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p325:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 234, "pdf_page": 325, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/QS/spec.md", "kb_line_after": 323, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p308:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 18, "pdf_page": 308, "note": "U6: '' -> 'RE'"}
+{"ref": "pdf:p308:RETESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 99, "pdf_page": 308, "note": "U5: 'C111106' -> '(RETESTCD) C111106'"}
+{"ref": "pdf:p308:RETEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 108, "pdf_page": 308, "note": "U5: 'C111107' -> '(RETEST) C111107'"}
+{"ref": "pdf:p308:REPOS CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 135, "pdf_page": 308, "note": "U5: 'C71148' -> '(POSITION) C71148'"}
+{"ref": "pdf:p308:REORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 153, "pdf_page": 308, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p309:RESTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 189, "pdf_page": 309, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p309:RESTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 216, "pdf_page": 309, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p309:RELOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 234, "pdf_page": 309, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p309:RELAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 243, "pdf_page": 309, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p309:REDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 252, "pdf_page": 309, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p309:REMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 261, "pdf_page": 309, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p309:RELOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 270, "pdf_page": 309, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p309:REBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 279, "pdf_page": 309, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p309:REDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 288, "pdf_page": 309, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p309:REEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 297, "pdf_page": 309, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p309:REEVALID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 306, "pdf_page": 309, "note": "U5: 'C96777' -> '(MEDEVAL) C96777'"}
+{"ref": "pdf:p309:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 360, "pdf_page": 309, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/RE/spec.md", "kb_line_after": 431, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p429:RDOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RELREC/spec.md", "kb_line_after": 20, "pdf_page": 429, "note": "U5: 'C66734' -> '(DOMAIN) C66734'"}
+{"ref": "pdf:p429:RELTYPE CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RELREC/spec.md", "kb_line_after": 56, "pdf_page": 429, "note": "U5: 'C78737' -> '(RELTYPE) C78737'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/RELREC/spec.md", "kb_line_after": 73, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p439:SPEC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RELSPEC/spec.md", "kb_line_after": 38, "pdf_page": 439, "note": "U5: 'C78734; C111114' -> '(SPECTYPE) C78734; (GENSMP) C111114'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/RELSPEC/spec.md", "kb_line_after": 64, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p438:SREL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RELSUB/spec.md", "kb_line_after": 47, "pdf_page": 438, "note": "U5: 'C100130' -> '(RELSUB) C100130'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/RELSUB/spec.md", "kb_line_after": 55, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p305:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": 18, "pdf_page": 305, "note": "U6: '' -> 'RP'"}
+{"ref": "pdf:p305:RPTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": 90, "pdf_page": 305, "note": "U5: 'C106479' -> '(RPTESTCD) C106479'"}
+{"ref": "pdf:p305:RPTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": 99, "pdf_page": 305, "note": "U5: 'C106478' -> '(RPTEST) C106478'"}
+{"ref": "pdf:p305:RPORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": 135, "pdf_page": 305, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p306:RPSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": 162, "pdf_page": 306, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p306:RPSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": 171, "pdf_page": 306, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p306:RPLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": 189, "pdf_page": 306, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p306:RPBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": 198, "pdf_page": 306, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p306:RPDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": 207, "pdf_page": 306, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p306:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": 252, "pdf_page": 306, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/RP/spec.md", "kb_line_after": 332, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p329:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 18, "pdf_page": 329, "note": "U6: '' -> 'RS'"}
+{"ref": "pdf:p329:RSTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 90, "pdf_page": 329, "note": "U5: 'C96782' -> '(ONCRTSCD) C96782'"}
+{"ref": "pdf:p330:RSTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 99, "pdf_page": 330, "note": "U5: 'C96781' -> '(ONCRTS) C96781'"}
+{"ref": "pdf:p330:RSCAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 108, "pdf_page": 330, "note": "U5: 'C124298; C118971' -> '(ONCRSCAT) C124298; (CCCAT) C118971'"}
+{"ref": "pdf:p330:RSORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 135, "pdf_page": 330, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p330:RSSTRESC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 144, "pdf_page": 330, "note": "U5: 'C96785' -> '(ONCRSR) C96785'"}
+{"ref": "pdf:p330:RSSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 162, "pdf_page": 330, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p330:RSSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 171, "pdf_page": 330, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p330:RSMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 198, "pdf_page": 330, "note": "U5: 'C158113' -> '(QRSMTHOD) C158113'"}
+{"ref": "pdf:p330:RSLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 207, "pdf_page": 330, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p330:RSBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 216, "pdf_page": 330, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p330:RSDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 225, "pdf_page": 330, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p331:RSEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 234, "pdf_page": 331, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p331:RSEVALID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 243, "pdf_page": 331, "note": "U5: 'C96777' -> '(MEDEVAL) C96777'"}
+{"ref": "pdf:p331:RSACPTFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 252, "pdf_page": 331, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p331:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 297, "pdf_page": 331, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "pdf:p331:RSSTRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 387, "pdf_page": 331, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p332:RSENRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 405, "pdf_page": 332, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/RS/spec.md", "kb_line_after": 422, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p340:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SC/spec.md", "kb_line_after": 18, "pdf_page": 340, "note": "U6: '' -> 'SC'"}
+{"ref": "pdf:p340:SCTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SC/spec.md", "kb_line_after": 63, "pdf_page": 340, "note": "U5: 'C74559' -> '(SCTESTCD) C74559'"}
+{"ref": "pdf:p340:SCTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SC/spec.md", "kb_line_after": 72, "pdf_page": 340, "note": "U5: 'C103330' -> '(SCTEST) C103330'"}
+{"ref": "pdf:p340:SCORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SC/spec.md", "kb_line_after": 108, "pdf_page": 340, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p340:SCSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SC/spec.md", "kb_line_after": 135, "pdf_page": 340, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p340:SCSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SC/spec.md", "kb_line_after": 144, "pdf_page": 340, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p341:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SC/spec.md", "kb_line_after": 198, "pdf_page": 341, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/SC/spec.md", "kb_line_after": 224, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p79:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SE/spec.md", "kb_line_after": 18, "pdf_page": 79, "note": "U6: '' -> 'SE'"}
+{"ref": "pdf:p80:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SE/spec.md", "kb_line_after": 72, "pdf_page": 80, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/SE/spec.md", "kb_line_after": 125, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p84:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SM/spec.md", "kb_line_after": 18, "pdf_page": 84, "note": "U6: '' -> 'SM'"}
+{"ref": "pdf:p376:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 18, "pdf_page": 376, "note": "U6: '' -> 'SR'"}
+{"ref": "pdf:p376:SRTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 72, "pdf_page": 376, "note": "U5: 'C112024' -> '(SRTESTCD) C112024'"}
+{"ref": "pdf:p376:SRTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 81, "pdf_page": 376, "note": "U5: 'C112023' -> '(SRTEST) C112023'"}
+{"ref": "pdf:p376:SRORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 126, "pdf_page": 376, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p376:SRSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 153, "pdf_page": 376, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p376:SRSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 162, "pdf_page": 376, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p376:SRSPEC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 189, "pdf_page": 376, "note": "U5: 'C78734' -> '(SPECTYPE) C78734'"}
+{"ref": "pdf:p376:SRLOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 198, "pdf_page": 376, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p377:SRLAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 207, "pdf_page": 377, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p377:SRMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 216, "pdf_page": 377, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p377:SRLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 225, "pdf_page": 377, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p377:SRBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 234, "pdf_page": 377, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p377:SREVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 243, "pdf_page": 377, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p377:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 288, "pdf_page": 377, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "pdf:p377:SRDY CDISC Notes", "action": "REPLACED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 309, "pdf_page": 377, "note": "SR T-5 (PDF_TYPO): \"sponsor- defined\" -> \"sponsor-defined\""}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/SR/spec.md", "kb_line_after": 359, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p342:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SS/spec.md", "kb_line_after": 18, "pdf_page": 342, "note": "U6: '' -> 'SS'"}
+{"ref": "pdf:p343:SSTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SS/spec.md", "kb_line_after": 63, "pdf_page": 343, "note": "U5: 'C124305' -> '(SSTESTCD) C124305'"}
+{"ref": "pdf:p343:SSTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SS/spec.md", "kb_line_after": 72, "pdf_page": 343, "note": "U5: 'C124306' -> '(SSTEST) C124306'"}
+{"ref": "pdf:p343:SSSTRESC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SS/spec.md", "kb_line_after": 108, "pdf_page": 343, "note": "U5: 'C124304' -> '(SSTATRS) C124304'"}
+{"ref": "pdf:p343:SSSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SS/spec.md", "kb_line_after": 117, "pdf_page": 343, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p343:SSEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SS/spec.md", "kb_line_after": 135, "pdf_page": 343, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p343:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SS/spec.md", "kb_line_after": 180, "pdf_page": 343, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/SS/spec.md", "kb_line_after": 206, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p129:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 18, "pdf_page": 129, "note": "U6: '' -> 'SU'"}
+{"ref": "pdf:p129:SUPRESP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 108, "pdf_page": 129, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p129:SUOCCUR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 117, "pdf_page": 129, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p129:SUSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 126, "pdf_page": 129, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p130:SUDOSU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 180, "pdf_page": 130, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p130:SUDOSFRM CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 189, "pdf_page": 130, "note": "U5: 'C66726' -> '(FRM) C66726'"}
+{"ref": "pdf:p130:SUDOSFRQ CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 198, "pdf_page": 130, "note": "U5: 'C71113' -> '(FREQ) C71113'"}
+{"ref": "pdf:p130:SUROUTE CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 216, "pdf_page": 130, "note": "U5: 'C66729' -> '(ROUTE) C66729'"}
+{"ref": "pdf:p130:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 234, "pdf_page": 130, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "pdf:p130:SUSTRF CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 288, "pdf_page": 130, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p130:SUENRF CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 297, "pdf_page": 130, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p130:SUSTRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 306, "pdf_page": 130, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "pdf:p130:SUENRTPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 324, "pdf_page": 130, "note": "U5: 'C66728' -> '(STENRF) C66728'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 341, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p432:RDOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SUPPQUAL/spec.md", "kb_line_after": 20, "pdf_page": 432, "note": "U5: 'C66734' -> '(DOMAIN) C66734'"}
+{"ref": "pdf:p432:QEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SUPPQUAL/spec.md", "kb_line_after": 92, "pdf_page": 432, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/SUPPQUAL/spec.md", "kb_line_after": 100, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p86:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SV/spec.md", "kb_line_after": 18, "pdf_page": 86, "note": "U6: '' -> 'SV'"}
+{"ref": "pdf:p86:SVPRESP CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SV/spec.md", "kb_line_after": 54, "pdf_page": 86, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p86:SVOCCUR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SV/spec.md", "kb_line_after": 63, "pdf_page": 86, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p87:SVCNTMOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SV/spec.md", "kb_line_after": 81, "pdf_page": 87, "note": "U5: 'C171445' -> '(CNTMODE) C171445'"}
+{"ref": "pdf:p87:SVEPCHGI CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SV/spec.md", "kb_line_after": 90, "pdf_page": 87, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/SV/spec.md", "kb_line_after": 152, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p384:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/spec.md", "kb_line_after": 18, "pdf_page": 384, "note": "U6: '' -> 'TA'"}
+{"ref": "pdf:p385:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/spec.md", "kb_line_after": 90, "pdf_page": 385, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/spec.md", "kb_line_after": 98, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p411:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TD/spec.md", "kb_line_after": 18, "pdf_page": 411, "note": "U6: '' -> 'TD'"}
+{"ref": "pdf:p403:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TE/spec.md", "kb_line_after": 18, "pdf_page": 403, "note": "U6: '' -> 'TE'"}
+{"ref": "pdf:p416:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TI/spec.md", "kb_line_after": 18, "pdf_page": 416, "note": "U6: '' -> 'TI'"}
+{"ref": "pdf:p416:IECAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TI/spec.md", "kb_line_after": 45, "pdf_page": 416, "note": "U5: 'C66797' -> '(IECAT) C66797'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/TI/spec.md", "kb_line_after": 80, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p415:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TM/spec.md", "kb_line_after": 18, "pdf_page": 415, "note": "U6: '' -> 'TM'"}
+{"ref": "pdf:p415:TMRPT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TM/spec.md", "kb_line_after": 45, "pdf_page": 415, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/TM/spec.md", "kb_line_after": 53, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p350:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 18, "pdf_page": 350, "note": "U6: '' -> 'TR'"}
+{"ref": "pdf:p351:TRTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 90, "pdf_page": 351, "note": "U5: 'C96779' -> '(TRTESTCD) C96779'"}
+{"ref": "pdf:p351:TRTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 99, "pdf_page": 351, "note": "U5: 'C96778' -> '(TRTEST) C96778'"}
+{"ref": "pdf:p351:TRORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 117, "pdf_page": 351, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p351:TRSTRESC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 126, "pdf_page": 351, "note": "U5: 'C124309' -> '(TRPROPRS) C124309'"}
+{"ref": "pdf:p351:TRSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 144, "pdf_page": 351, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p351:TRSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 153, "pdf_page": 351, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p351:TRMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 180, "pdf_page": 351, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p351:TRLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 189, "pdf_page": 351, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p351:TRBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 198, "pdf_page": 351, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p351:TREVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 207, "pdf_page": 351, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p351:TREVALID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 216, "pdf_page": 351, "note": "U5: 'C96777' -> '(MEDEVAL) C96777'"}
+{"ref": "pdf:p351:TRACPTFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 225, "pdf_page": 351, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p351:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 270, "pdf_page": 351, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/TR/spec.md", "kb_line_after": 296, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p417:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/spec.md", "kb_line_after": 18, "pdf_page": 417, "note": "U6: '' -> 'TS'"}
+{"ref": "pdf:p417:TSPARMCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/spec.md", "kb_line_after": 45, "pdf_page": 417, "note": "U5: 'C66738' -> '(TSPARMCD) C66738'"}
+{"ref": "pdf:p417:TSPARM CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/spec.md", "kb_line_after": 54, "pdf_page": 417, "note": "U5: 'C67152' -> '(TSPARM) C67152'"}
+{"ref": "pdf:p418:TSVCDREF CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TS/spec.md", "kb_line_after": 90, "pdf_page": 418, "note": "U5: 'C66788' -> '(DICTNAM) C66788'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/TS/spec.md", "kb_line_after": 107, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p345:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 18, "pdf_page": 345, "note": "U6: '' -> 'TU'"}
+{"ref": "pdf:p345:TUTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 90, "pdf_page": 345, "note": "U5: 'C96784' -> '(TUTESTCD) C96784'"}
+{"ref": "pdf:p345:TUTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 99, "pdf_page": 345, "note": "U5: 'C96783' -> '(TUTEST) C96783'"}
+{"ref": "pdf:p345:TUSTRESC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 117, "pdf_page": 345, "note": "U5: 'C123650' -> '(TUIDRS) C123650'"}
+{"ref": "pdf:p345:TULOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 135, "pdf_page": 345, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p345:TULAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 144, "pdf_page": 345, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p345:TUDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 153, "pdf_page": 345, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p345:TUPORTOT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 162, "pdf_page": 345, "note": "U5: 'C99075' -> '(PORTOT) C99075'"}
+{"ref": "pdf:p346:TUMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 171, "pdf_page": 346, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p346:TULOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 180, "pdf_page": 346, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p346:TUBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 189, "pdf_page": 346, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p346:TUEVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 198, "pdf_page": 346, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p346:TUEVALID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 207, "pdf_page": 346, "note": "U5: 'C96777' -> '(MEDEVAL) C96777'"}
+{"ref": "pdf:p346:TUACPTFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 216, "pdf_page": 346, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p346:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 261, "pdf_page": 346, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/TU/spec.md", "kb_line_after": 287, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p407:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TV/spec.md", "kb_line_after": 18, "pdf_page": 407, "note": "U6: '' -> 'TV'"}
+{"ref": "pdf:p312:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 18, "pdf_page": 312, "note": "U6: '' -> 'UR'"}
+{"ref": "pdf:p312:URTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 90, "pdf_page": 312, "note": "U5: 'C129942' -> '(URNSTSCD) C129942'"}
+{"ref": "pdf:p313:URTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 99, "pdf_page": 313, "note": "U5: 'C129941' -> '(URNSTS) C129941'"}
+{"ref": "pdf:p313:URORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 144, "pdf_page": 313, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p313:URSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 171, "pdf_page": 313, "note": "U5: 'C71620' -> '(UNIT) C71620'"}
+{"ref": "pdf:p313:URSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 189, "pdf_page": 313, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p313:URLOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 207, "pdf_page": 313, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p313:URLAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 216, "pdf_page": 313, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p313:URDIR CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 225, "pdf_page": 313, "note": "U5: 'C99074' -> '(DIR) C99074'"}
+{"ref": "pdf:p313:URMETHOD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 234, "pdf_page": 313, "note": "U5: 'C85492' -> '(METHOD) C85492'"}
+{"ref": "pdf:p313:URLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 243, "pdf_page": 313, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p313:URBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 252, "pdf_page": 313, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p313:URDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 261, "pdf_page": 313, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p313:UREVAL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 270, "pdf_page": 313, "note": "U5: 'C78735' -> '(EVAL) C78735'"}
+{"ref": "pdf:p313:UREVALID CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 279, "pdf_page": 313, "note": "U5: 'C96777' -> '(MEDEVAL) C96777'"}
+{"ref": "pdf:p314:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 324, "pdf_page": 314, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/UR/spec.md", "kb_line_after": 395, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}
+{"ref": "pdf:p358:DOMAIN CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 18, "pdf_page": 358, "note": "U6: '' -> 'VS'"}
+{"ref": "pdf:p358:VSTESTCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 63, "pdf_page": 358, "note": "U5: 'C66741' -> '(VSTESTCD) C66741'"}
+{"ref": "pdf:p358:VSTEST CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 72, "pdf_page": 358, "note": "U5: 'C67153' -> '(VSTEST) C67153'"}
+{"ref": "pdf:p359:VSPOS CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 99, "pdf_page": 359, "note": "U5: 'C71148' -> '(POSITION) C71148'"}
+{"ref": "pdf:p359:VSORRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 117, "pdf_page": 359, "note": "U5: 'C66770' -> '(VSRESU) C66770'"}
+{"ref": "pdf:p359:VSSTRESU CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 144, "pdf_page": 359, "note": "U5: 'C66770' -> '(VSRESU) C66770'"}
+{"ref": "pdf:p359:VSSTAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 153, "pdf_page": 359, "note": "U5: 'C66789' -> '(ND) C66789'"}
+{"ref": "pdf:p359:VSLOC CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 171, "pdf_page": 359, "note": "U5: 'C74456' -> '(LOC) C74456'"}
+{"ref": "pdf:p359:VSLAT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 180, "pdf_page": 359, "note": "U5: 'C99073' -> '(LAT) C99073'"}
+{"ref": "pdf:p359:VSLOBXFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 189, "pdf_page": 359, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p359:VSBLFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 198, "pdf_page": 359, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p359:VSDRVFL CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 207, "pdf_page": 359, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p359:VSCLSIG CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 234, "pdf_page": 359, "note": "U5: 'C66742' -> '(NY) C66742'"}
+{"ref": "pdf:p359:EPOCH CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 279, "pdf_page": 359, "note": "U5: 'C99079' -> '(EPOCH) C99079'"}
+{"ref": "U5 KB note", "action": "INSERTED", "kb_file": "knowledge_base/domains/VS/spec.md", "kb_line_after": 350, "pdf_page": null, "note": "KB note line before Cross References (after spec footnotes)"}

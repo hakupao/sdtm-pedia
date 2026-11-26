@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** PE
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Original units in which the data were collected. The unit for PEORRES.
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate exam not done. Must be null if a result exists in PEORRES/PESTRESC.
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Location of Physical Exam Finding
 - **Type:** Char
-- **Controlled Terms:** C74456
+- **Controlled Terms:** (LOC) C74456
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Anatomical location of the subject relevant to the collection of the measurement. Example: "ARM" for skin rash.
@@ -168,7 +168,7 @@
 - **Order:** 19
 - **Label:** Laterality
 - **Type:** Char
-- **Controlled Terms:** C99073
+- **Controlled Terms:** (LAT) C99073
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location or specimen further detailing laterality. Examples: "RIGHT", "LEFT", "BILATERAL".
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Method of Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C85492
+- **Controlled Terms:** (METHOD) C85492
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Method of the test or examination. Examples: "PALPATION", "PERCUSSION".
@@ -186,7 +186,7 @@
 - **Order:** 21
 - **Label:** Last Observation Before Exposure Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Operationally derived indicator used to identify the last non-missing value prior to RFXSTDTC. Should be "Y" or null.
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A baseline defined by the sponsor (could be derived in the same manner as PELOBXFL or ABLFL, but is not required to be). The value should be "Y" or null. Note that PEBLFL is retained for backward compatibility. The authoritative baseline flag for statistical analysis is in an ADaM dataset.
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Evaluator
 - **Type:** Char
-- **Controlled Terms:** C78735
+- **Controlled Terms:** (EVAL) C78735
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Role of the person who provided the evaluation. Used only for results that are subjective (e.g., assigned by a person or a group). Example: "INVESTIGATOR".
@@ -249,7 +249,7 @@
 - **Order:** 28
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the observation date/time of the physical exam finding.
@@ -274,6 +274,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

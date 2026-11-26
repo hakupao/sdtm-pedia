@@ -1,0 +1,11 @@
+批次 S-TYPO (T2-post 全库排版字符脚本批, U1/U4/O59), attempt 1 = **DRY-RUN, 只出报告, 不改 KB**. 角色: writer.
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。先读: `.work/10_tier_b_repair/work/t2_batches/S-TYPO.json`; `evidence/checkpoints/t2_post_user_ack.md` (U1 排版字符照 PDF; U4 CRF ○ □ 照 PDF); `HANDOFF.md` "下一步" 第 2-3 条 (advisor 要求, 必须照做); `subagent_prompts/t2_dispatch_notes.md` 末尾各条; `work/t2_pdf_typo_registry.jsonl` (270 条 PDF_TYPO / T-n do-not-touch 清单) 与 `evidence/checkpoints/t4_user_decisions.md` 末 "S-TYPO 不能动的规则" 段; `work/out_of_scope_findings.md` 的 O40/O42/O59。
+范围: `knowledge_base/chapters/*.md`, `knowledge_base/domains/*/*.md`, `knowledge_base/model/*.md` (不含 terminology/ INDEX ROUTING VARIABLE_INDEX)。
+规则 (硬):
+- 只换排版字符; **闭替换表**: `'`↔`’`/`‘`, `"`↔`“`/`”`, `-`↔`–`/`—`, `...`↔`…`, `( )`/`[ ]`/`o`↔`○`/`□` (仅 CRF 选项上下文), em dash 两侧空格按 PDF 增删, `^1^`/行首 `1In this column`↔`¹In this column` (上标)。任何不在表内的字符变化 = 违规。
+- **do-not-touch**: registry 中每条的 kb_text_span 所在位置一律不动; 变量名前缀 `--XXX` (两个 ASCII 连字符) 永不转 dash; 标题行 (`#` 开头) 不动 (只登记, O60); 代码块 / 行内代码 / URL / Markdown 语法字符 (列表 `-`、表格 `|`、分隔 `---`、`**`) 不动; `> KB note` 块内是 KB 自写文字, 不按 PDF 改 (保持现状)。
+- 定位: 每个 KB 行只在该文件自身 PDF 页范围内 (各 S/B 批 json 的已更正 sections) 找对应 PDF 文本; 去排版归一化后匹配; 多处命中但对应排版字符一致 → 可用; 不一致 / 0 命中 → 不改, 进残余清单。
+- ○ □ 与上标: pdftotext 给不出 → 先枚举所有候选位置 (CRF 选项表 / 脚注上标), 对 PDF 渲染页定字形, 作为固定清单, 不靠文本匹配。
+任务 (dry-run): 写 `scripts/t2s/typo_plan.py` (提交) 生成计划 `work/t2_batches/S-TYPO.plan.jsonl` (每处替换一行: file, line, col, before_char, after_char, class, pdf_page, evidence) + `scripts/t2s/typo_assert.py` (断言: 与 HEAD 比, 每个改动行 = 原行经闭表替换得到, 无非空白字符增删; 改动集 ∩ do-not-touch = ∅; 不碰标题/代码/--VAR; 文件范围限定) —— 断言先做变异测试 (scratch 副本植入: alnum 改动 / 删一个连字符 / 改标题 / 改 `--VAR` / 改一个 registry span / 非表内字符替换 / 多删一个引号, 每种须 FAIL; 正对照 PASS)。
+报告 `evidence/checkpoints/t2_S-TYPO_dryrun.md`: 按替换类计数; **覆盖率** = 已解决行 / 含排版字符且与 PDF 不同的行 (按目录分); 残余清单分类 (0 命中 / 多命中不一致 / KB note / 标题) 与建议处置; 变异测试表。注意: fp_match 与覆盖矩阵对排版归一化 → 不作闸。
+scratch `/private/tmp/claude-501/-Volumes-DevSSD-Project-sdtm-pedia/d6800696-3318-4d1d-9806-05c60470220c/scratchpad/t2s_S-TYPO_writer/`。**禁止改 knowledge_base/**; 禁止 stash/checkout/reset/commit; PDF 文本不提交。trace 一行 (step T2S.S-TYPO, note dry-run)。回主控 ≤ 10 行: 各类计数、覆盖率、残余规模、需主控/用户定的规则。

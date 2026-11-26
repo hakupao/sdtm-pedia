@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** EX
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -132,7 +132,7 @@
 - **Order:** 15
 - **Label:** Dose Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Units for EXDOSE, EXDOSTOT, or EXDOSTXT representing protocol-specified values. Examples: "ng", "mg", "mg/kg", "mg/m2".
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Dose Form
 - **Type:** Char
-- **Controlled Terms:** C66726
+- **Controlled Terms:** (FRM) C66726
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Dose form for EXTRT. Examples: "TABLET", "LOTION".
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Dosing Frequency per Interval
 - **Type:** Char
-- **Controlled Terms:** C71113
+- **Controlled Terms:** (FREQ) C71113
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Usually expressed as the number of repeated administrations of EXDOSE within a specific time period. Examples: "Q2H", "QD", "BID".
@@ -168,7 +168,7 @@
 - **Order:** 19
 - **Label:** Route of Administration
 - **Type:** Char
-- **Controlled Terms:** C66729
+- **Controlled Terms:** (ROUTE) C66729
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Route of administration for the intervention. Examples: "ORAL", "INTRAVENOUS".
@@ -186,7 +186,7 @@
 - **Order:** 21
 - **Label:** Location of Dose Administration
 - **Type:** Char
-- **Controlled Terms:** C74456
+- **Controlled Terms:** (LOC) C74456
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Specifies location of administration. Examples: "ARM", "LIP".
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Laterality
 - **Type:** Char
-- **Controlled Terms:** C99073
+- **Controlled Terms:** (LAT) C99073
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location further detailing laterality of the intervention administration. Examples: "LEFT", "RIGHT".
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Directionality
 - **Type:** Char
-- **Controlled Terms:** C99074
+- **Controlled Terms:** (DIR) C99074
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location further detailing directionality. Examples: "ANTERIOR", "LOWER", "PROXIMAL", "UPPER".
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Fasting Status
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify fasting status. Examples: "Y", "N".
@@ -240,7 +240,7 @@
 - **Order:** 27
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Trial epoch of the exposure record. Examples: "RUN-IN", "TREATMENT".
@@ -337,6 +337,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

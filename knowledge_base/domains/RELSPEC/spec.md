@@ -35,7 +35,7 @@
 - **Order:** 4
 - **Label:** Specimen Type
 - **Type:** Char
-- **Controlled Terms:** C78734; C111114
+- **Controlled Terms:** (SPECTYPE) C78734; (GENSMP) C111114
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Defines the type of specimen used for a measurement. Examples: "SERUM", "PLASMA", "URINE", "SOFT TISSUE".
@@ -60,6 +60,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

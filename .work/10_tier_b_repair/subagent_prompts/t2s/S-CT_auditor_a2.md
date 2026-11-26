@@ -1,0 +1,5 @@
+批次 S-CT (T2-post 全库脚本批, U5/U6), attempt 2 终态. 角色: auditor (Rule A 独立抽检)。
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。读 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` Auditor 段 (按脚本批适配) 与 `evidence/checkpoints/t2_post_user_ack.md` (U5/U6)。audit_matrix 唯一路径 `.work/10_tier_b_repair/audit_matrix.md`。
+改动未提交: `git diff HEAD -- knowledge_base/` (63 个 spec.md: 570 CT 格补括号短名 / 588 码, 59 DOMAIN 补域代码, 59 文件 KB note, SR SRDY 1 行白名单)。
+抽样 (覆盖 brief): 总体 = 全部改动单元 (570 CT 格 + 59 DOMAIN + 59 note + 1 SR); N = 30, seed 20261126, **按替换类分层**: 多 codelist 格 ≥5、单 codelist 格 ≥12、DOMAIN ≥6、note ≥5 (核位置 + 措辞属实: 该文件确有 C-code)、SR 1。每样本对 PDF 渲染页逐格核 CT 单元格括号短名与顺序 (DOMAIN = PDF 值), 并独立用 `source/cdisc/SDTM Terminology.xlsx` 核 C-code↔短名。另独立跑一次 `python3 .work/10_tier_b_repair/scripts/t2s/ct_assert.py` (先读代码理解参数) 记结果。先独立判, 判完才读 writer/reviewer 报告 (`t2_S-CT*.md`)。
+输出 `evidence/checkpoints/t2_S-CT_audit.md` + audit_matrix 一行 (首列 `T2S.S-CT auditor a2`) + trace 一行。只读 KB; 禁止 stash/checkout/reset/commit; xlsx/PDF 内容引文 ≤25 词。回主控 ≤ 6 行。

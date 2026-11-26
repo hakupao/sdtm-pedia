@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** EG
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** ECG Test or Examination Short Name
 - **Type:** Char
-- **Controlled Terms:** C71153; C120523
+- **Controlled Terms:** (EGTESTCD) C71153; (HETESTCD) C120523
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the measurement, test, or examination described in EGTEST. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in EGTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). EGTESTCD cannot contain characters other than letters, numbers, or underscores. Examples: "PRAG", "QRSAG".  Test codes are in 2 separate codelists, 1 for tests based on regular 10-second ECGs (EGTESTCD) and one 1 tests based on Holter monitoring (HETESTCD).
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** ECG Test or Examination Name
 - **Type:** Char
-- **Controlled Terms:** C71152; C120524
+- **Controlled Terms:** (EGTEST) C71152; (HETEST) C120524
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Verbatim name of the test or examination used to obtain the measurement or finding. The value in EGTEST cannot be longer than 40 characters. Examples: "PR Interval, Aggregate", "QRS Duration, Aggregate".  Test names are in 2 separate codelists, 1 for tests based on regular 10-second ECGs (EGTEST) and 1 for tests based on Holter monitoring (HETEST).
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** ECG Position of Subject
 - **Type:** Char
-- **Controlled Terms:** C71148
+- **Controlled Terms:** (POSITION) C71148
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Position of the subject during a measurement or examination. Examples: "SUPINE", "STANDING", "SITTING".
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Original units in which the data were collected. The unit for EGORRES. Examples: "sec", "msec".
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Character Result/Finding in Std Format
 - **Type:** Char
-- **Controlled Terms:** C71150; C120522; C101834
+- **Controlled Terms:** (EGSTRESC) C71150; (HESTRESC) C120522; (NORMABNM) C101834
 - **Role:** Result Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Contains the result value for all findings copied or derived from EGORRES, in a standard format or standard units. EGSTRESC should store all results or findings in character format; if results are numeric, they should also be stored in numeric format in EGSTRESN. For example, if a test has results of 62 beats/min, then EGORRES = "62", EGORRESU = "beats/min", EGSTRESC = "62", EGSTRESN = 62, and EGSTRESU = "beats/min" . For other examples, see Original and Standardized Results. Additional examples of result data: "SINUS BRADYCARDIA", "ATRIAL FLUTTER", "ATRIAL FIBRILLATION".  Test results are in 3 separate codelists: EGSTRESC for abnormal test results based on regular 10-second ECGs; HESTRESC for abnormal test results based on Holter monitoring, and NORMABNM for generic test results and/or responses to EGTEST = "Interpretation".
@@ -168,7 +168,7 @@
 - **Order:** 19
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Standardized units used for EGSTRESC and EGSTRESN.
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate an ECG was not done, or an ECG measurement was not taken. Should be null if a result exists in EGORRES.
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Method of Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C71151
+- **Controlled Terms:** (EGMETHOD) C71151
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Method of the ECG test. Example: "12-LEAD STANDARD".
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** Lead Location Used for Measurement
 - **Type:** Char
-- **Controlled Terms:** C90013
+- **Controlled Terms:** (EGLEAD) C90013
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The lead used for the measurement. Examples: "LEAD 1", "LEAD 2", "LEAD rV2", "LEAD V1".
@@ -231,7 +231,7 @@
 - **Order:** 26
 - **Label:** Last Observation Before Exposure Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Operationally derived indicator used to identify the last non-missing value prior to RFXSTDTC. The value should be "Y" or null.
@@ -240,7 +240,7 @@
 - **Order:** 27
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify a baseline value. Should be "Y" or null. Note that EGBLFL is retained for backward compatibility. The authoritative baseline for statistical analysis is in an ADaM dataset.
@@ -249,7 +249,7 @@
 - **Order:** 28
 - **Label:** Derived Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a derived record. The value should be "Y" or null. Records that represent the average of other records, or that do not come from the CRF, or are not as originally collected or received are examples of records that would be derived for the submission datasets. If EGDRVFL="Y", then EGORRES could be null, with EGSTRESC and EGSTRESN (if the result is numeric) having the derived value.
@@ -258,7 +258,7 @@
 - **Order:** 29
 - **Label:** Evaluator
 - **Type:** Char
-- **Controlled Terms:** C78735
+- **Controlled Terms:** (EVAL) C78735
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Role of the person who provided the evaluation. Used only for results that are subjective (e.g., assigned by a person or a group). Should be null for records that contain collected or derived data. Examples: "INVESTIGATOR", "ADJUDICATION COMMITTEE", "VENDOR".
@@ -267,7 +267,7 @@
 - **Order:** 30
 - **Label:** Evaluator Identifier
 - **Type:** Char
-- **Controlled Terms:** C96777
+- **Controlled Terms:** (MEDEVAL) C96777
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to distinguish multiple evaluators with the same role recorded in EGEVAL. Examples: "RADIOLOGIST 1" or "RADIOLOGIST 2".
@@ -276,7 +276,7 @@
 - **Order:** 31
 - **Label:** Clinically Significant, Collected
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate whether a collected observation is clinically significant based on judgment.
@@ -330,7 +330,7 @@
 - **Order:** 37
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the date/time at which the assessment was made.
@@ -400,6 +400,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

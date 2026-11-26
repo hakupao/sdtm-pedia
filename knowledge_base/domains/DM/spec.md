@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** DM
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Subject Death Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Indicates the subject died. Should be "Y" or null. Should be populated even when the death date is unknown.
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Age Units
 - **Type:** Char
-- **Controlled Terms:** C66781
+- **Controlled Terms:** (AGEU) C66781
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Units associated with AGE.
@@ -186,7 +186,7 @@
 - **Order:** 21
 - **Label:** Sex
 - **Type:** Char
-- **Controlled Terms:** C66731
+- **Controlled Terms:** (SEX) C66731
 - **Role:** Record Qualifier
 - **Core:** Req
 - **CDISC Notes:** Sex of the subject.
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Race
 - **Type:** Char
-- **Controlled Terms:** C74457
+- **Controlled Terms:** (RACE) C74457
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Race of the subject. Sponsors should refer to the FDA guidance² regarding the collection of race. See assumption below regarding RACE.
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Ethnicity
 - **Type:** Char
-- **Controlled Terms:** C66790
+- **Controlled Terms:** (ETHNIC) C66790
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The ethnicity of the subject. Sponsors should refer to the FDA guidance² regarding the collection of ethnicity.
@@ -249,7 +249,7 @@
 - **Order:** 28
 - **Label:** Reason Arm and/or Actual Arm is Null
 - **Type:** Char
-- **Controlled Terms:** C142179
+- **Controlled Terms:** (ARMNULRS) C142179
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** A coded reason that arm variables (ARM and ARMCD) and/or actual arm variables (ACTARM and ACTARMCD) are null. Examples: "SCREEN FAILURE", "NOT ASSIGNED", "ASSIGNED, NOT TREATED", "UNPLANNED TREATMENT". It is assumed that if the arm and actual arm variables are null, the same reason applies to both arm and actual arm.
@@ -294,6 +294,8 @@
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 > ²Food and Drug Administration. Collection of Race and Ethnicity Data in Clinical Trials. US Department of Health and Human Services;2016. Accessed January 8, 2020. https://www.fda.gov/downloads/regulatoryinformation/guidances/ucm126396.pdf
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

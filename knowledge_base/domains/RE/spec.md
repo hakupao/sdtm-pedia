@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** RE
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Short Name of Respiratory Test
 - **Type:** Char
-- **Controlled Terms:** C111106
+- **Controlled Terms:** (RETESTCD) C111106
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the measurement, test, or examination. It can be used as a column name when converting a dataset from a vertical format to a horizontal format. The value in RETESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). RETESTCD cannot contain characters other than letters, numbers, or underscores. Examples: "FEV1", "FVC".
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Name of Respiratory Test
 - **Type:** Char
-- **Controlled Terms:** C111107
+- **Controlled Terms:** (RETEST) C111107
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Verbatim name of the test or examination used to obtain the measurement or finding. The value in RETEST cannot be longer than 40 characters. Examples: "Forced Expiratory Volume in 1 Second", "Forced Vital Capacity".
@@ -132,7 +132,7 @@
 - **Order:** 15
 - **Label:** Position of Subject During Observation
 - **Type:** Char
-- **Controlled Terms:** C71148
+- **Controlled Terms:** (POSITION) C71148
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Position of the subject during a measurement or examination. Examples: "SUPINE", "STANDING", "SITTING".
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Original units in which the data were collected. The unit for REORRES and REORREF.
@@ -186,7 +186,7 @@
 - **Order:** 21
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Standardized unit used for RESTRESC, RESTRESN and RESTREFN.
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate that a test was not done or a measurement was not taken. Should be null if a result exists in REORRES.
@@ -231,7 +231,7 @@
 - **Order:** 26
 - **Label:** Location Used for the Measurement
 - **Type:** Char
-- **Controlled Terms:** C74456
+- **Controlled Terms:** (LOC) C74456
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Anatomical location of the subject relevant to the collection of the measurement. Examples: "LUNG", "BRONCHUS".
@@ -240,7 +240,7 @@
 - **Order:** 27
 - **Label:** Laterality
 - **Type:** Char
-- **Controlled Terms:** C99073
+- **Controlled Terms:** (LAT) C99073
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Side of the body used to collect measurement. Examples: "RIGHT", "LEFT".
@@ -249,7 +249,7 @@
 - **Order:** 28
 - **Label:** Directionality
 - **Type:** Char
-- **Controlled Terms:** C99074
+- **Controlled Terms:** (DIR) C99074
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location or specimen further detailing directionality. Examples: "ANTERIOR", "LOWER", "PROXIMAL".
@@ -258,7 +258,7 @@
 - **Order:** 29
 - **Label:** Method of Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C85492
+- **Controlled Terms:** (METHOD) C85492
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Method used to create the result.
@@ -267,7 +267,7 @@
 - **Order:** 30
 - **Label:** Last Observation Before Exposure Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Operationally-derived indicator used to identify the last non-missing value prior to RFXSTDTC. The value should be "Y" or null.
@@ -276,7 +276,7 @@
 - **Order:** 31
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify a baseline value. Should be Y or null. Note that REBLFL is retained for backward compatibility. The authoritative baseline flag for statistical analysis is in an ADaM dataset.
@@ -285,7 +285,7 @@
 - **Order:** 32
 - **Label:** Derived Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a derived record. Should be "Y" or null. Records that represent the average of other records, or that do not come from the CRF, or are not as originally collected or received are examples of records that would be derived for the submission datasets. If REDRVFL = "Y", then REORRES could be null, with RESTRESC and (if numeric) RESTRESN having the derived value.
@@ -294,7 +294,7 @@
 - **Order:** 33
 - **Label:** Evaluator
 - **Type:** Char
-- **Controlled Terms:** C78735
+- **Controlled Terms:** (EVAL) C78735
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Role of the person who provided the evaluation. Used only for results that are subjective (e.g., assigned by a person or a group). Examples: "ADJUDICATION COMMITTEE", "INDEPENDENT ASSESSOR", "RADIOLOGIST".
@@ -303,7 +303,7 @@
 - **Order:** 34
 - **Label:** Evaluator Identifier
 - **Type:** Char
-- **Controlled Terms:** C96777
+- **Controlled Terms:** (MEDEVAL) C96777
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to distinguish multiple evaluators with the same role recorded in REEVAL. Examples: "RADIOLOGIST1", "RADIOLOGIST2".
@@ -357,7 +357,7 @@
 - **Order:** 40
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the date/time at which the assessment was made.
@@ -427,6 +427,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

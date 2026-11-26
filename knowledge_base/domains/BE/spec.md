@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** BE
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Dictionary-Derived Term
 - **Type:** Char
-- **Controlled Terms:** C124297
+- **Controlled Terms:** (BEDECOD) C124297
 - **Role:** Synonym Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Dictionary-derived text description of BETERM or BEMODIFY, if applicable.
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Anatomical Location of Event
 - **Type:** Char
-- **Controlled Terms:** C74456
+- **Controlled Terms:** (LOC) C74456
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Describes the anatomical location relevant for the event (e.g. BRAIN, LUNG).
@@ -227,6 +227,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Collected duration and unit of a biospecimen event. Used only if collected on the CRF and not derived from start and end date/times. Example: P1DT2H (for 1 day, 2 hours).
 ---
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

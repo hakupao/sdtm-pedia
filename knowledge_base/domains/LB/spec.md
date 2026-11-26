@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** LB
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -69,7 +69,7 @@
 - **Order:** 8
 - **Label:** Lab Test or Examination Short Name
 - **Type:** Char
-- **Controlled Terms:** C65047
+- **Controlled Terms:** (LBTESTCD) C65047
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the measurement, test, or examination described in LBTEST. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in LBTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). LBTESTCD cannot contain characters other than letters, numbers, or underscores. Examples: "ALT", "LDH".
@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Lab Test or Examination Name
 - **Type:** Char
-- **Controlled Terms:** C67154
+- **Controlled Terms:** (LBTEST) C67154
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Verbatim name of the test or examination used to obtain the measurement or finding. Note: Any test normally performed by a clinical laboratory is considered a lab test. The value in LBTEST cannot be longer than 40 characters. Examples: "Alanine Aminotransferase", "Lactate Dehydrogenase".
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Test Condition
 - **Type:** Char
-- **Controlled Terms:** C181175
+- **Controlled Terms:** (TESTCOND) C181175
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Identifies any planned condition imposed by the assay system on the specimen at the time the test is performed.
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Test Operational Objective
 - **Type:** Char
-- **Controlled Terms:** C181170
+- **Controlled Terms:** (TSTOPOBJ) C181170
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Text description of the high-level purpose of the test at the operational level.
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Original units in which the data were collected. The unit for LBORRES. Example: "g/L".
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Result Scale
 - **Type:** Char
-- **Controlled Terms:** C177910
+- **Controlled Terms:** (RSLSCLRS) C177910
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Classifies the scale of the original result value; for example, whether the result is ordinal, nominal, quantitative, or narrative.
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Result Type
 - **Type:** Char
-- **Controlled Terms:** C179588
+- **Controlled Terms:** (RESTYPRS) C179588
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Classifies the kind of result (i.e., property type) originally reported for the test. Examples include substance concentration, proportion, mass rate, and arbitrary concentration.
@@ -168,7 +168,7 @@
 - **Order:** 19
 - **Label:** Collected Summary Result Type
 - **Type:** Char
-- **Controlled Terms:** C177908
+- **Controlled Terms:** (COLSTYP) C177908
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate the type of collected summary result. This includes source summary results collected on a CRF or provided by an external vendor (e.g., central lab). If the summary result is derived by the sponsor using individual source data records from SDTM, the derived summary result is represented in ADaM. If the summary result is produced and reported by the lab, the collected summary result is represented in SDTM.
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Character Result/Finding in Std Format
 - **Type:** Char
-- **Controlled Terms:** C102580
+- **Controlled Terms:** (LBSTRESC) C102580
 - **Role:** Result Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Contains the result value for all findings, copied or derived from LBORRES in a standard format or standard units. LBSTRESC should store all results or findings in character format; if results are numeric, they should also be stored in numeric format in LBSTRESN. For example, if a test has results "NONE", "NEG", and "NEGATIVE" in LBORRES and these results effectively have the same meaning, they could be represented in standard format in LBSTRESC as "NEGATIVE". For other examples, see Original and Standardized Results.
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Standardized unit used for LBSTRESC or LBSTRESN.
@@ -258,7 +258,7 @@
 - **Order:** 29
 - **Label:** Reference Range Indicator
 - **Type:** Char
-- **Controlled Terms:** C78736
+- **Controlled Terms:** (NRIND) C78736
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Indicates where the value falls with respect to reference range defined by LBORNRLO and LBORNRHI, LBSTNRLO and LBSTNRHI, or by LBSTNRC. Examples: "NORMAL", "ABNORMAL", "HIGH", "LOW". Sponsors should specify in the study metadata (Comments column in the Define-XML document) whether LBNRIND refers to the original or standard reference ranges and results. LBNRIND is not used to indicate clinical significance.
@@ -267,7 +267,7 @@
 - **Order:** 30
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate exam not done. Should be null if a result exists in LBORRES.
@@ -303,7 +303,7 @@
 - **Order:** 34
 - **Label:** Specimen Type
 - **Type:** Char
-- **Controlled Terms:** C78734
+- **Controlled Terms:** (SPECTYPE) C78734
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Defines the type of specimen used for a measurement. Examples: "SERUM", "PLASMA", "URINE".
@@ -312,7 +312,7 @@
 - **Order:** 35
 - **Label:** Specimen Condition
 - **Type:** Char
-- **Controlled Terms:** C78733
+- **Controlled Terms:** (SPECCOND) C78733
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The physical state or quality of a sample for an assessment. Examples: "HEMOLYZED", "ICTERIC", "LIPEMIC".
@@ -321,7 +321,7 @@
 - **Order:** 36
 - **Label:** Specimen Usability for the Test
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Describes the usability of the specimen for the test. The value will be "N" if the specimen is not usable, and null if the specimen is usable.
@@ -330,7 +330,7 @@
 - **Order:** 37
 - **Label:** Method of Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C85492
+- **Controlled Terms:** (METHOD) C85492
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Method of the test or examination. Examples: "EIA" (enzyme immunoassay), "ELECTROPHORESIS", "DIPSTICK".
@@ -339,7 +339,7 @@
 - **Order:** 38
 - **Label:** Analysis Method
 - **Type:** Char
-- **Controlled Terms:** C160922
+- **Controlled Terms:** (LBANMET) C160922
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Analysis method applied to obtain a summarized result. Analysis method describes the method of secondary processing applied to a complex observation result (e.g., a calculation used to measure eGFR).
@@ -348,7 +348,7 @@
 - **Order:** 39
 - **Label:** Test Method Sensitivity
 - **Type:** Char
-- **Controlled Terms:** C179589
+- **Controlled Terms:** (TSTMTHSN) C179589
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The sensitivity of the test methodology with respect to observation, detection, or quantification.
@@ -357,7 +357,7 @@
 - **Order:** 40
 - **Label:** Last Observation Before Exposure Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Operationally derived indicator used to identify the last non-missing value prior to RFXSTDTC. The value should be "Y" or null.
@@ -366,7 +366,7 @@
 - **Order:** 41
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify a baseline value. Should be "Y" or null. Note that LBBLFL is retained for backward compatibility. The authoritative baseline for statistical analysis is in an ADaM dataset.
@@ -375,7 +375,7 @@
 - **Order:** 42
 - **Label:** Fasting Status
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify fasting status. Examples: "Y", "N".
@@ -384,7 +384,7 @@
 - **Order:** 43
 - **Label:** Derived Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a derived record. The value should be "Y" or null. Records that represent the average of other records, or do not come from the CRF, or are not as originally received or collected are examples of records that might be derived for the submission datasets. If LBDRVFL="Y", then LBORRES may be null, with LBSTRESC and (if numeric) LBSTRESN having the derived value.
@@ -411,7 +411,7 @@
 - **Order:** 46
 - **Label:** Clinically Significant, Collected
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate whether a collected observation is clinically significant based on judgment.
@@ -456,7 +456,7 @@
 - **Order:** 51
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the observation, or the date/time of collection if start date/time is not collected.
@@ -546,7 +546,7 @@
 - **Order:** 61
 - **Label:** Point in Time Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** An indication that the specimen was collected at a single point in time. The value is "Y" or null. The intent of this variable in the LB domain is to aid mapping to LOINC codes in the dataset, when LOINC part "Time Aspect" = "Pt".
@@ -562,6 +562,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

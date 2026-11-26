@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** MS
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Short Name of Assessment
 - **Type:** Char
-- **Controlled Terms:** C128688
+- **Controlled Terms:** (MSTESTCD) C128688
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short character value for MSTEST used as a column name when converting a dataset from a vertical format to a horizontal format. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in MSTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). MSTESTCD cannot contain characters other than letters, numbers, or underscores. Examples: "MIC" for Minimum Inhibitory Concentration; "MICROSUS" for Microbial Susceptibility.
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Name of Assessment
 - **Type:** Char
-- **Controlled Terms:** C128687
+- **Controlled Terms:** (MSTEST) C128687
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Verbatim name of the test or examination used to obtain the measurement or finding. The value in MSTEST cannot be longer than 40 characters. Examples: "Minimum Inhibitory Concentration", "Microbial Susceptibility".
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Agent Concentration Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Units for value of the agent concentration listed in MSCONC. Example: "mg/L".
@@ -168,7 +168,7 @@
 - **Order:** 19
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Unit for MSORRES. Examples: "ug/mL".
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Standardized units used for MSSTRESC and MSSTRESN. Example: "mol/L".
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Normal/Reference Range Indicator
 - **Type:** Char
-- **Controlled Terms:** C78736
+- **Controlled Terms:** (NRIND) C78736
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate the value is outside the normal range or reference range. May be defined by MSORNRLO and MSORNRHI or other objective criteria. Examples: "Y", "N", "HIGH", "LOW", "NORMAL". "ABNORMAL".
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Result Category
 - **Type:** Char
-- **Controlled Terms:** C85495
+- **Controlled Terms:** (MSRESCAT) C85495
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to categorize the result of a finding. In SDTMIG v3.2, MSRESCAT was used to categorize a numeric susceptibility result represented in MSORRES as either "SUSCEPTIBLE", "INTERMEDIATE", or "RESISTANT". However, results from some susceptibility tests may report only a categorical result and not a numeric result. Thus, in order for susceptibility results to be represented consistently, MSRESCAT should no longer be used for this purpose. In this version, the core designation has been changed from Expected to Permissible.
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate that a question was not asked or a test was not done, or a test was attempted but did not generate a result. Should be null or have a value of "NOT DONE".
@@ -267,7 +267,7 @@
 - **Order:** 30
 - **Label:** Specimen Material Type
 - **Type:** Char
-- **Controlled Terms:** C78734
+- **Controlled Terms:** (SPECTYPE) C78734
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Defines the type of specimen used for a measurement. Example: "SPUTUM".
@@ -276,7 +276,7 @@
 - **Order:** 31
 - **Label:** Specimen Condition
 - **Type:** Char
-- **Controlled Terms:** C78733
+- **Controlled Terms:** (SPECCOND) C78733
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Defines the condition of the specimen. Example: "CLOUDY".
@@ -285,7 +285,7 @@
 - **Order:** 32
 - **Label:** Location Used for the Measurement
 - **Type:** Char
-- **Controlled Terms:** C74456
+- **Controlled Terms:** (LOC) C74456
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Anatomical location of the subject relevant to the collection of the measurement.
@@ -294,7 +294,7 @@
 - **Order:** 33
 - **Label:** Laterality
 - **Type:** Char
-- **Controlled Terms:** C99073
+- **Controlled Terms:** (LAT) C99073
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location or specimen further detailing laterality. Examples: "RIGHT", "LEFT", "BILATERAL".
@@ -303,7 +303,7 @@
 - **Order:** 34
 - **Label:** Directionality
 - **Type:** Char
-- **Controlled Terms:** C99074
+- **Controlled Terms:** (DIR) C99074
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location or specimen further detailing directionality. Examples: "ANTERIOR", "LOWER", "PROXIMAL".
@@ -312,7 +312,7 @@
 - **Order:** 35
 - **Label:** Method of Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C85492
+- **Controlled Terms:** (METHOD) C85492
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Method of the test or examination. Examples: "EPSILOMETER", "MACRO BROTH DILUTION".
@@ -330,7 +330,7 @@
 - **Order:** 37
 - **Label:** Last Observation Before Exposure Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Operationally derived indicator used to identify the last non-missing value prior to RFXSTDTC. The value should be "Y" or null.
@@ -339,7 +339,7 @@
 - **Order:** 38
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify a baseline value. Should be "Y" or null. Note that MSBLFL is retained for backward compatibility. The authoritative baseline for statistical analysis is in an ADaM dataset.
@@ -348,7 +348,7 @@
 - **Order:** 39
 - **Label:** Fasting Status
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify fasting status. Valid values include "Y", "N", "U", or null if not relevant.
@@ -357,7 +357,7 @@
 - **Order:** 40
 - **Label:** Derived Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a derived record (e.g., a record that represents the average of other records such as a computed baseline). Should be "Y" or null.
@@ -366,7 +366,7 @@
 - **Order:** 41
 - **Label:** Evaluator
 - **Type:** Char
-- **Controlled Terms:** C78735
+- **Controlled Terms:** (EVAL) C78735
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Role of the person who provided the evaluation. Used only for results that are subjective (e.g., assigned by a person or a group). Examples: "ADJUDICATION COMMITTEE", "INDEPENDENT ASSESSOR", "MICROSCOPIST".
@@ -375,7 +375,7 @@
 - **Order:** 42
 - **Label:** Evaluator Identifier
 - **Type:** Char
-- **Controlled Terms:** C96777
+- **Controlled Terms:** (MEDEVAL) C96777
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to distinguish multiple evaluators with the same role recorded in MSEVAL. Examples: "RADIOLOGIST1" or "RADIOLOGIST2".
@@ -384,7 +384,7 @@
 - **Order:** 43
 - **Label:** Accepted Record Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** In cases where more than 1 assessor provides an evaluation of a result or response, this flag identifies the record that is considered, by an independent assessor, to be the accepted evaluation. Expected to be "Y" or null.
@@ -456,7 +456,7 @@
 - **Order:** 51
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the date/time at which the specimen was collected.
@@ -553,6 +553,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** SS
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -60,7 +60,7 @@
 - **Order:** 7
 - **Label:** Status Short Name
 - **Type:** Char
-- **Controlled Terms:** C124305
+- **Controlled Terms:** (SSTESTCD) C124305
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the status assessment described in SSTEST. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in SSTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). SSTESTCD cannot contain characters other than letters, numbers, or underscores. Example: "SURVSTAT".
@@ -69,7 +69,7 @@
 - **Order:** 8
 - **Label:** Status Name
 - **Type:** Char
-- **Controlled Terms:** C124306
+- **Controlled Terms:** (SSTEST) C124306
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Verbatim name of the status assessment used to obtain the finding. The value in SSTEST cannot be longer than 40 characters. Example: "Survival Status".
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Character Result/Finding in Std Format
 - **Type:** Char
-- **Controlled Terms:** C124304
+- **Controlled Terms:** (SSTATRS) C124304
 - **Role:** Result Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Contains the result value for all findings copied or derived from SSORRES, in a standard format.
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a status assessment was not done. Should be null if a result exists in SSORRES.
@@ -132,7 +132,7 @@
 - **Order:** 15
 - **Label:** Evaluator
 - **Type:** Char
-- **Controlled Terms:** C78735
+- **Controlled Terms:** (EVAL) C78735
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Role of the person who provided the evaluation. Used only for results that are subjective (e.g., assigned by a person or a group). Should be null for records that contain collected or derived data. Examples: "CAREGIVER", "ADJUDICATION COMMITTEE", "FRIEND".
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the subject status assessment.
@@ -202,6 +202,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** PP
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -51,7 +51,7 @@
 - **Order:** 6
 - **Label:** Parameter Short Name
 - **Type:** Char
-- **Controlled Terms:** C85839
+- **Controlled Terms:** (PKPARMCD) C85839
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the pharmacokinetic parameter. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in PPTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). PPTESTCD cannot contain characters other than letters, numbers, or underscores. Examples: "AUCALL", "TMAX", "CMAX".
@@ -60,7 +60,7 @@
 - **Order:** 7
 - **Label:** Parameter Name
 - **Type:** Char
-- **Controlled Terms:** C85493
+- **Controlled Terms:** (PKPARM) C85493
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Name of the pharmacokinetic parameter. The value in PPTEST cannot be longer than 40 characters. Examples: "AUC All", "Time of CMAX", "Max Conc".
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C85494; C128684; C128683; C128685; C128686
+- **Controlled Terms:** (PKUNIT) C85494; (PKUWG) C128684; (PKUWKG) C128683; (PKUDMG) C128685; (PKUDUG) C128686
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Original units in which the data were collected. The unit for PPORRES. Example: "ng/L". See PP Assumption 3.
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C85494; C128684; C128683; C128685; C128686
+- **Controlled Terms:** (PKUNIT) C85494; (PKUWG) C128684; (PKUWKG) C128683; (PKUDMG) C128685; (PKUDUG) C128686
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Standardized unit used for PPSTRESC and PPSTRESN. See PP Assumption 3.
@@ -132,7 +132,7 @@
 - **Order:** 15
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate that a parameter was not calculated. Should be null if a result exists in PPORRES.
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Specimen Material Type
 - **Type:** Char
-- **Controlled Terms:** C78734
+- **Controlled Terms:** (SPECTYPE) C78734
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Defines the type of specimen used for a measurement. If multiple specimen types are used for a calculation (e.g., serum and urine for renal clearance), then this field should be left blank. Examples: "SERUM", "PLASMA", "URINE".
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Analysis Method
 - **Type:** Char
-- **Controlled Terms:** C172330
+- **Controlled Terms:** (PKANMET) C172330
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Analysis method applied to obtain a summarized result. Analysis method describes the method of secondary processing applied to a complex observation result. Example: A named formula used to calculate AUC, such as "LIN-LOG TRAPEZOIDAL METHOD".  Sponsor-defined formulas can also be represented by this variable. Example: Calculating ratio AUCs where the PPANMETH may be "DRUG METABOLITE 1 TO DRUG PARENT" or "DRUG METABOLITE 2 TO METABOLITE 1".
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the observation, or the date/time of collection if start date/time is not collected.
@@ -238,6 +238,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

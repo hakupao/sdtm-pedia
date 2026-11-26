@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** CO
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -24,7 +24,7 @@
 - **Order:** 3
 - **Label:** Related Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** C66734
+- **Controlled Terms:** (DOMAIN) C66734
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Two-character abbreviation for the domain of the parent record(s). Null for comments collected on a general comments or additional information CRF page.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Evaluator
 - **Type:** Char
-- **Controlled Terms:** C78735
+- **Controlled Terms:** (EVAL) C78735
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Role of the person who provided the evaluation. Used only for results that are subjective (e.g., assigned by a person or a group). Example: "INVESTIGATOR".
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Evaluator Identifier
 - **Type:** Char
-- **Controlled Terms:** C96777
+- **Controlled Terms:** (MEDEVAL) C96777
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to distinguish multiple evaluators with the same role recorded in --EVAL. Examples: "RADIOLOGIST", "RADIOLOGIST 1", "RADIOLOGIST 2".
@@ -121,6 +121,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

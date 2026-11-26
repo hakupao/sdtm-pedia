@@ -17,7 +17,7 @@
 - **Order:** 2
 - **Label:** Related Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** C66734
+- **Controlled Terms:** (DOMAIN) C66734
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Abbreviation for the domain of the parent record(s).
@@ -53,7 +53,7 @@
 - **Order:** 6
 - **Label:** Relationship Type
 - **Type:** Char
-- **Controlled Terms:** C78737
+- **Controlled Terms:** (RELTYPE) C78737
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Identifies the hierarchical level of the records in the relationship. Values should be either "ONE" or "MANY". Used only when identifying a relationship between datasets (as described in Section 8.3, Relating Datasets).
@@ -69,6 +69,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

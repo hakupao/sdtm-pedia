@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** SR
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -69,7 +69,7 @@
 - **Order:** 8
 - **Label:** Skin Response Test or Exam Short Name
 - **Type:** Char
-- **Controlled Terms:** C112024
+- **Controlled Terms:** (SRTESTCD) C112024
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the measurement, test, or examination described in SRTEST. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in SRTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). SRTESTCD cannot contain characters other than letters, numbers, or underscores.
@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Skin Response Test or Examination Name
 - **Type:** Char
-- **Controlled Terms:** C112023
+- **Controlled Terms:** (SRTEST) C112023
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Verbatim name of the test or examination used to obtain the measurement or finding. The value in SRTEST cannot be longer than 40 characters. Example: "Wheal Diameter".
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Original units in which the data were collected. The unit for SRORRES. Example: "mm".
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Standardized units used for SRSTRESC and SRSTRESN. Example: "mm".
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate exam not done. Should be null if a result exists in SRORRES.
@@ -186,7 +186,7 @@
 - **Order:** 21
 - **Label:** Specimen Type
 - **Type:** Char
-- **Controlled Terms:** C78734
+- **Controlled Terms:** (SPECTYPE) C78734
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Defines the types of specimen used for a measurement. Example: "SKIN".
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Location Used for Measurement
 - **Type:** Char
-- **Controlled Terms:** C74456
+- **Controlled Terms:** (LOC) C74456
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Location relevant to the collection of the measurement.
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Laterality
 - **Type:** Char
-- **Controlled Terms:** C99073
+- **Controlled Terms:** (LAT) C99073
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location further detailing laterality of intervention administration. Examples: "RIGHT", "LEFT", "BILATERAL".
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Method of Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C85492
+- **Controlled Terms:** (METHOD) C85492
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Method of test or examination. Examples: "ELISA", "EIA", "MICRONEUTRALIZATION ASSAY", "PLAQUE REDUCTION NEUTRALIZATION ASSAY".
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** Last Observation Before Exposure Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Operationally derived indicator used to identify the last non-missing value prior to RFXSTDTC. The value should be "Y" or null.
@@ -231,7 +231,7 @@
 - **Order:** 26
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify a baseline value. The value should be "Y" or null. Note that SRBLFL is retained for backward compatibility. The authoritative baseline flag for statistical analysis is in an ADaM dataset.
@@ -240,7 +240,7 @@
 - **Order:** 27
 - **Label:** Evaluator
 - **Type:** Char
-- **Controlled Terms:** C78735
+- **Controlled Terms:** (EVAL) C78735
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Role of person who provided evaluation. Used only for results that are subjective (e.g., assigned by a person or a group). Should be null for records that contain collected or derived data. Examples: "INVESTIGATOR", "ADJUDICATION COMMITTEE", "VENDOR".
@@ -285,7 +285,7 @@
 - **Order:** 32
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the date/time of the observation. Examples: "SCREENING", "TREATMENT", and "FOLLOW-UP".
@@ -306,7 +306,7 @@
 - **Controlled Terms:** 
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Actual study day of visit/collection/exam expressed in integer days relative to sponsor- defined RFSTDTC in Demographics.
+- **CDISC Notes:** Actual study day of visit/collection/exam expressed in integer days relative to sponsor-defined RFSTDTC in Demographics.
 
 ### SRTPT
 - **Order:** 35
@@ -355,6 +355,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

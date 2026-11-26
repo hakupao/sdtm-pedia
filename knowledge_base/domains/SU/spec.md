@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** SU
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** SU Pre-Specified
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate whether ("Y"/null) information about the use of a specific substance was solicited on the CRF.
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** SU Occurrence
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** When the use of specific substances is solicited, SUOCCUR is used to indicate whether ("Y"/"N") a particular prespecified substance was used. Values are null for substances not specifically solicited.
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** When the use of prespecified substances is solicited, the completion status indicates that there was no response to the question about the prespecified substance. When there is no prespecified list on the CRF, then the completion status indicates that substance use was not assessed for the subject.
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Consumption Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Units for SUDOSE, SUDOSTOT, or SUDOSTXT. Examples: "oz", "CIGARETTE", "PACK", "g".
@@ -186,7 +186,7 @@
 - **Order:** 21
 - **Label:** Dose Form
 - **Type:** Char
-- **Controlled Terms:** C66726
+- **Controlled Terms:** (FRM) C66726
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Dose form for SUTRT. Examples: "INJECTABLE", "LIQUID", "POWDER".
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Use Frequency Per Interval
 - **Type:** Char
-- **Controlled Terms:** C71113
+- **Controlled Terms:** (FREQ) C71113
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Usually expressed as the number of repeated administrations of SUDOSE within a specific time period. Example: "Q24H" (every day).
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Route of Administration
 - **Type:** Char
-- **Controlled Terms:** C66729
+- **Controlled Terms:** (ROUTE) C66729
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Route of administration for SUTRT. Examples: "ORAL", "INTRAVENOUS".
@@ -231,7 +231,7 @@
 - **Order:** 26
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the substance use. Null for substances that started before study participation.
@@ -285,7 +285,7 @@
 - **Order:** 32
 - **Label:** Start Relative to Reference Period
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Describes the start of the substance use relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR" was collected, this information may be translated into SUSTRF.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -294,7 +294,7 @@
 - **Order:** 33
 - **Label:** End Relative to Reference Period
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Describes the end of the substance use with relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR", "ONGOING", or "CONTINUING" was collected, this information may be translated into SUENRF.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -303,7 +303,7 @@
 - **Order:** 34
 - **Label:** Start Relative to Reference Time Point
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Identifies the start of the substance as being before or after the reference time point defined by variable SUSTTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7 , Use of Relative Timing Variables.
@@ -321,7 +321,7 @@
 - **Order:** 36
 - **Label:** End Relative to Reference Time Point
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Identifies the end of the substance as being before or after the reference time point defined by variable SUENTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7 , Use of Relative Timing Variables.
@@ -337,6 +337,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

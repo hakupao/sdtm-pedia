@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** TI
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -42,7 +42,7 @@
 - **Order:** 5
 - **Label:** Inclusion/Exclusion Category
 - **Type:** Char
-- **Controlled Terms:** C66797
+- **Controlled Terms:** (IECAT) C66797
 - **Role:** Grouping Qualifier
 - **Core:** Req
 - **CDISC Notes:** Used for categorization of the inclusion or exclusion criteria.
@@ -76,6 +76,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

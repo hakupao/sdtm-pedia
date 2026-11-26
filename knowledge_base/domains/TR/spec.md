@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** TR
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Tumor/Lesion Assessment Short Name
 - **Type:** Char
-- **Controlled Terms:** C96779
+- **Controlled Terms:** (TRTESTCD) C96779
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the TEST in TRTEST. TRTESTCD cannot contain characters other than letters, numbers, or underscores. Examples: "TUMSTATE", "DIAMETER", "LESSCIND", "LESRVIND". See assumption 3.
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Tumor/Lesion Assessment Test Name
 - **Type:** Char
-- **Controlled Terms:** C96778
+- **Controlled Terms:** (TRTEST) C96778
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Verbatim name of the test or examination used to obtain the measurement or finding. The value in TRTEST cannot be longer than 40 characters. Examples: "Tumor State", "Diameter", "Volume", "Lesion Success Indicator", "Lesion Revascularization Indicator". See assumption 3.
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Original units in which the data were collected. The unit for TRORRES. Example: "mm".
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Character Result/Finding in Std Format
 - **Type:** Char
-- **Controlled Terms:** C124309
+- **Controlled Terms:** (TRPROPRS) C124309
 - **Role:** Result Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Contains the result value for all findings copied or derived from TRORRES, in a standard format or standard units. TRSTRESC should store all results or findings in character format; if results are numeric, they should also be stored in numeric format in TRSTRESN.
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Standardized unit used for TRSTRESN.
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a scan/image/physical exam was not performed or a tumor/lesion measurement was not taken. Should be null if a result exists in TRORRES.
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Method Used to Identify the Tumor/Lesion
 - **Type:** Char
-- **Controlled Terms:** C85492
+- **Controlled Terms:** (METHOD) C85492
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Method used to measure the tumor/lesion/location of interest. Examples: "MRI", "CT SCAN", "PET SCAN", "Coronary angiography".
@@ -186,7 +186,7 @@
 - **Order:** 21
 - **Label:** Last Observation Before Exposure Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Operationally-derived indicator used to identify the last non-missing value prior to RFXSTDTC. Should be "Y" or null.
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify a baseline value. Should be "Y" or null. Note that TRBLFL is retained for backward compatibility. The authoritative baseline flag for statistical analysis is in an ADaM dataset.
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Evaluator
 - **Type:** Char
-- **Controlled Terms:** C78735
+- **Controlled Terms:** (EVAL) C78735
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Role of the person who provided the evaluation. Used only for results that are subjective (e.g., assigned by a person or a group). Examples: "ADJUDICATION COMMITTEE", "INDEPENDENT ASSESSOR".
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Evaluator Identifier
 - **Type:** Char
-- **Controlled Terms:** C96777
+- **Controlled Terms:** (MEDEVAL) C96777
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to distinguish multiple evaluators with the same role recorded in TREVAL. Examples: "RADIOLOGIST1", "RADIOLOGIST2". See assumption 6.
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** Accepted Record Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** In cases where more than 1 independent assessor (e.g., "RADIOLOGIST 1", "RADIOLOGIST 2", "ADJUDICATION COMMITTEE") provide independent assessments at the same time point, this flag identifies the record that is considered to be the accepted assessment.
@@ -267,7 +267,7 @@
 - **Order:** 30
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the element in the planned sequence of elements for the arm to which the subject was assigned.
@@ -292,6 +292,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

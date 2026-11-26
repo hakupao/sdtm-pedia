@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** MH
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Medical History Event Date Type
 - **Type:** Char
-- **Controlled Terms:** C124301
+- **Controlled Terms:** (MHEDTTYP) C124301
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Specifies the aspect of the medical condition or event by which MHSTDTC and/or the MHENDTC is defined. Examples: "DIAGNOSIS", "SYMPTOMS", "RELAPSE", "INFECTION".
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Medical History Event Pre-Specified
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A value of "Y" indicates that this medical history event was prespecified on the CRF. Values are null for spontaneously reported events (i.e., those collected as free-text verbatim terms).
@@ -132,7 +132,7 @@
 - **Order:** 15
 - **Label:** Medical History Occurrence
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used when the occurrence of specific medical history conditions is solicited, to indicate whether ("Y"/"N") a medical condition (MHTERM) had ever occurred. Values are null for spontaneously reported events.
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The status indicates that the prespecified question was not asked/answered.
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the medical history event.
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** End Relative to Reference Period
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Describes the end of the event relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics).  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -231,7 +231,7 @@
 - **Order:** 26
 - **Label:** End Relative to Reference Time Point
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Identifies the end of the event as being before or after the reference time point defined by variable MHENTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -247,6 +247,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

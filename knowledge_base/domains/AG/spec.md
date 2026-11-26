@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** AG
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** AG Pre-Specified
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate whether ("Y"/null) information about the use of a specific agent was solicited on the CRF.
@@ -132,7 +132,7 @@
 - **Order:** 15
 - **Label:** AG Occurrence
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** When the use of specific agent is solicited, AGOCCUR is used to indicate whether ("Y"/"N") use of the agent occurred. Values are null for agents not specifically solicited.
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate that a question about a prespecified agent was not answered. Should be null or have a value of "NOT DONE".
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Dose Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Units for AGDOSE and AGDOSTXT. Examples: "ng", "mg", "mg/kg".
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Dose Form
 - **Type:** Char
-- **Controlled Terms:** C66726
+- **Controlled Terms:** (FRM) C66726
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Dose form for AGTRT. Examples: "TABLET", "AEROSOL".
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Dosing Frequency per Interval
 - **Type:** Char
-- **Controlled Terms:** C71113
+- **Controlled Terms:** (FREQ) C71113
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Usually expressed as the number of repeated administrations of AGDOSE within a specific time period. Example: "ONCE".
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** Route of Administration
 - **Type:** Char
-- **Controlled Terms:** C66729
+- **Controlled Terms:** (ROUTE) C66729
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Route of administration for AGTRT. Example: "ORAL".
@@ -267,7 +267,7 @@
 - **Order:** 30
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the agent administration started.
@@ -321,7 +321,7 @@
 - **Order:** 36
 - **Label:** Start Relative to Reference Period
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Describes the start of the agent relative to sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR", "ONGOING", or "CONTINUING" was collected, this information may be translated into AGSTRF.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -330,7 +330,7 @@
 - **Order:** 37
 - **Label:** End Relative to Reference Period
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Describes the end of the agent relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics). If information such as "PRIOR", "ONGOING", or "CONTINUING" was collected, this information may be translated into AGENRF.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -339,7 +339,7 @@
 - **Order:** 38
 - **Label:** Start Relative to Reference Time Point
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Identifies the start of the agent as being before or after the sponsor-defined reference time point defined by variable AGSTTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -357,7 +357,7 @@
 - **Order:** 40
 - **Label:** End Relative to Reference Time Point
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Identifies the end of the agent as being before or after the reference time point defined by variable AGENTPT. Identifies the end of the agent as being before or after the sponsor-defined reference time point defined by variable AGENTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -373,6 +373,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

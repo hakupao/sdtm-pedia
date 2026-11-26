@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** PC
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C85494
+- **Controlled Terms:** (PKUNIT) C85494
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Original units in which the data were collected. The unit for PCORRES. Example: "mg/L".
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C85494
+- **Controlled Terms:** (PKUNIT) C85494
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Standardized unit used for PCSTRESC and PCSTRESN.
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a result was not obtained. Should be null if a result exists in PCORRES.
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Specimen Material Type
 - **Type:** Char
-- **Controlled Terms:** C78734
+- **Controlled Terms:** (SPECTYPE) C78734
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Defines the type of specimen used for a measurement. Examples: "SERUM", "PLASMA", "URINE".
@@ -186,7 +186,7 @@
 - **Order:** 21
 - **Label:** Specimen Condition
 - **Type:** Char
-- **Controlled Terms:** C78733
+- **Controlled Terms:** (SPECCOND) C78733
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Free or standardized text describing the condition of the specimen. Examples: "HEMOLYZED", "ICTERIC", "LIPEMIC".
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Method of Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C85492
+- **Controlled Terms:** (METHOD) C85492
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Method of the test or examination. Examples: "HPLC/MS", "ELISA". This should contain sufficient information and granularity to allow differentiation of various methods that might have been used within a study.
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Fasting Status
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify fasting status.
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Derived Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a derived record. The value should be "Y" or null. Records that represent the average of other records, which do not come from the CRF, are examples of records that would be derived for the submission datasets. If PCDRVFL = "Y", then PCORRES may be null with PCSTRESC, and PCSTRESN (if the result is numeric) having the derived value.
@@ -276,7 +276,7 @@
 - **Order:** 31
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the observation, or the date/time of collection if start date/time is not collected.
@@ -373,6 +373,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

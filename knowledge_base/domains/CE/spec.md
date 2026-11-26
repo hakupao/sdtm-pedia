@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** CE
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Clinical Event Pre-specified
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate whether the event in CETERM was prespecified. Value is "Y" for prespecified events and null for spontaneously reported events.
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Clinical Event Occurrence
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used when the occurrence of specific events is solicited, to indicate whether or not a clinical event occurred. Values are null for spontaneously reported events.
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The status indicates that a question from a prespecified list was not answered.
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Severity/Intensity
 - **Type:** Char
-- **Controlled Terms:** C165643
+- **Controlled Terms:** (SEVRS) C165643
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The severity or intensity of the event. Examples: "MILD", "MODERATE", "SEVERE".
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the clinical event.
@@ -240,7 +240,7 @@
 - **Order:** 27
 - **Label:** Start Relative to Reference Period
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Describes the start of the clinical event relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics).  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -249,7 +249,7 @@
 - **Order:** 28
 - **Label:** End Relative to Reference Period
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Describes the end of the event relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point and a discrete ending point (represented by RFSTDTC and RFENDTC in Demographics).  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -258,7 +258,7 @@
 - **Order:** 29
 - **Label:** Start Relative to Reference Time Point
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Identifies the start of the observation as being before or after the reference time point defined by variable CESTTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -276,7 +276,7 @@
 - **Order:** 31
 - **Label:** End Relative to Reference Time Point
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Identifies the end of the observation as being before or after the sponsor-defined reference time point defined by variable CEENTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -292,6 +292,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** VS
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -60,7 +60,7 @@
 - **Order:** 7
 - **Label:** Vital Signs Test Short Name
 - **Type:** Char
-- **Controlled Terms:** C66741
+- **Controlled Terms:** (VSTESTCD) C66741
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the measurement, test, or examination described in VSTEST. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in VSTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). VSTESTCD cannot contain characters other than letters, numbers, or underscores. Examples: "SYSBP", "DIABP", "BMI".
@@ -69,7 +69,7 @@
 - **Order:** 8
 - **Label:** Vital Signs Test Name
 - **Type:** Char
-- **Controlled Terms:** C67153
+- **Controlled Terms:** (VSTEST) C67153
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Verbatim name of the test or examination used to obtain the measurement or finding. The value in VSTEST cannot be longer than 40 characters. Examples: "Systolic Blood Pressure", "Diastolic Blood Pressure", "Body Mass Index".
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Vital Signs Position of Subject
 - **Type:** Char
-- **Controlled Terms:** C71148
+- **Controlled Terms:** (POSITION) C71148
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Position of the subject during a measurement or examination. Examples: "SUPINE", "STANDING", "SITTING".
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C66770
+- **Controlled Terms:** (VSRESU) C66770
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Original units in which the data were collected. The unit for VSORRES. Examples: "in", "LB", "beats/min".
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C66770
+- **Controlled Terms:** (VSRESU) C66770
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Standardized unit used for VSSTRESC and VSSTRESN.
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate that a vital sign measurement was not done. Should be null if a result exists in VSORRES.
@@ -168,7 +168,7 @@
 - **Order:** 19
 - **Label:** Location of Vital Signs Measurement
 - **Type:** Char
-- **Controlled Terms:** C74456
+- **Controlled Terms:** (LOC) C74456
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Location relevant to the collection of vital signs measurement. Example: "ARM" for blood pressure.
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Laterality
 - **Type:** Char
-- **Controlled Terms:** C99073
+- **Controlled Terms:** (LAT) C99073
 - **Role:** Result Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location or specimen further detailing laterality. Examples: "RIGHT", "LEFT", "BILATERAL".
@@ -186,7 +186,7 @@
 - **Order:** 21
 - **Label:** Last Observation Before Exposure Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Operationally derived indicator used to identify the last non-missing value prior to RFXSTDTC. Should be "Y" or null.
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify a baseline value. Should be "Y" or null. Note that VSBLFL is retained for backward compatibility. The authoritative baseline for statistical analysis is in an ADaM dataset.
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Derived Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a derived record. The value should be "Y" or null. Records that represent the average of other records or that do not come from the CRF are examples of records that would be derived for the submission datasets. If VSDRVFL = "Y," then VSORRES may be null, with VSSTRESC and (if numeric) VSSTRESN having the derived value.
@@ -231,7 +231,7 @@
 - **Order:** 26
 - **Label:** Clinically Significant, Collected
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate whether a collected observation is clinically significant based on judgment.
@@ -276,7 +276,7 @@
 - **Order:** 31
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time at which the assessment was made.
@@ -346,6 +346,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

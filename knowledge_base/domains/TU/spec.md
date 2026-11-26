@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** TU
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Tumor/Lesion ID Short Name
 - **Type:** Char
-- **Controlled Terms:** C96784
+- **Controlled Terms:** (TUTESTCD) C96784
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the TEST in TUTEST. TUTESTCD cannot be longer than 8 characters nor can start with a number. TUTESTCD cannot contain characters other than letters, numbers, or underscores. Example: "TUMIDENT". See assumption 3.
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Tumor/Lesion ID Test Name
 - **Type:** Char
-- **Controlled Terms:** C96783
+- **Controlled Terms:** (TUTEST) C96783
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Verbatim name of the test for the tumor/lesion identification. The value in TUTEST cannot be longer than 40 characters. Example: "Tumor identification". See assumption 3.
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Tumor/Lesion ID Result Std. Format
 - **Type:** Char
-- **Controlled Terms:** C123650
+- **Controlled Terms:** (TUIDRS) C123650
 - **Role:** Result Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Contains the result value for all findings copied or derived from TUORRES in a standard format.
@@ -132,7 +132,7 @@
 - **Order:** 15
 - **Label:** Location of the Tumor/Lesion
 - **Type:** Char
-- **Controlled Terms:** C74456
+- **Controlled Terms:** (LOC) C74456
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Used to specify the anatomical location of the identified tumor/lesion (e.g., "LIVER").  Note: When anatomical location is broken down and collected as distinct pieces of data that when combined provide the overall location information (e.g., laterality/directionality/distribution), then additional anatomical location qualifiers should be used. See assumption 3.
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Laterality
 - **Type:** Char
-- **Controlled Terms:** C99073
+- **Controlled Terms:** (LAT) C99073
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location or specimen further detailing laterality (e.g., "LEFT", "RIGHT", "BILATERAL").
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Directionality
 - **Type:** Char
-- **Controlled Terms:** C99074
+- **Controlled Terms:** (DIR) C99074
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location or specimen further detailing directionality (e.g., "UPPER", "INTERIOR").
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Portion or Totality
 - **Type:** Char
-- **Controlled Terms:** C99075
+- **Controlled Terms:** (PORTOT) C99075
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location or specimen further detailing the distribution, which means arrangement of, or apportioning of. Examples: "ENTIRE", "SINGLE", "SEGMENT", "MULTIPLE".
@@ -168,7 +168,7 @@
 - **Order:** 19
 - **Label:** Method of Identification
 - **Type:** Char
-- **Controlled Terms:** C85492
+- **Controlled Terms:** (METHOD) C85492
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Method used to identify the tumor/lesion. Examples: "MRI", "CT SCAN".
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Last Observation Before Exposure Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Operationally derived indicator used to identify the last non-missing value prior to RFXSTDTC. Should be "Y" or null.
@@ -186,7 +186,7 @@
 - **Order:** 21
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify a baseline value. Should be "Y" or null. Note that TUBLFL is retained for backward compatibility. The authoritative baseline flag for statistical analysis is in an ADaM dataset.
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Evaluator
 - **Type:** Char
-- **Controlled Terms:** C78735
+- **Controlled Terms:** (EVAL) C78735
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Role of the person who provided the evaluation. Examples: "ADJUDICATION COMMITTEE", "INDEPENDENT ASSESSOR".  This column can be left null when the investigator provides the complete set of data in the domain. However, the column should contain no null values when data from 1 or more independent assessors is included. For example, the rows attributed to the investigator should contain a value of "INVESTIGATOR".
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Evaluator Identifier
 - **Type:** Char
-- **Controlled Terms:** C96777
+- **Controlled Terms:** (MEDEVAL) C96777
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to distinguish multiple evaluators with the same role recorded in --EVAL. Examples: "RADIOLOGIST1", "RADIOLOGIST2". See assumption 9.
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Accepted Record Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** In cases where more than 1 independent assessor (e.g., "RADIOLOGIST 1", "RADIOLOGIST 2", "ADJUDICATION COMMITTEE") provide independent assessments at the same time point, this flag identifies the record that is considered to be the accepted assessment.
@@ -258,7 +258,7 @@
 - **Order:** 29
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the date/time at which the assessment was made.
@@ -283,6 +283,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

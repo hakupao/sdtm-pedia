@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** BS
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Biospecimen Test Short Name
 - **Type:** Char
-- **Controlled Terms:** C124300
+- **Controlled Terms:** (BSTESTCD) C124300
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short character value for BSTEST used as a column name when converting a dataset from a vertical format to a horizontal format. The short value can be up to 8 characters. Examples: VOLUME, RIN.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Biospecimen Test Name
 - **Type:** Char
-- **Controlled Terms:** C124299
+- **Controlled Terms:** (BSTEST) C124299
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Long name for BSTESTCD. Examples: Volume, RNA Integrity Number.
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Unit for BSORRES. Examples: mg, mL.
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Standardized unit used for BSSTRESC and BSSTRESN.
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate that a test was not done, or was attempted but did not generate a result. Should be null or have a value of NOT DONE.
@@ -186,7 +186,7 @@
 - **Order:** 21
 - **Label:** Specimen Type
 - **Type:** Char
-- **Controlled Terms:** C78734; C111114
+- **Controlled Terms:** (SPECTYPE) C78734; (GENSMP) C111114
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Defines the type of specimen used for a measurement. Examples: SERUM, PLASMA, URINE, SOFT TISSUE.
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Specimen Condition
 - **Type:** Char
-- **Controlled Terms:** C78733
+- **Controlled Terms:** (SPECCOND) C78733
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Defines the condition of the specimen. Examples: HEMOLYZED, ICTERIC, LIPEMIC.
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Method of Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C85492
+- **Controlled Terms:** (METHOD) C85492
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Method of the test or examination. Examples: SPECTROPHOTOMETRY, ELECTROPHORESIS.
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify a baseline value.
@@ -319,6 +319,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

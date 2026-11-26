@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** CP
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Test or Examination Short Name
 - **Type:** Char
-- **Controlled Terms:** C181173
+- **Controlled Terms:** (CPTESTCD) C181173
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the measurement, test, or examination described in CPTEST. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in CPTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). CPTESTCD cannot contain characters other than letters, numbers, or underscores. Examples: "MONO", "MNS".
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Name of Measurement, Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C181174
+- **Controlled Terms:** (CPTEST) C181174
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Long name for CPTESTCD. For cell phenotyping, the name (often abbreviated) of the cell population, as it is generally accepted by the scientific community, is populated (rather than a colloquial designation based on a primary marker, e.g., TLym Help rather than CD4). When the test is for a sublineage which can only be identified by specifying additional markers (i.e., has not been given a name) or which is further restricted to a subpopulation based on a particular cell state (e.g., activated, proliferating, apoptotic), the Sublineage Marker String (CPSBMRKS), Cell State (CPCELSTA), and Cell State Marker String (CPCSMRKS) variables are additionally populated and the value in CPTEST is suffixed with "Sub" to denote that it is a subset of the population identified in CPTEST (e.g., Monocytes Sub).  The value in CPTEST cannot be longer than 40 characters.
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Cell State
 - **Type:** Char
-- **Controlled Terms:** C181172
+- **Controlled Terms:** (CELSTATE) C181172
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A textual description of a subset of the cell population identified in CPTEST based on a particular functional and/or biological state (e.g., "ACTIVATED", "PROLIFERATING", "SENESCENT"). When populated, the values in CPCELSTA and CPCSMRKS, in combination with the values in CPTEST and CPSBMRKS, fully describe the cell population being measured.
@@ -132,7 +132,7 @@
 - **Order:** 15
 - **Label:** Test Condition
 - **Type:** Char
-- **Controlled Terms:** C181175
+- **Controlled Terms:** (TESTCOND) C181175
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Identifies any planned condition imposed by the assay system on the specimen at the time the test is performed. --TSTCND is generally used to distinguish between two or more records where the same assay is performed under varying (as opposed to fixed) conditions, usually for the purpose of making a comparison. For example, when the same assay (identified in --TEST) is performed under stimulated and non-stimulated conditions, the --TSTCND variable is used distinguish between the records.
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Category
 - **Type:** Char
-- **Controlled Terms:** C181171
+- **Controlled Terms:** (CPCAT) C181171
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of topic-variable values across subjects. Examples: "IMMUNOPHENOTYPING", "CELL FUNCTION", "TARGET ENGAGEMENT".
@@ -240,7 +240,7 @@
 - **Order:** 27
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Original units in which the data were collected. The unit for CPORRES. Examples: "10^6/L", "%", "MESF".
@@ -249,7 +249,7 @@
 - **Order:** 28
 - **Label:** Result Scale
 - **Type:** Char
-- **Controlled Terms:** C177910
+- **Controlled Terms:** (RSLSCLRS) C177910
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Classifies the scale of the original result value with respect to whether the result is quantitative, ordinal, nominal, or narrative.
@@ -258,7 +258,7 @@
 - **Order:** 29
 - **Label:** Result Type
 - **Type:** Char
-- **Controlled Terms:** C179588
+- **Controlled Terms:** (RESTYPRS) C179588
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Classifies the kind of result (i.e., property type) originally reported for the test. Examples: "NUMBER CONCENTRATION", "NUMBER FRACTION", "RATIO".
@@ -267,7 +267,7 @@
 - **Order:** 30
 - **Label:** Collected Summary Result Type
 - **Type:** Char
-- **Controlled Terms:** C177908
+- **Controlled Terms:** (COLSTYP) C177908
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate the type of collected summary result. This includes source summary results collected on a CRF or provided by an external vendor (e.g., central lab). If the summary result is derived using individual source data records, this summary result should be represented in ADaM. If a sponsor has both a collected summary result and a derived summary result, the collected summary result should be represented in SDTM and the derived summary result should be represented in ADaM.
@@ -312,7 +312,7 @@
 - **Order:** 35
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Standardized unit used for CPSTRESC or CPSTRESN.
@@ -339,7 +339,7 @@
 - **Order:** 38
 - **Label:** Reference Range Indicator
 - **Type:** Char
-- **Controlled Terms:** C78736
+- **Controlled Terms:** (NRIND) C78736
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicates where the value falls with respect to reference range defined by CPORNRLO and CPORNRHI, CPSTNRLO and CPSTNRHI, or by CPSTNRC. Examples: "NORMAL", "ABNORMAL", "HIGH", "LOW". Sponsors should specify in the study metadata (Comments column in the Define-XML document) whether CPNRIND refers to the original or standard reference ranges and results. CPNRIND should not be used to indicate clinical significance.
@@ -348,7 +348,7 @@
 - **Order:** 39
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate that the test was not performed or that it was attempted but did not generate a result. Should be null if a result exists in CPORRES.
@@ -384,7 +384,7 @@
 - **Order:** 43
 - **Label:** Specimen Type
 - **Type:** Char
-- **Controlled Terms:** C78734
+- **Controlled Terms:** (SPECTYPE) C78734
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Defines the type of specimen used for a measurement. Examples: "BLOOD", "BONE MARROW".
@@ -393,7 +393,7 @@
 - **Order:** 44
 - **Label:** Specimen Condition
 - **Type:** Char
-- **Controlled Terms:** C78733
+- **Controlled Terms:** (SPECCOND) C78733
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The physical state or quality of a specimen for an assessment. Example: "CLOTTED".
@@ -402,7 +402,7 @@
 - **Order:** 45
 - **Label:** Method of Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C85492
+- **Controlled Terms:** (METHOD) C85492
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Method of the test or examination. Example: "FLOW CYTOMETRY".
@@ -420,7 +420,7 @@
 - **Order:** 47
 - **Label:** Last Observation Before Exposure Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Operationally-derived indicator used to identify the last non-missing value prior to RFXSTDTC. The value should be "Y" or null.
@@ -429,7 +429,7 @@
 - **Order:** 48
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify a baseline value. The value should be "Y" or null.
@@ -438,7 +438,7 @@
 - **Order:** 49
 - **Label:** Derived Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a derived record. The value should be "Y" or null. Records that represent the average of other records, or do not come from the CRF, or are not as originally received or collected are examples of records that might be derived for the submission datasets. If CPDRVFL = "Y", then CPORRES may be null, with CPSTRESC and (if numeric) CPSTRESN having the derived value.
@@ -447,7 +447,7 @@
 - **Order:** 50
 - **Label:** Clinically Significant, Collected
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate whether a collected observation is clinically significant based on judgement.
@@ -492,7 +492,7 @@
 - **Order:** 55
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the observation, or the date/time of collection if start date/time is not collected.
@@ -562,6 +562,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

@@ -44,13 +44,15 @@
 - **Order:** 5
 - **Label:** Subject Relationship
 - **Type:** Char
-- **Controlled Terms:** C100130
+- **Controlled Terms:** (RELSUB) C100130
 - **Role:** Record Qualifier
 - **Core:** Req
 - **CDISC Notes:** Describes the relationship of the subject identified in USUBJID or the pool identified in POOLID to the subject or pool identified in RSUBJID.
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

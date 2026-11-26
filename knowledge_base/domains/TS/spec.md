@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** TS
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -42,7 +42,7 @@
 - **Order:** 5
 - **Label:** Trial Summary Parameter Short Name
 - **Type:** Char
-- **Controlled Terms:** C66738
+- **Controlled Terms:** (TSPARMCD) C66738
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** TSPARMCD (the companion to TSPARM) is limited to 8 characters and does not have special character restrictions. These values should be short for ease of use in programming, but it is not expected that TSPARMCD will need to serve as variable names. Examples: "AGEMIN", "AGEMAX".
@@ -51,7 +51,7 @@
 - **Order:** 6
 - **Label:** Trial Summary Parameter
 - **Type:** Char
-- **Controlled Terms:** C67152
+- **Controlled Terms:** (TSPARM) C67152
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Term for the trial summary parameter. The value in TSPARM cannot be longer than 40 characters. Examples: "Planned Minimum Age of Subjects", "Planned Maximum Age of Subjects".
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Name of the Reference Terminology
 - **Type:** Char
-- **Controlled Terms:** C66788
+- **Controlled Terms:** (DICTNAM) C66788
 - **Role:** Result Qualifier
 - **Core:** Exp
 - **CDISC Notes:** The name of the reference terminology from which TSVALCD is taken. For example; CDISC CT, SNOMED, ISO 8601.
@@ -103,6 +103,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

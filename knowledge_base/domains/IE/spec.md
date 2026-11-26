@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** IE
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -69,7 +69,7 @@
 - **Order:** 8
 - **Label:** Inclusion/Exclusion Category
 - **Type:** Char
-- **Controlled Terms:** C66797
+- **Controlled Terms:** (IECAT) C66797
 - **Role:** Grouping Qualifier
 - **Core:** Req
 - **CDISC Notes:** Used to define a category of related records across subjects.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** I/E Criterion Original Result
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Result Qualifier
 - **Core:** Req
 - **CDISC Notes:** Original response to inclusion/exclusion criterion question, i.e., whether the inclusion or exclusion criterion was met.
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** I/E Criterion Result in Std Format
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Result Qualifier
 - **Core:** Req
 - **CDISC Notes:** Response to inclusion/exclusion criterion result, in standard format.
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the observation date/time of the inclusion/exclusion finding.
@@ -166,6 +166,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

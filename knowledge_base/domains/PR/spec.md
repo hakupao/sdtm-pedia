@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** PR
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Standardized Procedure Name
 - **Type:** Char
-- **Controlled Terms:** C101858
+- **Controlled Terms:** (PROCEDUR) C101858
 - **Role:** Synonym Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Standardized or dictionary-derived name of PRTRT. If the codelist "PROCEDUR" is not used, the sponsor is expected to provide the dictionary name and version used to map the terms in the external codelist element in the Define-XML document. If an intervention term does not have a decode value, then PRDECOD will be null.
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Pre-specified
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used when a specific procedure is pre-specified on a CRF. Values should be "Y" or null.
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Occurrence
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to record whether a prespecified procedure occurred when information about the occurrence of a specific procedure is solicited.
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Dose Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Units for PRDOSE, PRDOSTOT, or PRDOSTXT.
@@ -168,7 +168,7 @@
 - **Order:** 19
 - **Label:** Dose Form
 - **Type:** Char
-- **Controlled Terms:** C66726
+- **Controlled Terms:** (FRM) C66726
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Dose form for PRTRT.
@@ -177,7 +177,7 @@
 - **Order:** 20
 - **Label:** Dosing Frequency per Interval
 - **Type:** Char
-- **Controlled Terms:** C71113
+- **Controlled Terms:** (FREQ) C71113
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Usually expressed as the number of doses given per a specific interval.
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Route of Administration
 - **Type:** Char
-- **Controlled Terms:** C66729
+- **Controlled Terms:** (ROUTE) C66729
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Route of administration for PRTRT.
@@ -204,7 +204,7 @@
 - **Order:** 23
 - **Label:** Location of Procedure
 - **Type:** Char
-- **Controlled Terms:** C74456
+- **Controlled Terms:** (LOC) C74456
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Anatomical location of a procedure.
@@ -213,7 +213,7 @@
 - **Order:** 24
 - **Label:** Laterality
 - **Type:** Char
-- **Controlled Terms:** C99073
+- **Controlled Terms:** (LAT) C99073
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location or specimen further detailing laterality.
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** Directionality
 - **Type:** Char
-- **Controlled Terms:** C99074
+- **Controlled Terms:** (DIR) C99074
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location or specimen further detailing directionality.
@@ -231,7 +231,7 @@
 - **Order:** 26
 - **Label:** Portion or Totality
 - **Type:** Char
-- **Controlled Terms:** C99075
+- **Controlled Terms:** (PORTOT) C99075
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Qualifier for anatomical location or specimen further detailing the distribution, which means arrangement of, apportioning of.
@@ -276,7 +276,7 @@
 - **Order:** 31
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the procedure.
@@ -375,7 +375,7 @@
 - **Order:** 42
 - **Label:** Start Relative to Reference Time Point
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Identifies the start of the observation as being before or after the sponsor-defined reference time point defined by variable PRSTTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -393,7 +393,7 @@
 - **Order:** 44
 - **Label:** End Relative to Reference Time Point
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Identifies the end of the observation as being before or after the sponsor-defined reference time point defined by variable PRENTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -409,6 +409,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

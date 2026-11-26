@@ -8,7 +8,7 @@ writer 在 reviewer PASS 后再改 → 回 reviewer 复审 delta 才派 auditor.
 范围外发现 → work/out_of_scope_findings.md (O1-O25); 原子抽错 → work/t1_errata.json `t3_atom_err`; target 迁移 → `t3_target_remap`; T4 用户裁定项散落各 checkpoint, T4 前汇总 (O25).
 check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`); evidence 里 md 链接写法须反引号.
 
-## 状态 (2026-11-26 晚): T2S 扫描批 21/23 完成 (本地 commit, 未 push; 领先 origin ~88 commit)
+## 状态 (2026-11-26 晚): T2S 扫描批 20/22 完成 (本地 commit, 未 push; 领先 origin ~88 commit)
 - 扫描批流程: brief `subagent_prompts/t2s_scan_writer_v1.0.md` + `t2s_scan_review_audit_v1.0.md`; 每批派发 prompt 存 `subagent_prompts/t2s/<批>_<role>_a1.md`; 用户/主控裁定 U1-U8 见 `evidence/checkpoints/t2_post_user_ack.md`, 批中主控口径追加在 `subagent_prompts/t2_dispatch_notes.md` 末尾 (T2S 段之后各条).
 - 已提交 (writer→reviewer→auditor 全 PASS): S-EVT S-INT S-FND S-SPC1 S-SPC2 S-HOST S-TDM S-TUFA S-SPREL S-CH1 S-CH4 S-CH8 S-CH10 S-MOD1 S-MOD2 S-MOD3 S-SPEC1..4.
 - 覆盖矩阵 (`scripts/t2s/t2_coverage_matrix.py`, `MATRIX_TAG=<tag>` 输出到 scratch): 全部 domains/chapters/model 文件 FINAL; 残留 fn 缺口 3 个均假阳 (DI 无 spec 表 / ML O61 / SE O58).

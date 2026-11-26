@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** GF
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Short Name of Genomic Measurement
 - **Type:** Char
-- **Controlled Terms:** C181178
+- **Controlled Terms:** (GFTESTCD) C181178
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the measurement, test, or examination described in GFTEST. It can be used as a column name when converting a dataset from a vertical to a horizontal format. The value in GFTESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). GFTESTCD cannot contain characters other than letters, numbers, or underscores.
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Name of Genomic Measurement
 - **Type:** Char
-- **Controlled Terms:** C181179
+- **Controlled Terms:** (GFTEST) C181179
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Long name for GFTESTCD. The value in GFTEST cannot be longer than 40 characters.
@@ -123,7 +123,7 @@
 - **Order:** 14
 - **Label:** Measurement, Test, or Examination Detail
 - **Type:** Char
-- **Controlled Terms:** C181180
+- **Controlled Terms:** (GFTSDTL) C181180
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Description of a reportable qualifying the assessment in GFTESTCD and GFTEST.
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Original Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Unit for GFORRES.
@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Standard Units
 - **Type:** Char
-- **Controlled Terms:** C71620
+- **Controlled Terms:** (UNIT) C71620
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Standardized units used for GFSTRESC, GFSTRESN, GFSTREFC, and GFSTREFN.
@@ -231,7 +231,7 @@
 - **Order:** 26
 - **Label:** Inheritability
 - **Type:** Char
-- **Controlled Terms:** C181177
+- **Controlled Terms:** (INHERTGF) C181177
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Identifies whether the variation can be passed to the next generation.
@@ -267,7 +267,7 @@
 - **Order:** 30
 - **Label:** Genomic Symbol Type
 - **Type:** Char
-- **Controlled Terms:** C181176
+- **Controlled Terms:** (SYMTYPGF) C181176
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A description of the type of genomic entity that is represented by the published symbol in GFSYM.
@@ -321,7 +321,7 @@
 - **Order:** 36
 - **Label:** Completion Status
 - **Type:** Char
-- **Controlled Terms:** C66789
+- **Controlled Terms:** (ND) C66789
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate that a question was not asked or a test was not done, or a test was attempted but did not generate a result. Should be null or have a value of "NOT DONE".
@@ -357,7 +357,7 @@
 - **Order:** 40
 - **Label:** Specimen Material Type
 - **Type:** Char
-- **Controlled Terms:** C111114
+- **Controlled Terms:** (GENSMP) C111114
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Identifies the type of genetic material used for the measurement.
@@ -366,7 +366,7 @@
 - **Order:** 41
 - **Label:** Method of Test or Examination
 - **Type:** Char
-- **Controlled Terms:** C85492
+- **Controlled Terms:** (METHOD) C85492
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** The test method by which the examination is performed by the wet lab in order to yield the result reported in the dataset.
@@ -384,7 +384,7 @@
 - **Order:** 43
 - **Label:** Analysis Method
 - **Type:** Char
-- **Controlled Terms:** C181181
+- **Controlled Terms:** (GFANMET) C181181
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The method of secondary processing performed by the dry lab to yield the result reported in the dataset.
@@ -393,7 +393,7 @@
 - **Order:** 44
 - **Label:** Baseline Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Indicator used to identify a baseline value. Should be "Y" or null.
@@ -402,7 +402,7 @@
 - **Order:** 45
 - **Label:** Derived Flag
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to indicate a derived record (e.g., a record that represents the average of other records such as a computed baseline). Should be "Y" or null.
@@ -517,6 +517,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

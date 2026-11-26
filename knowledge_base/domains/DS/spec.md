@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** DS
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Standardized Disposition Term
 - **Type:** Char
-- **Controlled Terms:** C66727; C114118; C150811
+- **Controlled Terms:** (NCOMPLT) C66727; (PROTMLST) C114118; (OTHEVENT) C150811
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Controlled terminology for the name of disposition event or protocol milestone. Examples of protocol milestones: "INFORMED CONSENT OBTAINED", "RANDOMIZED". There are separate codelists used for DSDECOD where the choice depends on the value of DSCAT. Codelist "NCOMPLT" is used for disposition events, codelist "PROTMLST" is used for protocol milestones, and codelist "OTHEVENT" is used for other events.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Category for Disposition Event
 - **Type:** Char
-- **Controlled Terms:** C74558
+- **Controlled Terms:** (DSCAT) C74558
 - **Role:** Grouping Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Used to define a category of related records.
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Subcategory for Disposition Event
 - **Type:** Char
-- **Controlled Terms:** C170443
+- **Controlled Terms:** (DSSCAT) C170443
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A further categorization of DSCAT (e.g., "STUDY PARTICIPATION", "STUDY TREATMENT" when DSCAT = "DISPOSITION EVENT"). The variable may be subject to controlled terminology for other categories of disposition event records.
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the event.
@@ -148,6 +148,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

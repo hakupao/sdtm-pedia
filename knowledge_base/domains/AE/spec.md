@@ -15,7 +15,7 @@
 - **Order:** 2
 - **Label:** Domain Abbreviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** AE
 - **Role:** Identifier
 - **Core:** Req
 - **CDISC Notes:** Two-character abbreviation for the domain.
@@ -186,7 +186,7 @@
 - **Order:** 21
 - **Label:** Pre-Specified Adverse Event
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A value of "Y" indicates that this adverse event was prespecified on the CRF. Values are null for spontaneously reported events (i.e., those collected as free-text verbatim terms).
@@ -231,7 +231,7 @@
 - **Order:** 26
 - **Label:** Location of Event
 - **Type:** Char
-- **Controlled Terms:** C74456
+- **Controlled Terms:** (LOC) C74456
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Describes anatomical location relevant for the event (e.g., "ARM" for skin rash).
@@ -240,7 +240,7 @@
 - **Order:** 27
 - **Label:** Severity/Intensity
 - **Type:** Char
-- **Controlled Terms:** C66769
+- **Controlled Terms:** (AESEV) C66769
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The severity or intensity of the event. Examples: "MILD", "MODERATE", "SEVERE".
@@ -249,7 +249,7 @@
 - **Order:** 28
 - **Label:** Serious Event
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Is this a serious event? Valid values are "Y" and "N".
@@ -258,7 +258,7 @@
 - **Order:** 29
 - **Label:** Action Taken with Study Treatment
 - **Type:** Char
-- **Controlled Terms:** C66767
+- **Controlled Terms:** (ACN) C66767
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Describes changes to the study treatment as a result of the event. AEACN is specifically for the relationship to study treatment. AEACNOTH is for actions unrelated to dose adjustments of study treatment. Examples of AEACN values include ICH E2B values: "DRUG WITHDRAWN", "DOSE REDUCED", "DOSE INCREASED", "DOSE NOT CHANGED", "UNKNOWN" and "NOT APPLICABLE".
@@ -276,7 +276,7 @@
 - **Order:** 31
 - **Label:** Action Taken with Device
 - **Type:** Char
-- **Controlled Terms:** C111110
+- **Controlled Terms:** (DEACNDEV) C111110
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** An action taken with a device as the result of the event. The device may or may not be a device under study.
@@ -321,7 +321,7 @@
 - **Order:** 36
 - **Label:** Outcome of Adverse Event
 - **Type:** Char
-- **Controlled Terms:** C66768
+- **Controlled Terms:** (OUT) C66768
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Description of the outcome of an event.
@@ -330,7 +330,7 @@
 - **Order:** 37
 - **Label:** Involves Cancer
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Was the serious event associated with the development of cancer? Valid values are "Y" and "N". This is a legacy seriousness criterion. It is not included in ICH E2A or E2B.
@@ -339,7 +339,7 @@
 - **Order:** 38
 - **Label:** Congenital Anomaly or Birth Defect
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Was the serious event associated with congenital anomaly or birth defect? Valid values are "Y" and "N".
@@ -348,7 +348,7 @@
 - **Order:** 39
 - **Label:** Persist or Signif Disability/Incapacity
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Did the serious event result in persistent or significant disability/incapacity? Valid values are "Y" and "N".
@@ -357,7 +357,7 @@
 - **Order:** 40
 - **Label:** Results in Death
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Did the serious event result in death? Valid values are "Y" and "N".
@@ -366,7 +366,7 @@
 - **Order:** 41
 - **Label:** Requires or Prolongs Hospitalization
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Did the serious event require or prolong hospitalization? Valid values are "Y" and "N".
@@ -375,7 +375,7 @@
 - **Order:** 42
 - **Label:** Is Life Threatening
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Was the serious event life-threatening? Valid values are "Y" and "N".
@@ -384,7 +384,7 @@
 - **Order:** 43
 - **Label:** Occurred with Overdose
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Did the serious event occur with an overdose? Valid values are "Y" and "N". This is a legacy seriousness criterion. It is not included in ICH E2A or E2B.
@@ -393,7 +393,7 @@
 - **Order:** 44
 - **Label:** Other Medically Important Serious Event
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Do additional categories for seriousness apply? Valid values are "Y" and "N".
@@ -402,7 +402,7 @@
 - **Order:** 45
 - **Label:** Needs Intervention to Prevent Impairment
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Records whether medical or surgical intervention was necessary to preclude permanent impairment of a body function, or to prevent permanent damage to a body structure, with either situation suspected to be due to the use of a medical product. This variable is used in conjunction with the other "seriousness" variables (e.g., fatal, life-threatening). It is part of the US federal government definition of a serious adverse event; see 21 CFR Part 803.3(w)(3).
@@ -411,7 +411,7 @@
 - **Order:** 46
 - **Label:** Unanticipated Adverse Device Effect
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Any serious adverse effect on health or safety or any life-threatening problem or death caused by or associated with a device, if that effect, problem, or death was not previously identified in nature, severity, or degree of incidence in the investigational plan or application (including a supplementary plan or application),  or  any other unanticipated serious problem associated with a device that relates to the rights, safety, or welfare of subjects. (21 CFR Part 812.3(s)).  This variable applies only to serious AEs and should hold collected data; if the value is derived, it should be held in ADaM.
@@ -438,7 +438,7 @@
 - **Order:** 49
 - **Label:** Concomitant or Additional Trtmnt Given
 - **Type:** Char
-- **Controlled Terms:** C66742
+- **Controlled Terms:** (NY) C66742
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Was another treatment given because of the occurrence of the event? Valid values are "Y" and "N".
@@ -465,7 +465,7 @@
 - **Order:** 52
 - **Label:** Epoch
 - **Type:** Char
-- **Controlled Terms:** C99079
+- **Controlled Terms:** (EPOCH) C99079
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Epoch associated with the start date/time of the adverse event. Examples: "SCREENING", "TREATMENT", "FOLLOW-UP".
@@ -519,7 +519,7 @@
 - **Order:** 58
 - **Label:** End Relative to Reference Period
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Describes the end of the event relative to the sponsor-defined reference period. The sponsor-defined reference period is a continuous period of time defined by a discrete starting point (RFSTDTC) and a discrete ending point (RFENDTC) of the trial.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -528,7 +528,7 @@
 - **Order:** 59
 - **Label:** End Relative to Reference Time Point
 - **Type:** Char
-- **Controlled Terms:** C66728
+- **Controlled Terms:** (STENRF) C66728
 - **Role:** Timing
 - **Core:** Perm
 - **CDISC Notes:** Identifies the end of the event as being before or after the reference time point defined by variable AEENTPT.  Not all values of the codelist are allowable for this variable. See Section 4.4.7, Use of Relative Timing Variables.
@@ -544,6 +544,8 @@
 ---
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> KB note (not in SDTMIG): C-codes after the parenthesised codelist names are NCI codelist codes added by this KB (CDISC CT).
 
 ## Cross References
 

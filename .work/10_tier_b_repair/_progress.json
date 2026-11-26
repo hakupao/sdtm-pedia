@@ -3,7 +3,7 @@
   "tier": 3,
   "plan": "PLAN.md",
   "plan_version": "v1.3",
-  "status": "EXECUTING — T2S 21/23 批完成 (S-CT / S-TYPO 待做, 先 dry-run)",
+  "status": "EXECUTING — T2S 20/22 批完成 (S-CT / S-TYPO 待做, 先 dry-run)",
   "current_step": "T2S.S-CT (dry-run)",
   "next_step": "S-CT dry-run → S-CT → S-TYPO (registry + strict assert + mutation) → T3",
   "baseline": {
