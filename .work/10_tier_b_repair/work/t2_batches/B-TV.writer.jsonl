@@ -1,0 +1,9 @@
+{"ref": "ig34_p0407_a020", "action": "INSERTED", "kb_file": "knowledge_base/domains/TV/assumptions.md", "kb_line_after": 19, "pdf_page": 407, "note": "Description/Overview 末句 Protocols define visits..."}
+{"ref": "NEW-1", "action": "INSERTED", "kb_file": "knowledge_base/domains/TV/assumptions.md", "kb_line_after": 15, "pdf_page": 407, "note": "Description 首句 A trial design domain..."}
+{"ref": "NEW-2", "action": "INSERTED", "kb_file": "knowledge_base/domains/TV/assumptions.md", "kb_line_after": 23, "pdf_page": 407, "note": "## TV – Specification + spec 首句"}
+{"ref": "NEW-3", "action": "REPLACED", "kb_file": "knowledge_base/domains/TV/assumptions.md", "kb_line_after": 37, "pdf_page": 408, "note": "assumption 5: visit end times -> visit ends"}
+{"ref": "NEW-4", "action": "REPLACED", "kb_file": "knowledge_base/domains/TV/examples.md", "kb_line_after": 7, "pdf_page": 409, "note": "D6 KB note prefix"}
+{"ref": "NEW-5", "action": "REPLACED", "kb_file": "knowledge_base/domains/TV/examples.md", "kb_line_after": 9, "pdf_page": 409, "note": "figure title: Example Trial 1, Parallel Design Planned Visits"}
+{"ref": "NEW-6", "action": "INSERTED", "kb_file": "knowledge_base/domains/TV/examples.md", "kb_line_after": 11, "pdf_page": 409, "note": "D6 Mermaid rendering note"}
+{"ref": "NEW-7", "action": "REPLACED", "kb_file": "knowledge_base/domains/TV/examples.md", "kb_line_after": 38, "pdf_page": 409, "note": "D6 KB note prefix on figure caption blockquote"}
+{"ref": "NEW-6a", "action": "REPLACED", "kb_file": "knowledge_base/domains/TV/examples.md", "kb_line_after": 13, "pdf_page": 409, "note": "attempt 2: Mermaid completed per p409 figure (3 arm rows + Randomization -> RE, TA:75 style)"}

@@ -9,9 +9,8 @@ writer 在 reviewer PASS 后再改 → 回 reviewer 复审 delta 才派 auditor.
 check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`); evidence 里 md 链接写法须反引号.
 
 ## 已提交批 (见 git log "Tier B batch")
-## 在途 (2026-11-26; 已提交 56 批, 最新 B-TI)
+## 在途 (2026-11-26; 已提交 57 批, 最新 B-TV)
 - writer 共用 brief: subagent_prompts/t2_writer_common_brief.md; reviewer/auditor 共用 brief: subagent_prompts/t2_reviewer_common_brief.md
-- B-TV: reviewer a2 PASS (O51 Mermaid 待渲染) → auditor 在跑
 - B-SC: reviewer CONDITIONAL (仅证据修正, 主控已追加勘误 + O52) → auditor 在跑
 - B-SUPPQUAL: reviewer PASS → auditor 在跑
 - B-ch03: writer 完成 (O5 全表 63 行核; T-1/T-2 KB 正确值; T-3/T-4 照录+T4) → reviewer 在跑

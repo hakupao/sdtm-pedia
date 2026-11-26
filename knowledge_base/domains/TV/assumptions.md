@@ -12,7 +12,15 @@ The Trial Visits (TV) and TD datasets provide the planned scheduling of assessme
 
 ## TV – Description/Overview
 
+A trial design domain that contains the planned order and number of visits in the study within each arm.
+
 Visits are defined as "clinical encounters" and are described using the timing variables VISIT, VISITNUM, and VISITDY.
+
+Protocols define visits in order to describe assessments and procedures that are to be performed at the visits.
+
+## TV – Specification
+
+tv.xpt, Trial Visits — Trial Design. One record per planned Visit per Arm, Tabulation.
 
 ## TV – Assumptions
 
@@ -26,6 +34,6 @@ Visits are defined as "clinical encounters" and are described using the timing v
     a. Case 1: Visit 3 starts 2 weeks after RFSTDTC. Visit 4 starts 4 weeks after RFSTDTC.
     b. Case 2: Visit 3 starts 2 weeks after RFSTDTC. Visit 4 starts 2 weeks after visit 3.
 
-5. Many protocols do not give any information about visit end times because visits are assumed to end on the same day they start. In such a case, TVENRL may be left blank to indicate that the visit ends on the same day it starts. Care should be taken to assure that this is appropriate; common practice may be to record data collected over more than 1 day as occurring within a single visit. Screening visits may be particularly prone to collection of data over multiple days. The examples for this domain show how TVENRL could be populated.
+5. Many protocols do not give any information about visit ends because visits are assumed to end on the same day they start. In such a case, TVENRL may be left blank to indicate that the visit ends on the same day it starts. Care should be taken to assure that this is appropriate; common practice may be to record data collected over more than 1 day as occurring within a single visit. Screening visits may be particularly prone to collection of data over multiple days. The examples for this domain show how TVENRL could be populated.
 
 6. The values of VISITNUM in the TV dataset are the valid values of VISITNUM for planned visits. Any values of VISITNUM that appear in subject-level datasets that are not in the TV dataset are assumed to correspond to unplanned visits. This applies, in particular, to the subject-level dataset; see Section 5.5, Subject Visits, for additional information about handling unplanned visits. If a subject-level dataset includes both VISITNUM and VISIT, then records that include values of VISITNUM that appear in the TV dataset should also include the corresponding values of VISIT from the TV dataset.

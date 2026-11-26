@@ -4,25 +4,46 @@
 
 The following diagram represents visits as numbered "flags" with visit numbers. Each flag has 2 supports, one at the beginning of the visit and the other at the end of the visit. Note that visits 2 and 3 span epoch transitions. In other words, the transition event that marks the beginning of the run-in epoch (confirmation of eligibility) occurs during visit 2, and the transition event that marks the beginning of the treatment epoch (the first dose of study drug) occurs during visit 3.
 
-This example is based on TA Example Trial 1, a Parallel Design with 3 arms (Placebo, Drug A, Drug B).
+> KB note (not in SDTMIG): This example is based on TA Example Trial 1, a Parallel Design with 3 arms (Placebo, Drug A, Drug B).
 
-**Parallel Design Planned Visits**
+**Example Trial 1, Parallel Design Planned Visits**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 1, Parallel Design Planned Visits".
 
 ```mermaid
-graph TD
-    subgraph Epochs
-        direction LR
-        SE["Screening<br/>Epoch"] --- RE["Run-In<br/>Epoch"] --- TE["Treatment<br/>Epoch"]
+graph LR
+    subgraph SE["Screening Epoch"]
+        S1[Screen]
+        S2[Screen]
+        S3[Screen]
     end
+    subgraph RE["Run-In Epoch"]
+        R1[Run-In]
+        R2[Run-In]
+        R3[Run-In]
+    end
+    subgraph TE["Treatment Epoch"]
+        P[Placebo]
+        A[Drug A]
+        B[Drug B]
+    end
+    S1 --> R1 --> P
+    S2 --> R2 --> A
+    S3 --> R3 --> B
+    armP>"Placebo"] -.-> P
+    armA>"Drug A"] -.-> A
+    armB>"Drug B"] -.-> B
+    rand["Randomization"] -.-> RE
 
-    V1(("V1")) -.->|"Start of<br/>Screen Epoch"| SE
-    V2(("V2")) -.->|"Spans Screen<br/>→ Run-In"| SE
+    V1(("1")) -.->|"Start of<br/>Screen Epoch"| SE
+    V2(("2")) -.->|"Spans Screen<br/>→ Run-In"| SE
     V2 -.-> RE
-    V3(("V3")) -.->|"Spans Run-In<br/>→ Treatment"| RE
+    V3(("3")) -.->|"Spans Run-In<br/>→ Treatment"| RE
     V3 -.-> TE
-    V4(("V4")) -.->|"1 wk after<br/>Treatment start"| TE
-    V5(("V5")) -.->|"2 wk after<br/>Treatment start"| TE
+    V4(("4")) -.->|"1 wk after<br/>Treatment start"| TE
+    V5(("5")) -.->|"2 wk after<br/>Treatment start"| TE
 
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
     style V1 fill:#fff,stroke:#333
     style V2 fill:#fff,stroke:#333
     style V3 fill:#fff,stroke:#333
@@ -33,7 +54,7 @@ graph TD
     style TE fill:#cce5ff,stroke:#333
 ```
 
-> Visit 2 spans the Screen → Run-In epoch transition (confirmation of eligibility). Visit 3 spans the Run-In → Treatment epoch transition (first dose of study drug). Below the timeline, 3 arms (Placebo, Drug A, Drug B) share the same visit schedule.
+> KB note (not in SDTMIG): Visit 2 spans the Screen → Run-In epoch transition (confirmation of eligibility). Visit 3 spans the Run-In → Treatment epoch transition (first dose of study drug). Below the timeline, 3 arms (Placebo, Drug A, Drug B) share the same visit schedule.
 
 Two TV datasets are shown for this trial. The first shows a somewhat idealized situation, where the protocol has provided specific timings for the visits. The second shows a more common situation, where the timings have been described only loosely.
 
