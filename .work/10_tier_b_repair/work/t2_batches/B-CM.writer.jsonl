@@ -1,0 +1,6 @@
+{"ref": "census:knowledge_base/domains/CM/examples.md:39:2:USUBJID", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/examples.md", "kb_line_after": 39, "pdf_page": 102, "note": "1 -> 2"}
+{"ref": "census:knowledge_base/domains/CM/examples.md:39:2:CMSEQ", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/examples.md", "kb_line_after": 39, "pdf_page": 102, "note": "2 -> 1"}
+{"ref": "r3:CM/assumptions.md:22:3a", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/assumptions.md", "kb_line_after": 22, "pdf_page": 100, "note": "insert missing word 'whether'"}
+{"ref": "r3:CM/assumptions.md:29:5", "action": "REPLACED", "kb_file": "knowledge_base/domains/CM/assumptions.md", "kb_line_after": 29, "pdf_page": 101, "note": "insert missing word 'variables'"}
+{"ref": "pending:CM/assumptions.md:18:2c", "action": "SKIPPED_STRUCT", "kb_file": "knowledge_base/domains/CM/assumptions.md", "kb_line_after": 18, "pdf_page": 100, "note": "F-1 extra sentence from spec CMDECOD note; needs controller ruling"}
+{"ref": "F-1:CM/assumptions.md:18:2c", "action": "D2_DEDUP_DELETED", "kb_file": "knowledge_base/domains/CM/assumptions.md", "kb_line_after": 18, "pdf_page": 100, "note": "removed sentence moved from p98 spec CMDECOD Notes; kept copy spec.md:84"}

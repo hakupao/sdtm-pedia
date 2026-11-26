@@ -36,7 +36,7 @@ In this example study, it was of particular interest whether subjects use any an
 | Row | STUDYID | DOMAIN | USUBJID | CMSEQ | CMTRT | CMCAT |
 |-----|---------|--------|---------|-------|-------|-------|
 | 1 | ABC123 | CM | 1 | 1 | LITHIUM | ANTI-CONVULSANT |
-| 2 | ABC123 | CM | 1 | 2 | VPA | ANTI-CONVULSANT |
+| 2 | ABC123 | CM | 2 | 1 | VPA | ANTI-CONVULSANT |
 
 ## Example 3
 
