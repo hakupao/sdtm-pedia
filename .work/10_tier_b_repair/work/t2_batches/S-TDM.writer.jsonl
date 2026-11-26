@@ -1,0 +1,41 @@
+{"ref": "ig34_p0385_a009-adj:TA heading", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/assumptions.md", "kb_line_after": 110, "pdf_page": 385, "note": "## TA – Assumptions (gap A); KB 自拟 ## TA-Specific Assumptions 保留 (规则 6)"}
+{"ref": "pdf:p384:ARMCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/spec.md", "kb_line_after": 27, "pdf_page": 384, "note": "CT 空 → *"}
+{"ref": "pdf:p385:ARM CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/spec.md", "kb_line_after": 36, "pdf_page": 385, "note": "CT 空 → *"}
+{"ref": "pdf:p385:ETCD CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/spec.md", "kb_line_after": 54, "pdf_page": 385, "note": "CT 空 → *"}
+{"ref": "pdf:p385:ELEMENT CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/spec.md", "kb_line_after": 63, "pdf_page": 385, "note": "CT 空 → *"}
+{"ref": "ig34_p0385_a009", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/spec.md", "kb_line_after": 96, "pdf_page": 385, "note": "spec 脚注 (U2/U7, gap F)"}
+{"ref": "ig34_p0410_a026/a027", "action": "INSERTED", "kb_file": "knowledge_base/domains/TD/assumptions.md", "kb_line_after": 3, "pdf_page": 410, "note": "## TD – Description/Overview + 定义句 (gap D)"}
+{"ref": "ig34_p0410_a028/a029", "action": "INSERTED", "kb_file": "knowledge_base/domains/TD/assumptions.md", "kb_line_after": 7, "pdf_page": 410, "note": "## TD – Specification + td.xpt 首句 (gap S)"}
+{"ref": "pdf:p411:TD – Assumptions", "action": "INSERTED", "kb_file": "knowledge_base/domains/TD/assumptions.md", "kb_line_after": 11, "pdf_page": 411, "note": "## TD – Assumptions (gap A)"}
+{"ref": "ig34_p0411_a011", "action": "INSERTED", "kb_file": "knowledge_base/domains/TD/assumptions.md", "kb_line_after": 13, "pdf_page": 411, "note": "asm 1 补末 3 句 (TD has limited utility within oncology …)"}
+{"ref": "pdf:p411:TD top paragraph", "action": "DELETED", "kb_file": "knowledge_base/domains/TD/assumptions.md", "kb_line_after": 3, "pdf_page": 411, "note": "KB 无标题顶段 = asm 1 改写副本 (in oncology), asm 1 补全后 D2 去重删除 (D-1)"}
+{"ref": "ig34_p0411_a012", "action": "REPLACED", "kb_file": "knowledge_base/domains/TD/assumptions.md", "kb_line_after": 15, "pdf_page": 411, "note": "asm 2 (e.g., ANCH1DT → (e.g. ANCH1DT (PDF 逐字)"}
+{"ref": "ig34_p0411_a009", "action": "INSERTED", "kb_file": "knowledge_base/domains/TD/spec.md", "kb_line_after": 87, "pdf_page": 411, "note": "spec 脚注 (gap F)"}
+{"ref": "pdf:p412:figure", "action": "INSERTED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 5, "pdf_page": 412, "note": "D6 KB note: Ex1 标签+Mermaid 为 KB 渲染"}
+{"ref": "pdf:p412:figure label", "action": "REPLACED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 32, "pdf_page": 412, "note": "Mermaid ETC 标签 '... et cetera, untildisease …' → PDF 'et cetera, until disease progression or death'"}
+{"ref": "ig34_p0412_a011", "action": "REPLACED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 44, "pdf_page": 412, "note": "+1 week → + 1 week (PDF 逐字)"}
+{"ref": "ig34_p0412_a012", "action": "REPLACED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 46, "pdf_page": 412, "note": "+1 week → + 1 week"}
+{"ref": "ig34_p0412_a009", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 40, "pdf_page": 412, "note": "TD T-1: PDF 'assessments..' KB 单句点"}
+{"ref": "pdf:p413:figure", "action": "INSERTED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 58, "pdf_page": 413, "note": "D6 KB note Ex2 图"}
+{"ref": "pdf:p413:figure labels", "action": "REPLACED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 74, "pdf_page": 413, "note": "ETC1/ETC2 标签同上; 刻度 +8/+16/+24/+32 wks → X8/X16/X24/X32 (PDF 图)"}
+{"ref": "ig34_p0413_a003", "action": "REPLACED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 92, "pdf_page": 413, "note": "'start of the period 2 treatment' → 'start of period 2 treatment'"}
+{"ref": "ig34_p0413_a008", "action": "REPLACED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 98, "pdf_page": 413, "note": "+1 week → + 1 week"}
+{"ref": "pdf:p414:figure", "action": "INSERTED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 109, "pdf_page": 414, "note": "D6 KB note Ex3 图"}
+{"ref": "pdf:p414:figure labels", "action": "REPLACED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 134, "pdf_page": 414, "note": "ETC1/ETC2 标签; +12..+48 wks → X12..X48"}
+{"ref": "ig34_p0414_a006", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 153, "pdf_page": 414, "note": "TD T-2: PDF 'restarted).' 无配对左括号, KB 'restarted.'"}
+{"ref": "ig34_p0414_a008", "action": "REPLACED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 157, "pdf_page": 414, "note": "-3 days and +1 week → - 3 days and + 1 week; '( i.e.,' 空格 = TD T-3 KB 保留 '(i.e.,'"}
+{"ref": "ig34_p0414_a009", "action": "REPLACED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 159, "pdf_page": 414, "note": "+1 week → + 1 week"}
+{"ref": "ig34_p0414_a010", "action": "REPLACED", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 161, "pdf_page": 414, "note": "every 12 weeks → every 24 weeks (照录 PDF, TD U-1 交 T4); +1 → + 1; 补末句 The schematic shows that, for the third pattern …"}
+{"ref": "census:knowledge_base/domains/TD/examples.md:167:header:TDTGTPAI", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/TD/examples.md", "kb_line_after": 167, "pdf_page": 414, "note": "TD T-4: PDF 表头 TDTGPAI, KB TDTGTPAI (spec p411 + Ex1/Ex2 表头)"}
+{"ref": "pdf:p415:TM – Specification", "action": "INSERTED", "kb_file": "knowledge_base/domains/TM/assumptions.md", "kb_line_after": 7, "pdf_page": 415, "note": "## TM – Specification (PDF 标题)"}
+{"ref": "pdf:p415:TM – Assumptions", "action": "INSERTED", "kb_file": "knowledge_base/domains/TM/assumptions.md", "kb_line_after": 11, "pdf_page": 415, "note": "## TM – Assumptions (gap A)"}
+{"ref": "ig34_p0415_a012", "action": "INSERTED", "kb_file": "knowledge_base/domains/TM/spec.md", "kb_line_after": 51, "pdf_page": 415, "note": "spec 脚注 (gap F)"}
+{"ref": "census:knowledge_base/domains/TA/assumptions.md:31", "action": "VERIFIED", "kb_file": "knowledge_base/domains/TA/assumptions.md", "kb_line_after": 31, "pdf_page": "382-383", "note": "Concept/Definition 9 行: bbox 右栏词序 diff 仅行序伪差 + T-1 (3 study cells)"}
+{"ref": "census:knowledge_base/domains/TA/examples.md:141", "action": "VERIFIED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 141, "pdf_page": 389, "note": "Trial Design Matrix 渲染逐格一致"}
+{"ref": "census:knowledge_base/domains/TA/examples.md:325", "action": "VERIFIED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 325, "pdf_page": 391, "note": "Trial Design Matrix 渲染逐格一致"}
+{"ref": "census:knowledge_base/domains/TA/examples.md:495", "action": "VERIFIED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 495, "pdf_page": 393, "note": "Trial Design Matrix 渲染逐格一致"}
+{"ref": "census:knowledge_base/domains/TA/examples.md:667", "action": "VERIFIED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 667, "pdf_page": 396, "note": "Trial Design Matrix 渲染逐格一致"}
+{"ref": "census:knowledge_base/domains/TA/examples.md:753", "action": "VERIFIED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 753, "pdf_page": 397, "note": "Trial Design Matrix 渲染逐格一致"}
+{"ref": "census:knowledge_base/domains/TA/examples.md:835", "action": "VERIFIED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 835, "pdf_page": 398, "note": "Trial Design Matrix 渲染逐格一致"}
+{"ref": "census:knowledge_base/domains/TA/examples.md:976", "action": "VERIFIED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 976, "pdf_page": 401, "note": "Trial Design Matrix 渲染逐格一致"}
+{"ref": "pdf:p385:TA-Specific heading", "action": "DELETED", "kb_file": "knowledge_base/domains/TA/assumptions.md", "kb_line_after": 110, "pdf_page": 385, "note": "主控裁定: 删 KB 自拟冗余标题 ## TA-Specific Assumptions (无入站锚点, D2; D-5)"}

@@ -43,3 +43,4 @@
 - (S-SPC2 主控定) KB 自写的解释性 `*Note:*` 段 → 一律 D6 标注 (B-MS "纯导航不标" 口径作废); 纯交叉引用 ("See … for …") 才算导航不标.
 - audit_matrix 唯一路径 = `.work/10_tier_b_repair/audit_matrix.md` (不是 evidence/ 下; S-INT auditor 曾写错, 主控已合并).
 - (S-TDM 主控定) 补入 PDF 原标题后, 紧邻的 KB 自拟同义标题 (如 `## TA-Specific Assumptions` 紧跟 `## TA – Assumptions`) 若全 KB 无入站锚点链接 → 删除该冗余标题行 (列入删除清单, D2); 有入站链接 → 保留并记录.
+- (S-CH1 主控定) 强调格式差异 (KB 多/少粗体, PDF 粗体+下划线如 "NEVER") 不算缺口, 不改, S-TYPO 也不处理 (只管引号/dash/省略号/○□).

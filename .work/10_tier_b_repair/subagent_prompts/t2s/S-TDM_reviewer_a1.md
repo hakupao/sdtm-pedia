@@ -1,0 +1,5 @@
+批次 S-TDM (T2-post 扫描批), attempt 1. 角色: reviewer.
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Reviewer 段执行, 并读它引用的 `t2_reviewer_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含末尾 T2S 段及其后主控裁定) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8) / `t1_user_ack.md`。样板: `evidence/checkpoints/t2_S-EVT_review.md`。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-TDM.json` (TA p384-402 + §7.1-7.2 引言 p382-384, TD p410-414 (已更正), TM p415)。writer 报告 `evidence/checkpoints/t2_S-TDM.md` (含 attempt 1 delta: 删冗余标题 D-5) + `work/t2_batches/S-TDM.writer.jsonl`。改动未提交: `git diff HEAD -- knowledge_base/domains/{TA,TD,TM}`。另有扫描批同时改别的文件, 只看本批。
+重点: 独立双向全扫; TD asm 1 补 3 句 + D-1 删顶部改写副本 (核 asm 1 补齐后该段信息全承载); TD asm 2 "e.g." 与 examples 逐字改动; TD 3 张 Mermaid 图 D6 注 + 标签/刻度对渲染图逻辑一致 (dispatch notes Mermaid 条); TA CT `*` 4 格 + TD/TM CT 逐变量; 3 处脚注 (U7); TD T-1..T-4 / U-1..U-3 依据; 8 张 census_items 渲染逐格; D-5 删除。
+回主控 ≤ 10 行。

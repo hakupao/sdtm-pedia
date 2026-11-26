@@ -1,0 +1,189 @@
+{
+ "batch_id": "S-TDM",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "domains/TA",
+  "domains/TD",
+  "domains/TM"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/TA/assumptions.md",
+  "knowledge_base/domains/TA/examples.md",
+  "knowledge_base/domains/TA/spec.md",
+  "knowledge_base/domains/TD/assumptions.md",
+  "knowledge_base/domains/TD/examples.md",
+  "knowledge_base/domains/TD/spec.md",
+  "knowledge_base/domains/TM/assumptions.md",
+  "knowledge_base/domains/TM/examples.md",
+  "knowledge_base/domains/TM/spec.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "domains/TA",
+   "sec": "7.2.1",
+   "title": "§7.2.1 Trial Arms (TA)",
+   "lo": 384,
+   "hi": 402,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/TD",
+   "sec": "7.3.2",
+   "title": "§7.3.2 Trial Disease Assessments (TD)",
+   "lo": 410,
+   "hi": 414,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/TM",
+   "sec": "7.3.3",
+   "title": "§7.3.3 Trial Disease Milestones (TM)",
+   "lo": 415,
+   "hi": 415,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/TA",
+   "sec": "7.1-7.2",
+   "title": "Trial Design 引言 §7.1.x + §7.2 (TA 顶已有, 复核)",
+   "lo": 382,
+   "hi": 384,
+   "note": "共用/父节, 须一并全扫"
+  }
+ ],
+ "pdf_pages": [
+  382,
+  383,
+  384,
+  385,
+  386,
+  387,
+  388,
+  389,
+  390,
+  391,
+  392,
+  393,
+  394,
+  395,
+  396,
+  397,
+  398,
+  399,
+  400,
+  401,
+  402,
+  410,
+  411,
+  412,
+  413,
+  414,
+  415
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/TA/assumptions.md",
+   "src": "ig34",
+   "lo": 382,
+   "hi": 402
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "src": "ig34",
+   "lo": 382,
+   "hi": 402
+  },
+  {
+   "file": "knowledge_base/domains/TA/spec.md",
+   "src": "ig34",
+   "lo": 382,
+   "hi": 402
+  },
+  {
+   "file": "knowledge_base/domains/TD/assumptions.md",
+   "src": "ig34",
+   "lo": 410,
+   "hi": 414
+  },
+  {
+   "file": "knowledge_base/domains/TD/examples.md",
+   "src": "ig34",
+   "lo": 410,
+   "hi": 414
+  },
+  {
+   "file": "knowledge_base/domains/TD/spec.md",
+   "src": "ig34",
+   "lo": 410,
+   "hi": 414
+  },
+  {
+   "file": "knowledge_base/domains/TM/assumptions.md",
+   "src": "ig34",
+   "lo": 415,
+   "hi": 415
+  },
+  {
+   "file": "knowledge_base/domains/TM/examples.md",
+   "src": "ig34",
+   "lo": 415,
+   "hi": 415
+  },
+  {
+   "file": "knowledge_base/domains/TM/spec.md",
+   "src": "ig34",
+   "lo": 415,
+   "hi": 415
+  }
+ ],
+ "gaps": {
+  "TA": "AF (fn 原子 ig34_p0385_a009)",
+  "TD": "DSAF (fn 原子 ig34_p0411_a009)",
+  "TM": "AF (fn 原子 ig34_p0415_a012)"
+ },
+ "intros": [],
+ "footnote": "U2: 本批各域 spec.md 最后一个变量块之后、Cross References 之前补 (U7) spec 表脚注 (逐字); CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
+ "footnote_moves": [],
+ "census_items": [
+  {
+   "kb": "domains/TD/examples.md:161 (HEAD 行号, 以内容定位)",
+   "triage_row": "11 | C1 | DIFF | `domains/TD/examples.md:161` | ig34:p414 | 3 / td.xpt | 表头 KB TDTGTPAI vs PDF p414 TDTGPAI; PDF p411-413 spec/例均 TDTGTPAI → PDF 笔误, KB 值正确; 处置=补登 T-n, KB 不改 | 无 (TD 无 T2 批; 无登记)"
+  },
+  {
+   "kb": "domains/TA/assumptions.md:31 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/TA/assumptions.md:31` | ig34:p382-402 | 0 | Concept / Definition | t2_B-TA_review.md:55"
+  },
+  {
+   "kb": "domains/TA/examples.md:141 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/TA/examples.md:141` | ig34:p382-402 | 0 | / Screen / Run-in / Treatment | t2_B-TA_review.md:64,71"
+  },
+  {
+   "kb": "domains/TA/examples.md:325 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/TA/examples.md:325` | ig34:p382-402 | 0 | / Screen / First Treatment / First Rest / Second Treatment | t2_B-TA_review.md:64,71"
+  },
+  {
+   "kb": "domains/TA/examples.md:495 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/TA/examples.md:495` | ig34:p382-402 | 0 | / Screen / Double Blind / Open Label | t2_B-TA_review.md:64,71"
+  },
+  {
+   "kb": "domains/TA/examples.md:667 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/TA/examples.md:667` | ig34:p382-402 | 0 | / Screen / Treatment /  /  /  /  /  /  /  / Follow-up | t2_B-TA_review.md:64,71"
+  },
+  {
+   "kb": "domains/TA/examples.md:753 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/TA/examples.md:753` | ig34:p382-402 | 0 | / Screen / Treatment /  /  /  /  /  / Follow-up | t2_B-TA_review.md:64,71"
+  },
+  {
+   "kb": "domains/TA/examples.md:835 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/TA/examples.md:835` | ig34:p382-402 | 0 | / Screen / Treatment /  /  /  /  /  /  /  / Follow-up | t2_B-TA_review.md:64,71"
+  },
+  {
+   "kb": "domains/TA/examples.md:976 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/TA/examples.md:976` | ig34:p382-402 | 0 | / Screen / Induction /  / Continuation /  /  /  /  / Follow | t2_B-TA_review.md:64,71"
+  }
+ ],
+ "out_of_scope": [],
+ "notes": "TD 表头 C1: KB TDTGTPAI 正确, PDF p414 TDTGPAI 笔误 → 补登 T-n, KB 不改. TM §7.3.3 只 1 页 (p415, 下部 §7.4 TI 起). 行号均为 HEAD 时, 以内容定位."
+}

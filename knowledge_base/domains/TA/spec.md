@@ -24,7 +24,7 @@
 - **Order:** 3
 - **Label:** Planned Arm Code
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** ARMCD is limited to 20 characters and does not have special character restrictions. The maximum length of ARMCD is longer than that for other "short" variables to accommodate the kind of values that are likely to be needed for crossover trials. For example, if ARMCD values for a 7-period crossover were constructed using 2-character abbreviations for each treatment and separating hyphens, the length of ARMCD values would be 20.
@@ -33,7 +33,7 @@
 - **Order:** 4
 - **Label:** Description of Planned Arm
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Synonym Qualifier
 - **Core:** Req
 - **CDISC Notes:** Name given to an arm or treatment group.
@@ -51,7 +51,7 @@
 - **Order:** 6
 - **Label:** Element Code
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Record Qualifier
 - **Core:** Req
 - **CDISC Notes:** ETCD (the companion to ELEMENT) is limited to 8 characters and does not have special character restrictions. These values should be short for ease of use in programming, but it is not expected that ETCD will need to serve as a variable name.
@@ -60,7 +60,7 @@
 - **Order:** 7
 - **Label:** Description of Element
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Synonym Qualifier
 - **Core:** Perm
 - **CDISC Notes:** The name of the element. The same element may occur more than once within an arm.
@@ -92,6 +92,8 @@
 - **Core:** Req
 - **CDISC Notes:** Name of the trial epoch with which this element of the arm is associated.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

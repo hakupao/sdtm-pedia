@@ -107,7 +107,7 @@ ta.xpt, Trial Arms — Trial Design. One record per planned Element per Arm, Tab
 
 > See [../TE/examples.md#transitions-between-elements](../TE/examples.md#transitions-between-elements) for this text.
 
-## TA-Specific Assumptions
+## TA – Assumptions
 
 1. TAETORD is an integer. In general, the value of TAETORD is 1 for the first element in each arm, 2 for the second element in each arm, and so on. Occasionally, it may be convenient to skip some values (see Example Trial 6). Although the values of TAETORD need not always be sequential, their order must always be the correct order for the elements in the arm path.
 

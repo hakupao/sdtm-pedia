@@ -2,6 +2,8 @@
 
 ## Example 1
 
+> KB note (not in SDTMIG): the following label and Mermaid diagram are a KB rendering of the untitled PDF Example 1 figure (p412).
+
 **Timeline Diagram — Example 1: Three sequential assessment schedules from a single anchor**
 
 ```mermaid
@@ -27,7 +29,7 @@ graph LR
     subgraph S3["Schedule 3 — every 24 weeks (week 120 onward)"]
         W120[/"▲ Wk 120"/]
         W144[/"▲ Wk 144"/]
-        ETC(["... et cetera, untildisease progression or death"])
+        ETC(["et cetera, until disease progression or death"])
     end
 
     ANCH1DT --> W8 --> W16 --> W24 --> W32 --> W40 --> W48
@@ -39,9 +41,9 @@ This example shows a study where the disease assessment schedule changes over th
 
 - The first disease-assessment schedule pattern starts at the reference start date (identified in the ADSL ANCH1DT variable) and repeats every 8 weeks for a total of 6 repeated assessments (i.e., week 8, week 16, week 24, week 32, week 40, week 48). Note that there is an upper and lower limit around the planned disease assessment target where the first assessment (8 weeks) could occur as early as day 53 and as late as week 9. This upper and lower limit (-3 days, +1 week) would be applied to all assessments during that pattern.
 
-- The second disease assessment schedule starts from week 48 and repeats every 12 weeks for a total of 4 repeats (i.e., week 60, week 72, week 84, week 96), with respective upper and lower limits of -1 week and +1 week.
+- The second disease assessment schedule starts from week 48 and repeats every 12 weeks for a total of 4 repeats (i.e., week 60, week 72, week 84, week 96), with respective upper and lower limits of -1 week and + 1 week.
 
-- The third disease assessment schedule starts from week 96 and repeats every 24 weeks (week 120, week 144, and so on), with respective upper and lower limits of -1 week and +1 week, for an indefinite length of time. The preceding schematic shows that, for the third pattern, assessments will occur until disease progression; this therefore leaves the pattern open-ended. However, when data is included in an analysis, the total number of repeats can be identified and the highest number of repeat assessments for any subject in that pattern must be recorded in the TDNUMRPT variable on the final pattern record.
+- The third disease assessment schedule starts from week 96 and repeats every 24 weeks (week 120, week 144, and so on), with respective upper and lower limits of -1 week and + 1 week, for an indefinite length of time. The preceding schematic shows that, for the third pattern, assessments will occur until disease progression; this therefore leaves the pattern open-ended. However, when data is included in an analysis, the total number of repeats can be identified and the highest number of repeat assessments for any subject in that pattern must be recorded in the TDNUMRPT variable on the final pattern record.
 
 **td.xpt**
 
@@ -52,6 +54,8 @@ This example shows a study where the disease assessment schedule changes over th
 | 3 | ABC123 | TD | 3 | ANCH1DT | P96W | P24W | P23W | P25W | 12 |
 
 ## Example 2
+
+> KB note (not in SDTMIG): the following label and Mermaid diagram are a KB rendering of the untitled PDF Example 2 figure (p413).
 
 **Timeline Diagram — Example 2: Two periods with separate anchor dates (crossover study)**
 
@@ -67,7 +71,7 @@ graph LR
             A40[/"▲ Wk 40"/]
             A48[/"▲ Wk 48"/]
             A56[/"▲ Wk 56"/]
-            ETC1(["... et cetera, untildisease progression or death"])
+            ETC1(["et cetera, until disease progression or death"])
         end
         ANCH1DT --> A8 --> A16 --> A24 --> A32 --> A40 --> A48 --> A56 --> ETC1
     end
@@ -75,23 +79,23 @@ graph LR
     subgraph P2["Period 2"]
         ANCH2DT(["ANCH2DT(anchor)"])
         subgraph S2["Schedule 2 — every 8 weeks"]
-            B8[/"▲ +8 wks"/]
-            B16[/"▲ +16 wks"/]
-            B24[/"▲ +24 wks"/]
-            B32[/"▲ +32 wks"/]
-            ETC2(["... et cetera, untildisease progression or death"])
+            B8[/"▲ X8"/]
+            B16[/"▲ X16"/]
+            B24[/"▲ X24"/]
+            B32[/"▲ X32"/]
+            ETC2(["et cetera, until disease progression or death"])
         end
         ANCH2DT --> B8 --> B16 --> B24 --> B32 --> ETC2
     end
 ```
 
-This example shows a crossover study, where subjects are given the period 1 treatment according to the first disease-assessment schedule until disease progression, then there is a rest period of 28 days prior to the start of the period 2 treatment (i.e., re-baseline for period 2). The subjects are then given the period 2 treatment according to the second disease assessment schedule until disease progression. This example also shows how two different reference/anchor dates can be used.
+This example shows a crossover study, where subjects are given the period 1 treatment according to the first disease-assessment schedule until disease progression, then there is a rest period of 28 days prior to the start of period 2 treatment (i.e., re-baseline for period 2). The subjects are then given the period 2 treatment according to the second disease assessment schedule until disease progression. This example also shows how two different reference/anchor dates can be used.
 
 - The Rest element is not represented as a row in the TD dataset, since no disease assessments occur during the Rest. Note that although the Rest epoch in this example is not important for TD, it is important that it is represented in other trial design datasets.
 
 **Row 1:** Shows the disease assessment schedule for the first treatment period. The diagram above shows that this schedule repeats until disease progression. After the trial ended, the maximum number of repeats in this schedule was determined to be 6, so that is the value in TDNUMRPT for this schedule.
 
-**Row 2:** Shows the disease assessment schedule for the second period. The pattern starts on the date identified in the ADSL variable ANCH2DT and repeats every 8 weeks with respective upper and lower limits of -1 week and +1 week. The maximum number of repeats that occurred on this schedule was 4.
+**Row 2:** Shows the disease assessment schedule for the second period. The pattern starts on the date identified in the ADSL variable ANCH2DT and repeats every 8 weeks with respective upper and lower limits of -1 week and + 1 week. The maximum number of repeats that occurred on this schedule was 4.
 
 **td.xpt**
 
@@ -101,6 +105,8 @@ This example shows a crossover study, where subjects are given the period 1 trea
 | 2 | ABC123 | TD | 2 | ANCH2DT | P0D | P8W | P53D | P9W | 4 |
 
 ## Example 3
+
+> KB note (not in SDTMIG): the following label and Mermaid diagram are a KB rendering of the untitled PDF Example 3 figure (p414).
 
 **Timeline Diagram — Example 3: Double Blind Treatment (two schedules) + Extension Treatment**
 
@@ -125,7 +131,7 @@ graph LR
             C120[/"▲ Wk 120"/]
             C132[/"▲ Wk 132"/]
             C144[/"▲ Wk 144"/]
-            ETC1(["... et cetera, untildisease progression or death"])
+            ETC1(["et cetera, until disease progression or death"])
         end
         ANCH1DT --> C8 --> C16 --> C24 --> C32 --> C40 --> C48
         C48 --> C60 --> C72 --> C84 --> C96 --> C108 --> C120 --> C132 --> C144 --> ETC1
@@ -134,11 +140,11 @@ graph LR
     subgraph EXT["Extension Treatment"]
         ANCH2DT(["ANCH2DT(anchor)"])
         subgraph S3["Schedule 3 — every 12 weeks"]
-            D12[/"▲ +12 wks"/]
-            D24[/"▲ +24 wks"/]
-            D36[/"▲ +36 wks"/]
-            D48[/"▲ +48 wks"/]
-            ETC2(["... et cetera, untildisease progression or death"])
+            D12[/"▲ X12"/]
+            D24[/"▲ X24"/]
+            D36[/"▲ X36"/]
+            D48[/"▲ X48"/]
+            ETC2(["et cetera, until disease progression or death"])
         end
         ANCH2DT --> D12 --> D24 --> D36 --> D48 --> ETC2
     end
@@ -148,11 +154,11 @@ This example shows a study where subjects are randomized to standard treatment o
 
 In this example, there are 3 distinct disease-assessment schedule patterns:
 
-- The first disease-assessment schedule pattern starts at the reference start date (identified in the ADSL ANCH1DT variable) and repeats every 8 weeks for a total of 6 repeats (i.e., week 8, week 16, week 24, week 32, week 40, week 48), with respective upper and lower limits of -3 days and +1 week.
+- The first disease-assessment schedule pattern starts at the reference start date (identified in the ADSL ANCH1DT variable) and repeats every 8 weeks for a total of 6 repeats (i.e., week 8, week 16, week 24, week 32, week 40, week 48), with respective upper and lower limits of - 3 days and + 1 week.
 
-- The second disease assessment schedule starts from week 48 and repeats every 12 weeks (week 60, week 72, etc.), with respective upper and lower limits of -1 week and +1 week, for an indefinite length of time. The preceding schematic shows that, for the second pattern, assessments will occur until disease progression; this therefore leaves the pattern open-ended.
+- The second disease assessment schedule starts from week 48 and repeats every 12 weeks (week 60, week 72, etc.), with respective upper and lower limits of -1 week and + 1 week, for an indefinite length of time. The preceding schematic shows that, for the second pattern, assessments will occur until disease progression; this therefore leaves the pattern open-ended.
 
-- The third disease assessment schedule starts at the extension reference start date (identified in the ADSL ANCH2DT variable) from week 96 and repeats every 12 weeks (week 120, week 144, etc.), with respective upper and lower limits of -1 week and +1 week, for an indefinite length of time.
+- The third disease assessment schedule starts at the extension reference start date (identified in the ADSL ANCH2DT variable) from week 96 and repeats every 24 weeks (week 120, week 144, etc.), with respective upper and lower limits of -1 week and + 1 week, for an indefinite length of time. The schematic shows that, for the third pattern, assessments will occur until disease progression; this therefore leaves the pattern open-ended.
 
 For open-ended patterns, the total number of repeats can be identified when the data analysis is performed; the highest number of repeat assessments for any subject in that pattern must be recorded in the TDNUMRPT variable on the final pattern record.
 
