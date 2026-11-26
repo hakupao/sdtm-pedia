@@ -1,0 +1,76 @@
+{
+ "batch_id": "S-CH8",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "chapters/ch08_relationships.md"
+ ],
+ "kb_files": [
+  "knowledge_base/chapters/ch08_relationships.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "chapters/ch08_relationships.md",
+   "sec": "8",
+   "title": "§8 Representing Relationships and Data",
+   "lo": 427,
+   "hi": 440,
+   "src": "ig34",
+   "note": "主控粗定, 先复核 (O20)"
+  }
+ ],
+ "pdf_pages": [
+  427,
+  428,
+  429,
+  430,
+  431,
+  432,
+  433,
+  434,
+  435,
+  436,
+  437,
+  438,
+  439,
+  440
+ ],
+ "pdf_src": "ig34",
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/chapters/ch08_relationships.md",
+   "src": "ig34",
+   "lo": 427,
+   "hi": 440
+  }
+ ],
+ "gaps": {},
+ "intros": [],
+ "footnote": "本批无域 spec.md",
+ "footnote_moves": [],
+ "census_items": [
+  {
+   "kb": "chapters/ch08_relationships.md:86 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch08_relationships.md:86` | ig34:p427-440 | 0 | Variable Name / Variable Label / Type / Controlled Terms, Co | t2_B-ch08_review.md:53,70-74"
+  },
+  {
+   "kb": "chapters/ch08_relationships.md:197 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch08_relationships.md:197` | ig34:p427-440 | 0 | Variable Name / Variable Label / Type / Controlled Terms, Co | t2_B-ch08_review.md:53,70-74"
+  },
+  {
+   "kb": "chapters/ch08_relationships.md:319 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch08_relationships.md:319` | ig34:p427-440 | 0 | Question / Interpretation of Answers | t2_B-ch08_review.md:53,70-74"
+  },
+  {
+   "kb": "chapters/ch08_relationships.md:351 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch08_relationships.md:351` | ig34:p427-440 | 0 | Variable Name / Variable Label / Type / Controlled Terms, Co | t2_B-ch08_review.md:53,70-74"
+  },
+  {
+   "kb": "chapters/ch08_relationships.md:420 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `chapters/ch08_relationships.md:420` | ig34:p427-440 | 0 | Variable Name / Variable Label / Type / Controlled Terms, Co | t2_B-ch08_review.md:53,70-74"
+  }
+ ],
+ "out_of_scope": [],
+ "notes": "须在 S-SPREL 提交后再跑 (RELREC/RELSUB/RELSPEC/SUPPQUAL 同节文字归属, 以 S-SPREL 与 B-REL/B-SUPPQUAL 的 D2 结论为准). ch08 U1 排版字符归 S-TYPO. 行号为 HEAD 时, 以内容定位."
+}
