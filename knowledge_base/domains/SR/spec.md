@@ -90,7 +90,7 @@
 - **Controlled Terms:** 
 - **Role:** Record Qualifier
 - **Core:** Req
-- **CDISC Notes:** Used to describe the object or focal point of the findings observation that is represented by --TEST. Examples: the dose of the immunogenic material or the allergen associated with the response (e.g., "Johnson Grass IgE 0.15 BAU mL").
+- **CDISC Notes:** Used to describe the object or focal point of the findings observation that is represented by --TEST. Examples: the dose of the immunogenic material or the allergen associated with the response (e.g., "Johnson Grass IgE 0.15 BAU/mL").
 
 ### SRCAT
 - **Order:** 11
@@ -333,7 +333,7 @@
 - **Controlled Terms:** ISO 8601 duration
 - **Role:** Timing
 - **Core:** Perm
-- **CDISC Notes:** Planned elapsed time (in ISO 8601) relative to a fixed time point reference (SRTPTREF). Not a clock time or a date time variable. Represented as an ISO 8601 duration. Examples: "-PT15M" to represent the period of 15 minutes prior to the reference point indicated by EGTPTREF, "PT8H" to represent the period of 8 hours after the reference point indicated by SRTPTREF.
+- **CDISC Notes:** Planned elapsed time (in ISO 8601) relative to a fixed time point reference (SRTPTREF). Not a clock time or a date time variable. Represented as an ISO 8601 duration. Examples: "-PT15M" to represent the period of 15 minutes prior to the reference point indicated by SRTPTREF, "PT8H" to represent the period of 8 hours after the reference point indicated by SRTPTREF.
 
 ### SRTPTREF
 - **Order:** 38

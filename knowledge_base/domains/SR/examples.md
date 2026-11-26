@@ -64,14 +64,14 @@ The relationships between SR and EX records are represented at the record level 
 | Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
 |-----|---------|---------|---------|-------|----------|---------|-------|
 | 1 | CC-001 | SR | CC-001-101 | SRSPID | 1 | | R1 |
-| 2 | CC-001 | EX | CC-001-101 | EXSPID | 1 | | R1 |
-| 3 | CC-001 | SR | CC-001-101 | SRSPID | 7 | | R1 |
+| 2 | CC-001 | SR | CC-001-101 | SRSPID | 7 | | R1 |
+| 3 | CC-001 | EX | CC-001-101 | EXSPID | 1 | | R1 |
 | 4 | CC-001 | SR | CC-001-101 | SRSPID | 2 | | R2 |
-| 5 | CC-001 | EX | CC-001-101 | EXSPID | 2 | | R2 |
-| 6 | CC-001 | SR | CC-001-101 | SRSPID | 8 | | R2 |
+| 5 | CC-001 | SR | CC-001-101 | SRSPID | 8 | | R2 |
+| 6 | CC-001 | EX | CC-001-101 | EXSPID | 2 | | R2 |
 | 7 | CC-001 | SR | CC-001-101 | SRSPID | 3 | | R3 |
-| 8 | CC-001 | EX | CC-001-101 | EXSPID | 3 | | R3 |
-| 9 | CC-001 | SR | CC-001-101 | SRSPID | 9 | | R3 |
+| 8 | CC-001 | SR | CC-001-101 | SRSPID | 9 | | R3 |
+| 9 | CC-001 | EX | CC-001-101 | EXSPID | 3 | | R3 |
 | 10 | CC-001 | SR | CC-001-101 | SRSPID | 4 | | R4 |
 | 11 | CC-001 | SR | CC-001-101 | SRSPID | 10 | | R4 |
 | 12 | CC-001 | EX | CC-001-101 | EXSPID | 4 | | R4 |
@@ -84,7 +84,7 @@ The relationships between SR and EX records are represented at the record level 
 
 ## Example 3
 
-This example shows the results from a tuberculin purified protein derivative (PPD) skin test administered using the Mantoux technique. The subject was given an intradermal injection of standard PPD (i.e., PPD-S) in the left forearm at visit 1; see the Procedure Agents (AG) record below. At visit 2, the induration diameter and presence of blistering were recorded. Because the tuberculin PPD skin test cannot be interpreted using the induration diameter and blistering alone (e.g., risk for being infected with TB must also be considered), the interpretation of the skin test resides in its own row. Time point variables show that the planned time for reading the test was 48 hours after Mantoux administration. However, a comparison of datetime values in SRDTC and SRRFTDTC shows that in this case the test was read at 53 hours and 56 minutes after Mantoux administration.
+This example shows the results from a tuberculin purified protein derivative (PPD) skin test administered using the Mantoux technique. The subject was given an intradermal injection of standard tuberculin PPD (i.e., PPD-S) in the left forearm at visit 1; see the Procedure Agents (AG) record below. At visit 2, the induration diameter and presence of blistering were recorded. Because the tuberculin PPD skin test cannot be interpreted using the induration diameter and blistering alone (e.g., risk for being infected with TB must also be considered), the interpretation of the skin test resides in its own row. The time point variables show that the planned time for reading the test was 48 hours after Mantoux administration. However, a comparison of datetime values in SRDTC and SRRFTDTC shows that in this case the test was read at 53 hours and 56 minutes after Mantoux administration.
 
 **Row 1:** Shows the longest diameter in millimeters of the induration after receiving an intradermal injection of 0.1 mL containing 5TU of PPD-S in the left forearm.
 **Row 2:** Shows the presence of blistering at the tuberculin PPD skin test site.
@@ -94,9 +94,9 @@ This example shows the results from a tuberculin purified protein derivative (PP
 
 | Row | STUDYID | DOMAIN | USUBJID | SRSEQ | SRGRPID | SRTESTCD | SRTEST | SROBJ | SRORRES | SRORRESU | SRSTRESC | SRSTRESN | SRSTRESU | SRLOC | SRLAT | SRMETHOD | VISITNUM | VISIT | EPOCH | SRDTC | SRTPT | SRELTM | SRTPTREF | SRRFTDTC |
 |-----|---------|--------|---------|-------|---------|----------|--------|-------|---------|----------|----------|----------|----------|-------|-------|----------|----------|-------|-------|-------|-------|--------|----------|----------|
-| 1 | ABC | SR | ABC-001 | 1 | 1 | DRLDOM | Induration Longest Diameter | Tuberculin PPD-S | 16 | mm | 16 | 16 | mm | FOREARM | LEFT | RULER | 2 | VISIT 2 | OPEN LABEL TREATMENT | 2011-01-19T14:26 | 48 H | PT48H | MANTOUX ADMINISTRATION | 2011-01-17T08:30:00 |
-| 2 | ABC | SR | ABC-001 | 2 | 1 | BLISTIND | Blistering Indicator | Tuberculin PPD-S | Y | | Y | | | FOREARM | LEFT | | 2 | VISIT 2 | OPEN LABEL TREATMENT | 2011-01-19T14:26 | 48 H | PT48H | MANTOUX ADMINISTRATION | 2011-01-17T08:30:00 |
-| 3 | ABC | SR | ABC-001 | 3 | 1 | INTP | Interpretation | Tuberculin PPD-S | POSITIVE | | POSITIVE | | | | | | 2 | VISIT 2 | OPEN LABEL TREATMENT | 2011-01-19T14:26 | 48 H | PT48H | MANTOUX ADMINISTRATION | 2011-01-17T08:30:00 |
+| 1 | ABC | SR | ABC-001 | 1 | 1 | IDRLDIAM | Induration Longest Diameter | Tuberculin PPD-S | 16 | mm | 16 | 16 | mm | FOREARM | LEFT | RULER | 2 | VISIT 2 | OPEN LABEL TREATMENT | 2011-01-19T14:08:24 | 48 H | PT48H | MANTOUX ADMINISTRATION | 2011-01-17T08:30:00 |
+| 2 | ABC | SR | ABC-001 | 2 | 1 | BLISTIND | Blistering Indicator | Tuberculin PPD-S | Y | | Y | | | FOREARM | LEFT | | 2 | VISIT 2 | OPEN LABEL TREATMENT | 2011-01-19T14:08:24 | 48 H | PT48H | MANTOUX ADMINISTRATION | 2011-01-17T08:30:00 |
+| 3 | ABC | SR | ABC-001 | 3 | 1 | INTP | Interpretation | Tuberculin PPD-S | POSITIVE | | POSITIVE | | | | | | 2 | VISIT 2 | OPEN LABEL TREATMENT | 2011-01-19T14:08:24 | 48 H | PT48H | MANTOUX ADMINISTRATION | 2011-01-17T08:30:00 |
 
 The tuberculin PPD skin test administration was represented in the AG domain.
 
@@ -104,7 +104,7 @@ The tuberculin PPD skin test administration was represented in the AG domain.
 
 | Row | STUDYID | DOMAIN | USUBJID | AGSEQ | AGTRT | AGDOSE | AGDOSU | AGVAMT | AGVAMTU | VISITNUM | VISIT | EPOCH | AGSTDTC |
 |-----|---------|--------|---------|-------|-------|--------|--------|--------|---------|----------|-------|-------|---------|
-| 1 | ABC | AG | ABC-001 | 1 | tuberculin PPD-S | 5 | tuberculin unit | 0.1 | mL | 1 | VISIT 1 | OPEN LABEL TREATMENT | 2011-01-17T08:30:00 |
+| 1 | ABC | AG | ABC-001 | 1 | Tuberculin PPD-S | 5 | tuberculin unit | 0.1 | mL | 1 | VISIT 1 | OPEN LABEL TREATMENT | 2011-01-17T08:30:00 |
 
 Relationships between SR and AG records were shown in RELREC.
 

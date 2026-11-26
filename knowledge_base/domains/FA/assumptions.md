@@ -115,3 +115,5 @@ A findings domain that contains the findings about an event or intervention that
 fa.xpt, Findings About Events or Interventions — Findings About. One record per finding, per object, per time point, per visit per subject, Tabulation.
 
 ## §6.4.5 Skin Response (SR)
+
+> See [SR – Assumptions](../SR/assumptions.md) for §6.4.5 Skin Response.

@@ -1,5 +1,15 @@
 # SR — Assumptions
 
+## SR – Description/Overview
+
+A findings about domain for submitting dermal responses to antigens.
+
+## SR – Specification
+
+sr.xpt, Skin Response — Findings About. One record per finding, per object, per time point, per visit per subject, Tabulation.
+
+## SR – Assumptions
+
 1. The Skin Response (SR) domain is used to represent findings about an intervention, but it has its own domain code, SR, rather than the domain code FA.
 
 2. This domain is intended specifically for tests of the immune response to substances that are intended to provoke such a response (e.g., allergens used in allergy testing). SR is not intended for other injection-site reactions, including reactogenicity events that may follow a vaccine administration.
