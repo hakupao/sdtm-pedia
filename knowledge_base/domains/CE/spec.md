@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Dictionary-Derived Term
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Synonym Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Controlled terminology for the name of the clinical event. The sponsor is expected to provide the dictionary name and version used to map the terms utilizing the external codelist element in the Define-XML document.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Category for the Clinical Event
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of related records.
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Subcategory for the Clinical Event
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A further categorization of the condition or event.
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Body System or Organ Class
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Dictionary-derived. Body system or organ class that is involved in an event or measurement from a standard hierarchy (e.g., MedDRA). When using a multi-axial dictionary such as MedDRA, this should contain the SOC used for the sponsor's analyses and summary tables, which may not necessarily be the primary SOC.
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Standard Toxicity Grade
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Toxicity grade according to a standard toxicity scale (e.g., Common Terminology Criteria for Adverse Events (CTCAE) v3.0). Sponsor should specify name of the scale and version used in the metadata. If value is from a numeric scale, represent only the number (e.g., "2", not "Grade 2").
@@ -290,6 +290,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Description or date/time in ISO 8601 character format of the reference point referred to by CEENRTPT. Examples: "2003-12-25", "VISIT 2".
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

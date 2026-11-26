@@ -1,0 +1,36 @@
+{"ref": "pdf:p148:CEDECOD CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 81, "pdf_page": 148, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p148:CECAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 90, "pdf_page": 148, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p149:CESCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 99, "pdf_page": 149, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p149:CEBODSYS CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 144, "pdf_page": 149, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p149:CETOXGR CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 162, "pdf_page": 149, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "ig34_p0150_a004", "action": "INSERTED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": 294, "pdf_page": 150, "note": "spec 表脚注 (gap F; U2/U7) 最后变量块 --- 后, Cross References 前"}
+{"ref": "pdf:p168:HOCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": 90, "pdf_page": 168, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p168:HOSCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": 99, "pdf_page": 168, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "ig34_p0169_a0003", "action": "INSERTED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": 258, "pdf_page": 169, "note": "spec 表脚注 (gap F; U2/U7) 最后变量块 --- 后, Cross References 前"}
+{"ref": "pdf:p171:MHDECOD CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 90, "pdf_page": 171, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p171:MHCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 108, "pdf_page": 171, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p171:MHSCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 117, "pdf_page": 171, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p172:MHBODSYS CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 162, "pdf_page": 172, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "ig34_p0172_a0013", "action": "INSERTED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": 249, "pdf_page": 172, "note": "spec 表脚注 (gap F; U2/U7) 最后变量块 --- 后, Cross References 前"}
+{"ref": "pdf:p178:DVDECOD CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/DV/spec.md", "kb_line_after": 72, "pdf_page": 178, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p178:DVCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/DV/spec.md", "kb_line_after": 81, "pdf_page": 178, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p178:DVSCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/DV/spec.md", "kb_line_after": 90, "pdf_page": 178, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "ig34_p0179_a0005", "action": "INSERTED", "kb_file": "knowledge_base/domains/DV/spec.md", "kb_line_after": 150, "pdf_page": 179, "note": "spec 表脚注 (gap F; U2/U7) 最后变量块 --- 后, Cross References 前"}
+{"ref": "pdf:p180:DACAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/spec.md", "kb_line_after": 108, "pdf_page": 180, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p180:DASCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/spec.md", "kb_line_after": 117, "pdf_page": 180, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "ig34_p0181_a013", "action": "INSERTED", "kb_file": "knowledge_base/domains/DA/spec.md", "kb_line_after": 249, "pdf_page": 181, "note": "spec 表脚注 (gap F; U2/U7) 最后变量块 --- 后, Cross References 前"}
+{"ref": "pdf:p183:DDRESCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/DD/spec.md", "kb_line_after": 81, "pdf_page": 183, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "ig34_p0183_a020", "action": "INSERTED", "kb_file": "knowledge_base/domains/DD/spec.md", "kb_line_after": 114, "pdf_page": 183, "note": "spec 表脚注 (gap F; U2/U7) 最后变量块 --- 后, Cross References 前"}
+{"ref": "pdf:p193:IETESTCD CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/IE/spec.md", "kb_line_after": 54, "pdf_page": 193, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "pdf:p193:IESCAT CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/IE/spec.md", "kb_line_after": 81, "pdf_page": 193, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "ig34_p0193_a025", "action": "INSERTED", "kb_file": "knowledge_base/domains/IE/spec.md", "kb_line_after": 168, "pdf_page": 193, "note": "spec 表脚注 (gap F; U2/U7) 最后变量块 --- 后, Cross References 前"}
+{"ref": "pdf:p197:BSANTREG CT *", "action": "REPLACED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 198, "pdf_page": 197, "note": "CT 空 → * (U2; bbox+渲染)"}
+{"ref": "ig34_p0198_a008", "action": "INSERTED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": 321, "pdf_page": 198, "note": "spec 表脚注 (gap F; U2/U7) 最后变量块 --- 后, Cross References 前"}
+{"ref": "spec_scan:CE", "action": "VERIFIED", "kb_file": "knowledge_base/domains/CE/spec.md", "kb_line_after": null, "pdf_page": "148-150", "note": "全变量逐字段 bbox 比对 (sc2/sc2w): 顺序/数量/Label/Type/Role/Core/Notes 一致; 余 CT 差异仅 U5/U6 (S-CT)"}
+{"ref": "spec_scan:HO", "action": "VERIFIED", "kb_file": "knowledge_base/domains/HO/spec.md", "kb_line_after": null, "pdf_page": "167-169", "note": "全变量逐字段 bbox 比对 (sc2/sc2w): 顺序/数量/Label/Type/Role/Core/Notes 一致; 余 CT 差异仅 U5/U6 (S-CT)"}
+{"ref": "spec_scan:MH", "action": "VERIFIED", "kb_file": "knowledge_base/domains/MH/spec.md", "kb_line_after": null, "pdf_page": "171-172", "note": "全变量逐字段 bbox 比对 (sc2/sc2w): 顺序/数量/Label/Type/Role/Core/Notes 一致; 余 CT 差异仅 U5/U6 (S-CT)"}
+{"ref": "spec_scan:DV", "action": "VERIFIED", "kb_file": "knowledge_base/domains/DV/spec.md", "kb_line_after": null, "pdf_page": "178-179", "note": "全变量逐字段 bbox 比对 (sc2/sc2w): 顺序/数量/Label/Type/Role/Core/Notes 一致; 余 CT 差异仅 U5/U6 (S-CT)"}
+{"ref": "spec_scan:DA", "action": "VERIFIED", "kb_file": "knowledge_base/domains/DA/spec.md", "kb_line_after": null, "pdf_page": "180-181", "note": "全变量逐字段 bbox 比对 (sc2/sc2w): 顺序/数量/Label/Type/Role/Core/Notes 一致; 余 CT 差异仅 U5/U6 (S-CT)"}
+{"ref": "spec_scan:DD", "action": "VERIFIED", "kb_file": "knowledge_base/domains/DD/spec.md", "kb_line_after": null, "pdf_page": "183", "note": "全变量逐字段 bbox 比对 (sc2/sc2w): 顺序/数量/Label/Type/Role/Core/Notes 一致; 余 CT 差异仅 U5/U6 (S-CT)"}
+{"ref": "spec_scan:IE", "action": "VERIFIED", "kb_file": "knowledge_base/domains/IE/spec.md", "kb_line_after": null, "pdf_page": "193", "note": "全变量逐字段 bbox 比对 (sc2/sc2w): 顺序/数量/Label/Type/Role/Core/Notes 一致; 余 CT 差异仅 U5/U6 (S-CT)"}
+{"ref": "spec_scan:BS", "action": "VERIFIED", "kb_file": "knowledge_base/domains/BS/spec.md", "kb_line_after": null, "pdf_page": "196-198", "note": "全变量逐字段 bbox 比对 (sc2/sc2w): 顺序/数量/Label/Type/Role/Core/Notes 一致; 余 CT 差异仅 U5/U6 (S-CT)"}

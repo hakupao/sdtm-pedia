@@ -69,7 +69,7 @@
 - **Order:** 8
 - **Label:** Protocol Deviation Coded Term
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Synonym Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Controlled terminology for the name of the protocol deviation. Examples: "SUBJECT NOT WITHDRAWN AS PER PROTOCOL", "SELECTION CRITERIA NOT MET", "EXCLUDED CONCOMITANT MEDICATION", "TREATMENT DEVIATION".
@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Category for Protocol Deviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Category of the protocol deviation criterion.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Subcategory for Protocol Deviation
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A further categorization of the protocol deviation.
@@ -146,6 +146,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Study day of end of event relative to the sponsor-defined RFSTDTC.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

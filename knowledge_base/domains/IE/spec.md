@@ -51,7 +51,7 @@
 - **Order:** 6
 - **Label:** Inclusion/Exclusion Criterion Short Name
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Short name of the criterion described in IETEST. The value in IETESTCD cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST" is not valid). IETESTCD cannot contain characters other than letters, numbers, or underscores. Examples: "IN01", "EX01".
@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Inclusion/Exclusion Subcategory
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A further categorization of the exception criterion. Can be used to distinguish criteria for a sub-study or for to categorize as a major or minor exceptions. Examples: "MAJOR", "MINOR".
@@ -164,6 +164,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Study day of collection of the inclusion/exclusion exceptions, measured as integer days. Algorithm for calculations must be relative to the sponsor-defined RFSTDTC variable in Demographics. This formula should be consistent across the submission.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

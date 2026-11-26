@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Category
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of topic-variable values. Examples: "STUDY MEDICATION", "RESCUE MEDICATION".
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Subcategory
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a further categorization level for a group of related records.
@@ -245,6 +245,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Study day of product accountability assessment, measured in integer days. Algorithm for calculations must be relative to the sponsor-defined RFSTDTC in Demographics.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

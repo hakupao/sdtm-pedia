@@ -195,7 +195,7 @@
 - **Order:** 22
 - **Label:** Anatomical Region of Specimen
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Defines the specific anatomical or biological region of a tissue, organ specimen or the region from which the specimen is obtained, as defined in the protocol, such as a section or part of what is described in the BSSPEC variable. Examples: CORTEX, MEDULLA, MUCOSA.
@@ -317,6 +317,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by BSTPTREF.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

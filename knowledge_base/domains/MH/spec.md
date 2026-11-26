@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Dictionary-Derived Term
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Synonym Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Dictionary-derived text description of MHTERM or MHMODIFY. Equivalent to the Preferred Term (PT in MedDRA). The sponsor is expected to provide the dictionary name and version used to map the terms utilizing the external codelist element in the Define-XML document.
@@ -105,7 +105,7 @@
 - **Order:** 12
 - **Label:** Category for Medical History
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of related records. Examples: "CARDIAC", "GENERAL".
@@ -114,7 +114,7 @@
 - **Order:** 13
 - **Label:** Subcategory for Medical History
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A further categorization of the condition or event.
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Body System or Organ Class
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Dictionary-derived. Body system or organ class that is involved in an event or measurement from a standard hierarchy (e.g., MedDRA). When using a multi-axial dictionary such as MedDRA, this should contain the SOC used for the sponsor's analyses and summary tables which may not necessarily be the primary SOC.
@@ -245,6 +245,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Description or date/time in ISO 8601 character format of the reference point referred to by MHENRTPT. Examples: "2003-12-25", "VISIT 2".
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

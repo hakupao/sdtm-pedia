@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Category for Healthcare Encounter
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of topic-related values.
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Subcategory for Healthcare Encounter
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A further categorization of HOCAT values.
@@ -254,6 +254,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Description or date/time in ISO 8601 character format of the reference point referred to by HOENRTPT. Examples: "2003-12-25", "VISIT 2".
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 
