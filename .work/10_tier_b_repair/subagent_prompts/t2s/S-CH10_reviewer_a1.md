@@ -1,0 +1,6 @@
+批次 S-CH10 (T2-post 扫描批, chapters), attempt 1. 角色: reviewer.
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Reviewer 段执行, 并读它引用的 `t2_reviewer_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含末尾 T2S 段及其后主控裁定) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8) / `t1_user_ack.md`。样板: `evidence/checkpoints/t2_S-INT_review.md`。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-CH10.json` (§10 p444-461)。writer 报告 `evidence/checkpoints/t2_S-CH10.md` + `work/t2_batches/S-CH10.writer.jsonl`。改动未提交: `git diff HEAD -- knowledge_base/chapters/ch10_appendices.md` (329→442 行)。另有扫描批同时改别的文件, 只看本批。S-SPREL 已提交 (DI `## §9 Study References` 锚点在 HEAD)。
+主控对 writer "需主控定" 的裁定: ① 变更表 4.1 行 PDF 重复 → 照录 (T-4, T4 用户裁), 不删; ② p459 §9 组下 10 个只有 • 的空行 → 无内容, 不写, 记录即可; ③ App A 名单 74 行整表补入 → 保留 (R3: PDF 表格全部纳入, 原 KB 摘要按 D2 删除成立)。
+重点: 独立双向全扫 p444-461 (含全部表格; 5 张 census_items 与新重建的 App A 名单表 / App D 片段表 106 行 / App E 三张变更表 + New Domains 表全部渲染逐格核); 删除 D-1~D-8 逐条签字 (D2/R2 残留依据); T-1..T-5 依据 (T-1/T-2 KB 与 PDF 有意不同须证明正确值可由 PDF 自身确定); ch10:222 MO 句 = p452 §10 原文; §9 引言改为指向 DI 的交叉引用, 锚点有效 (check_links live docs 42)。
+回主控 ≤ 10 行。

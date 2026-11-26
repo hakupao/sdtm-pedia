@@ -1,0 +1,34 @@
+{"ref": "pdf_only:p444-445:Name/Company", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 11, "pdf_page": 444, "note": "74 行整表补 (:11-86)"}
+{"ref": "census:chapters/ch10_appendices.md:19:hdr:all", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 94, "pdf_page": 446, "note": "KB 自拟表头 → 空表头 (PDF 无表头)"}
+{"ref": "census:chapters/ch10_appendices.md:19:Define-XML:2", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 105, "pdf_page": 446, "note": "句点"}
+{"ref": "census:chapters/ch10_appendices.md:19:ISO 8601:2", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 116, "pdf_page": 446, "note": "句点"}
+{"ref": "census:chapters/ch10_appendices.md:19:ISO 3166:2", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 117, "pdf_page": 446, "note": "句点"}
+{"ref": "census:chapters/ch10_appendices.md:19:SDS:2", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 124, "pdf_page": 446, "note": "句点"}
+{"ref": "census:chapters/ch10_appendices.md:19:SDTMIG:2", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 126, "pdf_page": 446, "note": "[this document]"}
+{"ref": "pdf:p441:§9 intro", "action": "DELETED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 141, "pdf_page": 441, "note": "D2 → 交叉引用 DI/assumptions.md"}
+{"ref": "pdf:p444:contributor summary", "action": "DELETED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 11, "pdf_page": 444, "note": "D2 KB 占位摘要"}
+{"ref": "pdf:p448:para2", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 149, "pdf_page": 448, "note": "New/modified terms"}
+{"ref": "pdf:p448:para3", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 151, "pdf_page": 448, "note": "Visit the CDISC CT page"}
+{"ref": "pdf:p448:Key Points", "action": "DELETED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 155, "pdf_page": 448, "note": "R2/D2 残留改写 5 条 + 标题"}
+{"ref": "pdf:p448:C1 intro", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 159, "pdf_page": 448, "note": "PDF 原句"}
+{"ref": "census:chapters/ch10_appendices.md:93:--REAS:3", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 165, "pdf_page": 448, "note": "PDF 原文"}
+{"ref": "pdf:p449:App D para1", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 171, "pdf_page": 449, "note": "整段 PDF 原文; 删 Rules for Using Fragments 改写"}
+{"ref": "census:chapters/ch10_appendices.md:119", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 177, "pdf_page": 449, "note": "4 列 → 2 列 106 行"}
+{"ref": "pdf:p452:throughout intro", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 297, "pdf_page": 452, "note": "引导句"}
+{"ref": "pdf:p452:throughout bullets", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 299, "pdf_page": 452, "note": "11 条改写 → 原文"}
+{"ref": "pdf:p452:MO heading", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 311, "pdf_page": 452, "note": "PDF 原标题 (S-TDM)"}
+{"ref": "pdf:p452:MO box", "action": "MOVED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 311, "pdf_page": 452, "note": "移到 New Domains 前; 正文 VERIFIED"}
+{"ref": "census:chapters/ch10_appendices.md:208", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 323, "pdf_page": 453, "note": "Domain | Domain Abbreviation"}
+{"ref": "census:chapters/ch10_appendices.md:230", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 335, "pdf_page": 453, "note": "主表 69 行逐 bullet 重写 p453-459"}
+{"ref": "census:chapters/ch10_appendices.md:230:§9", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 407, "pdf_page": 459, "note": "§9 子表"}
+{"ref": "census:chapters/ch10_appendices.md:230:Appendices", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 413, "pdf_page": 459, "note": "Appendices 子表 p459-460"}
+{"ref": "pdf:p454:4.5 –DRVFL", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 352, "pdf_page": 454, "note": "T-1: KB 有意写 --DRVFL (PDF –DRVFL), 非照录"}
+{"ref": "pdf:p457:--TETM", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 387, "pdf_page": 457, "note": "T-2: KB 有意写 --TERM (PDF --TETM), 非照录"}
+{"ref": "pdf:p457:the underwent", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 386, "pdf_page": 457, "note": "T-3 照录"}
+{"ref": "pdf:p454:4.1 dup row", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 353, "pdf_page": 454, "note": "T-4 照录, 需主控定"}
+{"ref": "pdf:p452:MO deprecate v3.4", "action": "VERIFIED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 317, "pdf_page": 452, "note": "T-5 PDF 内部不一致 vs p285, 照 p452"}
+{"ref": "pdf:p461:patent claims", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 426, "pdf_page": 461, "note": ""}
+{"ref": "pdf:p461:this Policy", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 432, "pdf_page": 461, "note": ""}
+{"ref": "pdf:p461:(the Policy)", "action": "INSERTED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 432, "pdf_page": 461, "note": ""}
+{"ref": "pdf:p461:WHETHER UNDER", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 440, "pdf_page": 461, "note": "删 ARISING"}
+{"ref": "pdf:p457:6.4.4 sub-bullets", "action": "REPLACED", "kb_file": "knowledge_base/chapters/ch10_appendices.md", "kb_line_after": 388, "pdf_page": 457, "note": "PDF 子项字形 o → ◦ (ch08 先例)"}
