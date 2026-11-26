@@ -1,0 +1,43 @@
+{"ref": "ig34_p0384_a016", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/assumptions.md", "kb_line_after": 76, "pdf_page": 384, "note": "§7.2 引言首段"}
+{"ref": "ig34_p0387_a012", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 49, "pdf_page": 387, "note": "Ex1 prospective 说明段"}
+{"ref": "ig34_p0388_a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 74, "pdf_page": 388, "note": "Ex1 retrospective 说明段"}
+{"ref": "ig34_p0388_a004", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 102, "pdf_page": 388, "note": "Ex1 blinded 说明段"}
+{"ref": "ig34_p0389_a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 124, "pdf_page": 389, "note": "Ex1 TDM 说明段"}
+{"ref": "ig34_p0389_a008", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 134, "pdf_page": 389, "note": "Ex1 矩阵→TA 转换段"}
+{"ref": "ig34_p0396_a004", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 514, "pdf_page": 396, "note": "Ex4 TDM 段补全; 原 :460 TA 段移到 :523"}
+{"ref": "ig34_p0397_a006", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 572, "pdf_page": 397, "note": "Ex5"}
+{"ref": "ig34_p0397_a007", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 572, "pdf_page": 397, "note": "Ex5"}
+{"ref": "ig34_p0397_a010", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 596, "pdf_page": 397, "note": "Ex5 TDM 句"}
+{"ref": "ig34_p0397_a015", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 605, "pdf_page": 397, "note": "Ex5 TA 句"}
+{"ref": "ig34_p0398_a013", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 650, "pdf_page": 398, "note": "Ex6"}
+{"ref": "ig34_p0398_a014", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 650, "pdf_page": 398, "note": "Ex6; 原 :566 改写删 (D-5)"}
+{"ref": "ig34_p0398_a023", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 683, "pdf_page": 398, "note": "Ex6 TAETORD 段, 原 :568 改写替换并移位"}
+{"ref": "ig34_p0398_a024", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 683, "pdf_page": 398, "note": "同上"}
+{"ref": "ig34_p0399_a030", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 712, "pdf_page": 399, "note": "Ex7 第 2 段整段按 PDF (CRS/boost/further chemotherapy)"}
+{"ref": "ig34_p0397_a002", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 552, "pdf_page": 397, "note": "VALUE_DIFF: cycle lengths differ → total length same; Ex5 首段逐字"}
+{"ref": "r3:assumptions:78", "action": "MOVED", "kb_file": "knowledge_base/domains/TA/assumptions.md", "kb_line_after": 78, "pdf_page": 384, "note": "§7.2 引言第 2 段从原 :178 移入"}
+{"ref": "r3:assumptions:90", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/assumptions.md", "kb_line_after": 92, "pdf_page": 384, "note": "TA – Specification + ta.xpt 首句"}
+{"ref": "d2:assumptions:88-98", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/assumptions.md", "kb_line_after": 96, "pdf_page": 389, "note": "Ex2 叙述副本→交叉引用 (D-1)"}
+{"ref": "d2:assumptions:102-124", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/assumptions.md", "kb_line_after": 100, "pdf_page": 402, "note": "§7.2.1.1 副本→交叉引用 (D-2)"}
+{"ref": "unparseable:assumptions.md:31", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/assumptions.md", "kb_line_after": 36, "pdf_page": 382, "note": "Study cell: one of 3; 3 study cells (T-1)"}
+{"ref": "r3:assumptions:196", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/assumptions.md", "kb_line_after": 170, "pdf_page": 386, "note": "删 of epochs"}
+{"ref": "r3:p0386_a010", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 5, "pdf_page": 386, "note": "an arm→the arm"}
+{"ref": "r3:ex2_narratives", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 154, "pdf_page": 389, "note": "Ex2 6 段 :154/169/215/221/253/263"}
+{"ref": "r3:ex3_narratives", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 295, "pdf_page": 392, "note": "Ex3 :295/317(replaced)/346/352/375(moved)/386; T-2/T-3/T-5"}
+{"ref": "r3:ex4_retro", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 452, "pdf_page": 395, "note": ""}
+{"ref": "r3:ex4_ta_para", "action": "MOVED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 523, "pdf_page": 396, "note": "represents→represented; fp regress p0396_a009 ATOM_ERR"}
+{"ref": "r3:ex6_intro", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 630, "pdf_page": 398, "note": "D-5"}
+{"ref": "r3:ex6_tdm", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 674, "pdf_page": 398, "note": ""}
+{"ref": "r3:ex7_para1", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 710, "pdf_page": 399, "note": ""}
+{"ref": "r3:ex7_however", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 714, "pdf_page": 400, "note": ""}
+{"ref": "r3:ex7_prospective", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 736, "pdf_page": 400, "note": ""}
+{"ref": "r3:ex7_retro", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 772, "pdf_page": 400, "note": "D-9 at :776"}
+{"ref": "unparseable:examples.md:709", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 782, "pdf_page": 401, "note": "Ex7 TDM 10 列"}
+{"ref": "r3:issues", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 813, "pdf_page": 402, "note": "+ :815 :817 :821 :825"}
+{"ref": "d6:mermaid", "action": "ANNOTATED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 34, "pdf_page": 387, "note": "19 处 Mermaid KB note + Ex2/3/4/7 prospective 单 Screen, Ex2 epoch 标签"}
+{"ref": "d6:kb_authored", "action": "ANNOTATED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 22, "pdf_page": 387, "note": "KB 摘要/文字替代 10 处; D-3/D-4/D-9 删矛盾句"}
+{"ref": "x2:ex7_5options", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 714, "pdf_page": 400, "note": "删 KB 2-arm Mermaid (D-13), 按 PDF 重画 5 options 图 + D6"}
+{"ref": "review:mermaid_labels", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 39, "pdf_page": 387, "note": "attempt 2: 20 Mermaid 标签逐字对齐 PDF 图 (Randomization/Response Evaluation/Rest/Follow Epoch/If disease progression 等)"}
+{"ref": "review:mermaid_arm_arrows", "action": "REPLACED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 72, "pdf_page": 388, "note": "attempt 2 续: 13 图补 PDF arm 箭头 28 个"}
+{"ref": "review:retro_mermaid", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 229, "pdf_page": 390, "note": "attempt 2 续2: Ex2 :229 / Ex3 :410 / Ex4 :550 / Ex7 :897 Retrospective Mermaid; D-14..D-17"}
+{"ref": "audit:M-1", "action": "INSERTED", "kb_file": "knowledge_base/domains/TA/examples.md", "kb_line_after": 55, "pdf_page": 388, "note": "attempt 3: 17 视图 Mermaid 补 Randomization 注释节点, Ex3 3 图补 Response Evaluation"}

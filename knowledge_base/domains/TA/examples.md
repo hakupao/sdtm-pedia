@@ -2,7 +2,7 @@
 
 The core of the Trial Design Model is the TA dataset. For each arm of the trial, the TA dataset contains 1 record for each occurrence of an element in the path of the arm.
 
-Although the TA dataset has 1 record for each trial element traversed by subjects assigned to an arm, it is generally more useful to work out the overall design of the trial at the study cell level first, then to work out the elements within each study cell, and finally to develop the definitions of the elements that are contained in the Trial Elements (TE) table.
+Although the TA dataset has 1 record for each trial element traversed by subjects assigned to the arm, it is generally more useful to work out the overall design of the trial at the study cell level first, then to work out the elements within each study cell, and finally to develop the definitions of the elements that are contained in the Trial Elements (TE) table.
 
 When working out the design of a trial, it is generally useful to draw diagrams such as those mentioned in ICH E3. The protocol may include a diagram that can serve as a starting point. Such a diagram can then be converted into a trial design matrix that displays the study cells and which in turn can be converted into the TA dataset.
 
@@ -19,7 +19,7 @@ Example 1 should be reviewed before reading other examples, as it explains the c
 
 ## Example 1
 
-A simple parallel trial with 3 arms (Placebo, Drug A, Drug B), 3 epochs (Screening, Run-In, Treatment). Each study cell contains exactly 1 element. Randomization occurs at the end of the Run-In element.
+> KB note (not in SDTMIG): A simple parallel trial with 3 arms (Placebo, Drug A, Drug B), 3 epochs (Screening, Run-In, Treatment). Each study cell contains exactly 1 element. Randomization occurs at the end of the Run-In element.
 
 Diagrams that represent study schemas generally conceive of time as moving from left to right, using horizontal lines to represent periods of time and slanting lines to represent branches into separate treatments, convergence into a common follow-up, or crossover to a different treatment.
 
@@ -31,12 +31,14 @@ As illustrated in the study schema diagram for Example Trial 1, this simple para
 
 **Study Schema**
 
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 1, Parallel Design Study Schema".
+
 ```mermaid
 graph LR
     S[Screen] --> RI[Run-In]
-    RI -->|"Randomized to Placebo"| P[Placebo]
-    RI -->|"Randomized to Drug A"| A[Drug A]
-    RI -->|"Randomized to Drug B"| B[Drug B]
+    RI -->|"Randomization"| P[Placebo]
+    RI -->|"Randomization"| A[Drug A]
+    RI -->|"Randomization"| B[Drug B]
     style S fill:#fef3cd,stroke:#333
     style RI fill:#d4edda,stroke:#333
     style P fill:#cce5ff,stroke:#333
@@ -44,7 +46,11 @@ graph LR
     style B fill:#f8d7da,stroke:#333
 ```
 
+The next diagram for this trial shows the 3 epochs of the trial, indicates the 3 arms, and shows the sequence of elements for each group of subjects in each epoch. The arrows are at the right side of the diagram because it is at the end of the trial that all the separate paths through the trial can be seen. Note that, in this diagram, randomization—which was shown using 3 red arrows connecting the Run-in block with the 3 treatment blocks in the first diagram—is indicated by a note with an arrow pointing to the line between 2 epochs.
+
 **Prospective View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 1, Parallel Design Prospective View".
 
 ```mermaid
 graph LR
@@ -63,9 +69,18 @@ graph LR
     RI --> P
     RI --> A
     RI --> B
+    armP>"Placebo"] -.-> P
+    armA>"Drug A"] -.-> A
+    armB>"Drug B"] -.-> B
+    rand["Randomization"] -.-> RE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
 
+The next diagram can be thought of as the retrospective view of a trial, the view back from a point in time when a subject’s assignment to an arm is known. In this view, the trial appears as a grid, with an arm represented by a series of study cells, one for each epoch, and a sequence of elements within each study cell. In this example (as in many trials), there is exactly 1 element in each study cell. Later examples will illustrate that this is not always the case.
+
 **Retrospective View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 1, Parallel Design Retrospective View".
 
 ```mermaid
 graph LR
@@ -87,9 +102,18 @@ graph LR
     SP --> RIP --> P
     SA --> RIA --> A
     SB --> RIB --> B
+    armP>"Placebo"] -.-> P
+    armA>"Drug A"] -.-> A
+    armB>"Drug B"] -.-> B
+    rand["Randomization"] -.-> RE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
 
+The next diagram shows the trial from the viewpoint of blinded participants. To blinded participants in this trial, all arms look alike. They know when a subject is in the screen element or the run-in element, but when a subject is in the treatment epoch, participants know only that the subject is receiving a study drug, not which study drug, and therefore not which element.
+
 **Blinded View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 1, Parallel Design Blinded View".
 
 ```mermaid
 graph LR
@@ -103,9 +127,14 @@ graph LR
         SD[Study Drug]
     end
     S --> RI --> SD
+    armX>"Blind"] -.-> SD
+    rand["Randomization"] -.-> RE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
 
 A trial design matrix is a table with a row for each arm in the trial and a column for each epoch in the trial. It is closely related to the retrospective view of the trial, and many users may find it easier to construct a table than to draw a diagram. The cells in the matrix represent the study cells, which are populated with trial elements. In this trial, each study cell contains exactly 1 element.
+
+As illustrated in the following table, the columns of a trial design matrix are the epochs of the trial, the rows are the arms of the trial, and the cells of the matrix (the study cells) contain elements. Note that randomization is not represented in the trial design matrix. All of the preceding diagrams and the trial design matrix are alternative representations of the trial design. None of them contains all the information that will be in the finished TA dataset; users may find it useful to draw some or all of these diagrams when working out the dataset.
 
 **Trial Design Matrix**
 
@@ -114,6 +143,8 @@ A trial design matrix is a table with a row for each arm in the trial and a colu
 | **Placebo** | Screen | Run-in | PLACEBO |
 | **A** | Screen | Run-in | DRUG A |
 | **B** | Screen | Run-in | DRUG B |
+
+For Example Trial 1, the conversion of the trial design matrix into the TA dataset is straightforward. For each cell of the matrix, there is a record in the TA dataset. ARM, EPOCH, and ELEMENT can be populated directly from the matrix. TAETORD acts as a sequence number for the elements within an arm, so it can be populated by counting across the cells in the matrix. The randomization information, which is not represented in the trial design matrix, is held in TABRANCH in the TA dataset. TABRANCH is populated only if there is a branch at the end of an element for the arm. When TABRANCH is populated, it describes how the decision at the branch point would result in a subject being in this arm.
 
 **ta.xpt**
 
@@ -131,54 +162,113 @@ A trial design matrix is a table with a row for each arm in the trial and a colu
 
 ## Example 2
 
-A crossover trial comparing 3 treatments (Placebo, 5 mg, 10 mg) with 7 epochs: Screening, 3 Treatment Epochs with 3 Rest (washout) Epochs between them, and a Follow-up Epoch. Each arm represents a different order of treatments.
+> KB note (not in SDTMIG): Each arm represents a different order of treatments.
+
+The following diagram for a crossover trial does not use the crossing slanted lines sometimes used to represent crossover trials, because the order of the blocks is sufficient to represent the design of the trial. Slanted lines are used only to represent the branch point at randomization, when a subject is assigned to a sequence of treatments. As in most crossover trials, the arms are distinguished by the order of treatments, with the same treatments present in each arm. Note that even though all 3 arms of this trial end with the same block (i.e., the block for the follow-up element), the diagram does not show the arms converging into one block. Also note that the same block (the “rest” element) occurs twice within each arm. Elements are conceived of as “reusable” and can appear in more than 1 arm, in more than 1 epoch, and more than once in an arm.
 
 **Study Schema**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 2, Crossover Trial Study Schema".
 
 ```mermaid
 graph LR
     S[Screen]
-    S -->|"P-5-10"| a1[Placebo] --> a2[Rest] --> a3[5 mg] --> a4[Rest] --> a5[10 mg] --> a6[Follow]
-    S -->|"5-P-10"| b1[5 mg] --> b2[Rest] --> b3[Placebo] --> b4[Rest] --> b5[10 mg] --> b6[Follow]
-    S -->|"5-10-P"| c1[5 mg] --> c2[Rest] --> c3[10 mg] --> c4[Rest] --> c5[Placebo] --> c6[Follow]
+    S -->|"Randomization"| a1[Placebo] --> a2[Rest] --> a3[5 mg] --> a4[Rest] --> a5[10 mg] --> a6[Follow]
+    S -->|"Randomization"| b1[5 mg] --> b2[Rest] --> b3[Placebo] --> b4[Rest] --> b5[10 mg] --> b6[Follow]
+    S -->|"Randomization"| c1[5 mg] --> c2[Rest] --> c3[10 mg] --> c4[Rest] --> c5[Placebo] --> c6[Follow]
     style S fill:#fef3cd,stroke:#333
 ```
 
+The next diagram for this crossover trial shows the prospective view of the trial; it identifies the epoch and arms of the trial, and gives each a name. As for most crossover studies, the objectives of the trial will be addressed by comparisons between the arms and by within-subject comparisons between treatments. Because the design depends on differentiating the periods during which the subject receives the 3 different treatments, there are 3 different treatment epochs. The fact that the rest periods are identified as separate epochs suggests that these also play an important part in the design of the trial; they are probably designed to allow subjects to return to “baseline,” with data collected to show that this occurred. Note that epochs are not considered reusable; each epoch has a different name, even though all the treatment epochs are similar and both the rest epochs are similar. As with the first example trial, there is a one-to-one relationship between the epochs of the trial and the elements in each arm.
+
 **Prospective View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 2, Crossover Trial Prospective View".
 
 ```mermaid
 graph LR
-    subgraph SE["Screening"]
+    subgraph SE["Screening Epoch"]
         s1[Screen]
-        s2[Screen]
-        s3[Screen]
     end
-    subgraph T1["1st Treatment"]
+    subgraph T1["First Treatment Epoch"]
         t1a[Placebo]
         t1b[5 mg]
         t1c[5 mg]
     end
-    subgraph W1["1st Washout"]
+    subgraph W1["First Rest Epoch"]
         w1a[Rest]
         w1b[Rest]
         w1c[Rest]
     end
-    subgraph T2["2nd Treatment"]
+    subgraph T2["Second Treatment Epoch"]
         t2a[5 mg]
         t2b[Placebo]
         t2c[10 mg]
     end
-    subgraph W2["2nd Washout"]
+    subgraph W2["Second Rest Epoch"]
         w2a[Rest]
         w2b[Rest]
         w2c[Rest]
     end
-    subgraph T3["3rd Treatment"]
+    subgraph T3["Third Treatment Epoch"]
         t3a[10 mg]
         t3b[10 mg]
         t3c[Placebo]
     end
-    subgraph FU["Follow-up"]
+    subgraph FU["Follow-up Epoch"]
+        f1[Follow]
+        f2[Follow]
+        f3[Follow]
+    end
+    s1 --> t1a --> w1a --> t2a --> w2a --> t3a --> f1
+    s1 --> t1b --> w1b --> t2b --> w2b --> t3b --> f2
+    s1 --> t1c --> w1c --> t2c --> w2c --> t3c --> f3
+    arm1>"P-L-H"] -.-> f1
+    arm2>"L-P-H"] -.-> f2
+    arm3>"L-H-P"] -.-> f3
+    rand["Randomization"] -.-> SE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
+```
+
+The next diagram shows the retrospective view of the trial.
+
+**Retrospective View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 2, Crossover Trial Retrospective View".
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        s1[Screen]
+        s2[Screen]
+        s3[Screen]
+    end
+    subgraph T1["First Treatment Epoch"]
+        t1a[Placebo]
+        t1b[5 mg]
+        t1c[5 mg]
+    end
+    subgraph W1["First Rest Epoch"]
+        w1a[Rest]
+        w1b[Rest]
+        w1c[Rest]
+    end
+    subgraph T2["Second Treatment Epoch"]
+        t2a[5 mg]
+        t2b[Placebo]
+        t2c[10 mg]
+    end
+    subgraph W2["Second Rest Epoch"]
+        w2a[Rest]
+        w2b[Rest]
+        w2c[Rest]
+    end
+    subgraph T3["Third Treatment Epoch"]
+        t3a[10 mg]
+        t3b[10 mg]
+        t3c[Placebo]
+    end
+    subgraph FU["Follow-up Epoch"]
         f1[Follow]
         f2[Follow]
         f3[Follow]
@@ -186,39 +276,49 @@ graph LR
     s1 --> t1a --> w1a --> t2a --> w2a --> t3a --> f1
     s2 --> t1b --> w1b --> t2b --> w2b --> t3b --> f2
     s3 --> t1c --> w1c --> t2c --> w2c --> t3c --> f3
+    arm1>"P-L-H"] -.-> f1
+    arm2>"L-P-H"] -.-> f2
+    arm3>"L-H-P"] -.-> f3
+    rand["Randomization"] -.-> SE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
 
-**Retrospective View**
-
-Same structure as the Prospective View (one-to-one relationship between epochs and elements in each arm for this crossover design). Arm labels: P-L-H, L-P-H, L-H-P.
+The last diagram for this trial shows the trial from the viewpoint of blinded participants. As in the simple parallel trial in Example Trial 1, blinded participants see only 1 sequence of elements; during the treatment epochs they do not know which of the treatment elements a subject is in.
 
 **Blinded View**
 
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 2, Crossover Trial Blinded View".
+
 ```mermaid
 graph LR
-    subgraph SE["Screening"]
+    subgraph SE["Screening Epoch"]
         S[Screen]
     end
-    subgraph T1["1st Treatment"]
+    subgraph T1["First Treatment Epoch"]
         D1[Drug]
     end
-    subgraph W1["1st Rest"]
+    subgraph W1["First Rest Epoch"]
         R1[Rest]
     end
-    subgraph T2["2nd Treatment"]
+    subgraph T2["Second Treatment Epoch"]
         D2[Drug]
     end
-    subgraph W2["2nd Rest"]
+    subgraph W2["Second Rest Epoch"]
         R2[Rest]
     end
-    subgraph T3["3rd Treatment"]
+    subgraph T3["Third Treatment Epoch"]
         D3[Drug]
     end
-    subgraph FU["Follow-up"]
+    subgraph FU["Follow-up Epoch"]
         F[Follow]
     end
     S --> D1 --> R1 --> D2 --> R2 --> D3 --> F
+    armX>"Blind"] -.-> F
+    rand["Randomization"] -.-> SE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
+
+The following table illustrates the trial design matrix for this crossover example trial. It corresponds closely to the preceding retrospective diagram.
 
 **Trial Design Matrix**
 
@@ -227,6 +327,8 @@ graph LR
 | **P-5-10** | Screen | Placebo | Rest | 5 mg | Rest | 10 mg | Follow-up |
 | **5-P-10** | Screen | 5 mg | Rest | Placebo | Rest | 10 mg | Follow-up |
 | **5-10-P** | Screen | 5 mg | Rest | 10 mg | Rest | Placebo | Follow-up |
+
+It is straightforward to produce the TA dataset for this crossover trial from the diagram showing arms and epochs, or from the trial design matrix.
 
 **ta.xpt**
 
@@ -256,19 +358,23 @@ graph LR
 
 ## Example 3
 
-A trial with multiple branches: randomization at screening plus response evaluation after blinded treatment. This results in 4 arms (A-Open A, A-Rescue, B-Open A, B-Rescue). TABRANCH is populated for 2 records in each arm reflecting the 2 branch points. Note also that the values of ARMCD, like the values of ARM, reflect the 2 separate processes that result in a subject's assignment to an arm.
+> KB note (not in SDTMIG): A trial with multiple branches: randomization at screening plus response evaluation after blinded treatment. This results in 4 arms (A-Open A, A-Rescue, B-Open A, B-Rescue).
+
+Each of the paths for the trial illustrated in the following diagram goes through one branch point at randomization, and then through another branch point when response is evaluated. This results in 4 arms, corresponding to the number of possible paths through the trial, and also to the number of blocks at the right end of the diagram. The fact that there are only 2 kinds of block at the right end (Open DRUG X and Rescue) does not affect the fact that there are 4 paths and thus 4 arms.
 
 **Study Schema**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 3, Multiple Branches Study Schema".
 
 ```mermaid
 graph LR
     S[Screen]
-    S -->|"Randomized to A"| DA[Drug A]
-    S -->|"Randomized to B"| DB[Drug B]
-    DA -->|"Response: Open A"| OA1[Open A]
-    DA -->|"Response: Rescue"| R1[Rescue]
-    DB -->|"Response: Open A"| OA2[Open A]
-    DB -->|"Response: Rescue"| R2[Rescue]
+    S -->|"Randomization"| DA[Drug A]
+    S -->|"Randomization"| DB[Drug B]
+    DA -->|"Response Evaluation"| OA1[Open A]
+    DA -->|"Response Evaluation"| R1[Rescue]
+    DB -->|"Response Evaluation"| OA2[Open A]
+    DB -->|"Response Evaluation"| R2[Rescue]
     style S fill:#fef3cd,stroke:#333
     style DA fill:#cce5ff,stroke:#333
     style DB fill:#d4edda,stroke:#333
@@ -276,9 +382,48 @@ graph LR
     style R2 fill:#f8d7da,stroke:#333
 ```
 
-The next diagram for this trial is the prospective view. It shows the epochs of the trial and how the initial group of subjects is divided at the point of randomization.
+The next diagram for this trial is the prospective view. It shows the epochs of the trial and how the initial group of subjects is split into 2 treatment groups for the double-blind treatment epoch, and how each of those initial treatment groups is split in 2 at the response evaluation, resulting in the 4 arms of this trial. The names of the arms have been chosen to represent the outcomes of the successive branches that, together, assign subjects to arms. These compound names were chosen to facilitate description of subjects who may drop out of the trial after the first branch and before the second branch. Example 7 in Section 5.2, Demographics, illustrates DM and Subject Elements (SE) data for such subjects.
 
 **Prospective View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 3, Multiple Branches Prospective View".
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        s1[Screen]
+    end
+    subgraph DB["Double Blind Treatment Epoch"]
+        da1[Drug A]
+        db1[Drug B]
+    end
+    subgraph OL["Open Treatment Epoch"]
+        oa1[Open A]
+        r1[Rescue]
+        oa2[Open A]
+        r2[Rescue]
+    end
+    s1 --> da1
+    s1 --> db1
+    da1 --> oa1
+    da1 --> r1
+    db1 --> oa2
+    db1 --> r2
+    arm1>"A-Open"] -.-> oa1
+    arm2>"A-Rescue"] -.-> r1
+    arm3>"B-Open"] -.-> oa2
+    arm4>"B-Rescue"] -.-> r2
+    rand["Randomization"] -.-> SE
+    resp["Response Evaluation"] -.-> DB
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
+    style resp fill:#fff,stroke:#999,stroke-dasharray:5 5
+```
+
+The next diagram shows the retrospective view. As with the first 2 example trials, there is 1 element in each study cell.
+
+**Retrospective View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 3, Multiple Branches Retrospective View".
 
 ```mermaid
 graph LR
@@ -304,15 +449,21 @@ graph LR
     s2 --> da2 --> r1
     s3 --> db1 --> oa2
     s4 --> db2 --> r2
+    arm1>"A-Open"] -.-> oa1
+    arm2>"A-Rescue"] -.-> r1
+    arm3>"B-Open"] -.-> oa2
+    arm4>"B-Rescue"] -.-> r2
+    rand["Randomization"] -.-> SE
+    resp["Response Evaluation"] -.-> DB
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
+    style resp fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
 
-**Retrospective View**
-
-Same epoch structure as Prospective View. 4 arms: A-Open (Screen→Drug A→Open A), A-Rescue (Screen→Drug A→Rescue), B-Open (Screen→Drug B→Open A), B-Rescue (Screen→Drug B→Rescue).
-
-The trial design matrix for this trial can be constructed easily from the diagram showing arms and epochs.
+The last diagram for this trial shows the trial from the viewpoint of blinded participants. Since the prospective view is the view most relevant to study participants, the blinded view shown here is a prospective view. Because blinded participants can tell which treatment a subject receives in the Open Label epoch, they see 2 possible element sequences.
 
 **Blinded View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 3, Multiple Branches Blinded View".
 
 ```mermaid
 graph LR
@@ -329,7 +480,15 @@ graph LR
     S --> D
     D --> OA
     D --> R
+    arm1>"Drug-Open A"] -.-> OA
+    arm2>"Drug-Rescue"] -.-> R
+    rand["Randomization"] -.-> SE
+    resp["Response Evaluation"] -.-> DB
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
+    style resp fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
+
+The trial design matrix for this trial can be constructed easily from the diagram showing arms and epochs.
 
 **Trial Design Matrix**
 
@@ -339,6 +498,8 @@ graph LR
 | **A-Rescue** | Screen | Treatment A | Rescue |
 | **B-Open A** | Screen | Treatment B | Open Drug A |
 | **B-Rescue** | Screen | Treatment B | Rescue |
+
+Creating the TA dataset for this example trial is similarly straightforward. Note that because there are 2 branch points in this trial, TABRANCH is populated for 2 records in each arm. Note also that the values of ARMCD, like the values of ARM, reflect the 2 separate processes that result in a subject's assignment to an arm.
 
 **ta.xpt**
 
@@ -361,19 +522,21 @@ See Section 7.2.1.1 Trial Arms Issues, Distinguishing Between Branches and Trans
 
 ## Example 4
 
-A cyclical chemotherapy oncology trial with repeating treatment/rest elements until disease progression. 2 arms (Drug A, Drug B), 3 epochs (Screening, Treatment, Follow-Up). The TATRANS variable represents the "repeat until disease progression" skip-forward rule.
+> KB note (not in SDTMIG): A cyclical chemotherapy oncology trial with repeating treatment/rest elements until disease progression. 2 arms (Drug A, Drug B), 3 epochs (Screening, Treatment, Follow-Up). The TATRANS variable represents the "repeat until disease progression" skip-forward rule.
 
 The following diagram uses a new symbol, a large curved arrow representing the fact that the chemotherapy treatment (A or B) and the rest period that follows it are to be repeated. In this trial, the chemotherapy cycles are to be repeated until disease progression. Although some chemotherapy trials specify a maximum number of cycles, protocols that allow an indefinite number of repeats are not uncommon.
 
-Maximum of 4 cycles assumed in this example.
+> KB note (not in SDTMIG): Maximum of 4 cycles assumed in this example.
 
 **Study Schema**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 4, Cyclical Chemotherapy Study Schema".
 
 ```mermaid
 graph LR
     S[Screen]
-    S -->|"Randomized to A"| DA[Drug A] --> RA[Rest] --> FA[Follow]
-    S -->|"Randomized to B"| DB[Drug B] --> RB[Rest] --> FB[Follow]
+    S -->|"Randomization"| DA[Drug A] --> RA[Rest] --> FA[Follow]
+    S -->|"Randomization"| DB[Drug B] --> RB[Rest] --> FB[Follow]
     RA -.->|"Repeat until<br/>disease progression"| DA
     RB -.->|"Repeat until<br/>disease progression"| DB
     style S fill:#fef3cd,stroke:#333
@@ -382,6 +545,35 @@ graph LR
 The next diagram shows the prospective view of this trial. Note that, in spite of the repeating element structure, this is, at its core, a 2-arm parallel study, and thus has 2 arms. In SDTMIG 3.1.1, there was an implicit assumption that each element must be in a separate epoch, and trials with cyclical chemotherapy were difficult to handle. The introduction of the concept of study cells and the dropping of the assumption that elements and epochs have a one-to-one relationship resolved these difficulties. This trial is best treated as having just 3 epochs, since the main objectives of the trial involve comparisons between the 2 treatments and do not require data to be considered cycle by cycle.
 
 **Prospective View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 4, Cyclical Chemotherapy Prospective View".
+
+```mermaid
+graph LR
+    subgraph SE["Screening Epoch"]
+        s1[Screen]
+    end
+    subgraph TE["Treatment Epoch"]
+        da["Drug A | Rest<br/>Repeat until disease progression"]
+        db["Drug B | Rest<br/>Repeat until disease progression"]
+    end
+    subgraph FU["Follow-up Epoch"]
+        f1[Follow]
+        f2[Follow]
+    end
+    s1 --> da --> f1
+    s1 --> db --> f2
+    armA>"Drug A"] -.-> f1
+    armB>"Drug B"] -.-> f2
+    rand["Randomization"] -.-> SE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
+```
+
+The next diagram shows the retrospective view of this trial.
+
+**Retrospective View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 4, Cyclical Chemotherapy Retrospective View".
 
 ```mermaid
 graph LR
@@ -399,15 +591,17 @@ graph LR
     end
     s1 --> da --> f1
     s2 --> db --> f2
+    armA>"Drug A"] -.-> f1
+    armB>"Drug B"] -.-> f2
+    rand["Randomization"] -.-> SE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
-
-**Retrospective View**
-
-Same epoch structure as the Prospective View: 2 arms (Drug A, Drug B), each cycling through Treatment Epoch until disease progression, then entering Follow-up.
 
 For the purpose of developing a TA dataset for this oncology trial, the diagram must be redrawn to explicitly represent multiple treatment and rest elements. If a maximum number of cycles is not given by the protocol, then—for the purposes of constructing an SDTM TA dataset for submission, which can only take place after the trial is complete—the number of repeats included in the TA dataset should be the maximum number of repeats that occurred in the trial. The next diagram assumes that the maximum number of cycles that occurred in this trial was 4. Some subjects will not have received all 4 cycles, because their disease progressed. The rule that directed that they receive no further cycles of chemotherapy is represented by a set of green arrows, 1 at the end of each rest epoch, that shows that a subject "skips forward" if their disease progresses. In the TA dataset, each skip-forward instruction is a transition rule, recorded in the TATRANS variable; when TATRANS is not populated, the rule is to transition to the next element in sequence.
 
 **Retrospective View with Explicit Repeats**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 4, Cyclical Chemotherapy Retrospective View with Explicit Repeats".
 
 ```mermaid
 graph LR
@@ -433,11 +627,17 @@ graph LR
     r5 -.->|"If disease progression"| f2
     r6 -.->|"If disease progression"| f2
     r7 -.->|"If disease progression"| f2
+    armA>"Drug A"] -.-> f1
+    armB>"Drug B"] -.-> f2
+    rand["Randomization"] -.-> SE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
 
 The logistics of dosing mean that few oncology trials are blinded; the next diagram, however, shows the trial from the viewpoint of blinded participants if this trial is blinded.
 
 **Blinded View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 4, Cyclical Chemotherapy Blinded View".
 
 ```mermaid
 graph LR
@@ -455,11 +655,12 @@ graph LR
     re1 -.->|"If disease progression"| F
     re2 -.->|"If disease progression"| F
     re3 -.->|"If disease progression"| F
+    armX>"Blind"] -.-> F
+    rand["Randomization"] -.-> SE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
 
-The TA dataset for this example trial requires the use of the TATRANS variable to represent the "repeat until disease progression" feature (the green "skip forward" arrow represents this rule in the diagrams). In the TA dataset, TATRANS is populated for each element with a green arrow in the diagram. In other words, if there is a possibility that a subject will, at the end of this element, skip forward to a later part of the arm, then TATRANS is populated with the rule describing the conditions under which a subject will go to a later element. If the subject always goes to the next element in the arm (see Example Trials 1-3), then TATRANS is null. The TA dataset presented below corresponds to the trial design matrix.
-
-The trial design matrix for this example trial corresponds to the diagram showing the retrospective view, with explicit repeats of elements shown.
+The trial design matrix for this example trial corresponds to the diagram showing the retrospective view, with explicit repeats of the treatment and rest elements. As previously noted, the trial design matrix does not include information regarding when randomization occurs; similarly, information corresponding to the skip-forward rules is not represented in the trial design matrix.
 
 **Trial Design Matrix**
 
@@ -467,6 +668,8 @@ The trial design matrix for this example trial corresponds to the diagram showin
 |---|---|---|---|---|---|---|---|---|---|---|
 | **A** | Screen | Trt A | Rest | Trt A | Rest | Trt A | Rest | Trt A | Rest | Follow-up |
 | **B** | Screen | Trt B | Rest | Trt B | Rest | Trt B | Rest | Trt B | Rest | Follow-up |
+
+The TA dataset for this example trial requires the use of the TATRANS variable to represent the "repeat until disease progression" feature (the green "skip forward" arrow represented this rule in the diagrams). In the TA dataset, TATRANS is populated for each element with a green arrow in the diagram. In other words, if there is a possibility that a subject will, at the end of this element, skip forward to a later part of the arm, then TATRANS is populated with the rule describing the conditions under which a subject will go to a later element. If the subject always goes to the next element in the arm (see Example Trials 1-3), then TATRANS is null. The TA dataset presented below corresponds to the trial design matrix.
 
 **ta.xpt**
 
@@ -495,15 +698,17 @@ The trial design matrix for this example trial corresponds to the diagram showin
 
 ## Example 5
 
-Similar to Example 4, but treatment A has longer duration than treatment B, so the trial cannot be blinded. Maximum of 3 cycles assumed. Different rest elements (RESTA, RESTB) are used for the 2 arms since cycle lengths differ.
+Example Trial 5 is much like Example Trial 4, in that the 2 treatments being compared are given in cycles, and the total length of the cycle is the same for both treatments. In this trial, however, treatment A is given over longer duration than treatment B. Because of this difference in treatment patterns, this trial cannot be blinded.
 
 **Study Schema**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 5, Different Chemo Durations Study Schema".
 
 ```mermaid
 graph LR
     S[Screen]
-    S -->|"Randomized to A"| DA[Drug A] --> RA[Rest] --> FA[Follow]
-    S -->|"Randomized to B"| DB[B] --> RB[Rest] --> FB[Follow]
+    S -->|"Randomization"| DA[Drug A] --> RA[Rest] --> FA[Follow]
+    S -->|"Randomization"| DB[B] --> RB[Rest] --> FB[Follow]
     RA -.->|"Repeat until<br/>disease progression"| DA
     RB -.->|"Repeat until<br/>disease progression"| DB
     note1["Total length Drug A cycle: 3 weeks"]
@@ -513,7 +718,11 @@ graph LR
     style note2 fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
 
+The assumption of a one-to-one relationship between elements and epochs makes such situations difficult to handle. However, without that assumption, this trial is essentially the same as Trial 4. The next diagram shows the retrospective view of this trial.
+
 **Retrospective View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 5, Cyclical Chemotherapy Retrospective View".
 
 ```mermaid
 graph LR
@@ -522,8 +731,8 @@ graph LR
         s2[Screen]
     end
     subgraph TE["Treatment Epoch"]
-        da["Drug A | Rest A<br/>Repeat until disease progression"]
-        db["B | Rest B<br/>Repeat until disease progression"]
+        da["Drug A | Rest<br/>Repeat until disease progression"]
+        db["B | Rest<br/>Repeat until disease progression"]
     end
     subgraph FU["Follow-up Epoch"]
         f1[Follow]
@@ -531,7 +740,13 @@ graph LR
     end
     s1 --> da --> f1
     s2 --> db --> f2
+    armA>"Drug A"] -.-> f1
+    armB>"Drug B"] -.-> f2
+    rand["Randomization"] -.-> SE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
+
+The trial design matrix for this trial is almost the same as for Example Trial 4; the only difference is that the maximum number of cycles for this trial was assumed to be 3.
 
 **Trial Design Matrix**
 
@@ -539,6 +754,8 @@ graph LR
 |---|---|---|---|---|---|---|---|---|
 | **A** | Screen | Trt A | Rest A | Trt A | Rest A | Trt A | Rest A | Follow-up |
 | **B** | Screen | Trt B | Rest B | Trt B | Rest B | Trt B | Rest B | Follow-up |
+
+The TA dataset for this trial shown below corresponds to the trial design matrix.
 
 **ta.xpt**
 
@@ -563,17 +780,17 @@ graph LR
 
 ## Example 6
 
-An oncology trial with cycles of different lengths: Drug A in 3-week cycles (longer treatment, short rest), Drug B in 4-week cycles (short treatment, long rest). Maximum 4 cycles of Drug A, 3 cycles of Drug B.
-
-Because the treatment epoch for arm A has more elements than arm B, TAETORD is 10 for the follow-up element in arm A, but 8 for follow-up in arm B. Gaps in TAETORD values are acceptable.
+Example Trial 6 is an oncology trial comparing 2 types of chemotherapy that are given using cycles of different lengths with different internal patterns. Treatment A is given in 3-week cycles with a longer duration of treatment and a short rest; treatment B is given in 4-week cycles with a short duration of treatment and a long rest.
 
 **Study Schema**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 6, Different Cycle Durations Study Schema".
 
 ```mermaid
 graph LR
     S[Screen]
-    S -->|"Randomized to A"| DA[Drug A] --> RA[Rest] --> FA[Follow]
-    S -->|"Randomized to B"| DB[B] --> RB[Rest] --> FB[Follow]
+    S -->|"Randomization"| DA[Drug A] --> RA[Rest] --> FA[Follow]
+    S -->|"Randomization"| DB[B] --> RB[Rest] --> FB[Follow]
     RA -.->|"Repeat until<br/>disease progression"| DA
     RB -.->|"Repeat until<br/>disease progression"| DB
     note1["Total length Drug A cycle: 3 weeks"]
@@ -583,7 +800,11 @@ graph LR
     style note2 fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
 
+The design of this trial is very similar to that for Example Trials 4 and 5. The main difference is that there are 2 different rest elements: the short one used with drug A and the long one used with drug B. The next diagram shows the retrospective view of this trial.
+
 **Retrospective View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 6, Cyclical Chemotherapy Retrospective View".
 
 ```mermaid
 graph LR
@@ -592,8 +813,8 @@ graph LR
         s2[Screen]
     end
     subgraph TE["Treatment Epoch"]
-        da["Drug A | Rest A<br/>Repeat until disease progression<br/>(3-week cycles)"]
-        db["B | Rest B<br/>Repeat until disease progression<br/>(4-week cycles)"]
+        da["Drug A | Rest<br/>Repeat until disease progression<br/>Total length Drug A cycle: 3 weeks"]
+        db["B | Rest<br/>Repeat until disease progression<br/>Total length Drug B cycle: 4 weeks"]
     end
     subgraph FU["Follow-up Epoch"]
         f1[Follow]
@@ -601,7 +822,13 @@ graph LR
     end
     s1 --> da --> f1
     s2 --> db --> f2
+    armA>"Drug A"] -.-> f1
+    armB>"Drug B"] -.-> f2
+    rand["Randomization"] -.-> SE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
+
+The trial design matrix for this trial assumes that there was a maximum of 4 cycles of drug A and a maximum of three cycles of drug B.
 
 **Trial Design Matrix**
 
@@ -609,6 +836,8 @@ graph LR
 |---|---|---|---|---|---|---|---|---|---|---|
 | **A** | Screen | Trt A | Rest A | Trt A | Rest A | Trt A | Rest A | Trt A | Rest A | Follow-up |
 | **B** | Screen | Trt B | Rest B | Trt B | Rest B | Trt B | Rest B | | | Follow-up |
+
+In the following TA dataset, because the treatment epoch for arm A has more elements than the treatment epoch for arm B, TAETORD is 10 for the follow-up element in arm A, but 8 for the follow-up element in arm B. (It would also be possible to assign a TAETORD value of 10 to the follow-up element in arm B.) The primary purpose of TAETORD is to order elements within an arm; leaving gaps in the series of TAETORD values does not interfere with this purpose.
 
 **ta.xpt**
 
@@ -635,35 +864,75 @@ graph LR
 
 ## Example 7
 
-In open trials, there is no requirement to maintain a blind, and the arms of a trial may be quite different from each other. In such a case, changes in treatment in one arm may differ in number and timing from changes in treatment in another, so that there is no natural grouping of time periods across arms that corresponds to epochs as defined in Section 7.1.2, Definitions of Trial Design Concepts. In such a case, epochs are likely to be defined as broad intervals of time, spanning several elements, and chosen to correspond to the major clinical phases of the trial.
+In open trials, there is no requirement to maintain a blind, and the arms of a trial may be quite different from each other. In such a case, changes in treatment in one arm may differ in number and timing from changes in treatment in another, so that there is nothing like a one-to-one match between the elements in the different arms. In such a case, epochs are likely to be defined as broad intervals of time, spanning several elements, and chosen to correspond to periods of time that will be compared in analyses of the trial.
 
-Example Trial 7, RTOG 93-09, involves treatment of lung cancer with chemotherapy and radiotherapy, with or without surgery. The protocol (RTOG-93-09), which was provided by the Radiation Oncology Therapy Group (RTOG), does not include a study schema diagram. All subjects go through the branch point at randomization, when they are assigned to either chemotherapy plus radiotherapy (CR) or radiotherapy only (R). Those randomized to the non-surgery arm are evaluated for disease somewhat earlier, to avoid delays in administering the radiation treatment. Not all subjects randomized to receive surgery who do not have disease progression will necessarily receive surgery. If they are poor candidates for surgery or do not wish to receive surgery, they will not receive surgery, but will receive further evaluation instead. The following diagram is based on the text "schema" in the protocol, with the 5 options it names. The diagram in this form might suggest that the trial has 5 arms.
+Example Trial 7, RTOG 93-09, involves treatment of lung cancer with chemotherapy and radiotherapy, with or without surgery. The protocol (RTOG-93-09), which was provided by the Radiation Oncology Therapy Group (RTOG), does not include a study schema diagram, but does include a text-based representation of diverging “options” to which a subject may be assigned. All subjects go through the branch point at randomization, when they are assigned to either chemotherapy plus radiotherapy (CR) or chemotherapy and radiotherapy plus surgery (CRS). All subjects receive induction chemotherapy and radiation, with a slight difference between those randomized to the 2 arms during the second cycle of chemotherapy. Those randomized to the non-surgery arm are evaluated for disease somewhat earlier, to avoid delays in administering the radiation boost to those whose disease has not progressed. After induction chemotherapy and radiation, subjects are evaluated for disease progression, and those whose disease has progressed stop treatment, but enter follow-up. Not all subjects randomized to receive surgery who do not have disease progression will necessarily receive surgery. If they are poor candidates for surgery or do not wish to receive surgery, they will not receive surgery, but will receive further chemotherapy. The following diagram is based on the text “schema” in the protocol, with the 5 options it names. The diagram in this form might suggest that the trial has 5 arms.
 
-Both the induction and additional chemotherapy are given in 2 cycles. The second induction cycle is different for the 2 arms, since radiation therapy for those assigned to the non-surgery arm includes a "boost" which those assigned to the surgery arm do not receive.
+**Study Schema with 5 "options"**
 
-This diagram also shows more detail within the Induction Chemo + RT and Additional Chemo blocks than the preceding diagram.
-
-**Study Schema (2-arm model)**
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 7, RTOG 93-09 Study Schema with 5 "options"".
 
 ```mermaid
 graph LR
     S[Screen]
-    S -->|"Randomized to CR"| ICR1["Initial<br/>Chemo+RT"] --> CRNS["Chemo+RT<br/>(non-Surgery)"]
-    CRNS --> C1[Chemo] --> C2[Chemo] --> FU1[Follow-up]
-    CRNS -.->|"If progression"| FU1
-
-    S -->|"Randomized to CRS"| ICR2["Initial<br/>Chemo+RT"] --> CRS["Chemo+RT<br/>(Surgery)"]
-    CRS --> R3["3-5w Rest"] --> SURG[Surgery] --> R4["4-6w Rest"] --> C3[Chemo] --> C4[Chemo] --> FU2[Follow-up]
-    CRS -.->|"If progression"| FU2
-    CRS -.->|"Not eligible<br/>for surgery"| C3
-
-    style S fill:#fef3cd,stroke:#333
-    style SURG fill:#f8d7da,stroke:#333
+    S -->|"Randomization"| A1["Chemo<br/>+ Rad"] --> A2["Chemo<br/>+ Rad*"]
+    S -->|"Randomization"| B1["Chemo<br/>+ Rad"] --> B2["Chemo<br/>+ Rad**"]
+    A2 -->|"Evaluation for Disease Progression"| F2["Follow (option 2)"]
+    A2 -->|"Evaluation for Disease Progression"| CB["Chemo<br/>+ Boost"] --> C5[Chemo] --> F5["Follow (option 5)"]
+    B2 -->|"Evaluation for Disease Progression and Surgical Eligibility"| R3["3-5 w<br/>Rest"] --> SG[Surgery] --> R4["4-6 w<br/>Rest"] --> C3a[Chemo] --> C3b[Chemo] --> F3["Follow (option 3)"]
+    B2 -->|"Evaluation for Disease Progression and Surgical Eligibility"| C4a[Chemo] --> C4b[Chemo] --> F4["Follow (option 4)"]
+    B2 -->|"Evaluation for Disease Progression and Surgical Eligibility"| F1["Follow (option 1)"]
 ```
 
-The protocol conceives of treatment as being divided into 2 parts, induction and continuation, so these have been treated as 2 different epochs. This is also an important point in the trial operationally, the point when subjects are "registered" a second time, and when subjects are evaluated for the possibility of surgery.
+> \*Disease evaluation earlier \*\*Disease evaluation later
+
+However, the objectives of the trial make it clear that this trial is designed to compare 2 treatment strategies, chemotherapy and radiation with and without surgery, so this study is better modeled as a 2-arm trial, but with major "skip forward" arrows for some subjects, as illustrated in the following diagram. This diagram also shows more detail within the Induction Chemo + RT and Additional Chemo blocks than the preceding diagram. Both the induction and additional chemotherapy are given in 2 cycles. The second induction cycle is different for the 2 arms, since radiation therapy for those assigned to the non-surgery arm includes a “boost” which those assigned to the surgery arm do not receive.
+
+The next diagram shows the prospective view of this trial. The protocol conceives of treatment as being divided into 2 parts, induction and continuation, so these have been treated as 2 different epochs. This is also an important point in the trial operationally, the point when subjects are “registered” a second time, and when subjects who will skip forward are identified (i.e., because of disease progression or ineligibility for surgery).
 
 **Prospective View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 7, RTOG-93-09 Prospective View".
+
+```mermaid
+graph LR
+    subgraph SE["Screen Epoch"]
+        s1[Screen]
+    end
+    subgraph IE["Induction Treatment Epoch"]
+        cr1["Chemo + Rad"] --> cr2["Chemo + Rad*"]
+        cs1["Chemo + Rad"] --> cs2["Chemo + Rad**"]
+    end
+    subgraph CE["Continuation Treatment Epoch"]
+        cb["Chemo + Boost"] --> cc1[Chemo]
+        r3["3-5 w Rest"] --> sg[Surgery] --> r4["4-6 w Rest"] --> cc3[Chemo] --> cc4[Chemo]
+    end
+    subgraph FE["Follow Epoch"]
+        f1[FU]
+        f2[FU]
+    end
+    s1 --> cr1
+    cr2 --> cb
+    cc1 --> f1
+    s1 --> cs1
+    cs2 --> r3
+    cc4 --> f2
+    cr2 -.->|"If disease progression"| f1
+    cs2 -.->|"If disease progression"| f2
+    cs2 -.->|"If not eligible for surgery"| cc3
+    armCR>"CR<br/>Chemotherapy and Radiation Arm"] -.-> f1
+    armCRS>"CRS<br/>Chemotherapy, Radiation and Surgery Arm"] -.-> f2
+    rand["Randomization"] -.-> SE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
+```
+
+> \*Disease evaluation earlier \*\*Disease evaluation later
+
+The next diagram shows the retrospective view of this trial. The fact that the elements in the study cell for the CR arm in the continuation treatment epoch do not fill the space in the diagram is an artifact of the diagram conventions. Those subjects who do receive surgery will in fact spend a longer time completing treatment and moving into follow-up. Although it is tempting to think of the horizontal axis of these diagrams as a timeline, this can sometimes be misleading. The diagrams are not necessarily to scale in the sense that the length of the block representing an element represents its duration, and elements that line up on the same vertical line in the diagram may not occur at the same relative time within the study.
+
+**Retrospective View**
+
+> KB note (not in SDTMIG): the following Mermaid diagram is a KB rendering of the PDF figure "Example Trial 7, RTOG 93-09 Retrospective View".
 
 ```mermaid
 graph LR
@@ -672,14 +941,14 @@ graph LR
         s2[Screen]
     end
     subgraph IE["Induction Treatment Epoch"]
-        cr1["Chemo+Rad"] --> cr2["Chemo+Rad*"]
-        cs1["Chemo+Rad"] --> cs2["Chemo+Rad**"]
+        cr1["Chemo + Rad"] --> cr2["Chemo + Rad*"]
+        cs1["Chemo + Rad"] --> cs2["Chemo + Rad**"]
     end
     subgraph CE["Continuation Treatment Epoch"]
-        cb["Chemo+Boost"] --> cc1[Chemo]
-        r3["3-5w Rest"] --> sg[Surgery] --> r4["4-6w Rest"] --> cc3[Chemo] --> cc4[Chemo]
+        cb["Chemo + Boost"] --> cc1[Chemo]
+        r3["3-5 w Rest"] --> sg[Surgery] --> r4["4-6 w Rest"] --> cc3[Chemo] --> cc4[Chemo]
     end
-    subgraph FE["Follow-up Epoch"]
+    subgraph FE["Follow Epoch"]
         f1[FU]
         f2[FU]
     end
@@ -689,26 +958,24 @@ graph LR
     s2 --> cs1
     cs2 --> r3
     cc4 --> f2
-    cr2 -.->|"If progression"| f1
-    cs2 -.->|"If progression"| f2
-    cs2 -.->|"Not eligible for surgery"| cc3
+    cr2 -.->|"If disease progression"| f1
+    cs2 -.->|"If disease progression"| f2
+    cs2 -.->|"If not eligible for surgery"| cc3
+    armCR>"CR<br/>Chemotherapy and Radiation Arm"] -.-> f1
+    armCRS>"CRS<br/>Chemotherapy, Radiation and Surgery Arm"] -.-> f2
+    rand["Randomization"] -.-> SE
+    style rand fill:#fff,stroke:#999,stroke-dasharray:5 5
 ```
 
-> *Disease evaluation earlier, **Disease evaluation later
-
-The next diagram shows the retrospective view of this trial. Those subjects who do receive surgery will in fact spend a longer time completing treatment and moving into follow-up. Although it is tempting to think of the horizontal axis of these diagrams as a timeline, this can sometimes be misleading. The diagrams are not necessarily to scale in the sense that the length of the block representing an element represents its duration.
-
-**Retrospective View**
-
-Same epoch structure as the Prospective View. The elements in the Continuation Treatment Epoch for the CR arm do not fill the space compared to the CRS arm, reflecting different treatment durations between the 2 arms.
+> \*Disease evaluation earlier \*\*Disease evaluation later
 
 The following table shows the trial design matrix for this 2-arm example trial.
 
 **Trial Design Matrix**
 
-|  | Screen | Induction | Continuation | | | | Follow-up |
-|---|---|---|---|---|---|---|---|
-| **CR** | Screen | Initial Chemo + RT | Chemo + RT (non-Surgery) | Chemo | Chemo | | Off Treatment Follow-up |
+|  | Screen | Induction | | Continuation | | | | | Follow-up |
+|---|---|---|---|---|---|---|---|---|---|
+| **CR** | Screen | Initial Chemo + RT | Chemo + RT (non-Surgery) | Chemo | Chemo | | | | Off Treatment Follow-up |
 | **CRS** | Screen | Initial Chemo + RT | Chemo + RT (Surgery) | 3-5 w Rest | Surgery | 4-6 w Rest | Chemo | Chemo | Off Treatment Follow-up |
 
 The TA dataset reflects that this is a 2-arm trial.
@@ -737,15 +1004,19 @@ The TA dataset reflects that this is a 2-arm trial.
 
 ### Distinguishing Between Branches and Transitions
 
-Both the Branch and Transition columns contain rules, but the 2 columns represent 2 different types of rules. **Branch rules** represent forks in the trial flowchart, giving rise to separate arms. The rule underlying a branch appears in multiple records, once for each "fork" of the branch. Within any one record, there is no choice (no "if" clause) in the value of the branch condition. For example, the value of TABRANCH for a record in arm A is "Randomized to Arm A" because a subject in arm A must have been randomized to arm A. **Transition rules** are used for choices within an arm. The value for TATRANS does contain a choice (an "if" clause). In Example Trial 4, subjects who receive 1, 2, 3, or 4 cycles of treatment A are all considered to belong to arm A.
+Both the Branch and Transition columns contain rules, but the 2 columns represent 2 different types of rules. **Branch rules** represent forks in the trial flowchart, giving rise to separate arms. The rule underlying a branch in the trial design appears in multiple records, once for each "fork" of the branch. Within any one record, there is no choice (no "if" clause) in the value of the branch condition. For example, the value of TABRANCH for a record in arm A is "Randomized to Arm A" because a subject in arm A must have been randomized to arm A. **Transition rules** are used for choices within an arm. The value for TATRANS does contain a choice (an "if" clause). In Example Trial 4, subjects who receive 1, 2, 3, or 4 cycles of treatment A are all considered to belong to arm A.
+
+In modeling a trial, decisions may have to be made about whether a decision point in the flow chart represents the separation of paths that represent different arms, or paths that represent variations within the same arm, as illustrated in the discussion of Example Trial 7. This decision will depend on the comparisons of interest in the trial.
+
+Some trials refer to groups of subjects who follow a particular path through the trial as "cohorts," particularly if the groups are formed successively over time. The term "cohort" is used with different meanings in different protocols and does not always correspond to an arm.
 
 ### Subjects Not Assigned to an Arm
 
-Some trial subjects may drop out of the study before they reach all of the branch points in the trial design. In the Demographics (DM) domain, the values of ARM and ARMCD must be supplied for such subjects, but the special values used for these subjects should not be included in the Trial Arms (TA) dataset; only complete arm paths should be described in the TA dataset. In Section 5.2, Demographics, assumption 4 describes special ARM and ARMCD values used for subjects who do not reach the first branch point of an adaptive trial design. When a trial design includes 2 or more branches, special values of ARM and ARMCD may be needed for subjects who pass through the first branch point, but drop out before the final branch point. See DM Example 3 for how to represent ARM and ARMCD values for such trials.
+Some trial subjects may drop out of the study before they reach all of the branch points in the trial design. In the Demographics (DM) domain, the values of ARM and ARMCD must be supplied for such subjects, but the special values used for these subjects should not be included in the Trial Arms (TA) dataset; only complete arm paths should be described in the TA dataset. In Section 5.2, Demographics, assumption 4 describes special ARM and ARMCD values used for subjects who do not reach the first branch point in a trial. When a trial design includes 2 or more branches, special values of ARM and ARMCD may be needed for subjects who pass through the first branch point, but drop out before the final branch point. See DM Example 3 for how to represent ARM and ARMCD values for such trials.
 
 ### Defining Epochs
 
-The series of examples for the TA dataset provides a variety of scenarios and guidance about how to assign epoch in those scenarios. In general, assigning epochs for blinded trials is easier than for unblinded trials. The blinded view of the trial will generally make the possible choices clear. For unblinded trials, the comparisons that will be made between arms can guide the definition of epochs. For trials that include many variant paths within an arm, comparisons of arms will mean that subjects on a variety of paths will be in the same epoch, and this is likely to lead to definition of broader epochs.
+The series of examples for the TA dataset provides a variety of scenarios and guidance about how to assign epoch in those scenarios. In general, assigning epochs for blinded trials is easier than for unblinded trials. The blinded view of the trial will generally make the possible choices clear. For unblinded trials, the comparisons that will be made between arms can guide the definition of epochs. For trials that include many variant paths within an arm, comparisons of arms will mean that subjects on a variety of paths will be included in the comparison, and this is likely to lead to definition of broader epochs.
 
 ### Rule Variables
 

@@ -87,3 +87,4 @@
 - T4 汇总须列: B-AE T-3 ('device' vs PDF 'event', 改词判断, 信心中高); B-IS T-5 ('participating in')
 - T4 汇总须列 (keep-correct 但依据为旁证, 请用户知悉): B-ch01 T-1 补 'has' (p49 平行短语为旁证), T-2 --LNKGRP/--LNKID 对调 (p31 定义)
 - T4 统一措辞: RELREC/assumptions.md:5 KB note 'not in SDTMIG' 与后文 'from SDTMIG' 易误读 (B-REL audit LOW); D6 前缀用于 '说明来源/位置' 的 note 是否改用 '> Note:' — T4 定
+- T4 汇总须列: B-EX T-6 EX:360 mg/mL→mg/kg (keep-correct, 依据同句+ECDOSU)
