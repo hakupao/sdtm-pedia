@@ -1,0 +1,661 @@
+{
+ "K3_extra": [
+  "ig34_p0016_a019",
+  "ig34_p0113_a011",
+  "ig34_p0115_a009",
+  "ig34_p0119_a011",
+  "ig34_p0123_a005",
+  "ig34_p0173_a0007",
+  "ig34_p0205_a005",
+  "ig34_p0218_a017",
+  "ig34_p0224_a010",
+  "ig34_p0224_a013",
+  "ig34_p0225_a019",
+  "ig34_p0228_a002",
+  "ig34_p0228_a009",
+  "ig34_p0236_a005",
+  "ig34_p0237_a018",
+  "ig34_p0296_a019",
+  "ig34_p0353_a009",
+  "ig34_p0361_a010",
+  "ig34_p0361_a011",
+  "ig34_p0361_a012",
+  "ig34_p0361_a013",
+  "ig34_p0361_a014",
+  "ig34_p0361_a015",
+  "ig34_p0361_a017",
+  "ig34_p0361_a018",
+  "ig34_p0362_a001",
+  "ig34_p0362_a002",
+  "ig34_p0362_a003",
+  "ig34_p0362_a004",
+  "ig34_p0362_a005",
+  "ig34_p0362_a006",
+  "ig34_p0362_a007",
+  "ig34_p0362_a008",
+  "ig34_p0362_a009",
+  "ig34_p0363_a001",
+  "ig34_p0363_a002",
+  "ig34_p0363_a003",
+  "ig34_p0363_a004",
+  "ig34_p0363_a005",
+  "ig34_p0363_a006",
+  "ig34_p0363_a007",
+  "ig34_p0363_a008",
+  "ig34_p0363_a009",
+  "ig34_p0412_a009",
+  "ig34_p0414_a006",
+  "ig34_p0427_a011",
+  "ig34_p0428_a006",
+  "ig34_p0428_a008",
+  "ig34_p0433_a017",
+  "ig34_p0433_a019",
+  "ig34_p0436_a016",
+  "ig34_p0436_a022",
+  "ig34_p0440_a003",
+  "sv20_p0006_a020"
+ ],
+ "K11": {},
+ "K3b": {
+  "ig34_p0018_a012": [
+   "B-ch03 T-1"
+  ],
+  "ig34_p0018_a036": [
+   "B-ch03 T-2"
+  ],
+  "ig34_p0049_a008": [
+   "B-ch04 T-4"
+  ],
+  "ig34_p0063_a023": [
+   "S-SPEC1 T-1"
+  ],
+  "ig34_p0068_a010": [
+   "B-DM T-2"
+  ],
+  "ig34_p0085_a019": [
+   "B-SM T-3"
+  ],
+  "ig34_p0089_a026": [
+   "B-SV T-1"
+  ],
+  "ig34_p0107_a002": [
+   "S-INT EX T-7"
+  ],
+  "ig34_p0113_a011": [
+   "B-EX T-3"
+  ],
+  "ig34_p0115_a009": [
+   "B-EX T-4"
+  ],
+  "ig34_p0124_a017": [
+   "B-ML T-1"
+  ],
+  "ig34_p0132_a014": [
+   "B-SU T-1"
+  ],
+  "ig34_p0142_a014": [
+   "B-AE T-4"
+  ],
+  "ig34_p0142_a015": [
+   "B-AE T-1"
+  ],
+  "ig34_p0142_a016": [
+   "B-AE T-2"
+  ],
+  "ig34_p0146_a005": [
+   "B-BE T-1",
+   "B-BE T-2"
+  ],
+  "ig34_p0160_a0028": [
+   "B-DS T-3"
+  ],
+  "ig34_p0166_a0035": [
+   "B-DS T-5"
+  ],
+  "ig34_p0198_a014": [
+   "B-BS T-3"
+  ],
+  "ig34_p0198_a020": [
+   "B-BS T-1a",
+   "B-BS T-1b"
+  ],
+  "ig34_p0199_a020": [
+   "S-SPC1 CP T-21"
+  ],
+  "ig34_p0200_a006": [
+   "S-SPC1 CP T-17"
+  ],
+  "ig34_p0205_a005": [
+   "S-SPC1 CP T-16b"
+  ],
+  "ig34_p0206_a009": [
+   "S-SPC1 CP T-19"
+  ],
+  "ig34_p0211_a004": [
+   "B-CP T-15"
+  ],
+  "ig34_p0213_a009": [
+   "B-CP T-6"
+  ],
+  "ig34_p0215_a018": [
+   "B-CP T-2"
+  ],
+  "ig34_p0224_a013": [
+   "B-GF T-1"
+  ],
+  "ig34_p0227_a018": [
+   "B-GF T-2"
+  ],
+  "ig34_p0228_a002": [
+   "B-GF T-5"
+  ],
+  "ig34_p0228_a009": [
+   "B-GF T-4"
+  ],
+  "ig34_p0236_a005": [
+   "B-IS T-3"
+  ],
+  "ig34_p0236_a014": [
+   "B-IS T-1",
+   "B-IS T-2"
+  ],
+  "ig34_p0236_a015": [
+   "B-IS T-1",
+   "B-IS T-2"
+  ],
+  "ig34_p0240_a004": [
+   "B-IS T-4"
+  ],
+  "ig34_p0247_a020": [
+   "B-LB T-1"
+  ],
+  "ig34_p0262_a020": [
+   "B-MS T-2"
+  ],
+  "ig34_p0262_a029": [
+   "B-MS T-3"
+  ],
+  "ig34_p0262_a030": [
+   "B-MS T-3"
+  ],
+  "ig34_p0263_a020": [
+   "B-MB T-2",
+   "B-MB T-3"
+  ],
+  "ig34_p0267_a006": [
+   "B-MI T-1"
+  ],
+  "ig34_p0273_a037": [
+   "B-PCPP T-9"
+  ],
+  "ig34_p0274_a009": [
+   "B-PCPP T-5"
+  ],
+  "ig34_p0293_a038": [
+   "B-MK T-2"
+  ],
+  "ig34_p0304_a012": [
+   "B-OE T-1"
+  ],
+  "ig34_p0311_a035": [
+   "B-RE T-1"
+  ],
+  "ig34_p0323_a006": [
+   "B-RS T-6 (FT 副本)"
+  ],
+  "ig34_p0328_a007": [
+   "B-RS T-6 (QS 副本)"
+  ],
+  "ig34_p0332_a009": [
+   "B-RS T-2"
+  ],
+  "ig34_p0335_a015": [
+   "B-RS T-7"
+  ],
+  "ig34_p0335_a016": [
+   "B-RS T-7"
+  ],
+  "ig34_p0335_a017": [
+   "B-RS T-7"
+  ],
+  "ig34_p0335_a018": [
+   "B-RS T-7"
+  ],
+  "ig34_p0336_a005": [
+   "B-RS T-1"
+  ],
+  "ig34_p0339_a001": [
+   "B-RS T-6 (RS 副本)"
+  ],
+  "ig34_p0353_a009": [
+   "B-TU T-1"
+  ],
+  "ig34_p0356_a001": [
+   "B-TR T-3"
+  ],
+  "ig34_p0377_a021": [
+   "B-SR T-3"
+  ],
+  "ig34_p0378_a017": [
+   "B-SR T-1 (examples)"
+  ],
+  "ig34_p0412_a006": [
+   "S-TDM TD T-1"
+  ],
+  "ig34_p0412_a007": [
+   "S-TDM TD T-1"
+  ],
+  "ig34_p0412_a008": [
+   "S-TDM TD T-1"
+  ],
+  "ig34_p0413_a010": [
+   "S-TDM TD T-4"
+  ],
+  "ig34_p0414_a013": [
+   "S-TDM TD T-4"
+  ],
+  "ig34_p0427_a011": [
+   "B-ch08 T-1"
+  ],
+  "ig34_p0428_a006": [
+   "B-ch08 T-2"
+  ],
+  "ig34_p0428_a008": [
+   "B-ch08 T-2"
+  ],
+  "ig34_p0433_a019": [
+   "B-ch08 T-4"
+  ],
+  "ig34_p0438_a019": [
+   "B-REL T-9 (RELSUB 副本)",
+   "B-ch08 T-9 (ch08 副本)"
+  ],
+  "ig34_p0457_a004": [
+   "S-CH10 T-2"
+  ]
+ },
+ "K3b_why": {
+  "ig34_p0142_a016": [
+   "B-AE T-2:a:pdf-side:['sequellae']"
+  ],
+  "ig34_p0142_a014": [
+   "B-AE T-4:c'(punctuation-only, on registered line)"
+  ],
+  "ig34_p0146_a005": [
+   "B-BE T-1:a:pdf-side:['ice/isopopanol']",
+   "B-BE T-2:a:pdf-side:['5-0']"
+  ],
+  "ig34_p0198_a020": [
+   "B-BS T-1a:a:pdf-side:['rations']",
+   "B-BS T-1b:a:pdf-side:['indicated']"
+  ],
+  "ig34_p0198_a014": [
+   "B-BS T-3:a:pdf-side:['strnlo']"
+  ],
+  "ig34_p0215_a018": [
+   "B-CP T-2:a:pdf-side:['cpcsmrkr']"
+  ],
+  "ig34_p0213_a009": [
+   "B-CP T-6:a:pdf-side:['monosub']"
+  ],
+  "ig34_p0211_a004": [
+   "B-CP T-15:a:pdf-side:['cpgatedef']"
+  ],
+  "ig34_p0205_a005": [
+   "S-SPC1 CP T-16b:c:on-registered-line:['cpcsmrks']"
+  ],
+  "ig34_p0200_a006": [
+   "S-SPC1 CP T-17:a:pdf-side:['sting']"
+  ],
+  "ig34_p0206_a009": [
+   "S-SPC1 CP T-19:a:pdf-side:['cpsmrks']"
+  ],
+  "ig34_p0199_a020": [
+   "S-SPC1 CP T-21:a:pdf-side:['bndagt']"
+  ],
+  "ig34_p0160_a0028": [
+   "B-DS T-3:a:pdf-side:['dsdtdtc']"
+  ],
+  "ig34_p0166_a0035": [
+   "B-DS T-5:a:pdf-side:['recieved']"
+  ],
+  "ig34_p0113_a011": [
+   "B-EX T-3:a:pdf-side:['ottles']"
+  ],
+  "ig34_p0115_a009": [
+   "B-EX T-4:a:pdf-side:['protocol', 'specified']"
+  ],
+  "ig34_p0107_a002": [
+   "S-INT EX T-7:a:pdf-side:['document.additional']"
+  ],
+  "ig34_p0339_a001": [
+   "B-RS T-6 (RS 副本):a:pdf-side:['strnc']"
+  ],
+  "ig34_p0323_a006": [
+   "B-RS T-6 (FT 副本):a:pdf-side:['strnc']"
+  ],
+  "ig34_p0328_a007": [
+   "B-RS T-6 (QS 副本):a:pdf-side:['strnc']"
+  ],
+  "ig34_p0224_a013": [
+   "B-GF T-1:a:pdf-side:['inheritabilty']"
+  ],
+  "ig34_p0227_a018": [
+   "B-GF T-2:c:on-registered-line:['identification']"
+  ],
+  "ig34_p0228_a009": [
+   "B-GF T-4:c:on-registered-line:['gflnkid']"
+  ],
+  "ig34_p0228_a002": [
+   "B-GF T-5:c'(punctuation-only, on registered line)"
+  ],
+  "ig34_p0236_a014": [
+   "B-IS T-1:a:pdf-side:['rsc1230']",
+   "B-IS T-2:a:pdf-side:['rsc1230']"
+  ],
+  "ig34_p0236_a015": [
+   "B-IS T-1:a:pdf-side:['rsc1230']",
+   "B-IS T-2:a:pdf-side:['rsc1230']"
+  ],
+  "ig34_p0236_a005": [
+   "B-IS T-3:a:pdf-side:['non-study']"
+  ],
+  "ig34_p0240_a004": [
+   "B-IS T-4:a:pdf-side:['nucleoar']"
+  ],
+  "ig34_p0247_a020": [
+   "B-LB T-1:c:on-registered-line:['lbstnrhi']"
+  ],
+  "ig34_p0263_a020": [
+   "B-MB T-2:b:kb-side-not-in-window:['mbgrpid']",
+   "B-MB T-3:a:pdf-side:['mbtresn']"
+  ],
+  "ig34_p0267_a006": [
+   "B-MI T-1:b:kb-side-not-in-window:['midrvfl']"
+  ],
+  "ig34_p0293_a038": [
+   "B-MK T-2:c:on-registered-line:['replacement/surgical']"
+  ],
+  "ig34_p0124_a017": [
+   "B-ML T-1:a:pdf-side:['whte']"
+  ],
+  "ig34_p0262_a020": [
+   "B-MS T-2:c:on-registered-line:['msconcu']"
+  ],
+  "ig34_p0262_a029": [
+   "B-MS T-3:a:pdf-side:['mbrefid']"
+  ],
+  "ig34_p0262_a030": [
+   "B-MS T-3:a:pdf-side:['mbrefid']"
+  ],
+  "ig34_p0304_a012": [
+   "B-OE T-1:c:on-registered-line:['idvarval']"
+  ],
+  "ig34_p0274_a009": [
+   "B-PCPP T-5:c:on-registered-line:['123-1001', 'abc-123']"
+  ],
+  "ig34_p0273_a037": [
+   "B-PCPP T-9:a:pdf-side:['pre-corrdinating']"
+  ],
+  "ig34_p0311_a035": [
+   "B-RE T-1:a:pdf-side:['ireea2']"
+  ],
+  "ig34_p0438_a019": [
+   "B-REL T-9 (RELSUB 副本):c'(punctuation-only, on registered line)",
+   "B-ch08 T-9 (ch08 副本):c'(punctuation-only, on registered line)"
+  ],
+  "ig34_p0336_a005": [
+   "B-RS T-1:c:on-registered-line:['response']"
+  ],
+  "ig34_p0332_a009": [
+   "B-RS T-2:a:pdf-side:['contained']"
+  ],
+  "ig34_p0335_a015": [
+   "B-RS T-7:a:pdf-side:['rsplnkgrp']"
+  ],
+  "ig34_p0335_a016": [
+   "B-RS T-7:a:pdf-side:['rsplnkgrp']"
+  ],
+  "ig34_p0335_a017": [
+   "B-RS T-7:a:pdf-side:['rsplnkgrp']"
+  ],
+  "ig34_p0335_a018": [
+   "B-RS T-7:a:pdf-side:['rsplnkgrp']"
+  ],
+  "ig34_p0342_a006": [
+   "B-SC T-1:a:pdf-side:['20-17-04-01']"
+  ],
+  "ig34_p0342_a007": [
+   "B-SC T-1:a:pdf-side:['20-17-06-10']"
+  ],
+  "ig34_p0085_a019": [
+   "B-SM T-3:a:pdf-side:['hyypoglycemic']"
+  ],
+  "ig34_p0378_a017": [
+   "B-SR T-1 (examples):a:pdf-side:['bau']"
+  ],
+  "ig34_p0377_a021": [
+   "B-SR T-3:a:pdf-side:['reactogencity']"
+  ],
+  "ig34_p0132_a014": [
+   "B-SU T-1:a:pdf-side:['suenttp']"
+  ],
+  "ig34_p0089_a026": [
+   "B-SV T-1:c'(punctuation-only, on registered line)"
+  ],
+  "ig34_p0356_a001": [
+   "B-TR T-3:a:pdf-side:['imagequality']"
+  ],
+  "ig34_p0353_a009": [
+   "B-TU T-1:a:pdf-side:['aorta-iliac']"
+  ],
+  "ig34_p0018_a012": [
+   "B-ch03 T-1:a:pdf-side:['besdtc']"
+  ],
+  "ig34_p0018_a036": [
+   "B-ch03 T-2:a:pdf-side:['testcd']"
+  ],
+  "ig34_p0049_a008": [
+   "B-ch04 T-4:a:pdf-side:['occurrs']"
+  ],
+  "ig34_p0026_a037": [
+   "B-ch04 T-7:a:pdf-side:['vistnum']"
+  ],
+  "ig34_p0427_a011": [
+   "B-ch08 T-1:a:pdf-side:['dizogotic']"
+  ],
+  "ig34_p0428_a006": [
+   "B-ch08 T-2:a:pdf-side:['gmgrpid']"
+  ],
+  "ig34_p0428_a008": [
+   "B-ch08 T-2:a:pdf-side:['gmgrpid']"
+  ],
+  "ig34_p0433_a019": [
+   "B-ch08 T-4:a:pdf-side:['llustrate']"
+  ],
+  "ig34_p0457_a004": [
+   "S-CH10 T-2:a:pdf-side:['tetm']"
+  ],
+  "ig34_p0063_a023": [
+   "S-SPEC1 T-1:a:pdf-side:['guidance1']"
+  ],
+  "ig34_p0082_a025": [
+   "S-SPREL SE T-1:a:pdf-side:['birthdtc']"
+  ],
+  "ig34_p0412_a006": [
+   "S-TDM TD T-1:c'(punctuation-only, on registered line)"
+  ],
+  "ig34_p0412_a007": [
+   "S-TDM TD T-1:c'(punctuation-only, on registered line)"
+  ],
+  "ig34_p0412_a008": [
+   "S-TDM TD T-1:c'(punctuation-only, on registered line)"
+  ],
+  "ig34_p0413_a010": [
+   "S-TDM TD T-4:c:on-registered-line:['tdtgtpai']"
+  ],
+  "ig34_p0414_a013": [
+   "S-TDM TD T-4:b:kb-side-not-in-window:['tdtgtpai']"
+  ],
+  "ig34_p0068_a010": [
+   "B-DM T-2:manual:knowledge_base/domains/DM/examples.md:14"
+  ],
+  "ig34_p0142_a015": [
+   "B-AE T-1:manual:knowledge_base/domains/AE/examples.md:81"
+  ]
+ },
+ "K3b_extra": [
+  "ig34_p0018_a012",
+  "ig34_p0018_a036",
+  "ig34_p0049_a008",
+  "ig34_p0068_a010",
+  "ig34_p0085_a019",
+  "ig34_p0089_a026",
+  "ig34_p0107_a002",
+  "ig34_p0124_a017",
+  "ig34_p0132_a014",
+  "ig34_p0142_a014",
+  "ig34_p0142_a015",
+  "ig34_p0142_a016",
+  "ig34_p0146_a005",
+  "ig34_p0166_a0035",
+  "ig34_p0198_a014",
+  "ig34_p0213_a009",
+  "ig34_p0227_a018",
+  "ig34_p0262_a020",
+  "ig34_p0267_a006",
+  "ig34_p0273_a037",
+  "ig34_p0274_a009",
+  "ig34_p0293_a038",
+  "ig34_p0304_a012",
+  "ig34_p0323_a006",
+  "ig34_p0328_a007",
+  "ig34_p0332_a009",
+  "ig34_p0336_a005",
+  "ig34_p0377_a021",
+  "ig34_p0378_a017",
+  "ig34_p0412_a006",
+  "ig34_p0412_a007",
+  "ig34_p0412_a008",
+  "ig34_p0413_a010",
+  "ig34_p0414_a013",
+  "ig34_p0438_a019",
+  "ig34_p0457_a004"
+ ],
+ "K3b_unusable_registry": [
+  "B-BS T-2",
+  "B-CE T-1",
+  "B-CP T-1",
+  "B-CP T-13",
+  "S-SPC1 CP T-16a",
+  "B-DM T-1",
+  "B-DS T-2",
+  "B-DS T-6",
+  "B-EX T-2",
+  "S-INT EX T-8",
+  "B-FA T-1",
+  "B-FA T-2",
+  "B-FA T-5",
+  "B-FA T-7",
+  "B-FT T-1",
+  "B-RS T-5 (RS 副本)",
+  "B-RS T-5 (FT 副本)",
+  "B-RS T-5 (QS 副本)",
+  "B-GF T-6",
+  "B-IS T-5",
+  "B-IS T-6",
+  "B-MH T-3",
+  "B-ML T-2",
+  "B-MS T-5",
+  "B-NV T-1",
+  "S-SPC2 PCPP T-10",
+  "S-SPC2 PCPP T-11",
+  "B-RS T-3",
+  "B-RS T-4",
+  "B-SUPPQUAL T-2",
+  "B-SUPPQUAL T-3",
+  "B-TA T-4",
+  "B-TI T-1",
+  "B-ch04 T-3",
+  "B-ch04 T-6",
+  "S-CH4 T-8",
+  "S-CH4 T-9",
+  "S-CH4 T-10a",
+  "S-CH4 T-10b",
+  "S-CH4 T-10c",
+  "S-CH4 T-10g",
+  "B-ch08 T-3",
+  "B-ch08 T-5",
+  "B-ch08 T-6",
+  "B-model01 T-1",
+  "S-CH10 T-1",
+  "S-TDM TD T-2",
+  "S-TDM TD T-3",
+  "S-SPREL N-1 (SE --DTC)",
+  "B-RS T-4b"
+ ],
+ "K3b_punct_only": [
+  "B-AE T-4",
+  "B-CP T-4",
+  "B-EX T-1",
+  "B-GF T-5",
+  "B-MB T-1",
+  "B-REL T-9 (RELSUB 副本)",
+  "B-SV T-1",
+  "B-TA T-2",
+  "B-ch08 T-9 (ch08 副本)",
+  "S-TDM TD T-1"
+ ],
+ "K3b_out_of_scope": {
+  "ig34_p0026_a037": [
+   "B-ch04 T-7"
+  ],
+  "ig34_p0082_a025": [
+   "S-SPREL SE T-1"
+  ],
+  "ig34_p0342_a006": [
+   "B-SC T-1"
+  ],
+  "ig34_p0342_a007": [
+   "B-SC T-1"
+  ]
+ },
+ "K3b_manual": [
+  "ig34_p0068_a010",
+  "ig34_p0142_a015"
+ ],
+ "K3b_keep_list": [
+  "ig34_p0049_a008",
+  "ig34_p0089_a026",
+  "ig34_p0107_a002",
+  "ig34_p0166_a0035",
+  "ig34_p0273_a037",
+  "ig34_p0274_a009",
+  "ig34_p0293_a038",
+  "ig34_p0304_a012",
+  "ig34_p0323_a006",
+  "ig34_p0328_a007",
+  "ig34_p0332_a009",
+  "ig34_p0336_a005",
+  "ig34_p0377_a021",
+  "ig34_p0378_a017",
+  "ig34_p0412_a006",
+  "ig34_p0412_a007",
+  "ig34_p0412_a008",
+  "ig34_p0413_a010",
+  "ig34_p0414_a013",
+  "ig34_p0438_a019",
+  "ig34_p0457_a004"
+ ],
+ "K3b_a_excluded": {
+  "count": 6,
+  "pairs": [
+   "ig34_p0199_a020|S-SPC1 CP T-21|['gatedef']",
+   "ig34_p0261_a013|B-MS T-3|['mbrefid']",
+   "ig34_p0261_a015|B-MS T-3|['mbrefid']",
+   "ig34_p0262_a003|B-MS T-3|['mbrefid']",
+   "ig34_p0262_a014|B-MS T-3|['mbrefid']",
+   "ig34_p0262_a015|B-MS T-3|['mbrefid']"
+  ]
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "_note": "主控裁定 C1 (2026-11-26): 3 条 PRESENT 残留逐条对 PDF 原页 + 现 KB 核. 每条: KB 文件:行 = PDF 原文 (去 markdown 粗体 / 列表记号后 norm 为 PDF p..p+1 归一文本子串, t3_writeback.py 当场断言); 原子 verbatim 本身不逐字命中的原因写在 why.",
+ "ig34_p0039_a014": {"verdict": "EQUIVALENT", "kb": "knowledge_base/chapters/ch04_general_assumptions.md:755", "pdf_page": 39,
+   "why": "KB 行把 'extended format' 加了 **粗体**; fp_match.norm 把 * 换成空格, 得 'format ,' 而原子为 'format,', 故子串不命中. 去粗体后 KB 行 ⊂ PDF p39 (原子 = 该行第 1 句)."},
+ "ig34_p0057_a001": {"verdict": "EQUIVALENT", "kb": "knowledge_base/chapters/ch04_general_assumptions.md:1485", "pdf_page": 57,
+   "why": "原子漏了 PDF 括注 '(see Section 8.4.1, Supplemental Qualifiers – SUPP-- Datasets), but is not required when the data are objective.' (原子 ∉ PDF); KB 行 = PDF 原句全文 (该句在 PDF 文本层起于 p56:50, 断言用 p56-p58)."},
+ "ig34_p0441_a003": {"verdict": "EQUIVALENT", "kb": "knowledge_base/domains/DI/assumptions.md:5", "pdf_page": 441,
+   "why": "§9 引言由 S-SPREL (U3/O46, t2_S-SPREL.md:83, S-SPREL.writer.jsonl:21) 移到 DI/assumptions.md 顶部; 原 target ch10 不再含该句. 原子逐字在 DI/assumptions.md:5 (句中第 2 句)."}
+}

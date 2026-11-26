@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-11-26 (Tier B T2S 22 扫描批完成; U5-U8)
+> 最后更新: 2026-11-26 (Tier B T3 覆盖重算完成)
 
 ---
 
@@ -19,7 +19,7 @@
 | **Phase 7** RAG + KG | ↗ 已拆仓 | 独立公开仓 `hakupao/sdtm-rag` | — |
 | **06 旁枝** Deep Verification | ✅ 完成 | P1-P7 全 PASS ★★ (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档) | `archive/deep_verification/RETROSPECTIVE.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
-| **10 旁枝** Tier B 内容补修 | 🔄 T2 + T2S 完成 (60 + 22 批本地 commit, 未 push) | 全库扫描批终版: 覆盖矩阵全部文件 FINAL; U1-U8 裁定; CT 短名 + 排版字符统一 | T3 (ledger 回写 + 重算) → T4 (用户裁定汇总 `t4_user_decisions.md` + 人工抽样) → push; `.work/10_tier_b_repair/HANDOFF.md` |
+| **10 旁枝** Tier B 内容补修 | 🔄 T2 + T2S + T3 完成 (本地 commit, 未 push) | T3 ledger 回写 + 重算 (attempt 4 PASS): 残留 1 (pending_user); G-TB2 170/174; G-TB3 99.36%; 新回归 0 | T4 (总闸 + 用户裁定 `t4_user_decisions.md` + 人工抽样 + 风险层) → push; `.work/10_tier_b_repair/HANDOFF.md` |
 | **refactor v1/v2/v3** 项目重构 | ✅ 完成 | v1 段1-3 (2026-05-11) · v2 release 提顶层 (2026-05-11) · v3 branches→milestones (2026-07-21) · **R2 milestones→releases+archive (2026-11-25)** | `docs/PATH_MAP.md` |
 
 **图例**: ✅ 完成 · 🟢 进行中 · ⏸ 待启动 · 🔴 阻塞

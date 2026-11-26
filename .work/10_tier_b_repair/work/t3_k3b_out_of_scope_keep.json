@@ -1,0 +1,437 @@
+{
+ "_note": "attempt 4 可复现性修复 (审计 A4-5.1): 范围外 K3b 保留 21 条 (action=keep_k3b) + 审计点名仅登记 3 条 (action=t4_only). t3_writeback.py 只读本清单; 每条运行时断言 pdf.token ⊂ norm(PDF 行) 且 kb.token ⊂ norm(KB 行). 生成: scripts/t3/t3_build_keep.py (一次性).",
+ "ig34_p0049_a008": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-ch04 T-4"
+  ],
+  "rule": "a",
+  "why": [
+   "B-ch04 T-4:a:pdf-side:['occurrs']"
+  ],
+  "pdf": {
+   "line": "ig34_p0049:11",
+   "token": "occurrs"
+  },
+  "kb": {
+   "line": "knowledge_base/chapters/ch04_general_assumptions.md:1195",
+   "token": "occurs"
+  }
+ },
+ "ig34_p0089_a026": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-SV T-1"
+  ],
+  "rule": "c'",
+  "why": [
+   "B-SV T-1:c'(punctuation-only, on registered line)"
+  ],
+  "pdf": {
+   "line": "ig34_p0089:29",
+   "token": "row 5: shows"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/SV/examples.md:40",
+   "token": "informed consent for subject 101."
+  }
+ },
+ "ig34_p0107_a002": {
+  "action": "keep_k3b",
+  "registry": [
+   "S-INT EX T-7"
+  ],
+  "rule": "a",
+  "why": [
+   "S-INT EX T-7:a:pdf-side:['document.additional']"
+  ],
+  "pdf": {
+   "line": "ig34_p0107:4",
+   "token": "document.additional"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/EX/assumptions.md:41",
+   "token": "define-xml document."
+  }
+ },
+ "ig34_p0166_a0035": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-DS T-5"
+  ],
+  "rule": "a",
+  "why": [
+   "B-DS T-5:a:pdf-side:['recieved']"
+  ],
+  "pdf": {
+   "line": "ig34_p0166:38",
+   "token": "recieved"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/DS/examples.md:377",
+   "token": "received"
+  }
+ },
+ "ig34_p0273_a037": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-PCPP T-9"
+  ],
+  "rule": "a",
+  "why": [
+   "B-PCPP T-9:a:pdf-side:['pre-corrdinating']"
+  ],
+  "pdf": {
+   "line": "ig34_p0273:41",
+   "token": "pre-corrdinating"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/PP/examples.md:46",
+   "token": "pre-coordinating"
+  }
+ },
+ "ig34_p0274_a009": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-PCPP T-5"
+  ],
+  "rule": "c",
+  "why": [
+   "B-PCPP T-5:c:on-registered-line:['123-1001', 'abc-123']"
+  ],
+  "pdf": {
+   "line": "ig34_p0274:29",
+   "token": "123-1001 ppseq 1"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/PP/examples.md:59",
+   "token": "6 abc-123 pp 123-1001 6"
+  }
+ },
+ "ig34_p0293_a038": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-MK T-2"
+  ],
+  "rule": "c",
+  "why": [
+   "B-MK T-2:c:on-registered-line:['replacement/surgical']"
+  ],
+  "pdf": {
+   "line": "ig34_p0293:39",
+   "token": "replacement/"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/MK/examples.md:53",
+   "token": "replacement/surgical"
+  }
+ },
+ "ig34_p0304_a012": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-OE T-1"
+  ],
+  "rule": "c",
+  "why": [
+   "B-OE T-1:c:on-registered-line:['idvarval']"
+  ],
+  "pdf": {
+   "line": "ig34_p0304:14",
+   "token": "idvaral"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/OE/examples.md:121",
+   "token": "idvarval"
+  }
+ },
+ "ig34_p0323_a006": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-RS T-6 (FT 副本)"
+  ],
+  "rule": "a",
+  "why": [
+   "B-RS T-6 (FT 副本):a:pdf-side:['strnc']"
+  ],
+  "pdf": {
+   "line": "ig34_p0323:12",
+   "token": "strnc"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/FT/assumptions.md:78",
+   "token": "--stnrc"
+  }
+ },
+ "ig34_p0328_a007": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-RS T-6 (QS 副本)"
+  ],
+  "rule": "a",
+  "why": [
+   "B-RS T-6 (QS 副本):a:pdf-side:['strnc']"
+  ],
+  "pdf": {
+   "line": "ig34_p0328:15",
+   "token": "strnc"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/QS/assumptions.md:59",
+   "token": "--stnrc"
+  }
+ },
+ "ig34_p0332_a009": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-RS T-2"
+  ],
+  "rule": "a",
+  "why": [
+   "B-RS T-2:a:pdf-side:['contained']"
+  ],
+  "pdf": {
+   "line": "ig34_p0332:24",
+   "token": "contained"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/RS/assumptions.md:28",
+   "token": "will contain"
+  }
+ },
+ "ig34_p0336_a005": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-RS T-1"
+  ],
+  "rule": "c",
+  "why": [
+   "B-RS T-1:c:on-registered-line:['response']"
+  ],
+  "pdf": {
+   "line": "ig34_p0336:8",
+   "token": "repsonse"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/RS/examples.md:61",
+   "token": "minimal response"
+  }
+ },
+ "ig34_p0377_a021": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-SR T-3"
+  ],
+  "rule": "a",
+  "why": [
+   "B-SR T-3:a:pdf-side:['reactogencity']"
+  ],
+  "pdf": {
+   "line": "ig34_p0377:50",
+   "token": "reactogencity"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/SR/assumptions.md:15",
+   "token": "reactogenicity"
+  }
+ },
+ "ig34_p0378_a017": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-SR T-1 (examples)"
+  ],
+  "rule": "a",
+  "why": [
+   "B-SR T-1 (examples):a:pdf-side:['bau']"
+  ],
+  "pdf": {
+   "line": "ig34_p0378:28",
+   "token": "bau"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/SR/examples.md:22",
+   "token": "0.15 bau/ml"
+  }
+ },
+ "ig34_p0412_a006": {
+  "action": "keep_k3b",
+  "registry": [
+   "S-TDM TD T-1"
+  ],
+  "rule": "c'",
+  "why": [
+   "S-TDM TD T-1:c'(punctuation-only, on registered line)"
+  ],
+  "pdf": {
+   "line": "ig34_p0412:1",
+   "token": "assessments"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/TD/examples.md:40",
+   "token": "assessments."
+  }
+ },
+ "ig34_p0412_a007": {
+  "action": "keep_k3b",
+  "registry": [
+   "S-TDM TD T-1"
+  ],
+  "rule": "c'",
+  "why": [
+   "S-TDM TD T-1:c'(punctuation-only, on registered line)"
+  ],
+  "pdf": {
+   "line": "ig34_p0412:1",
+   "token": "assessments"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/TD/examples.md:40",
+   "token": "assessments."
+  }
+ },
+ "ig34_p0412_a008": {
+  "action": "keep_k3b",
+  "registry": [
+   "S-TDM TD T-1"
+  ],
+  "rule": "c'",
+  "why": [
+   "S-TDM TD T-1:c'(punctuation-only, on registered line)"
+  ],
+  "pdf": {
+   "line": "ig34_p0412:1",
+   "token": "assessments"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/TD/examples.md:40",
+   "token": "assessments."
+  }
+ },
+ "ig34_p0413_a010": {
+  "action": "keep_k3b",
+  "registry": [
+   "S-TDM TD T-4"
+  ],
+  "rule": "c",
+  "why": [
+   "S-TDM TD T-4:c:on-registered-line:['tdtgtpai']"
+  ],
+  "pdf": {
+   "line": "ig34_p0414:29",
+   "token": "tdtgpai"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/TD/examples.md:167",
+   "token": "tdtgtpai"
+  }
+ },
+ "ig34_p0414_a013": {
+  "action": "keep_k3b",
+  "registry": [
+   "S-TDM TD T-4"
+  ],
+  "rule": "b",
+  "why": [
+   "S-TDM TD T-4:b:kb-side-not-in-window:['tdtgtpai']"
+  ],
+  "pdf": {
+   "line": "ig34_p0414:29",
+   "token": "tdtgpai"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/TD/examples.md:167",
+   "token": "tdtgtpai"
+  }
+ },
+ "ig34_p0438_a019": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-REL T-9 (RELSUB 副本)",
+   "B-ch08 T-9 (ch08 副本)"
+  ],
+  "rule": "c'",
+  "why": [
+   "B-REL T-9 (RELSUB 副本):c'(punctuation-only, on registered line)",
+   "B-ch08 T-9 (ch08 副本):c'(punctuation-only, on registered line)"
+  ],
+  "pdf": {
+   "line": "ig34_p0438:45",
+   "token": "7. every relationship"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/RELSUB/assumptions.md:29",
+   "token": "biological\"; \"child, biological\")."
+  }
+ },
+ "ig34_p0457_a004": {
+  "action": "keep_k3b",
+  "registry": [
+   "S-CH10 T-2"
+  ],
+  "rule": "a",
+  "why": [
+   "S-CH10 T-2:a:pdf-side:['tetm']"
+  ],
+  "pdf": {
+   "line": "ig34_p0457:29",
+   "token": "tetm"
+  },
+  "kb": {
+   "line": "knowledge_base/chapters/ch10_appendices.md:387",
+   "token": "--term"
+  }
+ },
+ "ig34_p0082_a025": {
+  "action": "t4_only",
+  "registry": [
+   "S-SPREL SE T-1"
+  ],
+  "rule": "a",
+  "why": [
+   "S-SPREL SE T-1:a:pdf-side:['birthdtc']"
+  ],
+  "pdf": {
+   "line": "ig34_p0082:36",
+   "token": "birthdtc"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/SE/examples.md:44",
+   "token": "brthdtc"
+  }
+ },
+ "ig34_p0342_a006": {
+  "action": "t4_only",
+  "registry": [
+   "B-SC T-1"
+  ],
+  "rule": "a",
+  "why": [
+   "B-SC T-1:a:pdf-side:['20-17-04-01']"
+  ],
+  "pdf": {
+   "line": "ig34_p0342:9",
+   "token": "scdtc"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/SC/examples.md:35",
+   "token": "2017-04-01"
+  }
+ },
+ "ig34_p0342_a007": {
+  "action": "t4_only",
+  "registry": [
+   "B-SC T-1"
+  ],
+  "rule": "a",
+  "why": [
+   "B-SC T-1:a:pdf-side:['20-17-06-10']"
+  ],
+  "pdf": {
+   "line": "ig34_p0342:9",
+   "token": "scdtc"
+  },
+  "kb": {
+   "line": "knowledge_base/domains/SC/examples.md:35",
+   "token": "2017-04-01"
+  }
+ }
+}

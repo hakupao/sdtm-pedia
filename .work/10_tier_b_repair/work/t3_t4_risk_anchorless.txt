@@ -1,0 +1,508 @@
+ig34_p0060_a024	no governing numbered heading	knowledge_base/domains/CO/spec.md:123
+ig34_p0063_a022	no governing numbered heading	knowledge_base/domains/DM/spec.md:198
+ig34_p0064_a011	no governing numbered heading	knowledge_base/domains/DM/spec.md:294
+ig34_p0064_a012	no governing numbered heading	knowledge_base/domains/DM/spec.md:296
+ig34_p0065_a003	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:13
+ig34_p0065_a004	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:13
+ig34_p0065_a005	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:15
+ig34_p0065_a007	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:15
+ig34_p0065_a008	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:15
+ig34_p0065_a009	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:15
+ig34_p0065_a020	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:24
+ig34_p0065_a022	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:25
+ig34_p0065_a023	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:25
+ig34_p0065_a024	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:25
+ig34_p0065_a025	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:25
+ig34_p0065_a027	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:25
+ig34_p0069_a005	no governing numbered heading	knowledge_base/domains/DM/examples.md:70
+ig34_p0069_a007	no governing numbered heading	knowledge_base/domains/DM/examples.md:70
+ig34_p0070_a010	no governing numbered heading	knowledge_base/domains/DM/examples.md:180
+ig34_p0070_a011	no governing numbered heading	knowledge_base/domains/DM/examples.md:180
+ig34_p0070_a020	no governing numbered heading	knowledge_base/domains/DM/examples.md:188
+ig34_p0070_a021	no governing numbered heading	knowledge_base/domains/DM/examples.md:180
+ig34_p0071_a004	no governing numbered heading	knowledge_base/domains/DM/examples.md:188
+ig34_p0071_a015	no governing numbered heading	knowledge_base/domains/DM/examples.md:188
+ig34_p0071_a027	no governing numbered heading	knowledge_base/domains/DM/examples.md:188
+ig34_p0075_a016	no governing numbered heading	knowledge_base/domains/DM/examples.md:340
+ig34_p0075_a018	no governing numbered heading	knowledge_base/domains/DM/examples.md:311
+ig34_p0075_a027	no governing numbered heading	knowledge_base/domains/DM/examples.md:340
+ig34_p0080_a010	no governing numbered heading	knowledge_base/domains/SE/spec.md:123
+ig34_p0080_a017	no governing numbered heading	knowledge_base/domains/SE/assumptions.md:31
+ig34_p0084_a004	no governing numbered heading	knowledge_base/domains/SM/assumptions.md:5
+ig34_p0084_a018	no governing numbered heading	knowledge_base/domains/SM/spec.md:96
+ig34_p0087_a009	no governing numbered heading	knowledge_base/domains/SV/spec.md:150
+ig34_p0092_a005	no governing numbered heading	knowledge_base/domains/AG/assumptions.md:7
+ig34_p0092_a006	no governing numbered heading	knowledge_base/domains/AG/assumptions.md:9
+ig34_p0092_a007	no governing numbered heading	knowledge_base/domains/AG/assumptions.md:11
+ig34_p0092_a009	no governing numbered heading	knowledge_base/domains/AG/assumptions.md:13
+ig34_p0094_a007	no governing numbered heading	knowledge_base/domains/AG/spec.md:375
+ig34_p0094_a008	no governing numbered heading	knowledge_base/domains/AG/assumptions.md:1
+ig34_p0096_a017	no governing numbered heading	knowledge_base/domains/AG/examples.md:40
+ig34_p0100_a005	no governing numbered heading	knowledge_base/domains/CM/spec.md:375
+ig34_p0100_a008	no governing numbered heading	knowledge_base/domains/CM/assumptions.md:15
+ig34_p0100_a013	no governing numbered heading	knowledge_base/domains/CM/assumptions.md:21
+ig34_p0101_a005	no governing numbered heading	knowledge_base/domains/CM/assumptions.md:24
+ig34_p0101_a006	no governing numbered heading	knowledge_base/domains/CM/assumptions.md:26
+ig34_p0101_a012	no governing numbered heading	knowledge_base/domains/CM/assumptions.md:27
+ig34_p0102_a020	no governing numbered heading	knowledge_base/domains/CM/examples.md:51
+ig34_p0103_a006	no governing numbered heading	knowledge_base/domains/CM/examples.md:82
+ig34_p0103_a012	no governing numbered heading	knowledge_base/domains/CM/examples.md:94
+ig34_p0104_a002	no governing numbered heading	knowledge_base/domains/EX/assumptions.md:7
+ig34_p0104_a003	no governing numbered heading	knowledge_base/domains/EX/assumptions.md:9
+ig34_p0104_a004	no governing numbered heading	knowledge_base/domains/EX/assumptions.md:9
+ig34_p0104_a005	no governing numbered heading	knowledge_base/domains/EX/assumptions.md:11
+ig34_p0104_a006	no governing numbered heading	knowledge_base/domains/EX/assumptions.md:13
+ig34_p0105_a016	no governing numbered heading	knowledge_base/domains/EX/spec.md:339
+ig34_p0105_a017	no governing numbered heading	knowledge_base/domains/EX/assumptions.md:1
+ig34_p0109_a010	no governing numbered heading	knowledge_base/domains/EC/spec.md:411
+ig34_p0111_a014	no governing numbered heading	knowledge_base/domains/EX/examples.md:29
+ig34_p0111_a015	no governing numbered heading	knowledge_base/domains/EX/examples.md:31
+ig34_p0111_a016	no governing numbered heading	knowledge_base/domains/EX/examples.md:33
+ig34_p0111_a023	no governing numbered heading	knowledge_base/domains/EX/examples.md:44
+ig34_p0112_a002	no governing numbered heading	knowledge_base/domains/EX/examples.md:52
+ig34_p0112_a025	no governing numbered heading	knowledge_base/domains/EX/examples.md:86
+ig34_p0112_a031	no governing numbered heading	knowledge_base/domains/EX/examples.md:96
+ig34_p0113_a002	no governing numbered heading	knowledge_base/domains/EX/examples.md:102
+ig34_p0117_a005	no governing numbered heading	knowledge_base/domains/EX/examples.md:329
+ig34_p0117_a006	no governing numbered heading	knowledge_base/domains/EX/examples.md:329
+ig34_p0117_a007	no governing numbered heading	knowledge_base/domains/EX/examples.md:331
+ig34_p0117_a008	no governing numbered heading	knowledge_base/domains/EX/examples.md:331
+ig34_p0117_a010	no governing numbered heading	knowledge_base/domains/EX/examples.md:334
+ig34_p0117_a011	no governing numbered heading	knowledge_base/domains/EX/examples.md:334
+ig34_p0118_a005	no governing numbered heading	knowledge_base/domains/EX/examples.md:348
+ig34_p0118_a006	no governing numbered heading	knowledge_base/domains/EX/examples.md:349
+ig34_p0118_a019	no governing numbered heading	knowledge_base/domains/EX/examples.md:364
+ig34_p0118_a020	no governing numbered heading	knowledge_base/domains/EX/examples.md:366
+ig34_p0118_a022	no governing numbered heading	knowledge_base/domains/EX/examples.md:368
+ig34_p0118_a030	no governing numbered heading	knowledge_base/domains/EX/examples.md:379
+ig34_p0118_a031	no governing numbered heading	knowledge_base/domains/EX/examples.md:379
+ig34_p0118_a032	no governing numbered heading	knowledge_base/domains/EX/examples.md:379
+ig34_p0119_a001	no governing numbered heading	knowledge_base/domains/EX/examples.md:385
+ig34_p0119_a006	no governing numbered heading	knowledge_base/domains/EX/examples.md:394
+ig34_p0119_a013	no governing numbered heading	knowledge_base/domains/EX/examples.md:407
+ig34_p0120_a001	no governing numbered heading	knowledge_base/domains/EX/examples.md:441
+ig34_p0120_a002	no governing numbered heading	knowledge_base/domains/EX/examples.md:443
+ig34_p0120_a004	no governing numbered heading	knowledge_base/domains/EX/examples.md:446
+ig34_p0120_a005	no governing numbered heading	knowledge_base/domains/EX/examples.md:447
+ig34_p0120_a006	no governing numbered heading	knowledge_base/domains/EX/examples.md:449
+ig34_p0120_a007	no governing numbered heading	knowledge_base/domains/EX/examples.md:449
+ig34_p0120_a011	no governing numbered heading	knowledge_base/domains/EX/examples.md:457
+ig34_p0121_a005	no governing numbered heading	knowledge_base/domains/ML/assumptions.md:9
+ig34_p0123_a019	no governing numbered heading	knowledge_base/domains/ML/examples.md:31
+ig34_p0124_a022	no governing numbered heading	knowledge_base/domains/ML/examples.md:71
+ig34_p0124_a023	no governing numbered heading	knowledge_base/domains/ML/examples.md:72
+ig34_p0124_a024	no governing numbered heading	knowledge_base/domains/ML/examples.md:73
+ig34_p0125_a002	no governing numbered heading	knowledge_base/domains/PR/assumptions.md:3
+ig34_p0125_a003	no governing numbered heading	knowledge_base/domains/PR/assumptions.md:5
+ig34_p0125_a004	no governing numbered heading	knowledge_base/domains/PR/assumptions.md:7
+ig34_p0125_a005	no governing numbered heading	knowledge_base/domains/PR/assumptions.md:9
+ig34_p0126_a025	no governing numbered heading	knowledge_base/domains/PR/spec.md:411
+ig34_p0127_a001	no governing numbered heading	knowledge_base/domains/PR/assumptions.md:1
+ig34_p0129_a003	no governing numbered heading	knowledge_base/domains/SU/assumptions.md:5
+ig34_p0129_a005	no governing numbered heading	knowledge_base/domains/SU/assumptions.md:9
+ig34_p0131_a001	no governing numbered heading	knowledge_base/domains/SU/spec.md:327
+ig34_p0131_a003	no governing numbered heading	knowledge_base/domains/SU/spec.md:339
+ig34_p0133_a021	no governing numbered heading	knowledge_base/domains/AE/assumptions.md:17
+ig34_p0134_a002	no governing numbered heading	knowledge_base/domains/AE/assumptions.md:21
+ig34_p0137_a010	no governing numbered heading	knowledge_base/domains/AE/spec.md:546
+ig34_p0139_a008	no governing numbered heading	knowledge_base/domains/AE/assumptions.md:57
+ig34_p0139_a010	no governing numbered heading	knowledge_base/domains/AE/assumptions.md:63
+ig34_p0140_a011	no governing numbered heading	knowledge_base/domains/AE/examples.md:5
+ig34_p0140_a013	no governing numbered heading	knowledge_base/domains/AE/examples.md:7
+ig34_p0140_a015	no governing numbered heading	knowledge_base/domains/AE/examples.md:9
+ig34_p0141_a007	no governing numbered heading	knowledge_base/domains/AE/examples.md:21
+ig34_p0141_a008	no governing numbered heading	knowledge_base/domains/AE/examples.md:23
+ig34_p0141_a016	no governing numbered heading	knowledge_base/domains/AE/examples.md:37
+ig34_p0141_a023	no governing numbered heading	knowledge_base/domains/AE/examples.md:50
+ig34_p0142_a010	no governing numbered heading	knowledge_base/domains/AE/examples.md:71
+ig34_p0142_a011	no governing numbered heading	knowledge_base/domains/AE/examples.md:73
+ig34_p0142_a018	no governing numbered heading	knowledge_base/domains/AE/examples.md:86
+ig34_p0142_a019	no governing numbered heading	knowledge_base/domains/AE/examples.md:88
+ig34_p0142_a020	no governing numbered heading	knowledge_base/domains/AE/examples.md:90
+ig34_p0145_a009	no governing numbered heading	knowledge_base/domains/BE/examples.md:13
+ig34_p0145_a020	no governing numbered heading	knowledge_base/domains/BE/examples.md:31
+ig34_p0148_a015	no governing numbered heading	knowledge_base/domains/CE/assumptions.md:5
+ig34_p0148_a017	no governing numbered heading	knowledge_base/domains/CE/assumptions.md:9
+ig34_p0150_a004	no governing numbered heading	knowledge_base/domains/CE/spec.md:294
+ig34_p0151_a0013	no governing numbered heading	knowledge_base/domains/CE/examples.md:13
+ig34_p0151_a0015	no governing numbered heading	knowledge_base/domains/CE/examples.md:14
+ig34_p0151_a0017	no governing numbered heading	knowledge_base/domains/CE/examples.md:15
+ig34_p0151_a0019	no governing numbered heading	knowledge_base/domains/CE/examples.md:16
+ig34_p0151_a0022	no governing numbered heading	knowledge_base/domains/CE/examples.md:22
+ig34_p0152_a0001	no governing numbered heading	knowledge_base/domains/CE/examples.md:37
+ig34_p0152_a0016	no governing numbered heading	knowledge_base/domains/CE/examples.md:48
+ig34_p0152_a0017	no governing numbered heading	knowledge_base/domains/CE/examples.md:50
+ig34_p0152_a0018	no governing numbered heading	knowledge_base/domains/CE/examples.md:52
+ig34_p0152_a0020	no governing numbered heading	knowledge_base/domains/CE/examples.md:56
+ig34_p0153_a0001	no governing numbered heading	knowledge_base/domains/CE/examples.md:70
+ig34_p0153_a0026	no governing numbered heading	knowledge_base/domains/CE/examples.md:85
+ig34_p0153_a0030	no governing numbered heading	knowledge_base/domains/CE/examples.md:93
+ig34_p0153_a0031	no governing numbered heading	knowledge_base/domains/CE/examples.md:95
+ig34_p0153_a0032	no governing numbered heading	knowledge_base/domains/CE/examples.md:97
+ig34_p0154_a0004	no governing numbered heading	knowledge_base/domains/CE/examples.md:106
+ig34_p0154_a0009	no governing numbered heading	knowledge_base/domains/CE/examples.md:115
+ig34_p0154_a0010	no governing numbered heading	knowledge_base/domains/CE/examples.md:117
+ig34_p0154_a0011	no governing numbered heading	knowledge_base/domains/CE/examples.md:119
+ig34_p0154_a0017	no governing numbered heading	knowledge_base/domains/CE/examples.md:129
+ig34_p0154_a0025	no governing numbered heading	knowledge_base/domains/CE/examples.md:140
+ig34_p0154_a0026	no governing numbered heading	knowledge_base/domains/CE/examples.md:142
+ig34_p0154_a0027	no governing numbered heading	knowledge_base/domains/CE/examples.md:144
+ig34_p0155_a0007	no governing numbered heading	knowledge_base/domains/CE/examples.md:158
+ig34_p0155_a0014	no governing numbered heading	knowledge_base/domains/DS/assumptions.md:3
+ig34_p0155_a0015	no governing numbered heading	knowledge_base/domains/DS/assumptions.md:5
+ig34_p0155_a0016	no governing numbered heading	knowledge_base/domains/DS/assumptions.md:7
+ig34_p0155_a0017	no governing numbered heading	knowledge_base/domains/DS/assumptions.md:9
+ig34_p0156_a0007	no governing numbered heading	knowledge_base/domains/DS/spec.md:150
+ig34_p0156_a0008	no governing numbered heading	knowledge_base/domains/DS/assumptions.md:1
+ig34_p0156_a0018	no governing numbered heading	knowledge_base/domains/DS/assumptions.md:17
+ig34_p0157_a0007	no governing numbered heading	knowledge_base/domains/DS/assumptions.md:30
+ig34_p0157_a0010	no governing numbered heading	knowledge_base/domains/DS/assumptions.md:32
+ig34_p0157_a0026	no governing numbered heading	knowledge_base/domains/DS/assumptions.md:43
+ig34_p0169_a0003	no governing numbered heading	knowledge_base/domains/HO/spec.md:258
+ig34_p0170_a0001	no governing numbered heading	knowledge_base/domains/HO/examples.md:57
+ig34_p0170_a0002	no governing numbered heading	knowledge_base/domains/HO/examples.md:57
+ig34_p0170_a0003	no governing numbered heading	knowledge_base/domains/HO/examples.md:57
+ig34_p0171_a0002	no governing numbered heading	knowledge_base/domains/HO/examples.md:72
+ig34_p0172_a0013	no governing numbered heading	knowledge_base/domains/MH/spec.md:249
+ig34_p0176_a0003	no governing numbered heading	knowledge_base/domains/MH/examples.md:35
+ig34_p0179_a0005	no governing numbered heading	knowledge_base/domains/DV/spec.md:150
+ig34_p0181_a013	no governing numbered heading	knowledge_base/domains/DA/spec.md:249
+ig34_p0182_a012	no governing numbered heading	knowledge_base/domains/DA/examples.md:18
+ig34_p0182_a014	no governing numbered heading	knowledge_base/domains/DA/examples.md:22
+ig34_p0182_a018	no governing numbered heading	knowledge_base/domains/DA/examples.md:29
+ig34_p0182_a023	no governing numbered heading	knowledge_base/domains/DA/examples.md:39
+ig34_p0183_a003	no governing numbered heading	knowledge_base/domains/DD/assumptions.md:5
+ig34_p0183_a004	no governing numbered heading	knowledge_base/domains/DD/assumptions.md:7
+ig34_p0183_a006	no governing numbered heading	knowledge_base/domains/DD/assumptions.md:11
+ig34_p0183_a020	no governing numbered heading	knowledge_base/domains/DD/spec.md:114
+ig34_p0184_a008	no governing numbered heading	knowledge_base/domains/DD/examples.md:3
+ig34_p0184_a013	no governing numbered heading	knowledge_base/domains/DD/examples.md:13
+ig34_p0184_a022	no governing numbered heading	knowledge_base/domains/DD/examples.md:25
+ig34_p0184_a024	no governing numbered heading	knowledge_base/domains/DD/examples.md:29
+ig34_p0185_a001	no governing numbered heading	knowledge_base/domains/DD/examples.md:37
+ig34_p0185_a007	no governing numbered heading	knowledge_base/domains/DD/examples.md:49
+ig34_p0185_a013	no governing numbered heading	knowledge_base/domains/DD/examples.md:59
+ig34_p0185_a020	no governing numbered heading	knowledge_base/domains/EG/assumptions.md:5
+ig34_p0185_a021	no governing numbered heading	knowledge_base/domains/EG/assumptions.md:7
+ig34_p0185_a022	no governing numbered heading	knowledge_base/domains/EG/assumptions.md:9
+ig34_p0188_a005	no governing numbered heading	knowledge_base/domains/EG/spec.md:402
+ig34_p0191_a023	no governing numbered heading	knowledge_base/domains/EG/examples.md:91
+ig34_p0191_a024	no governing numbered heading	knowledge_base/domains/EG/examples.md:91
+ig34_p0191_a025	no governing numbered heading	knowledge_base/domains/EG/examples.md:91
+ig34_p0191_a026	no governing numbered heading	knowledge_base/domains/EG/examples.md:91
+ig34_p0191_a027	no governing numbered heading	knowledge_base/domains/EG/examples.md:91
+ig34_p0191_a028	no governing numbered heading	knowledge_base/domains/EG/examples.md:93
+ig34_p0191_a029	no governing numbered heading	knowledge_base/domains/EG/examples.md:95
+ig34_p0191_a030	no governing numbered heading	knowledge_base/domains/EG/examples.md:97
+ig34_p0192_a001	no governing numbered heading	knowledge_base/domains/EG/examples.md:99
+ig34_p0193_a003	no governing numbered heading	knowledge_base/domains/IE/assumptions.md:5
+ig34_p0193_a025	no governing numbered heading	knowledge_base/domains/IE/spec.md:168
+ig34_p0194_a009	no governing numbered heading	knowledge_base/domains/IE/examples.md:7
+ig34_p0194_a010	no governing numbered heading	knowledge_base/domains/IE/examples.md:9
+ig34_p0198_a008	no governing numbered heading	knowledge_base/domains/BS/spec.md:321
+ig34_p0198_a021	no governing numbered heading	knowledge_base/domains/BS/examples.md:9
+ig34_p0199_a010	no governing numbered heading	knowledge_base/domains/CP/assumptions.md:7
+ig34_p0199_a014	no governing numbered heading	knowledge_base/domains/CP/assumptions.md:15
+ig34_p0200_a009	no governing numbered heading	knowledge_base/domains/CP/assumptions.md:46
+ig34_p0200_a010	no governing numbered heading	knowledge_base/domains/CP/assumptions.md:48
+ig34_p0204_a013	no governing numbered heading	knowledge_base/domains/CP/spec.md:564
+ig34_p0205_a007	no governing numbered heading	knowledge_base/domains/CP/assumptions.md:62
+ig34_p0206_a006	no governing numbered heading	knowledge_base/domains/CP/assumptions.md:79
+ig34_p0208_a023	no governing numbered heading	knowledge_base/domains/CP/examples.md:15
+ig34_p0209_a001	no governing numbered heading	knowledge_base/domains/CP/examples.md:15
+ig34_p0209_a004	no governing numbered heading	knowledge_base/domains/CP/examples.md:21
+ig34_p0209_a005	no governing numbered heading	knowledge_base/domains/CP/examples.md:23
+ig34_p0209_a006	no governing numbered heading	knowledge_base/domains/CP/examples.md:25
+ig34_p0210_a003	no governing numbered heading	knowledge_base/domains/CP/examples.md:33
+ig34_p0210_a004	no governing numbered heading	knowledge_base/domains/CP/examples.md:34
+ig34_p0210_a005	no governing numbered heading	knowledge_base/domains/CP/examples.md:35
+ig34_p0210_a006	no governing numbered heading	knowledge_base/domains/CP/examples.md:36
+ig34_p0210_a008	no governing numbered heading	knowledge_base/domains/CP/examples.md:38
+ig34_p0210_a009	no governing numbered heading	knowledge_base/domains/CP/examples.md:39
+ig34_p0210_a010	no governing numbered heading	knowledge_base/domains/CP/examples.md:40
+ig34_p0210_a011	no governing numbered heading	knowledge_base/domains/CP/examples.md:41
+ig34_p0210_a012	no governing numbered heading	knowledge_base/domains/CP/examples.md:42
+ig34_p0210_a013	no governing numbered heading	knowledge_base/domains/CP/examples.md:43
+ig34_p0210_a014	no governing numbered heading	knowledge_base/domains/CP/examples.md:44
+ig34_p0210_a015	no governing numbered heading	knowledge_base/domains/CP/examples.md:45
+ig34_p0210_a016	no governing numbered heading	knowledge_base/domains/CP/examples.md:46
+ig34_p0210_a017	no governing numbered heading	knowledge_base/domains/CP/examples.md:47
+ig34_p0210_a018	no governing numbered heading	knowledge_base/domains/CP/examples.md:48
+ig34_p0210_a020	no governing numbered heading	knowledge_base/domains/CP/examples.md:52
+ig34_p0210_a022	no governing numbered heading	knowledge_base/domains/CP/examples.md:56
+ig34_p0212_a010	no governing numbered heading	knowledge_base/domains/CP/examples.md:105
+ig34_p0212_a011	no governing numbered heading	knowledge_base/domains/CP/examples.md:107
+ig34_p0212_a013	no governing numbered heading	knowledge_base/domains/CP/examples.md:111
+ig34_p0212_a014	no governing numbered heading	knowledge_base/domains/CP/examples.md:113
+ig34_p0213_a001	no governing numbered heading	knowledge_base/domains/CP/examples.md:115
+ig34_p0213_a003	no governing numbered heading	knowledge_base/domains/CP/examples.md:119
+ig34_p0213_a004	no governing numbered heading	knowledge_base/domains/CP/examples.md:121
+ig34_p0214_a001	no governing numbered heading	knowledge_base/domains/CP/examples.md:146
+ig34_p0214_a002	no governing numbered heading	knowledge_base/domains/CP/examples.md:147
+ig34_p0214_a005	no governing numbered heading	knowledge_base/domains/CP/examples.md:153
+ig34_p0215_a013	no governing numbered heading	knowledge_base/domains/CP/examples.md:192
+ig34_p0215_a014	no governing numbered heading	knowledge_base/domains/CP/examples.md:194
+ig34_p0215_a015	no governing numbered heading	knowledge_base/domains/CP/examples.md:196
+ig34_p0217_a010	no governing numbered heading	knowledge_base/domains/CP/examples.md:243
+ig34_p0218_a011	no governing numbered heading	knowledge_base/domains/CP/examples.md:265
+ig34_p0220_a024	no governing numbered heading	knowledge_base/domains/GF/assumptions.md:7
+ig34_p0220_a025	no governing numbered heading	knowledge_base/domains/GF/assumptions.md:9
+ig34_p0223_a012	no governing numbered heading	knowledge_base/domains/GF/spec.md:519
+ig34_p0227_a021	no governing numbered heading	knowledge_base/domains/GF/examples.md:151
+ig34_p0229_a001	no governing numbered heading	knowledge_base/domains/IS/assumptions.md:7
+ig34_p0231_a016	no governing numbered heading	knowledge_base/domains/IS/spec.md:492
+ig34_p0231_a019	no governing numbered heading	knowledge_base/domains/IS/assumptions.md:15
+ig34_p0232_a007	no governing numbered heading	knowledge_base/domains/IS/assumptions.md:27
+ig34_p0235_a017	no governing numbered heading	knowledge_base/domains/IS/examples.md:87
+ig34_p0235_a018	no governing numbered heading	knowledge_base/domains/IS/examples.md:88
+ig34_p0235_a019	no governing numbered heading	knowledge_base/domains/IS/examples.md:89
+ig34_p0235_a020	no governing numbered heading	knowledge_base/domains/IS/examples.md:90
+ig34_p0235_a021	no governing numbered heading	knowledge_base/domains/IS/examples.md:91
+ig34_p0235_a022	no governing numbered heading	knowledge_base/domains/IS/examples.md:92
+ig34_p0235_a023	no governing numbered heading	knowledge_base/domains/IS/examples.md:93
+ig34_p0235_a024	no governing numbered heading	knowledge_base/domains/IS/examples.md:94
+ig34_p0235_a025	no governing numbered heading	knowledge_base/domains/IS/examples.md:95
+ig34_p0236_a009	no governing numbered heading	knowledge_base/domains/IS/examples.md:115
+ig34_p0236_a010	no governing numbered heading	knowledge_base/domains/IS/examples.md:116
+ig34_p0236_a011	no governing numbered heading	knowledge_base/domains/IS/examples.md:117
+ig34_p0236_a012	no governing numbered heading	knowledge_base/domains/IS/examples.md:118
+ig34_p0236_a013	no governing numbered heading	knowledge_base/domains/IS/examples.md:119
+ig34_p0237_a012	no governing numbered heading	knowledge_base/domains/IS/examples.md:143
+ig34_p0237_a013	no governing numbered heading	knowledge_base/domains/IS/examples.md:144
+ig34_p0237_a014	no governing numbered heading	knowledge_base/domains/IS/examples.md:145
+ig34_p0238_a001	no governing numbered heading	knowledge_base/domains/IS/examples.md:155
+ig34_p0238_a004	no governing numbered heading	knowledge_base/domains/IS/examples.md:160
+ig34_p0239_a002	no governing numbered heading	knowledge_base/domains/IS/examples.md:183
+ig34_p0241_a024	no governing numbered heading	knowledge_base/domains/LB/assumptions.md:54
+ig34_p0241_a025	no governing numbered heading	knowledge_base/domains/LB/assumptions.md:56
+ig34_p0242_a001	no governing numbered heading	knowledge_base/domains/LB/assumptions.md:58
+ig34_p0242_a002	no governing numbered heading	knowledge_base/domains/LB/assumptions.md:60
+ig34_p0245_a007	no governing numbered heading	knowledge_base/domains/LB/spec.md:564
+ig34_p0246_a001	no governing numbered heading	knowledge_base/domains/LB/assumptions.md:76
+ig34_p0249_a001	no governing numbered heading	knowledge_base/domains/MB/assumptions.md:11
+ig34_p0249_a002	no governing numbered heading	knowledge_base/domains/MB/assumptions.md:13
+ig34_p0251_a005	no governing numbered heading	knowledge_base/domains/MB/spec.md:429
+ig34_p0252_a020	no governing numbered heading	knowledge_base/domains/MS/assumptions.md:9
+ig34_p0254_a040	no governing numbered heading	knowledge_base/domains/MS/spec.md:419
+ig34_p0254_a042	no governing numbered heading	knowledge_base/domains/MS/spec.md:417
+ig34_p0255_a021	no governing numbered heading	knowledge_base/domains/MS/spec.md:555
+ig34_p0259_a006	no governing numbered heading	knowledge_base/domains/MS/examples.md:45
+ig34_p0259_a009	no governing numbered heading	knowledge_base/domains/MS/examples.md:49
+ig34_p0259_a011	no governing numbered heading	knowledge_base/domains/MS/examples.md:51
+ig34_p0259_a013	no governing numbered heading	knowledge_base/domains/MS/examples.md:53
+ig34_p0259_a014	no governing numbered heading	knowledge_base/domains/MS/examples.md:54
+ig34_p0259_a015	no governing numbered heading	knowledge_base/domains/MS/examples.md:55
+ig34_p0259_a016	no governing numbered heading	knowledge_base/domains/MS/examples.md:56
+ig34_p0263_a030	no governing numbered heading	knowledge_base/domains/MI/assumptions.md:5
+ig34_p0263_a031	no governing numbered heading	knowledge_base/domains/MI/assumptions.md:7
+ig34_p0266_a003	no governing numbered heading	knowledge_base/domains/MI/examples.md:5
+ig34_p0267_a018	no governing numbered heading	knowledge_base/domains/PC/assumptions.md:7
+ig34_p0267_a019	no governing numbered heading	knowledge_base/domains/PC/assumptions.md:9
+ig34_p0269_a017	no governing numbered heading	knowledge_base/domains/PC/spec.md:375
+ig34_p0270_a012	no governing numbered heading	knowledge_base/domains/PC/examples.md:25
+ig34_p0271_a014	no governing numbered heading	knowledge_base/domains/PP/assumptions.md:3
+ig34_p0271_a015	no governing numbered heading	knowledge_base/domains/PP/assumptions.md:5
+ig34_p0271_a016	no governing numbered heading	knowledge_base/domains/PP/assumptions.md:7
+ig34_p0271_a017	no governing numbered heading	knowledge_base/domains/PP/assumptions.md:9
+ig34_p0272_a016	no governing numbered heading	knowledge_base/domains/PP/spec.md:240
+ig34_p0272_a017	no governing numbered heading	knowledge_base/domains/PP/assumptions.md:1
+ig34_p0286_a017	no governing numbered heading	knowledge_base/domains/CV/assumptions.md:5
+ig34_p0288_a018	no governing numbered heading	knowledge_base/domains/CV/spec.md:384
+ig34_p0289_a004	no governing numbered heading	knowledge_base/domains/CV/examples.md:5
+ig34_p0289_a005	no governing numbered heading	knowledge_base/domains/CV/examples.md:5
+ig34_p0291_a025	no governing numbered heading	knowledge_base/domains/MK/spec.md:384
+ig34_p0294_a013	no governing numbered heading	knowledge_base/domains/NV/assumptions.md:48
+ig34_p0296_a005	no governing numbered heading	knowledge_base/domains/NV/spec.md:384
+ig34_p0298_a024	no governing numbered heading	knowledge_base/domains/OE/assumptions.md:3
+ig34_p0298_a025	no governing numbered heading	knowledge_base/domains/OE/assumptions.md:5
+ig34_p0299_a001	no governing numbered heading	knowledge_base/domains/OE/assumptions.md:7
+ig34_p0299_a002	no governing numbered heading	knowledge_base/domains/OE/assumptions.md:9
+ig34_p0305_a013	no governing numbered heading	knowledge_base/domains/RP/assumptions.md:5
+ig34_p0306_a022	no governing numbered heading	knowledge_base/domains/RP/spec.md:330
+ig34_p0310_a005	no governing numbered heading	knowledge_base/domains/RE/spec.md:429
+ig34_p0312_a012	no governing numbered heading	knowledge_base/domains/UR/assumptions.md:3
+ig34_p0312_a013	no governing numbered heading	knowledge_base/domains/UR/assumptions.md:5
+ig34_p0312_a014	no governing numbered heading	knowledge_base/domains/UR/assumptions.md:7
+ig34_p0312_a016	no governing numbered heading	knowledge_base/domains/UR/assumptions.md:9
+ig34_p0314_a010	no governing numbered heading	knowledge_base/domains/UR/spec.md:393
+ig34_p0315_a025	no governing numbered heading	knowledge_base/domains/PE/assumptions.md:23
+ig34_p0315_a026	no governing numbered heading	knowledge_base/domains/PE/assumptions.md:25
+ig34_p0316_a001	no governing numbered heading	knowledge_base/domains/PE/assumptions.md:27
+ig34_p0316_a003	no governing numbered heading	knowledge_base/domains/PE/assumptions.md:29
+ig34_p0317_a011	no governing numbered heading	knowledge_base/domains/PE/spec.md:276
+ig34_p0320_a023	no governing numbered heading	knowledge_base/domains/FT/spec.md:348
+ig34_p0326_a005	no governing numbered heading	knowledge_base/domains/QS/spec.md:321
+ig34_p0330_a002	no governing numbered heading	knowledge_base/domains/RS/spec.md:93
+ig34_p0332_a003	no governing numbered heading	knowledge_base/domains/RS/spec.md:420
+ig34_p0340_a002	no governing numbered heading	knowledge_base/domains/SC/assumptions.md:9
+ig34_p0341_a005	no governing numbered heading	knowledge_base/domains/SC/spec.md:222
+ig34_p0342_a019	no governing numbered heading	knowledge_base/domains/SS/assumptions.md:3
+ig34_p0342_a020	atom section has no number	knowledge_base/domains/SS/assumptions.md:5
+ig34_p0342_a021	no governing numbered heading	knowledge_base/domains/SS/assumptions.md:7
+ig34_p0342_a022	atom section has no number	knowledge_base/domains/SS/assumptions.md:9
+ig34_p0343_a021	atom section has no number	knowledge_base/domains/SS/spec.md:204
+ig34_p0344_a008	atom section has no number	knowledge_base/domains/SS/examples.md:7
+ig34_p0344_a020	atom section has no number	knowledge_base/domains/TU/assumptions.md:13
+ig34_p0350_a002	no governing numbered heading	knowledge_base/domains/TR/assumptions.md:3
+ig34_p0350_a003	atom section has no number	knowledge_base/domains/TR/assumptions.md:5
+ig34_p0350_a006	atom section has no number	knowledge_base/domains/TR/assumptions.md:7
+ig34_p0350_a007	atom section has no number	knowledge_base/domains/TR/assumptions.md:9
+ig34_p0350_a008	atom section has no number	knowledge_base/domains/TR/assumptions.md:10
+ig34_p0350_a009	atom section has no number	knowledge_base/domains/TR/assumptions.md:11
+ig34_p0350_a010	atom section has no number	knowledge_base/domains/TR/assumptions.md:12
+ig34_p0350_a011	atom section has no number	knowledge_base/domains/TR/assumptions.md:13
+ig34_p0350_a015	no governing numbered heading	knowledge_base/domains/TR/assumptions.md:17
+ig34_p0350_a016	atom section has no number	knowledge_base/domains/TR/assumptions.md:19
+ig34_p0352_a002	no governing numbered heading	knowledge_base/domains/TR/spec.md:294
+ig34_p0352_a003	no governing numbered heading	knowledge_base/domains/TR/assumptions.md:1
+ig34_p0353_a015	no governing numbered heading	knowledge_base/domains/TU/examples.md:24
+ig34_p0353_a016	no governing numbered heading	knowledge_base/domains/TU/examples.md:25
+ig34_p0353_a018	no governing numbered heading	knowledge_base/domains/TU/examples.md:27
+ig34_p0354_a003	no governing numbered heading	knowledge_base/domains/TU/examples.md:33
+ig34_p0354_a005	no governing numbered heading	knowledge_base/domains/TU/examples.md:36
+ig34_p0354_a026	no governing numbered heading	knowledge_base/domains/TU/examples.md:68
+ig34_p0354_a032	no governing numbered heading	knowledge_base/domains/TR/examples.md:7
+ig34_p0355_a002	no governing numbered heading	knowledge_base/domains/TR/examples.md:17
+ig34_p0355_a009	no governing numbered heading	knowledge_base/domains/TR/examples.md:25
+ig34_p0355_a010	no governing numbered heading	knowledge_base/domains/TR/examples.md:26
+ig34_p0356_a005	no governing numbered heading	knowledge_base/domains/TR/examples.md:51
+ig34_p0360_a005	atom section has no number	knowledge_base/domains/VS/spec.md:348
+ig34_p0366_a013	no governing numbered heading	knowledge_base/domains/FA/spec.md:276
+ig34_p0366_a014	no governing numbered heading	knowledge_base/domains/FA/assumptions.md:1
+ig34_p0366_a015	atom section has no number	knowledge_base/domains/FA/assumptions.md:105
+ig34_p0366_a016	atom section has no number	knowledge_base/domains/FA/assumptions.md:107
+ig34_p0366_a017	atom section has no number	knowledge_base/domains/FA/assumptions.md:109
+ig34_p0366_a018	atom section has no number	knowledge_base/domains/FA/assumptions.md:111
+ig34_p0366_a019	atom section has no number	knowledge_base/domains/FA/assumptions.md:112
+ig34_p0367_a001	atom section has no number	knowledge_base/domains/FA/assumptions.md:114
+ig34_p0367_a002	atom section has no number	knowledge_base/domains/FA/assumptions.md:115
+ig34_p0367_a003	atom section has no number	knowledge_base/domains/FA/assumptions.md:117
+ig34_p0367_a007	atom section has no number	knowledge_base/domains/FA/examples.md:7
+ig34_p0367_a008	atom section has no number	knowledge_base/domains/FA/examples.md:9
+ig34_p0367_a009	atom section has no number	knowledge_base/domains/FA/examples.md:10
+ig34_p0367_a010	atom section has no number	knowledge_base/domains/FA/examples.md:11
+ig34_p0367_a011	atom section has no number	knowledge_base/domains/FA/examples.md:12
+ig34_p0367_a012	atom section has no number	knowledge_base/domains/FA/examples.md:13
+ig34_p0367_a013	atom section has no number	knowledge_base/domains/FA/examples.md:14
+ig34_p0367_a014	atom section has no number	knowledge_base/domains/FA/examples.md:15
+ig34_p0367_a015	atom section has no number	knowledge_base/domains/FA/examples.md:16
+ig34_p0367_a016	atom section has no number	knowledge_base/domains/FA/examples.md:17
+ig34_p0367_a017	atom section has no number	knowledge_base/domains/FA/examples.md:18
+ig34_p0367_a018	atom section has no number	knowledge_base/domains/FA/examples.md:19
+ig34_p0367_a019	atom section has no number	knowledge_base/domains/FA/examples.md:20
+ig34_p0369_a014	atom section has no number	knowledge_base/domains/FA/examples.md:76
+ig34_p0369_a015	atom section has no number	knowledge_base/domains/FA/examples.md:78
+ig34_p0369_a016	atom section has no number	knowledge_base/domains/FA/examples.md:79
+ig34_p0369_a017	atom section has no number	knowledge_base/domains/FA/examples.md:80
+ig34_p0369_a018	atom section has no number	knowledge_base/domains/FA/examples.md:81
+ig34_p0369_a019	atom section has no number	knowledge_base/domains/FA/examples.md:82
+ig34_p0369_a020	atom section has no number	knowledge_base/domains/FA/examples.md:83
+ig34_p0369_a021	atom section has no number	knowledge_base/domains/FA/examples.md:84
+ig34_p0369_a022	atom section has no number	knowledge_base/domains/FA/examples.md:85
+ig34_p0369_a023	atom section has no number	knowledge_base/domains/FA/examples.md:86
+ig34_p0369_a024	atom section has no number	knowledge_base/domains/FA/examples.md:87
+ig34_p0370_a009	atom section has no number	knowledge_base/domains/FA/examples.md:105
+ig34_p0370_a016	atom section has no number	knowledge_base/domains/FA/examples.md:112
+ig34_p0371_a018	atom section has no number	knowledge_base/domains/FA/examples.md:155
+ig34_p0373_a012	atom section has no number	knowledge_base/domains/FA/examples.md:226
+ig34_p0373_a024	atom section has no number	knowledge_base/domains/FA/examples.md:243
+ig34_p0374_a012	atom section has no number	knowledge_base/domains/FA/examples.md:265
+ig34_p0374_a013	atom section has no number	knowledge_base/domains/FA/examples.md:267
+ig34_p0374_a014	atom section has no number	knowledge_base/domains/FA/examples.md:268
+ig34_p0374_a015	atom section has no number	knowledge_base/domains/FA/examples.md:268
+ig34_p0374_a022	atom section has no number	knowledge_base/domains/FA/examples.md:281
+ig34_p0377_a018	atom section has no number	knowledge_base/domains/SR/spec.md:357
+ig34_p0385_a009	no governing numbered heading	knowledge_base/domains/TA/spec.md:96
+ig34_p0386_a011	no governing numbered heading	knowledge_base/domains/TA/examples.md:7
+ig34_p0387_a008	no governing numbered heading	knowledge_base/domains/TA/examples.md:26
+ig34_p0387_a012	no governing numbered heading	knowledge_base/domains/TA/examples.md:49
+ig34_p0388_a002	no governing numbered heading	knowledge_base/domains/TA/examples.md:79
+ig34_p0388_a004	no governing numbered heading	knowledge_base/domains/TA/examples.md:112
+ig34_p0389_a002	no governing numbered heading	knowledge_base/domains/TA/examples.md:137
+ig34_p0389_a008	no governing numbered heading	knowledge_base/domains/TA/examples.md:147
+ig34_p0394_a018	no governing numbered heading	knowledge_base/domains/TA/examples.md:527
+ig34_p0395_a004	no governing numbered heading	knowledge_base/domains/TA/examples.md:600
+ig34_p0396_a001	no governing numbered heading	knowledge_base/domains/TA/examples.md:636
+ig34_p0396_a004	no governing numbered heading	knowledge_base/domains/TA/examples.md:663
+ig34_p0396_a010	no governing numbered heading	knowledge_base/domains/TA/examples.md:672
+ig34_p0396_a011	no governing numbered heading	knowledge_base/domains/TA/examples.md:672
+ig34_p0396_a012	no governing numbered heading	knowledge_base/domains/TA/examples.md:672
+ig34_p0396_a013	no governing numbered heading	knowledge_base/domains/TA/examples.md:672
+ig34_p0397_a002	no governing numbered heading	knowledge_base/domains/TA/examples.md:701
+ig34_p0397_a003	no governing numbered heading	knowledge_base/domains/TA/examples.md:701
+ig34_p0397_a004	no governing numbered heading	knowledge_base/domains/TA/examples.md:701
+ig34_p0397_a006	no governing numbered heading	knowledge_base/domains/TA/examples.md:721
+ig34_p0397_a007	no governing numbered heading	knowledge_base/domains/TA/examples.md:721
+ig34_p0397_a010	no governing numbered heading	knowledge_base/domains/TA/examples.md:749
+ig34_p0397_a015	no governing numbered heading	knowledge_base/domains/TA/examples.md:758
+ig34_p0398_a010	no governing numbered heading	knowledge_base/domains/TA/examples.md:783
+ig34_p0398_a013	no governing numbered heading	knowledge_base/domains/TA/examples.md:803
+ig34_p0398_a014	no governing numbered heading	knowledge_base/domains/TA/examples.md:803
+ig34_p0398_a017	no governing numbered heading	knowledge_base/domains/TA/examples.md:831
+ig34_p0398_a023	no governing numbered heading	knowledge_base/domains/TA/examples.md:840
+ig34_p0398_a024	no governing numbered heading	knowledge_base/domains/TA/examples.md:840
+ig34_p0399_a030	no governing numbered heading	knowledge_base/domains/TA/examples.md:869
+ig34_p0402_a010	no governing numbered heading	knowledge_base/domains/TA/examples.md:1007
+ig34_p0402_a023	no governing numbered heading	knowledge_base/domains/TA/examples.md:1015
+ig34_p0402_a039	no governing numbered heading	knowledge_base/domains/TE/assumptions.md:5
+ig34_p0403_a006	no governing numbered heading	knowledge_base/domains/TE/assumptions.md:9
+ig34_p0403_a011	no governing numbered heading	knowledge_base/domains/TE/assumptions.md:13
+ig34_p0403_a022	no governing numbered heading	knowledge_base/domains/TE/spec.md:69
+ig34_p0404_a012	no governing numbered heading	knowledge_base/domains/TE/assumptions.md:49
+ig34_p0406_a033	no governing numbered heading	knowledge_base/domains/TE/examples.md:95
+ig34_p0407_a003	no governing numbered heading	knowledge_base/domains/TE/examples.md:101
+ig34_p0407_a004	no governing numbered heading	knowledge_base/domains/TE/examples.md:102
+ig34_p0407_a005	no governing numbered heading	knowledge_base/domains/TE/examples.md:103
+ig34_p0407_a006	no governing numbered heading	knowledge_base/domains/TE/examples.md:104
+ig34_p0407_a020	no governing numbered heading	knowledge_base/domains/TV/assumptions.md:19
+ig34_p0408_a006	no governing numbered heading	knowledge_base/domains/TV/spec.md:87
+ig34_p0409_a011	no governing numbered heading	knowledge_base/domains/TV/examples.md:61
+ig34_p0409_a018	no governing numbered heading	knowledge_base/domains/TV/examples.md:61
+ig34_p0410_a023	no governing numbered heading	knowledge_base/domains/TV/examples.md:107
+ig34_p0410_a026	no governing numbered heading	knowledge_base/domains/TD/assumptions.md:3
+ig34_p0410_a027	no governing numbered heading	knowledge_base/domains/TD/assumptions.md:5
+ig34_p0410_a028	no governing numbered heading	knowledge_base/domains/TD/assumptions.md:7
+ig34_p0410_a029	no governing numbered heading	knowledge_base/domains/TD/assumptions.md:9
+ig34_p0411_a009	no governing numbered heading	knowledge_base/domains/TD/spec.md:87
+ig34_p0411_a011	no governing numbered heading	knowledge_base/domains/TD/assumptions.md:13
+ig34_p0411_a012	no governing numbered heading	knowledge_base/domains/TD/assumptions.md:15
+ig34_p0412_a011	no governing numbered heading	knowledge_base/domains/TD/examples.md:44
+ig34_p0412_a012	no governing numbered heading	knowledge_base/domains/TD/examples.md:46
+ig34_p0413_a003	no governing numbered heading	knowledge_base/domains/TD/examples.md:92
+ig34_p0413_a008	no governing numbered heading	knowledge_base/domains/TD/examples.md:98
+ig34_p0414_a009	no governing numbered heading	knowledge_base/domains/TD/examples.md:159
+ig34_p0414_a010	no governing numbered heading	knowledge_base/domains/TD/examples.md:161
+ig34_p0415_a005	no governing numbered heading	knowledge_base/domains/TM/assumptions.md:9
+ig34_p0415_a012	no governing numbered heading	knowledge_base/domains/TM/spec.md:51
+ig34_p0416_a006	no governing numbered heading	knowledge_base/domains/TI/assumptions.md:18
+ig34_p0416_a022	no governing numbered heading	knowledge_base/domains/TI/spec.md:78
+ig34_p0418_a005	no governing numbered heading	knowledge_base/domains/TS/spec.md:105
+ig34_p0424_a002	no governing numbered heading	knowledge_base/domains/TS/assumptions.md:65
+ig34_p0425_a008	no governing numbered heading	knowledge_base/domains/TS/assumptions.md:80
+ig34_p0425_a009	no governing numbered heading	knowledge_base/domains/TS/assumptions.md:81
+ig34_p0425_a014	no governing numbered heading	knowledge_base/domains/TS/assumptions.md:86
+ig34_p0427_a010	no governing numbered heading	knowledge_base/chapters/ch08_relationships.md:14
+ig34_p0427_a018	no governing numbered heading	knowledge_base/chapters/ch08_relationships.md:20
+ig34_p0427_a019	no governing numbered heading	knowledge_base/chapters/ch08_relationships.md:21
+ig34_p0429_a030	atom section has no number	knowledge_base/domains/RELREC/spec.md:71
+ig34_p0437_a016	atom section has no number	knowledge_base/chapters/ch08_relationships.md:349
+ig34_p0437_a017	atom section has no number	knowledge_base/chapters/ch08_relationships.md:349
+ig34_p0437_a018	atom section has no number	knowledge_base/chapters/ch08_relationships.md:349
+ig34_p0439_a039	atom section has no number	knowledge_base/chapters/ch08_relationships.md:96
+ig34_p0440_a003	atom section has no number	knowledge_base/chapters/ch08_relationships.md:443
+ig34_p0440_a010	atom section has no number	knowledge_base/domains/RELSPEC/examples.md:40
+ig34_p0440_a011	atom section has no number	knowledge_base/domains/RELSPEC/examples.md:40
+ig34_p0440_a012	atom section has no number	knowledge_base/domains/RELSPEC/examples.md:40
+ig34_p0442_a004	no governing numbered heading	knowledge_base/domains/OI/assumptions.md:7
+ig34_p0442_a005	no governing numbered heading	knowledge_base/domains/OI/assumptions.md:7
+ig34_p0442_a006	no governing numbered heading	knowledge_base/domains/OI/assumptions.md:7
+ig34_p0443_a001	no governing numbered heading	knowledge_base/domains/OI/spec.md:69
+ig34_p0443_a004	no governing numbered heading	knowledge_base/domains/OI/assumptions.md:17
+ig34_p0443_a006	no governing numbered heading	knowledge_base/domains/OI/assumptions.md:25
+sv20_p0050_a008	no governing numbered heading	knowledge_base/model/04_associated_persons.md:25
+sv20_p0050_a009	no governing numbered heading	knowledge_base/model/04_associated_persons.md:25
+sv20_p0050_a010	no governing numbered heading	knowledge_base/model/04_associated_persons.md:33
+sv20_p0050_a011	no governing numbered heading	knowledge_base/model/04_associated_persons.md:33
+sv20_p0050_a012	no governing numbered heading	knowledge_base/model/04_associated_persons.md:33
+sv20_p0050_a013	no governing numbered heading	knowledge_base/model/04_associated_persons.md:33
+sv20_p0050_a014	no governing numbered heading	knowledge_base/model/04_associated_persons.md:35

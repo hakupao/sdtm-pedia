@@ -1,0 +1,7 @@
+{
+ "_note": "主控 attempt 4 第 2 项: 审计待人工 2 条, 对 PDF 原页 + KB 行 + 原子逐字比. 两条原子都抽错多格 (原子 ∉ PDF), 但 KB 行与 PDF 之间仍有一处已登记的有意偏离, 故按 '有登记偏离 → PDF_TYPO' 判 (原子抽错一并写明, 不另判 ATOM_ERR).",
+ "ig34_p0068_a010": {"verdict": "PDF_TYPO", "registry": "B-DM T-2", "kb": "knowledge_base/domains/DM/examples.md:14", "pdf": "work/pdf_pages/ig34_p0068.txt:20-25",
+   "why": "PDF row 6 = ABC12302002 / 02002 / 2006-02-03 / 2006-04-05 / 2006-01-10 / 2006-04-25 / GONZALEZ, E / 1956-05-05 / RACE 'NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDERS'; KB :14 与 PDF 逐格一致, 唯 RACE 写 '…PACIFIC ISLANDER' (B-DM T-2 登记, CT 值). 原子写 ABC1230002 / 0202 / 2006-02-02 / MARIA / 1966-04-05 等, 抽错多格."},
+ "ig34_p0142_a015": {"verdict": "PDF_TYPO", "registry": "B-AE T-1", "kb": "knowledge_base/domains/AE/examples.md:81", "pdf": "work/pdf_pages/ig34_p0142.txt:21-22",
+   "why": "PDF row 1 = … AESER N … AESTDTC 2018-04-21 / AEENDTC 2014-04-26 / AESTDY 5 / AEENDY 10; KB :81 与 PDF 逐格一致, 唯 AEENDTC 写 2018-04-26 (B-AE T-1 登记). 原子写 AESER Y、日期 2018-04-26 | 2014-04-28、15 | 10, 抽错多格."}
+}

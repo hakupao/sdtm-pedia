@@ -9,3 +9,8 @@ triage/
 # word bounding boxes of the PDFs (table_census v2 cache) = PDF text, CDISC copyright. Never commit.
 pdf_bbox/
 census_t1/
+# T3: pre-writeback ledger = archive 原件 (md5 620c4a19...), 历次 attempt 冻结判定 (压缩副本在 evidence/failures/t3_attempt_*/)
+coverage_ledger.wc.pre_t3.jsonl
+t3_attempt1/
+t3_attempt2/
+t3_attempt3/
