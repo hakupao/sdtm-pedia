@@ -1,0 +1,103 @@
+{
+ "batch_id": "B-MS",
+ "order": 13,
+ "units": [
+  "domains/MS"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/MS/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 18,
+ "counts": {
+  "fix_atoms": 0,
+  "t2_recheck": 0,
+  "census_diff_tables": 2,
+  "census_kb_rows": 18,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  257,
+  259
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/MS/examples.md",
+   "src": "ig34",
+   "lo": 252,
+   "hi": 262
+  }
+ ],
+ "atoms": [],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/MS/examples.md",
+    "line": 15,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "ms.xpt",
+    "pdf_pages": [
+     257
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": true,
+    "n_diffs": 19,
+    "n_cell": 19,
+    "diff_types": {
+     "CELL": 19
+    },
+    "kb_lines_with_diff": [
+     17,
+     18,
+     19,
+     20,
+     23,
+     24,
+     25,
+     26
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MS/examples.md",
+    "line": 39,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "ms.xpt",
+    "pdf_pages": [
+     259
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": true,
+    "n_diffs": 49,
+    "n_cell": 48,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 48
+    },
+    "kb_lines_with_diff": [
+     41,
+     42,
+     43,
+     44,
+     45,
+     46,
+     47,
+     48,
+     49,
+     50
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

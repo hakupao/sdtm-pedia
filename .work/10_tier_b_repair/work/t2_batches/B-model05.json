@@ -1,0 +1,209 @@
+{
+ "batch_id": "B-model05",
+ "order": 34,
+ "units": [
+  "model/05_study_level_data.md"
+ ],
+ "kb_files": [
+  "knowledge_base/model/05_study_level_data.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 5,
+ "counts": {
+  "fix_atoms": 5,
+  "REAL_GAP": 5,
+  "t2_recheck": 0,
+  "census_diff_tables": 0,
+  "census_kb_rows": 0,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 13
+ },
+ "pdf_pages": [
+  51,
+  56
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/model/05_study_level_data.md",
+   "src": "sv20",
+   "lo": 51,
+   "hi": 63
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "sv20_p0056_a019",
+   "class": "REAL_GAP",
+   "page": 56,
+   "src": "sv20",
+   "atom_type": "SENTENCE",
+   "section": "§5.1.4.2 Trial Disease Assessments",
+   "kb_loc": "knowledge_base/domains/TD/assumptions.md:3",
+   "target": "knowledge_base/model/05_study_level_data.md",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R1-TD",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)",
+   "ruling_note": "sv20 §5.1.4.2 TD 句; 归属 model/05 '### Trial Disease Assessments (TD)' 节; TD/assumptions.md:3 是 IG 层近义改写, 不改"
+  },
+  {
+   "atom_id": "sv20_p0056_a020",
+   "class": "REAL_GAP",
+   "page": 56,
+   "src": "sv20",
+   "atom_type": "SENTENCE",
+   "section": "§5.1.4.2 Trial Disease Assessments",
+   "kb_loc": "knowledge_base/domains/TD/assumptions.md:3",
+   "target": "knowledge_base/model/05_study_level_data.md",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R1-TD",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)",
+   "ruling_note": "sv20 §5.1.4.2 TD 句; 归属 model/05 '### Trial Disease Assessments (TD)' 节; TD/assumptions.md:3 是 IG 层近义改写, 不改"
+  },
+  {
+   "atom_id": "sv20_p0056_a022",
+   "class": "REAL_GAP",
+   "page": 56,
+   "src": "sv20",
+   "atom_type": "SENTENCE",
+   "section": "§5.1.4.2 Trial Disease Assessments",
+   "kb_loc": "knowledge_base/domains/TD/assumptions.md:3",
+   "target": "knowledge_base/model/05_study_level_data.md",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R1-TD",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)",
+   "ruling_note": "sv20 §5.1.4.2 TD 句; 归属 model/05 '### Trial Disease Assessments (TD)' 节; TD/assumptions.md:3 是 IG 层近义改写, 不改"
+  },
+  {
+   "atom_id": "sv20_p0051_a008",
+   "class": "REAL_GAP",
+   "page": 51,
+   "src": "sv20",
+   "atom_type": "LIST_ITEM",
+   "section": "§5.1 [The Trial Design Model]",
+   "kb_loc": "knowledge_base/model/05_study_level_data.md:17",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "sv20_p0051_a013",
+   "class": "REAL_GAP",
+   "page": 51,
+   "src": "sv20",
+   "atom_type": "SENTENCE",
+   "section": "§5.1 [The Trial Design Model]",
+   "kb_loc": "knowledge_base/model/05_study_level_data.md:23",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 31,
+    "n_rows": 7,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 47,
+    "n_rows": 10,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 66,
+    "n_rows": 8,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 85,
+    "n_rows": 7,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 103,
+    "n_rows": 10,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 122,
+    "n_rows": 9,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 140,
+    "n_rows": 9,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 158,
+    "n_rows": 5,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 172,
+    "n_rows": 8,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 189,
+    "n_rows": 11,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 209,
+    "n_rows": 12,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 254,
+    "n_rows": 7,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/05_study_level_data.md",
+    "line": 288,
+    "n_rows": 7,
+    "ex": null,
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [],
+ "notes": [
+  "R1: TD 3 句 → '### Trial Disease Assessments (TD)' 节"
+ ]
+}

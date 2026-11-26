@@ -1,0 +1,86 @@
+{
+ "batch_id": "B-SC",
+ "order": 59,
+ "units": [
+  "domains/SC"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/SC/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 0,
+ "counts": {
+  "fix_atoms": 0,
+  "t2_recheck": 0,
+  "census_diff_tables": 1,
+  "census_kb_rows": 0,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  342
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/SC/examples.md",
+   "src": "ig34",
+   "lo": 339,
+   "hi": 342
+  }
+ ],
+ "atoms": [],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/SC/examples.md",
+    "line": 34,
+    "status": "NO_PDF",
+    "ex": "2",
+    "ds": "sc.xpt",
+    "pdf_pages": null,
+    "pdf_ex": null,
+    "kb_duplicate": null,
+    "n_diffs": 0,
+    "n_cell": 0,
+    "diff_types": {},
+    "kb_lines_with_diff": []
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [
+   {
+    "src": "ig34",
+    "pages": [
+     342
+    ],
+    "header": [
+     "Row",
+     "STUDYID",
+     "DOMAIN",
+     "USUBJID",
+     "SCSEQ",
+     "SCTESTCD",
+     "SCTEST",
+     "SCCAT",
+     "SCORRES",
+     "SCORRESU",
+     "SCSTRESC",
+     "SCSTRESN"
+    ],
+    "n_rows": 3,
+    "ex": "2",
+    "ds": "sc.xpt",
+    "reason": "vertically centred cells"
+   }
+  ],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": [
+  "p342 Ex2 sc.xpt 垂直居中 (PDF_UNPARSED) + SC/examples.md:34 NO_PDF → 人工逐格"
+ ]
+}

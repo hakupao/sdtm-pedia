@@ -1,0 +1,205 @@
+{
+ "batch_id": "B-OE",
+ "order": 18,
+ "units": [
+  "domains/OE"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/OE/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 15,
+ "counts": {
+  "fix_atoms": 0,
+  "t2_recheck": 0,
+  "census_diff_tables": 7,
+  "census_kb_rows": 12,
+  "pdf_only_tables": 1,
+  "pdf_only_rows": 3,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  302,
+  303,
+  304,
+  305
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/OE/examples.md",
+   "src": "ig34",
+   "lo": 298,
+   "hi": 305
+  }
+ ],
+ "atoms": [],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/OE/examples.md",
+    "line": 12,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "oe.xpt",
+    "pdf_pages": [
+     302
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 3,
+    "n_cell": 3,
+    "diff_types": {
+     "CELL": 3
+    },
+    "kb_lines_with_diff": [
+     14,
+     15,
+     16
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/OE/examples.md",
+    "line": 22,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "suppoe.xpt",
+    "pdf_pages": [
+     302
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     24
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/OE/examples.md",
+    "line": 75,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "oe.xpt",
+    "pdf_pages": [
+     303
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 3,
+    "n_cell": 3,
+    "diff_types": {
+     "CELL": 3
+    },
+    "kb_lines_with_diff": [
+     77,
+     78
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/OE/examples.md",
+    "line": 98,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "pr.xpt",
+    "pdf_pages": [
+     303,
+     304
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     102
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/OE/examples.md",
+    "line": 121,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "relrec.xpt",
+    "pdf_pages": [
+     304
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 0,
+    "diff_types": {
+     "HEADER": 1
+    },
+    "kb_lines_with_diff": []
+   },
+   {
+    "file": "knowledge_base/domains/OE/examples.md",
+    "line": 140,
+    "status": "DIFF",
+    "ex": "4",
+    "ds": "oe.xpt",
+    "pdf_pages": [
+     304
+    ],
+    "pdf_ex": "4",
+    "kb_duplicate": false,
+    "n_diffs": 4,
+    "n_cell": 4,
+    "diff_types": {
+     "CELL": 4
+    },
+    "kb_lines_with_diff": [
+     142,
+     143,
+     144,
+     145
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/OE/examples.md",
+    "line": 151,
+    "status": "DIFF",
+    "ex": "4",
+    "ds": "suppoe.xpt",
+    "pdf_pages": [
+     305
+    ],
+    "pdf_ex": "4",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     153
+    ]
+   }
+  ],
+  "pdf_only": [
+   {
+    "src": "ig34",
+    "pages": [
+     305
+    ],
+    "ex": "4",
+    "ds": "ae.xpt",
+    "sec": "6.3.7.5",
+    "header": "Row STUDYID DOMAIN USUBJID FOCID AESEQ AESPID AETERM AEDECOD AEBODSYS AELOC AELAT AESEV AESER AEACN AEREL AEOUT AESTDTC ",
+    "n_rows": 3
+   }
+  ],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

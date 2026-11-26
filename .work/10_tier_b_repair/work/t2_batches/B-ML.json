@@ -1,0 +1,106 @@
+{
+ "batch_id": "B-ML",
+ "order": 52,
+ "units": [
+  "domains/ML"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/ML/examples.md",
+  "knowledge_base/domains/ML/spec.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 1,
+ "counts": {
+  "fix_atoms": 0,
+  "t2_recheck": 1,
+  "census_diff_tables": 1,
+  "census_kb_rows": 1,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 3
+ },
+ "pdf_pages": [
+  121,
+  124
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/ML/examples.md",
+   "src": "ig34",
+   "lo": 121,
+   "hi": 124
+  }
+ ],
+ "atoms": [],
+ "t2_recheck": [
+  {
+   "atom_id": "ig34_p0121_a005",
+   "class": "REWRITE_OK",
+   "page": 121,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.1.4 [Meal Data (ML)]",
+   "kb_loc": "knowledge_base/domains/ML/spec.md:3",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-recheck",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)",
+   "ruling_note": "数据集标题行 'ml.xpt … Tabulation' 由文件约定隐含 (同 R4 受阻 5 条标题行, 待用户)"
+  }
+ ],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/ML/examples.md",
+    "line": 63,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "ml.xpt",
+    "pdf_pages": [
+     124
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     66
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/domains/ML/examples.md",
+    "line": 14,
+    "n_rows": 4,
+    "ex": "1",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/ML/examples.md",
+    "line": 25,
+    "n_rows": 3,
+    "ex": "1",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/ML/examples.md",
+    "line": 52,
+    "n_rows": 2,
+    "ex": "2",
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [
+  "O4"
+ ],
+ "notes": []
+}

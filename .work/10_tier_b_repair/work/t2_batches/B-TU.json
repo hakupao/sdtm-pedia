@@ -1,0 +1,220 @@
+{
+ "batch_id": "B-TU",
+ "order": 22,
+ "units": [
+  "domains/TU"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/TU/assumptions.md",
+  "knowledge_base/domains/TU/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 11,
+ "counts": {
+  "fix_atoms": 4,
+  "VALUE_DIFF": 4,
+  "t2_recheck": 0,
+  "census_diff_tables": 3,
+  "census_kb_rows": 11,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 6
+ },
+ "pdf_pages": [
+  353,
+  354,
+  356
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/TU/assumptions.md",
+   "src": "ig34",
+   "lo": 344,
+   "hi": 358
+  },
+  {
+   "file": "knowledge_base/domains/TU/examples.md",
+   "src": "ig34",
+   "lo": 344,
+   "hi": 358
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0353_a015",
+   "class": "VALUE_DIFF",
+   "page": 353,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TU/examples.md:22",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0353_a016",
+   "class": "VALUE_DIFF",
+   "page": 353,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TU/examples.md:23",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0353_a018",
+   "class": "VALUE_DIFF",
+   "page": 353,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TU/examples.md:25",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0354_a005",
+   "class": "VALUE_DIFF",
+   "page": 354,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TU/examples.md:34",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/TU/examples.md",
+    "line": 19,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "tu.xpt",
+    "pdf_pages": [
+     353
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 3,
+    "n_cell": 3,
+    "diff_types": {
+     "CELL": 3
+    },
+    "kb_lines_with_diff": [
+     22,
+     23,
+     25
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/TU/examples.md",
+    "line": 31,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "supptu.xpt",
+    "pdf_pages": [
+     354
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     34
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/TU/examples.md",
+    "line": 88,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "tu.xpt",
+    "pdf_pages": [
+     356
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 9,
+    "n_cell": 8,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 8
+    },
+    "kb_lines_with_diff": [
+     90,
+     91,
+     92,
+     93,
+     94,
+     95,
+     96
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/domains/TU/assumptions.md",
+    "line": 30,
+    "n_rows": 9,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/TU/assumptions.md",
+    "line": 46,
+    "n_rows": 4,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/TU/assumptions.md",
+    "line": 70,
+    "n_rows": 3,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/TU/assumptions.md",
+    "line": 78,
+    "n_rows": 3,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/TU/assumptions.md",
+    "line": 88,
+    "n_rows": 6,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/TU/assumptions.md",
+    "line": 99,
+    "n_rows": 2,
+    "ex": null,
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [],
+ "notes": []
+}

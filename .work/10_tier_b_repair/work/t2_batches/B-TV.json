@@ -1,0 +1,59 @@
+{
+ "batch_id": "B-TV",
+ "order": 56,
+ "units": [
+  "domains/TV"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/TV/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 1,
+ "counts": {
+  "fix_atoms": 1,
+  "REAL_GAP": 1,
+  "t2_recheck": 0,
+  "census_diff_tables": 0,
+  "census_kb_rows": 0,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  407
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/TV/examples.md",
+   "src": "ig34",
+   "lo": 409,
+   "hi": 412
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0407_a020",
+   "class": "REAL_GAP",
+   "page": 407,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.3.1 Trial Visits (TV) – Description/Overview",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

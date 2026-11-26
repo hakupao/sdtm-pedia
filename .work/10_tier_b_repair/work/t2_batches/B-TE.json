@@ -1,0 +1,153 @@
+{
+ "batch_id": "B-TE",
+ "order": 29,
+ "units": [
+  "domains/TE"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/TE/assumptions.md",
+  "knowledge_base/domains/TE/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 6,
+ "counts": {
+  "fix_atoms": 6,
+  "REAL_GAP": 6,
+  "t2_recheck": 0,
+  "census_diff_tables": 0,
+  "census_kb_rows": 0,
+  "pdf_only_tables": 1,
+  "pdf_only_rows": 4,
+  "unparseable_tables": 1
+ },
+ "pdf_pages": [
+  403,
+  404,
+  407
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/TE/assumptions.md",
+   "src": "ig34",
+   "lo": 404,
+   "hi": 409
+  },
+  {
+   "file": "knowledge_base/domains/TE/examples.md",
+   "src": "ig34",
+   "lo": 404,
+   "hi": 409
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0403_a011",
+   "class": "REAL_GAP",
+   "page": 403,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.2 Trial Elements (TE) – Description/Overview",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0407_a003",
+   "class": "REAL_GAP",
+   "page": 407,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§7.2.2.1 Trial Elements Issues – Transitions Between Elements",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0407_a004",
+   "class": "REAL_GAP",
+   "page": 407,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§7.2.2.1 Trial Elements Issues – Transitions Between Elements",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0407_a005",
+   "class": "REAL_GAP",
+   "page": 407,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§7.2.2.1 Trial Elements Issues – Transitions Between Elements",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0407_a006",
+   "class": "REAL_GAP",
+   "page": 407,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§7.2.2.1 Trial Elements Issues – Transitions Between Elements",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0404_a012",
+   "class": "REAL_GAP",
+   "page": 404,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§7.2.2 Trial Elements (TE) – Assumptions",
+   "kb_loc": "knowledge_base/domains/TE/assumptions.md:41",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [],
+  "pdf_only": [
+   {
+    "src": "ig34",
+    "pages": [
+     407
+    ],
+    "ex": null,
+    "ds": "special.xpt",
+    "sec": "7.2.2.1",
+    "header": "Row ARM EPOCH TAETORD ELEMENT TESTRL TEENRL TEDUR TABRANCH TATRANS",
+    "n_rows": 4
+   }
+  ],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/domains/TE/examples.md",
+    "line": 79,
+    "n_rows": 3,
+    "ex": null,
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [],
+ "notes": []
+}

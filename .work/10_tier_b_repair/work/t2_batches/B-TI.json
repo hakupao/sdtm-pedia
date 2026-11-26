@@ -1,0 +1,59 @@
+{
+ "batch_id": "B-TI",
+ "order": 55,
+ "units": [
+  "domains/TI"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/TI/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 1,
+ "counts": {
+  "fix_atoms": 1,
+  "REAL_GAP": 1,
+  "t2_recheck": 0,
+  "census_diff_tables": 0,
+  "census_kb_rows": 0,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  416
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/TI/examples.md",
+   "src": "ig34",
+   "lo": 418,
+   "hi": 419
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0416_a006",
+   "class": "REAL_GAP",
+   "page": 416,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.4.1 Trial Inclusion/Exclusion Criteria (TI)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

@@ -1,0 +1,72 @@
+{
+ "batch_id": "B-FT",
+ "order": 43,
+ "units": [
+  "domains/FT"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/FT/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 2,
+ "counts": {
+  "fix_atoms": 2,
+  "REAL_GAP": 2,
+  "t2_recheck": 0,
+  "census_diff_tables": 0,
+  "census_kb_rows": 0,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  318
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/FT/examples.md",
+   "src": "ig34",
+   "lo": 319,
+   "hi": 324
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0318_a017",
+   "class": "REAL_GAP",
+   "page": 318,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.3.9 Questionnaires, Ratings, and Scales (QRS) Domains (FT, QS, RS)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0318_a018",
+   "class": "REAL_GAP",
+   "page": 318,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.3.9 Questionnaires, Ratings, and Scales (QRS) Domains (FT, QS, RS)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

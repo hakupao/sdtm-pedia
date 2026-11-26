@@ -1,0 +1,69 @@
+{
+ "batch_id": "B-RE",
+ "order": 32,
+ "units": [
+  "domains/RE"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/RE/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 5,
+ "counts": {
+  "fix_atoms": 0,
+  "t2_recheck": 0,
+  "census_diff_tables": 1,
+  "census_kb_rows": 5,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  311
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/RE/examples.md",
+   "src": "ig34",
+   "lo": 308,
+   "hi": 312
+  }
+ ],
+ "atoms": [],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/RE/examples.md",
+    "line": 15,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "re.xpt",
+    "pdf_pages": [
+     311
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 5,
+    "n_cell": 5,
+    "diff_types": {
+     "CELL": 5
+    },
+    "kb_lines_with_diff": [
+     17,
+     18,
+     19,
+     20,
+     21
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

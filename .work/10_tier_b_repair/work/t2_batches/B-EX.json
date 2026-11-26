@@ -1,0 +1,394 @@
+{
+ "batch_id": "B-EX",
+ "order": 8,
+ "units": [
+  "domains/EX"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/EX/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 35,
+ "counts": {
+  "fix_atoms": 10,
+  "VALUE_DIFF": 8,
+  "REAL_GAP": 2,
+  "t2_recheck": 0,
+  "census_diff_tables": 5,
+  "census_kb_rows": 32,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 11
+ },
+ "pdf_pages": [
+  112,
+  116,
+  117,
+  118,
+  119
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/EX/examples.md",
+   "src": "ig34",
+   "lo": 104,
+   "hi": 120
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0118_a005",
+   "class": "REAL_GAP",
+   "page": 118,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.1.3.3 [Exposure/Exposure as Collected Examples]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0118_a006",
+   "class": "REAL_GAP",
+   "page": 118,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.1.3.3 [Exposure/Exposure as Collected Examples]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0116_a011",
+   "class": "VALUE_DIFF",
+   "page": 116,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.1.3.3 [Exposure/Exposure as Collected Examples]",
+   "kb_loc": "knowledge_base/domains/EX/examples.md:268",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0116_a013",
+   "class": "VALUE_DIFF",
+   "page": 116,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.1.3.3 [Exposure/Exposure as Collected Examples]",
+   "kb_loc": "knowledge_base/domains/EX/examples.md:270",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0116_a015",
+   "class": "VALUE_DIFF",
+   "page": 116,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.1.3.3 [Exposure/Exposure as Collected Examples]",
+   "kb_loc": "knowledge_base/domains/EX/examples.md:272",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0116_a017",
+   "class": "VALUE_DIFF",
+   "page": 116,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.1.3.3 [Exposure/Exposure as Collected Examples]",
+   "kb_loc": "knowledge_base/domains/EX/examples.md:274",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0116_a019",
+   "class": "VALUE_DIFF",
+   "page": 116,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.1.3.3 [Exposure/Exposure as Collected Examples]",
+   "kb_loc": "knowledge_base/domains/EX/examples.md:276",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0116_a021",
+   "class": "VALUE_DIFF",
+   "page": 116,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.1.3.3 [Exposure/Exposure as Collected Examples]",
+   "kb_loc": "knowledge_base/domains/EX/examples.md:278",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0118_a007",
+   "class": "VALUE_DIFF",
+   "page": 118,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.1.3.3 [Exposure/Exposure as Collected Examples]",
+   "kb_loc": "knowledge_base/domains/EX/examples.md:329",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0118_a027",
+   "class": "VALUE_DIFF",
+   "page": 118,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.1.3.3 [Exposure/Exposure as Collected Examples]",
+   "kb_loc": "knowledge_base/domains/EX/examples.md:346",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 86,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "ec.xpt",
+    "pdf_pages": [
+     112
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": true,
+    "n_diffs": 4,
+    "n_cell": 3,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 3
+    },
+    "kb_lines_with_diff": [
+     88,
+     89,
+     90
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 265,
+    "status": "DIFF",
+    "ex": "6",
+    "ds": "ec.xpt",
+    "pdf_pages": [
+     116,
+     117
+    ],
+    "pdf_ex": "6",
+    "kb_duplicate": false,
+    "n_diffs": 12,
+    "n_cell": 12,
+    "diff_types": {
+     "CELL": 12
+    },
+    "kb_lines_with_diff": [
+     268,
+     270,
+     272,
+     274,
+     276,
+     278,
+     280,
+     282,
+     284,
+     286,
+     288,
+     290
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 296,
+    "status": "DIFF",
+    "ex": "6",
+    "ds": "ex.xpt",
+    "pdf_pages": [
+     117
+    ],
+    "pdf_ex": "6",
+    "kb_duplicate": false,
+    "n_diffs": 59,
+    "n_cell": 42,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 42,
+     "PDF_ROW_MISSING": 16
+    },
+    "kb_lines_with_diff": [
+     298,
+     299,
+     300,
+     301,
+     302,
+     303,
+     304,
+     305
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 341,
+    "status": "DIFF",
+    "ex": "7",
+    "ds": "ec.xpt",
+    "pdf_pages": [
+     118
+    ],
+    "pdf_ex": "7",
+    "kb_duplicate": true,
+    "n_diffs": 15,
+    "n_cell": 14,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 14
+    },
+    "kb_lines_with_diff": [
+     343,
+     344,
+     345,
+     346,
+     347,
+     348
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 380,
+    "status": "DIFF",
+    "ex": "7",
+    "ds": "relrec.xpt",
+    "pdf_pages": [
+     119
+    ],
+    "pdf_ex": "7",
+    "kb_duplicate": false,
+    "n_diffs": 3,
+    "n_cell": 3,
+    "diff_types": {
+     "CELL": 3
+    },
+    "kb_lines_with_diff": [
+     384,
+     385,
+     386
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 13,
+    "n_rows": 1,
+    "ex": "1",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 19,
+    "n_rows": 3,
+    "ex": "1",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 65,
+    "n_rows": 14,
+    "ex": "2",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 173,
+    "n_rows": 2,
+    "ex": "5",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 180,
+    "n_rows": 2,
+    "ex": "5",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 187,
+    "n_rows": 2,
+    "ex": "5",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 241,
+    "n_rows": 4,
+    "ex": "6",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 250,
+    "n_rows": 4,
+    "ex": "6",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 319,
+    "n_rows": 9,
+    "ex": "7",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 395,
+    "n_rows": 1,
+    "ex": "8",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/EX/examples.md",
+    "line": 399,
+    "n_rows": 2,
+    "ex": "8",
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [
+  "O10"
+ ],
+ "notes": []
+}

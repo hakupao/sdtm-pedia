@@ -1,0 +1,216 @@
+{
+ "batch_id": "B-ch01",
+ "order": 23,
+ "units": [
+  "chapters/ch01_introduction.md"
+ ],
+ "kb_files": [
+  "knowledge_base/chapters/ch01_introduction.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 10,
+ "counts": {
+  "fix_atoms": 10,
+  "REAL_GAP": 10,
+  "t2_recheck": 1,
+  "census_diff_tables": 0,
+  "census_kb_rows": 0,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 3
+ },
+ "pdf_pages": [
+  9,
+  10
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/chapters/ch01_introduction.md",
+   "src": "ig34",
+   "lo": 7,
+   "hi": 10
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0010_a025",
+   "class": "REAL_GAP",
+   "page": 10,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§1.5 [Known Issues]",
+   "kb_loc": "knowledge_base/chapters/ch01_introduction.md:102",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0009_a003",
+   "class": "REAL_GAP",
+   "page": 9,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§1.4 [How to Read this Implementation Guide]",
+   "kb_loc": "knowledge_base/chapters/ch01_introduction.md:68",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0009_a004",
+   "class": "REAL_GAP",
+   "page": 9,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§1.4 [How to Read this Implementation Guide]",
+   "kb_loc": "knowledge_base/chapters/ch01_introduction.md:69",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0009_a005",
+   "class": "REAL_GAP",
+   "page": 9,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§1.4 [How to Read this Implementation Guide]",
+   "kb_loc": "knowledge_base/chapters/ch01_introduction.md:70",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0009_a006",
+   "class": "REAL_GAP",
+   "page": 9,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§1.4 [How to Read this Implementation Guide]",
+   "kb_loc": "knowledge_base/chapters/ch01_introduction.md:71",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0009_a023",
+   "class": "REAL_GAP",
+   "page": 9,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§1.4.1 [How to Read a Domain Specification]",
+   "kb_loc": "knowledge_base/chapters/ch01_introduction.md:84",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0009_a026",
+   "class": "REAL_GAP",
+   "page": 9,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§1.4.1 [How to Read a Domain Specification]",
+   "kb_loc": "knowledge_base/chapters/ch01_introduction.md:85",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-flip",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "丢 'as noted in the table note' (指向表注的交叉引用)"
+  },
+  {
+   "atom_id": "ig34_p0010_a014",
+   "class": "REAL_GAP",
+   "page": 10,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§1.4.1 [How to Read a Domain Specification]",
+   "kb_loc": "knowledge_base/chapters/ch01_introduction.md:87",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0010_a016",
+   "class": "REAL_GAP",
+   "page": 10,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§1.4.1 [How to Read a Domain Specification]",
+   "kb_loc": "knowledge_base/chapters/ch01_introduction.md:88",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0010_a023",
+   "class": "REAL_GAP",
+   "page": 10,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§1.5 [Known Issues]",
+   "kb_loc": "knowledge_base/chapters/ch01_introduction.md:98",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-ack",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "T1.4 争议 4 条, 用户维持 REAL_GAP"
+  }
+ ],
+ "t2_recheck": [
+  {
+   "atom_id": "ig34_p0010_a009",
+   "class": "REWRITE_OK",
+   "page": 10,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§1.4.1 [How to Read a Domain Specification]",
+   "kb_loc": "knowledge_base/chapters/ch01_introduction.md:85",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-recheck",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "'Format' 小标题丢 (仅标签)"
+  }
+ ],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/chapters/ch01_introduction.md",
+    "line": 15,
+    "n_rows": 10,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch01_introduction.md",
+    "line": 53,
+    "n_rows": 3,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch01_introduction.md",
+    "line": 80,
+    "n_rows": 7,
+    "ex": null,
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [],
+ "notes": []
+}

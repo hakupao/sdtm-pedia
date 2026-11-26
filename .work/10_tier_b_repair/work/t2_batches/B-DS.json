@@ -1,0 +1,299 @@
+{
+ "batch_id": "B-DS",
+ "order": 7,
+ "units": [
+  "domains/DS"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/DS/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 37,
+ "counts": {
+  "fix_atoms": 0,
+  "t2_recheck": 0,
+  "census_diff_tables": 11,
+  "census_kb_rows": 37,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  159,
+  161,
+  162,
+  163,
+  165,
+  166
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/DS/examples.md",
+   "src": "ig34",
+   "lo": 155,
+   "hi": 167
+  }
+ ],
+ "atoms": [],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/DS/examples.md",
+    "line": 23,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "ds.xpt",
+    "pdf_pages": [
+     159
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 9,
+    "n_cell": 9,
+    "diff_types": {
+     "CELL": 9
+    },
+    "kb_lines_with_diff": [
+     28,
+     29,
+     31,
+     34,
+     35,
+     37,
+     38,
+     40
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/DS/examples.md",
+    "line": 101,
+    "status": "DIFF",
+    "ex": "4",
+    "ds": "ae.xpt",
+    "pdf_pages": [
+     161
+    ],
+    "pdf_ex": "4",
+    "kb_duplicate": false,
+    "n_diffs": 5,
+    "n_cell": 3,
+    "diff_types": {
+     "HEADER": 1,
+     "ROW_SHAPE": 1,
+     "CELL": 3
+    },
+    "kb_lines_with_diff": [
+     103
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/DS/examples.md",
+    "line": 128,
+    "status": "DIFF",
+    "ex": "5",
+    "ds": "ds.xpt",
+    "pdf_pages": [
+     161
+    ],
+    "pdf_ex": "5",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     130
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/DS/examples.md",
+    "line": 148,
+    "status": "DIFF",
+    "ex": "6",
+    "ds": "ds.xpt",
+    "pdf_pages": [
+     162
+    ],
+    "pdf_ex": "6",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     150
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/DS/examples.md",
+    "line": 202,
+    "status": "DIFF",
+    "ex": "9",
+    "ds": "ds.xpt",
+    "pdf_pages": [
+     163
+    ],
+    "pdf_ex": "9",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     206
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/DS/examples.md",
+    "line": 226,
+    "status": "DIFF",
+    "ex": "10",
+    "ds": "te.xpt",
+    "pdf_pages": [
+     163
+    ],
+    "pdf_ex": "10",
+    "kb_duplicate": false,
+    "n_diffs": 3,
+    "n_cell": 3,
+    "diff_types": {
+     "CELL": 3
+    },
+    "kb_lines_with_diff": [
+     231,
+     232,
+     233
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/DS/examples.md",
+    "line": 292,
+    "status": "DIFF",
+    "ex": "10",
+    "ds": "se.xpt",
+    "pdf_pages": [
+     165
+    ],
+    "pdf_ex": "10",
+    "kb_duplicate": false,
+    "n_diffs": 15,
+    "n_cell": 14,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 14
+    },
+    "kb_lines_with_diff": [
+     294,
+     295,
+     296,
+     297,
+     298,
+     299,
+     300,
+     301
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/DS/examples.md",
+    "line": 317,
+    "status": "DIFF",
+    "ex": "10",
+    "ds": "ds.xpt",
+    "pdf_pages": [
+     165
+    ],
+    "pdf_ex": "10",
+    "kb_duplicate": false,
+    "n_diffs": 6,
+    "n_cell": 6,
+    "diff_types": {
+     "CELL": 6
+    },
+    "kb_lines_with_diff": [
+     320,
+     321,
+     322,
+     323,
+     327,
+     330
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/DS/examples.md",
+    "line": 342,
+    "status": "DIFF",
+    "ex": "11",
+    "ds": "te.xpt",
+    "pdf_pages": [
+     166
+    ],
+    "pdf_ex": "11",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     346
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/DS/examples.md",
+    "line": 355,
+    "status": "DIFF",
+    "ex": "11",
+    "ds": "ta.xpt",
+    "pdf_pages": [
+     166
+    ],
+    "pdf_ex": "11",
+    "kb_duplicate": false,
+    "n_diffs": 2,
+    "n_cell": 2,
+    "diff_types": {
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     365,
+     366
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/DS/examples.md",
+    "line": 381,
+    "status": "DIFF",
+    "ex": "11",
+    "ds": "se.xpt",
+    "pdf_pages": [
+     166
+    ],
+    "pdf_ex": "11",
+    "kb_duplicate": false,
+    "n_diffs": 10,
+    "n_cell": 10,
+    "diff_types": {
+     "CELL": 10
+    },
+    "kb_lines_with_diff": [
+     383,
+     384,
+     385,
+     386,
+     387
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

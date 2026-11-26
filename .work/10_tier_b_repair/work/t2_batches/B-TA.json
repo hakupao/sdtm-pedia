@@ -1,0 +1,342 @@
+{
+ "batch_id": "B-TA",
+ "order": 16,
+ "units": [
+  "domains/TA"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/TA/assumptions.md",
+  "knowledge_base/domains/TA/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 17,
+ "counts": {
+  "fix_atoms": 17,
+  "REAL_GAP": 16,
+  "VALUE_DIFF": 1,
+  "t2_recheck": 0,
+  "census_diff_tables": 0,
+  "census_kb_rows": 0,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 8
+ },
+ "pdf_pages": [
+  384,
+  387,
+  388,
+  389,
+  396,
+  397,
+  398,
+  399
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/TA/assumptions.md",
+   "src": "ig34",
+   "lo": 385,
+   "hi": 404
+  },
+  {
+   "file": "knowledge_base/domains/TA/examples.md",
+   "src": "ig34",
+   "lo": 385,
+   "hi": 404
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0384_a016",
+   "class": "REAL_GAP",
+   "page": 384,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2 Experimental Design (TA and TE)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0387_a012",
+   "class": "REAL_GAP",
+   "page": 387,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 1",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0388_a002",
+   "class": "REAL_GAP",
+   "page": 388,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 1",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0388_a004",
+   "class": "REAL_GAP",
+   "page": 388,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 1",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0389_a002",
+   "class": "REAL_GAP",
+   "page": 389,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 1",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0389_a008",
+   "class": "REAL_GAP",
+   "page": 389,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 1",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0396_a004",
+   "class": "REAL_GAP",
+   "page": 396,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 4",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0397_a006",
+   "class": "REAL_GAP",
+   "page": 397,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 5",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0397_a007",
+   "class": "REAL_GAP",
+   "page": 397,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 5",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0397_a010",
+   "class": "REAL_GAP",
+   "page": 397,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 5",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0397_a015",
+   "class": "REAL_GAP",
+   "page": 397,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 5",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0398_a013",
+   "class": "REAL_GAP",
+   "page": 398,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 6",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0398_a023",
+   "class": "REAL_GAP",
+   "page": 398,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 6",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0398_a024",
+   "class": "REAL_GAP",
+   "page": 398,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 6",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0399_a030",
+   "class": "REAL_GAP",
+   "page": 399,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 7",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0397_a002",
+   "class": "VALUE_DIFF",
+   "page": 397,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 5",
+   "kb_loc": "knowledge_base/domains/TA/examples.md:498",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0398_a014",
+   "class": "REAL_GAP",
+   "page": 398,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§7.2.1 Trial Arms (TA) – Example 6",
+   "kb_loc": "knowledge_base/domains/TA/examples.md:566",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "reviewer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/domains/TA/assumptions.md",
+    "line": 31,
+    "n_rows": 9,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/TA/examples.md",
+    "line": 112,
+    "n_rows": 3,
+    "ex": "1",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/TA/examples.md",
+    "line": 225,
+    "n_rows": 3,
+    "ex": "2",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/TA/examples.md",
+    "line": 336,
+    "n_rows": 4,
+    "ex": "3",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/TA/examples.md",
+    "line": 466,
+    "n_rows": 2,
+    "ex": "4",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/TA/examples.md",
+    "line": 538,
+    "n_rows": 2,
+    "ex": "5",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/TA/examples.md",
+    "line": 608,
+    "n_rows": 2,
+    "ex": "6",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/TA/examples.md",
+    "line": 709,
+    "n_rows": 2,
+    "ex": "7",
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [
+  "O4",
+  "O10"
+ ],
+ "notes": []
+}

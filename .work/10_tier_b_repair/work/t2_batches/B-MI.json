@@ -1,0 +1,92 @@
+{
+ "batch_id": "B-MI",
+ "order": 45,
+ "units": [
+  "domains/MI"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/MI/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 2,
+ "counts": {
+  "fix_atoms": 2,
+  "REAL_GAP": 2,
+  "t2_recheck": 0,
+  "census_diff_tables": 1,
+  "census_kb_rows": 0,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  263,
+  267
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/MI/examples.md",
+   "src": "ig34",
+   "lo": 263,
+   "hi": 267
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0263_a030",
+   "class": "REAL_GAP",
+   "page": 263,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.3.5.8 Microscopic Findings (MI)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0263_a031",
+   "class": "REAL_GAP",
+   "page": 263,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.3.5.8 Microscopic Findings (MI)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/MI/examples.md",
+    "line": 50,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "mi.xpt",
+    "pdf_pages": [
+     267
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 0,
+    "diff_types": {
+     "HEADER": 1
+    },
+    "kb_lines_with_diff": []
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

@@ -1,0 +1,69 @@
+{
+ "batch_id": "B-ch03",
+ "order": 57,
+ "units": [
+  "chapters/ch03_submitting_data.md"
+ ],
+ "kb_files": [
+  "knowledge_base/chapters/ch03_submitting_data.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 1,
+ "counts": {
+  "fix_atoms": 1,
+  "VALUE_DIFF": 1,
+  "t2_recheck": 0,
+  "census_diff_tables": 0,
+  "census_kb_rows": 0,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 1
+ },
+ "pdf_pages": [
+  17
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/chapters/ch03_submitting_data.md",
+   "src": "ig34",
+   "lo": 17,
+   "hi": 21
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0017_a022",
+   "class": "VALUE_DIFF",
+   "page": 17,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§3.2.1 Dataset-level Metadata",
+   "kb_loc": "knowledge_base/chapters/ch03_submitting_data.md:31",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/chapters/ch03_submitting_data.md",
+    "line": 29,
+    "n_rows": 63,
+    "ex": null,
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [
+  "O5"
+ ],
+ "notes": []
+}

@@ -1,0 +1,863 @@
+{
+ "batch_id": "B-ch04",
+ "order": 6,
+ "units": [
+  "chapters/ch04_general_assumptions.md"
+ ],
+ "kb_files": [
+  "knowledge_base/chapters/ch04_general_assumptions.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 44,
+ "counts": {
+  "fix_atoms": 29,
+  "REAL_GAP": 27,
+  "VALUE_DIFF": 2,
+  "t2_recheck": 4,
+  "census_diff_tables": 6,
+  "census_kb_rows": 17,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 33
+ },
+ "pdf_pages": [
+  23,
+  25,
+  29,
+  41,
+  42,
+  43,
+  44,
+  45,
+  53,
+  54,
+  55,
+  56
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+   "src": "ig34",
+   "lo": 22,
+   "hi": 59
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0042_a007",
+   "class": "REAL_GAP",
+   "page": 42,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.4 [Use of the Study Day Variables]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0042_a009",
+   "class": "REAL_GAP",
+   "page": 42,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.4 [Use of the Study Day Variables]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0042_a013",
+   "class": "REAL_GAP",
+   "page": 42,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.5 [Clinical Encounters and Visits]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0042_a014",
+   "class": "REAL_GAP",
+   "page": 42,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.5 [Clinical Encounters and Visits]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0043_a016",
+   "class": "REAL_GAP",
+   "page": 43,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0043_a018",
+   "class": "REAL_GAP",
+   "page": 43,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0043_a026",
+   "class": "REAL_GAP",
+   "page": 43,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0043_a027",
+   "class": "REAL_GAP",
+   "page": 43,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0043_a028",
+   "class": "REAL_GAP",
+   "page": 43,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0043_a029",
+   "class": "REAL_GAP",
+   "page": 43,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0043_a034",
+   "class": "REAL_GAP",
+   "page": 43,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0044_a001",
+   "class": "REAL_GAP",
+   "page": 44,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0055_a026",
+   "class": "VALUE_DIFF",
+   "page": 55,
+   "src": "ig34",
+   "atom_type": "TABLE_HEADER",
+   "section": "§4.5.3.2 [Text Strings Greater than 200 Characters in Other Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:1321",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0056_a005",
+   "class": "VALUE_DIFF",
+   "page": 56,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§4.5.3.2 [Text Strings Greater than 200 Characters in Other Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:1361",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0056_a006",
+   "class": "REAL_GAP",
+   "page": 56,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§4.5.3.2 [Text Strings Greater than 200 Characters in Other Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:1362",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-ack",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)",
+   "ruling_note": "T1.4 争议 4 条, 用户维持 REAL_GAP"
+  },
+  {
+   "atom_id": "ig34_p0029_a028",
+   "class": "REAL_GAP",
+   "page": 29,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.2.5 [Convention for Missing Values]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:300",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0023_a003",
+   "class": "REAL_GAP",
+   "page": 23,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§4.1.5 [SDTM Core Designations]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:49",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0041_a036",
+   "class": "REAL_GAP",
+   "page": 41,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.3.2 [Interval with Uncertainty]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:824",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0041_a040",
+   "class": "REAL_GAP",
+   "page": 41,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.3.2 [Interval with Uncertainty]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:830",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0042_a012",
+   "class": "REAL_GAP",
+   "page": 42,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.5 [Clinical Encounters and Visits]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:860",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0043_a022",
+   "class": "REAL_GAP",
+   "page": 43,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:901",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0043_a024",
+   "class": "REAL_GAP",
+   "page": 43,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:903",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0043_a032",
+   "class": "REAL_GAP",
+   "page": 43,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:907",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0044_a005",
+   "class": "REAL_GAP",
+   "page": 44,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:913",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0044_a009",
+   "class": "REAL_GAP",
+   "page": 44,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:913",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0044_a006",
+   "class": "REAL_GAP",
+   "page": 44,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:916",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0045_a005",
+   "class": "REAL_GAP",
+   "page": 45,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:947",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0045_a018",
+   "class": "REAL_GAP",
+   "page": 45,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:957",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0043_a012",
+   "class": "REAL_GAP",
+   "page": 43,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:898",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:D4",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)",
+   "ruling_note": "C02 型: 'observation' 由 :894 覆盖 (多行映射, R2 下待定)"
+  }
+ ],
+ "t2_recheck": [
+  {
+   "atom_id": "ig34_p0043_a013",
+   "class": "REWRITE_OK",
+   "page": 43,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:899",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-recheck",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)",
+   "ruling_note": "C02 型: 参考期由 :894 覆盖"
+  },
+  {
+   "atom_id": "ig34_p0044_a003",
+   "class": "REWRITE_OK",
+   "page": 44,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:916",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-recheck",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)",
+   "ruling_note": "两种情形被压成一条限制说明"
+  },
+  {
+   "atom_id": "ig34_p0044_a004",
+   "class": "REWRITE_OK",
+   "page": 44,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:911",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-recheck",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)",
+   "ruling_note": "C02 型: 排除 AFTER 在 :916 另行"
+  },
+  {
+   "atom_id": "ig34_p0044_a008",
+   "class": "REWRITE_OK",
+   "page": 44,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§4.4.7 [Use of Relative Timing Variables]",
+   "kb_loc": "knowledge_base/chapters/ch04_general_assumptions.md:916",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-recheck",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)",
+   "ruling_note": "C02 型: AFTER 有效条件在 :916 另行"
+  }
+ ],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 97,
+    "status": "DIFF",
+    "ex": null,
+    "ds": null,
+    "pdf_pages": [
+     25
+    ],
+    "pdf_ex": null,
+    "kb_duplicate": false,
+    "n_diffs": 4,
+    "n_cell": 4,
+    "diff_types": {
+     "CELL": 4
+    },
+    "kb_lines_with_diff": [
+     99,
+     103
+    ]
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 121,
+    "status": "DIFF",
+    "ex": null,
+    "ds": null,
+    "pdf_pages": [
+     25
+    ],
+    "pdf_ex": null,
+    "kb_duplicate": false,
+    "n_diffs": 20,
+    "n_cell": 20,
+    "diff_types": {
+     "CELL": 20
+    },
+    "kb_lines_with_diff": [
+     123,
+     124,
+     125,
+     126,
+     127,
+     128,
+     129,
+     130,
+     131,
+     132
+    ]
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 1226,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": null,
+    "pdf_pages": [
+     53
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 5,
+    "n_cell": 5,
+    "diff_types": {
+     "CELL": 5
+    },
+    "kb_lines_with_diff": [
+     1232,
+     1233,
+     1234
+    ]
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 1250,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": null,
+    "pdf_pages": [
+     53,
+     54
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 2,
+    "n_cell": 2,
+    "diff_types": {
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     1256,
+     1257
+    ]
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 1321,
+    "status": "DIFF",
+    "ex": null,
+    "ds": "suppmh.xpt",
+    "pdf_pages": [
+     55
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 0,
+    "diff_types": {
+     "HEADER": 1
+    },
+    "kb_lines_with_diff": []
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 1336,
+    "status": "DIFF",
+    "ex": null,
+    "ds": "suppae.xpt",
+    "pdf_pages": [
+     56
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 0,
+    "diff_types": {
+     "HEADER": 1
+    },
+    "kb_lines_with_diff": []
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 43,
+    "n_rows": 3,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 383,
+    "n_rows": 3,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 400,
+    "n_rows": 6,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 433,
+    "n_rows": 5,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 445,
+    "n_rows": 1,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 451,
+    "n_rows": 1,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 457,
+    "n_rows": 1,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 467,
+    "n_rows": 5,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 477,
+    "n_rows": 2,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 536,
+    "n_rows": 1,
+    "ex": null,
+    "ds": "ae.xpt"
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 542,
+    "n_rows": 3,
+    "ex": null,
+    "ds": "suppae.xpt"
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 554,
+    "n_rows": 1,
+    "ex": null,
+    "ds": "ae.xpt"
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 560,
+    "n_rows": 4,
+    "ex": null,
+    "ds": "suppae.xpt"
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 575,
+    "n_rows": 1,
+    "ex": null,
+    "ds": "ae.xpt"
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 581,
+    "n_rows": 2,
+    "ex": null,
+    "ds": "suppae.xpt"
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 662,
+    "n_rows": 5,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 733,
+    "n_rows": 7,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 745,
+    "n_rows": 4,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 754,
+    "n_rows": 6,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 807,
+    "n_rows": 10,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 877,
+    "n_rows": 3,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 896,
+    "n_rows": 2,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 909,
+    "n_rows": 4,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 975,
+    "n_rows": 2,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 998,
+    "n_rows": 5,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 1015,
+    "n_rows": 3,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 1025,
+    "n_rows": 3,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 1052,
+    "n_rows": 18,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 1075,
+    "n_rows": 18,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 1110,
+    "n_rows": 3,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 1359,
+    "n_rows": 3,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 1420,
+    "n_rows": 4,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+    "line": 1452,
+    "n_rows": 3,
+    "ex": null,
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [
+  "O3",
+  "O12"
+ ],
+ "notes": [
+  "一个文件一批 (PLAN 原拆 ch04a/ch04b 串行, 现合并; 若 writer 上下文不够再按 §4.1-4.3 / §4.4-4.5 拆)",
+  "33 张不可机检表: 触碰才人工逐格"
+ ]
+}

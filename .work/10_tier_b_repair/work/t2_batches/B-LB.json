@@ -1,0 +1,597 @@
+{
+ "batch_id": "B-LB",
+ "order": 3,
+ "units": [
+  "domains/LB"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/LB/assumptions.md",
+  "knowledge_base/domains/LB/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 53,
+ "counts": {
+  "fix_atoms": 33,
+  "REAL_GAP": 29,
+  "VALUE_DIFF": 4,
+  "t2_recheck": 0,
+  "census_diff_tables": 3,
+  "census_kb_rows": 6,
+  "pdf_only_tables": 1,
+  "pdf_only_rows": 18,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  194,
+  195,
+  196,
+  247,
+  248
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/LB/assumptions.md",
+   "src": "ig34",
+   "lo": 241,
+   "hi": 248
+  },
+  {
+   "file": "knowledge_base/domains/LB/examples.md",
+   "src": "ig34",
+   "lo": 241,
+   "hi": 248
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0194_a022",
+   "class": "REAL_GAP",
+   "page": 194,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a001",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a002",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a003",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a004",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a005",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a006",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a009",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a010",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a011",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a012",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a013",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a014",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a015",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a016",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a017",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a018",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a019",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a021",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0195_a023",
+   "class": "REAL_GAP",
+   "page": 195,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0196_a003",
+   "class": "REAL_GAP",
+   "page": 196,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0196_a004",
+   "class": "REAL_GAP",
+   "page": 196,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0196_a005",
+   "class": "REAL_GAP",
+   "page": 196,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0196_a006",
+   "class": "REAL_GAP",
+   "page": 196,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0196_a007",
+   "class": "REAL_GAP",
+   "page": 196,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0196_a008",
+   "class": "REAL_GAP",
+   "page": 196,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0196_a011",
+   "class": "REAL_GAP",
+   "page": 196,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0196_a013",
+   "class": "REAL_GAP",
+   "page": 196,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.1 Generic Specimen-based Lab Findings Domain Specification",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:LOCATE-LB",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  {
+   "atom_id": "ig34_p0247_a005",
+   "class": "REAL_GAP",
+   "page": 247,
+   "src": "ig34",
+   "atom_type": "TABLE_HEADER",
+   "section": "§6.3.5.6 Laboratory Test Results (LB)",
+   "kb_loc": "knowledge_base/domains/LB/examples.md:22",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0247_a011",
+   "class": "VALUE_DIFF",
+   "page": 247,
+   "src": "ig34",
+   "atom_type": "TABLE_HEADER",
+   "section": "§6.3.5.6 Laboratory Test Results (LB)",
+   "kb_loc": "knowledge_base/domains/LB/examples.md:33",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0247_a020",
+   "class": "VALUE_DIFF",
+   "page": 247,
+   "src": "ig34",
+   "atom_type": "TABLE_HEADER",
+   "section": "§6.3.5.6 Laboratory Test Results (LB)",
+   "kb_loc": "knowledge_base/domains/LB/examples.md:48",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0247_a021",
+   "class": "VALUE_DIFF",
+   "page": 247,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.6 Laboratory Test Results (LB)",
+   "kb_loc": "knowledge_base/domains/LB/examples.md:50",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0247_a022",
+   "class": "VALUE_DIFF",
+   "page": 247,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.6 Laboratory Test Results (LB)",
+   "kb_loc": "knowledge_base/domains/LB/examples.md:51",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/LB/examples.md",
+    "line": 33,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "lb.xpt",
+    "pdf_pages": [
+     247
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 105,
+    "n_cell": 104,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 104
+    },
+    "kb_lines_with_diff": [
+     35,
+     36,
+     37
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/LB/examples.md",
+    "line": 48,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "lb.xpt",
+    "pdf_pages": [
+     247
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 10,
+    "n_cell": 9,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 9
+    },
+    "kb_lines_with_diff": [
+     50,
+     51
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/LB/examples.md",
+    "line": 63,
+    "status": "DIFF",
+    "ex": "4",
+    "ds": "lb.xpt",
+    "pdf_pages": [
+     248
+    ],
+    "pdf_ex": "4",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     67
+    ]
+   }
+  ],
+  "pdf_only": [
+   {
+    "src": "ig34",
+    "pages": [
+     247
+    ],
+    "ex": "1",
+    "ds": "lb.xpt",
+    "sec": "6.3.5.6",
+    "header": "Row STUDYID DOMAIN USUBJID LBSEQ LBGRPID LBTESTCD LBTEST LBTSTCND LBCAT LBSCAT LBORRES LBORRESU LBRESSCL LBRESTYP LBCOLS",
+    "n_rows": 18
+   }
+  ],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": [
+  "§6.3.5.1 (28 原子, 原 LOCATE) → LB/assumptions.md 顶部 (标题行后) 新增 '## §6.3.5.1 …' 节, 结构仿 NV/assumptions.md §6.3.7.1;",
+  "通用规格表 p195-196 整表补 (含不在分诊里的 ledger EQUIVALENT/MISPLACED 行, 否则表不完整; 这些行按 G-TB6 逐行指到 PDF 页)",
+  "ig34_p0195_a008 (该表列头) 是 IE, 但插表需要表头 = 结构行"
+ ]
+}

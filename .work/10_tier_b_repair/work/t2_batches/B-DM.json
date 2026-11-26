@@ -1,0 +1,119 @@
+{
+ "batch_id": "B-DM",
+ "order": 36,
+ "units": [
+  "domains/DM"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/DM/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 4,
+ "counts": {
+  "fix_atoms": 1,
+  "REAL_GAP": 1,
+  "t2_recheck": 0,
+  "census_diff_tables": 2,
+  "census_kb_rows": 3,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 2
+ },
+ "pdf_pages": [
+  64,
+  68,
+  78
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/DM/examples.md",
+   "src": "ig34",
+   "lo": 62,
+   "hi": 78
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0064_a012",
+   "class": "REAL_GAP",
+   "page": 64,
+   "src": "ig34",
+   "atom_type": "NOTE",
+   "section": "§5.2 [Demographics (DM)]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/DM/examples.md",
+    "line": 7,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "dm.xpt",
+    "pdf_pages": [
+     68
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 10,
+    "n_cell": 9,
+    "diff_types": {
+     "CELL": 9,
+     "ROW_SHAPE": 1
+    },
+    "kb_lines_with_diff": [
+     11,
+     12
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/DM/examples.md",
+    "line": 411,
+    "status": "DIFF",
+    "ex": "7",
+    "ds": "dm.xpt",
+    "pdf_pages": [
+     78
+    ],
+    "pdf_ex": "7",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     416
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/domains/DM/examples.md",
+    "line": 170,
+    "n_rows": 11,
+    "ex": "4",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/DM/examples.md",
+    "line": 310,
+    "n_rows": 9,
+    "ex": "6",
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [],
+ "notes": []
+}

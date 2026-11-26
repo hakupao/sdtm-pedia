@@ -1,7 +1,7 @@
 # 10 Tier B 内容修复 — Plan (Tier 3)
 
 <!-- chain: E (plans) ; KB 改动走 Chain D -->
-> 状态: **v1.0 APPROVED** (2026-11-25) — 用户拍板 §9 Q1-Q9 全部按默认建议; 执行中
+> 状态: **v1.2** (2026-11-26) — T1.4 用户 ack (R1-R4, 见 `evidence/checkpoints/t1_user_ack.md`); T2 范围扩为全 KB census; 执行中
 > 模板: `~/.claude/templates/workflow-tier3.md` (+ tier2 基础)
 > 前序: `archive/deep_verification/` (06 深审, 已冻结只读) RETRO 缺口 3 / 决策 2; `issues_found.md` Issue 5
 
@@ -153,7 +153,9 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 | T1 | 1,459 原子 / 50 每包 ≈ 30 包 + 复核 | 1.5-2.5 sessions; ~28 writer + ~10 reviewer 调用 |
 | T2 | 真修量假设 300-700 原子 (944 上界扣 spec 行与改写合格) → 10-14 批 | 3-6 sessions; 每批 3 个 agent 调用, 共 30-42 |
 | T3-T4 | 重算 + 总闸 + 人工 30 条 + 收尾 | 1-1.5 sessions |
-| 合计 | | **6-10 sessions**, ~70-90 次 subagent 调用 (opus 为主) |
+| T2 (v1.1 重估) | 分诊 308 + 全 KB census 净 548 ≈ 856 项 → 16-17 批 | ~8 sessions; 48-51 次调用 |
+| T2 (v1.2) | 59 批 (D1, 每 KB 单元一批), 886 项 | ~177 次调用, 约 15-20 sessions |
+| 合计 | | **v1.2: 18-24 sessions** (v1.1: 10-12) (v1.0: 6-10), ~70-90 次 subagent 调用 (opus 为主) |
 
 超出上限 20% → phase_report 里报警, 停下问用户是否收缩范围.
 
@@ -187,5 +189,7 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 | Version | Date | Change |
 |---|---|---|
 | v0.1 | 2026-11-25 | 初稿: T0 基线已出, 其余待 §9 拍板 |
+| v1.2 | 2026-11-26 | T1.4 补充 D1-D5: 59 批; 去重 + 删扩写 (RELOCATE 外新增允许的删除: 重复副本去重 / 超出 PDF 的扩写); 成本 18-24 sessions |
+| v1.1 | 2026-11-26 | T1.4 ack: R1 v2.0 表行 IE / §1 引言补; R2 丢短语即 REAL_GAP (B4 收紧); R3 T2 纳入全 KB census (Q9 升级触发); R4 IE 587 ack, 44→PRESENT; 成本 10-12 sessions |
 | v1.0 | 2026-11-25 | 用户拍板 Q1-Q9 = 默认建议; 进入 T0.2 |
 | v0.1.1 | 2026-11-25 | advisor 复核: 加 T0.3b 读 KB 的检查器 + 变异对象改正; 分诊/闸范围统一 1,459; 加 RELOCATE/FIGURE/PDF_TYPO 终态; 回滚先存 patch; §9 改 Q 编号; T4.1 加对照层 |

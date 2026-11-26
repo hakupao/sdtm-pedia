@@ -1,0 +1,123 @@
+{
+ "batch_id": "B-SM",
+ "order": 33,
+ "units": [
+  "domains/SM"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/SM/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 5,
+ "counts": {
+  "fix_atoms": 1,
+  "REAL_GAP": 1,
+  "t2_recheck": 0,
+  "census_diff_tables": 3,
+  "census_kb_rows": 4,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  84,
+  85,
+  86
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/SM/examples.md",
+   "src": "ig34",
+   "lo": 84,
+   "hi": 86
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0084_a004",
+   "class": "REAL_GAP",
+   "page": 84,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§5.4 [Subject Disease Milestones (SM)]",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/SM/examples.md",
+    "line": 15,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "sm.xpt",
+    "pdf_pages": [
+     85
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     19
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/SM/examples.md",
+    "line": 28,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "mh.xpt",
+    "pdf_pages": [
+     85
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     30
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/SM/examples.md",
+    "line": 37,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "ce.xpt",
+    "pdf_pages": [
+     86
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 3,
+    "n_cell": 3,
+    "diff_types": {
+     "CELL": 3
+    },
+    "kb_lines_with_diff": [
+     39,
+     40
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

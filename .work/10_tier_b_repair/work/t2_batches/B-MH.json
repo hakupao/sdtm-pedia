@@ -1,0 +1,175 @@
+{
+ "batch_id": "B-MH",
+ "order": 19,
+ "units": [
+  "domains/MH"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/MH/assumptions.md",
+  "knowledge_base/domains/MH/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 14,
+ "counts": {
+  "fix_atoms": 0,
+  "t2_recheck": 0,
+  "census_diff_tables": 5,
+  "census_kb_rows": 14,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 1
+ },
+ "pdf_pages": [
+  175,
+  176,
+  177,
+  178
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/MH/assumptions.md",
+   "src": "ig34",
+   "lo": 171,
+   "hi": 178
+  },
+  {
+   "file": "knowledge_base/domains/MH/examples.md",
+   "src": "ig34",
+   "lo": 171,
+   "hi": 178
+  }
+ ],
+ "atoms": [],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/MH/examples.md",
+    "line": 13,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "mh.xpt",
+    "pdf_pages": [
+     175
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 9,
+    "n_cell": 8,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 8
+    },
+    "kb_lines_with_diff": [
+     15,
+     16,
+     17,
+     18,
+     19
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MH/examples.md",
+    "line": 39,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "mh.xpt",
+    "pdf_pages": [
+     176
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 7,
+    "n_cell": 6,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 6
+    },
+    "kb_lines_with_diff": [
+     41,
+     42,
+     43
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MH/examples.md",
+    "line": 60,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "mh.xpt",
+    "pdf_pages": [
+     176,
+     177
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 3,
+    "n_cell": 3,
+    "diff_types": {
+     "CELL": 3
+    },
+    "kb_lines_with_diff": [
+     65,
+     69
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MH/examples.md",
+    "line": 83,
+    "status": "DIFF",
+    "ex": "4",
+    "ds": "mh.xpt",
+    "pdf_pages": [
+     177
+    ],
+    "pdf_ex": "4",
+    "kb_duplicate": false,
+    "n_diffs": 2,
+    "n_cell": 2,
+    "diff_types": {
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     85,
+     88
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MH/examples.md",
+    "line": 104,
+    "status": "DIFF",
+    "ex": "5",
+    "ds": "mh.xpt",
+    "pdf_pages": [
+     178
+    ],
+    "pdf_ex": "5",
+    "kb_duplicate": false,
+    "n_diffs": 3,
+    "n_cell": 3,
+    "diff_types": {
+     "CELL": 3
+    },
+    "kb_lines_with_diff": [
+     106,
+     109
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/domains/MH/assumptions.md",
+    "line": 30,
+    "n_rows": 4,
+    "ex": null,
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [],
+ "notes": []
+}

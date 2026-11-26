@@ -1,0 +1,52 @@
+{
+ "batch_id": "B-DI",
+ "order": 58,
+ "units": [
+  "domains/DI"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/DI/assumptions.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 1,
+ "counts": {
+  "fix_atoms": 1,
+  "REAL_GAP": 1,
+  "t2_recheck": 0,
+  "census_diff_tables": 0,
+  "census_kb_rows": 0,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  441
+ ],
+ "pdf_ranges": [],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0441_a007",
+   "class": "REAL_GAP",
+   "page": 441,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§9.1 Device Identifiers",
+   "kb_loc": "knowledge_base/domains/DI/assumptions.md:5",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "reviewer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

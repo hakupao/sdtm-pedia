@@ -1,0 +1,421 @@
+{
+ "batch_id": "B-IS",
+ "order": 10,
+ "units": [
+  "domains/IS"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/IS/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 29,
+ "counts": {
+  "fix_atoms": 14,
+  "VALUE_DIFF": 13,
+  "REAL_GAP": 1,
+  "t2_recheck": 0,
+  "census_diff_tables": 8,
+  "census_kb_rows": 28,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  234,
+  235,
+  236,
+  237,
+  238,
+  239,
+  240,
+  241
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "src": "ig34",
+   "lo": 228,
+   "hi": 241
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0236_a008",
+   "class": "VALUE_DIFF",
+   "page": 236,
+   "src": "ig34",
+   "atom_type": "TABLE_HEADER",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:113",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0236_a009",
+   "class": "VALUE_DIFF",
+   "page": 236,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:115",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0236_a010",
+   "class": "VALUE_DIFF",
+   "page": 236,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:116",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0236_a011",
+   "class": "VALUE_DIFF",
+   "page": 236,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:117",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0236_a012",
+   "class": "VALUE_DIFF",
+   "page": 236,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:118",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0236_a013",
+   "class": "VALUE_DIFF",
+   "page": 236,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:119",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0236_a014",
+   "class": "VALUE_DIFF",
+   "page": 236,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:120",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0236_a015",
+   "class": "VALUE_DIFF",
+   "page": 236,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:121",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0237_a012",
+   "class": "VALUE_DIFF",
+   "page": 237,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:143",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0237_a013",
+   "class": "VALUE_DIFF",
+   "page": 237,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:144",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0237_a014",
+   "class": "VALUE_DIFF",
+   "page": 237,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:145",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0238_a001",
+   "class": "REAL_GAP",
+   "page": 238,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:155",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0238_a004",
+   "class": "VALUE_DIFF",
+   "page": 238,
+   "src": "ig34",
+   "atom_type": "TABLE_HEADER",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:160",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0239_a002",
+   "class": "VALUE_DIFF",
+   "page": 239,
+   "src": "ig34",
+   "atom_type": "TABLE_HEADER",
+   "section": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "kb_loc": "knowledge_base/domains/IS/examples.md:181",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/IS/examples.md",
+    "line": 40,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "is.xpt",
+    "pdf_pages": [
+     234
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 3,
+    "n_cell": 3,
+    "diff_types": {
+     "CELL": 3
+    },
+    "kb_lines_with_diff": [
+     48,
+     49
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/IS/examples.md",
+    "line": 85,
+    "status": "DIFF",
+    "ex": "4",
+    "ds": "is.xpt",
+    "pdf_pages": [
+     235
+    ],
+    "pdf_ex": "4",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 0,
+    "diff_types": {
+     "HEADER": 1
+    },
+    "kb_lines_with_diff": []
+   },
+   {
+    "file": "knowledge_base/domains/IS/examples.md",
+    "line": 113,
+    "status": "DIFF",
+    "ex": "5",
+    "ds": "is.xpt",
+    "pdf_pages": [
+     236
+    ],
+    "pdf_ex": "5",
+    "kb_duplicate": false,
+    "n_diffs": 60,
+    "n_cell": 59,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 59
+    },
+    "kb_lines_with_diff": [
+     115,
+     116,
+     117,
+     118,
+     119,
+     120,
+     121
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/IS/examples.md",
+    "line": 141,
+    "status": "DIFF",
+    "ex": "6",
+    "ds": "is.xpt",
+    "pdf_pages": [
+     237
+    ],
+    "pdf_ex": "6",
+    "kb_duplicate": false,
+    "n_diffs": 9,
+    "n_cell": 9,
+    "diff_types": {
+     "CELL": 9
+    },
+    "kb_lines_with_diff": [
+     143,
+     144,
+     145
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/IS/examples.md",
+    "line": 160,
+    "status": "DIFF",
+    "ex": "7",
+    "ds": "is.xpt",
+    "pdf_pages": [
+     238
+    ],
+    "pdf_ex": "7",
+    "kb_duplicate": false,
+    "n_diffs": 3,
+    "n_cell": 2,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     164,
+     165
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/IS/examples.md",
+    "line": 181,
+    "status": "DIFF",
+    "ex": "8",
+    "ds": "is.xpt",
+    "pdf_pages": [
+     239
+    ],
+    "pdf_ex": "8",
+    "kb_duplicate": false,
+    "n_diffs": 2,
+    "n_cell": 1,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     185
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/IS/examples.md",
+    "line": 218,
+    "status": "DIFF",
+    "ex": "10",
+    "ds": "is.xpt",
+    "pdf_pages": [
+     240
+    ],
+    "pdf_ex": "10",
+    "kb_duplicate": false,
+    "n_diffs": 6,
+    "n_cell": 6,
+    "diff_types": {
+     "CELL": 6
+    },
+    "kb_lines_with_diff": [
+     225,
+     226,
+     227,
+     228,
+     229,
+     230
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/IS/examples.md",
+    "line": 244,
+    "status": "DIFF",
+    "ex": "11",
+    "ds": "is.xpt",
+    "pdf_pages": [
+     241
+    ],
+    "pdf_ex": "11",
+    "kb_duplicate": false,
+    "n_diffs": 7,
+    "n_cell": 7,
+    "diff_types": {
+     "CELL": 7
+    },
+    "kb_lines_with_diff": [
+     248,
+     249,
+     250,
+     251,
+     252,
+     253,
+     254
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [
+  "O7"
+ ],
+ "notes": []
+}

@@ -1,0 +1,686 @@
+{
+ "batch_id": "B-PCPP",
+ "order": 1,
+ "units": [
+  "domains/PC",
+  "domains/PP"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/PC/assumptions.md",
+  "knowledge_base/domains/PC/examples.md",
+  "knowledge_base/domains/PP/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 109,
+ "counts": {
+  "fix_atoms": 23,
+  "REAL_GAP": 8,
+  "VALUE_DIFF": 15,
+  "t2_recheck": 0,
+  "census_diff_tables": 10,
+  "census_kb_rows": 69,
+  "pdf_only_tables": 2,
+  "pdf_only_rows": 39,
+  "unparseable_tables": 1
+ },
+ "pdf_pages": [
+  270,
+  271,
+  273,
+  274,
+  275,
+  276,
+  277,
+  278,
+  280
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/PC/assumptions.md",
+   "src": "ig34",
+   "lo": 267,
+   "hi": 283
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "src": "ig34",
+   "lo": 267,
+   "hi": 283
+  },
+  {
+   "file": "knowledge_base/domains/PP/examples.md",
+   "src": "ig34",
+   "lo": 271,
+   "hi": 283
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0270_a012",
+   "class": "REAL_GAP",
+   "page": 270,
+   "src": "ig34",
+   "atom_type": "TABLE_HEADER",
+   "section": "§6.3.5.9.1 Pharmacokinetics Concentrations (PC)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0270_a013",
+   "class": "REAL_GAP",
+   "page": 270,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.1 Pharmacokinetics Concentrations (PC)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0270_a014",
+   "class": "REAL_GAP",
+   "page": 270,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.1 Pharmacokinetics Concentrations (PC)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0270_a023",
+   "class": "REAL_GAP",
+   "page": 270,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.1 Pharmacokinetics Concentrations (PC)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0271_a007",
+   "class": "REAL_GAP",
+   "page": 271,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.1 Pharmacokinetics Concentrations (PC)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0271_a009",
+   "class": "REAL_GAP",
+   "page": 271,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.1 Pharmacokinetics Concentrations (PC)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0271_a010",
+   "class": "REAL_GAP",
+   "page": 271,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.1 Pharmacokinetics Concentrations (PC)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0271_a011",
+   "class": "REAL_GAP",
+   "page": 271,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.1 Pharmacokinetics Concentrations (PC)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a004",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PC/assumptions.md:88",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a005",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PC/assumptions.md:89",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a006",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PC/assumptions.md:90",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a007",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PC/assumptions.md:91",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a008",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PC/assumptions.md:92",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a009",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PC/assumptions.md:93",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a010",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PC/assumptions.md:94",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a011",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PC/assumptions.md:95",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a012",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PC/assumptions.md:96",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a013",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PC/assumptions.md:97",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a014",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PC/assumptions.md:98",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a015",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PC/assumptions.md:99",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "MANUAL_02",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "MANUAL",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records — Example 1",
+   "kb_loc": "knowledge_base/domains/PC/examples.md:32",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0277_a003",
+   "class": "VALUE_DIFF",
+   "page": 277,
+   "src": "ig34",
+   "atom_type": "TABLE_HEADER",
+   "section": "§6.3.5.9.3 Relating PP Records to PC Records",
+   "kb_loc": "knowledge_base/domains/PP/examples.md:112",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "MANUAL_01",
+   "class": "VALUE_DIFF",
+   "page": 273,
+   "src": "ig34",
+   "atom_type": "MANUAL",
+   "section": "§6.3.5.9.2 [PP Examples] Example 1",
+   "kb_loc": "knowledge_base/domains/PP/examples.md:16",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/PC/assumptions.md",
+    "line": 55,
+    "status": "DIFF",
+    "ex": null,
+    "ds": "pc.xpt",
+    "pdf_pages": [
+     276
+    ],
+    "pdf_ex": null,
+    "kb_duplicate": false,
+    "n_diffs": 21,
+    "n_cell": 21,
+    "diff_types": {
+     "CELL": 21
+    },
+    "kb_lines_with_diff": [
+     57,
+     58,
+     59,
+     60,
+     61,
+     62,
+     63,
+     64,
+     65,
+     66,
+     67,
+     68,
+     74
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/PC/assumptions.md",
+    "line": 86,
+    "status": "DIFF",
+    "ex": null,
+    "ds": "pp.xpt",
+    "pdf_pages": [
+     277
+    ],
+    "pdf_ex": null,
+    "kb_duplicate": false,
+    "n_diffs": 15,
+    "n_cell": 15,
+    "diff_types": {
+     "CELL": 15
+    },
+    "kb_lines_with_diff": [
+     88,
+     89,
+     90,
+     91,
+     92,
+     93,
+     94,
+     95,
+     96,
+     97,
+     98,
+     99
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/PC/examples.md",
+    "line": 22,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "relrec.xpt",
+    "pdf_pages": [
+     277
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     26
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/PC/examples.md",
+    "line": 36,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "relrec.xpt",
+    "pdf_pages": [
+     278
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 2,
+    "n_cell": 2,
+    "diff_types": {
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     50,
+     63
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/PC/examples.md",
+    "line": 236,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "relrec.xpt",
+    "pdf_pages": [
+     280
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     240
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "line": 16,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "pp.xpt",
+    "pdf_pages": [
+     273
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 252,
+    "n_cell": 251,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 251
+    },
+    "kb_lines_with_diff": [
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25,
+     26,
+     27,
+     28,
+     29,
+     30,
+     31,
+     32,
+     33,
+     34,
+     35,
+     36,
+     37,
+     38,
+     39,
+     40,
+     41
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "line": 47,
+    "status": "NO_PDF",
+    "ex": "1",
+    "ds": "supppp.xpt",
+    "pdf_pages": null,
+    "pdf_ex": null,
+    "kb_duplicate": null,
+    "n_diffs": 0,
+    "n_cell": 0,
+    "diff_types": {},
+    "kb_lines_with_diff": []
+   },
+   {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "line": 68,
+    "status": "NO_PDF",
+    "ex": "2",
+    "ds": "pp.xpt",
+    "pdf_pages": null,
+    "pdf_ex": null,
+    "kb_duplicate": null,
+    "n_diffs": 0,
+    "n_cell": 0,
+    "diff_types": {},
+    "kb_lines_with_diff": []
+   },
+   {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "line": 87,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "pp.xpt",
+    "pdf_pages": [
+     274,
+     275
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 18,
+    "n_cell": 17,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 17
+    },
+    "kb_lines_with_diff": [
+     89,
+     90,
+     91,
+     92,
+     93,
+     94,
+     95,
+     96,
+     97,
+     98,
+     99,
+     100,
+     101,
+     102,
+     103,
+     104
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "line": 112,
+    "status": "DIFF",
+    "ex": null,
+    "ds": "pp.xpt",
+    "pdf_pages": [
+     277
+    ],
+    "pdf_ex": null,
+    "kb_duplicate": true,
+    "n_diffs": 1,
+    "n_cell": 0,
+    "diff_types": {
+     "HEADER": 1
+    },
+    "kb_lines_with_diff": []
+   }
+  ],
+  "pdf_only": [
+   {
+    "src": "ig34",
+    "pages": [
+     270,
+     271
+    ],
+    "ex": "1",
+    "ds": "pc.xpt",
+    "sec": "6.3.5.9.1",
+    "header": "Row STUDYID DOMAIN USUBJID PCSEQ PCGRPID PCREFID PCTESTCD PCTEST PCCAT PCSPEC PCORRES PCORRESU PCSTRESC PCSTRESN PCSTRES",
+    "n_rows": 32
+   },
+   {
+    "src": "ig34",
+    "pages": [
+     274
+    ],
+    "ex": "2",
+    "ds": null,
+    "sec": "6.3.5.9.2",
+    "header": "Row STUDYID DOMAIN USUBJID IDVAR IDVARVAL QNAM QLABEL QVAL QORIG QEVAL",
+    "n_rows": 7
+   }
+  ],
+  "pdf_unparsed": [
+   {
+    "src": "ig34",
+    "pages": [
+     274
+    ],
+    "header": [
+     "Row",
+     "STUDYID",
+     "DOMAIN",
+     "USUBJID",
+     "PPSEQ",
+     "PPRFID",
+     "PPTESTCD",
+     "PPTEST",
+     "PPCAT",
+     "PPSCAT",
+     "PPORRES",
+     "PPORRESU"
+    ],
+    "n_rows": 7,
+    "ex": "2",
+    "ds": "pp.xpt",
+    "reason": "vertically centred cells"
+   }
+  ],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/domains/PP/examples.md",
+    "line": 135,
+    "n_rows": 4,
+    "ex": null,
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [
+  "O1"
+ ],
+ "notes": [
+  "Issue 5 主节 §6.3.5.9.3; PC Ex1 整表缺 (p270-271 PDF_ONLY)",
+  "p277 PP 表两份副本 (PP/examples.md:112 与 PC/assumptions.md:86): 两份都按 PDF 修, 都不删 (去重未裁, 待用户)",
+  "MANUAL_02: PDF p277 文字与 p278 表自相矛盾 → PDF_TYPO 候选, KB 不改, 登记",
+  "MANUAL_01: PP Ex1 用了 Ex3 数据 → 按 p273 重建 Ex1 表",
+  "p274 Ex2 pp.xpt 垂直居中, census 不可机检 → reviewer 人工逐格并留表"
+ ]
+}

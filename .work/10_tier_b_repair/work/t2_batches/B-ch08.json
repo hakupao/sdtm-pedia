@@ -1,0 +1,153 @@
+{
+ "batch_id": "B-ch08",
+ "order": 20,
+ "units": [
+  "chapters/ch08_relationships.md"
+ ],
+ "kb_files": [
+  "knowledge_base/chapters/ch08_relationships.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 14,
+ "counts": {
+  "fix_atoms": 3,
+  "REAL_GAP": 3,
+  "t2_recheck": 0,
+  "census_diff_tables": 1,
+  "census_kb_rows": 11,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 5
+ },
+ "pdf_pages": [
+  427,
+  428
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/chapters/ch08_relationships.md",
+   "src": "ig34",
+   "lo": 427,
+   "hi": 440
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0427_a010",
+   "class": "REAL_GAP",
+   "page": 427,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§8 [REPRESENTING RELATIONSHIPS AND DATA]",
+   "kb_loc": "knowledge_base/chapters/ch08_relationships.md:14",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0427_a018",
+   "class": "REAL_GAP",
+   "page": 427,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§8 [REPRESENTING RELATIONSHIPS AND DATA]",
+   "kb_loc": "knowledge_base/chapters/ch08_relationships.md:20",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0427_a019",
+   "class": "REAL_GAP",
+   "page": 427,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§8 [REPRESENTING RELATIONSHIPS AND DATA]",
+   "kb_loc": "knowledge_base/chapters/ch08_relationships.md:21",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/chapters/ch08_relationships.md",
+    "line": 48,
+    "status": "DIFF",
+    "ex": null,
+    "ds": "cm.xpt",
+    "pdf_pages": [
+     428
+    ],
+    "pdf_ex": null,
+    "kb_duplicate": false,
+    "n_diffs": 11,
+    "n_cell": 11,
+    "diff_types": {
+     "CELL": 11
+    },
+    "kb_lines_with_diff": [
+     50,
+     51,
+     52,
+     53,
+     54,
+     55,
+     56,
+     57,
+     59,
+     60,
+     61
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/chapters/ch08_relationships.md",
+    "line": 88,
+    "n_rows": 7,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch08_relationships.md",
+    "line": 193,
+    "n_rows": 10,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch08_relationships.md",
+    "line": 330,
+    "n_rows": 6,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch08_relationships.md",
+    "line": 354,
+    "n_rows": 5,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/chapters/ch08_relationships.md",
+    "line": 421,
+    "n_rows": 6,
+    "ex": null,
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [],
+ "notes": []
+}

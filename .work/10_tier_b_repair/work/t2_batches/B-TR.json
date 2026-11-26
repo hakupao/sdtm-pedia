@@ -1,0 +1,419 @@
+{
+ "batch_id": "B-TR",
+ "order": 4,
+ "units": [
+  "domains/TR"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/TR/assumptions.md",
+  "knowledge_base/domains/TR/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 50,
+ "counts": {
+  "fix_atoms": 19,
+  "VALUE_DIFF": 19,
+  "t2_recheck": 0,
+  "census_diff_tables": 2,
+  "census_kb_rows": 48,
+  "pdf_only_tables": 1,
+  "pdf_only_rows": 2,
+  "unparseable_tables": 1
+ },
+ "pdf_pages": [
+  355,
+  356,
+  357,
+  358
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/TR/assumptions.md",
+   "src": "ig34",
+   "lo": 350,
+   "hi": 358
+  },
+  {
+   "file": "knowledge_base/domains/TR/examples.md",
+   "src": "ig34",
+   "lo": 350,
+   "hi": 358
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0355_a002",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_HEADER",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:17",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a009",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:25",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a010",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:26",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a014",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:30",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a015",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:31",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a016",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:32",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a017",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:33",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a018",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:34",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a019",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:35",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a020",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:36",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a021",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:37",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a022",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:38",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a023",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:39",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a024",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:40",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a025",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:41",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a026",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:42",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0355_a027",
+   "class": "VALUE_DIFF",
+   "page": 355,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:43",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0356_a001",
+   "class": "VALUE_DIFF",
+   "page": 356,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:44",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0356_a002",
+   "class": "VALUE_DIFF",
+   "page": 356,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.12.3 Tumor Identification/Tumor Results Examples",
+   "kb_loc": "knowledge_base/domains/TR/examples.md:45",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/TR/examples.md",
+    "line": 17,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "tr.xpt",
+    "pdf_pages": [
+     355,
+     356
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 55,
+    "n_cell": 54,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 54
+    },
+    "kb_lines_with_diff": [
+     21,
+     24,
+     25,
+     26,
+     30,
+     31,
+     32,
+     33,
+     34,
+     35,
+     36,
+     37,
+     38,
+     39,
+     40,
+     41,
+     42,
+     43,
+     44,
+     45
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/TR/examples.md",
+    "line": 68,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "tr.xpt",
+    "pdf_pages": [
+     356,
+     357,
+     358
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 90,
+    "n_cell": 85,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 85,
+     "PDF_ROW_MISSING": 4
+    },
+    "kb_lines_with_diff": [
+     70,
+     71,
+     72,
+     73,
+     74,
+     75,
+     76,
+     77,
+     78,
+     79,
+     80,
+     81,
+     82,
+     83,
+     84,
+     85,
+     86,
+     87,
+     88,
+     89,
+     90,
+     91,
+     92,
+     93,
+     94,
+     95,
+     96,
+     97
+    ]
+   }
+  ],
+  "pdf_only": [
+   {
+    "src": "ig34",
+    "pages": [
+     358
+    ],
+    "ex": "3",
+    "ds": "relrec.xpt",
+    "sec": "6.3.12.3",
+    "header": "Row STUDYID RDOMAIN USUBJID IDVAR IDVARVAL RELTYPE RELID",
+    "n_rows": 2
+   }
+  ],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/domains/TR/assumptions.md",
+    "line": 15,
+    "n_rows": 1,
+    "ex": null,
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [],
+ "notes": [
+  "Ex2 PDF 跳 Row 12 → 行号 diff 是 PDF_TYPO 候选 (不改 KB 行号, 登记); 但其中 9 条另有真 KB 错 (VISIT/TRDTC 列错位, 多填日期, TRREASND) 必须修",
+  "Ex3 TRMETHOD/TRNAM 列互换"
+ ]
+}

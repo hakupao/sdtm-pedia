@@ -1,0 +1,487 @@
+{
+ "batch_id": "B-MB",
+ "order": 5,
+ "units": [
+  "domains/MB"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/MB/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 47,
+ "counts": {
+  "fix_atoms": 12,
+  "VALUE_DIFF": 4,
+  "REAL_GAP": 8,
+  "t2_recheck": 0,
+  "census_diff_tables": 11,
+  "census_kb_rows": 36,
+  "pdf_only_tables": 2,
+  "pdf_only_rows": 8,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  256,
+  257,
+  258,
+  260,
+  261,
+  262,
+  263
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "src": "ig34",
+   "lo": 248,
+   "hi": 262
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0263_a001",
+   "class": "REAL_GAP",
+   "page": 263,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.3.5.7 Microbiology Domains",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0263_a004",
+   "class": "REAL_GAP",
+   "page": 263,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.7 Microbiology Domains",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0263_a005",
+   "class": "REAL_GAP",
+   "page": 263,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.7 Microbiology Domains",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0263_a006",
+   "class": "REAL_GAP",
+   "page": 263,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.3.5.7 Microbiology Domains",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0263_a009",
+   "class": "REAL_GAP",
+   "page": 263,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.7 Microbiology Domains",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0263_a011",
+   "class": "REAL_GAP",
+   "page": 263,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.7 Microbiology Domains",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0263_a013",
+   "class": "REAL_GAP",
+   "page": 263,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.7 Microbiology Domains",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0263_a014",
+   "class": "REAL_GAP",
+   "page": 263,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.7 Microbiology Domains",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0261_a014",
+   "class": "VALUE_DIFF",
+   "page": 261,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§6.3.5.7 Microbiology Domains",
+   "kb_loc": "knowledge_base/domains/MB/examples.md:142",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0262_a003",
+   "class": "VALUE_DIFF",
+   "page": 262,
+   "src": "ig34",
+   "atom_type": "TABLE_HEADER",
+   "section": "§6.3.5.7 Microbiology Domains",
+   "kb_loc": "knowledge_base/domains/MB/examples.md:151",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0260_a009",
+   "class": "VALUE_DIFF",
+   "page": 260,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples",
+   "kb_loc": "knowledge_base/domains/MB/examples.md:340",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0260_a015",
+   "class": "VALUE_DIFF",
+   "page": 260,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples",
+   "kb_loc": "knowledge_base/domains/MB/examples.md:346",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/MB/examples.md",
+    "line": 11,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "mb.xpt",
+    "pdf_pages": [
+     256
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": true,
+    "n_diffs": 15,
+    "n_cell": 14,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 14
+    },
+    "kb_lines_with_diff": [
+     13,
+     14
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MB/examples.md",
+    "line": 33,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "be.xpt",
+    "pdf_pages": [
+     257
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": true,
+    "n_diffs": 4,
+    "n_cell": 4,
+    "diff_types": {
+     "CELL": 4
+    },
+    "kb_lines_with_diff": [
+     35,
+     36,
+     37
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MB/examples.md",
+    "line": 63,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "mb.xpt",
+    "pdf_pages": [
+     258
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": true,
+    "n_diffs": 17,
+    "n_cell": 16,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 16
+    },
+    "kb_lines_with_diff": [
+     65,
+     66,
+     67,
+     68,
+     69,
+     70,
+     71,
+     72
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MB/examples.md",
+    "line": 76,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "suppmb.xpt",
+    "pdf_pages": [
+     258
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": true,
+    "n_diffs": 2,
+    "n_cell": 2,
+    "diff_types": {
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     78
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MB/examples.md",
+    "line": 98,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "be.xpt",
+    "pdf_pages": [
+     260
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": true,
+    "n_diffs": 2,
+    "n_cell": 2,
+    "diff_types": {
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     100,
+     107
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MB/examples.md",
+    "line": 151,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "mb.xpt",
+    "pdf_pages": [
+     262
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 25,
+    "n_cell": 24,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 24
+    },
+    "kb_lines_with_diff": [
+     153,
+     154,
+     155,
+     156,
+     157,
+     158
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MB/examples.md",
+    "line": 162,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "suppmb.xpt",
+    "pdf_pages": [
+     262
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 11,
+    "n_cell": 11,
+    "diff_types": {
+     "CELL": 11
+    },
+    "kb_lines_with_diff": [
+     164,
+     168,
+     169
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MB/examples.md",
+    "line": 212,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "ms.xpt",
+    "pdf_pages": [
+     257
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 2,
+    "n_cell": 2,
+    "diff_types": {
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     216
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MB/examples.md",
+    "line": 277,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "mb.xpt",
+    "pdf_pages": [
+     258
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 6,
+    "n_cell": 6,
+    "diff_types": {
+     "CELL": 6
+    },
+    "kb_lines_with_diff": [
+     279,
+     280,
+     281,
+     282,
+     283,
+     284
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MB/examples.md",
+    "line": 335,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "be.xpt",
+    "pdf_pages": [
+     260
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 2,
+    "n_cell": 2,
+    "diff_types": {
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     340,
+     346
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/MB/examples.md",
+    "line": 388,
+    "status": "DIFF",
+    "ex": "4",
+    "ds": "mb.xpt",
+    "pdf_pages": [
+     263
+    ],
+    "pdf_ex": "4",
+    "kb_duplicate": false,
+    "n_diffs": 3,
+    "n_cell": 2,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     390,
+     391
+    ]
+   }
+  ],
+  "pdf_only": [
+   {
+    "src": "ig34",
+    "pages": [
+     263
+    ],
+    "ex": "3",
+    "ds": "di.xpt",
+    "sec": "6.3.5.7.3",
+    "header": "Row STUDYID DOMAIN SPDEVID DISEQ DIPARMCD DIPARM DIVAL",
+    "n_rows": 2
+   },
+   {
+    "src": "ig34",
+    "pages": [
+     263
+    ],
+    "ex": "3",
+    "ds": "relrec.xpt",
+    "sec": "6.3.5.7.3",
+    "header": "Row STUDYID RDOMAIN USUBJID IDVAR IDVARVAL RELTYPE RELID",
+    "n_rows": 6
+   }
+  ],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [
+  "O9"
+ ],
+ "notes": [
+  "MB/examples.md 两份 Ex1-3 (行 1-170 / 171-400) 各有不同错 (O9): 两份都按 PDF 修, 都不删 (去重未裁, 待用户)",
+  "Ex3 di.xpt + relrec.xpt 缺 (PDF_ONLY p263): 补在 MB/examples.md Ex3 下 (DI 无 examples.md)"
+ ]
+}

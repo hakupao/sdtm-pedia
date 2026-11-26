@@ -1,8 +1,21 @@
-{"_note": "T1.4 errata overlay (main controller). kb_loc fixes verified by reviewers; pending_user = disputed REWRITE_OK vs REAL_GAP, carried as REAL_GAP until user rules (advisor: wrong REWRITE_OK is terminal).",
- "kb_loc": {"sv20_p0051_a013": "knowledge_base/model/05_study_level_data.md:23",
-            "sv20_p0055_a003": "knowledge_base/model/05_study_level_data.md:105",
-            "sv20_p0055_a004": "knowledge_base/model/05_study_level_data.md:106",
-            "ig34_p0247_a005": "@line:22",
-            "ig34_p0112_a009": "@line:65"},
- "pending_user": {"ig34_p0010_a023": "REAL_GAP", "ig34_p0011_a020": "REAL_GAP", "ig34_p0012_a005": "REAL_GAP", "ig34_p0056_a006": "REAL_GAP"},
- "mb_copy1_note_lines": [103, 107, 109]}
+{
+ "_note": "T1.4 errata overlay (main controller). kb_loc fixes verified by reviewers; pending_user = disputed REWRITE_OK vs REAL_GAP, carried as REAL_GAP until user rules (advisor: wrong REWRITE_OK is terminal).",
+ "kb_loc": {
+  "sv20_p0051_a013": "knowledge_base/model/05_study_level_data.md:23",
+  "sv20_p0055_a003": "knowledge_base/model/05_study_level_data.md:105",
+  "sv20_p0055_a004": "knowledge_base/model/05_study_level_data.md:106",
+  "ig34_p0247_a005": "@line:22",
+  "ig34_p0112_a009": "@line:65"
+ },
+ "pending_user": {
+  "ig34_p0010_a023": "REAL_GAP",
+  "ig34_p0011_a020": "REAL_GAP",
+  "ig34_p0012_a005": "REAL_GAP",
+  "ig34_p0056_a006": "REAL_GAP"
+ },
+ "mb_copy1_note_lines": [
+  103,
+  107,
+  109
+ ]
+}

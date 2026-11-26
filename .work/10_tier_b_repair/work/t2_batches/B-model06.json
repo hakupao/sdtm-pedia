@@ -1,0 +1,154 @@
+{
+ "batch_id": "B-model06",
+ "order": 39,
+ "units": [
+  "model/06_relationship_datasets.md"
+ ],
+ "kb_files": [
+  "knowledge_base/model/06_relationship_datasets.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 3,
+ "counts": {
+  "fix_atoms": 3,
+  "REAL_GAP": 3,
+  "t2_recheck": 0,
+  "census_diff_tables": 0,
+  "census_kb_rows": 0,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 9
+ },
+ "pdf_pages": [
+  68
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/model/06_relationship_datasets.md",
+   "src": "sv20",
+   "lo": 64,
+   "hi": 69
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "sv20_p0068_a012",
+   "class": "REAL_GAP",
+   "page": 68,
+   "src": "sv20",
+   "atom_type": "SENTENCE",
+   "section": "§6.6 [Associated Persons Relationships]",
+   "kb_loc": null,
+   "target": "knowledge_base/model/06_relationship_datasets.md:129",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:TARGET",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.6 APRELSUB; ledger 目标 model/04 错 (lane B)"
+  },
+  {
+   "atom_id": "sv20_p0068_a019",
+   "class": "REAL_GAP",
+   "page": 68,
+   "src": "sv20",
+   "atom_type": "SENTENCE",
+   "section": "§6.6 [Associated Persons Relationships]",
+   "kb_loc": null,
+   "target": "knowledge_base/model/06_relationship_datasets.md:129",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:TARGET",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.6 APRELSUB; ledger 目标 model/04 错 (lane B)"
+  },
+  {
+   "atom_id": "sv20_p0068_a020",
+   "class": "REAL_GAP",
+   "page": 68,
+   "src": "sv20",
+   "atom_type": "SENTENCE",
+   "section": "§6.6 [Associated Persons Relationships]",
+   "kb_loc": null,
+   "target": "knowledge_base/model/06_relationship_datasets.md:129",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:TARGET",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.6 APRELSUB; ledger 目标 model/04 错 (lane B)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/model/06_relationship_datasets.md",
+    "line": 29,
+    "n_rows": 10,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/06_relationship_datasets.md",
+    "line": 44,
+    "n_rows": 4,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/06_relationship_datasets.md",
+    "line": 61,
+    "n_rows": 13,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/06_relationship_datasets.md",
+    "line": 89,
+    "n_rows": 4,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/06_relationship_datasets.md",
+    "line": 104,
+    "n_rows": 5,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/06_relationship_datasets.md",
+    "line": 120,
+    "n_rows": 4,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/06_relationship_datasets.md",
+    "line": 135,
+    "n_rows": 5,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/06_relationship_datasets.md",
+    "line": 151,
+    "n_rows": 6,
+    "ex": null,
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/model/06_relationship_datasets.md",
+    "line": 166,
+    "n_rows": 7,
+    "ex": null,
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [],
+ "notes": [
+  "§6.6 APRELSUB 3 句 → :129 节"
+ ]
+}

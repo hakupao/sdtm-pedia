@@ -1,0 +1,153 @@
+{
+ "batch_id": "B-EG",
+ "order": 15,
+ "units": [
+  "domains/EG"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/EG/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 17,
+ "counts": {
+  "fix_atoms": 2,
+  "REAL_GAP": 1,
+  "VALUE_DIFF": 1,
+  "t2_recheck": 0,
+  "census_diff_tables": 3,
+  "census_kb_rows": 16,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  185,
+  190,
+  192
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "src": "ig34",
+   "lo": 185,
+   "hi": 192
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0185_a020",
+   "class": "REAL_GAP",
+   "page": 185,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.3.3 ECG Test Results (EG)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0190_a011",
+   "class": "VALUE_DIFF",
+   "page": 190,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.3.3 ECG Test Results (EG)",
+   "kb_loc": "knowledge_base/domains/EG/examples.md:33",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/EG/examples.md",
+    "line": 23,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "eg.xpt",
+    "pdf_pages": [
+     190
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 61,
+    "n_cell": 60,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 60
+    },
+    "kb_lines_with_diff": [
+     25,
+     26,
+     27,
+     28,
+     29,
+     30,
+     31,
+     32,
+     33,
+     34,
+     35,
+     36
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/EG/examples.md",
+    "line": 48,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "eg.xpt",
+    "pdf_pages": [
+     190
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 4,
+    "n_cell": 3,
+    "diff_types": {
+     "HEADER": 1,
+     "CELL": 3
+    },
+    "kb_lines_with_diff": [
+     50,
+     51
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/EG/examples.md",
+    "line": 101,
+    "status": "DIFF",
+    "ex": "4",
+    "ds": "eg.xpt",
+    "pdf_pages": [
+     192
+    ],
+    "pdf_ex": "4",
+    "kb_duplicate": false,
+    "n_diffs": 2,
+    "n_cell": 2,
+    "diff_types": {
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     105,
+     108
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [
+  "O6"
+ ],
+ "notes": []
+}

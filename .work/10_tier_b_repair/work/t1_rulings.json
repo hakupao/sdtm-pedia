@@ -1,0 +1,1397 @@
+{
+ "_note": "T1.4 user rulings overlay (t1_user_ack.md R1/R2/R4), applied by t1_merge.py after t1_errata.json. Lane/review files are not edited. Unlisted IE_CAND → IE (R4 整体 ack) keeping ie_cat.",
+ "built_by": "scripts/helpers/t14_rulings.py",
+ "date": "2026-11-26",
+ "atoms": {
+  "sv20_p0004_a003": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a005": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a007": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a008": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a009": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a011": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a012": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a013": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a015": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a018": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a019": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a020": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a021": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a022": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a023": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a024": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0004_a025": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0005_a002": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0005_a003": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0005_a005": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0005_a008": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0005_a009": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-intro",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §1 Introduction; model/01 从 §2 起 → 在 §2 前新增 §1 节 (PDF 原标题), 逐字补"
+  },
+  "sv20_p0068_a023": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0055_a003": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0055_a004": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0056_a008": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0056_a009": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0056_a010": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0057_a003": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0057_a004": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0057_a006": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0057_a007": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0057_a011": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0058_a003": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0058_a004": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0058_a013": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0058_a014": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0059_a008": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0059_a009": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0056_a019": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-TD",
+   "target": "knowledge_base/model/05_study_level_data.md",
+   "note": "sv20 §5.1.4.2 TD 句; 归属 model/05 '### Trial Disease Assessments (TD)' 节; TD/assumptions.md:3 是 IG 层近义改写, 不改"
+  },
+  "sv20_p0056_a020": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-TD",
+   "target": "knowledge_base/model/05_study_level_data.md",
+   "note": "sv20 §5.1.4.2 TD 句; 归属 model/05 '### Trial Disease Assessments (TD)' 节; TD/assumptions.md:3 是 IG 层近义改写, 不改"
+  },
+  "sv20_p0056_a022": {
+   "from": "IE_CAND",
+   "to": "REAL_GAP",
+   "rule": "R1-TD",
+   "target": "knowledge_base/model/05_study_level_data.md",
+   "note": "sv20 §5.1.4.2 TD 句; 归属 model/05 '### Trial Disease Assessments (TD)' 节; TD/assumptions.md:3 是 IG 层近义改写, 不改"
+  },
+  "sv20_p0064_a017": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0064_a019": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0064_a020": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0065_a001": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0065_a002": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a003": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a004": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a005": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a006": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a007": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a008": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a009": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a010": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a011": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a012": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a013": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a014": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0046_a015": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0047_a003": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0047_a004": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0047_a005": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0047_a006": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0047_a007": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0047_a008": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0047_a009": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0047_a010": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0047_a011": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0047_a012": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R1-row",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "sv20 变量表行; model/ 5 列精简版 #/name/label/type/role 与 PDF 一致; 缺列不补"
+  },
+  "sv20_p0068_a012": {
+   "from": "REAL_GAP",
+   "to": "REAL_GAP",
+   "rule": "TARGET",
+   "target": "knowledge_base/model/06_relationship_datasets.md:129",
+   "note": "§6.6 APRELSUB; ledger 目标 model/04 错 (lane B)"
+  },
+  "sv20_p0068_a019": {
+   "from": "REAL_GAP",
+   "to": "REAL_GAP",
+   "rule": "TARGET",
+   "target": "knowledge_base/model/06_relationship_datasets.md:129",
+   "note": "§6.6 APRELSUB; ledger 目标 model/04 错 (lane B)"
+  },
+  "sv20_p0068_a020": {
+   "from": "REAL_GAP",
+   "to": "REAL_GAP",
+   "rule": "TARGET",
+   "target": "knowledge_base/model/06_relationship_datasets.md:129",
+   "note": "§6.6 APRELSUB; ledger 目标 model/04 错 (lane B)"
+  },
+  "sv20_p0008_a007": {
+   "from": "REAL_GAP",
+   "to": "REAL_GAP",
+   "rule": "TARGET",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §2; 归属 model/01 (lane D, C10)"
+  },
+  "sv20_p0008_a009": {
+   "from": "REAL_GAP",
+   "to": "REAL_GAP",
+   "rule": "TARGET",
+   "target": "knowledge_base/model/01_concepts_and_terms.md",
+   "note": "sv20 §2; 归属 model/01 (lane D, C10)"
+  },
+  "ig34_p0285_a009": {
+   "from": "REAL_GAP",
+   "to": "REAL_GAP",
+   "rule": "TARGET",
+   "target": "knowledge_base/domains/NV/assumptions.md:5",
+   "note": "§6.3.7 概述宿主 NV/assumptions.md (lane D/C)"
+  },
+  "ig34_p0285_a010": {
+   "from": "REAL_GAP",
+   "to": "REAL_GAP",
+   "rule": "TARGET",
+   "target": "knowledge_base/domains/NV/assumptions.md:5",
+   "note": "§6.3.7 概述宿主 NV/assumptions.md (lane D/C)"
+  },
+  "ig34_p0194_a022": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a001": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a002": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a003": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a004": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a005": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a006": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a009": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a010": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a011": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a012": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a013": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a014": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a015": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a016": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a017": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a018": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a019": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a021": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0195_a023": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0196_a003": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0196_a004": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0196_a005": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0196_a006": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0196_a007": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0196_a008": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0196_a011": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0196_a013": {
+   "from": "LOCATE",
+   "to": "REAL_GAP",
+   "rule": "LOCATE-LB",
+   "target": "knowledge_base/domains/LB/assumptions.md:1",
+   "note": "§6.3.5.1 → LB/assumptions.md 顶部新增 §6.3.5.1 节 (先例 NV 承载 §6.3.7.1); 表行连同整张通用规格表 p195-196 一并补"
+  },
+  "ig34_p0363_a014": {
+   "from": "RELOCATE",
+   "to": "RELOCATE",
+   "rule": "TARGET",
+   "target": "knowledge_base/domains/FA/assumptions.md:62",
+   "note": "source knowledge_base/chapters/ch02_fundamentals.md:219 (仅这些行允许删除)"
+  },
+  "ig34_p0364_a003": {
+   "from": "RELOCATE",
+   "to": "RELOCATE",
+   "rule": "TARGET",
+   "target": "knowledge_base/domains/FA/assumptions.md:62",
+   "note": "source knowledge_base/chapters/ch02_fundamentals.md:227 (仅这些行允许删除)"
+  },
+  "ig34_p0364_a011": {
+   "from": "RELOCATE",
+   "to": "RELOCATE",
+   "rule": "TARGET",
+   "target": "knowledge_base/domains/FA/assumptions.md:64",
+   "note": "source knowledge_base/model/02_observation_classes.md:188-190 (仅这些行允许删除)"
+  },
+  "ig34_p0009_a026": {
+   "from": "REWRITE_OK",
+   "to": "REAL_GAP",
+   "rule": "R2-flip",
+   "note": "丢 'as noted in the table note' (指向表注的交叉引用)"
+  },
+  "ig34_p0011_a014": {
+   "from": "REWRITE_OK",
+   "to": "REAL_GAP",
+   "rule": "R2-flip",
+   "note": "数字 5 由行数隐含, 原文计数短语丢"
+  },
+  "ig34_p0011_a022": {
+   "from": "REWRITE_OK",
+   "to": "REAL_GAP",
+   "rule": "R2-flip",
+   "note": "'study day of the start' 由引语隐含; 与 a020 同口径 (a020 用户裁 REAL_GAP)"
+  },
+  "ig34_p0013_a018": {
+   "from": "REWRITE_OK",
+   "to": "REAL_GAP",
+   "rule": "R2-flip",
+   "note": "Define-XML 管理无数据 一句被移到同节 :102, 原位缺"
+  },
+  "sv20_p0008_a004": {
+   "from": "REWRITE_OK",
+   "to": "REAL_GAP",
+   "rule": "R2-flip",
+   "note": "丢 '(see Concept Map, below)' 交叉引用"
+  },
+  "ig34_p0010_a009": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "'Format' 小标题丢 (仅标签)",
+   "t2_recheck": true
+  },
+  "ig34_p0011_a017": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "'equivalent terms' 改写为 'for'",
+   "t2_recheck": true
+  },
+  "sv20_p0009_a016": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "括号内概念示例被具体变量例替换",
+   "t2_recheck": true
+  },
+  "sv20_p0009_a019": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "'described in Section 2.2' 交叉引用因所在即 2.2 而略",
+   "t2_recheck": true
+  },
+  "ig34_p0043_a012": {
+   "from": "REWRITE_OK",
+   "to": "REAL_GAP",
+   "rule": "D4",
+   "note": "C02 标杆与 R2 冲突; 按 R2 改 REAL_GAP (主控 2026-11-26, t1_user_ack.md D4)"
+  },
+  "ig34_p0043_a013": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "C02 型: 参考期由 :894 覆盖",
+   "t2_recheck": true
+  },
+  "ig34_p0044_a003": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "两种情形被压成一条限制说明",
+   "t2_recheck": true
+  },
+  "ig34_p0044_a004": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "C02 型: 排除 AFTER 在 :916 另行",
+   "t2_recheck": true
+  },
+  "ig34_p0044_a008": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "C02 型: AFTER 有效条件在 :916 另行",
+   "t2_recheck": true
+  },
+  "ig34_p0367_a013": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "4 行合并为 1 行, 症状-选项对应靠顺序",
+   "t2_recheck": true
+  },
+  "ig34_p0367_a016": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "4 行合并为 1 行, 症状-选项对应靠顺序",
+   "t2_recheck": true
+  },
+  "ig34_p0367_a019": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "4 行合并为 1 行, 症状-选项对应靠顺序",
+   "t2_recheck": true
+  },
+  "ig34_p0374_a011": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "KB 表头 6 列 / 数据行 9 列, 表格不齐",
+   "t2_recheck": true
+  },
+  "ig34_p0139_a010": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "KB 把 '…/etc.' 扩写成 6 项 (O11, 超出 PDF)",
+   "t2_recheck": true
+  },
+  "ig34_p0121_a005": {
+   "from": "REWRITE_OK",
+   "to": "REWRITE_OK",
+   "rule": "R2-recheck",
+   "note": "数据集标题行 'ml.xpt … Tabulation' 由文件约定隐含 (同 R4 受阻 5 条标题行, 待用户)",
+   "t2_recheck": true
+  },
+  "ig34_p0010_a023": {
+   "from": "REAL_GAP",
+   "to": "REAL_GAP",
+   "rule": "R2-ack",
+   "note": "T1.4 争议 4 条, 用户维持 REAL_GAP"
+  },
+  "ig34_p0011_a020": {
+   "from": "REAL_GAP",
+   "to": "REAL_GAP",
+   "rule": "R2-ack",
+   "note": "T1.4 争议 4 条, 用户维持 REAL_GAP"
+  },
+  "ig34_p0012_a005": {
+   "from": "REAL_GAP",
+   "to": "REAL_GAP",
+   "rule": "R2-ack",
+   "note": "T1.4 争议 4 条, 用户维持 REAL_GAP"
+  },
+  "ig34_p0056_a006": {
+   "from": "REAL_GAP",
+   "to": "REAL_GAP",
+   "rule": "R2-ack",
+   "note": "T1.4 争议 4 条, 用户维持 REAL_GAP"
+  },
+  "ig34_p0148_a017": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-blocked",
+   "ie_cat": "REDUNDANT_WITH_SPEC",
+   "note": "用户裁 PRESENT, 但 fp_match.norm 全文件不命中 (KB '> Class: … | Structure: …' 缺 'xx.xpt,' 与 'Tabulation') → 暂留 IE, 待用户"
+  },
+  "ig34_p0185_a022": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-blocked",
+   "ie_cat": "REDUNDANT_WITH_SPEC",
+   "note": "用户裁 PRESENT, 但 fp_match.norm 全文件不命中 (KB '> Class: … | Structure: …' 缺 'xx.xpt,' 与 'Tabulation') → 暂留 IE, 待用户"
+  },
+  "ig34_p0017_a029": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:34"
+  },
+  "ig34_p0017_a031": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:35"
+  },
+  "ig34_p0017_a033": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:36"
+  },
+  "ig34_p0017_a035": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:37"
+  },
+  "ig34_p0018_a003": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:39"
+  },
+  "ig34_p0018_a007": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:41"
+  },
+  "ig34_p0018_a009": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:42"
+  },
+  "ig34_p0018_a011": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:43"
+  },
+  "ig34_p0018_a013": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:44"
+  },
+  "ig34_p0018_a015": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:45"
+  },
+  "ig34_p0018_a019": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:47"
+  },
+  "ig34_p0018_a021": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:48"
+  },
+  "ig34_p0018_a023": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:49"
+  },
+  "ig34_p0018_a025": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:50"
+  },
+  "ig34_p0018_a027": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:51"
+  },
+  "ig34_p0018_a029": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:52"
+  },
+  "ig34_p0018_a031": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:53"
+  },
+  "ig34_p0018_a033": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:54"
+  },
+  "ig34_p0018_a039": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:57"
+  },
+  "ig34_p0018_a041": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:58"
+  },
+  "ig34_p0018_a043": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:59"
+  },
+  "ig34_p0018_a045": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:60"
+  },
+  "ig34_p0018_a049": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:62"
+  },
+  "ig34_p0018_a051": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:63"
+  },
+  "ig34_p0019_a005": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:66"
+  },
+  "ig34_p0019_a007": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:67"
+  },
+  "ig34_p0019_a009": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:68"
+  },
+  "ig34_p0019_a011": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:69"
+  },
+  "ig34_p0019_a013": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:70"
+  },
+  "ig34_p0019_a015": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:71"
+  },
+  "ig34_p0019_a017": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:72"
+  },
+  "ig34_p0019_a021": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:74"
+  },
+  "ig34_p0019_a023": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:75"
+  },
+  "ig34_p0019_a025": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:76"
+  },
+  "ig34_p0019_a027": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:77"
+  },
+  "ig34_p0019_a029": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:78"
+  },
+  "ig34_p0019_a031": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:79"
+  },
+  "ig34_p0019_a035": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:81"
+  },
+  "ig34_p0019_a037": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:82"
+  },
+  "ig34_p0019_a039": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:83"
+  },
+  "ig34_p0183_a006": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-blocked",
+   "ie_cat": "REDUNDANT_WITH_SPEC",
+   "note": "用户裁 PRESENT, 但 fp_match.norm 全文件不命中 (KB '> Class: … | Structure: …' 缺 'xx.xpt,' 与 'Tabulation') → 暂留 IE, 待用户"
+  },
+  "ig34_p0129_a005": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-blocked",
+   "ie_cat": "REDUNDANT_WITH_SPEC",
+   "note": "用户裁 PRESENT, 但 fp_match.norm 全文件不命中 (KB '> Class: … | Structure: …' 缺 'xx.xpt,' 与 'Tabulation') → 暂留 IE, 待用户"
+  },
+  "ig34_p0017_a037": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present-sibling",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:38"
+  },
+  "ig34_p0018_a005": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present-sibling",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:40"
+  },
+  "ig34_p0018_a017": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present-sibling",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:46"
+  },
+  "ig34_p0018_a035": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present-sibling",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:55"
+  },
+  "ig34_p0018_a037": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present-sibling",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:56"
+  },
+  "ig34_p0018_a047": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present-sibling",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:61"
+  },
+  "ig34_p0019_a003": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present-sibling",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:65"
+  },
+  "ig34_p0019_a019": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present-sibling",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:73"
+  },
+  "ig34_p0019_a033": {
+   "from": "IE_CAND",
+   "to": "PRESENT",
+   "rule": "R4-present-sibling",
+   "note": "逐字在 knowledge_base/chapters/ch03_submitting_data.md:80"
+  },
+  "ig34_p0134_a002": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-blocked",
+   "ie_cat": "REDUNDANT_WITH_SPEC",
+   "note": "同 R4 标题行 (T1.3 已复核, 不在 44 内); 非逐字 → 暂留 IE, 待用户"
+  },
+  "ig34_p0064_a011": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "REDUNDANT_WITH_SPEC",
+   "note": "EDITORIAL_META → REDUNDANT_WITH_SPEC (whitelist 先例)"
+  },
+  "ig34_p0195_a008": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "SPEC_TABLE_HEADER",
+   "note": "None → SPEC_TABLE_HEADER (whitelist 先例)"
+  },
+  "ig34_p0193_a025": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "REDUNDANT_WITH_SPEC",
+   "note": "EDITORIAL_META → REDUNDANT_WITH_SPEC (whitelist 先例)"
+  },
+  "ig34_p0172_a0013": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "REDUNDANT_WITH_SPEC",
+   "note": "EDITORIAL_META → REDUNDANT_WITH_SPEC (whitelist 先例)"
+  },
+  "sv20_p0002_a002": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "EDITORIAL_META → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0002_a003": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "EDITORIAL_META → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0002_a007": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "EDITORIAL_META → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0002_a011": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "EDITORIAL_META → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0002_a015": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "EDITORIAL_META → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0002_a029": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "EDITORIAL_META → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0002_a033": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "EDITORIAL_META → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0002_a036": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "EDITORIAL_META → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0002_a041": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "EDITORIAL_META → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0055_a002": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "SPEC_TABLE_HEADER → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0056_a007": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "SPEC_TABLE_HEADER → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0057_a002": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "SPEC_TABLE_HEADER → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0058_a002": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "SPEC_TABLE_HEADER → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0058_a012": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "SPEC_TABLE_HEADER → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "sv20_p0059_a007": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "VERSION_MISMATCH",
+   "note": "SPEC_TABLE_HEADER → VERSION_MISMATCH (whitelist 先例)"
+  },
+  "ig34_p0288_a018": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "REDUNDANT_WITH_SPEC",
+   "note": "EDITORIAL_META → REDUNDANT_WITH_SPEC (whitelist 先例)"
+  },
+  "ig34_p0320_a023": {
+   "from": "IE_CAND",
+   "to": "IE",
+   "rule": "R4-relabel",
+   "ie_cat": "REDUNDANT_WITH_SPEC",
+   "note": "EDITORIAL_META → REDUNDANT_WITH_SPEC (whitelist 先例)"
+  }
+ }
+}

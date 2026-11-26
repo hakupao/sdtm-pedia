@@ -1,0 +1,116 @@
+{
+ "batch_id": "B-HO",
+ "order": 44,
+ "units": [
+  "domains/HO"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/HO/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 2,
+ "counts": {
+  "fix_atoms": 2,
+  "VALUE_DIFF": 2,
+  "t2_recheck": 0,
+  "census_diff_tables": 2,
+  "census_kb_rows": 2,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  169,
+  170,
+  171
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/HO/examples.md",
+   "src": "ig34",
+   "lo": 167,
+   "hi": 171
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0169_a0024",
+   "class": "VALUE_DIFF",
+   "page": 169,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.2.5 Healthcare Encounters (HO)",
+   "kb_loc": "knowledge_base/domains/HO/examples.md:25",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "reviewer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0171_a0002",
+   "class": "VALUE_DIFF",
+   "page": 171,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "§6.2.5 Healthcare Encounters (HO)",
+   "kb_loc": "knowledge_base/domains/HO/examples.md:72",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/HO/examples.md",
+    "line": 19,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "ho.xpt",
+    "pdf_pages": [
+     170
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     25
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/HO/examples.md",
+    "line": 61,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "ho.xpt",
+    "pdf_pages": [
+     170,
+     171
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     72
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

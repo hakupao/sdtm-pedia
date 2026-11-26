@@ -1,0 +1,129 @@
+{
+ "batch_id": "B-BE",
+ "order": 27,
+ "units": [
+  "domains/BE"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/BE/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 6,
+ "counts": {
+  "fix_atoms": 0,
+  "t2_recheck": 0,
+  "census_diff_tables": 4,
+  "census_kb_rows": 6,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  145,
+  146,
+  147
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/BE/examples.md",
+   "src": "ig34",
+   "lo": 143,
+   "hi": 148
+  }
+ ],
+ "atoms": [],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/BE/examples.md",
+    "line": 27,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "suppbe.xpt",
+    "pdf_pages": [
+     145
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     29
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/BE/examples.md",
+    "line": 39,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "bs.xpt",
+    "pdf_pages": [
+     146
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 4,
+    "n_cell": 4,
+    "diff_types": {
+     "CELL": 4
+    },
+    "kb_lines_with_diff": [
+     41,
+     43
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/BE/examples.md",
+    "line": 120,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "bs.xpt",
+    "pdf_pages": [
+     147
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 2,
+    "n_cell": 2,
+    "diff_types": {
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     124,
+     125
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/BE/examples.md",
+    "line": 136,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "relspec.xpt",
+    "pdf_pages": [
+     147
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 1,
+    "n_cell": 1,
+    "diff_types": {
+     "CELL": 1
+    },
+    "kb_lines_with_diff": [
+     138
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

@@ -1,0 +1,84 @@
+{
+ "batch_id": "B-BS",
+ "order": 30,
+ "units": [
+  "domains/BS"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/BS/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 5,
+ "counts": {
+  "fix_atoms": 1,
+  "VALUE_DIFF": 1,
+  "t2_recheck": 0,
+  "census_diff_tables": 1,
+  "census_kb_rows": 4,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  198,
+  199
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/BS/examples.md",
+   "src": "ig34",
+   "lo": 196,
+   "hi": 199
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0198_a020",
+   "class": "VALUE_DIFF",
+   "page": 198,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.3.5.2 Biospecimen Findings (BS)",
+   "kb_loc": "knowledge_base/domains/BS/examples.md:7",
+   "target": null,
+   "pdf_typo_suspect": true,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/BS/examples.md",
+    "line": 15,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "bs.xpt",
+    "pdf_pages": [
+     199
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 7,
+    "n_cell": 7,
+    "diff_types": {
+     "CELL": 7
+    },
+    "kb_lines_with_diff": [
+     17,
+     18,
+     19,
+     20
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}

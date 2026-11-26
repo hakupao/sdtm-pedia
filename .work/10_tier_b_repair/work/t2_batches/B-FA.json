@@ -1,0 +1,401 @@
+{
+ "batch_id": "B-FA",
+ "order": 17,
+ "units": [
+  "domains/FA"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/FA/assumptions.md",
+  "knowledge_base/domains/FA/examples.md"
+ ],
+ "delete_only_source_lines": [
+  {
+   "file": "knowledge_base/chapters/ch02_fundamentals.md",
+   "lines_at_base": [
+    219,
+    227
+   ],
+   "atoms": [
+    "ig34_p0363_a014",
+    "ig34_p0364_a003"
+   ],
+   "anchors": [
+    "2. A split FA domain following",
+    "- The DOMAIN value is sponsor-defined"
+   ],
+   "line_basis": "行号 = 本 JSON 生成时 (base dfa9eee + 未改 KB); 若同文件的批已先跑, 按 anchors 内容重新定位; 只删这些行"
+  },
+  {
+   "file": "knowledge_base/model/02_observation_classes.md",
+   "lines_at_base": [
+    188,
+    189,
+    190
+   ],
+   "atoms": [
+    "ig34_p0364_a011"
+   ],
+   "anchors": [
+    "### §6.4.3 Variables Unique to Findings",
+    "",
+    "The variable --OBJ is unique to"
+   ],
+   "line_basis": "行号 = 本 JSON 生成时 (base dfa9eee + 未改 KB); 若同文件的批已先跑, 按 anchors 内容重新定位; 只删这些行"
+  }
+ ],
+ "serial_with": [
+  "B-ch02"
+ ],
+ "workload": 16,
+ "counts": {
+  "fix_atoms": 8,
+  "RELOCATE": 3,
+  "VALUE_DIFF": 4,
+  "REAL_GAP": 1,
+  "t2_recheck": 4,
+  "census_diff_tables": 3,
+  "census_kb_rows": 12,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 9
+ },
+ "pdf_pages": [
+  363,
+  364,
+  367,
+  370,
+  371,
+  373,
+  374
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/FA/assumptions.md",
+   "src": "ig34",
+   "lo": 364,
+   "hi": 375
+  },
+  {
+   "file": "knowledge_base/domains/FA/examples.md",
+   "src": "ig34",
+   "lo": 364,
+   "hi": 375
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0373_a012",
+   "class": "REAL_GAP",
+   "page": 373,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "FA – Examples",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0363_a014",
+   "class": "RELOCATE",
+   "page": 363,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§6.4.2 Naming Findings About Domains",
+   "kb_loc": "knowledge_base/chapters/ch02_fundamentals.md:219",
+   "target": "knowledge_base/domains/FA/assumptions.md:62",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:TARGET",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)",
+   "ruling_note": "source knowledge_base/chapters/ch02_fundamentals.md:219 (仅这些行允许删除)"
+  },
+  {
+   "atom_id": "ig34_p0364_a003",
+   "class": "RELOCATE",
+   "page": 364,
+   "src": "ig34",
+   "atom_type": "LIST_ITEM",
+   "section": "§6.4.2 Naming Findings About Domains",
+   "kb_loc": "knowledge_base/chapters/ch02_fundamentals.md:227",
+   "target": "knowledge_base/domains/FA/assumptions.md:62",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:TARGET",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)",
+   "ruling_note": "source knowledge_base/chapters/ch02_fundamentals.md:227 (仅这些行允许删除)"
+  },
+  {
+   "atom_id": "ig34_p0370_a009",
+   "class": "VALUE_DIFF",
+   "page": 370,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "FA – Examples",
+   "kb_loc": "knowledge_base/domains/FA/examples.md:105",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0370_a016",
+   "class": "VALUE_DIFF",
+   "page": 370,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "FA – Examples",
+   "kb_loc": "knowledge_base/domains/FA/examples.md:112",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0371_a018",
+   "class": "VALUE_DIFF",
+   "page": 371,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "FA – Examples",
+   "kb_loc": "knowledge_base/domains/FA/examples.md:155",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0373_a024",
+   "class": "VALUE_DIFF",
+   "page": 373,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "FA – Examples",
+   "kb_loc": "knowledge_base/domains/FA/examples.md:244",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0364_a011",
+   "class": "RELOCATE",
+   "page": 364,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.4.3 Variables Unique to Findings About",
+   "kb_loc": "knowledge_base/model/02_observation_classes.md:190",
+   "target": "knowledge_base/domains/FA/assumptions.md:64",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:TARGET",
+   "triage_ref": "work/triage/lane_A.jsonl (+ review_lane_A.jsonl; gitignored, 本地读)",
+   "ruling_note": "source knowledge_base/model/02_observation_classes.md:188-190 (仅这些行允许删除)"
+  }
+ ],
+ "t2_recheck": [
+  {
+   "atom_id": "ig34_p0367_a013",
+   "class": "REWRITE_OK",
+   "page": 367,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "FA – Examples",
+   "kb_loc": "knowledge_base/domains/FA/examples.md:14",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-recheck",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)",
+   "ruling_note": "4 行合并为 1 行, 症状-选项对应靠顺序"
+  },
+  {
+   "atom_id": "ig34_p0367_a016",
+   "class": "REWRITE_OK",
+   "page": 367,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "FA – Examples",
+   "kb_loc": "knowledge_base/domains/FA/examples.md:17",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-recheck",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)",
+   "ruling_note": "4 行合并为 1 行, 症状-选项对应靠顺序"
+  },
+  {
+   "atom_id": "ig34_p0367_a019",
+   "class": "REWRITE_OK",
+   "page": 367,
+   "src": "ig34",
+   "atom_type": "TABLE_ROW",
+   "section": "FA – Examples",
+   "kb_loc": "knowledge_base/domains/FA/examples.md:20",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-recheck",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)",
+   "ruling_note": "4 行合并为 1 行, 症状-选项对应靠顺序"
+  },
+  {
+   "atom_id": "ig34_p0374_a011",
+   "class": "REWRITE_OK",
+   "page": 374,
+   "src": "ig34",
+   "atom_type": "TABLE_HEADER",
+   "section": "FA – Examples",
+   "kb_loc": "knowledge_base/domains/FA/examples.md:264",
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:R2-recheck",
+   "triage_ref": "work/triage/lane_B.jsonl (+ review_lane_B.jsonl; gitignored, 本地读)",
+   "ruling_note": "KB 表头 6 列 / 数据行 9 列, 表格不齐"
+  }
+ ],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/FA/examples.md",
+    "line": 101,
+    "status": "DIFF",
+    "ex": "2",
+    "ds": "faae.xpt",
+    "pdf_pages": [
+     370
+    ],
+    "pdf_ex": "2",
+    "kb_duplicate": false,
+    "n_diffs": 2,
+    "n_cell": 2,
+    "diff_types": {
+     "CELL": 2
+    },
+    "kb_lines_with_diff": [
+     105,
+     112
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/FA/examples.md",
+    "line": 153,
+    "status": "DIFF",
+    "ex": "3",
+    "ds": "mh.xpt",
+    "pdf_pages": [
+     371
+    ],
+    "pdf_ex": "3",
+    "kb_duplicate": false,
+    "n_diffs": 7,
+    "n_cell": 7,
+    "diff_types": {
+     "CELL": 7
+    },
+    "kb_lines_with_diff": [
+     155,
+     156,
+     157,
+     158,
+     159,
+     160
+    ]
+   },
+   {
+    "file": "knowledge_base/domains/FA/examples.md",
+    "line": 240,
+    "status": "DIFF",
+    "ex": "5",
+    "ds": "face.xpt",
+    "pdf_pages": [
+     373,
+     374
+    ],
+    "pdf_ex": "5",
+    "kb_duplicate": false,
+    "n_diffs": 4,
+    "n_cell": 4,
+    "diff_types": {
+     "CELL": 4
+    },
+    "kb_lines_with_diff": [
+     244,
+     247,
+     250,
+     254
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": [
+   {
+    "file": "knowledge_base/domains/FA/examples.md",
+    "line": 7,
+    "n_rows": 12,
+    "ex": "1",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/FA/examples.md",
+    "line": 76,
+    "n_rows": 10,
+    "ex": "2",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/FA/examples.md",
+    "line": 133,
+    "n_rows": 2,
+    "ex": "3",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/FA/examples.md",
+    "line": 138,
+    "n_rows": 5,
+    "ex": "3",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/FA/examples.md",
+    "line": 176,
+    "n_rows": 4,
+    "ex": "4",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/FA/examples.md",
+    "line": 220,
+    "n_rows": 4,
+    "ex": "5",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/FA/examples.md",
+    "line": 264,
+    "n_rows": 4,
+    "ex": "6",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/FA/examples.md",
+    "line": 274,
+    "n_rows": 1,
+    "ex": "6",
+    "ds": null
+   },
+   {
+    "file": "knowledge_base/domains/FA/examples.md",
+    "line": 280,
+    "n_rows": 1,
+    "ex": "6",
+    "ds": null
+   }
+  ]
+ },
+ "out_of_scope": [
+  "O10"
+ ],
+ "notes": [
+  "RELOCATE 3: 本批独占; ch02_fundamentals.md:219,227 与 model/02_observation_classes.md:188-190 **只允许删除这些行** (移到 FA/assumptions.md:62 / :64);",
+  "本批与 B-ch02 / B-model02 串行 (同文件)"
+ ]
+}

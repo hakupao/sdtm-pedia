@@ -1,0 +1,118 @@
+{
+ "batch_id": "B-NV",
+ "order": 31,
+ "units": [
+  "domains/NV"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/NV/assumptions.md",
+  "knowledge_base/domains/NV/examples.md"
+ ],
+ "delete_only_source_lines": [],
+ "serial_with": [],
+ "workload": 5,
+ "counts": {
+  "fix_atoms": 3,
+  "REAL_GAP": 3,
+  "t2_recheck": 0,
+  "census_diff_tables": 1,
+  "census_kb_rows": 2,
+  "pdf_only_tables": 0,
+  "pdf_only_rows": 0,
+  "unparseable_tables": 0
+ },
+ "pdf_pages": [
+  285,
+  294,
+  296
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/NV/assumptions.md",
+   "src": "ig34",
+   "lo": 294,
+   "hi": 298
+  },
+  {
+   "file": "knowledge_base/domains/NV/examples.md",
+   "src": "ig34",
+   "lo": 294,
+   "hi": 298
+  }
+ ],
+ "atoms": [
+  {
+   "atom_id": "ig34_p0294_a013",
+   "class": "REAL_GAP",
+   "page": 294,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.3.7.4 Nervous System Findings (NV)",
+   "kb_loc": null,
+   "target": null,
+   "pdf_typo_suspect": false,
+   "triage_src": "writer",
+   "triage_ref": "work/triage/lane_C.jsonl (+ review_lane_C.jsonl; gitignored, 本地读)"
+  },
+  {
+   "atom_id": "ig34_p0285_a009",
+   "class": "REAL_GAP",
+   "page": 285,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.3.7 Morphology/Physiology Domains",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/NV/assumptions.md:5",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:TARGET",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.7 概述宿主 NV/assumptions.md (lane D/C)"
+  },
+  {
+   "atom_id": "ig34_p0285_a010",
+   "class": "REAL_GAP",
+   "page": 285,
+   "src": "ig34",
+   "atom_type": "SENTENCE",
+   "section": "§6.3.7 Morphology/Physiology Domains",
+   "kb_loc": null,
+   "target": "knowledge_base/domains/NV/assumptions.md:5",
+   "pdf_typo_suspect": false,
+   "triage_src": "ruling:TARGET",
+   "triage_ref": "work/triage/lane_D.jsonl (+ review_lane_D.jsonl; gitignored, 本地读)",
+   "ruling_note": "§6.3.7 概述宿主 NV/assumptions.md (lane D/C)"
+  }
+ ],
+ "t2_recheck": [],
+ "census": {
+  "source": "work/census_full.json (v2)",
+  "diff_tables": [
+   {
+    "file": "knowledge_base/domains/NV/examples.md",
+    "line": 15,
+    "status": "DIFF",
+    "ex": "1",
+    "ds": "nv.xpt",
+    "pdf_pages": [
+     296
+    ],
+    "pdf_ex": "1",
+    "kb_duplicate": false,
+    "n_diffs": 4,
+    "n_cell": 4,
+    "diff_types": {
+     "CELL": 4
+    },
+    "kb_lines_with_diff": [
+     17,
+     18
+    ]
+   }
+  ],
+  "pdf_only": [],
+  "pdf_unparsed": [],
+  "unparseable_kb_tables_hand_check_if_touched": []
+ },
+ "out_of_scope": [],
+ "notes": []
+}
