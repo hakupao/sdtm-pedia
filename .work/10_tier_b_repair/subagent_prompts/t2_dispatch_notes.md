@@ -1,0 +1,21 @@
+# T2 dispatch notes (主控, B-PCPP 试点后的口径补充; writer/reviewer/auditor 都要读)
+- RELOCATE 不在原处留指针; 只有 D2 重复副本去重才留一行交叉引用.
+- census 用同一 bbox 解析器生成并自比 = 自证. reviewer 对新增/重建的表须用独立方法 (layout 列位置或渲染图) 复核.
+- 居中/不可机检表 (NO_PDF / UNPARSEABLE / census 读串列): reviewer 必须对渲染图逐格人工核, 不采信 writer 的 "解析器读串列, KB 是对的".
+- reviewer 读 KB 长行时不要截断显示 (cut/head -c), 防止把显示截断误判为内容截断 (B-PCPP reviewer 缺陷 3 即此误判).
+- PDF_TYPO: KB 保留合理值, 登记 T-n; PDF 自身拼写错 (如 pre-corrdinating) KB 保留正确拼写.
+- KB_AUTHORED (KB 自写, PDF 无对应): 与 PDF 矛盾 → D2 删扩写; 纯导航且不矛盾 → 保留并在 checkpoint 列出.
+- 叙述段: 即使不在 atoms 里, 批内发现的 PDF 叙述缺失也补 (R3 全部纳入), checkpoint 记 "新增 atom 清单".
+- 每个 agent 的 scratch 只用 `/private/tmp/claude-501/-Volumes-DevSSD-Project-sdtm-pedia/7fe38595-6d99-4b86-881d-0dfb0d270167/scratchpad/t2_<BATCH>_<role>/`, 绝不写进仓库目录.
+- 不 commit (主控按批 commit). 多批并行: 只改本批 kb_files, 不碰别批文件.
+
+## 补充口径 (B-CP 后, 主控 2026-11-26)
+- **PDF_TYPO 取舍规则**: 正确值能由 PDF 自身确定 (同行其他列、同表连续编号、spec/CT、叙述明确) → KB 写正确值并登记; 无法由 PDF 自身确定 → 照录 PDF 并登记为 T4 用户裁定项. 每条登记写明依据.
+- **R2 插入后残留的旧改写句**: 若该行 fp_match 显示不承载其他 PRESENT/REWRITE_OK 原子 → 删除旧改写句 (D2 去重), 列入删除清单; 承载其他原子 → 保留, 记录原因.
+- **KB 自写占位句** (如 "the table shows …" 而真表已补) → 删除 (D2 删扩写).
+- **KB 自写附录 / 摘要与 PDF 内容重复** → 留 PDF 所属节那份, 附录处替换为一行交叉引用; 附录中与 PDF 矛盾的句子删除.
+- **词替换型改写** (同义词替换, 无信息丢失): 该行不承载其他原子时恢复 PDF 原词; 承载时保留并登记.
+- **表头大小写/拼写印刷错** (如 `ROW`): KB 用与同文件其他表一致的正确写法 (`Row`), 登记.
+- **D6 (用户裁定)**: KB 自写且不与 PDF 矛盾的解释性内容 → 保留, 加前缀 `> KB note (not in SDTMIG):` (多行/表/图放进同一引用块, 或在其上方单独一行标注). 与 PDF 矛盾 → 删 (D2). reviewer 逐条确认.
+- **跨文件重复例子** (如 EX/EC 同一组例子): 按 D2, 留 PDF 所属节那份并修对, 另一处一行交叉引用; 归属由 PDF 章节号判定.
+- D6 范围: 只针对解释性内容. 纯导航 (标题/锚点/交叉引用/表前短标签如 `**CRF:**`) 不加 KB note 标注.
