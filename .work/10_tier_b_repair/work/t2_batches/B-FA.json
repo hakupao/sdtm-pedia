@@ -6,7 +6,9 @@
  ],
  "kb_files": [
   "knowledge_base/domains/FA/assumptions.md",
-  "knowledge_base/domains/FA/examples.md"
+  "knowledge_base/domains/FA/examples.md",
+  "knowledge_base/chapters/ch02_fundamentals.md",
+  "knowledge_base/model/02_observation_classes.md"
  ],
  "delete_only_source_lines": [
   {
@@ -398,6 +400,7 @@
  "notes": [
   "RELOCATE 3: 本批独占; ch02_fundamentals.md:219,227 与 model/02_observation_classes.md:188-190 **只允许删除这些行** (移到 FA/assumptions.md:62 / :64);",
   "本批与 B-ch02 / B-model02 串行 (同文件)",
-  "主控: B-model01 现也改 model/02 (加 p11 §3 内容) → B-FA 须在 B-model01 与 B-ch02 提交后再开; RELOCATE 源行号按 anchor 重新定位"
+  "主控: B-model01 现也改 model/02 (加 p11 §3 内容) → B-FA 须在 B-model01 与 B-ch02 提交后再开; RELOCATE 源行号按 anchor 重新定位",
+  "主控: RELOCATE 源侧 ch02 (§6.4.2 anchors 约 :197/:205) 与 model/02 (§6.4.3 原 :188-190) 纳入 kb_files. 规则: 先在 FA 按 PDF §6.4.2/§6.4.3 逐字补; 源侧文字若本身由其所在 PDF 节 (ch02=p11-16, model/02=SDTM v2.0 §3.1) 支持则保留 (不是错位), 否则删 (RELOCATE, 不留指针)"
  ]
 }

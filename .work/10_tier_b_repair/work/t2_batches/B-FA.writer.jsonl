@@ -1,0 +1,37 @@
+{"ref": "ig34_p0373_a012", "action": "INSERTED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 226, "pdf_page": 373, "note": "GERD 句原位补入"}
+{"ref": "ig34_p0363_a014", "action": "MOVED", "kb_file": "knowledge_base/domains/FA/assumptions.md", "kb_line_after": 74, "pdf_page": 363, "note": "§6.4.2 item 2 补入; 源 ch02 整节删"}
+{"ref": "ig34_p0364_a003", "action": "MOVED", "kb_file": "knowledge_base/domains/FA/assumptions.md", "kb_line_after": 82, "pdf_page": 364, "note": "§6.4.2 item 3 首子条补入; 源 ch02 删"}
+{"ref": "ig34_p0364_a011", "action": "MOVED", "kb_file": "knowledge_base/domains/FA/assumptions.md", "kb_line_after": 93, "pdf_page": 364, "note": "§6.4.3 全文补入; 源 model/02:206-223 删"}
+{"ref": "ig34_p0370_a009", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 105, "pdf_page": 370, "note": "FAPRNG→PAPRNG"}
+{"ref": "ig34_p0370_a016", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 112, "pdf_page": 370, "note": "FAPRNG→PAPRNG"}
+{"ref": "ig34_p0371_a018", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 155, "pdf_page": 371, "note": "MHEVLINT -P6M→空"}
+{"ref": "ig34_p0373_a024", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 243, "pdf_page": 373, "note": "NUMEPISO→NUMEPISD"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:105:3:FATESTCD", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 105, "pdf_page": 370, "note": "PAPRNG"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:112:10:FATESTCD", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 112, "pdf_page": 370, "note": "PAPRNG"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:155:1:MHEVLINT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 155, "pdf_page": 371, "note": "空"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:156:2:MHSCAT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 156, "pdf_page": 371, "note": "RHEUMATOID ARTHRITIS SYMPTOMS"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:157:3:MHSCAT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 157, "pdf_page": 371, "note": "RHEUMATOID ARTHRITIS SYMPTOMS"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:158:4:MHSCAT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 158, "pdf_page": 371, "note": "RHEUMATOID ARTHRITIS SYMPTOMS"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:159:5:MHSCAT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 159, "pdf_page": 371, "note": "RHEUMATOID ARTHRITIS SYMPTOMS"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:160:6:MHSCAT", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 160, "pdf_page": 371, "note": "RHEUMATOID ARTHRITIS SYMPTOMS"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:160:6:MHOCCUR", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 160, "pdf_page": 371, "note": "Y"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:244:3:FATESTCD", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 243, "pdf_page": 373, "note": "NUMEPISD"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:247:6:FATESTCD", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 246, "pdf_page": 373, "note": "NUMEPISD"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:250:9:FATESTCD", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 249, "pdf_page": 374, "note": "NUMEPISD"}
+{"ref": "census:knowledge_base/domains/FA/examples.md:254:13:FATESTCD", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 253, "pdf_page": 374, "note": "NUMEPISD"}
+{"ref": "new:ig34_p0361_a010..p0363_a009", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/assumptions.md", "kb_line_after": 17, "pdf_page": 361, "note": "§6.4 引言 + §6.4.1 全节逐字重建 (28 原子; 旧改写 D2 删; T-1/T-2/T-5 PDF_TYPO 改正)"}
+{"ref": "new:ig34_p0364_a022", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/assumptions.md", "kb_line_after": 111, "pdf_page": 364, "note": "Description 截断补全"}
+{"ref": "new:FA/examples.md:30", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 30, "pdf_page": 368, "note": "删 KB 多加的 the"}
+{"ref": "new:order:Ex2", "action": "MOVED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 97, "pdf_page": 370, "note": "Additional data 段移到 ae.xpt 后"}
+{"ref": "new:order:Ex4", "action": "MOVED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 205, "pdf_page": 372, "note": "Row 1/2 注释移到 ae.xpt 前"}
+{"ref": "kb_authored:FA/examples.md:283", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 283, "pdf_page": null, "note": "D6 KB note 前缀"}
+{"ref": "relocate_src:knowledge_base/chapters/ch02_fundamentals.md:187-219", "action": "MOVED", "kb_file": "knowledge_base/chapters/ch02_fundamentals.md", "kb_line_after": null, "pdf_page": 363, "note": "源整节删, 无指针"}
+{"ref": "relocate_src:knowledge_base/model/02_observation_classes.md:206-223", "action": "MOVED", "kb_file": "knowledge_base/model/02_observation_classes.md", "kb_line_after": null, "pdf_page": 364, "note": "源整块删, 无指针; 保留 :198-204 (sv20 p32)"}
+{"ref": "ig34_p0367_a013", "action": "NOT_TOUCHED_T2_RECHECK", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": null, "pdf_page": 367, "note": "留 reviewer"}
+{"ref": "ig34_p0367_a016", "action": "NOT_TOUCHED_T2_RECHECK", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": null, "pdf_page": 367, "note": "留 reviewer"}
+{"ref": "ig34_p0367_a019", "action": "NOT_TOUCHED_T2_RECHECK", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": null, "pdf_page": 367, "note": "留 reviewer"}
+{"ref": "ig34_p0374_a011", "action": "NOT_TOUCHED_T2_RECHECK", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": null, "pdf_page": 374, "note": "留 reviewer"}
+{"ref": "ig34_p0365_a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/FA/assumptions.md", "kb_line_after": 115, "pdf_page": 365, "note": "attempt1续 C-1: FA – Specification 标题 + 首句"}
+{"ref": "ig34_p0374_a011", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 263, "pdf_page": 374, "note": "attempt1续 C-2: Ex6 CRF 9 列, 按渲染"}
+{"ref": "pdf_typo:T-7", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 118, "pdf_page": 370, "note": "parent CE record→AE"}
+{"ref": "pdf_typo:T-9", "action": "REPLACED", "kb_file": "knowledge_base/domains/FA/examples.md", "kb_line_after": 228, "pdf_page": 373, "note": "叙述 FAEVINTX→FAEVLINT"}

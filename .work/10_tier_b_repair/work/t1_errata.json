@@ -57,10 +57,14 @@
   "ig34_p0257_a016": "B-MS T-1: MSSTRESC PDF 空, KB 保留 25",
   "ig34_p0370_a021": "B-FA T-7: PDF parent CE record → KB AE",
   "ig34_p0373_a013": "B-FA T-9: FAEVINTX → FAEVLINT",
-  "ig34_p0374_a011": "B-FA: 原子把 AE ID 与合并格抽在同一行, 与渲染不符"
+  "ig34_p0374_a011": "B-FA: 原子把 AE ID 与合并格抽在同一行, 与渲染不符",
+  "ig34_p0361_a016": "B-FA audit: 原子抽错",
+  "ig34_p0362_a010": "B-FA audit: 原子抽错",
+  "ig34_p0373_a021": "B-FA audit: 原子抽错"
  },
  "t3_target_remap": {
   "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",
-  "ig34_p0254_a042": "knowledge_base/domains/MS/spec.md"
+  "ig34_p0254_a042": "knowledge_base/domains/MS/spec.md",
+  "_B-FA": "23 条 §6.4.2/§6.4.3/§6.4.1 原子 target 由 ch02/model02 → knowledge_base/domains/FA/assumptions.md (清单见 evidence/checkpoints/t2_B-FA.md fp 节)"
  }
 }
