@@ -121,35 +121,35 @@ The last group of datasets in the SDTM are those that describe relationships amo
 
 ### Concept Map. Relationships Between SDTM Domains
 
+> KB note (not in SDTM v2.0): Mermaid rendering of the PDF figure "Concept Map. Relationships Between SDTM Domains" (p8). PDF key: green box = Group of individually specified datasets; yellow box = Extensible set of domains based on a common model.
+
 ```mermaid
 graph TD
-    %% Key:
-    %% Plain rounded box = Group of individually specified datasets
-    %% Filled box (:::extensible) = Extensible set of domains based on a common model
+    SDTM["Study Data Tabulation Model"]
 
-    SDTM["Study Data TabulationModel"]
+    SDTM -->|includes| SD["Domains for Subject Data"]
+    SDTM -->|includes| AP["Domains for Associated Persons Data"]
+    SDTM -->|includes| SL["Domains for Study-Level Data"]
+    SDTM -->|includes| RD["Relationship Datasets"]:::individual
 
-    SDTM -->|includes| SD["Domains forSubject Data"]
-    SDTM -->|includes| AP["Domains forAssociatedPersons Data"]
-    SDTM -->|includes| SL["Domains forStudy-Level Data"]
-    SDTM -->|includes| RD["RelationshipDatasets"]:::extensible
+    SD -->|include| GOC["General Observation Class Domains"]
+    SD -->|include| SPD["Special Purpose Domains"]:::individual
+    AP -->|include| GOC
+    AP -->|include| SPD
 
-    SD -->|include| GOC["GeneralObservation ClassDomains"]:::extensible
-    SD -->|include| SPD["SpecialPurposeDomains"]:::extensible
+    SL -->|include| TDM["Trial Design Model"]:::individual
+    SL -->|include| SRS["Study Reference Datasets"]:::individual
 
-    GOC -->|include| EV["EventsDomains"]:::extensible
-    GOC -->|include| IV["InterventionsDomains"]:::extensible
-    GOC -->|include| FI["FindingsDomains"]:::extensible
+    GOC -->|include| EV["Events Domains"]:::extensible
+    GOC -->|include| IV["Interventions Domains"]:::extensible
+    GOC -->|include| FI["Findings Domains"]:::extensible
 
-    FI -->|subtype of| FA["Findings AboutDomains"]:::extensible
+    FA["Findings About Domains"]:::extensible
+    FA -->|subtype of| FI
 
-    SL -->|include| TDM["Trial DesignModel"]:::extensible
-    SL -->|include| SRS["Study ReferenceDatasets"]
-
-    classDef extensible fill:#c8e6c9,stroke:#388e3c,color:#1b5e20
+    classDef individual fill:#c8e6c9,stroke:#388e3c,color:#1b5e20
+    classDef extensible fill:#fff59d,stroke:#f9a825,color:#5d4037
 ```
-
-> **Key:** Plain box = Group of individually specified datasets. Green filled box = Extensible set of domains based on a common model.
 
 ## 2.1 Model Concepts and Terms – Variables
 
@@ -171,15 +171,18 @@ SDTM variables can be classified into 5 major roles:
 
 The set of Qualifier variables can be further categorized into 5 subclasses:
 
-> KB note (not in SDTM v2.0): The Examples column is KB-authored.
+- **Grouping Qualifiers**, used to group together a collection of observations within the same domain (e.g., categories or subcategories);
+- **Result Qualifiers**, which describe the specific results associated with the topic variable in a Findings dataset and that answer the question raised by the topic variable;
+- **Synonym Qualifiers** specifying an alternative name for a particular variable in an observation (e.g., coded version of a verbatim topic variable or the name associated with a test code);
+- **Record Qualifiers**, which define additional attributes of the observation record as a whole, rather than describing a particular variable within a record (e.g., for a lab test, the specimen type and the name of lab that performed the test); and
+- **Variable Qualifiers** used to further modify or describe 1 or more of a specific set of variables within an observation and which are only meaningful in the context of the variable they qualify (e.g., the unit for a numeric test result or a medication dose, the laterality of an anatomic location).
 
-| Subclass | Purpose | Examples |
-|----------|---------|----------|
-| **Grouping Qualifiers** | used to group together a collection of observations within the same domain (e.g., categories or subcategories) | --CAT, --SCAT |
-| **Result Qualifiers** | which describe the specific results associated with the topic variable in a Findings dataset and that answer the question raised by the topic variable | --ORRES, --STRESC, --STRESN |
-| **Synonym Qualifiers** | specifying an alternative name for a particular variable in an observation (e.g., coded version of a verbatim topic variable or the name associated with a test code) | --MODIFY, --DECOD (for --TRT or --TERM); --TEST (for --TESTCD) |
-| **Record Qualifiers** | which define additional attributes of the observation record as a whole, rather than describing a particular variable within a record (e.g., for a lab test, the specimen type and the name of lab that performed the test) | --REASND, AESLIFE, --BLFL, --POS, --LOC, --SPEC, --NAM |
-| **Variable Qualifiers** | used to further modify or describe 1 or more of a specific set of variables within an observation and which are only meaningful in the context of the variable they qualify (e.g., the unit for a numeric test result or a medication dose, the laterality of an anatomic location). | --ORRESU, --ORNRHI, --ORNRLO, --DOSU (Variable Qualifier of --DOSE) |
+> KB note (not in SDTM v2.0): Example variables for each subclass:
+> - Grouping Qualifiers: --CAT, --SCAT
+> - Result Qualifiers: --ORRES, --STRESC, --STRESN
+> - Synonym Qualifiers: --MODIFY, --DECOD (for --TRT or --TERM); --TEST (for --TESTCD)
+> - Record Qualifiers: --REASND, AESLIFE, --BLFL, --POS, --LOC, --SPEC, --NAM
+> - Variable Qualifiers: --ORRESU, --ORNRHI, --ORNRLO, --DOSU (Variable Qualifier of --DOSE)
 
 The SDTM includes variable metadata for the standard variables; variable metadata attributes are described in Section 2.2, Table Structure.
 

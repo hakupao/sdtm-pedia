@@ -1,0 +1,130 @@
+{
+ "batch_id": "S-MOD1",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "model/01_concepts_and_terms.md",
+  "model/03_special_purpose_domains.md",
+  "model/04_associated_persons.md"
+ ],
+ "kb_files": [
+  "knowledge_base/model/01_concepts_and_terms.md",
+  "knowledge_base/model/03_special_purpose_domains.md",
+  "knowledge_base/model/04_associated_persons.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "model/01_concepts_and_terms.md",
+   "sec": "1-2",
+   "title": "SDTM v2.0 §1-§2",
+   "lo": 4,
+   "hi": 10,
+   "src": "sv20",
+   "note": "主控粗定, 先复核 (O20)"
+  },
+  {
+   "unit": "model/03_special_purpose_domains.md",
+   "sec": "3.2",
+   "title": "§3.2 Special-purpose Domains",
+   "lo": 40,
+   "hi": 49,
+   "src": "sv20",
+   "note": "主控粗定, 先复核 (O20)"
+  },
+  {
+   "unit": "model/04_associated_persons.md",
+   "sec": "4",
+   "title": "§4 Associated Persons Data",
+   "lo": 50,
+   "hi": 50,
+   "src": "sv20",
+   "note": "主控粗定, 先复核 (O20)"
+  }
+ ],
+ "pdf_pages": [
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  40,
+  41,
+  42,
+  43,
+  44,
+  45,
+  46,
+  47,
+  48,
+  49,
+  50
+ ],
+ "pdf_src": "sv20",
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/model/01_concepts_and_terms.md",
+   "src": "sv20",
+   "lo": 4,
+   "hi": 10
+  },
+  {
+   "file": "knowledge_base/model/03_special_purpose_domains.md",
+   "src": "sv20",
+   "lo": 40,
+   "hi": 49
+  },
+  {
+   "file": "knowledge_base/model/04_associated_persons.md",
+   "src": "sv20",
+   "lo": 50,
+   "hi": 50
+  }
+ ],
+ "gaps": {},
+ "intros": [],
+ "footnote": "本批无域 spec.md",
+ "footnote_moves": [],
+ "census_items": [
+  {
+   "kb": "model/03_special_purpose_domains.md:17 (HEAD 行号, 以内容定位)",
+   "triage_row": "56 | C3 | UNPARSEABLE | `model/03_special_purpose_domains.md:17` | sv20:p40-49 | None / None | # / Variable / Label / Type / Role / Notes | 无 T2 批"
+  },
+  {
+   "kb": "model/03_special_purpose_domains.md:60 (HEAD 行号, 以内容定位)",
+   "triage_row": "57 | C3 | UNPARSEABLE | `model/03_special_purpose_domains.md:60` | sv20:p40-49 | None / None | Variable / Description / Typical Use | 无 T2 批"
+  },
+  {
+   "kb": "model/03_special_purpose_domains.md:79 (HEAD 行号, 以内容定位)",
+   "triage_row": "58 | C3 | UNPARSEABLE | `model/03_special_purpose_domains.md:79` | sv20:p40-49 | None / None | # / Variable / Label / Type / Role | 无 T2 批"
+  },
+  {
+   "kb": "model/03_special_purpose_domains.md:105 (HEAD 行号, 以内容定位)",
+   "triage_row": "59 | C3 | UNPARSEABLE | `model/03_special_purpose_domains.md:105` | sv20:p40-49 | None / None | # / Variable / Label / Type / Role / Notes | 无 T2 批"
+  },
+  {
+   "kb": "model/03_special_purpose_domains.md:131 (HEAD 行号, 以内容定位)",
+   "triage_row": "60 | C3 | UNPARSEABLE | `model/03_special_purpose_domains.md:131` | sv20:p40-49 | None / None | # / Variable / Label / Type / Role / Notes | 无 T2 批"
+  },
+  {
+   "kb": "model/03_special_purpose_domains.md:152 (HEAD 行号, 以内容定位)",
+   "triage_row": "61 | C3 | UNPARSEABLE | `model/03_special_purpose_domains.md:152` | sv20:p40-49 | None / None | # / Variable / Label / Type / Role / Notes | 无 T2 批"
+  },
+  {
+   "kb": "model/03_special_purpose_domains.md:179 (HEAD 行号, 以内容定位)",
+   "triage_row": "62 | C3 | UNPARSEABLE | `model/03_special_purpose_domains.md:179` | sv20:p40-49 | None / None | # / Variable / Label / Type / Role / Notes | 无 T2 批"
+  },
+  {
+   "kb": "model/04_associated_persons.md:31 (HEAD 行号, 以内容定位)",
+   "triage_row": "63 | C3 | UNPARSEABLE | `model/04_associated_persons.md:31` | sv20:p50-50 | None / None | Variable / Label / Type / Role / Notes | 无 T2 批"
+  },
+  {
+   "kb": "model/01_concepts_and_terms.md:176 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `model/01_concepts_and_terms.md:176` | sv20:p8-10 | 0 | Subclass / Purpose / Examples | t2_B-model01_review.md:45"
+  }
+ ],
+ "out_of_scope": [],
+ "notes": "源为 SDTM v2.0 (sv20 页). D6 措辞 \"KB note (not in SDTM v2.0):\". R1: v2.0 表行 IE 规则见 t1_user_ack.md. model/03 7 张 + model/04 1 张 C3 表渲染逐格 (渲染用 source/cdisc/SDTM_v2.0.pdf). 行号为 HEAD 时, 以内容定位."
+}

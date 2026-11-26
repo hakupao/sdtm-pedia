@@ -1,0 +1,86 @@
+{"ref": "pdf:p8:sv20_p0008_a010", "action": "REPLACED", "kb_file": "knowledge_base/model/01_concepts_and_terms.md", "kb_line_after": 126, "pdf_page": 8, "note": "Mermaid 按 PDF 图改 (边/方向/配色/节点名)"}
+{"ref": "KB_AUTHORED:model01:mermaid_note", "action": "D6", "kb_file": "knowledge_base/model/01_concepts_and_terms.md", "kb_line_after": 124, "pdf_page": 8, "note": "Mermaid rendering note + PDF key"}
+{"ref": "pdf:p9:sv20_p0009_a014-a018", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/model/01_concepts_and_terms.md", "kb_line_after": 174, "pdf_page": 9, "note": "子类表 → PDF 列表逐字"}
+{"ref": "KB_AUTHORED:model01:subclass_examples", "action": "D6", "kb_file": "knowledge_base/model/01_concepts_and_terms.md", "kb_line_after": 180, "pdf_page": 9, "note": "Examples 列 → 表下 D6"}
+{"ref": "sv20_p0006_a020", "action": "VERIFIED", "kb_file": "knowledge_base/model/01_concepts_and_terms.md", "kb_line_after": 94, "pdf_page": 6, "note": "T-1 PDF_TYPO 沿用 (Section 4)"}
+{"ref": "KB_AUTHORED:model01:D-1..D-4", "action": "DELETED", "kb_file": "knowledge_base/model/01_concepts_and_terms.md", "kb_line_after": null, "pdf_page": 8, "note": "旧 Key 行/注释/旧子类表 (见删除清单)"}
+{"ref": "sv20_p0040_a001", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 7, "pdf_page": 40, "note": "### 3.2 标题"}
+{"ref": "sv20_p0040_a003", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 9, "pdf_page": 40, "note": "补 (see Section 3.2.1, Demographics)"}
+{"ref": "sv20_p0040_a005", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 13, "pdf_page": 40, "note": "### 3.2.1 标题"}
+{"ref": "sv20_p0040_a006", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 15, "pdf_page": 40, "note": "DM 段 PDF 原句; 旧改写 D-5"}
+{"ref": "sv20_p0040_a007", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 15, "pdf_page": 40, "note": ""}
+{"ref": "sv20_p0040_a010", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 15, "pdf_page": 40, "note": "See the respective implementation guides"}
+{"ref": "KB_AUTHORED:DM_structure", "action": "D6", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 17, "pdf_page": 40, "note": "P-4"}
+{"ref": "sv20_p0040_a011", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 21, "pdf_page": 40, "note": "表题"}
+{"ref": "KB_AUTHORED:DM_notes_col", "action": "D6", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 23, "pdf_page": 40, "note": "P-5"}
+{"ref": "census:model/03:32:RFENDTC:Notes", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 32, "pdf_page": 40, "note": "C-1 D2"}
+{"ref": "census:model/03:45:AGE:Notes", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 45, "pdf_page": 42, "note": "C-2 D2"}
+{"ref": "census:model/03:51-53,61:Notes", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 51, "pdf_page": 42, "note": "C-4 Not for -> Not in (4 格)"}
+{"ref": "census:model/03:58:ARMNRS:Notes", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 58, "pdf_page": 43, "note": "C-3 D2"}
+{"ref": "census:model/03:61:RPATHCD:Label", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 61, "pdf_page": 43, "note": "V-1 Planned Repro Path Code"}
+{"ref": "KB_AUTHORED:keyref_table", "action": "D6", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 68, "pdf_page": 40, "note": "P-6 (M-1)"}
+{"ref": "census:model/03:73:RFENDTC:TypicalUse", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 73, "pdf_page": 40, "note": "C-6 D2"}
+{"ref": "census:model/03:79:RFPENDTC:TypicalUse", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 79, "pdf_page": 41, "note": "C-7 D2"}
+{"ref": "sv20_p0044_a002", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 83, "pdf_page": 44, "note": "### 3.2.2"}
+{"ref": "sv20_p0044_a003", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 85, "pdf_page": 44, "note": ""}
+{"ref": "sv20_p0044_a004", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 85, "pdf_page": 44, "note": ""}
+{"ref": "sv20_p0044_a006", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 87, "pdf_page": 44, "note": ""}
+{"ref": "KB_AUTHORED:CO_structure_lead", "action": "D6", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 89, "pdf_page": 44, "note": "P-8"}
+{"ref": "sv20_p0044_a007", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 93, "pdf_page": 44, "note": "表题"}
+{"ref": "sv20_p0045_a009", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 113, "pdf_page": 45, "note": "## 3.2.3 (H2)"}
+{"ref": "sv20_p0045_a010", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 115, "pdf_page": 45, "note": ""}
+{"ref": "sv20_p0045_a011", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 115, "pdf_page": 45, "note": ""}
+{"ref": "sv20_p0045_a012", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 119, "pdf_page": 45, "note": ""}
+{"ref": "sv20_p0045_a013", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 121, "pdf_page": 45, "note": "旧改写 D-6"}
+{"ref": "sv20_p0045_a014", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 121, "pdf_page": 45, "note": ""}
+{"ref": "sv20_p0045_a016", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 123, "pdf_page": 45, "note": ""}
+{"ref": "KB_AUTHORED:SE_blocks_of_time", "action": "D6", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 125, "pdf_page": 45, "note": "P-12"}
+{"ref": "sv20_p0046_a001", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 129, "pdf_page": 46, "note": "表题; Structure 行 D-7"}
+{"ref": "KB_AUTHORED:SE_notes_col", "action": "D6", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 131, "pdf_page": 46, "note": "P-13"}
+{"ref": "sv20_p0046_a016", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 151, "pdf_page": 46, "note": ""}
+{"ref": "sv20_p0046_a017", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 153, "pdf_page": 46, "note": "旧改写 D-8, Note D-10"}
+{"ref": "sv20_p0046_a018", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 153, "pdf_page": 46, "note": ""}
+{"ref": "sv20_p0047_a001", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 157, "pdf_page": 47, "note": "表题; Structure D-9"}
+{"ref": "KB_AUTHORED:SJ_notes_col", "action": "D6", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 159, "pdf_page": 47, "note": "P-15"}
+{"ref": "sv20_p0047_a013", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 176, "pdf_page": 47, "note": ""}
+{"ref": "sv20_p0047_a014", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 178, "pdf_page": 47, "note": "旧改写 D-11"}
+{"ref": "sv20_p0047_a015", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 178, "pdf_page": 47, "note": ""}
+{"ref": "sv20_p0047_a017", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 180, "pdf_page": 47, "note": ""}
+{"ref": "sv20_p0048_a001", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 184, "pdf_page": 48, "note": "表题; Structure D-12"}
+{"ref": "KB_AUTHORED:SV_notes_col", "action": "D6", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 186, "pdf_page": 48, "note": "P-17"}
+{"ref": "census:model/03:197:SVREASOC:Label", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 197, "pdf_page": 48, "note": "V-2 Reason for Occur Value"}
+{"ref": "sv20_p0049_a001", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 209, "pdf_page": 49, "note": ""}
+{"ref": "sv20_p0049_a002", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 211, "pdf_page": 49, "note": "旧改写 D-13"}
+{"ref": "sv20_p0049_a003", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 213, "pdf_page": 49, "note": ""}
+{"ref": "KB_AUTHORED:SM_examples", "action": "D6", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 215, "pdf_page": 49, "note": "P-19"}
+{"ref": "sv20_p0049_a004", "action": "INSERTED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 219, "pdf_page": 49, "note": "表题; Structure D-14"}
+{"ref": "KB_AUTHORED:SM_notes_col", "action": "D6", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 221, "pdf_page": 49, "note": "P-20"}
+{"ref": "census:model/03:229:MIDS:Notes", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 229, "pdf_page": 49, "note": "C-5 D2"}
+{"ref": "KB_AUTHORED:model03:D-5..D-14", "action": "DELETED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": null, "pdf_page": 40, "note": "见删除清单"}
+{"ref": "sv20_p0050_a001", "action": "INSERTED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 7, "pdf_page": 50, "note": ""}
+{"ref": "sv20_p0050_a004", "action": "REPLACED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 9, "pdf_page": 50, "note": "rules, including:"}
+{"ref": "sv20_p0050_a005", "action": "INSERTED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 11, "pdf_page": 50, "note": ""}
+{"ref": "sv20_p0050_a006", "action": "INSERTED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 12, "pdf_page": 50, "note": ""}
+{"ref": "sv20_p0050_a007", "action": "INSERTED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 13, "pdf_page": 50, "note": ""}
+{"ref": "KB_AUTHORED:AP_domain_rules", "action": "D6", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 17, "pdf_page": 50, "note": "A-4"}
+{"ref": "xref:model04:APID_removal", "action": "INSERTED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 21, "pdf_page": 6, "note": "A-5 交叉引用, 替 D-16/D-17"}
+{"ref": "sv20_p0050_a008", "action": "INSERTED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 25, "pdf_page": 50, "note": ""}
+{"ref": "sv20_p0050_a009", "action": "INSERTED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 25, "pdf_page": 50, "note": ""}
+{"ref": "KB_AUTHORED:AP_key_principles", "action": "D6", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 27, "pdf_page": 50, "note": "A-7"}
+{"ref": "sv20_p0050_a010", "action": "INSERTED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 33, "pdf_page": 50, "note": "替 D-20"}
+{"ref": "sv20_p0050_a011", "action": "INSERTED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 33, "pdf_page": 50, "note": ""}
+{"ref": "sv20_p0050_a012", "action": "INSERTED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 33, "pdf_page": 50, "note": ""}
+{"ref": "sv20_p0050_a013", "action": "INSERTED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 33, "pdf_page": 50, "note": ""}
+{"ref": "sv20_p0050_a014", "action": "INSERTED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 35, "pdf_page": 50, "note": "表题"}
+{"ref": "census:model/04:31:AP_table", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": 37, "pdf_page": 50, "note": "+# 列; Notes = PDF Notes 逐字"}
+{"ref": "KB_AUTHORED:model04:D-15..D-21", "action": "DELETED", "kb_file": "knowledge_base/model/04_associated_persons.md", "kb_line_after": null, "pdf_page": 50, "note": "见删除清单"}
+{"ref": "KB_heading:model03:Demographics (DM)", "action": "DELETED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": null, "pdf_page": 40, "note": "M-4 S-TDM 冗余标题, 0 入站"}
+{"ref": "KB_heading:model03:Comments (CO)", "action": "DELETED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": null, "pdf_page": 44, "note": "M-4 S-TDM 冗余标题, 0 入站"}
+{"ref": "KB_heading:model03:Subject Elements (SE)", "action": "DELETED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": null, "pdf_page": 45, "note": "M-4 S-TDM 冗余标题, 0 入站"}
+{"ref": "KB_heading:model03:Subject Repro Stages", "action": "DELETED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": null, "pdf_page": 46, "note": "M-4 S-TDM 冗余标题, 0 入站"}
+{"ref": "KB_heading:model03:Subject Visits (SV)", "action": "DELETED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": null, "pdf_page": 47, "note": "M-4 S-TDM 冗余标题, 0 入站"}
+{"ref": "KB_heading:model03:Subject Disease Milestones (SM)", "action": "DELETED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": null, "pdf_page": 49, "note": "M-4 S-TDM 冗余标题, 0 入站"}
+{"ref": "sv20_p0040_a005", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 11, "pdf_page": 40, "note": "M-4: ### 3.2.1 升 H2"}
+{"ref": "sv20_p0044_a002", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 79, "pdf_page": 44, "note": "M-4: ### 3.2.2 升 H2"}
+{"ref": "KB_AUTHORED:keyref_table", "action": "VERIFIED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 64, "pdf_page": 40, "note": "M-1 确认 D6 (非完全重复, 8 格不矛盾)"}
+{"ref": "KB_AUTHORED:SE_notes_col", "action": "REPLACED", "kb_file": "knowledge_base/model/03_special_purpose_domains.md", "kb_line_after": 125, "pdf_page": 46, "note": "attempt 2: review F-1 D6 措辞改属实"}

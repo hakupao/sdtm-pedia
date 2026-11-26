@@ -61,4 +61,4 @@
 | O58 | S-SPREL writer | SE spec 脚注原子 ig34_p0080_a010 抽成 `*In…` | 覆盖矩阵 SE fn 0/1 为原子抽取错假阳 (KB 已承载脚注); T3 t3_atom_err + 矩阵终版判读时豁免 |
 | O59 | S-CH8 writer | S-TYPO 范围补充 | (1) em dash 两侧空格按 PDF 去掉 (如 SUPPQUAL/examples.md 同句); (2) spec 表脚注上标写法 `^1^` / `1In` → PDF 原字符 ¹ (全库统一); 均归 S-TYPO 脚本 |
 | O60 | 主控 (S-MOD3) | KB 自拟标题 vs PDF 原标题口径不一 | S-MOD2/S-MOD3 在 0 入站链接时已改为 PDF 原标题; 先前按规则 6 保留的 TA §7.1/§7.2 (X-4)、FA §6.4.4 合并标题、MB H2 "and"、SS `#####` 层级等 → T4 统一处理 (或 S-TYPO 后一次性脚本 + 抽检) |
-| O61 | S-SPEC1 review | 原子 ig34_p0122_a015 文本 "CDISC/NCIBI" | PDF 原文 "CDISC/NCI", KB 正确 → T3 t3_atom_err |
+| O61 | S-SPEC1 review | 原子 ig34_p0122_a015 文本 "CDISC/NCIBI" | PDF 原文 "CDISC/NCI", KB 正确 → T3 t3_atom_err; 该原子即 ML spec 脚注原子, 覆盖矩阵 ML fn=True 为假阳 |
