@@ -1,5 +1,30 @@
 # FT — Assumptions
 
+## §6.3.9 Questionnaires, Ratings, and Scales (QRS) Domains (FT, QS, RS)
+
+This section includes domains used to represent data from questionnaires, ratings, and scales (QRS). The Functional Tests (FT) and Questionnaires (QS) sections each provide an overview, specifications, assumptions, and examples for these domains. The Disease Response and Clin Classification (RS) section contains an overview and specification for that domain; assumptions and examples are provided in subsections for the 2 use cases within the RS domain (i.e., disease response use case, clinical classifications use case).
+
+The SDTMIG includes the FT, QS, and RS domains for QRS findings for different QRS concepts. These differ only in concept, in domain code, and in informative content such as examples. A set of shared assumptions is included in each of the domain sections.
+
+CDISC develops controlled terminology and publishes supplements for individual QRS instruments when the instrument is in the public domain or when permission has been granted by the copyright holder.
+
+- Controlled Terminology release downloads and information about the CT development process are available at: https://www.cdisc.org/standards/terminology/controlled-terminology.
+- QRS supplements, implementation documents, and information about the QRS development process are available at: https://www.cdisc.org/standards/foundational/qrs.
+
+Each QRS supplement includes instrument-specific implementation assumptions, a dataset example, SDTM mapping strategies, and a list of any applicable supplemental qualifiers. SDTM annotated CRFs are also provided where available.
+
+## §6.3.9.1 Functional Tests (FT)
+
+## FT – Description/Overview
+
+A findings domain that contains data for named, stand-alone, task-based evaluations designed to provide an assessment of mobility, dexterity, or cognitive ability.
+
+## FT – Specification
+
+ft.xpt, Functional Tests — Findings. One record per Functional Test finding per time point per visit per subject, Tabulation.
+
+## FT – Assumptions
+
 The following assumptions are unique to the FT domain:
 
 1. A functional test is not a subjective assessment of how the subject generally performs a task, but rather an objective measurement of the performance of the task by the subject in a specific instance.

@@ -1,0 +1,11 @@
+{"ref": "ig34_p0318_a017", "action": "INSERTED", "kb_file": "knowledge_base/domains/FT/assumptions.md", "kb_line_after": 7, "pdf_page": 318, "note": "§6.3.9 引言第2段; 位置见 Q-1"}
+{"ref": "ig34_p0318_a018", "action": "INSERTED", "kb_file": "knowledge_base/domains/FT/assumptions.md", "kb_line_after": 9, "pdf_page": 318, "note": "§6.3.9 引言第3段"}
+{"ref": "R3:ig34_p0318_a014", "action": "INSERTED", "kb_file": "knowledge_base/domains/FT/assumptions.md", "kb_line_after": 3, "pdf_page": 318, "note": "§6.3.9 标题 (NV/LB 先例)"}
+{"ref": "R3:ig34_p0318_a015+a016", "action": "INSERTED", "kb_file": "knowledge_base/domains/FT/assumptions.md", "kb_line_after": 5, "pdf_page": 318, "note": "§6.3.9 首段"}
+{"ref": "R3:ig34_p0318_a019+a020", "action": "INSERTED", "kb_file": "knowledge_base/domains/FT/assumptions.md", "kb_line_after": 11, "pdf_page": 318, "note": "2 bullets :11-12"}
+{"ref": "R3:ig34_p0318_a021", "action": "INSERTED", "kb_file": "knowledge_base/domains/FT/assumptions.md", "kb_line_after": 14, "pdf_page": 318, "note": "QRS supplement 段"}
+{"ref": "auth:ig34_p0319_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/FT/assumptions.md", "kb_line_after": 16, "pdf_page": 319, "note": "FT – Description/Overview :16-18"}
+{"ref": "auth:ig34_p0319_a006", "action": "INSERTED", "kb_file": "knowledge_base/domains/FT/assumptions.md", "kb_line_after": 20, "pdf_page": 319, "note": "FT – Specification + spec 首句 :20-22"}
+{"ref": "auth:p321:FT – Assumptions heading", "action": "INSERTED", "kb_file": "knowledge_base/domains/FT/assumptions.md", "kb_line_after": 24, "pdf_page": 321, "note": "PDF 原标题"}
+{"ref": "R3:p323:FT examples intro", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/FT/examples.md", "kb_line_after": 3, "pdf_page": 323, "note": "T-1 PDF 缺 ').'; 依据 p328 QS 平行句"}
+{"ref": "L-1:p319:§6.3.9.1 heading", "action": "INSERTED", "kb_file": "knowledge_base/domains/FT/assumptions.md", "kb_line_after": 16, "pdf_page": 319, "note": "attempt 2; 主控采纳 reviewer L-1; 其后行号 +2"}
