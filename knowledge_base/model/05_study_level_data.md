@@ -10,23 +10,27 @@ The SDTM includes 2 types of study-level data: trial design data and study refer
 
 ## 5.1 Trial Design Model
 
-The Trial Design Model (TDM) defines a standard structure for representing the planned sequence of activities and the treatment plan for the trial. These include ways to represent:
+The Trial Design Model defines a standard structure for representing the planned sequence of activities and the treatment plan for the trial. These include ways to represent:
 
 - Planned treatment arms (Section 5.1.1, Trial Arms and Trial Elements)
 - Planned groups of subjects (Section 5.1.2, Trial Sets)
-- Planned sequences of reproductive stages (Section 5.1.3, Trial Repro Stages and Trial Repro Paths)
+- Planned sequences of reproductive stages (animal developmental and reproductive toxicology studies; Section 5.1.3, Trial Repro Stages and Trial Repro Paths)
 - Planned schedules for activities and data collection (Section 5.1.4, Trial Planned Data Collection)
 - Study eligibility criteria (Section 5.1.5, Trial Inclusion/Exclusion Criteria)
-- Other aspects of a study, expressed as parameters (Section 5.1.6, Trial Summary Information)
+- Other aspects of a study, expressed as a series of parameters (Section 5.1.6, Trial Summary Information)
 - Characteristics of a study challenge agent (Section 5.1.7, Challenge Agent Characterization)
 
-Many Trial Design domains define study-specific terminology, and variables and variable values from these domains are used in subject-level domains.
+Many Trial Design domains define study-specific terminology (e.g., for study arms, visits, and eligibility criteria), and variables and variable values from these domains are used in subject-level domains.
+
+### 5.1.1 Trial Arms and Trial Elements
+
+The Trial Arms dataset describes arms as sequences of trial elements, with trial elements described in the Trial Elements dataset.
 
 ### Trial Elements (TE)
 
-**Structure:** One record per planned Element
+Trial Elements describes the periods of times through which subjects pass in the course of a trial. The domain is identified by the domain code "TE".
 
-Describes the basic building blocks of a trial design — discrete periods of time during which a specific type of treatment or activity is planned. The domain is identified by the domain code "TE".
+**Trial Elements—One Record per Trial Element**
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|
@@ -40,9 +44,11 @@ Describes the basic building blocks of a trial design — discrete periods of ti
 
 ### Trial Arms (TA)
 
-**Structure:** One record per planned Element per Arm
+Trial Arms describes each planned arm in a trial. An arm is an ordered sequence of elements; the same element may occur more than once in a given arm. In order to accommodate complex trial designs, this dataset allows for rules for branching from one element to another when a choice is available, and a rule for transitions to allow a subject to skip ahead to another element rather than proceed linearly.
 
-Describes each planned arm in a trial. An arm is an ordered sequence of elements; the same element may occur more than once in a given arm. In order to accommodate complex trial designs, this dataset allows for rules for branching from one element to another when a choice is available, and a rule for transitions to allow a subject to skip ahead to another element rather than proceed linearly.
+Note that although the same element may occur more than once within an arm, each occurrence would have a different value for TAETORD and EPOCH, and may have different values for TABRANCH and TATRANS.
+
+**Trial Arms—One Record per Planned Element per Arm**
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|
@@ -59,9 +65,11 @@ Describes each planned arm in a trial. An arm is an ordered sequence of elements
 
 ### Trial Sets (TX)
 
-**Structure:** One record per Trial Set parameter per Trial Set
+Trial Sets allows the submission of detailed information about planned groups of subjects that results as a combination of experimental factors of interest for a study (including experimental parameters, inherent characteristics, and sponsor-defined attributes). A "set" may be a planned subdivision of a trial arm, or may comprise 1 or more trial arms. These datasets are essential to determining whether data comparisons are feasible across different studies.
 
-Describes sets of subjects that share common characteristics (e.g., treatment groups, pooled analysis groups).
+**Trial Sets—One Record per Trial Set Parameter**
+
+> KB note (not in SDTM v2.0): **Structure:** One record per Trial Set parameter per Trial Set
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|
@@ -71,16 +79,22 @@ Describes sets of subjects that share common characteristics (e.g., treatment gr
 | 4 | SET | Set Description | Char | Synonym Qualifier (SETCD) |
 | 5 | TXSEQ | Sequence Number | Num | Identifier |
 | 6 | TXPARMCD | Trial Set Parameter Short Name | Char | Topic |
-| 7 | TXPARM | Trial Set Parameter Name | Char | Synonym Qualifier |
-| 8 | TXVAL | Parameter Value | Char | Result Qualifier |
+| 7 | TXPARM | Trial Set Parameter | Char | Synonym Qualifier |
+| 8 | TXVAL | Trial Set Parameter Value | Char | Result Qualifier |
 
-### Trial Reproductive Stages (TT)
-
-**Structure:** One record per Planned Repro Stage
+### 5.1.3 Trial Repro Stages and Trial Repro Paths
 
 **Note:** Not for use with human clinical trials.
 
-Describes the unique repro stages in a study, with repro stage description, code (short name), and rules for start and end.
+The Trial Repro Paths dataset describes the series of reproductive stages planned for study subjects. The reproductive stages are defined in the Trial Repro Stages dataset. These datasets are relevant only for studies in which reproductive stages are part of the study plan.
+
+### Trial Reproductive Stages (TT)
+
+**Note:** Not for use with human clinical trials.
+
+Trial Repro Stages describes the unique repro stages in a study, with repro stage description, code (short name), and rules for start and end.
+
+**Trial Repro Stages—One Record per Planned Repro Stage**
 
 | # | Variable | Label | Type | Role | Notes |
 |---|----------|-------|------|------|-------|
@@ -94,11 +108,11 @@ Describes the unique repro stages in a study, with repro stage description, code
 
 ### Trial Reproductive Paths (TP)
 
-**Structure:** One record per Planned Repro Stage per Repro Path
-
 **Note:** Not for use with human clinical trials.
 
-Describes each planned repro path in a repro study, with the ordered sequence of repro stages that comprise each repro path, as well as specification of repro phase and reference start day of the repro phase applicable to the repro stage within the repro path.
+Trial Repro Paths describes each planned repro path in a repro study, with the ordered sequence of repro stages that comprise each repro path, as well as specification of repro phase and reference start day of the repro phase applicable to the repro stage within the repro path.
+
+**Trial Repro Paths—One Record per Planned Repro Stage per Repro Path**
 
 | # | Variable | Label | Type | Role | Notes |
 |---|----------|-------|------|------|-------|
@@ -113,11 +127,19 @@ Describes each planned repro path in a repro study, with the ordered sequence of
 | 9 | RPHASE | Repro Phase | Char | Timing | Not in human clinical trials |
 | 10 | RPRFDY | Repro Phase Start Reference Day | Num | Timing | Not in human clinical trials |
 
+### 5.1.4 Trial Planned Data Collection
+
+The datasets in this section describe parts of a study's schedule of activities.
+
+- Trial Visits describes planned clinical encounters at which activities are scheduled.
+- Trial Disease Assessments describes schedules for disease assessments which are not easily expressed as taking place at visits.
+- Trial Disease Milestones describes plans to collect data when triggered by the occurrence of particular anticipated events, findings, or activities, rather than at scheduled times.
+
 ### Trial Visits (TV)
 
-**Structure:** One record per planned Visit per Arm
+Trial Visits describes the planned order and number of visits in the study. Trial Visits also describes the allowable or planned values for VISIT, VISITNUM, and VISITDY in the trial (which are subsequently used as timing variables for the collected study data), and rules for starting and ending each visit. In most blinded trials, the timing of visits is the same for all subjects in all arms. In the case where visits vary for each arm, there would be a separate record per visit per arm.
 
-Describes the visits planned in the protocol, including the planned order and number of visits in the study.
+**Trial Visits—One Record per Planned Trial Visit**
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|
@@ -133,9 +155,11 @@ Describes the visits planned in the protocol, including the planned order and nu
 
 ### Trial Disease Assessments (TD)
 
-**Structure:** One record per planned constant assessment period
+Trial Disease Assessments provides information on the planned protocol-specified disease assessment schedule when those disease assessments cannot be expressed using Trial Visits.
 
-Provides information on the planned protocol-specified disease assessment schedule when those disease assessments cannot be expressed using Trial Visits.
+In oncology studies, compliance with the disease-assessment schedule is essential to reduce the risk of assessment time bias. The TD domain makes possible an evaluation of assessment time bias from SDTM-based datasets by allowing comparison of the planned schedule of assessments against the actual occurrence of the efficacy assessments in order to determine the degree of compliance. TD has limited utility outside oncology (and indeed has limited utility within oncology studies). It was developed specifically with Response Evaluation Criteria in Solid Tumors (RECIST) in mind and, in particular, for studies with progression-free survival (PFS) endpoints where an assessment time bias analysis is appropriate.
+
+**Trial Disease Assessments—One Record per Planned Constant Assessment Period**
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|
@@ -151,9 +175,9 @@ Provides information on the planned protocol-specified disease assessment schedu
 
 ### Trial Disease Milestones (TM)
 
-**Structure:** One record per Disease Milestone type
+Trial Disease Milestones is used to describe observations or activities expected to occur in the course of the disease under study, the timing of which is of interest for the study.
 
-Describes the types of disease milestones that may occur in a study.
+**Trial Disease Milestones—One Record per Disease Milestone Type**
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|
@@ -165,26 +189,28 @@ Describes the types of disease milestones that may occur in a study.
 
 ### Trial Inclusion/Exclusion Criteria (TI)
 
-**Structure:** One record per I/E criterion
+Trial Inclusion/Exclusion contains 1 record for each of the inclusion and exclusion criterion for the trial. If eligibility criteria change during a trial, each version of the eligibility criteria may be represented.
 
-Describes the inclusion and exclusion criteria for the trial.
+**Trial Inclusion/Exclusion—One Record per Trial Inclusion or Exclusion Criterion**
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|
 | 1 | STUDYID | Study Identifier | Char | Identifier |
 | 2 | DOMAIN | Domain Abbreviation | Char | Identifier |
-| 3 | IETESTCD | Incl/Excl Criterion Short Name | Char | Topic |
-| 4 | IETEST | Incl/Excl Criterion | Char | Synonym Qualifier |
-| 5 | IECAT | Incl/Excl Category | Char | Grouping Qualifier |
-| 6 | IESCAT | Incl/Excl Subcategory | Char | Grouping Qualifier |
-| 7 | TIRL | Criterion Evaluation Rule | Char | Rule |
+| 3 | IETESTCD | Inclusion/Exclusion Criterion Short Name | Char | Topic |
+| 4 | IETEST | Inclusion/Exclusion Criterion | Char | Synonym Qualifier |
+| 5 | IECAT | Inclusion/Exclusion Category | Char | Grouping Qualifier |
+| 6 | IESCAT | Inclusion/Exclusion Subcategory | Char | Grouping Qualifier |
+| 7 | TIRL | Inclusion/Exclusion Criterion Rule | Char | Rule |
 | 8 | TIVERS | Protocol Criteria Versions | Char | Record Qualifier |
 
 ### Trial Summary (TS)
 
-**Structure:** One record per trial summary parameter value
+Trial Summary Information contains 1 record for each trial summary characteristic. Trial Summary is used to record basic information about the trial (e.g., trial phase, protocol title, design objectives).
 
-Contains summary information about the trial (e.g., trial phase, objectives, design).
+**Trial Summary—One Record per Trial Summary Parameter**
+
+> KB note (not in SDTM v2.0): **Structure:** One record per trial summary parameter value
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|
@@ -193,18 +219,18 @@ Contains summary information about the trial (e.g., trial phase, objectives, des
 | 3 | TSSEQ | Sequence Number | Num | Identifier |
 | 4 | TSGRPID | Group ID | Char | Identifier |
 | 5 | TSPARMCD | Trial Summary Parameter Short Name | Char | Topic |
-| 6 | TSPARM | Trial Summary Parameter Name | Char | Synonym Qualifier |
+| 6 | TSPARM | Trial Summary Parameter | Char | Synonym Qualifier |
 | 7 | TSVAL | Parameter Value | Char | Result Qualifier |
 | 8 | TSVALNF | Parameter Null Flavor | Char | Result Qualifier |
 | 9 | TSVALCD | Parameter Value Code | Char | Result Qualifier |
-| 10 | TSVCDREF | Name of Reference Terminology | Char | Result Qualifier |
-| 11 | TSVCDVER | Version of Reference Terminology | Char | Result Qualifier |
+| 10 | TSVCDREF | Name of the Reference Terminology | Char | Result Qualifier |
+| 11 | TSVCDVER | Version of the Reference Terminology | Char | Result Qualifier |
 
 ### Challenge Agent Characterization (AC)
 
-**Structure:** One record per Challenge Agent Characterization Parameter Instance
+The Challenge Agent Characterization dataset allows the sponsor to provide information about challenge agents used in a trial in a structured format. Each record in the Challenge Agent Characterization dataset contains a parameter (a characteristic of the challenge agent) and its value.
 
-The Challenge Agent Characterization dataset allows the sponsor to provide information about challenge agents used in a trial in a structured format. Each record contains a parameter (a characteristic of the challenge agent) and its value.
+**Challenge Agent Characterization—One Record per Challenge Agent Characterization Parameter Instance**
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|
@@ -225,31 +251,18 @@ The Challenge Agent Characterization dataset allows the sponsor to provide infor
 
 ## 5.2 Study References
 
-Study Reference datasets provide structures for representing study-specific identifiers that will be used in subject data. Two such situations have been identified thus far: identifiers for devices, and identifiers for non-host organisms.
+There are occasions when it is necessary to establish study-specific identifiers that will be used in subject data. Two such situations have been identified thus far:
+
+- Identifiers for devices
+- Identifiers for non-host organisms
 
 ### Device Identifiers (DI)
 
-**Structure:** One record per device attribute per device
+> KB note (not in SDTM v2.0): **Structure:** One record per device attribute per device
 
-Used to identify the devices used in a study. The parameters used for identification of a device depend on the kind of device and the need of the study to distinguish among devices.
+The identity of a device is established by means of a number of parameters, then assigned an identifier. The parameters used for identification of a device depend on the kind of device and the need of the study to distinguish among devices.
 
-**Concept Map: Relationships Between Device Identifier Variables**
-
-```mermaid
-graph TD
-    Study["Study"]
-    Device["Device"]
-    IC["IdentifyingCharacteristic"]
-    ID["identifier(SPDEVID)"]
-    PARAM["parameter(DIPARM, DIPARMCD)"]
-    VAL["value(DIVAL)"]
-
-    Study -->|involves| Device
-    Device -->|"has oneor more"| IC
-    Device -->|has| ID
-    IC -->|"isrepresentedusing"| PARAM
-    PARAM -->|has| VAL
-```
+**Device Identifiers Dataset**
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|
@@ -261,36 +274,60 @@ graph TD
 | 6 | DIPARM | Device Identifier Element Name | Char | Synonym Qualifier (DIPARMCD) |
 | 7 | DIVAL | Device Identifier Element Value | Char | Result Qualifier |
 
-### Non-host Organism Identifiers (OI)
+**Concept Map. Relationships Between Device Identifier Variables**
 
-**Structure:** One record per taxon per non-host organism
-
-Used to represent taxonomic information for non-host organisms such as bacteria and viruses. The taxa used for identification depend on the kind of organism and the needs of the study.
-
-**Concept Map: Relationships Between Non-host Organism Identifier Variables**
+> KB note (not in SDTM v2.0): Mermaid rendering of the PDF figure "Concept Map. Relationships Between Device Identifier Variables" (p62).
 
 ```mermaid
 graph TD
     Study["Study"]
-    NHO["Non-HostOrganism"]
-    Taxon["Taxon"]
-    ID["identifier(NHOID)"]
-    PARAM["parameter(OIPARM, OIPARMCD)"]
-    VAL["value(OIVAL)"]
+    Device["Device"]
+    IC["Identifying Characteristic"]
+    ID["identifier (SPDEVID)"]
+    PARAM["parameter (DIPARM, DIPARMCD)"]
+    VAL["value (DIVAL)"]
 
-    Study -->|involves| NHO
-    NHO -->|"has oneor more"| Taxon
-    NHO -->|has| ID
-    Taxon -->|"isrepresentedusing"| PARAM
+    Study -->|involves| Device
+    Device -->|"has one or more"| IC
+    Device -->|has| ID
+    IC -->|"is represented using"| PARAM
     PARAM -->|has| VAL
 ```
+
+### Non-host Organism Identifiers (OI)
+
+> KB note (not in SDTM v2.0): **Structure:** One record per taxon per non-host organism
+
+The identity of a non-host organism is established by means of a number of *taxa* (categories used to classify living things), then assigned an identifier. The taxa used for identification of a non-host organism depend on the kind of organism and the needs of the study to distinguish among organisms.
+
+**Non-host Organism Identifiers Dataset**
 
 | # | Variable | Label | Type | Role |
 |---|----------|-------|------|------|
 | 1 | STUDYID | Study Identifier | Char | Identifier |
 | 2 | DOMAIN | Domain Abbreviation | Char | Identifier |
-| 3 | NHOID | Non-host Organism Identifier | Char | Identifier |
+| 3 | NHOID | Non-Host Organism Identifier | Char | Identifier |
 | 4 | OISEQ | Sequence Number | Num | Identifier |
 | 5 | OIPARMCD | Non-Host Organism ID Element Short Name | Char | Topic |
 | 6 | OIPARM | Non-Host Organism ID Element Name | Char | Synonym Qualifier (OIPARMCD) |
 | 7 | OIVAL | Non-Host Organism ID Element Value | Char | Result Qualifier |
+
+**Concept Map. Relationships Between Non-host Organism Identifier Variables**
+
+> KB note (not in SDTM v2.0): Mermaid rendering of the PDF figure "Concept Map. Relationships Between Non-host Organism Identifier Variables" (p63).
+
+```mermaid
+graph TD
+    Study["Study"]
+    NHO["Non-Host Organism"]
+    Taxon["Taxon"]
+    ID["identifier (NHOID)"]
+    PARAM["parameter (OIPARM, OIPARMCD)"]
+    VAL["value (OIVAL)"]
+
+    Study -->|involves| NHO
+    NHO -->|"has one or more"| Taxon
+    NHO -->|has| ID
+    Taxon -->|"is represented using"| PARAM
+    PARAM -->|has| VAL
+```

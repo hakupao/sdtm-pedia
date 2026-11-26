@@ -92,7 +92,12 @@
   "ig34_p0338_a010": "B-RS audit: verbatim 与 PDF 页文本不符; KB 与页文本一致",
   "ig34_p0338_a013": "B-RS audit: verbatim 与 PDF 页文本不符; KB 与页文本一致",
   "ig34_p0339_a001": "B-RS audit: verbatim 与 PDF 页文本不符; KB 与页文本一致",
-  "ig34_p0334_a011": "B-RS audit: verbatim 与 PDF 页文本不符 Rows 4-7 段被拆; KB 与页文本一致"
+  "ig34_p0334_a011": "B-RS audit: verbatim 与 PDF 页文本不符 Rows 4-7 段被拆; KB 与页文本一致",
+  "ig34_p0149_a006": "B-CE writer: 原子 CEBODYSYS 抽错, PDF/KB 均 CEBODSYS (O4 关闭)",
+  "ig34_p0150_a007": "B-CE writer: 原子抽错, KB 按渲染图正确",
+  "ig34_p0150_a008": "B-CE writer: 原子抽错, KB 按渲染图正确",
+  "ig34_p0150_a009": "B-CE writer: 原子抽错, KB 按渲染图正确",
+  "ig34_p0150_a012": "B-CE writer: 原子抽错, KB 按渲染图正确"
  },
  "t3_target_remap": {
   "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",

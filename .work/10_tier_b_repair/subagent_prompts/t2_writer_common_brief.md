@@ -8,3 +8,4 @@
 - `python3 tools/check_links.py 2>&1 | grep "live docs"` 须仍为 42。evidence 里 markdown 链接写法用反引号包住。
 - 有需主控裁定的事项 (超出上述授权) 写进 checkpoint "需主控定" 并停在该项，不自行扩大范围。回主控 ≤ 10 行。
 - trace ts 用 `date -u +%Y-%m-%dT%H:%M:%SZ` 取真实时间, 不写占位整点 (B-RE writer 曾写 05:00Z/05:30Z).
+- **追加 (主控 2026-11-26, RE/DM/DD 先例)**: assumptions 列表内与 PDF 的逐词/短语级偏差 (缺词、多词、错词, 不涉及增删整条或改结构) 也授权按 PDF 逐字修, 每处列入变更清单; 整条增删/挪位/拆合仍列 "需主控定"。

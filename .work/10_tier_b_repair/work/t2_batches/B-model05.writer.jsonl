@@ -1,0 +1,80 @@
+{"ref": "sv20_p0056_a019", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 160, "pdf_page": 56, "note": "R1-TD"}
+{"ref": "sv20_p0056_a020", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 160, "pdf_page": 56, "note": "R1-TD"}
+{"ref": "sv20_p0056_a022", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 160, "pdf_page": 56, "note": "R1-TD"}
+{"ref": "sv20_p0051_a008", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 17, "pdf_page": 51, "note": "R2; D-1"}
+{"ref": "sv20_p0051_a013", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 23, "pdf_page": 51, "note": "R2; D-2"}
+{"ref": "sv20_p0056_a021", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 160, "pdf_page": 56, "note": "old IE -> R1-TD derived; master may veto"}
+{"ref": "sv20_p0051_a004", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 13, "pdf_page": 51, "note": "R3/R2 drop (TDM); D-3"}
+{"ref": "sv20_p0051_a011", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 20, "pdf_page": 51, "note": "R3/R2"}
+{"ref": "sv20_p0051_a014", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 25, "pdf_page": 51, "note": "R3 new heading"}
+{"ref": "sv20_p0051_a015", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 27, "pdf_page": 51, "note": "R3"}
+{"ref": "sv20_p0051_a017", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 31, "pdf_page": 51, "note": "R3/R2; D-4"}
+{"ref": "sv20_p0051_a019", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 33, "pdf_page": 51, "note": "R3 table title; D-5"}
+{"ref": "sv20_p0052_a006", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 47, "pdf_page": 52, "note": "R3/R2"}
+{"ref": "sv20_p0052_a009", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 49, "pdf_page": 52, "note": "old IE -> R3"}
+{"ref": "sv20_p0052_a010", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 51, "pdf_page": 52, "note": "R3 table title; D-6"}
+{"ref": "sv20_p0053_a006", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 68, "pdf_page": 53, "note": "old IE -> R3; D-7"}
+{"ref": "sv20_p0053_a007", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 68, "pdf_page": 53, "note": "old IE -> R3"}
+{"ref": "sv20_p0053_a008", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 68, "pdf_page": 53, "note": "old IE -> R3"}
+{"ref": "sv20_p0053_a009", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 70, "pdf_page": 53, "note": "old IE -> R3 table title; D-8"}
+{"ref": "sv20_p0053_a017", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 82, "pdf_page": 53, "note": "table Label"}
+{"ref": "sv20_p0053_a018", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 83, "pdf_page": 53, "note": "table Label"}
+{"ref": "sv20_p0054_a001", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 85, "pdf_page": 54, "note": "R3 new heading"}
+{"ref": "sv20_p0054_a002", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 87, "pdf_page": 54, "note": "R3"}
+{"ref": "sv20_p0054_a003", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 89, "pdf_page": 54, "note": "R3"}
+{"ref": "sv20_p0054_a004", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 89, "pdf_page": 54, "note": "old IE -> R3"}
+{"ref": "sv20_p0054_a005", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 89, "pdf_page": 54, "note": "old IE -> R3"}
+{"ref": "sv20_p0054_a008", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 95, "pdf_page": 54, "note": "R3/R2"}
+{"ref": "sv20_p0054_a009", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 97, "pdf_page": 54, "note": "R3 table title; D-9"}
+{"ref": "sv20_p0054_a020", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 113, "pdf_page": 54, "note": "R3/R2"}
+{"ref": "sv20_p0055_a001", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 115, "pdf_page": 55, "note": "R3 table title; D-10"}
+{"ref": "sv20_p0055_a013", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 130, "pdf_page": 55, "note": "old IE -> R3 new heading"}
+{"ref": "sv20_p0055_a014", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 132, "pdf_page": 55, "note": "R3"}
+{"ref": "sv20_p0055_a015", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 134, "pdf_page": 55, "note": "old IE -> R3"}
+{"ref": "sv20_p0055_a016", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 135, "pdf_page": 55, "note": "R3"}
+{"ref": "sv20_p0055_a017", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 136, "pdf_page": 55, "note": "R3"}
+{"ref": "sv20_p0056_a002", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 140, "pdf_page": 56, "note": "R3/R2; D-11"}
+{"ref": "sv20_p0056_a003", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 140, "pdf_page": 56, "note": "old IE -> R3"}
+{"ref": "sv20_p0056_a004", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 140, "pdf_page": 56, "note": "old IE -> R3"}
+{"ref": "sv20_p0056_a005", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 140, "pdf_page": 56, "note": "old IE -> R3"}
+{"ref": "sv20_p0056_a006", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 142, "pdf_page": 56, "note": "R3 table title; D-12"}
+{"ref": "sv20_p0056_a018", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 158, "pdf_page": 56, "note": "R3/R2"}
+{"ref": "sv20_p0057_a001", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 162, "pdf_page": 57, "note": "R3 table title; D-13"}
+{"ref": "sv20_p0057_a013", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 178, "pdf_page": 57, "note": "R3/R2; D-14"}
+{"ref": "sv20_p0058_a001", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 180, "pdf_page": 58, "note": "R3 table title; D-15"}
+{"ref": "sv20_p0058_a009", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 192, "pdf_page": 58, "note": "R3/R2; D-16"}
+{"ref": "sv20_p0058_a010", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 192, "pdf_page": 58, "note": "old IE -> R3"}
+{"ref": "sv20_p0058_a011", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 194, "pdf_page": 58, "note": "R3 table title; D-17"}
+{"ref": "sv20_p0058_a015", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 200, "pdf_page": 58, "note": "table Label"}
+{"ref": "sv20_p0058_a016", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 201, "pdf_page": 58, "note": "table Label"}
+{"ref": "sv20_p0058_a017", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 202, "pdf_page": 58, "note": "table Label"}
+{"ref": "sv20_p0058_a018", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 203, "pdf_page": 58, "note": "table Label"}
+{"ref": "sv20_p0059_a001", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 204, "pdf_page": 59, "note": "table Label"}
+{"ref": "sv20_p0059_a004", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 209, "pdf_page": 59, "note": "R3/R2; D-18"}
+{"ref": "sv20_p0059_a005", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 209, "pdf_page": 59, "note": "R3/R2"}
+{"ref": "sv20_p0059_a006", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 211, "pdf_page": 59, "note": "R3 table title; D-19"}
+{"ref": "sv20_p0059_a013", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 222, "pdf_page": 59, "note": "table Label"}
+{"ref": "sv20_p0059_a017", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 226, "pdf_page": 59, "note": "table Label"}
+{"ref": "sv20_p0060_a001", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 227, "pdf_page": 60, "note": "table Label"}
+{"ref": "sv20_p0060_a004", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 231, "pdf_page": 60, "note": "R3/R2"}
+{"ref": "sv20_p0060_a005", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 233, "pdf_page": 60, "note": "R3 table title; D-20"}
+{"ref": "sv20_p0061_a002", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 254, "pdf_page": 61, "note": "R3/R2; D-21"}
+{"ref": "sv20_p0061_a003", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 254, "pdf_page": 61, "note": "R3/R2"}
+{"ref": "sv20_p0061_a004", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 256, "pdf_page": 61, "note": "R3 list"}
+{"ref": "sv20_p0061_a005", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 257, "pdf_page": 61, "note": "R3 list"}
+{"ref": "KB_AUTHORED:DI_structure", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 261, "pdf_page": null, "note": "D6 KB note"}
+{"ref": "sv20_p0061_a007", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 263, "pdf_page": 61, "note": "R3/R2; D-22"}
+{"ref": "sv20_p0061_a009", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 265, "pdf_page": 61, "note": "R3 table title"}
+{"ref": "sv20_p0062_a001", "action": "MOVED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 277, "pdf_page": 62, "note": "Concept Map after DI table; caption '.'; mermaid label spaces; D6 rendering note"}
+{"ref": "KB_AUTHORED:OI_structure", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 299, "pdf_page": null, "note": "D6 KB note"}
+{"ref": "sv20_p0062_a003", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 301, "pdf_page": 62, "note": "R3/R2; D-23"}
+{"ref": "sv20_p0062_a004", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 301, "pdf_page": 62, "note": "R3/R2"}
+{"ref": "sv20_p0062_a005", "action": "INSERTED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 303, "pdf_page": 62, "note": "R3 table title"}
+{"ref": "sv20_p0062_a009", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 309, "pdf_page": 62, "note": "table Label case"}
+{"ref": "sv20_p0063_a001", "action": "MOVED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 315, "pdf_page": 63, "note": "Concept Map after OI table; caption; mermaid; D6 note"}
+{"ref": "unparseable:model/05:66", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": null, "pdf_page": null, "note": "label cells only; reviewer hand-check vs render"}
+{"ref": "unparseable:model/05:172", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": null, "pdf_page": null, "note": "label cells only; reviewer hand-check vs render"}
+{"ref": "unparseable:model/05:189", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": null, "pdf_page": null, "note": "label cells only; reviewer hand-check vs render"}
+{"ref": "unparseable:model/05:288", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": null, "pdf_page": null, "note": "label cells only; reviewer hand-check vs render"}
+{"ref": "KB_AUTHORED:TX_structure", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 72, "pdf_page": 53, "note": "attempt2: restored as D6 KB note after PDF table title (adds 'per Trial Set', not contradicting); D-8 withdrawn"}
+{"ref": "KB_AUTHORED:TS_structure", "action": "REPLACED", "kb_file": "knowledge_base/model/05_study_level_data.md", "kb_line_after": 213, "pdf_page": 59, "note": "attempt2: restored as D6 KB note (adds 'value', not contradicting); D-19 withdrawn"}
