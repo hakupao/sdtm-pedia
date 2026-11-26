@@ -1,0 +1,20 @@
+{"ref": "ig34_p0064_a012", "action": "SKIPPED_STRUCT", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": null, "pdf_page": 64, "note": "spec 表脚注 2 属 spec.md, 白名单外; 需主控定 M-1"}
+{"ref": "census:knowledge_base/domains/DM/examples.md:11:3:RFXSTDTC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 11, "pdf_page": 68, "note": "2006-01-18 -> 2006-01-16"}
+{"ref": "census:knowledge_base/domains/DM/examples.md:12:4:ROW_SHAPE", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 12, "pdf_page": 68, "note": "AGE/AGEU 补 1 空格, 26 列对齐 (含 8 CELL 位移)"}
+{"ref": "census:knowledge_base/domains/DM/examples.md:416:4:Row", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 440, "pdf_page": 78, "note": "T-1 PDF Row 重复 3, KB 保留 4"}
+{"ref": "unparseable:knowledge_base/domains/DM/examples.md:170", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 178, "pdf_page": 72, "note": "Ex4 CRF Metadata: (same) 还原, 末尾 ;, 4 分隔行; reviewer 人工逐格 p72-73"}
+{"ref": "unparseable:knowledge_base/domains/DM/examples.md:310", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 330, "pdf_page": 76, "note": "Ex6 CRF Metadata: (same) 还原, 末尾 ;, 2 分隔行; reviewer 人工逐格 p76-77"}
+{"ref": "R3:p68:Ex1:Row6:RACE", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 14, "pdf_page": 68, "note": "T-2 ISLANDERS -> ISLANDER"}
+{"ref": "R3:p69:Ex3:Row1", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 68, "pdf_page": 69, "note": "T-3 ACTRMCD -> ACTARMCD"}
+{"ref": "R3:p69:Ex3:Row2", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 70, "pdf_page": 69, "note": "R2 补 'the open'"}
+{"ref": "R3:p70-71:Ex4:fig_subtitles", "action": "INSERTED", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 151, "pdf_page": 70, "note": "4 行 If the study participant answered: X"}
+{"ref": "R3:p75:Ex6:fig_subtitles", "action": "INSERTED", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 322, "pdf_page": 75, "note": "2 行 If the study participant answered: X"}
+{"ref": "R3:p74:Ex5:mermaid", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 245, "pdf_page": 74, "note": "CETHNICT->CETHNICN, QNAM ETHNICN, 补橙框 NOTE 节点"}
+{"ref": "D6:Ex4", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 113, "pdf_page": 70, "note": "Mermaid KB note + 摘要块 159-174 KB note"}
+{"ref": "D6:Ex5", "action": "INSERTED", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 234, "pdf_page": 74, "note": "Mermaid KB note + :255 摘要句 KB note"}
+{"ref": "D6:Ex6", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 290, "pdf_page": 75, "note": "Mermaid KB note + :326 摘要句 KB note, 删 ', and other categories' (D2)"}
+{"ref": "D6:Ex7", "action": "INSERTED", "kb_file": "knowledge_base/domains/DM/examples.md", "kb_line_after": 382, "pdf_page": 78, "note": "Mermaid KB note + 414-423 摘要块 KB note"}
+{"ref": "auth:p62:DM_Description", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/assumptions.md", "kb_line_after": 5, "pdf_page": 62, "note": "两段合并为 PDF 单段"}
+{"ref": "auth:p62:DM_spec_first_sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/DM/assumptions.md", "kb_line_after": 9, "pdf_page": 62, "note": "## DM – Specification + dm.xpt 首句"}
+{"ref": "ig34_p0064_a012", "action": "DEFERRED_O26", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": null, "pdf_page": 64, "note": "attempt 2: 主控裁定并入 O15/O26 spec 脚注全域扫描"}
+{"ref": "F-2:p65:assumption4", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/assumptions.md", "kb_line_after": 19, "pdf_page": 65, "note": "attempt 2: 删多出的 'as', 主控授权"}

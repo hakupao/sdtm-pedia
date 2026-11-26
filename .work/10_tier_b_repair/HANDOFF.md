@@ -9,12 +9,11 @@ writer 在 reviewer PASS 后再改 → 回 reviewer 复审 delta 才派 auditor.
 check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`); evidence 里 md 链接写法须反引号.
 
 ## 已提交批 (见 git log "Tier B batch")
-## 在途 (2026-11-26; 已提交 37 批, 最新 B-model05)
-- B-DM: writer a1 完成 (2 张 CRF unparseable 表已动 → reviewer 须人工逐格; M-1→O34) → a2 → reviewer PASS → auditor 在跑 (查 Ex7 Mermaid "If selected" 推断连线)
+## 在途 (2026-11-26; 已提交 38 批, 最新 B-DM)
 - B-TS: writer 完成 (Q-1 NA 行补入=认可 O37; Q-2 T-1 Trial Title=认可; T-2..T-7 照录+T4) → reviewer PASS → auditor 在跑
 - B-model06: writer a1 完成, 主控裁 M-1/M-4→O38 T4; M-2b/2c 授权 Notes 格逐字恢复/D6/清 C-code → a2 → reviewer PASS (LOW→O41) → auditor 在跑
 - writer 共用 brief: subagent_prompts/t2_writer_common_brief.md; reviewer/auditor 共用 brief: subagent_prompts/t2_reviewer_common_brief.md
-- B-DA: writer 完成 (F-1→O39) → reviewer 在跑
+- B-DA: reviewer PASS → auditor 在跑
 - B-DD: writer a1 完成 → a2 (F-1 codetable) 完成 → reviewer 在跑
 - B-CE: writer 完成 (O4 关闭, O10 CE Ex2 已修; CRF 描述名按 B-AE L-2 保留) → reviewer 在跑
 - B-FT: writer 完成 (Q-1 §6.3.9 父节引言放 FT/assumptions.md 顶部=认可; Q-2 引号→O40) → reviewer 在跑

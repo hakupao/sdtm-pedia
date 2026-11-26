@@ -2,9 +2,11 @@
 
 ## DM – Description/Overview
 
-A special-purpose domain that includes a set of essential standard variables that describe each subject in a clinical study.
+A special-purpose domain that includes a set of essential standard variables that describe each subject in a clinical study. It is the parent domain for all other observations for human clinical subjects.
 
-It is the parent domain for all other observations for human clinical subjects.
+## DM – Specification
+
+dm.xpt, Demographics — Special Purpose. One record per subject, Tabulation.
 
 ## DM – Assumptions
 
@@ -14,7 +16,7 @@ It is the parent domain for all other observations for human clinical subjects.
 
 3. Concerns for subject privacy suggest caution regarding the collection of variables like BRTHDTC. This variable is included in the Demographics model in the event that a sponsor intends to submit it; however, sponsors should follow regulatory guidelines and guidance as appropriate.
 
-4. With the exception of trials that use multistage processes to assign subjects to arms as described below, ARM and ACTARM must be populated with ARM values from the Trial Arms (TA) dataset and ARMCD and ACTARMCD must be populated with ARMCD values from the TA dataset or be null. The ARM and ARMCD values in the TA dataset have a one-to-one relationship, and that one-to-one relationship must be preserved in the values used to populate ARM and ARMCD in DM, and to populate the values of ACTARM and ACTARMCD in DM.
+4. With the exception of trials that use multistage processes to assign subjects to arms described below, ARM and ACTARM must be populated with ARM values from the Trial Arms (TA) dataset and ARMCD and ACTARMCD must be populated with ARMCD values from the TA dataset or be null. The ARM and ARMCD values in the TA dataset have a one-to-one relationship, and that one-to-one relationship must be preserved in the values used to populate ARM and ARMCD in DM, and to populate the values of ACTARM and ACTARMCD in DM.
    a. Rules for the arm-related variables:
       i. If ARMCD is null, then ARM must be null and ARMNRS must be populated with the reason ARMCD is null.
       ii. If ACTARMCD is null, then ACTARM must be null and ARMNRS must be populated with the reason ACTARMCD is null. Both ARMCD and ACTARMCD will be null for subjects who were not assigned to treatment. The same reason will provide the reason that both are null.
