@@ -1,0 +1,68 @@
+{
+ "batch_id": "S-CH1",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "chapters/ch01_introduction.md",
+  "chapters/ch02_fundamentals.md"
+ ],
+ "kb_files": [
+  "knowledge_base/chapters/ch01_introduction.md",
+  "knowledge_base/chapters/ch02_fundamentals.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "chapters/ch01_introduction.md",
+   "sec": "1",
+   "title": "§1 Introduction",
+   "lo": 7,
+   "hi": 10,
+   "src": "ig34",
+   "note": "主控粗定, 先复核 (O20)"
+  },
+  {
+   "unit": "chapters/ch02_fundamentals.md",
+   "sec": "2",
+   "title": "§2 Fundamentals of the SDTM",
+   "lo": 11,
+   "hi": 16,
+   "src": "ig34",
+   "note": "主控粗定, 先复核 (O20)"
+  }
+ ],
+ "pdf_pages": [
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16
+ ],
+ "pdf_src": "ig34",
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/chapters/ch01_introduction.md",
+   "src": "ig34",
+   "lo": 7,
+   "hi": 10
+  },
+  {
+   "file": "knowledge_base/chapters/ch02_fundamentals.md",
+   "src": "ig34",
+   "lo": 11,
+   "hi": 16
+  }
+ ],
+ "gaps": {},
+ "intros": [],
+ "footnote": "本批无域 spec.md",
+ "footnote_moves": [],
+ "census_items": [],
+ "out_of_scope": [],
+ "notes": "B-ch01/B-ch02 为 NARROW 批, 全文件双向全扫. ch02:49 §2.3 句与 §6.x 类引言无关 (类引言已放 AG/AE/DA 顶). 行号为 HEAD 时, 以内容定位."
+}

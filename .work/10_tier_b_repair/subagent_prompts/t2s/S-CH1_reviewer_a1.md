@@ -1,0 +1,4 @@
+批次 S-CH1 (T2-post 扫描批, chapters), attempt 1. 角色: reviewer.
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Reviewer 段执行, 并读它引用的 `t2_reviewer_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含末尾 T2S 段及其后主控裁定) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8) / `t1_user_ack.md`。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-CH1.json` (ch01 §1 p7-10, ch02 §2 p11-16)。writer 报告 `evidence/checkpoints/t2_S-CH1.md`: writer 声称 KB 零改动、双向全扫无缺口。你的任务是**独立证伪**这一结论: 不采信 writer, 自己对 p7-16 做逐句 PDF→KB 与 KB→PDF 全扫 (含表格/代码字面量/列表项, 含 p15 Mermaid 图逻辑), R2 口径 (改写丢短语即缺)。`git diff HEAD -- knowledge_base/chapters/ch01_introduction.md knowledge_base/chapters/ch02_fundamentals.md` 应为空。强调格式 (粗体/下划线) 差异不计 (主控裁定)。发现缺口 → CONDITIONAL + 修正清单。
+回主控 ≤ 10 行。
