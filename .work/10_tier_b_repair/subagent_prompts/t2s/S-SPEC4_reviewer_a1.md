@@ -1,0 +1,5 @@
+批次 S-SPEC4 (T2-post 扫描批, spec-only), attempt 1. 角色: reviewer.
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Reviewer 段执行, 并读它引用的 `t2_reviewer_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含末尾 T2S 段及其后主控裁定) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8) / `t1_user_ack.md`。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-SPEC4.json` (RS SC TU VS SUPPQUAL TE TI TS TV 共 9 个 spec.md (TV 为主控追加); writer 复核页范围见报告)。writer 报告 `evidence/checkpoints/t2_S-SPEC4.md` + `work/t2_batches/S-SPEC4.writer.jsonl`。改动未提交: `git diff HEAD -- knowledge_base/domains/{RS,SC,TU,VS,SUPPQUAL,TE,TI,TS,TV}/spec.md` (应只有 CT `*` 17 处 + 脚注 9 处)。另有扫描批同时改别的文件, 只看本批。
+重点: 独立逐变量逐字段核 9 域 184 变量 (Order/Label/Type/Role/Core/CDISC Notes 逐字, R2 口径) —— 不得只用 writer 的 sc2.py (同源); 自己写列解析或用 layout + 渲染; 每域 "PDF 变量数 = KB 变量数 + 顺序" 计数闸; CT `*` 逐变量对渲染 (含 PDF 无 `*` 的域确认); 9 处脚注逐字 + U7 位置; p407 (TV) 与 p432 (SUPPQUAL) 表头缩进, writer 工具曾认不出; RS/TU 的 PDF 无 `*` 须确认。U5/U6 不在本批。
+回主控 ≤ 10 行。

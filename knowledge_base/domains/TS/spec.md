@@ -60,7 +60,7 @@
 - **Order:** 7
 - **Label:** Parameter Value
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Result Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Value of TSPARM. Example: "ASTHMA" when TSPARM value is "Trial Indication". TSVAL can only be null when TSVALNF is populated. Text over 200 characters can be added to additional columns TSVAL1-TSVALn. See Assumption 8.
@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Parameter Value Code
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Result Qualifier
 - **Core:** Exp
 - **CDISC Notes:** This is the code of the term in TSVAL. For example, "6CW7F3G59X" is the code for gabapentin; "C49488" is the code for Y. The length of this variable can be longer than 8 to accommodate the length of the external terminology.
@@ -101,6 +101,8 @@
 - **Core:** Exp
 - **CDISC Notes:** The version number of the reference terminology, if applicable.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

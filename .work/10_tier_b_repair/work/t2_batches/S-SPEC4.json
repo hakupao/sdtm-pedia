@@ -11,7 +11,8 @@
   "domains/SUPPQUAL/spec.md",
   "domains/TE/spec.md",
   "domains/TI/spec.md",
-  "domains/TS/spec.md"
+  "domains/TS/spec.md",
+  "domains/TV/spec.md"
  ],
  "kb_files": [
   "knowledge_base/domains/RS/spec.md",
@@ -21,7 +22,8 @@
   "knowledge_base/domains/SUPPQUAL/spec.md",
   "knowledge_base/domains/TE/spec.md",
   "knowledge_base/domains/TI/spec.md",
-  "knowledge_base/domains/TS/spec.md"
+  "knowledge_base/domains/TS/spec.md",
+  "knowledge_base/domains/TV/spec.md"
  ],
  "narrow_files": [],
  "sections": [
@@ -88,6 +90,14 @@
    "lo": 417,
    "hi": 425,
    "note": "只扫该域 spec 表所在页 (先定位), 止页常多 1 页"
+  },
+  {
+   "unit": "domains/TV",
+   "sec": "7.3.1",
+   "title": "§7.3.1 Trial Visits (TV)",
+   "lo": 407,
+   "hi": 410,
+   "note": "主控追加 (分组时漏 TV); 只扫 TV spec 表所在页"
   }
  ],
  "pdf_pages": [
@@ -122,6 +132,9 @@
   405,
   406,
   407,
+  408,
+  409,
+  410,
   416,
   417,
   418,
@@ -146,7 +159,8 @@
   "SUPPQUAL": "F (fn 原子 ig34_p0432_a026)",
   "TE": "F (fn 原子 ig34_p0403_a022)",
   "TI": "F (fn 原子 ig34_p0416_a022)",
-  "TS": "F (fn 原子 ig34_p0418_a005)"
+  "TS": "F (fn 原子 ig34_p0418_a005)",
+  "TV": "F (fn 原子 ig34_p0408_a006)"
  },
  "intros": [],
  "footnote": "U2/U7: 每个 spec.md 最后一个变量块之后、Cross References 之前补 spec 表脚注 (逐字, 多条各一段); CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
