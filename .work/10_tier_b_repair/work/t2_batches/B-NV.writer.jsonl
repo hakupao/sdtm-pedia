@@ -1,0 +1,11 @@
+{"ref": "ig34_p0285_a009", "action": "INSERTED", "kb_file": "knowledge_base/domains/NV/assumptions.md", "kb_line_after": 5, "pdf_page": 285, "note": "§6.3.7 概述段末补句"}
+{"ref": "ig34_p0285_a010", "action": "INSERTED", "kb_file": "knowledge_base/domains/NV/assumptions.md", "kb_line_after": 5, "pdf_page": 285, "note": "紧接 a009"}
+{"ref": "ig34_p0294_a013", "action": "INSERTED", "kb_file": "knowledge_base/domains/NV/assumptions.md", "kb_line_after": 38, "pdf_page": 294, "note": "新增 ## NV – Description/Overview (:36)"}
+{"ref": "r3:p294:spec_first_sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/NV/assumptions.md", "kb_line_after": 42, "pdf_page": 294, "note": "新增 ## NV – Specification (:40) + nv.xpt 首句"}
+{"ref": "r3:p285:6.3.7.1_bullet5", "action": "INSERTED", "kb_file": "knowledge_base/domains/NV/assumptions.md", "kb_line_after": 15, "pdf_page": 285, "note": "§6.3.7.1 第 5 bullet"}
+{"ref": "pdf_only:p286:--.xpt generic morphology/physiology spec", "action": "TABLE_REBUILT", "kb_file": "knowledge_base/domains/NV/assumptions.md", "kb_line_after": 19, "pdf_page": 286, "note": "新增 title(:17)+12 行(:21-32)+脚注(:34); census UNPARSEABLE, reviewer 逐格人工核"}
+{"ref": "census:knowledge_base/domains/NV/examples.md:17:1:NVORRES", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/examples.md", "kb_line_after": 17, "pdf_page": 296, "note": "0.95 -> .95"}
+{"ref": "census:knowledge_base/domains/NV/examples.md:17:1:NVSTRESC", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/examples.md", "kb_line_after": 17, "pdf_page": 296, "note": "0.95 -> .95"}
+{"ref": "census:knowledge_base/domains/NV/examples.md:17:1:NVSTRESN", "action": "REPLACED", "kb_file": "knowledge_base/domains/NV/examples.md", "kb_line_after": 17, "pdf_page": 296, "note": "0.95 -> .95"}
+{"ref": "census:knowledge_base/domains/NV/examples.md:18:2:NVSTRESN", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/NV/examples.md", "kb_line_after": 18, "pdf_page": 296, "note": "T-2: PDF 空, KB 保留 1.17"}
+{"ref": "ig34_p0296_a019", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/NV/examples.md", "kb_line_after": 11, "pdf_page": 296, "note": "T-1: PDF 'an fluorodeoxyglucose', KB 保留 'a'"}
