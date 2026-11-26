@@ -46,3 +46,5 @@
 | O43 | B-MI review | MI/examples.md:23 "is a represented in a derived record" | PDF 原句语法错, 不可唯一确定 → KB 照录, T4 用户裁定项 |
 | O44 | B-CE review a2 | CE/examples.md USUBJID `ABC -US-701-002` ×8 (T-2) + supp `001-001` (T-3) | T4 用户裁定; T-2 登记中 "间隙<3.5pt 疑为字距" 依据实测不成立 (与正常词间隙同), T4 汇总时改措辞; fp p153-155 8 条回归 = 照录预期, 待 T4 后更正原子 |
 | O45 | B-CM audit | p103 §6.1.3 Exposure Domains 父节引言 (ig34_p0103_a021/a022) | 全 KB 0 命中 → 并入 O17 §6.x 类引言扫描 (候选宿主 EX/assumptions.md 顶部, NV/FT 先例); 另: CM spec 脚注 ledger 误记 EQUIVALENT → 佐证 O36 |
+| O46 | B-DI writer | p441 §9 章引言 ("There are occasions…" + 2 bullet) | 已在 ch10_appendices.md:66-69; DI/OI 域文件未收 → 并入 O17 (DI/OI 一起定是否加交叉引用); model/05:257 附近 §9 bullet 未核 |
+| O47 | B-TV writer | B-TE audit 称 §7.3 引言在 TI/assumptions.md | 不准确: §7.3 引言在 TV/assumptions.md:3-11, TI 仅 §7.4/§7.5; B-TV.json pdf_ranges 409-412 应为 407-410 (O20 同类) |

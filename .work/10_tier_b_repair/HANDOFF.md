@@ -9,13 +9,17 @@ writer 在 reviewer PASS 后再改 → 回 reviewer 复审 delta 才派 auditor.
 check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`); evidence 里 md 链接写法须反引号.
 
 ## 已提交批 (见 git log "Tier B batch")
-## 在途 (2026-11-26; 已提交 47 批, 最新 B-CM)
+## 在途 (2026-11-26; 已提交 48 批, 最新 B-IE)
 - writer 共用 brief: subagent_prompts/t2_writer_common_brief.md; reviewer/auditor 共用 brief: subagent_prompts/t2_reviewer_common_brief.md
 - B-CE: writer 完成 (O4 关闭, O10 CE Ex2 已修; CRF 描述名按 B-AE L-2 保留) → reviewer CONDITIONAL (C-1 Ex1 CRF / C-2 Ex2 日期格 / C-3 USUBJID 空格照录+T4) → writer a2 → reviewer a2 PASS → auditor 在跑 (O44)
-- B-IE: reviewer PASS → auditor 在跑
 - B-CO: reviewer PASS → auditor 在跑
-- B-DV / B-ML: writer 完成 → reviewer 在跑 (DV T-1 照录+T4; ML O4 关闭, F-1 spec 脚注→O15)
-- B-SU / B-SV(O33) / B-TI / B-TV: writer 在跑 (TV 对 TI 文件只读)
-- B-ch03(O5) / B-DI / B-SUPPQUAL(D7,O2) / B-SC: writer 在跑
+- B-DV: reviewer PASS (E-1 勘误已追加) → auditor 在跑
+- B-ML: writer 完成 → reviewer 在跑 (DV T-1 照录+T4; ML O4 关闭, F-1 spec 脚注→O15)
+- B-SU: writer 完成 (pdf_ranges 漏 p133) → reviewer 在跑
+- B-SV: writer 完成 (O33 已修) → reviewer 在跑
+- B-TV: writer 完成 → reviewer 在跑
+- B-TI: writer 在跑 (TV 对 TI 文件只读)
+- B-DI: writer 完成 (§9 章引言→O46) → reviewer 在跑
+- B-ch03(O5) / B-SUPPQUAL(D7,O2) / B-SC: writer 在跑
 ## 待开: 无 (T2 最后一组)
 ## T2 后: O15/O16/O17/O18/O20/O24 全域扫描小批 (Description/Overview, spec 首句, §6.x 类引言, 漏页, spec.md 记法) → T3 (ledger 回写 + t3_atom_err + target_remap) → T4 (总闸 + T4 用户裁定汇总 + 人工 30 抽样) → push + 提醒 sdtm-rag
