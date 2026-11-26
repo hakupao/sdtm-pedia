@@ -3,9 +3,9 @@
   "tier": 3,
   "plan": "PLAN.md",
   "plan_version": "v1.1",
-  "status": "EXECUTING — T2 (首批 B-PCPP hard)",
-  "current_step": "T2",
-  "next_step": "T2 B-PCPP (hard checkpoint)",
+  "status": "EXECUTING — T2 完成 (60/60), 进入 T2 后扫描批",
+  "current_step": "T2-post",
+  "next_step": "S-* 扫描批 (evidence/t2_coverage_matrix.md 分组) → T3",
   "baseline": {
     "tier_b_p4b_orig": {
       "SIBLING_DROPPED": 56,
@@ -169,6 +169,19 @@
         "whitelist sv20_p0004_a016 (§1) 是否一并补",
         "O11 AE 扩写项是否删"
       ]
+    },
+    {
+      "step": "T2",
+      "status": "PASS",
+      "artifacts": [
+        "evidence/checkpoints/t2_B-*.md",
+        "audit_matrix.md",
+        "evidence/t2_census_global_triage.md",
+        "evidence/t2_fp_expected_regressions.md",
+        "evidence/t2_coverage_matrix.md",
+        "evidence/checkpoints/t2_post_user_ack.md"
+      ],
+      "note": "60 批 writer/reviewer/auditor 全 PASS, 本地 commit; fp 全局回归 60 R4=0; census C3 60 张待人工; 用户裁定 U1-U4"
     }
   ],
   "steps": {

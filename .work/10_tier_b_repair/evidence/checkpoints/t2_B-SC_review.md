@@ -59,3 +59,10 @@ python3 -c "date(2017,3,2)+timedelta(30), +timedelta(101), (date(2017,6,10)-date
 
 ### 其他
 - 范围外 (LOW, 全局非本批): 63 份 spec.md 均无 spec 表脚注 "1In this column, an asterisk (*)…" (p341); 属全局约定, 不计本批.
+
+## attempt 2 (2026-11-26, 复核主控勘误)
+
+**verdict: PASS**
+- 修正项 (1)：已在 `t2_B-SC.md` 的 "主控勘误" 节落实。T-1 Row 3 的依据已改为 "按 ISO 8601 和 Row 1 格式去掉多余连字符，数字照录 PDF"，并写明原 "+71 天" 的算术错误；Row 2 的依据保留。落实完整。
+- 修正项 (2)：已在同一节新增 T-2 (T4 用户裁定项)，并登记到 `work/out_of_scope_findings.md:55` O52 (Row 3 SCDTC 2017-06-10 与 SCDY 297 不一致，按推算应为 296；KB 照录)。落实完整。
+- KB 未改：md5 仍为 assumptions `b2771af79138622abac5d919865604c1`、examples `cc07ab726ff3a5ed7734183b8b749324`、spec `1cf3915fdf6a124cf939b6c767f2fe8a`，与 attempt 1 相同。

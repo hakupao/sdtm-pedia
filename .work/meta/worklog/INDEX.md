@@ -16,6 +16,7 @@
 | `phase07_website.md` | 07 公开发布版站点 (sdtm-pedia.pages.dev) | 40 | 2026-04-28 | 07 phase close 时 append (Phase 6/7/8/9/10/11 已 closed) |
 | `phase_07_release.md` | 07 Release v1.0 + v1.1 (公司发布版 release/) | (new) | 2026-05-15 | release cut 时 append |
 | `phase_jp_delivery.md` | docs/jp/ iTMS 様 納品 (Chain J) | 98 | 2026-06-15 | **FROZEN** — 线 CLOSED 冻结, 不再 append |
+| `phase10_tier_b_repair.md` | 10 Tier B 内容补修 (T2 60 批 + 全库扫描) | (new) | 2026-11-26 | T 阶段 close 时 append |
 | `phase_meta_refactor.md` | refactor v1 段 1/2/3 (Chain REFACTOR-v1) | (生成) | 2026-05-06 | 段 close 时 append, 段 3 close 后可归档 |
 
 ## 按 Phase 反向查找
@@ -35,6 +36,7 @@
 | 07 旁枝 (Website) | `phase07_website.md` | Phase 6/7/8/9/10/11 closed |
 | 07 Release (公司发布) | `phase_07_release.md` | **CLOSED 冻结** — v1.0-v1.4 全 closed (tag v1.4-company-release) |
 | docs/jp 旁枝 | `phase_jp_delivery.md` | **CLOSED 冻结** 2026-06-15 — 停于 P0 2/4 + 01 v1.1-draft |
+| 10 旁枝 (Tier B 补修) | `phase10_tier_b_repair.md` | T2 完成 2026-11-26 |
 | refactor v1 (临时) | `phase_meta_refactor.md` | 段 2 close 2026-05-06 |
 
 ## 写入约定
