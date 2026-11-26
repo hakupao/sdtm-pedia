@@ -56,7 +56,7 @@ atoms[] = 0, t2_recheck = 0, pdf_only = 0.
 
 ## 范围外发现
 - O-EC1: `EC/assumptions.md` 缺 §6.1.3.2 Description/Overview 叙述与 spec 首句 ("ec.xpt, Exposure as Collected — Interventions. One record per …", p107 line 19); 文件直接从 Assumptions 1 开始. 非本批 kb_files → 报主控 (O15/O16).
-- O-EC2: `EX/examples.md:3` KB note 仍写 "See also [EC Examples](../EC/examples.md)", 现 EC 已改为指回 EX 的交叉引用 (互指, 非断链). 是否删该句由主控定 (EX 不在本批).
+- O-EC2: `EX/examples.md:3` KB note 仍写 `See also [EC Examples](../EC/examples.md)`, 现 EC 已改为指回 EX 的交叉引用 (互指, 非断链). 是否删该句由主控定 (EX 不在本批).
 
 ## 触碰过的 unparseable 表
 EC/examples.md:84 (Ex6 ec.xpt) — 整表删除 (D2), 未编辑单元格.
@@ -76,7 +76,7 @@ EC/examples.md:84 (Ex6 ec.xpt) — 整表删除 (D2), 未编辑单元格.
 | 5 | EC/assumptions.md:3-5 | O-EC1 | INSERTED | `## EC – Description/Overview` + 描述句 (逐字) | 107 |
 | 6 | EC/assumptions.md:7-9 | O-EC1 | INSERTED | `## EC – Specification` + spec 首句 "ec.xpt, Exposure as Collected — Interventions. One record per …per mood, Tabulation." (逐字) | 107 |
 | 7 | EC/assumptions.md:11 | O-EC1 | INSERTED | `## EC – Assumptions` 标题 (PDF 原标题 p109; 按 CM/SC 惯例分节; 既有 H1 未动) | 109 |
-| 8 | EX/examples.md:3 | O-EC2 | REPLACED | KB note 句尾 "See also [EC Examples](…)" → "; EC/examples.md points here." (去链接, 消除互指循环; EX 其余未动) | — |
+| 8 | EX/examples.md:3 | O-EC2 | REPLACED | KB note 句尾 `See also [EC Examples](…)` → "; EC/examples.md points here." (去链接, 消除互指循环; EX 其余未动) | — |
 
 - EC/assumptions.md 双向扫描 (p109 "EC – Assumptions" 起 – p110): KB→PDF 逐行 norm 后子串匹配, 0 缺; PDF→KB 人工对 1(a-c)/2/3(a i-ii, b-e)/4(a-c)/5(a-b)/6/7(a-b), 全部逐字在 KB, 无遗漏、无 KB 自写内容.
 - fp 回归: HEAD 版 3 文件 vs 现版 (其余 KB 相同) 跑 `scripts/fp_match.py --baseline work/fp_baseline.jsonl`: 两边 regress 均 48 条 (全为 HEAD 既有, 页 p011-p039x, 含 p0118_a017 PARTIAL 既有), 新增 0 / hit_target 翻转 0 → EC+EX 回归 0.

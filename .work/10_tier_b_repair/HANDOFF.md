@@ -10,8 +10,8 @@ check_links live docs 基线 42; evidence 里 md 链接写法须反引号.
 
 ## 已提交批 (见 git log "Tier B batch")
 ## 在途 (2026-11-26 压缩前快照; 已提交 25 批, 最新 5440dc5)
-- B-VS: auditor 在跑 → PASS 后 commit (登记 p360 rows1-4 原子抽错)
-- B-TU: reviewer 在跑 (需人工核 assumptions.md:90-92 / :98-105 两张表)
+- B-VS: 已提交
+- B-TU: reviewer PASS (t2_B-TU_review.md) → 待派 auditor
 - B-BE: writer 完成, 待派 reviewer. 待主控裁 F-1: p143 节引言 NOTE (BE/BS/RELSPEC 源自 SDTMIG-PGx, 3 句) BE 文件缺 → 建议授权补进 BE/assumptions.md 标题后 (同 D7 精神); T-1..T-3 keep-correct 已登记
 - B-TE: writer 在跑 (含 TA/assumptions.md:102-150 → 交叉引用)
 - B-MK: writer 在跑

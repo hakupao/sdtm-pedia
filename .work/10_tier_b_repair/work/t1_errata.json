@@ -65,7 +65,11 @@
   "ig34_p0010_a002": "B-ch01 T-1: PDF 缺 has, KB 补",
   "ig34_p0010_a023": "B-ch01 T-2: --LNKID/--LNKGRP 对调",
   "ig34_p0009_a024": "B-ch01 review: 原子缺逗号",
-  "ig34_p0307_a008": "B-RP review: 原子漏 RPSTRESN 值 (a008 编号待 T3 核)"
+  "ig34_p0307_a008": "B-RP review: 原子漏 RPSTRESN 值 (a008 编号待 T3 核)",
+  "ig34_p0360_a021": "B-VS audit: VSDY 读空 / VSTPT 截成 BASELINE",
+  "ig34_p0360_a022": "B-VS audit: VSDY 读空 / VSTPT 截成 BASELINE",
+  "ig34_p0360_a023": "B-VS audit: VSDY 读空 / VSTPT 截成 BASELINE",
+  "ig34_p0360_a024": "B-VS audit: VSDY 读空 / VSTPT 截成 BASELINE"
  },
  "t3_target_remap": {
   "ig34_p0254_a040": "knowledge_base/domains/MS/spec.md",

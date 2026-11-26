@@ -1,0 +1,12 @@
+{"ref": "ig34_p0358_a014", "action": "INSERTED", "kb_file": "knowledge_base/domains/VS/assumptions.md", "kb_line_after": 5, "pdf_page": 358, "note": "O13 Description/Overview"}
+{"ref": "spec_first_sentence:VS", "action": "INSERTED", "kb_file": "knowledge_base/domains/VS/assumptions.md", "kb_line_after": 9, "pdf_page": 358, "note": "vs.xpt spec 首句 + VS – Assumptions 标题(:11)"}
+{"ref": "census:knowledge_base/domains/VS/examples.md:17:1:VSTPT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/examples.md", "kb_line_after": 17, "pdf_page": 360, "note": "BASELINE -> BASELINE 1"}
+{"ref": "census:knowledge_base/domains/VS/examples.md:18:2:VSTPT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/examples.md", "kb_line_after": 18, "pdf_page": 360, "note": "BASELINE -> BASELINE 2"}
+{"ref": "census:knowledge_base/domains/VS/examples.md:19:3:VSTPT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/examples.md", "kb_line_after": 19, "pdf_page": 360, "note": "BASELINE -> BASELINE 1"}
+{"ref": "census:knowledge_base/domains/VS/examples.md:20:4:VSTPT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/examples.md", "kb_line_after": 20, "pdf_page": 360, "note": "BASELINE -> BASELINE 2"}
+{"ref": "census:knowledge_base/domains/VS/examples.md:22:6:VSTPT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/examples.md", "kb_line_after": 22, "pdf_page": 361, "note": "BASELINE -> BASELINE 1"}
+{"ref": "census:knowledge_base/domains/VS/examples.md:23:7:VSORRES", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/examples.md", "kb_line_after": 23, "pdf_page": 361, "note": "38.2 -> 36.2"}
+{"ref": "census:knowledge_base/domains/VS/examples.md:23:7:VSSTRESC", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/examples.md", "kb_line_after": 23, "pdf_page": 361, "note": "38.2 -> 36.2"}
+{"ref": "census:knowledge_base/domains/VS/examples.md:23:7:VSSTRESN", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/examples.md", "kb_line_after": 23, "pdf_page": 361, "note": "38.2 -> 36.2"}
+{"ref": "census:knowledge_base/domains/VS/examples.md:23:7:VSTPT", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/examples.md", "kb_line_after": 23, "pdf_page": 361, "note": "BASELINE -> BASELINE 2"}
+{"ref": "census:knowledge_base/domains/VS/examples.md:28:12:VSSTRESC", "action": "REPLACED", "kb_file": "knowledge_base/domains/VS/examples.md", "kb_line_after": 28, "pdf_page": 361, "note": "38.2 -> 36.2"}
