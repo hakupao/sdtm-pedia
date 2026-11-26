@@ -8,7 +8,7 @@ This section contains the Trial Design (TD) datasets that describe:
 - The planned schedule of efficacy assessments related to the disease under study (Section 7.3.2, Trial Disease Assessments (TD))
 - The things (events, interventions, or findings) which, if and when they happen, are the occasion for assessments planned in the protocol (Section 7.3.3, Trial Disease Milestones (TM))
 
-The Trial Visits (TV) and TD datasets provide the planned scheduling of assessments to which a subject's actual visits and disease assessments can be compared.
+The Trial Visits (TV) and TD datasets provide the planned scheduling of assessments to which a subject’s actual visits and disease assessments can be compared.
 
 ## TV – Description/Overview
 

@@ -191,7 +191,7 @@ Sponsors are cautioned to recognize that a derived origin means that all values 
 
 ### 4.1.9 Assigning Natural Keys in the Metadata
 
-Section 3.2, Using the CDISC Domain Models in Regulatory Submissions — Dataset Metadata, indicates that a sponsor should include in the metadata the variables that contribute to the natural key for a domain. In a case where a dataset includes a mix of records with different natural keys, the natural key that provides the most granularity is the one that should be provided. The following example illustrates how to do this, and include a case where a Supplemental Qualifier variable is referenced because it forms part of the natural key.
+Section 3.2, Using the CDISC Domain Models in Regulatory Submissions – Dataset Metadata, indicates that a sponsor should include in the metadata the variables that contribute to the natural key for a domain. In a case where a dataset includes a mix of records with different natural keys, the natural key that provides the most granularity is the one that should be provided. The following example illustrates how to do this, and include a case where a Supplemental Qualifier variable is referenced because it forms part of the natural key.
 
 **Musculoskeletal System Findings (MK) Domain Example**
 
@@ -321,7 +321,7 @@ Missing values for individual data items should be represented by nulls. Convent
 
 ### 4.2.6 Grouping Variables and Categorization
 
-Grouping variables are Identifiers and Qualifiers variables — such as the --CAT (Category) and --SCAT (Subcategory) — that group records in the SDTM domains/datasets and can be assigned by sponsors to categorize topic-variable values. For example, a lab record with LBTEST = "SODIUM" might have LBCAT = "CHEMISTRY" and LBSCAT = "ELECTROLYTES". Values for --CAT and --SCAT should not be redundant with the domain name or dictionary classification provided by --DECOD and --BODSYS.
+Grouping variables are Identifiers and Qualifiers variables—such as the --CAT (Category) and --SCAT (Subcategory)—that group records in the SDTM domains/datasets and can be assigned by sponsors to categorize topic-variable values. For example, a lab record with LBTEST = "SODIUM" might have LBCAT = "CHEMISTRY" and LBSCAT = "ELECTROLYTES". Values for --CAT and --SCAT should not be redundant with the domain name or dictionary classification provided by --DECOD and --BODSYS.
 
 #### Hierarchy of Grouping Variables
 
@@ -501,7 +501,7 @@ An investigator has selected "OTHER" and specified "BLUEISH GRAY". As in the pre
 
 If a list of specific treatments is provided along with "Other, Specify", --TRT should be populated with the name of the treatment found in the specified text. If the sponsor wishes to distinguish between the prespecified list of treatments and those recorded in "Other, Specify," the --PRESP variable could be used. For example:
 
-| Indicate which of the following concomitant medications was used to treat the subject's headaches: |                               |
+| Indicate which of the following concomitant medications was used to treat the subject’s headaches: |                               |
 |----------------------------------------------------------------------------------------------------|-------------------------------|
 |                                                                                                    | [ ] Acetaminophen             |
 |                                                                                                    | [ ] Aspirin                   |
@@ -860,13 +860,13 @@ When an interval of time is an amount of time (duration) following an event whos
 
 `YYYY-MM-DDThh:mm:ss/PnYnMnDTnHnMnS`
 
-where the start date/time is represented before the solidus or foreword slash [/], the "Pn..." following the solidus represents a "duration," and the entire representation is known as an "interval." Note that this is the recommended representation of elapsed time, given a start date/time and the duration elapsed.
+where the start date/time is represented before the solidus or foreword slash [/], the "Pn…" following the solidus represents a "duration," and the entire representation is known as an "interval." Note that this is the recommended representation of elapsed time, given a start date/time and the duration elapsed.
 
 When an interval of time is an amount of time (duration) measured prior to an event whose start date/time is recorded (with some level of precision, e.g., where one knows the end date/time and the duration preceding that end date/time), the syntax is:
 
 `PnYnMnDTnHnMnS/YYYY-MM-DDThh:mm:ss`
 
-where the duration, "Pn...", is represented before the solidus [/], the end date/time is represented following the solidus, and the entire representation is known as an "interval."
+where the duration, "Pn…", is represented before the solidus [/], the end date/time is represented following the solidus, and the entire representation is known as an "interval."
 
 ### 4.4.4 Use of the Study Day Variables
 
@@ -1098,7 +1098,7 @@ Values for these variables for vital signs measurements taken at 30, 60, and 90 
 | 2 | 60 MIN | PT1H | DOSE ADMINISTRATION | 2006-08-01T08:00 | 2006-08-01T09:01 |
 | 3 | 90 MIN | PT1H30M | DOSE ADMINISTRATION | 2006-08-01T08:00 | 2006-08-01T09:32 |
 
-> Note that VSELTM is the planned elapsed time, not the actual elapsed time. The actual elapsed time could be derived in an analysis dataset, if desired, as VSDTC−VSRFTDTC.
+> Note that VSELTM is the planned elapsed time, not the actual elapsed time. The actual elapsed time could be derived in an analysis dataset, if desired, as VSDTC-VSRFTDTC.
 
 Values for these variables for urine collections taken pre-dose, and from 0-12 hours and 12-24 hours after dosing would look like the following.
 
@@ -1200,7 +1200,7 @@ The record that represents a disease milestone does not include values for the t
 
 For an observation triggered by the occurrence of a disease milestone, the relationship of the observation to the disease milestone can be represented using the disease milestones timing variables MIDS, RELMIDS, and MIDSDTC to describe the timing of the observation.
 
-- MIDS is populated with the name of a disease milestone for this subject. MIDS is the "anchor" for describing the timing of the observation relative to the disease milestone. In this sense, its function is similar to --TPTREF for time points.
+- MIDS is populated with the name of a disease milestone for this subject. MIDS is the “anchor” for describing the timing of the observation relative to the disease milestone. In this sense, its function is similar to --TPTREF for time points.
 - RELMIDS is usually populated with a textual description of the temporal relationship between the observation and the disease milestone named in MIDS. Controlled Terminology has not yet been developed for RELMIDS, but is likely to include terms such as "IMMEDIATELY BEFORE", "AT START OF", "DURING", "AT END OF", and "SHORTLY AFTER". It is similar to --ELTM, except that --ELTM is represented ISO 8601 duration.
 - MIDSDTC is populated with the date/time of the disease milestone. This is the --DTC for a finding, or the --STDTC for an event or intervention, and is the date recorded in SMSTDTC in the SM domain. Its function is similar to --RFTDTC for time points.
 
@@ -1208,11 +1208,11 @@ In some cases, data collected in conjunction with a disease milestone do not inc
 
 When a disease milestone is an event or intervention, some data triggered by the disease milestone may be modeled as findings about the disease milestone (i.e., FAOBJ is the disease milestone). In such cases, RELMIDS should be used to describe the temporal relationship between the disease milestone and the subject of the question being asked in the finding, rather than as describing when the question was asked.
 
-- When the subject of the question is the disease milestone itself, RELMIDS may be populated with a value such as "ENTIRE EVENT" or "ENTIRE TREATMENT".
+- When the subject of the question is the disease milestone itself, RELMIDS may be populated with a value such as “ENTIRE EVENT” or “ENTIRE TREATMENT”.
 - When the subject of the question is a question about the occurrence of some activity or event related to the disease milestone, RELMIDS acts like an evaluation interval, describing the period of time on which the question is focused.
-  - For questions about a possible cause of an event or about the indication for a treatment, RELMIDS would have a value such as "WEEK PRIOR" or "IMMEDIATELY BEFORE", or even just "BEFORE".
-  - RELMIDS would be "DURING" for questions about things that may have occurred while an event or intervention disease milestone was in progress.
-  - For sequelae of a disease milestone, RELMIDS would have a value such as "AT DISCHARGE" or "WEEK AFTER", or simply "AFTER".
+  - For questions about a possible cause of an event or about the indication for a treatment, RELMIDS would have a value such as “WEEK PRIOR” or “IMMEDIATELY BEFORE”, or even just “BEFORE”.
+  - RELMIDS would be “DURING” for questions about things that may have occurred while an event or intervention disease milestone was in progress.
+  - For sequelae of a disease milestone, RELMIDS would have a value such as “AT DISCHARGE” or “WEEK AFTER”, or simply “AFTER”.
 
 #### Use of Disease Milestone Timing Variables with Other Timing Variables
 
@@ -1314,11 +1314,11 @@ The following examples are meant to illustrate the use of Findings results varia
 - **Row 2:** A numeric value was copied; the original unit was the standard unit so conversion was not needed.
 - **Rows 3-4:** A character result was copied from the LBORRES to LBSTRESC. Since this is not a numeric result, LBSTRESN is null.
 - **Row 5:** A character result was converted to a standardized format.
-- **Row 6:** A result of "BLQ" was collected and copied to LBSTRESC. Note that the sponsor populated both LBORRESU and LBSTRESU with standard units, but these could have been left null.
+- **Row 6:** A result of “BLQ” was collected and copied to LBSTRESC. Note that the sponsor populated both LBORRESU and LBSTRESU with standard units, but these could have been left null.
 - **Row 7:** A result was derived from multiple results, so LBDRVFL = "Y". Note that the original collected data are not shown in this example.
-- **Row 8:** A result for LBTEST = "HCT" is missing for visit 2, as indicated by LBSTAT = "NOT DONE"; neither LBORRES nor LBSTRESC is populated.
-- **Row 9:** Tests in the category "HEMATOLOGY" were not done at visit 3, as indicated by LBTESTCD = "LBALL" and LBSTAT = "NOT DONE".
-- **Row 10:** None of the tests in the LB domain were done at visit 4, as indicated by LBTESTCD = "LBALL", a null LBCAT value, and LBSTAT = "NOT DONE".
+- **Row 8:** A result for LBTEST = "HCT" is missing for visit 2, as indicated by LBSTAT = “NOT DONE”; neither LBORRES nor LBSTRESC is populated.
+- **Row 9:** Tests in the category "HEMATOLOGY" were not done at visit 3, as indicated by LBTESTCD = "LBALL" and LBSTAT = “NOT DONE”.
+- **Row 10:** None of the tests in the LB domain were done at visit 4, as indicated by LBTESTCD = "LBALL", a null LBCAT value, and LBSTAT = “NOT DONE”.
 - **Row 11:** Shows a result collected as an inequality. The unit collected was the standard unit, so the result required no conversion and was copied to LBSTRESC.
 - **Row 12:** Shows a result collected as an inequality. In LBSTRESC, the numeric part of LBORRES has been converted to the standard unit, and the less than (<) sign has been retained. LBSTRESN is not populated.
 
@@ -1482,7 +1482,7 @@ The following table summarizes the conventions and notes the specializations.
 
 Because observations may originate from more than 1 source (e.g., investigator, independent assessor), observations recorded in the Findings class include the --EVAL qualifier. For the Interventions and Events observation classes, which do not include the --EVAL variable, all data are assumed to be attributed to the principal investigator.
 
-The QEVAL variable can be used to describe the evaluator for any data item in a SUPP-- dataset (see Section 8.4.1, Supplemental Qualifiers -- SUPP-- Datasets), but is not required when the data are objective.
+The QEVAL variable can be used to describe the evaluator for any data item in a SUPP-- dataset (see Section 8.4.1, Supplemental Qualifiers – SUPP-- Datasets), but is not required when the data are objective.
 
 For observations that have primary and secondary evaluations of specific qualifier variables, sponsors should put data from the primary evaluation into the standard domain dataset and data from the secondary evaluation into the Supplemental Qualifier datasets (SUPP--). Within each SUPP-- record, the value for QNAM should be formed by appending a "1" to the corresponding standard domain variable name. In cases where the standard domain variable name is already 8 characters in length, sponsors should replace the last character with a "1" (incremented for each additional attribution).
 
@@ -1511,7 +1511,7 @@ The SDTM general observation classes include the --REASND variable to submit the
 
 However, sponsors sometimes collect the reason that something was done. For the Interventions general observation class, --INDC is available to represent the medical condition for which the intervention was given, and --ADJ is available to represent the reason for a dose adjustment. For the Findings general observation class, --REASPF is available to represent the reason a test was performed.
 
-If the sponsor collects a reason for performing an activity represented in an Events domain where the topic is not a medical condition, or a reason for an intervention other than a medical indication, the reason can be represented in the SUPP-- dataset (as described in Section 8.4.1, Supplemental Qualifiers -- SUPP-- Datasets) using the supplemental qualifier with QNAM of "--REAS" listed in Appendix C1, Supplemental Qualifiers Name Codes. If multiple reasons are reported, refer to Section 4.2.8.3, Multiple Values for a Non-result Qualifier Variable.
+If the sponsor collects a reason for performing an activity represented in an Events domain where the topic is not a medical condition, or a reason for an intervention other than a medical indication, the reason can be represented in the SUPP-- dataset (as described in Section 8.4.1, Supplemental Qualifiers – SUPP-- Datasets) using the supplemental qualifier with QNAM of "--REAS" listed in Appendix C1, Supplemental Qualifiers Name Codes. If multiple reasons are reported, refer to Section 4.2.8.3, Multiple Values for a Non-result Qualifier Variable.
 
 For example, if the sponsor collected the reason for admission to a nursing home was for rehabilitation, a SUPPHO record might be populated as follows.
 

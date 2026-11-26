@@ -8,7 +8,7 @@ Source: SDTMIG v3.4, Section 2 (Pages 11-16)
 
 ## 2.1 Observations and Variables
 
-The SDTMIG for Human Clinical Trials is based on the SDTM's general framework for organizing clinical trial information that is to be submitted to regulatory authorities. The SDTM is built around the concept of **observations** collected about subjects who participated in a clinical study. Each observation can be described by a series of variables, corresponding to a row in a dataset. Each variable can be classified according to its role. A role determines the type of information conveyed by the variable about each distinct observation and how it can be used.
+The SDTMIG for Human Clinical Trials is based on the SDTM’s general framework for organizing clinical trial information that is to be submitted to regulatory authorities. The SDTM is built around the concept of **observations** collected about subjects who participated in a clinical study. Each observation can be described by a series of variables, corresponding to a row in a dataset. Each variable can be classified according to its role. A role determines the type of information conveyed by the variable about each distinct observation and how it can be used.
 
 ### Variable Roles (5 major roles)
 

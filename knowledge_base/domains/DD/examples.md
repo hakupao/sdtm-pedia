@@ -2,7 +2,7 @@
 
 ## Example 1
 
-This example shows the primary cause of death for 3 subjects. The CRF also collected the location of the subject's death and a secondary cause of death.
+This example shows the primary cause of death for 3 subjects. The CRF also collected the location of the subject’s death and a secondary cause of death.
 
 **Rows 1-2:** Show the primary cause of death and location of death for a subject. DDDTC is the date of assessment.
 

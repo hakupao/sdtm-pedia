@@ -39,7 +39,7 @@ Example 2 is the same scenario as Example 1. In this case, however, the way the 
 
 ### Example 3
 
-Example 3 is the same scenario as Example 2. However, the sponsor grouped the 2 concomitant medications in the CM domain using CMGRPID = "COMBO 1", allowing the relationship among these 5 records to be represented with 4, rather than 5, records in the RELREC dataset.
+Example 3 is the same scenario as Example 2. However, the sponsor grouped the 2 concomitant medications in the CM domain using CMGRPID = “COMBO 1”, allowing the relationship among these 5 records to be represented with 4, rather than 5, records in the RELREC dataset.
 
 **relrec.xpt**
 

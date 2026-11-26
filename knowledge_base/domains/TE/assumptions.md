@@ -10,7 +10,7 @@ Each row in the TE dataset may be thought of as representing a "unique element" 
 
 An element is a building block for creating study cells, and an arm is composed of study cells. Or, from another point of view, an arm is composed of elements; that is, the trial design assigns subjects to arms, which comprise a sequence of steps called elements.
 
-Trial elements represent an interval of time that serves a purpose in the trial and are associated with certain activities affecting the subject. "Week 2 to week 4" is not a valid element. A valid element has a name that describes the purpose of the element and includes a description of the activity or event that marks the subject's transition into the element as well as the conditions for leaving the element.
+Trial elements represent an interval of time that serves a purpose in the trial and are associated with certain activities affecting the subject. “Week 2 to week 4” is not a valid element. A valid element has a name that describes the purpose of the element and includes a description of the activity or event that marks the subject's transition into the element as well as the conditions for leaving the element.
 
 ## TE — Specification
 
@@ -18,7 +18,7 @@ te.xpt, Trial Elements — Trial Design. One record per planned Element, Tabulat
 
 ## TE — Assumptions
 
-1. There are no gaps between elements. The instant one element ends, the next element begins. A subject spends no time "between" elements.
+1. There are no gaps between elements. The instant one element ends, the next element begins. A subject spends no time “between” elements.
 
 2. The ELEMENT (Description of the Element) variable usually indicates the treatment being administered during an element, or, if no treatment is being administered, the other activities that are the purpose of this period of time (e.g., "Screening", "Follow-up", "Washout"). In some cases, this time period may be quite passive (e.g., "Rest"; "Wait, for disease episode").
 
@@ -26,7 +26,7 @@ te.xpt, Trial Elements — Trial Design. One record per planned Element, Tabulat
 
 4. For elements that do not involve treatment, TESTRL can be more difficult to define. For washout and follow-up elements, which always follow treatment elements, the start of the element may be defined relative to the end of a preceding treatment. For example, a washout period might be defined as starting 24 or 48 hours after the last dose of drug for the preceding treatment element or epoch. This definition is not totally independent of the TA dataset, because it relies on knowing where in the trial design the element is used, and that it always follows a treatment element. Defining a clear starting point for the start of a non-treatment element that always follows another non-treatment element can be particularly difficult. The transition may be defined by a decision-making activity such as enrollment or randomization. For example, every arm of a trial that involves treating disease episodes might start with a screening element followed by an element that consists of waiting until a disease episode occurs. The activity that marks the beginning of the wait element might be randomization.
 
-5. TESTRL for a treatment element may be thought of as "active" whereas the start rule for a non-treatment element—particularly a follow-up or washout element—may be "passive." The start of a treatment element will not occur until a dose is given, no matter how long that dose is delayed. Once the last dose is given, the start of a subsequent non-treatment element is inevitable, as long as another dose is not given.
+5. TESTRL for a treatment element may be thought of as “active” whereas the start rule for a non-treatment element—particularly a follow-up or washout element—may be “passive.” The start of a treatment element will not occur until a dose is given, no matter how long that dose is delayed. Once the last dose is given, the start of a subsequent non-treatment element is inevitable, as long as another dose is not given.
 
 6. Note that the date/time of the event described in TESTRL will be used to populate the date/times in the Subject Elements (SE) dataset, so the date/time of the event should be captured in the CRF.
 
@@ -42,7 +42,7 @@ te.xpt, Trial Elements — Trial Design. One record per planned Element, Tabulat
 
 12. At least 1 of TEENRL and TEDUR must be populated. Both may be populated.
 
-13. TEENRL describes the circumstances under which a subject should leave this element. Element end rules may depend on a variety of conditions. For instance, a typical criterion for ending a rest element between oncology chemotherapy-treatment element would be, "15 days after start of element and after WBC values have recovered." The TA dataset, not the TE dataset, describes where the subject moves next, so TEENRL must be expressed without referring to arm.
+13. TEENRL describes the circumstances under which a subject should leave this element. Element end rules may depend on a variety of conditions. For instance, a typical criterion for ending a rest element between oncology chemotherapy-treatment element would be, “15 days after start of element and after WBC values have recovered." The TA dataset, not the TE dataset, describes where the subject moves next, so TEENRL must be expressed without referring to arm.
 
 14. TEDUR serves the same purpose as TEENRL for the special (but very common) case of an element with a fixed duration. TEDUR is expressed in ISO 8601. For example, a TEDUR value of P6W is equivalent to a TEENRL of "6 weeks after the start of the element."
 

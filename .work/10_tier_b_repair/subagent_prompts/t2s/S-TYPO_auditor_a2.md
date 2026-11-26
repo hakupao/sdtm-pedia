@@ -1,0 +1,5 @@
+批次 S-TYPO (T2-post 全库排版字符脚本批), attempt 2 终态. 角色: auditor (Rule A 独立抽检)。
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。读 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` Auditor 段 (按脚本批适配), `evidence/checkpoints/t2_post_user_ack.md` (U1/U4)。audit_matrix 唯一路径 `.work/10_tier_b_repair/audit_matrix.md`。
+改动未提交: `git diff HEAD -- knowledge_base/` (51 文件 / 154 行 / 356 处排版字符替换)。
+抽样 (覆盖 brief): 总体 = 全部 356 处替换; N = 30, seed 20261126, **按替换类分层**: dq 开 ≥6、dq 闭 ≥6、sq ≥6、em 删空格 ≥3、dash ≥3、… ≥2、¹ ≥2、ch04 固定 3 处中 ≥1。每样本对 PDF 渲染页核目标字形 (含开/闭方向), 并核该行除排版字符外与 HEAD 逐字相同。另从残余清单 `work/t2_batches/S-TYPO.residual.jsonl` 随机抽 10 条 (seed 同) 核其 "不改" 判断是否成立 (0 命中 / 多命中不一致 / 导航 / 标题 / registry), 判断错的计 "漏改" 登记 (不计本批 FAIL, 但须报数)。独立跑一次 `python3 .work/10_tier_b_repair/scripts/t2s/typo_assert.py` (先读代码理解参数, 两种模式)。先独立判, 判完才读 writer/reviewer 报告 (`t2_S-TYPO*.md`)。
+输出 `evidence/checkpoints/t2_S-TYPO_audit.md` + audit_matrix 一行 (首列 `T2S.S-TYPO auditor a2`) + trace 一行。只读 KB; 禁止 stash/checkout/reset/commit; 引文 ≤25 词。回主控 ≤ 6 行。

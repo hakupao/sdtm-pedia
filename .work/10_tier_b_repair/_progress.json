@@ -3,9 +3,9 @@
   "tier": 3,
   "plan": "PLAN.md",
   "plan_version": "v1.3",
-  "status": "EXECUTING — T2S 20/22 批完成 (S-CT / S-TYPO 待做, 先 dry-run)",
-  "current_step": "T2S.S-CT (dry-run)",
-  "next_step": "S-CT dry-run → S-CT → S-TYPO (registry + strict assert + mutation) → T3",
+  "status": "EXECUTING — T2S 完成 (22/22), 进入 T3",
+  "current_step": "T3.1",
+  "next_step": "T3.1 ledger 回写 → T3.2 重算 → T4",
   "baseline": {
     "tier_b_p4b_orig": {
       "SIBLING_DROPPED": 56,
@@ -347,7 +347,9 @@
       "S-SPEC1",
       "S-SPEC2",
       "S-SPEC3",
-      "S-SPEC4"
+      "S-SPEC4",
+      "S-CT",
+      "S-TYPO"
     ]
   }
 }

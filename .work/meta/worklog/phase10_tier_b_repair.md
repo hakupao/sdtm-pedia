@@ -7,3 +7,11 @@
 - 用户规则级裁定 U1-U4 (排版字符照 PDF / spec 脚注进 spec.md + CT "*" / 章引言放该章首域 assumptions 顶部 / CRF ○□) → `evidence/checkpoints/t2_post_user_ack.md`。
 - 范围外登记 O1-O53 → `work/out_of_scope_findings.md` (T4 用户裁定项散落, O25 汇总待生成)。
 - 下一步: T2 后扫描批 (S-*, 按覆盖矩阵分组, 每文件一批) → T3 (ledger 回写) → T4 (总闸 + 用户裁定汇总 + 人工抽样) → push + 提醒 sdtm-rag。
+
+## 2026-11-26 T2S 扫描批全部完成 (22/22, 本地 commit, 未 push)
+- 新 brief `t2s_scan_writer_v1.0.md` / `t2s_scan_review_audit_v1.0.md`; 试点 S-EVT 后并行 ≤4 批; 每批 writer (executor) → reviewer (code-reviewer) → auditor (verifier, Rule A seed 20261126)。
+- 用户裁定 U5 (CT 保留 C-code + PDF 短名 `(NY) C66742`) / U6 (DOMAIN CT = 域代码); 主控 U7/U8 (脚注位置 / 导航不 D6)。
+- 域 / 章 / model 全扫: 覆盖矩阵全部文件 FINAL; spec.md 1917 变量对 PDF 逐字段核; S-CT 570 CT 格 + 59 DOMAIN; S-TYPO 356 处排版字符 (CRF ○□ 交 T4)。
+- 两个脚本批按 advisor 意见先 dry-run, 断言均做变异测试 (S-CT 12 种 / S-TYPO 27+9 种), reviewer 各抓出一个断言盲区后补强。
+- 产出 PDF_TYPO 登记表 270 条 + T4 用户裁定汇总 (O25)。范围外 O54-O62。
+- 下一步 T3 (ledger 回写 + 重算) → T4 → push。

@@ -15,9 +15,9 @@ pp.xpt, Pharmacokinetics Parameters — Findings. One record per PK parameter pe
 2. Information pertaining to all parameters (e.g., number of exponents, model weighting) should be submitted in the SUPPPP dataset.
 
 3. There are separate codelists used for PPORRESU/PPSTRESU where the choice depends on whether the value of the pharmacokinetic parameter is normalized.
-   a. Codelist "PKUNIT" is used for non-normalized parameters.
-   b. Codelists "PKUDMG" and "PKUDUG" are used when parameters are normalized by dose amount in milligrams or micrograms, respectively.
-   c. Codelists "PKUWG" and "PKUWKG" are used when parameters are normalized by weight in grams or kilograms, respectively.
+   a. Codelist “PKUNIT” is used for non-normalized parameters.
+   b. Codelists “PKUDMG” and “PKUDUG” are used when parameters are normalized by dose amount in milligrams or micrograms, respectively.
+   c. Codelists “PKUWG” and “PKUWKG” are used when parameters are normalized by weight in grams or kilograms, respectively.
 
 4. Multiple subset codelists were created for the unique unit expressions of the same concept across codelists. This approach allows study-context appropriate use of unit values for pharmacokinetics (PK) analysis subtypes. Controlled Terminology Rules for PK are available at https://www.cdisc.org/standards/terminology/controlled-terminology.
 

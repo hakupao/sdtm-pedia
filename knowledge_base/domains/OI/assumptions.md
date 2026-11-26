@@ -18,9 +18,9 @@ oi.xpt, Non-host Organism Identifiers — Study Reference. One record per taxon 
     a. A unique NHOID must represent a unique identity as represented in its combination of OIPARMCD/OIVAL pairs. If 2 organisms share the same first 2 levels of taxonomy with regard to OIPARMCD/OIVAL, but 1 is identified to a third level and the other is not, they should be assigned 2 unique NHOIDs.
     b. Study sponsors should populate NHOID with intuitive name values based on either
         i. the name of the organism as reported by a lab or specified by the investigator, or
-        ii. published references/databases where applicable and appropriate (e.g., when reference strain H77 is used in a HCV study, NHOID for this strain should be populated with "H77" or "HCV1a-H77").
+        ii. published references/databases where applicable and appropriate (e.g., when reference strain H77 is used in a HCV study, NHOID for this strain should be populated with “H77” or “HCV1a-H77”).
 
-3. NHOID can be used in any domain where observations about these organisms are being represented, allowing end users to determine what is known about the organism's identity by merging on NHOID, or by otherwise referring to the OI domain.
+3. NHOID can be used in any domain where observations about these organisms are being represented, allowing end users to determine what is known about the organism’s identity by merging on NHOID, or by otherwise referring to the OI domain.
 
 4. OIPARMCD and OIPARM must represent parameters for the identification of non-host organisms with regard to nomenclature only.
     a. Mostly, this will represent taxonomic ranks (i.e., species) as well as commonly used grouping terms (taxa that are not officially ranked, e.g., subtype, group, strain).

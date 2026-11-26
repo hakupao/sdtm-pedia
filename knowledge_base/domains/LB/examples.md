@@ -59,7 +59,7 @@ This example illustrates the use of timing variables for pre- and post-dose time
 
 This example illustrates the use of LBSTAT and LBREASND when there is no data value reported in LBORRES.
 
-**Row 1:** Shows a pregnancy test with an original result of "-" (negative sign) standardized to the text value "NEGATIVE" in LBSTRESC.
+**Row 1:** Shows a pregnancy test with an original result of “-” (negative sign) standardized to the text value “NEGATIVE” in LBSTRESC.
 **Row 2:** Shows a pregnancy test that was not performed because the subject was male. The sponsor felt it was necessary to include a record documenting the reason why the test was not performed, rather than simply not including a record.
 
 **lb.xpt**

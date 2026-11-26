@@ -216,3 +216,6 @@
 - O51 Mermaid 统一渲染: 留 T4 (本表 A5 类)。
 - REG 新发现 3 条 (未经 reviewer, 记 O62): CP N-1 / SM N-1 / BS N-1 —— 主控建议: BS N-1 与同句 B-BS T-3 统一 (KB 写正确值); SM N-1 与 SE T-2 同型 (照录 + T4); CP N-1 交 T4 核 p214 后定。
 - SR T-5 (S-CT 写入) 已由主控补进 `work/t2_pdf_typo_registry.jsonl`。
+- (S-TYPO) MH/assumptions.md:27 `History“` ×2: PDF p173 原文闭引号印成开引号, KB 照录 (U1); 供知悉 —— 是否改为正确方向由用户定。
+- (S-TYPO) CRF 选项符号 (CE p152 18+ 处、ch04 p32/33、ML `[X]`、DM Mermaid ☐): PDF 实为 CourierNew 字母 `o` / Wingdings 字形, U4 "照 PDF ○□" 执行口径待定; 候选 A/B 与证据页见 `evidence/checkpoints/t2_S-TYPO.md`。
+- (S-TYPO) 13 行多命中不一致 + 217 行 0 命中残余: 见 `work/t2_batches/S-TYPO.residual.jsonl`, T4 人工或接受现状。

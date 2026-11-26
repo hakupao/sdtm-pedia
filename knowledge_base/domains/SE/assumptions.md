@@ -4,18 +4,18 @@
 
 A special-purpose domain that contains the actual order of elements followed by the subject, together with the start date/time and end date/time for each element.
 
-The Subject Elements dataset consolidates information about the timing of each subject's progress through the epochs and elements of the trial.
+The Subject Elements dataset consolidates information about the timing of each subject’s progress through the epochs and elements of the trial.
 
 For elements that involve study treatments, the identification of which element the subject passed through (e.g., drug X vs. placebo) is likely to derive from data in the Exposure domain or another Interventions domain.
 
-The dates of a subject's transition from one element to the next will be taken from the Interventions domain(s) and from other relevant domains, according to the definitions (TESTRL values) in the Trial Elements (TE) dataset (see Section 7.2.2, Trial Elements).
+The dates of a subject’s transition from one element to the next will be taken from the Interventions domain(s) and from other relevant domains, according to the definitions (TESTRL values) in the Trial Elements (TE) dataset (see Section 7.2.2, Trial Elements).
 
 The SE dataset is particularly useful for studies with multiple treatment periods, such as crossover studies.
 
-The SE dataset contains the date/times at which a subject moved from one element to another, so when this dataset, the Trial Arms (TA; see Section 7.2.1, Trial Arms) dataset, and the Trial Elements (TE; see Section 7.2.2, Trial Elements) dataset are included in a submission, reviewers can relate all observations made about a subject to that subject's progression through the trial.
+The SE dataset contains the date/times at which a subject moved from one element to another, so when this dataset, the Trial Arms (TA; see Section 7.2.1, Trial Arms) dataset, and the Trial Elements (TE; see Section 7.2.2, Trial Elements) dataset are included in a submission, reviewers can relate all observations made about a subject to that subject’s progression through the trial.
 
 - Comparison of the --DTC of a finding observation to the element transition dates (values of SESTDTC and SEENDTC) identifies which element the subject was in at the time of the finding. Similarly, one can determine the element during which an event or intervention started or ended.
-- "Day within Element" or "Day within Epoch" can be derived. Such variables relate an observation to the start of an element or epoch in the same way that study day (--DY) variables relate it to the reference start date (RFSTDTC) for the study as a whole. See Section 4.4.4, Use of the "Study Day" Variables.
+- “Day within Element” or “Day within Epoch” can be derived. Such variables relate an observation to the start of an element or epoch in the same way that study day (--DY) variables relate it to the reference start date (RFSTDTC) for the study as a whole. See Section 4.4.4, Use of the "Study Day" Variables.
 - Having knowledge of SE start and end dates can be helpful in the determination of baseline values.
 
 ## SE – Specification
@@ -34,11 +34,11 @@ The SE domain allows the submission of data on the timing of the trial elements 
 
 3. Judgment will also have to be used in deciding how to represent a subject's experience if an element does not proceed or end as planned. For instance, the plan might identify a trial element that is to start with the first of a series of 5 daily doses and end after 1 week, when the subject transitions to the next treatment element. If the subject actually started the next treatment epoch (see Section 7.1, Introduction to Trial Design Model Datasets, and Section 7.1.2, Definitions of Trial Design Concepts) after 4 weeks, the sponsor would have to decide whether to represent this as an abnormally long element, or as a normal element plus an unplanned non-treatment element.
 
-4. If the sponsor decides that the subject's experience for a particular period of time cannot be represented with one of the planned elements, then that period of time should be represented as an unplanned element. The value of ETCD for an unplanned element is "UNPLAN" and SEUPDES should be populated with a description of the unplanned element.
+4. If the sponsor decides that the subject's experience for a particular period of time cannot be represented with one of the planned elements, then that period of time should be represented as an unplanned element. The value of ETCD for an unplanned element is “UNPLAN” and SEUPDES should be populated with a description of the unplanned element.
 
 5. The values of SESTDTC provide the chronological order of the actual subject elements. SESEQ should be assigned to be consistent with the chronological order. Note that the requirement that SESEQ be consistent with chronological order is more stringent than in most other domains, where --SEQ values need only be unique within subject.
 
-6. When TAETORD is included in the SE domain, it represents the planned order of an element in an arm. This should not be confused with the actual order of the elements, which will be represented by their chronological order and SESEQ. TAETORD will not be populated for subject elements that are not planned for the arm to which the subject was assigned. Thus, TAETORD will not be populated for any element with an ETCD value of "UNPLAN". TAETORD also will not be populated if a subject passed through an element that, although defined in the TE dataset, was out of place for the arm to which the subject was assigned. For example, if a subject in a parallel study of drug A vs. drug B was assigned to receive drug A but received drug B instead, then TAETORD would be left blank for the SE record for their drug B element. If a subject was assigned to receive the sequence of elements A, B, C, D, and instead received A, D, B, C, then the sponsor would have to decide for which of these SE records TAETORD should be populated. The rationale for this decision should be documented in the Comments column of the Define-XML document.
+6. When TAETORD is included in the SE domain, it represents the planned order of an element in an arm. This should not be confused with the actual order of the elements, which will be represented by their chronological order and SESEQ. TAETORD will not be populated for subject elements that are not planned for the arm to which the subject was assigned. Thus, TAETORD will not be populated for any element with an ETCD value of “UNPLAN”. TAETORD also will not be populated if a subject passed through an element that, although defined in the TE dataset, was out of place for the arm to which the subject was assigned. For example, if a subject in a parallel study of drug A vs. drug B was assigned to receive drug A but received drug B instead, then TAETORD would be left blank for the SE record for their drug B element. If a subject was assigned to receive the sequence of elements A, B, C, D, and instead received A, D, B, C, then the sponsor would have to decide for which of these SE records TAETORD should be populated. The rationale for this decision should be documented in the Comments column of the Define-XML document.
 
 7. For subjects who follow the planned sequence of elements for the arm to which they were assigned, the values of EPOCH in the SE domain will match those associated with the elements for the subject's arm in the TA dataset. The sponsor will have to decide what value, if any, of EPOCH to assign SE records for unplanned elements and in other cases where the subject's actual elements deviate from the plan. The sponsor's methods for such decisions should be documented in the Define-XML document, in the row for EPOCH in the SE dataset table.
 
@@ -49,6 +49,6 @@ The SE domain allows the submission of data on the timing of the trial elements 
 10. The following identifier variables are permissible and may be added as appropriate: --GRPID, --REFID, --SPID.
 
 11. Care should be taken in adding additional timing variables:
-    a. The purpose of --DTC and --DY is to record the date and study day on which data was collected. Elements are generally "derived" in the sense that they are a secondary use of data collected elsewhere; it is not generally useful to know when those date/times were recorded.
+    a. The purpose of --DTC and --DY is to record the date and study day on which data was collected. Elements are generally “derived” in the sense that they are a secondary use of data collected elsewhere; it is not generally useful to know when those date/times were recorded.
     b. --DUR could be added only if the duration of an element was collected, not derived.
     c. It would be inappropriate to add the variables that support time points (--TPT, --TPTNUM, --ELTM, --TPTREF, and --RFTDTC), because the topic of this dataset is elements.

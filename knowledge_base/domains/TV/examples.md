@@ -84,9 +84,9 @@ Although the start and end rules in this example reference the starts and ends o
 
 ### Identifying Trial Visits
 
-In general, a trial's visits are defined in its protocol. The term "visit" reflects the fact that data in outpatient studies is usually collected during a physical visit by the subject to a clinic. Sometimes a trial visit defined by the protocol may not correspond to a physical visit. It may span multiple physical visits, as when screening data is collected over several clinic visits but recorded under one TV name (VISIT) and number (VISITNUM). A trial visit also may represent only a portion of an extended physical visit, as when a trial of in-patients collects data under multiple trial visits for a single hospital admission.
+In general, a trial's visits are defined in its protocol. The term “visit” reflects the fact that data in outpatient studies is usually collected during a physical visit by the subject to a clinic. Sometimes a trial visit defined by the protocol may not correspond to a physical visit. It may span multiple physical visits, as when screening data is collected over several clinic visits but recorded under one TV name (VISIT) and number (VISITNUM). A trial visit also may represent only a portion of an extended physical visit, as when a trial of in-patients collects data under multiple trial visits for a single hospital admission.
 
-Diary data and other data collected outside a clinic may not fit the usual concept of a trial visit, but the planned times of collection of such data may be described as "visits" in the TV dataset if desired.
+Diary data and other data collected outside a clinic may not fit the usual concept of a trial visit, but the planned times of collection of such data may be described as “visits” in the TV dataset if desired.
 
 ### Trial Visit Rules
 
@@ -100,7 +100,7 @@ The timings of visits relative to elements may be expressed in terms that cannot
 
 ### Visit Schedules Expressed with Ranges
 
-Ranges may be used to describe the planned timing of visits (e.g., 12-16 days after the start of 2nd Element), but this is different from the "windows" that may be used in selecting data points to be included in an analysis associated with that visit. For example, although visit 2 was planned for 12-16 days after the start of treatment, data collected 10-18 days after the start of treatment might be included in a visit 1 analysis. The 2 ranges serve different purposes.
+Ranges may be used to describe the planned timing of visits (e.g., 12-16 days after the start of 2nd Element), but this is different from the “windows” that may be used in selecting data points to be included in an analysis associated with that visit. For example, although visit 2 was planned for 12-16 days after the start of treatment, data collected 10-18 days after the start of treatment might be included in a visit 1 analysis. The 2 ranges serve different purposes.
 
 ### Contingent Visits
 

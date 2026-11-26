@@ -8,7 +8,7 @@ In this study, the disease milestones of interest were initial diagnosis and hyp
 
 **Rows 2-3:** Show that subject 001 had 2 hypoglycemic events. In this case, only start date/times have been collected. Because these date/times include full dates, SMSTDY has been populated in each case.
 
-**Row 4:** Shows that subject 002's initial diagnosis of diabetes occurred on May 15, 2010. Because a full date was collected, the study day of this milestone was populated. Diagnosis was pre-study, so the study day of the disease milestone is negative. No hypoglycemic events were recorded for this subject.
+**Row 4:** Shows that subject 002’s initial diagnosis of diabetes occurred on May 15, 2010. Because a full date was collected, the study day of this milestone was populated. Diagnosis was pre-study, so the study day of the disease milestone is negative. No hypoglycemic events were recorded for this subject.
 
 **sm.xpt**
 

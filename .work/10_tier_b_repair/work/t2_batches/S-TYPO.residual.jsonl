@@ -1,0 +1,1091 @@
+{"file": "knowledge_base/chapters/ch01_introduction.md", "line": 3, "kind": "body", "units": [["-", null, "zero_hit", null, 39]]}
+{"file": "knowledge_base/chapters/ch02_fundamentals.md", "line": 3, "kind": "body", "units": [["-", null, "zero_hit", null, 40]]}
+{"file": "knowledge_base/chapters/ch03_submitting_data.md", "line": 3, "kind": "body", "units": [["-", null, "zero_hit", null, 40]]}
+{"file": "knowledge_base/chapters/ch03_submitting_data.md", "line": 14, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/chapters/ch04_general_assumptions.md", "line": 3, "kind": "body", "units": [["-", null, "zero_hit", null, 40]]}
+{"file": "knowledge_base/chapters/ch04_general_assumptions.md", "line": 56, "kind": "body", "units": [["-", null, "zero_hit", null, 218], ["-", null, "zero_hit", null, 320]]}
+{"file": "knowledge_base/chapters/ch04_general_assumptions.md", "line": 793, "kind": "body", "units": [["--", ["-", "--"], "inconsistent", null, 109]]}
+{"file": "knowledge_base/chapters/ch04_general_assumptions.md", "line": 983, "kind": "kb_note", "units": [["\"", null, "zero_hit", null], ["\"", ["\"", "“"], "inconsistent", null], ["\"", null, "zero_hit", null]]}
+{"file": "knowledge_base/chapters/ch04_general_assumptions.md", "line": 1015, "kind": "body", "units": [["-", null, "zero_hit", null, 80], ["-", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/chapters/ch04_general_assumptions.md", "line": 1080, "kind": "body", "units": [["\"", null, "zero_hit", null, 41], ["-", null, "zero_hit", null, 53], ["\"", null, "zero_hit", null, 58]]}
+{"file": "knowledge_base/chapters/ch04_general_assumptions.md", "line": 1083, "kind": "body", "units": [["\"", null, "zero_hit", null, 53], ["\"", null, "zero_hit", null, 75]]}
+{"file": "knowledge_base/chapters/ch04_general_assumptions.md", "line": 1582, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 40]]}
+{"file": "knowledge_base/chapters/ch04_general_assumptions.md", "line": 1584, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 40]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 3, "kind": "body", "units": [["-", null, "zero_hit", null, 41]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 15, "kind": "body", "units": [["\"", null, "zero_hit", null, 203]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 38, "kind": "body", "units": [["\"", ["\"", "”"], "inconsistent", null, 92]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 78, "kind": "heading", "units": [["—", "-", "blocked", "heading"]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 82, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 226, "kind": "heading", "units": [["--", ["--", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 345, "kind": "heading", "units": [["—", ["-", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 351, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 365, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 376, "kind": "heading", "units": [["—", ["--", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 421, "kind": "heading", "units": [["—", ["-", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 425, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 440, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/chapters/ch08_relationships.md", "line": 446, "kind": "heading", "units": [["—", ["--", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/chapters/ch10_appendices.md", "line": 3, "kind": "body", "units": [["-", null, "zero_hit", null, 33], ["-", null, "zero_hit", null, 46]]}
+{"file": "knowledge_base/domains/AE/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/AE/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/AE/examples.md", "line": 15, "kind": "body", "units": [["-", null, "zero_hit", null, 228], ["-", null, "zero_hit", null, 233]]}
+{"file": "knowledge_base/domains/AE/examples.md", "line": 81, "kind": "body", "units": [["-", null, "zero_hit", null, 207]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 553, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 554, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 555, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 556, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 77]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 557, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 558, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 559, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 560, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 564, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 35]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 565, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 30]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 566, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 30]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 569, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 570, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/AE/spec.md", "line": 571, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/AG/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/AG/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/AG/spec.md", "line": 382, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/AG/spec.md", "line": 383, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/AG/spec.md", "line": 384, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/AG/spec.md", "line": 385, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/AG/spec.md", "line": 386, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/AG/spec.md", "line": 387, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/AG/spec.md", "line": 388, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/AG/spec.md", "line": 389, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/AG/spec.md", "line": 395, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/AG/spec.md", "line": 396, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/BE/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/BE/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/BE/examples.md", "line": 42, "kind": "body", "units": [["-", null, "zero_hit", null, 92], ["-", null, "zero_hit", null, 102], ["-", null, "zero_hit", null, 108]]}
+{"file": "knowledge_base/domains/BE/spec.md", "line": 236, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 96]]}
+{"file": "knowledge_base/domains/BE/spec.md", "line": 237, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/BE/spec.md", "line": 241, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 29]]}
+{"file": "knowledge_base/domains/BE/spec.md", "line": 244, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/BE/spec.md", "line": 245, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/BS/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 328, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 75]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 329, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 91]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 330, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 91]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 331, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 332, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 333, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 334, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 73]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 335, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 336, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 340, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 26]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 341, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 52]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 344, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 345, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/BS/spec.md", "line": 346, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/CE/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/CE/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/CE/examples.md", "line": 75, "kind": "body", "units": [["--", null, "zero_hit", null, 23], ["--", null, "zero_hit", null, 26], ["-", null, "zero_hit", null, 28], ["--", null, "zero_hit", null, 30]]}
+{"file": "knowledge_base/domains/CE/examples.md", "line": 76, "kind": "body", "units": [["--", null, "zero_hit", null, 21], ["--", null, "zero_hit", null, 24], ["-", null, "zero_hit", null, 26], ["--", null, "zero_hit", null, 28]]}
+{"file": "knowledge_base/domains/CE/spec.md", "line": 301, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 71]]}
+{"file": "knowledge_base/domains/CE/spec.md", "line": 302, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/CE/spec.md", "line": 303, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/CE/spec.md", "line": 304, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/CE/spec.md", "line": 305, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/CE/spec.md", "line": 311, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/CE/spec.md", "line": 312, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/CM/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/CM/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/CM/examples.md", "line": 98, "kind": "body", "units": [["-", null, "zero_hit", null, 122]]}
+{"file": "knowledge_base/domains/CM/examples.md", "line": 99, "kind": "body", "units": [["-", null, "zero_hit", null, 127]]}
+{"file": "knowledge_base/domains/CM/examples.md", "line": 100, "kind": "body", "units": [["-", null, "zero_hit", null, 122]]}
+{"file": "knowledge_base/domains/CM/examples.md", "line": 101, "kind": "body", "units": [["-", null, "zero_hit", null, 127]]}
+{"file": "knowledge_base/domains/CM/examples.md", "line": 102, "kind": "body", "units": [["-", null, "zero_hit", null, 124]]}
+{"file": "knowledge_base/domains/CM/examples.md", "line": 103, "kind": "body", "units": [["-", null, "zero_hit", null, 123]]}
+{"file": "knowledge_base/domains/CM/spec.md", "line": 382, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/CM/spec.md", "line": 383, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/CM/spec.md", "line": 384, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/CM/spec.md", "line": 385, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/CM/spec.md", "line": 386, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/CM/spec.md", "line": 387, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/CM/spec.md", "line": 388, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/CM/spec.md", "line": 389, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/CM/spec.md", "line": 393, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 26]]}
+{"file": "knowledge_base/domains/CM/spec.md", "line": 394, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 29], ["-", null, "zero_hit", null, 39]]}
+{"file": "knowledge_base/domains/CM/spec.md", "line": 397, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/CM/spec.md", "line": 398, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/CO/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/CO/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/CO/spec.md", "line": 3, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 16]]}
+{"file": "knowledge_base/domains/CO/spec.md", "line": 130, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 79]]}
+{"file": "knowledge_base/domains/CO/spec.md", "line": 131, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/CO/spec.md", "line": 132, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/CO/spec.md", "line": 135, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 23]]}
+{"file": "knowledge_base/domains/CO/spec.md", "line": 138, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/CO/spec.md", "line": 139, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/CO/spec.md", "line": 140, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/CP/assumptions.md", "line": 3, "kind": "heading", "units": [["–", ["-", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/domains/CP/assumptions.md", "line": 82, "kind": "body", "units": [["\"", null, "zero_hit", null, 675], ["\"", null, "zero_hit", null, 755]]}
+{"file": "knowledge_base/domains/CP/assumptions.md", "line": 104, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 75]]}
+{"file": "knowledge_base/domains/CP/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 571, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 96]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 572, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 77]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 573, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 76]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 574, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 575, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 576, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 77]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 577, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 77]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 578, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 79]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 579, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 580, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 581, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 582, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 73]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 583, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 584, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 585, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 586, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 590, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 37]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 593, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/CP/spec.md", "line": 594, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/CV/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/CV/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 391, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 78]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 392, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 78]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 393, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 394, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 395, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 396, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 397, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 398, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 399, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 400, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 401, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 402, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 403, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 409, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/CV/spec.md", "line": 410, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/DA/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/DA/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/DA/spec.md", "line": 256, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/DA/spec.md", "line": 257, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/DA/spec.md", "line": 258, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 82]]}
+{"file": "knowledge_base/domains/DA/spec.md", "line": 259, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 82]]}
+{"file": "knowledge_base/domains/DA/spec.md", "line": 260, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/DA/spec.md", "line": 266, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/DA/spec.md", "line": 267, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/DD/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/DD/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/DD/spec.md", "line": 121, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 96]]}
+{"file": "knowledge_base/domains/DD/spec.md", "line": 122, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 96]]}
+{"file": "knowledge_base/domains/DD/spec.md", "line": 123, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/DD/spec.md", "line": 129, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/DD/spec.md", "line": 130, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/DD/spec.md", "line": 131, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/DM/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/DM/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/DM/spec.md", "line": 3, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 16]]}
+{"file": "knowledge_base/domains/DM/spec.md", "line": 303, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/DM/spec.md", "line": 304, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 47]]}
+{"file": "knowledge_base/domains/DM/spec.md", "line": 305, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/DM/spec.md", "line": 306, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 52]]}
+{"file": "knowledge_base/domains/DM/spec.md", "line": 307, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 56]]}
+{"file": "knowledge_base/domains/DM/spec.md", "line": 308, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 48]]}
+{"file": "knowledge_base/domains/DM/spec.md", "line": 311, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 23]]}
+{"file": "knowledge_base/domains/DM/spec.md", "line": 314, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/DM/spec.md", "line": 315, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/DM/spec.md", "line": 316, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/DM/spec.md", "line": 319, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 10]]}
+{"file": "knowledge_base/domains/DS/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/DS/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/DS/spec.md", "line": 157, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 72]]}
+{"file": "knowledge_base/domains/DS/spec.md", "line": 158, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 86]]}
+{"file": "knowledge_base/domains/DS/spec.md", "line": 159, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/DS/spec.md", "line": 160, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 28], ["—", null, "zero_hit", null, 89]]}
+{"file": "knowledge_base/domains/DS/spec.md", "line": 161, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 82]]}
+{"file": "knowledge_base/domains/DS/spec.md", "line": 162, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/DS/spec.md", "line": 166, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 33]]}
+{"file": "knowledge_base/domains/DS/spec.md", "line": 169, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/DS/spec.md", "line": 170, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/DS/spec.md", "line": 171, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/DV/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/DV/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/DV/spec.md", "line": 157, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/DV/spec.md", "line": 163, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/DV/spec.md", "line": 164, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/EC/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/EC/examples.md", "line": 3, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 133]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 418, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 75]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 419, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 420, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 421, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 422, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 423, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 424, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 425, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 426, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 427, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 71]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 428, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 432, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 35]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 435, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 436, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/EC/spec.md", "line": 437, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/EG/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 1, "kind": "heading", "units": [["—", "-", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 25, "kind": "body", "units": [["-", null, "zero_hit", null, 216]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 26, "kind": "body", "units": [["-", null, "zero_hit", null, 207]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 27, "kind": "body", "units": [["-", null, "zero_hit", null, 208]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 28, "kind": "body", "units": [["-", null, "zero_hit", null, 206]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 29, "kind": "body", "units": [["-", null, "zero_hit", null, 202]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 30, "kind": "body", "units": [["-", null, "zero_hit", null, 202]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 31, "kind": "body", "units": [["-", null, "zero_hit", null, 237]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 32, "kind": "body", "units": [["-", null, "zero_hit", null, 227]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 33, "kind": "body", "units": [["-", null, "zero_hit", null, 219]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 34, "kind": "body", "units": [["-", null, "zero_hit", null, 258]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 35, "kind": "body", "units": [["-", null, "zero_hit", null, 247]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 36, "kind": "body", "units": [["-", null, "zero_hit", null, 160]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 50, "kind": "body", "units": [["-", null, "zero_hit", null, 134], ["-", null, "zero_hit", null, 152]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 51, "kind": "body", "units": [["-", null, "zero_hit", null, 141], ["-", null, "zero_hit", null, 159]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 62, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 45], ["...", null, "zero_hit", null, 207]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 64, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 38], ["...", null, "zero_hit", null, 202]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 65, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 38], ["...", null, "zero_hit", null, 202]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 66, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 38], ["...", null, "zero_hit", null, 201]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 67, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 38], ["...", null, "zero_hit", null, 202]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 68, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 38], ["...", null, "zero_hit", null, 202]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 69, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 38], ["...", null, "zero_hit", null, 202]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 70, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 38], ["...", null, "zero_hit", null, 201]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 71, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 38], ["...", null, "zero_hit", null, 202]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 72, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 38], ["...", null, "zero_hit", null, 202]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 73, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 204]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 74, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 203]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 75, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 204]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 76, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 204]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 77, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 204]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 78, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 206]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 79, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 204]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 80, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 204]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 81, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 204]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 82, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 206]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 83, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 204]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 84, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 204]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 85, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 204]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 86, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 203]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 87, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 40], ["...", null, "zero_hit", null, 204]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 103, "kind": "body", "units": [["-", null, "zero_hit", null, 175]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 104, "kind": "body", "units": [["-", null, "zero_hit", null, 174]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 105, "kind": "body", "units": [["-", null, "zero_hit", null, 175]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 106, "kind": "body", "units": [["-", null, "zero_hit", null, 182]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 107, "kind": "body", "units": [["-", null, "zero_hit", null, 174]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 108, "kind": "body", "units": [["-", null, "zero_hit", null, 175]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 109, "kind": "body", "units": [["-", null, "zero_hit", null, 182]]}
+{"file": "knowledge_base/domains/EG/examples.md", "line": 110, "kind": "body", "units": [["-", null, "zero_hit", null, 174]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 409, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 75]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 410, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 411, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 71]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 412, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 71]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 413, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 414, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 415, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 416, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 417, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 418, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 419, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 420, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 421, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 422, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 58]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 423, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 424, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 428, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 37]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 431, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/EG/spec.md", "line": 432, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/EX/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 346, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 347, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 348, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 349, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 350, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 351, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 352, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 353, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 354, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 358, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 35]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 361, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 362, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/EX/spec.md", "line": 363, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 9, "kind": "body", "units": [["\"", null, "zero_hit", null, 57], ["\"", null, "zero_hit", null, 70], ["“", null, "zero_hit", null, 148]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 13, "kind": "body", "units": [["\"", null, "zero_hit", null, 51], ["\"", null, "zero_hit", null, 106]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 15, "kind": "body", "units": [["\"", null, "zero_hit", null, 191], ["\"", null, "zero_hit", null, 201], ["\"", null, "zero_hit", null, 242], ["\"", null, "zero_hit", null, 249], ["-", null, "zero_hit", null, 660]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 17, "kind": "body", "units": [["-", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 23, "kind": "body", "units": [["\"", null, "zero_hit", null, 61], ["\"", null, "zero_hit", null, 78]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 25, "kind": "body", "units": [["-", null, "zero_hit", null, 269]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 33, "kind": "body", "units": [["-", null, "zero_hit", null, 72]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 35, "kind": "body", "units": [["-", null, "zero_hit", null, 280], ["\"", null, "zero_hit", null, 419], ["\"", null, "zero_hit", null, 421], ["—", null, "zero_hit", null, 599], ["\"", null, "zero_hit", null, 608], ["\"", null, "zero_hit", null, 610], ["\"", null, "zero_hit", null, 613], ["\"", null, "zero_hit", null, 615], ["\"", null, "zero_hit", null, 621], ["\"", null, "zero_hit", null, 630], ["—", null, "zero_hit", null, 631]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 37, "kind": "body", "units": [["\"", null, "zero_hit", null, 56], ["\"", null, "zero_hit", null, 181], ["\"", null, "zero_hit", null, 589], ["\"", null, "zero_hit", null, 596]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 39, "kind": "body", "units": [["\"", null, "zero_hit", null, 56], ["\"", null, "zero_hit", null, 170], ["-", null, "zero_hit", null, 535]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 41, "kind": "body", "units": [["\"", null, "zero_hit", null, 9], ["\"", null, "zero_hit", null, 17], ["'", null, "zero_hit", null, 193]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 45, "kind": "body", "units": [["-", null, "zero_hit", null, 135]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 50, "kind": "body", "units": [["\"", null, "zero_hit", null, 281], ["\"", null, "zero_hit", null, 310]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 61, "kind": "body", "units": [["“", null, "zero_hit", null, 31], ["”", null, "zero_hit", null, 34]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 62, "kind": "body", "units": [["“", null, "zero_hit", null, 47], ["”", null, "zero_hit", null, 50]]}
+{"file": "knowledge_base/domains/FA/assumptions.md", "line": 65, "kind": "body", "units": [["-", null, "zero_hit", null, 74], ["\"", null, "zero_hit", null, 183], ["\"", null, "zero_hit", null, 186]]}
+{"file": "knowledge_base/domains/FA/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 283, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 284, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 285, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 286, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 287, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 288, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 289, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 290, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 291, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 295, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 34]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 296, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 34]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 297, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 34]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 298, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 34]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 299, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 34]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 300, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 34]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 301, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 34]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 304, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 305, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/FA/spec.md", "line": 306, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/FT/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/FT/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/FT/spec.md", "line": 355, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/FT/spec.md", "line": 356, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 66]]}
+{"file": "knowledge_base/domains/FT/spec.md", "line": 357, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/FT/spec.md", "line": 358, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/FT/spec.md", "line": 359, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/FT/spec.md", "line": 360, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/FT/spec.md", "line": 361, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/FT/spec.md", "line": 367, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/FT/spec.md", "line": 368, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/FT/spec.md", "line": 369, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/GF/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/GF/assumptions.md", "line": 3, "kind": "heading", "units": [["-", ["-", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/domains/GF/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/GF/examples.md", "line": 64, "kind": "body", "units": [["-", null, "zero_hit", null, 307], ["-", null, "zero_hit", null, 325]]}
+{"file": "knowledge_base/domains/GF/examples.md", "line": 65, "kind": "body", "units": [["-", null, "zero_hit", null, 307], ["-", null, "zero_hit", null, 325]]}
+{"file": "knowledge_base/domains/GF/examples.md", "line": 66, "kind": "body", "units": [["-", null, "zero_hit", null, 307], ["-", null, "zero_hit", null, 325]]}
+{"file": "knowledge_base/domains/GF/examples.md", "line": 128, "kind": "body", "units": [["-", null, "zero_hit", null, 274]]}
+{"file": "knowledge_base/domains/GF/examples.md", "line": 129, "kind": "body", "units": [["-", null, "zero_hit", null, 253]]}
+{"file": "knowledge_base/domains/GF/examples.md", "line": 130, "kind": "body", "units": [["-", null, "zero_hit", null, 253]]}
+{"file": "knowledge_base/domains/GF/examples.md", "line": 131, "kind": "body", "units": [["-", null, "zero_hit", null, 254]]}
+{"file": "knowledge_base/domains/GF/examples.md", "line": 132, "kind": "body", "units": [["-", null, "zero_hit", null, 252]]}
+{"file": "knowledge_base/domains/GF/examples.md", "line": 133, "kind": "body", "units": [["-", null, "zero_hit", null, 252]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 526, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 75]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 527, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 73]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 528, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 529, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 71]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 530, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 71]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 531, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 73]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 532, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 99]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 533, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 534, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 535, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 536, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 540, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 37]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 543, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/GF/spec.md", "line": 544, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/HO/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/HO/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/HO/spec.md", "line": 265, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 100]]}
+{"file": "knowledge_base/domains/HO/spec.md", "line": 266, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/HO/spec.md", "line": 267, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/HO/spec.md", "line": 268, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/HO/spec.md", "line": 269, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/HO/spec.md", "line": 273, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 26]]}
+{"file": "knowledge_base/domains/HO/spec.md", "line": 276, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/HO/spec.md", "line": 277, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/HO/spec.md", "line": 278, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/IE/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/IE/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/IE/examples.md", "line": 15, "kind": "body", "units": [["-", null, "zero_hit", null, 99], ["-", null, "zero_hit", null, 118]]}
+{"file": "knowledge_base/domains/IE/examples.md", "line": 16, "kind": "body", "units": [["-", null, "zero_hit", null, 126], ["-", null, "zero_hit", null, 145]]}
+{"file": "knowledge_base/domains/IE/examples.md", "line": 17, "kind": "body", "units": [["-", null, "zero_hit", null, 126], ["-", null, "zero_hit", null, 145]]}
+{"file": "knowledge_base/domains/IE/examples.md", "line": 18, "kind": "body", "units": [["-", null, "zero_hit", null, 126], ["-", null, "zero_hit", null, 145]]}
+{"file": "knowledge_base/domains/IE/spec.md", "line": 175, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/IE/spec.md", "line": 176, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 86]]}
+{"file": "knowledge_base/domains/IE/spec.md", "line": 177, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/IE/spec.md", "line": 183, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/IE/spec.md", "line": 184, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/IS/assumptions.md", "line": 41, "kind": "kb_nav", "units": [["–", null, "zero_hit", null, 79]]}
+{"file": "knowledge_base/domains/IS/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/IS/examples.md", "line": 108, "kind": "body", "units": [["\"", ["\"", "“"], "inconsistent", null, 252]]}
+{"file": "knowledge_base/domains/IS/examples.md", "line": 205, "kind": "body", "units": [["-", "–", "blocked", "registry:B-IS T-6/U1冲突", 149]]}
+{"file": "knowledge_base/domains/IS/examples.md", "line": 206, "kind": "body", "units": [["-", "–", "blocked", "registry:B-IS T-6/U1冲突", 149]]}
+{"file": "knowledge_base/domains/IS/examples.md", "line": 207, "kind": "body", "units": [["-", "–", "blocked", "registry:B-IS T-6/U1冲突", 149]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 499, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 103]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 500, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 103]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 501, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 96]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 502, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 82]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 503, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 79]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 504, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 505, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 506, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 507, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 73]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 508, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 509, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 510, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 511, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 512, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 516, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 29]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 517, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 52]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 520, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 521, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/IS/spec.md", "line": 522, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 9, "kind": "body", "units": [["-", null, "zero_hit", null, 58]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 12, "kind": "body", "units": [["\"", null, "zero_hit", null, 62], ["--", null, "zero_hit", null, 63], ["\"", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 13, "kind": "body", "units": [["-", null, "zero_hit", null, 142]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 14, "kind": "body", "units": [["-", null, "zero_hit", null, 109]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 15, "kind": "body", "units": [["-", null, "zero_hit", null, 129]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 23, "kind": "body", "units": [["--", null, "zero_hit", null, 40]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 28, "kind": "body", "units": [["-", null, "zero_hit", null, 262]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 29, "kind": "body", "units": [["-", null, "zero_hit", null, 119]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 30, "kind": "body", "units": [["-", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 33, "kind": "body", "units": [["-", null, "zero_hit", null, 109]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 37, "kind": "body", "units": [["-", null, "zero_hit", null, 151]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 38, "kind": "body", "units": [["\"", null, "zero_hit", null, 230]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 41, "kind": "body", "units": [["-", null, "zero_hit", null, 136]]}
+{"file": "knowledge_base/domains/LB/assumptions.md", "line": 42, "kind": "body", "units": [["-", null, "zero_hit", null, 127]]}
+{"file": "knowledge_base/domains/LB/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/LB/examples.md", "line": 69, "kind": "body", "units": [["-", null, "zero_hit", null, 79]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 571, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 92]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 572, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 99]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 573, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 96]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 574, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 77]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 575, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 76]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 576, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 577, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 82]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 578, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 79]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 579, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 580, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 581, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 582, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 583, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 584, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 73]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 585, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 586, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 587, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 588, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 592, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 29]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 593, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 52]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 596, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/LB/spec.md", "line": 597, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/MB/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 436, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 437, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 438, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 95]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 439, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 440, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 441, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 442, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 443, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 73]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 444, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 445, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 446, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 447, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 448, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 452, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 35]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 453, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 37]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 454, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 29]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 455, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 52]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 458, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/MB/spec.md", "line": 459, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/MH/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 62, "kind": "body", "units": [["-", null, "zero_hit", null, 159]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 63, "kind": "body", "units": [["-", null, "zero_hit", null, 125]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 64, "kind": "body", "units": [["-", null, "zero_hit", null, 131]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 65, "kind": "body", "units": [["-", null, "zero_hit", null, 127]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 66, "kind": "body", "units": [["-", null, "zero_hit", null, 89]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 67, "kind": "body", "units": [["-", null, "zero_hit", null, 159]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 68, "kind": "body", "units": [["-", null, "zero_hit", null, 125]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 69, "kind": "body", "units": [["-", null, "zero_hit", null, 131]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 70, "kind": "body", "units": [["-", null, "zero_hit", null, 127]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 71, "kind": "body", "units": [["-", null, "zero_hit", null, 111]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 106, "kind": "body", "units": [["-", null, "zero_hit", null, 104]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 107, "kind": "body", "units": [["-", null, "zero_hit", null, 103]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 108, "kind": "body", "units": [["-", null, "zero_hit", null, 88]]}
+{"file": "knowledge_base/domains/MH/examples.md", "line": 109, "kind": "body", "units": [["-", null, "zero_hit", null, 98]]}
+{"file": "knowledge_base/domains/MH/spec.md", "line": 256, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 85]]}
+{"file": "knowledge_base/domains/MH/spec.md", "line": 257, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/MH/spec.md", "line": 258, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/MH/spec.md", "line": 259, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/MH/spec.md", "line": 260, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/MH/spec.md", "line": 266, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/MH/spec.md", "line": 267, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/MI/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/MI/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 346, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 78]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 347, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 348, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 349, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 350, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 351, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 352, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 353, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 73]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 354, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 355, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 356, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 357, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 358, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 359, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 363, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 37]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 366, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/MI/spec.md", "line": 367, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/MK/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/MK/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/MK/examples.md", "line": 52, "kind": "body", "units": [["-", "–", "blocked", "registry:B-MK T-1/-", 86]]}
+{"file": "knowledge_base/domains/MK/examples.md", "line": 57, "kind": "body", "units": [["-", "–", "blocked", "registry:B-MK T-1/-", 86]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 391, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 94]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 392, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 94]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 393, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 394, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 395, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 396, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 397, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 398, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 399, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 400, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 401, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 402, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 403, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 409, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/MK/spec.md", "line": 410, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/ML/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/ML/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/ML/spec.md", "line": 346, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/ML/spec.md", "line": 347, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/ML/spec.md", "line": 348, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/ML/spec.md", "line": 349, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/ML/spec.md", "line": 350, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/ML/spec.md", "line": 356, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/ML/spec.md", "line": 357, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/MS/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 562, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 98]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 563, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 98]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 564, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 565, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 566, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 567, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 568, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 73]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 569, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 570, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 571, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 572, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 573, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 111]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 574, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 575, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 576, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 577, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 581, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 35]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 582, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 29]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 583, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 52]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 586, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 587, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/MS/spec.md", "line": 588, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/NV/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/NV/assumptions.md", "line": 32, "kind": "body", "units": [["--", null, "zero_hit", null, 40]]}
+{"file": "knowledge_base/domains/NV/assumptions.md", "line": 35, "kind": "body", "units": [["-", null, "zero_hit", null, 262]]}
+{"file": "knowledge_base/domains/NV/assumptions.md", "line": 36, "kind": "body", "units": [["-", null, "zero_hit", null, 126]]}
+{"file": "knowledge_base/domains/NV/assumptions.md", "line": 38, "kind": "body", "units": [["\"", null, "zero_hit", null, 390], ["\"", null, "zero_hit", null, 395], ["\"", null, "zero_hit", null, 398], ["\"", null, "zero_hit", null, 402], ["\"", null, "zero_hit", null, 409], ["\"", null, "zero_hit", null, 418], ["\"", null, "zero_hit", null, 545], ["\"", null, "zero_hit", null, 554]]}
+{"file": "knowledge_base/domains/NV/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 391, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 392, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 393, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 394, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 395, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 396, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 397, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 398, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 399, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 400, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 401, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 402, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 408, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/NV/spec.md", "line": 409, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/OE/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/OE/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 481, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 79]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 482, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 79]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 483, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 97]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 484, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 485, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 486, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 487, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 488, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 489, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 490, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 491, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 492, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 493, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 494, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 71]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 495, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 501, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/OE/spec.md", "line": 502, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/OI/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/OI/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/OI/spec.md", "line": 76, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 84]]}
+{"file": "knowledge_base/domains/OI/spec.md", "line": 77, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 89]]}
+{"file": "knowledge_base/domains/OI/spec.md", "line": 80, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/OI/spec.md", "line": 81, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/PC/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/PC/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/PC/spec.md", "line": 382, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/PC/spec.md", "line": 383, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/PC/spec.md", "line": 384, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 73]]}
+{"file": "knowledge_base/domains/PC/spec.md", "line": 385, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/domains/PC/spec.md", "line": 386, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/PC/spec.md", "line": 387, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 72]]}
+{"file": "knowledge_base/domains/PC/spec.md", "line": 388, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/PC/spec.md", "line": 392, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 35]]}
+{"file": "knowledge_base/domains/PC/spec.md", "line": 395, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/PC/spec.md", "line": 396, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/PC/spec.md", "line": 397, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/PE/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/PE/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/PE/examples.md", "line": 14, "kind": "body", "units": [["-", null, "zero_hit", null, 75], ["-", null, "zero_hit", null, 91], ["-", null, "zero_hit", null, 109]]}
+{"file": "knowledge_base/domains/PE/examples.md", "line": 15, "kind": "body", "units": [["-", null, "zero_hit", null, 85], ["-", null, "zero_hit", null, 101], ["-", null, "zero_hit", null, 119]]}
+{"file": "knowledge_base/domains/PE/examples.md", "line": 16, "kind": "body", "units": [["-", null, "zero_hit", null, 116], ["-", null, "zero_hit", null, 132], ["-", null, "zero_hit", null, 150]]}
+{"file": "knowledge_base/domains/PE/examples.md", "line": 17, "kind": "body", "units": [["-", null, "zero_hit", null, 129], ["-", null, "zero_hit", null, 145], ["-", null, "zero_hit", null, 163]]}
+{"file": "knowledge_base/domains/PE/examples.md", "line": 18, "kind": "body", "units": [["-", null, "zero_hit", null, 125], ["-", null, "zero_hit", null, 141], ["-", null, "zero_hit", null, 159]]}
+{"file": "knowledge_base/domains/PE/examples.md", "line": 19, "kind": "body", "units": [["-", null, "zero_hit", null, 77], ["-", null, "zero_hit", null, 93], ["-", null, "zero_hit", null, 111]]}
+{"file": "knowledge_base/domains/PE/spec.md", "line": 1, "kind": "heading", "units": [["—", "-", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/PE/spec.md", "line": 283, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/PE/spec.md", "line": 284, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/PE/spec.md", "line": 285, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/PE/spec.md", "line": 286, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/PE/spec.md", "line": 287, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/PE/spec.md", "line": 288, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/PE/spec.md", "line": 289, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/PE/spec.md", "line": 290, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/PE/spec.md", "line": 296, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/PE/spec.md", "line": 297, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/PP/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 116, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 29], ["-", null, "zero_hit", null, 175], ["-", null, "zero_hit", null, 182]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 120, "kind": "body", "units": [["-", null, "zero_hit", null, 27], ["-", null, "zero_hit", null, 43]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 122, "kind": "body", "units": [["-", null, "zero_hit", null, 14], ["-", null, "zero_hit", null, 17]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 123, "kind": "body", "units": [["-", null, "zero_hit", null, 13], ["-", null, "zero_hit", null, 16]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 124, "kind": "body", "units": [["-", null, "zero_hit", null, 14], ["-", null, "zero_hit", null, 17]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 125, "kind": "body", "units": [["-", null, "zero_hit", null, 13], ["-", null, "zero_hit", null, 16]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 127, "kind": "body", "units": [["-", null, "zero_hit", null, 94], ["—", null, "zero_hit", null, 137]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 131, "kind": "body", "units": [["-", null, "zero_hit", null, 2]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 138, "kind": "body", "units": [["-", null, "zero_hit", null, 2], ["-", null, "zero_hit", null, 43]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 145, "kind": "body", "units": [["-", null, "zero_hit", null, 2], ["-", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 163, "kind": "body", "units": [["-", null, "zero_hit", null, 14], ["\"", null, "zero_hit", null, 144], ["\"", null, "zero_hit", null, 146]]}
+{"file": "knowledge_base/domains/PP/examples.md", "line": 167, "kind": "body", "units": [["-", null, "zero_hit", null, 2], ["-", null, "zero_hit", null, 41], ["-", null, "zero_hit", null, 84]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 247, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 23], ["—", null, "zero_hit", null, 82]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 248, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 23], ["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 249, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 23], ["—", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 250, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 23], ["—", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 251, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 71]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 252, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 253, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 254, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 255, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 72]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 256, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 257, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 261, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 35]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 264, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/PP/spec.md", "line": 265, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/PR/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/PR/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 418, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 419, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 420, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 421, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 422, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 423, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 424, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 425, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 426, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 427, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 428, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 71]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 429, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 435, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 436, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/PR/spec.md", "line": 437, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/QS/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/QS/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/QS/spec.md", "line": 328, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 76]]}
+{"file": "knowledge_base/domains/QS/spec.md", "line": 329, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 66]]}
+{"file": "knowledge_base/domains/QS/spec.md", "line": 330, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/QS/spec.md", "line": 331, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/QS/spec.md", "line": 332, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/QS/spec.md", "line": 333, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/QS/spec.md", "line": 337, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 35]]}
+{"file": "knowledge_base/domains/QS/spec.md", "line": 340, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/QS/spec.md", "line": 341, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/QS/spec.md", "line": 342, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/RE/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/RE/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/RE/examples.md", "line": 15, "kind": "table_elision", "units": [["...", null, "zero_hit", null, 106]]}
+{"file": "knowledge_base/domains/RE/examples.md", "line": 59, "kind": "body", "units": [["\"", null, "zero_hit", null, 167]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 436, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 75]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 437, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 75]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 438, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 439, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 440, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 441, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 442, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 443, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 444, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 445, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 446, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 447, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 448, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 454, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/RE/spec.md", "line": 455, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/RELREC/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/RELREC/assumptions.md", "line": 24, "kind": "heading", "units": [["–", ["-", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/domains/RELREC/examples.md", "line": 1, "kind": "heading", "units": [["—", ["--", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/domains/RELREC/spec.md", "line": 78, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 79]]}
+{"file": "knowledge_base/domains/RELREC/spec.md", "line": 79, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/RELREC/spec.md", "line": 85, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/RELREC/spec.md", "line": 86, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/RELREC/spec.md", "line": 87, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/RELSPEC/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/RELSPEC/assumptions.md", "line": 7, "kind": "heading", "units": [["–", ["-", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/domains/RELSPEC/examples.md", "line": 1, "kind": "heading", "units": [["—", ["--", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/domains/RELSPEC/spec.md", "line": 69, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 75]]}
+{"file": "knowledge_base/domains/RELSPEC/spec.md", "line": 70, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/domains/RELSPEC/spec.md", "line": 76, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/RELSPEC/spec.md", "line": 77, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/RELSPEC/spec.md", "line": 78, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/RELSUB/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/RELSUB/assumptions.md", "line": 5, "kind": "heading", "units": [["–", ["-", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/domains/RELSUB/examples.md", "line": 1, "kind": "heading", "units": [["—", ["--", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/domains/RELSUB/spec.md", "line": 60, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 77]]}
+{"file": "knowledge_base/domains/RELSUB/spec.md", "line": 66, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/RELSUB/spec.md", "line": 67, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/RELSUB/spec.md", "line": 68, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/RP/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 11, "kind": "body", "units": [["-", null, "zero_hit", null, 137]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 12, "kind": "body", "units": [["-", null, "zero_hit", null, 126]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 13, "kind": "body", "units": [["-", null, "zero_hit", null, 125]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 14, "kind": "body", "units": [["-", null, "zero_hit", null, 144]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 15, "kind": "body", "units": [["-", null, "zero_hit", null, 133]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 16, "kind": "body", "units": [["-", null, "zero_hit", null, 176]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 17, "kind": "body", "units": [["-", null, "zero_hit", null, 126]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 22, "kind": "body", "units": [["-", null, "zero_hit", null, 134]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 23, "kind": "body", "units": [["-", null, "zero_hit", null, 127]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 24, "kind": "body", "units": [["-", null, "zero_hit", null, 126]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 25, "kind": "body", "units": [["-", null, "zero_hit", null, 137]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 26, "kind": "body", "units": [["-", null, "zero_hit", null, 134]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 27, "kind": "body", "units": [["-", null, "zero_hit", null, 134]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 28, "kind": "body", "units": [["-", null, "zero_hit", null, 145]]}
+{"file": "knowledge_base/domains/RP/examples.md", "line": 29, "kind": "body", "units": [["-", null, "zero_hit", null, 127]]}
+{"file": "knowledge_base/domains/RP/spec.md", "line": 337, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 92]]}
+{"file": "knowledge_base/domains/RP/spec.md", "line": 338, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 92]]}
+{"file": "knowledge_base/domains/RP/spec.md", "line": 339, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/RP/spec.md", "line": 340, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/RP/spec.md", "line": 341, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/RP/spec.md", "line": 342, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/RP/spec.md", "line": 348, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/RP/spec.md", "line": 349, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/RS/assumptions.md", "line": 22, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/RS/assumptions.md", "line": 69, "kind": "heading", "units": [["—", ["-", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/domains/RS/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/RS/examples.md", "line": 3, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/RS/examples.md", "line": 59, "kind": "body", "units": [["-", null, "zero_hit", null, 137]]}
+{"file": "knowledge_base/domains/RS/examples.md", "line": 70, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 1, "kind": "heading", "units": [["—", ["-", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 427, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 92]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 428, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 97]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 429, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 66]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 430, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 431, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 432, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 433, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 434, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 435, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 436, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 94]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 437, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 94]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 438, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 91]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 439, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 443, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 37]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 444, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 37]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 447, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 448, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/RS/spec.md", "line": 449, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/SC/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SC/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SC/examples.md", "line": 35, "kind": "body", "units": [["-", null, "zero_hit", null, 153], ["-", null, "zero_hit", null, 156]]}
+{"file": "knowledge_base/domains/SC/examples.md", "line": 36, "kind": "body", "units": [["-", null, "zero_hit", null, 152], ["-", null, "zero_hit", null, 155]]}
+{"file": "knowledge_base/domains/SC/examples.md", "line": 46, "kind": "body", "units": [["-", null, "zero_hit", null, 103]]}
+{"file": "knowledge_base/domains/SC/examples.md", "line": 47, "kind": "body", "units": [["-", null, "zero_hit", null, 82]]}
+{"file": "knowledge_base/domains/SC/spec.md", "line": 229, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 86]]}
+{"file": "knowledge_base/domains/SC/spec.md", "line": 230, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/SC/spec.md", "line": 231, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/SC/spec.md", "line": 232, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 85]]}
+{"file": "knowledge_base/domains/SC/spec.md", "line": 233, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/SC/spec.md", "line": 239, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/SC/spec.md", "line": 240, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/SE/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SE/assumptions.md", "line": 3, "kind": "heading", "units": [["–", ["-", "–"], "inconsistent", null]]}
+{"file": "knowledge_base/domains/SE/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SE/spec.md", "line": 3, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 16]]}
+{"file": "knowledge_base/domains/SE/spec.md", "line": 130, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/SE/spec.md", "line": 133, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 23]]}
+{"file": "knowledge_base/domains/SE/spec.md", "line": 136, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/SE/spec.md", "line": 137, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/SE/spec.md", "line": 140, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 10]]}
+{"file": "knowledge_base/domains/SM/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SM/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SM/spec.md", "line": 3, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 16]]}
+{"file": "knowledge_base/domains/SM/spec.md", "line": 101, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 23]]}
+{"file": "knowledge_base/domains/SM/spec.md", "line": 104, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/SM/spec.md", "line": 105, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/SM/spec.md", "line": 108, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 10]]}
+{"file": "knowledge_base/domains/SR/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SR/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 93, "kind": "body", "units": [["\"", null, "zero_hit", null, 250]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 364, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 365, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 366, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 367, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 368, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 369, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 370, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 371, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 372, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 373, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 374, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 378, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 34], ["-", null, "zero_hit", null, 42]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 379, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 34], ["-", null, "zero_hit", null, 42]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 380, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 34], ["-", null, "zero_hit", null, 42]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 383, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/SR/spec.md", "line": 384, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/SS/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SS/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SS/spec.md", "line": 211, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 77]]}
+{"file": "knowledge_base/domains/SS/spec.md", "line": 212, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 78]]}
+{"file": "knowledge_base/domains/SS/spec.md", "line": 213, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 78]]}
+{"file": "knowledge_base/domains/SS/spec.md", "line": 214, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/SS/spec.md", "line": 215, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/SS/spec.md", "line": 216, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/SS/spec.md", "line": 220, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 35]]}
+{"file": "knowledge_base/domains/SS/spec.md", "line": 223, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/SS/spec.md", "line": 224, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/SS/spec.md", "line": 225, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/SU/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SU/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SU/spec.md", "line": 346, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/SU/spec.md", "line": 347, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/SU/spec.md", "line": 348, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/SU/spec.md", "line": 349, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/SU/spec.md", "line": 350, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/SU/spec.md", "line": 351, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/SU/spec.md", "line": 352, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/SU/spec.md", "line": 353, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/SU/spec.md", "line": 359, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/SU/spec.md", "line": 360, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/SUPPQUAL/examples.md", "line": 1, "kind": "heading", "units": [["—", "--", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SUPPQUAL/spec.md", "line": 105, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 79]]}
+{"file": "knowledge_base/domains/SUPPQUAL/spec.md", "line": 106, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/SUPPQUAL/spec.md", "line": 112, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/SUPPQUAL/spec.md", "line": 113, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/SUPPQUAL/spec.md", "line": 114, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/SV/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SV/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/SV/examples.md", "line": 50, "kind": "body", "units": [["-", null, "zero_hit", null, 146]]}
+{"file": "knowledge_base/domains/SV/examples.md", "line": 52, "kind": "body", "units": [["-", null, "zero_hit", null, 147]]}
+{"file": "knowledge_base/domains/SV/examples.md", "line": 82, "kind": "body", "units": [["-", null, "zero_hit", null, 90], ["-", null, "zero_hit", null, 95]]}
+{"file": "knowledge_base/domains/SV/examples.md", "line": 90, "kind": "body", "units": [["-", null, "zero_hit", null, 92], ["-", null, "zero_hit", null, 97]]}
+{"file": "knowledge_base/domains/SV/spec.md", "line": 3, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 16]]}
+{"file": "knowledge_base/domains/SV/spec.md", "line": 157, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 81]]}
+{"file": "knowledge_base/domains/SV/spec.md", "line": 158, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/SV/spec.md", "line": 161, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 23]]}
+{"file": "knowledge_base/domains/SV/spec.md", "line": 164, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/SV/spec.md", "line": 165, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/SV/spec.md", "line": 168, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 10]]}
+{"file": "knowledge_base/domains/TA/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TA/assumptions.md", "line": 96, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 26]]}
+{"file": "knowledge_base/domains/TA/assumptions.md", "line": 100, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 33], ["-", null, "zero_hit", null, 41], ["-", null, "zero_hit", null, 50], ["-", null, "zero_hit", null, 54]]}
+{"file": "knowledge_base/domains/TA/assumptions.md", "line": 104, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 39], ["-", null, "zero_hit", null, 48], ["-", null, "zero_hit", null, 54], ["-", null, "zero_hit", null, 60], ["-", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/TA/assumptions.md", "line": 108, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 36], ["-", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/TA/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TA/examples.md", "line": 351, "kind": "body", "units": [["-", ["-", "–"], "inconsistent", null, 35], ["-", "–", "blocked", "registry:B-TA T-4/U1冲突", 93]]}
+{"file": "knowledge_base/domains/TA/examples.md", "line": 352, "kind": "body", "units": [["-", ["-", "–"], "inconsistent", null, 35]]}
+{"file": "knowledge_base/domains/TA/examples.md", "line": 353, "kind": "body", "units": [["-", ["-", "–"], "inconsistent", null, 35]]}
+{"file": "knowledge_base/domains/TA/examples.md", "line": 354, "kind": "body", "units": [["-", ["-", "–"], "inconsistent", null, 35]]}
+{"file": "knowledge_base/domains/TA/examples.md", "line": 355, "kind": "body", "units": [["-", ["-", "–"], "inconsistent", null, 35]]}
+{"file": "knowledge_base/domains/TA/examples.md", "line": 356, "kind": "body", "units": [["-", ["-", "–"], "inconsistent", null, 35]]}
+{"file": "knowledge_base/domains/TA/examples.md", "line": 357, "kind": "body", "units": [["-", ["-", "–"], "inconsistent", null, 35]]}
+{"file": "knowledge_base/domains/TA/spec.md", "line": 103, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/TA/spec.md", "line": 107, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 33]]}
+{"file": "knowledge_base/domains/TA/spec.md", "line": 108, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 33]]}
+{"file": "knowledge_base/domains/TA/spec.md", "line": 111, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/TA/spec.md", "line": 112, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/TD/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TD/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TD/spec.md", "line": 95, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/TD/spec.md", "line": 96, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/TE/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TE/assumptions.md", "line": 3, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TE/assumptions.md", "line": 15, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TE/assumptions.md", "line": 19, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TE/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TE/spec.md", "line": 75, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 33]]}
+{"file": "knowledge_base/domains/TE/spec.md", "line": 78, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/TE/spec.md", "line": 79, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/TI/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TI/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TI/spec.md", "line": 85, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 86]]}
+{"file": "knowledge_base/domains/TI/spec.md", "line": 91, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/TI/spec.md", "line": 92, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/TM/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TM/assumptions.md", "line": 3, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TM/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TM/spec.md", "line": 58, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/TM/spec.md", "line": 64, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/TM/spec.md", "line": 65, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/TR/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 19, "kind": "body", "units": [["-", null, "zero_hit", null, 152]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 20, "kind": "body", "units": [["-", null, "zero_hit", null, 152]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 21, "kind": "body", "units": [["-", null, "zero_hit", null, 148]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 22, "kind": "body", "units": [["-", null, "zero_hit", null, 156]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 25, "kind": "body", "units": [["-", null, "zero_hit", null, 161]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 26, "kind": "body", "units": [["-", null, "zero_hit", null, 157]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 35, "kind": "body", "units": [["-", null, "zero_hit", null, 94], ["-", null, "zero_hit", null, 105], ["-", null, "zero_hit", null, 111]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 36, "kind": "body", "units": [["-", null, "zero_hit", null, 105], ["-", null, "zero_hit", null, 115], ["-", null, "zero_hit", null, 121]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 37, "kind": "body", "units": [["-", null, "zero_hit", null, 93], ["-", null, "zero_hit", null, 103], ["-", null, "zero_hit", null, 109]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 70, "kind": "body", "units": [["-", null, "zero_hit", null, 185]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 71, "kind": "body", "units": [["-", null, "zero_hit", null, 189]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 72, "kind": "body", "units": [["-", null, "zero_hit", null, 189]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 75, "kind": "body", "units": [["-", null, "zero_hit", null, 198]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 83, "kind": "body", "units": [["-", null, "zero_hit", null, 104], ["-", null, "zero_hit", null, 115], ["-", null, "zero_hit", null, 121]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 84, "kind": "body", "units": [["-", null, "zero_hit", null, 106], ["-", null, "zero_hit", null, 116], ["-", null, "zero_hit", null, 122]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 85, "kind": "body", "units": [["-", null, "zero_hit", null, 103], ["-", null, "zero_hit", null, 113], ["-", null, "zero_hit", null, 119]]}
+{"file": "knowledge_base/domains/TR/examples.md", "line": 96, "kind": "body", "units": [["-", null, "zero_hit", null, 96], ["-", null, "zero_hit", null, 106], ["-", null, "zero_hit", null, 112]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 301, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 95]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 302, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 303, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 304, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 305, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 306, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 307, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 308, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 92]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 309, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 92]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 310, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 314, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 35]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 315, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 37]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 318, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 319, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/TR/spec.md", "line": 320, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/TS/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TS/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TS/spec.md", "line": 112, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/TS/spec.md", "line": 113, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/TS/spec.md", "line": 114, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/domains/TS/spec.md", "line": 120, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/TS/spec.md", "line": 121, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/TS/spec.md", "line": 122, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/TU/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TU/assumptions.md", "line": 68, "kind": "body", "units": [["\"", ["\"", "“"], "inconsistent", null, 238]]}
+{"file": "knowledge_base/domains/TU/assumptions.md", "line": 69, "kind": "body", "units": [["\"", ["\"", "“"], "inconsistent", null, 231]]}
+{"file": "knowledge_base/domains/TU/assumptions.md", "line": 70, "kind": "body", "units": [["\"", ["\"", "“"], "inconsistent", null, 312]]}
+{"file": "knowledge_base/domains/TU/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TU/examples.md", "line": 55, "kind": "body", "units": [["-", null, "zero_hit", null, 151]]}
+{"file": "knowledge_base/domains/TU/examples.md", "line": 56, "kind": "body", "units": [["-", null, "zero_hit", null, 158]]}
+{"file": "knowledge_base/domains/TU/examples.md", "line": 57, "kind": "body", "units": [["-", null, "zero_hit", null, 166]]}
+{"file": "knowledge_base/domains/TU/examples.md", "line": 58, "kind": "body", "units": [["-", null, "zero_hit", null, 167]]}
+{"file": "knowledge_base/domains/TU/examples.md", "line": 59, "kind": "body", "units": [["-", null, "zero_hit", null, 174]]}
+{"file": "knowledge_base/domains/TU/examples.md", "line": 60, "kind": "body", "units": [["-", null, "zero_hit", null, 167]]}
+{"file": "knowledge_base/domains/TU/examples.md", "line": 92, "kind": "body", "units": [["-", null, "zero_hit", null, 205]]}
+{"file": "knowledge_base/domains/TU/examples.md", "line": 93, "kind": "body", "units": [["-", null, "zero_hit", null, 190]]}
+{"file": "knowledge_base/domains/TU/examples.md", "line": 94, "kind": "body", "units": [["-", null, "zero_hit", null, 204]]}
+{"file": "knowledge_base/domains/TU/examples.md", "line": 95, "kind": "body", "units": [["-", null, "zero_hit", null, 206]]}
+{"file": "knowledge_base/domains/TU/examples.md", "line": 96, "kind": "body", "units": [["-", null, "zero_hit", null, 206]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 292, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 100]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 293, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 294, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 295, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 296, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 297, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 298, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 96]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 299, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 96]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 300, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 301, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 302, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 71]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 303, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 307, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 35]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 308, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 37]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 311, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 312, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/domains/TU/spec.md", "line": 313, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/TV/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TV/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/TV/spec.md", "line": 93, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 33]]}
+{"file": "knowledge_base/domains/TV/spec.md", "line": 94, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 33]]}
+{"file": "knowledge_base/domains/TV/spec.md", "line": 97, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/TV/spec.md", "line": 98, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/UR/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/UR/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 400, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 78]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 401, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 78]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 402, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 403, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 404, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 59]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 405, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 406, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 407, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 61]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 408, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 83]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 409, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 410, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 69]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 411, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 417, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/UR/spec.md", "line": 418, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/domains/VS/assumptions.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/VS/examples.md", "line": 1, "kind": "heading", "units": [["—", "–", "blocked", "heading"]]}
+{"file": "knowledge_base/domains/VS/spec.md", "line": 355, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/VS/spec.md", "line": 356, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 70]]}
+{"file": "knowledge_base/domains/VS/spec.md", "line": 357, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 73]]}
+{"file": "knowledge_base/domains/VS/spec.md", "line": 358, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/VS/spec.md", "line": 359, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/VS/spec.md", "line": 360, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 63]]}
+{"file": "knowledge_base/domains/VS/spec.md", "line": 361, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/VS/spec.md", "line": 362, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/domains/VS/spec.md", "line": 363, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/domains/VS/spec.md", "line": 369, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/domains/VS/spec.md", "line": 370, "kind": "kb_nav", "units": [["—", null, "zero_hit", null, 44]]}
+{"file": "knowledge_base/model/01_concepts_and_terms.md", "line": 3, "kind": "body", "units": [["-", null, "zero_hit", null, 29], ["-", null, "zero_hit", null, 40]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 3, "kind": "body", "units": [["-", null, "zero_hit", null, 29], ["-", null, "zero_hit", null, 43]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 47, "kind": "body", "units": [["-", null, "zero_hit", null, 138]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 51, "kind": "body", "units": [["\"", null, "zero_hit", null, 76], ["\"", null, "zero_hit", null, 78]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 54, "kind": "body", "units": [["\"", null, "zero_hit", null, 62]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 62, "kind": "body", "units": [["-", null, "zero_hit", null, 123], ["\"", null, "zero_hit", null, 127]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 63, "kind": "body", "units": [["\"", null, "zero_hit", null, 110]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 64, "kind": "body", "units": [["\"", null, "zero_hit", null, 85], ["\"", null, "zero_hit", null, 88]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 78, "kind": "body", "units": [["\"", null, "zero_hit", null, 97], ["\"", null, "zero_hit", null, 100], ["\"", null, "zero_hit", null, 103], ["\"", null, "zero_hit", null, 107]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 80, "kind": "body", "units": [["\"", null, "zero_hit", null, 94]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 83, "kind": "body", "units": [["\"", null, "zero_hit", null, 109]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 85, "kind": "body", "units": [["\"", null, "zero_hit", null, 63], ["\"", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 102, "kind": "body", "units": [["-", null, "zero_hit", null, 82]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 139, "kind": "body", "units": [["\"", null, "zero_hit", null, 60], ["\"", null, "zero_hit", null, 67]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 140, "kind": "body", "units": [["\"", null, "zero_hit", null, 80], ["\"", null, "zero_hit", null, 87]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 213, "kind": "body", "units": [["\"", null, "zero_hit", null, 108], ["\"", null, "zero_hit", null, 123], ["\"", null, "zero_hit", null, 126]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 233, "kind": "body", "units": [["\"", null, "zero_hit", null, 67], ["\"", null, "zero_hit", null, 73], ["\"", null, "zero_hit", null, 76], ["\"", null, "zero_hit", null, 82], ["\"", null, "zero_hit", null, 85], ["\"", null, "zero_hit", null, 92]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 235, "kind": "body", "units": [["\"", null, "zero_hit", null, 65], ["\"", null, "zero_hit", null, 75], ["\"", null, "zero_hit", null, 78], ["\"", null, "zero_hit", null, 86]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 304, "kind": "body", "units": [["-", null, "zero_hit", null, 71], ["-", null, "zero_hit", null, 74]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 323, "kind": "body", "units": [["-", null, "zero_hit", null, 51]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 324, "kind": "body", "units": [["-", null, "zero_hit", null, 68]]}
+{"file": "knowledge_base/model/02_observation_classes.md", "line": 364, "kind": "body", "units": [["-", null, "zero_hit", null, 65]]}
+{"file": "knowledge_base/model/03_special_purpose_domains.md", "line": 3, "kind": "body", "units": [["-", null, "zero_hit", null, 40]]}
+{"file": "knowledge_base/model/03_special_purpose_domains.md", "line": 26, "kind": "body", "units": [["\"", null, "zero_hit", null, 57], ["\"", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/model/03_special_purpose_domains.md", "line": 38, "kind": "body", "units": [["\"", null, "zero_hit", null, 62], ["\"", null, "zero_hit", null, 64]]}
+{"file": "knowledge_base/model/03_special_purpose_domains.md", "line": 44, "kind": "body", "units": [["\"", null, "zero_hit", null, 91], ["-", null, "zero_hit", null, 94], ["\"", null, "zero_hit", null, 97]]}
+{"file": "knowledge_base/model/03_special_purpose_domains.md", "line": 45, "kind": "body", "units": [["\"", null, "zero_hit", null, 67], ["\"", null, "zero_hit", null, 73], ["\"", null, "zero_hit", null, 76], ["\"", null, "zero_hit", null, 83], ["\"", null, "zero_hit", null, 86], ["\"", null, "zero_hit", null, 91]]}
+{"file": "knowledge_base/model/03_special_purpose_domains.md", "line": 130, "kind": "body", "units": [["\"", null, "zero_hit", null, 57], ["\"", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/model/03_special_purpose_domains.md", "line": 156, "kind": "body", "units": [["\"", null, "zero_hit", null, 57], ["\"", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/model/03_special_purpose_domains.md", "line": 181, "kind": "body", "units": [["\"", null, "zero_hit", null, 57], ["\"", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/model/03_special_purpose_domains.md", "line": 214, "kind": "body", "units": [["\"", null, "zero_hit", null, 57], ["\"", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/model/04_associated_persons.md", "line": 21, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 39], ["-", null, "zero_hit", null, 42], ["-", null, "zero_hit", null, 51], ["-", null, "zero_hit", null, 55]]}
+{"file": "knowledge_base/model/05_study_level_data.md", "line": 3, "kind": "body", "units": [["-", null, "zero_hit", null, 31], ["-", null, "zero_hit", null, 45]]}
+{"file": "knowledge_base/model/05_study_level_data.md", "line": 102, "kind": "body", "units": [["\"", null, "zero_hit", null, 57], ["\"", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/model/05_study_level_data.md", "line": 122, "kind": "body", "units": [["\"", null, "zero_hit", null, 57], ["\"", null, "zero_hit", null, 60]]}
+{"file": "knowledge_base/model/06_relationship_datasets.md", "line": 3, "kind": "body", "units": [["-", null, "zero_hit", null, 31], ["-", null, "zero_hit", null, 45]]}
+{"file": "knowledge_base/model/06_relationship_datasets.md", "line": 37, "kind": "body", "units": [["-", null, "zero_hit", null, 80]]}
+{"file": "knowledge_base/model/06_relationship_datasets.md", "line": 182, "kind": "kb_nav", "units": [["-", null, "zero_hit", null, 39], ["-", null, "zero_hit", null, 42], ["-", null, "zero_hit", null, 51], ["-", null, "zero_hit", null, 55]]}
+{"file": "knowledge_base/model/06_relationship_datasets.md", "line": 190, "kind": "body", "units": [["-", null, "zero_hit", null, 36]]}
+{"file": "knowledge_base/model/06_relationship_datasets.md", "line": 193, "kind": "body", "units": [["-", null, "zero_hit", null, 40]]}
+{"file": "knowledge_base/model/06_relationship_datasets.md", "line": 197, "kind": "body", "units": [["-", null, "zero_hit", null, 37]]}

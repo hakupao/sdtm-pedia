@@ -297,9 +297,9 @@ In this example, the sponsor populated AESEV with the maximum severity over the 
 
 The values in FAOBJ are the values from AEDECOD, which were assigned during coding, rather than directly collected. The values in FASPID are the AE identifiers from AESPID. FAEVINTX indicates that the evaluation was for the period since the last visit.
 
-**Rows 1-4:** Show severity data collected at the 4 visits that occurred between the start and end of the AE "Morning queasiness". FAOBJ=NAUSEA, which is the value of AEDECOD in the associated AE record.
+**Rows 1-4:** Show severity data collected at the 4 visits that occurred between the start and end of the AE “Morning queasiness”. FAOBJ=NAUSEA, which is the value of AEDECOD in the associated AE record.
 
-**Rows 5-6:** Show severity data collected at the 2 visits that occurred between the start and end of the AE "Watery stools." FAOBJ=DIARRHEA, which is the value of AEDECOD in the associated AE record.
+**Rows 5-6:** Show severity data collected at the 2 visits that occurred between the start and end of the AE “Watery stools.” FAOBJ=DIARRHEA, which is the value of AEDECOD in the associated AE record.
 
 **faae.xpt**
 
