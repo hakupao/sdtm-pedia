@@ -1,0 +1,12 @@
+{"ref": "census:knowledge_base/domains/DA/examples.md:15:5:DAORRES", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/examples.md", "kb_line_after": 15, "pdf_page": 182, "note": "Ex1 da.xpt 列错位复位, 按渲染图"}
+{"ref": "census:knowledge_base/domains/DA/examples.md:15:5:DAORRESU", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/examples.md", "kb_line_after": 15, "pdf_page": 182, "note": "Ex1 da.xpt 列错位复位, 按渲染图"}
+{"ref": "census:knowledge_base/domains/DA/examples.md:15:5:DASTRESC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/examples.md", "kb_line_after": 15, "pdf_page": 182, "note": "Ex1 da.xpt 列错位复位, 按渲染图"}
+{"ref": "census:knowledge_base/domains/DA/examples.md:15:5:EPOCH", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/examples.md", "kb_line_after": 15, "pdf_page": 182, "note": "Ex1 da.xpt 列错位复位, 按渲染图"}
+{"ref": "census:knowledge_base/domains/DA/examples.md:16:6:DAORRES", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/examples.md", "kb_line_after": 16, "pdf_page": 182, "note": "Ex1 da.xpt 列错位复位, 按渲染图"}
+{"ref": "census:knowledge_base/domains/DA/examples.md:16:6:DAORRESU", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/examples.md", "kb_line_after": 16, "pdf_page": 182, "note": "Ex1 da.xpt 列错位复位, 按渲染图"}
+{"ref": "census:knowledge_base/domains/DA/examples.md:16:6:DASTRESC", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/examples.md", "kb_line_after": 16, "pdf_page": 182, "note": "Ex1 da.xpt 列错位复位, 按渲染图"}
+{"ref": "census:knowledge_base/domains/DA/examples.md:16:6:EPOCH", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/examples.md", "kb_line_after": 16, "pdf_page": 182, "note": "Ex1 da.xpt 列错位复位, 按渲染图"}
+{"ref": "R3:p182:Ex2_intro_the", "action": "REPLACED", "kb_file": "knowledge_base/domains/DA/examples.md", "kb_line_after": 20, "pdf_page": 182, "note": "恢复 PDF 原词 'the accountability tracking'"}
+{"ref": "auth:p180:DA_Description_Overview", "action": "INSERTED", "kb_file": "knowledge_base/domains/DA/assumptions.md", "kb_line_after": 3, "pdf_page": 180, "note": "主控授权, 逐字"}
+{"ref": "auth:p180:DA_spec_first_sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/DA/assumptions.md", "kb_line_after": 7, "pdf_page": 180, "note": "主控授权, 逐字"}
+{"ref": "struct:p181:DA_Assumptions_heading", "action": "INSERTED", "kb_file": "knowledge_base/domains/DA/assumptions.md", "kb_line_after": 11, "pdf_page": 181, "note": "CM/BE 先例小标题"}

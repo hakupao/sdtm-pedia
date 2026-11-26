@@ -1,5 +1,15 @@
 # DA — Assumptions
 
+## DA – Description/Overview
+
+A findings domain that contains the accountability of study products, such as information on the receipt, dispensing, return, and packaging.
+
+## DA – Specification
+
+da.xpt, Product Accountability — Findings. One record per product accountability finding per subject, Tabulation.
+
+## DA – Assumptions
+
 1. This domain records the amount of study product transferred to or from the study subject.
    a. Transfers of devices are not represented in this domain, but in the Device Tracking and Disposition (DT) domain. See the SDTMIG for Medical Devices (available at https://www.cdisc.org/standards/foundational/medical-devices-sdtmig/).
    b. For drugs, transfers are usually recorded using the tests "Dispensed Amount" and "Returned Amount".
