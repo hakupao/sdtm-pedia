@@ -84,3 +84,4 @@
 - 口径不一: CT 星号脚注混记 EDITORIAL_META / REDUNDANT_WITH_SPEC; sv20 目录条目 EDITORIAL_META vs 兄弟 VERSION_MISMATCH; sv20 列头 SPEC_TABLE_HEADER vs 先例 VERSION_MISMATCH
 - 44 条 IE_CAND 内容逐字在 KB (40 条 §3.2.1 xpt 文件名在 ch03 Location 格; 4 条数据集标题行在 spec.md 顶部) → IE 或 PRESENT 皆可 (T1.4 定)
 - T2 注意: CP Ex1a 行 2/4/6 PRESENT 前提是 KB 列已重排改名; 修表头 ig34_p0210_a002 须同步重排; SE ig34_p0080_a001 PDF CT 列 "*" KB 空 (四字段规则外)
+- T4 汇总须列: B-AE T-3 ('device' vs PDF 'event', 改词判断, 信心中高); B-IS T-5 ('participating in')

@@ -18,3 +18,5 @@
 | O15 | T2 B-AE writer | domains/AE/spec.md | AE spec 首句 (ig34_p0134_a002) 与 spec 表脚注 (ig34_p0137_a010) AE 三文件皆无 → 应补 spec.md (各域 spec 首句/脚注可能普遍缺, T3 前做一次全域扫描) |
 | O16 | T2 多批 | 各域 assumptions.md | Description/Overview 句缺失是系统性问题 (VS O13, EG, 及 T1 已知 MI/IE/RP/TI/CE/SM): T3 前对 63 域做一次全域扫描, 各批未覆盖者开 B-DESC 小批 |
 | O17 | T2 B-EG audit | 各域 spec 首句 | D3 的 5 条 R4-blocked 数据集标题行 (CE/EG/DD/SU/AE) 按新口径应补进 assumptions.md; AE 已在 B-AE 补, 其余 4 域 (含 ig34_p0185_a022 EG) 并入 O15/O16 全域扫描; 届时 D3 对这 5 条的 IE 改为 PRESENT |
+| O18 | T2 B-AE audit | §6.x 各观察类引言 | p133 §6.2 Events 类引言句 + 7 项域列表全 KB 无 (triage 未收); 对 §6.1/6.2/6.3/6.4 等类引言做全库扫描, 并入 O16 sweep, 归属按 PDF 节 (候选 chapters/ 或 model/) |
+| O19 | T2 B-ch04 review L8 | ch04:1534-1536 Appendix 引导段 | "Appendix: Cross-References to Chapter 6 Examples" 引导句为 KB 自写未标 D6; 内容属 p115/p261 → 并入 O16 sweep 或 ch04 收尾小批 |
