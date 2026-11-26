@@ -42,7 +42,7 @@
 - **Order:** 5
 - **Label:** Disease Milestone Instance Name
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Name of the specific disease milestone. For types of disease milestones that can occur multiple times, the name will end with a sequence number. Example: "HYPO1".
@@ -51,7 +51,7 @@
 - **Order:** 6
 - **Label:** Disease Milestone Type
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Record Qualifier
 - **Core:** Req
 - **CDISC Notes:** The type of disease milestone. Example: "HYPOGLYCEMIC EVENT".
@@ -92,6 +92,8 @@
 - **Core:** Exp
 - **CDISC Notes:** Study day of end of disease milestone instance, relative to the sponsor-defined RFSTDTC.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

@@ -41,7 +41,7 @@
 ### RFSTDTC
 - **Order:** 5
 - **Label:** Subject Reference Start Date/Time
-- **Type:** DateTime
+- **Type:** Char
 - **Controlled Terms:** ISO 8601 datetime or interval
 - **Role:** Record Qualifier
 - **Core:** Exp
@@ -50,7 +50,7 @@
 ### RFENDTC
 - **Order:** 6
 - **Label:** Subject Reference End Date/Time
-- **Type:** DateTime
+- **Type:** Char
 - **Controlled Terms:** ISO 8601 datetime or interval
 - **Role:** Record Qualifier
 - **Core:** Exp
@@ -132,7 +132,7 @@
 - **Order:** 15
 - **Label:** Study Site Identifier
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Record Qualifier
 - **Core:** Req
 - **CDISC Notes:** Unique identifier for a site within a study.
@@ -198,7 +198,7 @@
 - **Controlled Terms:** C74457
 - **Role:** Record Qualifier
 - **Core:** Exp
-- **CDISC Notes:** Race of the subject. Sponsors should refer to the FDA guidance2 regarding the collection of race. See assumption below regarding RACE.
+- **CDISC Notes:** Race of the subject. Sponsors should refer to the FDA guidance² regarding the collection of race. See assumption below regarding RACE.
 
 ### ETHNIC
 - **Order:** 23
@@ -207,13 +207,13 @@
 - **Controlled Terms:** C66790
 - **Role:** Record Qualifier
 - **Core:** Perm
-- **CDISC Notes:** The ethnicity of the subject. Sponsors should refer to the FDA guidance1 regarding the collection of ethnicity.
+- **CDISC Notes:** The ethnicity of the subject. Sponsors should refer to the FDA guidance² regarding the collection of ethnicity.
 
 ### ARMCD
 - **Order:** 24
 - **Label:** Planned Arm Code
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** ARMCD is limited to 20 characters. It is not subject to the character restrictions that apply to TESTCD. The maximum length of ARMCD is longer than for other "short" variables to accommodate the kind of values that are likely to be needed for crossover trials. For example, if ARMCD values for a 7-period crossover were constructed using 2-character abbreviations for each treatment and separating hyphens, the length of ARMCD values would be 20. If the subject was not assigned to a trial arm, ARMCD is null and ARMNRS is populated.  With the exception of studies which use multistage arm assignments, must be a value of ARMCD in the Trial Arms dataset.
@@ -222,7 +222,7 @@
 - **Order:** 25
 - **Label:** Description of Planned Arm
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Synonym Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Name of the arm to which the subject was assigned. If the subject was not assigned to an arm, ARM is null and ARMNRS is populated.  With the exception of studies which use multistage arm assignments, must be a value of ARM in the Trial Arms dataset.
@@ -231,7 +231,7 @@
 - **Order:** 26
 - **Label:** Actual Arm Code
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Record Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Code of actual arm. ACTARMCD is limited to 20 characters. It is not subject to the character restrictions that apply to TESTCD. The maximum length of ACTARMCD is longer than for other short variables to accommodate the kind of values that are likely to be needed for crossover trials.  With the exception of studies which use multistage arm assignments, must be a value of ARMCD in the Trial Arms dataset.  If the subject was not assigned to an arm or followed a course not described by any planned arm, ACTARMCD is null and ARMNRS is populated.
@@ -240,7 +240,7 @@
 - **Order:** 27
 - **Label:** Description of Actual Arm
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Synonym Qualifier
 - **Core:** Exp
 - **CDISC Notes:** Description of actual arm.  With the exception of studies which use multistage arm assignments, must be a value of ARM in the Trial Arms dataset.  If the subject was not assigned to an arm or followed a course not described by any planned arm, ACTARM is null and ARMNRS is populated.
@@ -290,6 +290,10 @@
 - **Core:** Perm
 - **CDISC Notes:** Study day of collection measured as integer days.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
+
+> ²Food and Drug Administration. Collection of Race and Ethnicity Data in Clinical Trials. US Department of Health and Human Services;2016. Accessed January 8, 2020. https://www.fda.gov/downloads/regulatoryinformation/guidances/ucm126396.pdf
 
 ## Cross References
 

@@ -1,0 +1,5 @@
+批次 S-SPEC1 (T2-post 扫描批, spec-only), attempt 1. 角色: reviewer.
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Reviewer 段执行, 并读它引用的 `t2_reviewer_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含末尾 T2S 段及其后主控裁定) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8) / `t1_user_ack.md`。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-SPEC1.json` (CO DM SM SV CM ML SU BE 共 8 个 spec.md + CO/assumptions.md narrow 只删脚注段)。writer 报告 `evidence/checkpoints/t2_S-SPEC1.md` (含 attempt 1 delta: BE BECAT 扩写句 D2 删除 D-3, DM 脚注² 孤立 ")" 删除 T-3) + `work/t2_batches/S-SPEC1.writer.jsonl`。改动未提交: `git diff HEAD -- knowledge_base/domains/{CO,DM,SM,SV,CM,ML,SU,BE}/spec.md knowledge_base/domains/CO/assumptions.md`。另有扫描批同时改别的文件, 只看本批。
+重点: 独立逐变量逐字段核 8 域 211 变量 (Order/Label/Type/Role/Core/CDISC Notes 逐字, R2) —— 不得只用 writer 的脚本 (speccmp2/sc2 同源), 自己写列解析或 layout + 渲染; 计数闸; CT `*` 17 格逐变量对渲染; DM RFSTDTC/RFENDTC Type DateTime→Char 依据; 7 段脚注逐字 + U7 位置 (DM ¹² 两段); CO 脚注 MOVED (CO/assumptions.md diff 只删该段); BE BECAT 恢复 PDF 原文; T-1/T-2/T-3 依据。U5/U6 不在本批。
+回主控 ≤ 10 行。

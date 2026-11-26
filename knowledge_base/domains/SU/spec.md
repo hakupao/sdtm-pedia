@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Standardized Substance Name
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Synonym Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Standardized or dictionary-derived text description of SUTRT or SUMODIFY if the sponsor chooses to code the substance use. The sponsor is expected to provide the dictionary name and version used to map the terms utilizing the external codelist element in the Define-XML document.
@@ -87,7 +87,7 @@
 - **Order:** 10
 - **Label:** Category for Substance Use
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of related records. Examples: "TOBACCO", "ALCOHOL", or "CAFFEINE".
@@ -96,7 +96,7 @@
 - **Order:** 11
 - **Label:** Subcategory for Substance Use
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A further categorization of substance use. Examples: "CIGARS", "CIGARETTES", "BEER", "WINE".
@@ -141,7 +141,7 @@
 - **Order:** 16
 - **Label:** Substance Use Class
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Substance use class. May be obtained from coding. When coding to a single class, populate with class value. If using a dictionary and coding to multiple classes, then follow Section 4.2.8.3, Multiple Values for a Non-result Qualifier Variable, or omit SUCLAS.
@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Substance Use Class Code
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Code corresponding to SUCLAS. May be obtained from coding.
@@ -335,6 +335,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Description or date/time in ISO 8601 character format of the reference point referred to by SUENRTPT. Examples: "2003-12-25", "VISIT 2".
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

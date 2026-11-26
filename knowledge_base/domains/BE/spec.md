@@ -108,7 +108,7 @@
 - **Controlled Terms:** 
 - **Role:** Grouping Qualifier
 - **Core:** Perm
-- **CDISC Notes:** Used to define a category of topic-variable values. Example: COLLECTION, PREPARATION, TRANSPORT (CDISC canonical examples per SDTMIG v3.4). BECAT is sponsor-extensible; additional category values such as EXTRACTION (e.g., for DNA / molecular-biology specimen processing) are routinely used in practice, provided they follow the same single-token, controlled-vocabulary convention.
+- **CDISC Notes:** Used to define a category of topic-variable values. Example: COLLECTION, PREPARATION, TRANSPORT.
 
 ### BESCAT
 - **Order:** 13
@@ -132,7 +132,7 @@
 - **Order:** 15
 - **Label:** Accountable Party
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Record Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Party accountable for the transferable object (e.g. specimen) as a result of the activity performed in the associated BETERM variable. The party could be an individual (e.g., subject), an organization (e.g., sponsor), or a location that is a proxy for an individual or organization (e.g., site). It is usually a somewhat general term that is further identified in the BEPRTYID variable.

@@ -70,3 +70,4 @@
 {"atom_id": "ig34_p0079_a006", "class": "R1", "note": "S-SPREL SE asm 按 p79 渲染改词; 原子 verbatim 抄自旧错误 KB → t3_atom_err"}
 {"atom_id": "ig34_p0079_a009", "class": "R1", "note": "S-SPREL SE asm 按 p79 渲染改词; 原子 verbatim 抄自旧错误 KB → t3_atom_err"}
 {"atom_id": "ig34_p0079_a010", "class": "R1", "note": "S-SPREL SE asm 按 p79 渲染改词; 原子 verbatim 抄自旧错误 KB → t3_atom_err"}
+{"atom_id": "ig34_p0060_a024", "class": "MOVED", "note": "S-SPEC1: CO spec 脚注由 CO/assumptions.md 迁到 CO/spec.md (U2/U7) | 预期回归"}

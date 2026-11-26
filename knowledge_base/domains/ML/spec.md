@@ -60,7 +60,7 @@
 - **Order:** 7
 - **Label:** Name of Meal
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Topic
 - **Core:** Req
 - **CDISC Notes:** Verbatim food product name that is either preprinted or collected on a CRF.
@@ -69,7 +69,7 @@
 - **Order:** 8
 - **Label:** Category for Meal
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of MLTRT values.
@@ -78,7 +78,7 @@
 - **Order:** 9
 - **Label:** Subcategory for Meal
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a further categorization of MLCAT values.
@@ -335,6 +335,8 @@
 - **Core:** Perm
 - **CDISC Notes:** The start date/time of the disease milestone instance name in MIDS, in ISO 8601 format.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

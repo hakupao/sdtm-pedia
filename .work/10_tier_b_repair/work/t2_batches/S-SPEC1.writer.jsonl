@@ -1,0 +1,37 @@
+{"ref": "pdf:p60:IDVAR:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/CO/spec.md", "kb_line_after": 54, "pdf_page": 60, "note": "*"}
+{"ref": "pdf:p60:footnote1", "action": "MOVED", "kb_file": "knowledge_base/domains/CO/spec.md", "kb_line_after": 123, "pdf_page": 60, "note": "from CO/assumptions.md:17"}
+{"ref": "pdf:p60:footnote1:src", "action": "DELETED", "kb_file": "knowledge_base/domains/CO/assumptions.md", "kb_line_after": 17, "pdf_page": 60, "note": "MOVED source"}
+{"ref": "pdf:p63:RFSTDTC:Type", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 44, "pdf_page": 63, "note": "DateTime->Char"}
+{"ref": "pdf:p63:RFENDTC:Type", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 53, "pdf_page": 63, "note": "DateTime->Char"}
+{"ref": "pdf:p63:SITEID:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 135, "pdf_page": 63, "note": "*"}
+{"ref": "pdf:p63:ARMCD:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 216, "pdf_page": 63, "note": "*"}
+{"ref": "pdf:p64:ARM:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 225, "pdf_page": 64, "note": "*"}
+{"ref": "pdf:p64:ACTARMCD:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 234, "pdf_page": 64, "note": "*"}
+{"ref": "pdf:p64:ACTARM:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 243, "pdf_page": 64, "note": "*"}
+{"ref": "pdf:p63:RACE:Notes", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 201, "pdf_page": 63, "note": "guidance2->guidance²"}
+{"ref": "pdf:p63:ETHNIC:Notes", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 210, "pdf_page": 63, "note": "guidance1->guidance² PDF_TYPO T-1"}
+{"ref": "ig34_p0064_a011", "action": "INSERTED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 294, "pdf_page": 64, "note": "footnote1"}
+{"ref": "ig34_p0064_a012", "action": "INSERTED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 296, "pdf_page": 64, "note": "footnote2 (T-3 verbatim)"}
+{"ref": "pdf:p84:MIDS:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SM/spec.md", "kb_line_after": 45, "pdf_page": 84, "note": "*"}
+{"ref": "pdf:p84:MIDSTYPE:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SM/spec.md", "kb_line_after": 54, "pdf_page": 84, "note": "*"}
+{"ref": "ig34_p0084_a018", "action": "INSERTED", "kb_file": "knowledge_base/domains/SM/spec.md", "kb_line_after": 96, "pdf_page": 84, "note": "footnote1"}
+{"ref": "pdf:p87:SVSTDTC:Notes", "action": "REPLACED", "kb_file": "knowledge_base/domains/SV/spec.md", "kb_line_after": 111, "pdf_page": 87, "note": "IS0->ISO PDF_TYPO T-2"}
+{"ref": "pdf:p87:SVENDTC:Notes", "action": "REPLACED", "kb_file": "knowledge_base/domains/SV/spec.md", "kb_line_after": 120, "pdf_page": 87, "note": "IS0->ISO PDF_TYPO T-2"}
+{"ref": "ig34_p0087_a009", "action": "INSERTED", "kb_file": "knowledge_base/domains/SV/spec.md", "kb_line_after": 150, "pdf_page": 87, "note": "footnote1"}
+{"ref": "ig34_p0100_a005", "action": "INSERTED", "kb_file": "knowledge_base/domains/CM/spec.md", "kb_line_after": 375, "pdf_page": 100, "note": "footnote1"}
+{"ref": "pdf:p121:MLTRT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/ML/spec.md", "kb_line_after": 63, "pdf_page": 121, "note": "*"}
+{"ref": "pdf:p121:MLCAT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/ML/spec.md", "kb_line_after": 72, "pdf_page": 121, "note": "*"}
+{"ref": "pdf:p121:MLSCAT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/ML/spec.md", "kb_line_after": 81, "pdf_page": 121, "note": "*"}
+{"ref": "ig34_p0122_a015", "action": "INSERTED", "kb_file": "knowledge_base/domains/ML/spec.md", "kb_line_after": 339, "pdf_page": 122, "note": "footnote1"}
+{"ref": "pdf:p129:SUDECOD:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 81, "pdf_page": 129, "note": "*"}
+{"ref": "pdf:p129:SUCAT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 90, "pdf_page": 129, "note": "*"}
+{"ref": "pdf:p129:SUSCAT:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 99, "pdf_page": 129, "note": "*"}
+{"ref": "pdf:p129:SUCLAS:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 144, "pdf_page": 129, "note": "*"}
+{"ref": "pdf:p129:SUCLASCD:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 153, "pdf_page": 129, "note": "*"}
+{"ref": "ig34_p0131_a003", "action": "INSERTED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": 339, "pdf_page": 131, "note": "footnote1"}
+{"ref": "pdf:p130-131:SUENRTPT:Notes", "action": "VERIFIED", "kb_file": "knowledge_base/domains/SU/spec.md", "kb_line_after": null, "pdf_page": 131, "note": "continuation line on p131 = KB"}
+{"ref": "pdf:p143:BECAT:Notes", "action": "REPLACED", "kb_file": "knowledge_base/domains/BE/spec.md", "kb_line_after": 111, "pdf_page": 143, "note": "KB expansion -> PDF text; parenthetical deleted (D-2)"}
+{"ref": "kb_authored:BE:BECAT", "action": "INSERTED", "kb_file": "knowledge_base/domains/BE/spec.md", "kb_line_after": 113, "pdf_page": 143, "note": "D6 KB note; 需主控定"}
+{"ref": "pdf:p143:BEPARTY:CT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BE/spec.md", "kb_line_after": 137, "pdf_page": 143, "note": "*"}
+{"ref": "kb_authored:BE:BECAT", "action": "DELETED", "kb_file": "knowledge_base/domains/BE/spec.md", "kb_line_after": 111, "pdf_page": 143, "note": "delta: D6 line removed per 主控 D2 ruling (supersedes INSERTED D6)"}
+{"ref": "ig34_p0064_a012", "action": "REPLACED", "kb_file": "knowledge_base/domains/DM/spec.md", "kb_line_after": 296, "pdf_page": 64, "note": "delta: T-3 stray ) removed per 主控 ruling"}

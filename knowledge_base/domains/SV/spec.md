@@ -108,7 +108,7 @@
 - **Controlled Terms:** ISO 8601 datetime or interval
 - **Role:** Timing
 - **Core:** Exp
-- **CDISC Notes:** Start date/time of an observation represented in IS0 8601 character format.
+- **CDISC Notes:** Start date/time of an observation represented in ISO 8601 character format.
 
 ### SVENDTC
 - **Order:** 13
@@ -117,7 +117,7 @@
 - **Controlled Terms:** ISO 8601 datetime or interval
 - **Role:** Timing
 - **Core:** Exp
-- **CDISC Notes:** End date/time of the observation represented in IS0 8601 character format.
+- **CDISC Notes:** End date/time of the observation represented in ISO 8601 character format.
 
 ### SVSTDY
 - **Order:** 14
@@ -146,6 +146,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Description of what happened to the subject during an unplanned visit. Only populated for unplanned visits.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 
