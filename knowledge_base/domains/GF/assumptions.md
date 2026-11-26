@@ -12,8 +12,6 @@ The GF domain is used for findings from characteristics assessed from nucleic ac
 
 gf.xpt, Genomics Findings — Findings. One record per finding per observation per biospecimen per subject, Tabulation.
 
-> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
-
 ## GF – Assumptions
 
 1. The Genomics Findings domain is used to represent findings related to the structure, function, evolution, mapping, and editing of subject and non-host organism genomic material of interest. This domain includes but is not limited to assessments and results for genetic variation and transcription, and summary measures derived from these assessments. The GF domain is used for findings from characteristics assessed from nucleic acids and may include subsequent inferences and/or predictions about related proteins/amino acids. However, direct assessments of proteins (e.g., assessments of amino acids) are out of scope for this domain.

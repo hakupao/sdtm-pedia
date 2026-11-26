@@ -1,0 +1,232 @@
+{
+ "batch_id": "S-SPC1",
+ "scan": true,
+ "brief": "subagent_prompts/t2s_scan_writer_v1.0.md",
+ "units": [
+  "domains/CP",
+  "domains/GF",
+  "domains/IS",
+  "domains/LB"
+ ],
+ "kb_files": [
+  "knowledge_base/domains/CP/assumptions.md",
+  "knowledge_base/domains/CP/examples.md",
+  "knowledge_base/domains/CP/spec.md",
+  "knowledge_base/domains/GF/assumptions.md",
+  "knowledge_base/domains/GF/examples.md",
+  "knowledge_base/domains/GF/spec.md",
+  "knowledge_base/domains/IS/assumptions.md",
+  "knowledge_base/domains/IS/examples.md",
+  "knowledge_base/domains/IS/spec.md",
+  "knowledge_base/domains/LB/assumptions.md",
+  "knowledge_base/domains/LB/examples.md",
+  "knowledge_base/domains/LB/spec.md"
+ ],
+ "narrow_files": [],
+ "sections": [
+  {
+   "unit": "domains/CP",
+   "sec": "6.3.5.3",
+   "title": "§6.3.5.3 Cell Phenotype Findings (CP)",
+   "lo": 199,
+   "hi": 220,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/GF",
+   "sec": "6.3.5.4",
+   "title": "§6.3.5.4 Genomics Findings (GF)",
+   "lo": 220,
+   "hi": 228,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/IS",
+   "sec": "6.3.5.5",
+   "title": "§6.3.5.5 Immunogenicity Specimen Assessments (IS)",
+   "lo": 228,
+   "hi": 241,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  },
+  {
+   "unit": "domains/LB",
+   "sec": "6.3.5.6",
+   "title": "§6.3.5.6 Laboratory Test Results (LB)",
+   "lo": 241,
+   "hi": 248,
+   "note": "主控按 HEADING 原子定; 边界页别节内容不归本域; 先复核 (O20)"
+  }
+ ],
+ "pdf_pages": [
+  199,
+  200,
+  201,
+  202,
+  203,
+  204,
+  205,
+  206,
+  207,
+  208,
+  209,
+  210,
+  211,
+  212,
+  213,
+  214,
+  215,
+  216,
+  217,
+  218,
+  219,
+  220,
+  221,
+  222,
+  223,
+  224,
+  225,
+  226,
+  227,
+  228,
+  229,
+  230,
+  231,
+  232,
+  233,
+  234,
+  235,
+  236,
+  237,
+  238,
+  239,
+  240,
+  241,
+  242,
+  243,
+  244,
+  245,
+  246,
+  247,
+  248
+ ],
+ "pdf_ranges": [
+  {
+   "file": "knowledge_base/domains/CP/assumptions.md",
+   "src": "ig34",
+   "lo": 199,
+   "hi": 220
+  },
+  {
+   "file": "knowledge_base/domains/CP/examples.md",
+   "src": "ig34",
+   "lo": 199,
+   "hi": 220
+  },
+  {
+   "file": "knowledge_base/domains/CP/spec.md",
+   "src": "ig34",
+   "lo": 199,
+   "hi": 220
+  },
+  {
+   "file": "knowledge_base/domains/GF/assumptions.md",
+   "src": "ig34",
+   "lo": 220,
+   "hi": 228
+  },
+  {
+   "file": "knowledge_base/domains/GF/examples.md",
+   "src": "ig34",
+   "lo": 220,
+   "hi": 228
+  },
+  {
+   "file": "knowledge_base/domains/GF/spec.md",
+   "src": "ig34",
+   "lo": 220,
+   "hi": 228
+  },
+  {
+   "file": "knowledge_base/domains/IS/assumptions.md",
+   "src": "ig34",
+   "lo": 228,
+   "hi": 241
+  },
+  {
+   "file": "knowledge_base/domains/IS/examples.md",
+   "src": "ig34",
+   "lo": 228,
+   "hi": 241
+  },
+  {
+   "file": "knowledge_base/domains/IS/spec.md",
+   "src": "ig34",
+   "lo": 228,
+   "hi": 241
+  },
+  {
+   "file": "knowledge_base/domains/LB/assumptions.md",
+   "src": "ig34",
+   "lo": 241,
+   "hi": 248
+  },
+  {
+   "file": "knowledge_base/domains/LB/examples.md",
+   "src": "ig34",
+   "lo": 241,
+   "hi": 248
+  },
+  {
+   "file": "knowledge_base/domains/LB/spec.md",
+   "src": "ig34",
+   "lo": 241,
+   "hi": 248
+  }
+ ],
+ "gaps": {
+  "CP": "SF (fn 原子 ig34_p0204_a013)",
+  "IS": "F (fn 原子 ig34_p0231_a016)",
+  "LB": "DS"
+ },
+ "intros": [],
+ "footnote": "U2: 本批各域 spec.md 最后一个变量块之后、Cross References 之前补 (U7) spec 表脚注 (逐字); CT 列 PDF 为 * 的变量 Controlled Terms 照录 *",
+ "footnote_moves": [
+  "knowledge_base/domains/GF/assumptions.md 的 spec 脚注 (现 :15 附近) → GF/spec.md 末尾"
+ ],
+ "census_items": [
+  {
+   "kb": "domains/CP/examples.md:85 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/CP/examples.md:85` | ig34:p211/212 | 1 | T-5 CPDTC (1) | t2_B-CP.md:202 (final attempt)"
+  },
+  {
+   "kb": "domains/CP/examples.md:206 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/CP/examples.md:206` | ig34:p216/217 | 29 | T-7 1 + T-8a/b 2 + T-9 26 (29) | t2_B-CP.md:204-207,215"
+  },
+  {
+   "kb": "domains/CP/examples.md:279 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/CP/examples.md:279` | ig34:p219 | 1 | T-10 CPSTRESU (1) | t2_B-CP.md:208"
+  },
+  {
+   "kb": "domains/CP/examples.md:311 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | NO_PDF | `domains/CP/examples.md:311` | ig34:p199-220 | 0 | NO_PDF: PDF Ex9 表头 `ROW` 解析器不识别; reviewer layout 逐格 14 行×31 列, 差异仅登记 T-11/T-12/T-13 (KB 改正) + T-14 表头 | t2_B-CP_review.md:28; t2_B-CP.md:209-212"
+  },
+  {
+   "kb": "domains/GF/examples.md:143 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/GF/examples.md:143` | ig34:p227 | 1 | T-2 Idenitifcation (1) | t2_B-GF.md:90"
+  },
+  {
+   "kb": "domains/IS/examples.md:113 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/IS/examples.md:113` | ig34:p236 | 2 | T-1/T-2 RSC1230 (2) | t2_B-IS.md:107-108"
+  },
+  {
+   "kb": "domains/LB/assumptions.md:20 (HEAD 行号, 以内容定位)",
+   "triage_row": "B | UNPARSEABLE | `domains/LB/assumptions.md:20` | ig34:p241-248 | 0 | Variable Name / Variable Label / Type / Controlled Terms, Co | t2_B-LB_review.md:34"
+  },
+  {
+   "kb": "domains/LB/examples.md:67 (HEAD 行号, 以内容定位)",
+   "triage_row": "A | DIFF | `domains/LB/examples.md:67` | ig34:p247 | 1 | T-1 LBSTRNHI header (1) | t2_B-LB.md:105"
+  }
+ ],
+ "out_of_scope": [],
+ "notes": "LB assumptions 已有 §6.3.5 / §6.3.5.1 通用规格 (B-LB), 其脚注属通用表, 不迁. §6.3.5.2 (BS? 已 FINAL) 不在本批. 行号均为 HEAD 时, 以内容定位."
+}

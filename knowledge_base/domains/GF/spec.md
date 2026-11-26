@@ -258,7 +258,7 @@
 - **Order:** 29
 - **Label:** Genomic Symbol
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Variable Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A published symbol for the portion of the genome serving as a locus for the experiment/test.
@@ -515,6 +515,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by GFTPTREF.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

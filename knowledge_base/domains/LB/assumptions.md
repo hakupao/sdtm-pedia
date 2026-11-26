@@ -51,6 +51,14 @@ This section describes variables commonly used in specimen-based laboratory doma
 
 > ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
+## LB – Description/Overview
+
+A findings domain that contains laboratory test data such as hematology, clinical chemistry and urinalysis. This domain does not include microbiology or pharmacokinetic data, which are stored in separate domains.
+
+## LB – Specification
+
+lb.xpt, Laboratory Test Results — Findings. One record per lab test per time point per visit per subject, Tabulation.
+
 ## LB – Assumptions
 
 1. This domain captures laboratory data collected on the CRF or received from a central provider or vendor.

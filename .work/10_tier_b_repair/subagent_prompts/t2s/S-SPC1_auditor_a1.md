@@ -1,0 +1,4 @@
+批次 S-SPC1 (T2-post 扫描批), attempt 1. 角色: auditor (Rule A 独立抽检)。
+工作目录 repo 根 `/Volumes/DevSSD/Project/sdtm-pedia`。严格按 `.work/10_tier_b_repair/subagent_prompts/t2s_scan_review_audit_v1.0.md` 的 Auditor 段执行, 并读 `t2_auditor_v1.0.md` / `t2_reviewer_common_brief.md` / `t2_dispatch_notes.md` (含 T2S 段) / `evidence/checkpoints/t2_post_user_ack.md` (U1-U8)。样板: `evidence/checkpoints/t2_S-EVT_audit.md`。audit_matrix 唯一路径 `.work/10_tier_b_repair/audit_matrix.md`。
+批次文件 `.work/10_tier_b_repair/work/t2_batches/S-SPC1.json` (CP p199-220, GF p220-228, IS p228-241, LB p241-248 + LB 通用 §6.3.5/§6.3.5.1 p194-196)。改动未提交: `git diff HEAD -- knowledge_base/domains/{CP,GF,IS,LB}`; 别批并行改其他文件, 只看本批。pdf_atoms 本段抽取错多, 终判以 layout + 渲染为准。先独立判, 判完才读 `evidence/checkpoints/t2_S-SPC1.md` 与 `t2_S-SPC1_review.md`。seed 20261126。
+回主控 ≤ 8 行。

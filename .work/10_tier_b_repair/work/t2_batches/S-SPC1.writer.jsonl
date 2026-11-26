@@ -1,0 +1,37 @@
+{"ref": "ig34_p0200_a009/a010", "action": "INSERTED", "kb_file": "knowledge_base/domains/CP/assumptions.md", "kb_line_after": 46, "pdf_page": 200, "note": "CP – Specification + cp.xpt (gap S)"}
+{"ref": "ig34_p0205_a007", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/assumptions.md", "kb_line_after": 62, "pdf_page": 205, "note": "asm6 drop 'and CPMRKSTR'"}
+{"ref": "ig34_p0206_a006", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/assumptions.md", "kb_line_after": 79, "pdf_page": 206, "note": "8a ')' -> '|'"}
+{"ref": "T-17:ig34_p0200_a006", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/assumptions.md", "kb_line_after": 40, "pdf_page": 200, "note": "sting->string"}
+{"ref": "T-18:ig34_p0206_a003", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/assumptions.md", "kb_line_after": 75, "pdf_page": 206, "note": "CSMRKS->CPCSMRKS"}
+{"ref": "T-19:ig34_p0206_a009", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/assumptions.md", "kb_line_after": 82, "pdf_page": 206, "note": "CPSMRKS->CPSBMRKS"}
+{"ref": "T-21:ig34_p0199_a020", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/assumptions.md", "kb_line_after": 24, "pdf_page": 199, "note": "--BNDAGT->--BDAGNT; --GATEDEF->--GATDEF"}
+{"ref": "T-21:ig34_p0200_a007", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/assumptions.md", "kb_line_after": 42, "pdf_page": 200, "note": "--GATEDEF->--GATDEF"}
+{"ref": "T-21:ig34_p0206_a001", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/assumptions.md", "kb_line_after": 72, "pdf_page": 206, "note": "CPBNDAGT->CPBDAGNT"}
+{"ref": "T-16a:ig34_p0206_a009", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/CP/assumptions.md", "kb_line_after": 82, "pdf_page": 206, "note": "unclosed quotes; KB keeps closed"}
+{"ref": "T-16b:ig34_p0205_a005", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/CP/assumptions.md", "kb_line_after": 58, "pdf_page": 205, "note": "PDF CPSCMRKS x3; KB CPCSMRKS"}
+{"ref": "T-20:pdf:p201:CPCELSTA", "action": "REPLACED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 120, "pdf_page": 201, "note": "CPSMRKS->CPCSMRKS"}
+{"ref": "ig34_p0204_a013", "action": "INSERTED", "kb_file": "knowledge_base/domains/CP/spec.md", "kb_line_after": 564, "pdf_page": 204, "note": "spec footnote"}
+{"ref": "ig34_p0223_a012", "action": "MOVED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 519, "pdf_page": 223, "note": "footnote from GF/assumptions.md:15"}
+{"ref": "pdf:p222:GFSYM", "action": "REPLACED", "kb_file": "knowledge_base/domains/GF/spec.md", "kb_line_after": 260, "pdf_page": 222, "note": "CT *"}
+{"ref": "ig34_p0229_a001", "action": "INSERTED", "kb_file": "knowledge_base/domains/IS/assumptions.md", "kb_line_after": 7, "pdf_page": 229, "note": "IS – Specification heading"}
+{"ref": "ig34_p0231_a019", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/assumptions.md", "kb_line_after": 15, "pdf_page": 231, "note": "tests->trials"}
+{"ref": "ig34_p0232_a007", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/assumptions.md", "kb_line_after": 27, "pdf_page": 232, "note": "antigen->antigens panel"}
+{"ref": "S-2:IS/assumptions.md:39-62", "action": "DELETED", "kb_file": "knowledge_base/domains/IS/assumptions.md", "kb_line_after": 41, "pdf_page": 233, "note": "Examples Notes appendix -> cross-ref (D2)"}
+{"ref": "pdf:p229:ISCAT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 152, "pdf_page": 229, "note": "CT *"}
+{"ref": "pdf:p229:ISSCAT", "action": "REPLACED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 161, "pdf_page": 229, "note": "CT *"}
+{"ref": "ig34_p0231_a016", "action": "INSERTED", "kb_file": "knowledge_base/domains/IS/spec.md", "kb_line_after": 492, "pdf_page": 231, "note": "spec footnote"}
+{"ref": "ig34_p0241_a024/a025", "action": "INSERTED", "kb_file": "knowledge_base/domains/LB/assumptions.md", "kb_line_after": 54, "pdf_page": 241, "note": "LB – Description/Overview (gap D)"}
+{"ref": "ig34_p0242_a001/a002", "action": "INSERTED", "kb_file": "knowledge_base/domains/LB/assumptions.md", "kb_line_after": 58, "pdf_page": 242, "note": "LB – Specification + lb.xpt (gap S)"}
+{"ref": "pdf:p242:LBCAT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 116, "pdf_page": 242, "note": "CT *"}
+{"ref": "pdf:p242:LBSCAT", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 125, "pdf_page": 242, "note": "CT *"}
+{"ref": "pdf:p244:LBTOX", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 395, "pdf_page": 244, "note": "CT *"}
+{"ref": "pdf:p244:LBTOXGR", "action": "REPLACED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 404, "pdf_page": 244, "note": "CT *"}
+{"ref": "ig34_p0245_a007", "action": "INSERTED", "kb_file": "knowledge_base/domains/LB/spec.md", "kb_line_after": 564, "pdf_page": 245, "note": "spec footnote"}
+{"ref": "census:CP/examples.md:85", "action": "VERIFIED", "kb_file": "knowledge_base/domains/CP/examples.md", "kb_line_after": 85, "pdf_page": 212, "note": "diff 1 = T-5"}
+{"ref": "census:CP/examples.md:206", "action": "VERIFIED", "kb_file": "knowledge_base/domains/CP/examples.md", "kb_line_after": 206, "pdf_page": 216, "note": "diff 29 = T-7/T-8a/T-8b/T-9"}
+{"ref": "census:CP/examples.md:279", "action": "VERIFIED", "kb_file": "knowledge_base/domains/CP/examples.md", "kb_line_after": 279, "pdf_page": 219, "note": "diff 1 = T-10"}
+{"ref": "census:CP/examples.md:311", "action": "VERIFIED", "kb_file": "knowledge_base/domains/CP/examples.md", "kb_line_after": 311, "pdf_page": 220, "note": "grid 434 cells diff 2 = T-11/T-12; T-13/T-14"}
+{"ref": "census:GF/examples.md:143", "action": "VERIFIED", "kb_file": "knowledge_base/domains/GF/examples.md", "kb_line_after": 143, "pdf_page": 227, "note": "diff 1 = T-2"}
+{"ref": "census:IS/examples.md:113", "action": "VERIFIED", "kb_file": "knowledge_base/domains/IS/examples.md", "kb_line_after": 113, "pdf_page": 236, "note": "diff 2 = T-1/T-2"}
+{"ref": "census:LB/assumptions.md:20", "action": "VERIFIED", "kb_file": "knowledge_base/domains/LB/assumptions.md", "kb_line_after": 20, "pdf_page": 195, "note": "grid 203 cells diff 0"}
+{"ref": "census:LB/examples.md:67", "action": "VERIFIED", "kb_file": "knowledge_base/domains/LB/examples.md", "kb_line_after": 67, "pdf_page": 247, "note": "header = T-1"}

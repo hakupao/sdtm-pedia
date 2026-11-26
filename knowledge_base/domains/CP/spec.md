@@ -117,7 +117,7 @@
 - **Controlled Terms:** C181172
 - **Role:** Variable Qualifier
 - **Core:** Perm
-- **CDISC Notes:** A textual description of a subset of the cell population identified in CPTEST based on a particular functional and/or biological state (e.g., "ACTIVATED", "PROLIFERATING", "SENESCENT"). When populated, the values in CPCELSTA and CPSMRKS, in combination with the values in CPTEST and CPSBMRKS, fully describe the cell population being measured.
+- **CDISC Notes:** A textual description of a subset of the cell population identified in CPTEST based on a particular functional and/or biological state (e.g., "ACTIVATED", "PROLIFERATING", "SENESCENT"). When populated, the values in CPCELSTA and CPCSMRKS, in combination with the values in CPTEST and CPSBMRKS, fully describe the cell population being measured.
 
 ### CPCSMRKS
 - **Order:** 14
@@ -560,6 +560,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Date/time for a fixed reference time point defined by CPTPTREF.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 

@@ -150,7 +150,7 @@
 - **Order:** 17
 - **Label:** Category for Immunogenicity Test
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** Used to define a category of topic-variable values across subjects. Example: "SEROLOGY".
@@ -159,7 +159,7 @@
 - **Order:** 18
 - **Label:** Subcategory for Immunogenicity Test
 - **Type:** Char
-- **Controlled Terms:** 
+- **Controlled Terms:** *
 - **Role:** Grouping Qualifier
 - **Core:** Perm
 - **CDISC Notes:** A further categorization of ISCAT.
@@ -488,6 +488,8 @@
 - **Core:** Perm
 - **CDISC Notes:** Date/time of the reference time point, ISTPTREF.
 ---
+
+> ¹In this column, an asterisk (*) indicates that the variable may be subject to controlled terminology. CDISC/NCI codelist values are enclosed in parentheses.
 
 ## Cross References
 
