@@ -1,5 +1,15 @@
 # QS — Assumptions
 
+## QS – Description/Overview
+
+A findings domain that contains data for named, stand-alone instruments designed to provide an assessment of a concept. Questionnaires have a defined standard structure, format, and content; consist of conceptually related items that are typically scored; and have documented methods for administration and analysis.
+
+## QS – Specification
+
+qs.xpt, Questionnaires — Findings. One record per questionnaire per question per time point per visit per subject, Tabulation.
+
+## QS – Assumptions
+
 There are no additional QS-specific assumptions; all are included in the QRS Shared Assumptions.
 
 ## QRS Shared Assumptions

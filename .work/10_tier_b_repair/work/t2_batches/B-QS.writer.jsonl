@@ -1,0 +1,5 @@
+{"ref": "census:knowledge_base/domains/QS/examples.md:19:5:QSTEST", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/examples.md", "kb_line_after": 19, "pdf_page": 328, "note": "SWLS01-Live Life Over Change -> + Nothing"}
+{"ref": "census:knowledge_base/domains/QS/examples.md:24:10:QSTEST", "action": "REPLACED", "kb_file": "knowledge_base/domains/QS/examples.md", "kb_line_after": 24, "pdf_page": 329, "note": "SWLS01-Live Life Over Change -> + Nothing"}
+{"ref": "auth:QS_Description_Overview", "action": "INSERTED", "kb_file": "knowledge_base/domains/QS/assumptions.md", "kb_line_after": 3, "pdf_page": 324, "note": "## QS – Description/Overview + 2 sentences verbatim"}
+{"ref": "auth:QS_spec_first_sentence", "action": "INSERTED", "kb_file": "knowledge_base/domains/QS/assumptions.md", "kb_line_after": 7, "pdf_page": 324, "note": "## QS – Specification + qs.xpt first sentence verbatim"}
+{"ref": "R3:QS_Assumptions_heading", "action": "INSERTED", "kb_file": "knowledge_base/domains/QS/assumptions.md", "kb_line_after": 11, "pdf_page": 326, "note": "## QS – Assumptions heading (PDF title)"}

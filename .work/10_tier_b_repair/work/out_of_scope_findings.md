@@ -44,3 +44,4 @@
 | O41 | B-model06 review | model/06_relationship_datasets.md:50 RELTYPE Combinations 表 (D6) + Summary 表 SUPP-- Subject-level "Yes" | KB 自写表按记录级解释 RELTYPE 并列 MANY/ONE, 与 SDTMIG ch08 (数据集级, 3 种组合) 不一致 → T4: 改为指向 ch08 交叉引用或删; Summary "Yes" 为简化 |
 | O42 | B-CE review | 全库 CRF 选项符号 | ○→`( )` / □→`[ ]` 映射 (CE) vs FA 保留 "○" 原样, 口径不统一 → T4 / O40 同批定 |
 | O43 | B-MI review | MI/examples.md:23 "is a represented in a derived record" | PDF 原句语法错, 不可唯一确定 → KB 照录, T4 用户裁定项 |
+| O44 | B-CE review a2 | CE/examples.md USUBJID `ABC -US-701-002` ×8 (T-2) + supp `001-001` (T-3) | T4 用户裁定; T-2 登记中 "间隙<3.5pt 疑为字距" 依据实测不成立 (与正常词间隙同), T4 汇总时改措辞; fp p153-155 8 条回归 = 照录预期, 待 T4 后更正原子 |
