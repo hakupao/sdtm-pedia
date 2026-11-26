@@ -12,7 +12,7 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 ## 在途 (2026-11-26 压缩前快照; 已提交 25 批, 最新 5440dc5)
 - B-VS: 已提交
 - B-TU: 已提交
-- B-BE: 主控已裁 F-1 授权 (p143 节引言 NOTE 补进 BE/assumptions.md 标题后, 同 RELSPEC 格式) → writer 续完成 (F-1 已补, 末句 PDF 为 "publication, after v3.4.") → reviewer PASS → auditor 在跑; T-1..T-3 keep-correct 已登记. B-BS 同 NOTE 照此办理
+- B-BE: 已提交 (F-1 已补; B-BS 同 NOTE 照此办理; O28 待 T4)
 - B-TE: writer 完成 (TE+TA 3 文件; T-1/T-2 照录+T4; pdf_ranges 应为 p402-407 已登记) → reviewer PASS → auditor 在跑 (T-1 维持照录+T4; reviewer 补充 3 无 in / 2 有 in 供 T4)
 - B-MK: 已提交
 ## 待开 (按 order): B-BS(notes) B-SUPPQUAL(D7) ... 其余见 work/t2_batches/

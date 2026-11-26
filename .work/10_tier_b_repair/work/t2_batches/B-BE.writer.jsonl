@@ -1,0 +1,12 @@
+{"ref": "census:knowledge_base/domains/BE/examples.md:29:1:QLABEL", "action": "REPLACED", "kb_file": "knowledge_base/domains/BE/examples.md", "kb_line_after": 29, "pdf_page": 145, "note": "Specimen Type -> SPECIMEN TYPE"}
+{"ref": "census:knowledge_base/domains/BE/examples.md:41:1:BSSTRESN", "action": "REPLACED", "kb_file": "knowledge_base/domains/BE/examples.md", "kb_line_after": 41, "pdf_page": 146, "note": "'' -> 2"}
+{"ref": "census:knowledge_base/domains/BE/examples.md:43:3:BSORRES", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/BE/examples.md", "kb_line_after": 43, "pdf_page": 146, "note": "T-1 PDF ISOPOPANOL; KB keeps ISOPROPANOL"}
+{"ref": "census:knowledge_base/domains/BE/examples.md:43:3:BSSTRESC", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/BE/examples.md", "kb_line_after": 43, "pdf_page": 146, "note": "T-1"}
+{"ref": "census:knowledge_base/domains/BE/examples.md:43:3:BSDTC", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/BE/examples.md", "kb_line_after": 43, "pdf_page": 146, "note": "T-2 PDF '5-0'; KB keeps 2005-03-20"}
+{"ref": "census:knowledge_base/domains/BE/examples.md:124:3:BSREFID", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/BE/examples.md", "kb_line_after": 124, "pdf_page": 147, "note": "T-3 PDF 298B1-1R0; KB keeps 298R1-1R0"}
+{"ref": "census:knowledge_base/domains/BE/examples.md:125:4:BSREFID", "action": "SKIPPED_PDF_TYPO", "kb_file": "knowledge_base/domains/BE/examples.md", "kb_line_after": 125, "pdf_page": 147, "note": "T-3"}
+{"ref": "census:knowledge_base/domains/BE/examples.md:138:1:PARENT", "action": "REPLACED", "kb_file": "knowledge_base/domains/BE/examples.md", "kb_line_after": 138, "pdf_page": 147, "note": "298B1 -> ''"}
+{"ref": "r3:BE_ex2_intro_citations", "action": "INSERTED", "kb_file": "knowledge_base/domains/BE/examples.md", "kb_line_after": 62, "pdf_page": 146, "note": "[1] [2] citation markers"}
+{"ref": "r3:BE_ex2_GF_examples", "action": "REPLACED", "kb_file": "knowledge_base/domains/BE/examples.md", "kb_line_after": 130, "pdf_page": 147, "note": "GF datasets -> GF examples"}
+{"ref": "desc_overview:BE", "action": "INSERTED", "kb_file": "knowledge_base/domains/BE/assumptions.md", "kb_line_after": 5, "pdf_page": 143, "note": "## BE – Description/Overview + sentence (lines 3-5)"}
+{"ref": "spec_first_sentence:BE", "action": "PRESENT", "kb_file": "knowledge_base/domains/BE/assumptions.md", "kb_line_after": 9, "pdf_page": 143, "note": "already verbatim, unchanged"}

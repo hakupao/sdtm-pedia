@@ -26,7 +26,7 @@ Some tests are very sensitive to specimen handling processes such as flash freez
 
 | Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL |
 |-----|---------|---------|---------|-------|----------|------|--------|------|-------|-------|
-| 1 | ABC134 | BE | 43871 | BEREFID | 1148.267 | BESPEC | Specimen Type | TISSUE | CRF | |
+| 1 | ABC134 | BE | 43871 | BEREFID | 1148.267 | BESPEC | SPECIMEN TYPE | TISSUE | CRF | |
 
 Findings related to specimen handling processes are stored in the Biospecimen (BS) domain. These processes can be important to maintain the integrity of the specimens used in genetic variation and gene expression testing. Depending on how a study is designed, there might be very specific specimen handling specifications contained in the protocol for all labs to follow. Other protocols may let the labs determine the processes to follow. This example illustrates the latter approach.
 
@@ -38,7 +38,7 @@ Findings related to specimen handling processes are stored in the Biospecimen (B
 
 | Row | STUDYID | DOMAIN | USUBJID | BSSEQ | BSGRPID | BSREFID | BSTESTCD | BSTEST | BSCAT | BSORRES | BSORRESU | BSSTRESC | BSSTRESN | BSSTRESU | BSSPEC | BSANTREG | VISITNUM | BSDTC |
 |-----|---------|--------|---------|-------|---------|---------|----------|--------|-------|---------|----------|----------|----------|----------|--------|----------|----------|-------|
-| 1 | ABC134 | BS | 43871 | 1 | | 1148.267 | VOLUME | Volume | SPECIMEN MEASUREMENT | 2 | cm3 | 2 | | cm3 | BRAIN | CEREBRAL AQUEDUCT | 1 | 2005-03-20 |
+| 1 | ABC134 | BS | 43871 | 1 | | 1148.267 | VOLUME | Volume | SPECIMEN MEASUREMENT | 2 | cm3 | 2 | 2 | cm3 | BRAIN | CEREBRAL AQUEDUCT | 1 | 2005-03-20 |
 | 2 | ABC134 | BS | 43871 | 2 | 267FF | 1148.267 | TEMP | Temperature | SPECIMEN HANDLING | -80 | C | -80 | -80 | C | BRAIN | CEREBRAL AQUEDUCT | 1 | 2005-03-20 |
 | 3 | ABC134 | BS | 43871 | 3 | 267FF | 1148.267 | FFRZMAT | Flash Freeze Material | SPECIMEN HANDLING | DRY ICE/ISOPROPANOL | | DRY ICE/ISOPROPANOL | | | BRAIN | CEREBRAL AQUEDUCT | 1 | 2005-03-20 |
 
@@ -59,7 +59,7 @@ The Device Identifiers (DI) dataset (required with the use of SPDEVID) is not sh
 
 ## Example 2
 
-Cell-free RNA, which can be obtained from plasma, may be useful for some tumor-specific cancer detection, but has poor integrity. In this example, a blood sample was drawn, centrifuged to get plasma, and stored in a pretreated container before being shipped to the lab. The lab then extracted and purified RNA from the plasma, divided the RNA into 3 aliquots, and sequenced 1 aliquot immediately while freezing and storing the other 2 for later use.
+Cell-free RNA, which can be obtained from plasma, may be useful for some tumor-specific cancer detection,[1] but has poor integrity.[2] In this example, a blood sample was drawn, centrifuged to get plasma, and stored in a pretreated container before being shipped to the lab. The lab then extracted and purified RNA from the plasma, divided the RNA into 3 aliquots, and sequenced 1 aliquot immediately while freezing and storing the other 2 for later use.
 
 **Row 1:** Shows the collection of the blood sample.
 
@@ -127,7 +127,7 @@ The specimen type is given in a supplemental qualifier that mimics the standard 
 | 6 | 3441271 | BS | MU-298 | 6 | 298R1-1R2 | VOLUME | Volume | SPECIMEN MEASUREMENT | 2 | mL | 2 | 2 | mL | RNA | 2 | 2010-04-01T11:50 |
 | 7 | 3441271 | BS | MU-298 | 7 | 298R1-1R3 | VOLUME | Volume | SPECIMEN MEASUREMENT | 2 | mL | 2 | 2 | mL | RNA | 2 | 2010-04-01T11:50 |
 
-The results from the sequencing procedure are stored in the PF domain, which is not shown in this example. See GF datasets for examples of GF datasets.
+The results from the sequencing procedure are stored in the PF domain, which is not shown in this example. See GF examples for examples of GF datasets.
 
 The RELSPEC dataset preserves the specimen hierarchy.
 
@@ -135,7 +135,7 @@ The RELSPEC dataset preserves the specimen hierarchy.
 
 | Row | STUDYID | USUBJID | REFID | SPEC | PARENT | LEVEL |
 |-----|---------|---------|-------|------|--------|-------|
-| 1 | 3441271 | MU-298 | 298B1 | BLOOD | 298B1 | 1 |
+| 1 | 3441271 | MU-298 | 298B1 | BLOOD | | 1 |
 | 2 | 3441271 | MU-298 | 298B1-1 | PLASMA | 298B1 | 2 |
 | 3 | 3441271 | MU-298 | 298R1-1R0 | RNA | 298B1-1 | 3 |
 | 4 | 3441271 | MU-298 | 298R1-1R1 | RNA | 298R1-1R0 | 4 |
