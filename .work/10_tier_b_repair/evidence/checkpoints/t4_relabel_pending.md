@@ -1,18 +1,21 @@
 # 待改标签清单 (补检 + Q9 扩检 + 第二轮补检查出; **未执行, 待主人裁定**)
 
 <!-- chain: E (plans) -->
-> 状态: **待主人裁定** (2026-11-27). 共 72 条. 台账 `work/coverage_ledger.wc.jsonl` 未改 (md5 `60729f7b64b7c1dfaf2174e394f6dd9c`). 本文件由 `scripts/t4/t4_supp_report.py` 生成; 依据是独立审查者的原始结果 ("原始结果" 列), 主控未改判.
+> 状态: **待主人裁定** (2026-11-27). 共 82 条. 台账 `work/coverage_ledger.wc.jsonl` 未改 (md5 `60729f7b64b7c1dfaf2174e394f6dd9c`). 本文件由 `scripts/t4/t4_supp_report.py` 生成; 依据是独立审查者的原始结果 ("原始结果" 列), 主控未改判.
 > 为什么不直接改: 这些是闸口径层面的事, 须主人本人定 (总闸 attempt 2 C 项; 协调方 2026-11-27 指示, `t4_coordinator_note_20261127.md`); PDF_TYPO 每条须用户 ack (G-TB1); 主人已确认的 U-1 口径数字建立在当前台账上. (Q9 brief 原写 "NOT_HOLD_R1 → 改 IE", 这里收紧为先问主人.)
 
 ## 1. 三组 (提问与选项以 `t4_owner_decisions_round2.md` 为准, 这里只列组)
 
 | 组 | 条数 | 现标签 → 建议 | 对应给主人一页的 |
 |---|--:|---|---|
-| R1-row | 49 | EQUIVALENT → INTENTIONAL_EXCLUDE | 问题 1 |
-| R1-row | 2 | EXACT → INTENTIONAL_EXCLUDE | 问题 1 |
-| registered-typo | 10 | EQUIVALENT → PDF_TYPO | 问题 3 |
-| registered-typo | 9 | EXACT → PDF_TYPO | 问题 3 |
-| v2.0-TOC | 2 | EQUIVALENT → INTENTIONAL_EXCLUDE | 问题 2 |
+| R1-row | 49 | EQUIVALENT → INTENTIONAL_EXCLUDE | 问题 1 (主人选 A) |
+| R1-row | 2 | EXACT → INTENTIONAL_EXCLUDE | 问题 1 (主人选 A) |
+| registered-typo | 10 | EQUIVALENT → PDF_TYPO | 问题 3 (主人选 A) |
+| registered-typo | 9 | EXACT → PDF_TYPO | 问题 3 (主人选 A) |
+| registered-typo-oos | 5 | EQUIVALENT → PDF_TYPO | 问题 7b (主人选 A; 第三轮审查者已对渲染页确认) |
+| registered-typo-oos | 1 | EXACT → PDF_TYPO | 问题 7b (主人选 A; 第三轮审查者已对渲染页确认) |
+| typo-overlabel | 4 | PDF_TYPO → EXACT | 第三轮新发现, **待主人定** |
+| v2.0-TOC | 2 | EQUIVALENT → INTENTIONAL_EXCLUDE | 问题 2 (主人选 A) |
 
 ## 2. 各选法下的闸数字 (在台账**副本**上实算; 工作台账 md5 断言不变)
 
@@ -27,7 +30,8 @@
 | 三组都改 (建议) | 72 | 9860/9933 = 99.2651% | 9495/9933 = 95.5905% | 9495/9557 = 99.3513% | 8661/9557 = 90.6247% | 174/174 / 0 | 157/174 |
 | 三组都改 + 范围外 p74 的 14 条 → 有意不收 | 86 | 9846/9919 = 99.2640% | 9481/9919 = 95.5842% | 9481/9543 = 99.3503% | 8648/9543 = 90.6214% | 174/174 / 0 | 157/174 |
 | 三组都改 + 范围外跨文档指针 146 条全 → 有意不收 (按都认 IE 计的情形) | 218 | 9714/9787 = 99.2541% | 9349/9787 = 95.5247% | 9349/9411 = 99.3412% | 8628/9411 = 91.6799% | 174/174 / 0 | 158/174 |
-| 三组都改 + 范围外已登记笔误同类 6 条 → PDF 笔误 | 78 | 9860/9933 = 99.2651% | 9489/9933 = 95.5301% | 9489/9551 = 99.3509% | 8655/9551 = 90.6188% | 174/174 / 0 | 157/174 |
+| 三组都改 + 范围外已登记笔误同类 6 条 → PDF 笔误 (= 主人已定的全部: 1A / 2A / 3A / 7b-A) | 78 | 9860/9933 = 99.2651% | 9489/9933 = 95.5301% | 9489/9551 = 99.3509% | 8655/9551 = 90.6188% | 174/174 / 0 | 157/174 |
+| 主人已定的全部 + 4 条多标的 PDF 笔误 → 逐字 (待主人定) | 82 | 9860/9933 = 99.2651% | 9493/9933 = 95.5703% | 9493/9555 = 99.3511% | 8659/9555 = 90.6227% | 174/174 / 0 | 157/174 |
 
 - G-TB2 的过闸口径是 "范围内" (U-3 A): 174/174; 表里最后一列是 `t3_recompute.py` 打印的字面口径值 (17 个结构父节仅因范围外子节不满), 两者在各选法下都不变.
 - U-1 B 口径在所有选法下都高于闸线; strict 在所有选法下都低于 (与 attempt 2 相同的性质).
@@ -110,8 +114,18 @@
 | 68 | `ig34_p0278_a028` | 278 | §6.3.5.9.3 Relating PP Records to PC Records | EQUIVALENT | PDF_TYPO | registered-typo | KB 与 PDF 的差异 = 已登记 PDF 笔误 B-PCPP T-3 (KB 写正确值; 审查者在原始结果该行确认) | `evidence/t4_round2_raw/pack_sib_3.md:24` |
 | 69 | `ig34_p0296_a023` | 296 | §6.3.7.4 Nervous System Findings (NV) | EXACT | PDF_TYPO | registered-typo | KB 与 PDF 的差异 = 已登记 PDF 笔误 B-NV T-2 (KB 写正确值) | `evidence/t4_supp_raw/pack_2.md:47` |
 | 70 | `ig34_p0357_a014` | 357 | §6.3.12.3 Tumor Identification/Tumor Results | EQUIVALENT | PDF_TYPO | registered-typo | KB 与 PDF 的差异 = 已登记 PDF 笔误 B-TR T-2 (KB 写正确值; 审查者在原始结果该行确认) | `evidence/t4_round2_raw/pack_sib_3.md:28` |
-| 71 | `sv20_p0003_a011` | 3 | §0 [TOC] | EQUIVALENT | INTENTIONAL_EXCLUDE | v2.0-TOC | SDTM v2.0 目录条目, 对应章节 KB 未收 (同页 a009 / a010 已是 IE VERSION_MISMATCH) | `evidence/t4_q9_raw/pack_2.md:33` |
-| 72 | `sv20_p0003_a012` | 3 | §0 [TOC] | EQUIVALENT | INTENTIONAL_EXCLUDE | v2.0-TOC | SDTM v2.0 目录条目, 对应章节 KB 未收 (同页 a009 / a010 已是 IE VERSION_MISMATCH) | `evidence/t4_q9_raw/pack_2.md:34` |
+| 71 | `ig34_p0083_a020` | 83 | §5.3 [Subject Elements (SE)] | EXACT | PDF_TYPO | registered-typo-oos | 范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 S-SPREL SE T-1 (KB 写正确值; 审查者对渲染页确认) | `evidence/t4_round3_raw/pack_13_14.md:36` |
+| 72 | `ig34_p0304_a026` | 304 | §6.3.7.5 Ophthalmic Examinations (OE) | EQUIVALENT | PDF_TYPO | registered-typo-oos | 范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 B-OE T-2 (KB 写正确值; 审查者对渲染页确认) | `evidence/t4_round3_raw/pack_13_14.md:37` |
+| 73 | `ig34_p0304_a027` | 304 | §6.3.7.5 Ophthalmic Examinations (OE) | EQUIVALENT | PDF_TYPO | registered-typo-oos | 范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 B-OE T-2 (KB 写正确值; 审查者对渲染页确认) | `evidence/t4_round3_raw/pack_13_14.md:38` |
+| 74 | `ig34_p0304_a028` | 304 | §6.3.7.5 Ophthalmic Examinations (OE) | EQUIVALENT | PDF_TYPO | registered-typo-oos | 范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 B-OE T-2 (KB 写正确值; 审查者对渲染页确认) | `evidence/t4_round3_raw/pack_13_14.md:39` |
+| 75 | `ig34_p0304_a029` | 304 | §6.3.7.5 Ophthalmic Examinations (OE) | EQUIVALENT | PDF_TYPO | registered-typo-oos | 范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 B-OE T-2 (KB 写正确值; 审查者对渲染页确认) | `evidence/t4_round3_raw/pack_13_14.md:40` |
+| 76 | `ig34_p0316_a023` | 316 | §6.3.8 Physical Examination (PE) | EQUIVALENT | PDF_TYPO | registered-typo-oos | 范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 S-FND PE T-1 (KB 写正确值; 审查者对渲染页确认) | `evidence/t4_round3_raw/pack_13_14.md:41` |
+| 77 | `ig34_p0412_a006` | 412 | §7.3.2 Trial Disease Assessments (TD) – Exam | PDF_TYPO | EXACT | typo-overlabel | 登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了 | `evidence/t4_round3_raw/pack_10.md:29` |
+| 78 | `ig34_p0412_a007` | 412 | §7.3.2 Trial Disease Assessments (TD) – Exam | PDF_TYPO | EXACT | typo-overlabel | 登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了 | `evidence/t4_round3_raw/pack_10.md:30` |
+| 79 | `ig34_p0412_a008` | 412 | §7.3.2 Trial Disease Assessments (TD) – Exam | PDF_TYPO | EXACT | typo-overlabel | 登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了 | `evidence/t4_round3_raw/pack_10.md:31` |
+| 80 | `ig34_p0413_a010` | 413 | §7.3.2 Trial Disease Assessments (TD) – Exam | PDF_TYPO | EXACT | typo-overlabel | 登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了 | `evidence/t4_round3_raw/pack_10.md:32` |
+| 81 | `sv20_p0003_a011` | 3 | §0 [TOC] | EQUIVALENT | INTENTIONAL_EXCLUDE | v2.0-TOC | SDTM v2.0 目录条目, 对应章节 KB 未收 (同页 a009 / a010 已是 IE VERSION_MISMATCH) | `evidence/t4_q9_raw/pack_2.md:33` |
+| 82 | `sv20_p0003_a012` | 3 | §0 [TOC] | EQUIVALENT | INTENTIONAL_EXCLUDE | v2.0-TOC | SDTM v2.0 目录条目, 对应章节 KB 未收 (同页 a009 / a010 已是 IE VERSION_MISMATCH) | `evidence/t4_q9_raw/pack_2.md:34` |
 
 ## 4. 复跑
 

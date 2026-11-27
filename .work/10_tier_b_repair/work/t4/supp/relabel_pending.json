@@ -560,6 +560,86 @@
   "raw": "evidence/t4_round2_raw/pack_sib_3.md:28"
  },
  {
+  "atom_id": "ig34_p0083_a020",
+  "now": "EXACT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo-oos",
+  "why": "范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 S-SPREL SE T-1 (KB 写正确值; 审查者对渲染页确认)",
+  "raw": "evidence/t4_round3_raw/pack_13_14.md:36"
+ },
+ {
+  "atom_id": "ig34_p0304_a026",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo-oos",
+  "why": "范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 B-OE T-2 (KB 写正确值; 审查者对渲染页确认)",
+  "raw": "evidence/t4_round3_raw/pack_13_14.md:37"
+ },
+ {
+  "atom_id": "ig34_p0304_a027",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo-oos",
+  "why": "范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 B-OE T-2 (KB 写正确值; 审查者对渲染页确认)",
+  "raw": "evidence/t4_round3_raw/pack_13_14.md:38"
+ },
+ {
+  "atom_id": "ig34_p0304_a028",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo-oos",
+  "why": "范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 B-OE T-2 (KB 写正确值; 审查者对渲染页确认)",
+  "raw": "evidence/t4_round3_raw/pack_13_14.md:39"
+ },
+ {
+  "atom_id": "ig34_p0304_a029",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo-oos",
+  "why": "范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 B-OE T-2 (KB 写正确值; 审查者对渲染页确认)",
+  "raw": "evidence/t4_round3_raw/pack_13_14.md:40"
+ },
+ {
+  "atom_id": "ig34_p0316_a023",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo-oos",
+  "why": "范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 S-FND PE T-1 (KB 写正确值; 审查者对渲染页确认)",
+  "raw": "evidence/t4_round3_raw/pack_13_14.md:41"
+ },
+ {
+  "atom_id": "ig34_p0412_a006",
+  "now": "PDF_TYPO",
+  "to": "EXACT",
+  "group": "typo-overlabel",
+  "why": "登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了",
+  "raw": "evidence/t4_round3_raw/pack_10.md:29"
+ },
+ {
+  "atom_id": "ig34_p0412_a007",
+  "now": "PDF_TYPO",
+  "to": "EXACT",
+  "group": "typo-overlabel",
+  "why": "登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了",
+  "raw": "evidence/t4_round3_raw/pack_10.md:30"
+ },
+ {
+  "atom_id": "ig34_p0412_a008",
+  "now": "PDF_TYPO",
+  "to": "EXACT",
+  "group": "typo-overlabel",
+  "why": "登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了",
+  "raw": "evidence/t4_round3_raw/pack_10.md:31"
+ },
+ {
+  "atom_id": "ig34_p0413_a010",
+  "now": "PDF_TYPO",
+  "to": "EXACT",
+  "group": "typo-overlabel",
+  "why": "登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了",
+  "raw": "evidence/t4_round3_raw/pack_10.md:32"
+ },
+ {
   "atom_id": "sv20_p0003_a011",
   "now": "EQUIVALENT",
   "to": "INTENTIONAL_EXCLUDE",

@@ -1,4 +1,2853 @@
 {
+ "round3": {
+  "ig34_p0046_a017": {
+   "num": "T1",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:14",
+   "note": "实为逐字; 时间点表 6 格逐格一致 (1 / 30 MIN / PT30M / DOSE ADMINISTRATION / 2006-08-01T08:00 / 2006-08-01T08:30), 位于 §4.4.10 时间点段",
+   "reg": null
+  },
+  "ig34_p0046_a021": {
+   "num": "T2",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:15",
+   "note": "实为逐字; 行 3 逐格一致 (PT1H30M / 09:32)",
+   "reg": null
+  },
+  "ig34_p0073_a014": {
+   "num": "T3",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:16",
+   "note": "实为逐字; p73 为 DM Example 4, 正文句内 \"dm.xpt\" 与表名 dm.xpt 两处 KB 均有, 位于 Example 4",
+   "reg": null
+  },
+  "ig34_p0075_a015": {
+   "num": "T4",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:17",
+   "note": "包内 KB 指针指向 Example 4 (L170/190), 本原子属 Example 6 (p75); Example 6 段 KB 注 L326 \"(CRACE05-CRACE10)\"、Mermaid L311 \"CRACE05-10\"、元数据表 L340 均承载",
+   "reg": null
+  },
+  "ig34_p0116_a008": {
+   "num": "T5",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:18",
+   "note": "实为逐字; §6.1.3.3 为 EX/EC 合并节, KB 放在 EX/examples.md Example 6 (EC/examples.md:3 指引过去), 前句 \"The EC dataset shows administrations as collected.\" 一致",
+   "reg": null
+  },
+  "ig34_p0124_a014": {
+   "num": "T6",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:19",
+   "note": "实为逐字; Example 2",
+   "reg": null
+  },
+  "ig34_p0142_a013": {
+   "num": "T7",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:20",
+   "note": "实为逐字; AE Example 4 表名 (跨页), KB 在 Example 4 Rows 说明之后",
+   "reg": null
+  },
+  "ig34_p0228_a004": {
+   "num": "T8",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:21",
+   "note": "实为逐字; GF Example 5 (包内指针 L25/60/84 是 Example 1-3, 非本处)",
+   "reg": null
+  },
+  "ig34_p0234_a020": {
+   "num": "T9",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:22",
+   "note": "实为逐字; IS Example 2 Rows 7-8 说明之后",
+   "reg": null
+  },
+  "ig34_p0248_a006": {
+   "num": "T10",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:23",
+   "note": "实为逐字; LB Example 4 (包内指针 L20/50/65 是 Example 1-3)",
+   "reg": null
+  },
+  "ig34_p0254_a002": {
+   "num": "T11",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:24",
+   "note": "原子属 MS spec 表行 (包内指针指向 examples, 偏); KB spec 逐格一致: MSNAM / Laboratory/Vendor Name / Char / (空) / Record Qualifier / CDISC Notes 原文 / Perm",
+   "reg": null
+  },
+  "ig34_p0263_a007": {
+   "num": "T12",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:25",
+   "note": "实为逐字; MB/MS Example 3 RELREC (包内指针 AG/examples.md 是别域, 偏); 前句与 6 行表逐格一致",
+   "reg": null
+  },
+  "ig34_p0263_a024": {
+   "num": "T13",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:26",
+   "note": "实为逐字; MB Example 4 suppmb.xpt (包内 L85/196 是 Example 2/3)",
+   "reg": null
+  },
+  "ig34_p0400_a009": {
+   "num": "T14",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:27",
+   "note": "KB 以 Mermaid 再现 \"Prospective View\": 4 epoch、上臂 Chemo+Rad→Chemo+Rad*→Chemo+Boost→Chemo→FU、下臂 Chemo+Rad→Chemo+Rad**→3-5w Rest→Surgery→4-6w Rest→Chemo→Chemo→FU、两处 ",
+   "reg": null
+  },
+  "ig34_p0009_a017": {
+   "num": "T15",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:28",
+   "note": "实为逐字; §1.4.1 列表项",
+   "reg": null
+  },
+  "ig34_p0009_a020": {
+   "num": "T16",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:29",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0061_a002": {
+   "num": "T17",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:30",
+   "note": "实为逐字; 原子只抽了第 1 句, KB 含该项全部两句",
+   "reg": null
+  },
+  "ig34_p0070_a018": {
+   "num": "T18",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:31",
+   "note": "原子抽错 (\"RAC607 BAC\" 为 \"RACE07 RACE\" 的 OCR 乱码); KB Example 4: Mermaid R7 \"UNKNOWN\"、注 \"RACE07: UNKNOWN\"、元数据行 RACE07 → RACE, 代码表 (RACE), 值 UNKNOWN, 信息点齐",
+   "reg": null
+  },
+  "ig34_p0070_a023": {
+   "num": "T19",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:32",
+   "note": "KB Example 4 Mermaid SC1 与注中均有 ALASKA NATIVE",
+   "reg": null
+  },
+  "ig34_p0071_a006": {
+   "num": "T20",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:33",
+   "note": "KB Example 4 Mermaid SC2、注、元数据行均有",
+   "reg": null
+  },
+  "ig34_p0075_a020": {
+   "num": "T21",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:34",
+   "note": "包内指针是 Example 4; 本原子属 Example 6, KB Example 6 Mermaid SC1 / 元数据行均有 CHINESE",
+   "reg": null
+  },
+  "ig34_p0075_a021": {
+   "num": "T22",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:35",
+   "note": "同上 (文本层未定位, 渲染页确认在图内)",
+   "reg": null
+  },
+  "ig34_p0075_a033": {
+   "num": "T23",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:36",
+   "note": "KB Example 6 Mermaid SC2 与 CRACE11-CRACE17 元数据行均有 BLACK",
+   "reg": null
+  },
+  "ig34_p0113_a010": {
+   "num": "T24",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:37",
+   "note": "实为逐字; EX Example 3 (下一项 PDF \"ottles\" 笔误已登记 B-EX T-3, 不属本原子)",
+   "reg": null
+  },
+  "ig34_p0141_a025": {
+   "num": "T25",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_1.md:38",
+   "note": "实为逐字 (仅加粗); AE Example 4",
+   "reg": null
+  },
+  "ig34_p0355_a017": {
+   "num": "T226",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:18",
+   "note": "登记 `B-TR T-1`。① 渲染页确认 PDF Ex2 编号 11→13 跳过 12 (Row 与 TRSEQ 同跳); ② KB 连续编号, PDF Row/TRSEQ 16 → KB 15; ③ 其余 21 格 (ABC/TR/44444/TARGET/A2/空/SUMNLNLD/Sum Diameters o",
+   "reg": null
+  },
+  "ig34_p0355_a019": {
+   "num": "T227",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:19",
+   "note": "`B-TR T-1`: 18→17; ACNSD / Absolute Change Nadir in Sum of Diam / -32 / mm / -32 / -32 / mm / INVESTIGATOR / 40 / WEEK 6 逐格一致",
+   "reg": null
+  },
+  "ig34_p0355_a020": {
+   "num": "T228",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:20",
+   "note": "`B-TR T-1`: 19→18; PCBSD / Percent Change From Baseline in Sum of Diameter / -52 / % / -52 / -52 / % 等逐格一致",
+   "reg": null
+  },
+  "ig34_p0355_a023": {
+   "num": "T229",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:21",
+   "note": "`B-TR T-1`: 22→21; NON-TARGET / A2 / NT02 / TUMSTATE / Tumor State / PRESENT / PRESENT / MRI / INVESTIGATOR / 40 / WEEK 6 / 2010-02-19 / 47 逐格一致",
+   "reg": null
+  },
+  "ig34_p0355_a024": {
+   "num": "T230",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:22",
+   "note": "`B-TR T-1`: 23→22; TARGET / A3 / T01 / DIAMETER / Diameter / 0 / mm / 0 / 0 / mm / CT SCAN / INVESTIGATOR / 60 / WEEK 12 / 2010-04-02 / 88 逐格一致",
+   "reg": null
+  },
+  "ig34_p0355_a025": {
+   "num": "T231",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:23",
+   "note": "`B-TR T-1`: 24→23; T02 / 6 / mm / 6 / 6 / mm / CT SCAN / … / WEEK 12 / 2010-04-02 / 88 逐格一致",
+   "reg": null
+  },
+  "ig34_p0356_a001": {
+   "num": "T232",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:24",
+   "note": "登记 `B-TR T-3` (+ 应同时引 `B-TR T-1`)。① 渲染页: p356 表头下有一条无行号续行, TRREASND 格印 \"POOR IMAGEQUALITY\" (缺空格, T-3 成立), 该续行实为 PDF Row 26 \"NOT ASSESSABLE:\" 跨页续接 (KB Row 25 = \"",
+   "reg": null
+  },
+  "ig34_p0356_a002": {
+   "num": "T233",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:25",
+   "note": "`B-TR T-1`: 28→27; NON-TARGET / A3 / NT02 / TUMSTATE / Tumor State / NOT DONE / SCAN NOT PERFORMED / MRI / INVESTIGATOR / 60 / WEEK 12 / 日期·DY 空 逐格一致 (原子 verbat",
+   "reg": null
+  },
+  "ig34_p0362_a010": {
+   "num": "T234",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:26",
+   "note": "`B-FA T-4`: PDF \"thought be related\" 确在 (文本层 50 行); KB \"thought to be related\"; 套改正后 PDF 全文为 KB 行子串",
+   "reg": null
+  },
+  "ig34_p0363_a009": {
+   "num": "T235",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:27",
+   "note": "`B-FA T-6`: \"may provided\" → \"may provide\"; 其余逐字",
+   "reg": null
+  },
+  "ig34_p0377_a015": {
+   "num": "T236",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:28",
+   "note": "`B-SR T-4`: PDF 第一例 \"indicated by EGTPTREF\" 确在; KB 改 SRTPTREF; Label \"Planned Elapsed Time from Time Point Ref\" / Char / ISO 8601 duration / Timing / Perm / Not",
+   "reg": null
+  },
+  "ig34_p0412_a006": {
+   "num": "T237",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "NOT_HOLD",
+   "raw": "evidence/t4_round3_raw/pack_10.md:29",
+   "note": "① 不成立: 登记 `S-TDM TD T-1` 的 \"assessments..\" 在下一句 \"The offset variable … assessments..\" (原子 `ig34_p0412_a009`), 本原子 \"This example shows a study where … course of ",
+   "reg": null
+  },
+  "ig34_p0412_a007": {
+   "num": "T238",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "NOT_HOLD",
+   "raw": "evidence/t4_round3_raw/pack_10.md:30",
+   "note": "同 T237: 本句 \"In this example, there are 3 distinct disease-assessment schedule patterns.\" PDF 无登记笔误; KB 逐字。KB 无错, 终态应为 EXACT (T3 前即 EXACT)",
+   "reg": null
+  },
+  "ig34_p0412_a008": {
+   "num": "T239",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "NOT_HOLD",
+   "raw": "evidence/t4_round3_raw/pack_10.md:31",
+   "note": "同 T237: \"A single anchor date variable (TDANCVAR) provides the anchor date for each pattern.\" PDF 无登记笔误; KB 逐字。KB 无错, 终态应为 EXACT",
+   "reg": null
+  },
+  "ig34_p0413_a010": {
+   "num": "T240",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "NOT_HOLD",
+   "raw": "evidence/t4_round3_raw/pack_10.md:32",
+   "note": "① 不成立: 本原子是 p413 **Example 2** 表头, 渲染页印 \"TDTGTPAI\" (正确); 登记 `S-TDM TD T-4` 的 \"TDTGPAI\" 在 p414 **Example 3** 表头 (对应原子 `ig34_p0414_a013`, KB 第 167 行)。KB 第 102 行与 ",
+   "reg": null
+  },
+  "ig34_p0414_a008": {
+   "num": "T241",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:33",
+   "note": "`S-TDM TD T-3`: 渲染页确认 \"( i.e., week 8\" 括号后有空格; KB \"(i.e., week 8\"; 其余逐字 (含 \"- 3 days and + 1 week\")",
+   "reg": null
+  },
+  "ig34_p0419_a013": {
+   "num": "T242",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:34",
+   "note": "`B-TS T-3`: PDF \"DOSFREQ\" → KB \"DOSFRQ\"; 2 / B / Dosing Frequency / Q24H 逐格一致。包内 KB 指针 (43 行) 是叙述句, 表格行实为 50 行",
+   "reg": null
+  },
+  "ig34_p0425_a024": {
+   "num": "T243",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:35",
+   "note": "`B-TS T-6`: \"MAXAGE case\" → \"AGEMAX case\"; 其余逐字",
+   "reg": null
+  },
+  "ig34_p0428_a006": {
+   "num": "T244",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:36",
+   "note": "`B-ch08 T-2`: \"GMGRPID\" → \"CMGRPID\"; 其余逐字 (KB 加粗 \"Rows 1-3:\" 不算差异)",
+   "reg": null
+  },
+  "ig34_p0428_a008": {
+   "num": "T245",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:37",
+   "note": "`B-ch08 T-2` (第 2 处): \"with GMGRPID\" → \"with CMGRPID\"; 其余逐字。包内 KB 指针 (36 行) 偏, 实为 40 行",
+   "reg": null
+  },
+  "ig34_p0433_a017": {
+   "num": "T246",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:38",
+   "note": "`B-ch08 T-3`: \"SQAPFAMH.\" → \"SQAPFAMH).\"; 其余逐字",
+   "reg": null
+  },
+  "ig34_p0433_a019": {
+   "num": "T247",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:39",
+   "note": "`B-ch08 T-4`: \"llustrate\" → \"illustrate\"; 其余逐字",
+   "reg": null
+  },
+  "ig34_p0438_a019": {
+   "num": "T248",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:40",
+   "note": "`B-REL T-9` / `B-ch08 T-9`: PDF 句末无句号; 两处 KB 副本都补了句号; 其余逐字",
+   "reg": null
+  },
+  "ig34_p0457_a004": {
+   "num": "T249",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_10.md:41",
+   "note": "`S-CH10 T-2`: 渲染页确认 \"--TETM\"; KB \"--TERM\"。Section Name 渲染页为 \"Variables Unique to Findings About\" (原子 verbatim 多抽了 \"Events or Interventions\", 原子抽错), KB 与 PDF 一致;",
+   "reg": null
+  },
+  "ig34_p0010_a017": {
+   "num": "T250",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:15",
+   "note": "实为逐字; 下接 \"Derived Records and the use of --DRVFL\" 与 PDF 同",
+   "reg": null
+  },
+  "ig34_p0011_a024": {
+   "num": "T251",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:16",
+   "note": "实为逐字; 正文首句一致",
+   "reg": null
+  },
+  "ig34_p0038_a017": {
+   "num": "T252",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:17",
+   "note": "实为逐字; 正文首句一致",
+   "reg": null
+  },
+  "ig34_p0041_a043": {
+   "num": "T253",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:18",
+   "note": "实为逐字; 正文首句一致",
+   "reg": null
+  },
+  "ig34_p0060_a004": {
+   "num": "T254",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:19",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0060_a005": {
+   "num": "T255",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:20",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0076_a001": {
+   "num": "T256",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:21",
+   "note": "粗体标签代替标题层级, 文字一致; 包给的 :176 属 Example 4, 对应处是 :328",
+   "reg": null
+  },
+  "ig34_p0119_a021": {
+   "num": "T257",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:22",
+   "note": "实为逐字; 下接正文 \"In this example, a 100 mg tablet...\" 与 PDF 同",
+   "reg": null
+  },
+  "ig34_p0140_a009": {
+   "num": "T258",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:23",
+   "note": "\"–\"→\"—\" 排版差异, 等价",
+   "reg": null
+  },
+  "ig34_p0140_a010": {
+   "num": "T259",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:24",
+   "note": "实为逐字; 正文对应",
+   "reg": null
+  },
+  "ig34_p0140_a012": {
+   "num": "T260",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:25",
+   "note": "粗体行首标签, 文字一致; :23 属 Example 2, 非对应处",
+   "reg": null
+  },
+  "ig34_p0148_a013": {
+   "num": "T261",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:26",
+   "note": "认可写法 `# 域代码 — 域名` (问题 6 = A); 包给的 VARIABLE_INDEX 指针不采用",
+   "reg": null
+  },
+  "ig34_p0198_a015": {
+   "num": "T262",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:27",
+   "note": "差异仅 \"–\"→\"—\" 与单复数 (Example→Examples), 信息等价",
+   "reg": null
+  },
+  "ig34_p0217_a009": {
+   "num": "T263",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:28",
+   "note": "实为逐字; 下接 \"This example shows data from a monocyte target occupancy assay...\" 与 PDF 同",
+   "reg": null
+  },
+  "ig34_p0239_a006": {
+   "num": "T264",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:29",
+   "note": "实为逐字; 正文 OPK assay 句一致",
+   "reg": null
+  },
+  "ig34_p0252_a016": {
+   "num": "T265",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:30",
+   "note": "实为逐字; 正文首句一致",
+   "reg": null
+  },
+  "ig34_p0256_a010": {
+   "num": "T266",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:31",
+   "note": "实为逐字; 包给的 `domains/CM/examples.md:3` 指针错 (CM 非本节), 正确位置为 MB",
+   "reg": null
+  },
+  "ig34_p0281_a045": {
+   "num": "T267",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:32",
+   "note": "实为逐字; 包无指针, 自行定位; §6.3.5.9.3 为 PC/PP 共用节, KB 放 PC (PP/examples.md:3 有说明指向), 位置可接受",
+   "reg": null
+  },
+  "ig34_p0298_a023": {
+   "num": "T268",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:33",
+   "note": "认可写法 `# 域代码 — 域名`; 包无指针, 自行定位",
+   "reg": null
+  },
+  "ig34_p0311_a020": {
+   "num": "T269",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:34",
+   "note": "实为逐字; FEV1 4 attempts 正文一致",
+   "reg": null
+  },
+  "ig34_p0321_a001": {
+   "num": "T270",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:35",
+   "note": "实为逐字; 下接 \"The following assumptions are unique to the FT domain:\"",
+   "reg": null
+  },
+  "ig34_p0329_a005": {
+   "num": "T271",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:36",
+   "note": "实为逐字; 正文首句一致",
+   "reg": null
+  },
+  "ig34_p0356_a008": {
+   "num": "T272",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:37",
+   "note": "实为逐字; 包给的 `domains/CM/examples.md:41` 指针错, 正确位置为 TU",
+   "reg": null
+  },
+  "ig34_p0358_a008": {
+   "num": "T273",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:38",
+   "note": "粗体标签, 文字一致; 包给的 `domains/RELREC/examples.md` 指针不是该处",
+   "reg": null
+  },
+  "ig34_p0364_a020": {
+   "num": "T274",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_11.md:39",
+   "note": "实为逐字 (节号 `§` 前缀不算差异); 包给的 VARIABLE_INDEX 指针不采用",
+   "reg": null
+  },
+  "ig34_p0384_a018": {
+   "num": "T275",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:23",
+   "note": "节号+标题文字齐, 与下级小标题合并成一行 → 等价成立。包里 PDF 定位行 24 是正文引用, 实标题在行 30",
+   "reg": null
+  },
+  "ig34_p0404_a013": {
+   "num": "T276",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:24",
+   "note": "– → — 排版差异, 等价",
+   "reg": null
+  },
+  "ig34_p0405_a001": {
+   "num": "T277",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:25",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0405_a020": {
+   "num": "T278",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:26",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0415_a002": {
+   "num": "T279",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:27",
+   "note": "– → — 排版差异, 等价",
+   "reg": null
+  },
+  "ig34_p0043_a009": {
+   "num": "T280",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:28",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0061_a015": {
+   "num": "T281",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS_AS_EQUIV",
+   "raw": "evidence/t4_round3_raw/pack_12.md:29",
+   "note": "KB 标题 en dash 写成 em dash, 非逐字; 内容成立",
+   "reg": null
+  },
+  "ig34_p0085_a008": {
+   "num": "T282",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:30",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0101_a014": {
+   "num": "T283",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS_AS_EQUIV",
+   "raw": "evidence/t4_round3_raw/pack_12.md:31",
+   "note": "en dash → em dash, 非逐字; 内容成立",
+   "reg": null
+  },
+  "ig34_p0102_a009": {
+   "num": "T284",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:32",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0102_a025": {
+   "num": "T285",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:33",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0131_a004": {
+   "num": "T286",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:34",
+   "note": "逐字 (另有 :1 文件 H1 `# SU — Assumptions`)",
+   "reg": null
+  },
+  "ig34_p0132_a002": {
+   "num": "T287",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS_AS_EQUIV",
+   "raw": "evidence/t4_round3_raw/pack_12.md:35",
+   "note": "en dash → em dash, 非逐字; 内容成立",
+   "reg": null
+  },
+  "ig34_p0137_a011": {
+   "num": "T288",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:36",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0150_a005": {
+   "num": "T289",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:37",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0179_a0010": {
+   "num": "T290",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS_AS_EQUIV",
+   "raw": "evidence/t4_round3_raw/pack_12.md:38",
+   "note": "en dash → em dash, 非逐字; 内容成立",
+   "reg": null
+  },
+  "ig34_p0191_a022": {
+   "num": "T291",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:39",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0194_a007": {
+   "num": "T292",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:40",
+   "note": "逐字 (原子是 \"Example 1\", 不是 \"IE – Examples\")",
+   "reg": null
+  },
+  "ig34_p0227_a001": {
+   "num": "T293",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:41",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0235_a003": {
+   "num": "T294",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:42",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0235_a026": {
+   "num": "T295",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:43",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0237_a015": {
+   "num": "T296",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:44",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0265_a017": {
+   "num": "T297",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:45",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0267_a001": {
+   "num": "T298",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:46",
+   "note": "逐字",
+   "reg": null
+  },
+  "ig34_p0280_a034": {
+   "num": "T299",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_12.md:47",
+   "note": "逐字。**包里指针错**: `PP/examples.md:76` 是 PP 域自己的 Example 3 (PDF p274, 正文 PPSTINT/AUCINT), 不是本节; 正确位置在 PC 目录 (§6.3.5.9.3 为 PC/PP 共用节, 仍属 SDTMIG 自己文档)",
+   "reg": null
+  },
+  "ig34_p0307_a003": {
+   "num": "T300",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS_AS_EQUIV",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:19",
+   "note": "标题对应、位置对 (下接 `## Example 1` 与 p307 同句正文). 差异仅 \"–\"→\"—\": round3 口径把这类排版差异列为 \"等价\", fullcheck EXACT 允许的归一项 (空白/管道/粗体/引号) 不含破折号 → 内容成立, 标签级别应为 EQUIVALENT",
+   "reg": null
+  },
+  "ig34_p0307_a004": {
+   "num": "T301",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:20",
+   "note": "下接 \"This example represents reproductive system findings at the screening visit...\" 与 PDF 同",
+   "reg": null
+  },
+  "ig34_p0371_a001": {
+   "num": "T302",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:21",
+   "note": "下接 \"This CRF collects information about rheumatoid arthritis...\" 与 PDF 同",
+   "reg": null
+  },
+  "ig34_p0372_a005": {
+   "num": "T303",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:22",
+   "note": "下接 \"In this example, the occurrence of prespecified adverse events was solicited...\" 同",
+   "reg": null
+  },
+  "ig34_p0374_a008": {
+   "num": "T304",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:23",
+   "note": "下接 \"In this example, the sponsor's definition of \"event\"...\" 同. 包指针附带的 :283 是 KB note, 非本标题",
+   "reg": null
+  },
+  "ig34_p0399_a021": {
+   "num": "T305",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:24",
+   "note": "下接 \"In open trials, there is no requirement to maintain a blind...\" 同. 包指针 :385 是正文里提到 \"Example 7 in Section 5.2\" 的句子, 非本标题",
+   "reg": null
+  },
+  "ig34_p0409_a002": {
+   "num": "T306",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:25",
+   "note": "下接 \"The following diagram represents visits as numbered \"flags\"...\" 同",
+   "reg": null
+  },
+  "ig34_p0429_a001": {
+   "num": "T307",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:26",
+   "note": "节号与文字逐字; 下接 RELREC 正文同",
+   "reg": null
+  },
+  "ig34_p0435_a005": {
+   "num": "T308",
+   "layer": "R3_HEADING",
+   "final": "EXACT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:27",
+   "note": "逐字; 下接 \"Section 2.6, Creating a New Domain, discusses...\" 同; 层级在 8.6 (KB :286) 之下, 与 PDF 一致",
+   "reg": null
+  },
+  "sv20_p0052_a010": {
+   "num": "T309",
+   "layer": "R3_HEADING",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:28",
+   "note": "自己文档 (model/) 内, 文字逐字 (粗体), 下接 TA 变量表. 实为逐字",
+   "reg": null
+  },
+  "ig34_p0083_a020": {
+   "num": "T310",
+   "layer": "R3_XTYPO",
+   "final": "EXACT",
+   "verdict": "TYPO_AFFECTED",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:36",
+   "note": "定位: p82-84 有 4 处 dm.xpt 表头 (p82 Ex1 起表、p83 顶 Ex1 续表重复表头、p83 底 Ex2 起表、p84 顶 Ex2 续表). 按 `archive/deep_verification/pdf_atoms.jsonl` 顺序, a019 = `dm.xpt`、a020 = 表头、",
+   "reg": [
+    "S-SPREL SE T-1"
+   ]
+  },
+  "ig34_p0304_a026": {
+   "num": "T311",
+   "layer": "R3_XTYPO",
+   "final": "EQUIVALENT",
+   "verdict": "TYPO_AFFECTED",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:37",
+   "note": "PDF 原文片段: `EYDCOMGR Eye Drop Comfort Grade OCCULAR COMFORT`; KB OECAT = `OCULAR COMFORT`. 其余 20 格逐格对 (XYZ/OE/XYZ-100-0001/OD/1/EYDCOMGR/Eye Drop Comfort Grade/1",
+   "reg": [
+    "B-OE T-2"
+   ]
+  },
+  "ig34_p0304_a027": {
+   "num": "T312",
+   "layer": "R3_XTYPO",
+   "final": "EQUIVALENT",
+   "verdict": "TYPO_AFFECTED",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:38",
+   "note": "PDF 片段: `2 ... EYDCOMGR Eye Drop Comfort Grade OCCULAR COMFORT 10`; KB `OCULAR COMFORT`. 其余格一致 (OD/2/10/10/10/RIGHT/.../2011-02-11T09:01/1 MINUTE POST-INSTILLAT",
+   "reg": [
+    "B-OE T-2"
+   ]
+  },
+  "ig34_p0304_a028": {
+   "num": "T313",
+   "layer": "R3_XTYPO",
+   "final": "EQUIVALENT",
+   "verdict": "TYPO_AFFECTED",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:39",
+   "note": "PDF 片段: `3 ... OS 1 EYDCOMGR ... OCCULAR COMFORT 1`; KB `OCULAR COMFORT`. 其余格一致 (OS/1/1/1/1/LEFT/.../2011-05-01T09:00/UPON INSTILLATION/1)",
+   "reg": [
+    "B-OE T-2"
+   ]
+  },
+  "ig34_p0304_a029": {
+   "num": "T314",
+   "layer": "R3_XTYPO",
+   "final": "EQUIVALENT",
+   "verdict": "TYPO_AFFECTED",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:40",
+   "note": "PDF 片段: `4 ... OS 2 EYDCOMGR ... OCCULAR COMFORT 10`; KB `OCULAR COMFORT`. 其余格一致 (OS/2/10/10/10/LEFT/.../2011-05-01T09:01/1 MINUTE POST-INSTILLATION/2)",
+   "reg": [
+    "B-OE T-2"
+   ]
+  },
+  "ig34_p0316_a023": {
+   "num": "T315",
+   "layer": "R3_XTYPO",
+   "final": "EQUIVALENT",
+   "verdict": "TYPO_AFFECTED",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:41",
+   "note": "PDF 片段: `specimen further detailing laterallity. Examples:`; KB `...further detailing laterality. Examples: \"RIGHT\", \"LEFT\", \"BILATERAL\".` 其余 (Label Laterality ",
+   "reg": [
+    "S-FND PE T-1"
+   ]
+  },
+  "ig34_p0211_a005": {
+   "num": "T26",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:19",
+   "note": "实为逐字 (仅行首加粗)",
+   "reg": null
+  },
+  "ig34_p0211_a008": {
+   "num": "T27",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:20",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0214_a017": {
+   "num": "T28",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:21",
+   "note": "实为逐字. \"GATE and GATEDEF\" KB 照录 PDF, 已登记 `REG CP N-1` (照录+T4), KB=PDF, 不构成 TYPO_AFFECTED",
+   "reg": null
+  },
+  "ig34_p0220_a003": {
+   "num": "T29",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:22",
+   "note": "实为逐字. 原子抽错: 原子写 \"(HA5). Rows 5-7 show…\", PDF 与 KB 均为 \"(HA5) and rows 5-7 show…\". PDF \"at runtime to for measuring\" KB 照录 (KB=PDF; 未见登记, 不影响判定)",
+   "reg": null
+  },
+  "ig34_p0237_a008": {
+   "num": "T30",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:23",
+   "note": "实为逐字 (弯引号 ’ 一致)",
+   "reg": null
+  },
+  "ig34_p0246_a010": {
+   "num": "T31",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:24",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0258_a002": {
+   "num": "T32",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:25",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0260_a002": {
+   "num": "T33",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:26",
+   "note": "实为逐字; 值 100.3/100.4/100.5 一致",
+   "reg": null
+  },
+  "ig34_p0261_a015": {
+   "num": "T34",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:27",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0261_a016": {
+   "num": "T35",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:28",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0270_a006": {
+   "num": "T36",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:29",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0282_a031": {
+   "num": "T37",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:30",
+   "note": "包中 KB 指针为 \"(无)\", 自行 grep 定位. 实为逐字; PCGRPID 三值与 \"CMAX\" 一致",
+   "reg": null
+  },
+  "ig34_p0284_a015": {
+   "num": "T38",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:31",
+   "note": "包中 KB 指针为 \"(无)\", 自行 grep 定位. 实为逐字 (含序号 \"4.\")",
+   "reg": null
+  },
+  "ig34_p0345_a002": {
+   "num": "T39",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:32",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0356_a025": {
+   "num": "T40",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:33",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0406_a002": {
+   "num": "T41",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:34",
+   "note": "实为逐字 (含 \"c.\")",
+   "reg": null
+  },
+  "ig34_p0406_a032": {
+   "num": "T42",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:35",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0425_a016": {
+   "num": "T43",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:36",
+   "note": "实为逐字. PDF 列表 \"Quantity sufficient\" vs 表 \"Sufficient quantity\" 的内部不一致已登记 `B-TS T-7` (照录+T4), KB=PDF, 不构成 TYPO_AFFECTED",
+   "reg": null
+  },
+  "ig34_p0426_a001": {
+   "num": "T44",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:37",
+   "note": "实为逐字. KB 无 ch07 章节文件, §7.5 整节以带节号标题放在 TI/assumptions.md (紧接 §7.4 TI/TS), 节归属清楚, 视为位置成立",
+   "reg": null
+  },
+  "ig34_p0425_a002": {
+   "num": "T45",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:38",
+   "note": "文字逐字; 结构差异 = PDF 独立续行 → KB 并入 MSK 定义格, 归属关系与 PDF 一致, 信息等价",
+   "reg": null
+  },
+  "ig34_p0015_a009": {
+   "num": "T46",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:39",
+   "note": "实为逐字 (KB 另加了一个小标题, 不影响)",
+   "reg": null
+  },
+  "ig34_p0020_a031": {
+   "num": "T47",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:40",
+   "note": "实为逐字 (整段含前后句)",
+   "reg": null
+  },
+  "ig34_p0037_a022": {
+   "num": "T48",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:41",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0039_a019": {
+   "num": "T49",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:42",
+   "note": "实为逐字 (仅 \"DTC\" 加粗). 同页 `S-CH4 N-1` 位于 KB:756 另一句, 与本原子无关",
+   "reg": null
+  },
+  "ig34_p0046_a009": {
+   "num": "T50",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_2.md:43",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0046_a014": {
+   "num": "T51",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:18",
+   "note": "实为逐字; 位置对",
+   "reg": null
+  },
+  "ig34_p0077_a021": {
+   "num": "T52",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:19",
+   "note": "实为逐字. 包指针 212/214/216 是 Example 4 同句异处; 真正对应处是 362 行 (前后接同一 dm.xpt 3 行表与 suppdm Rows 1-3, 整段 \"Collected race ... 1 race subcategory. CDASH ...\" 与 PDF 一致)",
+   "reg": null
+  },
+  "ig34_p0101_a009": {
+   "num": "T53",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:20",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0119_a012": {
+   "num": "T54",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:21",
+   "note": "实为逐字 (仅 `Rows 4-6:` 加粗). 同页登记 B-EX T-1/T-2 在 relrec 表与 Rows 1-3 句, 不涉本句",
+   "reg": null
+  },
+  "ig34_p0119_a030": {
+   "num": "T55",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:22",
+   "note": "实为逐字; 日期 2012-01-15 一致",
+   "reg": null
+  },
+  "ig34_p0141_a017": {
+   "num": "T56",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:23",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0146_a017": {
+   "num": "T57",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:24",
+   "note": "KB 在 \"[2]\" 与 \"In\" 之间多一空格 (渲染页确认 PDF 印作 \"integrity.[2]In\"), 其余逐字; 纯空白差, 信息等价. 同页登记 B-BE T-1/T-2 在 bs.xpt 表, 不涉本句",
+   "reg": null
+  },
+  "ig34_p0151_a0007": {
+   "num": "T58",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:25",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0208_a012": {
+   "num": "T59",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:26",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0218_a007": {
+   "num": "T60",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:27",
+   "note": "实为逐字. 同页登记 B-CP T-4 在下一段段末, 不涉本句",
+   "reg": null
+  },
+  "ig34_p0219_a016": {
+   "num": "T61",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:28",
+   "note": "实为逐字 (整段 4 句全在). 同页登记 B-CP T-10 在 Ex8 表格, 不涉本段",
+   "reg": null
+  },
+  "ig34_p0227_a019": {
+   "num": "T62",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:29",
+   "note": "实为逐字. 同页登记 B-GF T-2/U-2 在 MB 表格, 不涉本句",
+   "reg": null
+  },
+  "ig34_p0233_a008": {
+   "num": "T63",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:30",
+   "note": "实为逐字; ISTSTOPO / SCREEN / CONFIRM / QUANTIFY 一致",
+   "reg": null
+  },
+  "ig34_p0237_a004": {
+   "num": "T64",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:31",
+   "note": "实为逐字. 同页登记 B-IS T-5/U-3 在 Ex7, 不涉本句",
+   "reg": null
+  },
+  "ig34_p0246_a006": {
+   "num": "T65",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:32",
+   "note": "实为逐字; 8 个变量名逐一一致",
+   "reg": null
+  },
+  "ig34_p0248_a012": {
+   "num": "T66",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:33",
+   "note": "实为逐字 (仅 \"Note:\" 加粗)",
+   "reg": null
+  },
+  "ig34_p0277_a018": {
+   "num": "T67",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:34",
+   "note": "实为逐字. 包指针 PP/examples.md:106-108 偏; 真正对应处在 PC/examples.md:66, 紧接 \"#### Method A\" (68 行), 与 PDF 顺序一致. 同页登记 B-PCPP T-1/T-4 在 Method A 表/文字, 不涉本句",
+   "reg": null
+  },
+  "ig34_p0284_a007": {
+   "num": "T68",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:35",
+   "note": "实为逐字. 包里 KB 指针为 \"(无)\", 全库检索命中 1 处",
+   "reg": null
+  },
+  "ig34_p0284_a008": {
+   "num": "T69",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:36",
+   "note": "实为逐字 (PDF \"--\\nGRPID\" 为断行, KB \"--GRPID\"). 包里 KB 指针 \"(无)\", 全库检索命中 1 处",
+   "reg": null
+  },
+  "ig34_p0297_a029": {
+   "num": "T70",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:37",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0298_a021": {
+   "num": "T71",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:38",
+   "note": "实为逐字. 同页登记 B-NV N-2 在 \"links the each\" 句, 不涉本句",
+   "reg": null
+  },
+  "ig34_p0332_a004": {
+   "num": "T72",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:39",
+   "note": "实为逐字; 位置与 PDF 次序一致. 同页登记 B-RS T-2 在 28 行 \"will contain\", 不涉本句",
+   "reg": null
+  },
+  "ig34_p0400_a003": {
+   "num": "T73",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:40",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0400_a010": {
+   "num": "T74",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:41",
+   "note": "实为逐字. 包指针 572/721/803 是 Example 4/5/6 的同句; Example 7 的对应处是 931 行段首",
+   "reg": null
+  },
+  "ig34_p0400_a012": {
+   "num": "T75",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_3.md:42",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0401_a004": {
+   "num": "T76",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:13",
+   "note": "实为逐字; 位于 TA Example 7 Trial Design Matrix 前",
+   "reg": null
+  },
+  "ig34_p0406_a011": {
+   "num": "T77",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:14",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0417_a018": {
+   "num": "T78",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:15",
+   "note": "实为逐字 (同段含后句 \"This domain is not subject oriented.\")",
+   "reg": null
+  },
+  "ig34_p0424_a006": {
+   "num": "T79",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:16",
+   "note": "实为逐字; P43Y / P6M 值一致",
+   "reg": null
+  },
+  "ig34_p0424_a009": {
+   "num": "T80",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:17",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0424_a010": {
+   "num": "T81",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:18",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0441_a002": {
+   "num": "T82",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:19",
+   "note": "实为逐字. 包内指针 `model/05_study_level_data.md:256` 是另一份文档 (SDTM v2.0) 的近似句, 不是对应处; 真位置在 DI 文件内显式 §9 节 (KB 无 ch09 章节文件)",
+   "reg": null
+  },
+  "ig34_p0448_a013": {
+   "num": "T83",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:20",
+   "note": "实为逐字 (PDF 在 p449)",
+   "reg": null
+  },
+  "ig34_p0032_a022": {
+   "num": "T84",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:21",
+   "note": "1 列小表 CMINDC / FRACTURE, 位于选项 2 下, 与 PDF 一致 (包内指针 :456 为后一句 Note)",
+   "reg": null
+  },
+  "ig34_p0071_a013": {
+   "num": "T85",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:22",
+   "note": "信息点: 提示语 \"Select each value that applies if the subject answered \"BLACK OR AFRICAN AMERICAN\". Check all that apply.\" (:192) / 问题 \"Which of the following racial ",
+   "reg": null
+  },
+  "ig34_p0118_a002": {
+   "num": "T86",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:23",
+   "note": "Intended Dose 两行三访视逐格: V1 粗体 10 mg/kg, V2/V3 粗体 7.5 mg/kg, 与 PDF 粗体选中一致 (KB 去掉项目符号). 原子 verbatim 列序抽错 (原子抽错)",
+   "reg": null
+  },
+  "ig34_p0141_a019": {
+   "num": "T87",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:24",
+   "note": "实为逐字, 16 列逐格一致",
+   "reg": null
+  },
+  "ig34_p0202_a001": {
+   "num": "T88",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:25",
+   "note": "续页重复表头, KB 以全库统一的逐变量字段格式承载 7 列 (Variable Name → `###` 标题; Controlled Terms, Codelist or Format¹ → `Controlled Terms` 字段). 与 `t4_gate_raw/pack3.md` #50 (AE 续页表头)",
+   "reg": null
+  },
+  "ig34_p0311_a011": {
+   "num": "T89",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:26",
+   "note": "实为逐字. 对应 Example 1 (:27); :74 是 Example 2 的同样表头",
+   "reg": null
+  },
+  "ig34_p0311_a028": {
+   "num": "T90",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:27",
+   "note": "实为逐字, 16 列一致",
+   "reg": null
+  },
+  "ig34_p0018_a014": {
+   "num": "T91",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:28",
+   "note": "实为逐字, 7 格一致",
+   "reg": null
+  },
+  "ig34_p0018_a022": {
+   "num": "T92",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:29",
+   "note": "实为逐字, 7 格一致",
+   "reg": null
+  },
+  "ig34_p0018_a024": {
+   "num": "T93",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:30",
+   "note": "实为逐字, 7 格一致",
+   "reg": null
+  },
+  "ig34_p0018_a032": {
+   "num": "T94",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:31",
+   "note": "实为逐字, 7 格一致",
+   "reg": null
+  },
+  "ig34_p0018_a042": {
+   "num": "T95",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:32",
+   "note": "实为逐字, 7 格一致 (键 7 个变量顺序一致)",
+   "reg": null
+  },
+  "ig34_p0061_a021": {
+   "num": "T96",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:33",
+   "note": "实为逐字 (仅加粗)",
+   "reg": null
+  },
+  "ig34_p0062_a002": {
+   "num": "T97",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:34",
+   "note": "实为逐字 (仅加粗)",
+   "reg": null
+  },
+  "ig34_p0068_a006": {
+   "num": "T98",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:35",
+   "note": "26 格逐格一致: ABC12301002 / 01002 / 2006-01-15 / 2006-02-28 / 2006-01-15 / 2006-02-28 / 2006-01-04 / 2006-03-26 / 01 / JOHNSON, M / 1955-03-22 / 50 / YEARS / M / WH",
+   "reg": null
+  },
+  "ig34_p0075_a006": {
+   "num": "T99",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:36",
+   "note": "信息点: 完成说明 \"Study participants should self-report race, with race being asked about after ethnicity.\" / 问题 \"...(More than one choice is acceptable.)\" / RACE01 → ",
+   "reg": null
+  },
+  "ig34_p0112_a023": {
+   "num": "T100",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_4.md:37",
+   "note": "Injection 3 的 Side = RIGHT, 一致",
+   "reg": null
+  },
+  "ig34_p0112_a028": {
+   "num": "T101",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:20",
+   "note": "实为逐字. 24 格逐格一致 (DRUG X / ABDOMINAL CAVITY / VISIT 3 / 2009-05-10 为 PDF 折行拼接)",
+   "reg": null
+  },
+  "ig34_p0113_a018": {
+   "num": "T102",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:21",
+   "note": "实为逐字. ECDOSE 空格两边一致",
+   "reg": null
+  },
+  "ig34_p0114_a009": {
+   "num": "T103",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:22",
+   "note": "实为逐字. EXADJ 空",
+   "reg": null
+  },
+  "ig34_p0115_a017": {
+   "num": "T104",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:23",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0115_a019": {
+   "num": "T105",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:24",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0116_a004": {
+   "num": "T106",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:25",
+   "note": "实为逐字, 且在 \"Subject 56789003\" 小标题下 (位置对). 表头 \"Bottle 1 # of capsules\" 为 PDF 两行表头合并",
+   "reg": null
+  },
+  "ig34_p0116_a022": {
+   "num": "T107",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:26",
+   "note": "11\" 在 PDF 中不存在 (同页 a017-a026 原子均为混抽). PDF 行 13 = 56789 EC 56789003 1 BOTTLE 1 Y Y 1 CAPSULE CAPSULE QD ORAL TREATMENT 1 2002-07-03T07:30 ×2 1 1 30 MINUTES PRIOR",
+   "reg": null
+  },
+  "ig34_p0119_a024": {
+   "num": "T108",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:27",
+   "note": "实为逐字 (Example 8 CRF 表 First/Last Dose Date)",
+   "reg": null
+  },
+  "ig34_p0151_a0018": {
+   "num": "T109",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:28",
+   "note": "PDF 为 \"Conjunctivitis / No / Yes\" 选项 (Yes 在下一行), KB \"No  Yes\" 承载两个选项; 原子漏 Yes (原子抽错)",
+   "reg": null
+  },
+  "ig34_p0200_a012": {
+   "num": "T110",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:29",
+   "note": "KB 以变量卡片形式承载: Label/Type/CT 空/Role/Core/Notes 七项全一致",
+   "reg": null
+  },
+  "ig34_p0200_a017": {
+   "num": "T111",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:30",
+   "note": "同上, 各项一致",
+   "reg": null
+  },
+  "ig34_p0201_a007": {
+   "num": "T112",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:31",
+   "note": "Label/Char/(TESTCOND)/Variable Qualifier/Perm/Notes 全文一致 (含 PDF 原句 \"is used distinguish\", KB 照录); KB 另加 CT 代码 C181175",
+   "reg": null
+  },
+  "ig34_p0202_a006": {
+   "num": "T113",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:32",
+   "note": "Notes 第一段逐字, KB 同格还有 PDF 下一段 \"An example of appropriate usage…\" (PDF:23 起, 同一格)",
+   "reg": null
+  },
+  "ig34_p0203_a002": {
+   "num": "T114",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:33",
+   "note": "各项一致; KB 加 CT 代码 C71620",
+   "reg": null
+  },
+  "ig34_p0203_a034": {
+   "num": "T115",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:34",
+   "note": "各项一致; KB 加 CT 代码 C99079",
+   "reg": null
+  },
+  "ig34_p0215_a009": {
+   "num": "T116",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:35",
+   "note": "CD95+\", IMMUNOPHENOTYPING, B CELL ACTIVATION, CD95 Expr BLym, 50.2, %, QUANTITATIVE, NUMBER FRACTION, 50.2, 50.2, %, BLOOD, FLOW CYTOMETRY, 2021-10-20T09:20:00;",
+   "reg": null
+  },
+  "ig34_p0216_a003": {
+   "num": "T117",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:36",
+   "note": "CD45+, %Lym+Mono/Leuk, IMMUNOPHENOTYPING, mDC AND pDC SUBSETS, 6.70, %, QUANTITATIVE, NUMBER FRACTION, 6.70, 6.70, %, BLOOD, FLOW CYTOMETRY, 2021-01-30T07:10:00",
+   "reg": null
+  },
+  "ig34_p0238_a007": {
+   "num": "T118",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:37",
+   "note": "实为逐字. ISCNDAGT 空两边一致, VISITNUM 2 / VISIT 1 / 2017-08-27 一致",
+   "reg": null
+  },
+  "ig34_p0239_a003": {
+   "num": "T119",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:38",
+   "note": "实为逐字 (表头 22 列同序)",
+   "reg": null
+  },
+  "ig34_p0257_a012": {
+   "num": "T120",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:39",
+   "note": "实为逐字. MSGRPID / MSORRESU / MSSTRESN / MSSTRESU 空两边一致",
+   "reg": null
+  },
+  "ig34_p0257_a029": {
+   "num": "T121",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:40",
+   "note": "实为逐字 (MB Example 2 的 be.xpt, 位置对)",
+   "reg": null
+  },
+  "ig34_p0257_a030": {
+   "num": "T122",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:41",
+   "note": "实为逐字",
+   "reg": null
+  },
+  "ig34_p0260_a021": {
+   "num": "T123",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:42",
+   "note": "实为逐字 (suppbe.xpt 行 4)",
+   "reg": null
+  },
+  "ig34_p0262_a005": {
+   "num": "T124",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:43",
+   "note": "原子漏 MBGRPID \"1\" (原子抽错); PDF 行 2 MBGRPID=1 (与行 1 同列对齐), KB:190 有 \"1\", 其余 23 格逐格一致",
+   "reg": null
+  },
+  "ig34_p0276_a008": {
+   "num": "T125",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_5.md:44",
+   "note": "包内指针 (PP/examples.md:93-95) 偏. 真实位置在 PC/assumptions.md \"§6.3.5.9.3 Relating PP Records to PC Records\" 节下 \"PC Dataset for All Examples\" 表 (PP/examples.md:104-108",
+   "reg": null
+  },
+  "ig34_p0277_a027": {
+   "num": "T126",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:14",
+   "note": "8 格逐格一致 (4/ABC-123/PP/ABC-123-0001/PPGRPID/DY8DRGX/空/2), 实为逐字. 包内 KB 指针 (PP/examples.md) 偏, 实际在 PC/examples.md §6.3.5.9.3 Example 1 Method A. 同表 r3 的 PDF IDVAR ",
+   "reg": null
+  },
+  "ig34_p0278_a004": {
+   "num": "T127",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:15",
+   "note": "逐格一致, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0278_a005": {
+   "num": "T128",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:16",
+   "note": "逐格一致, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0278_a046": {
+   "num": "T129",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:17",
+   "note": "13/PP/PPSEQ/11/空/2 一致, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0278_a047": {
+   "num": "T130",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:18",
+   "note": "逐格一致, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0279_a002": {
+   "num": "T131",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:19",
+   "note": "逐格一致, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0279_a014": {
+   "num": "T132",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:20",
+   "note": "20/PC/PCSEQ/13/空/2 一致, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0283_a028": {
+   "num": "T133",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:21",
+   "note": "16/PC/PCSEQ/4/空/2 一致, 实为逐字 (包内 KB 指针为 \"无\", 实际存在)",
+   "reg": null
+  },
+  "ig34_p0319_a008": {
+   "num": "T134",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:22",
+   "note": "Name/Label/Type/CT 空/Role/Notes/Core 全一致; KB 为字段列表格式 (等价)",
+   "reg": null
+  },
+  "ig34_p0319_a010": {
+   "num": "T135",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:23",
+   "note": "标签 \"Unique Subject Identifier\" (PDF 折行合并), Notes 全句一致, Req",
+   "reg": null
+  },
+  "ig34_p0320_a009": {
+   "num": "T136",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:24",
+   "note": "(NY) 一致 (KB 追加码值 C66742, 不改义); Role Record Qualifier; Notes 全句一致; Perm",
+   "reg": null
+  },
+  "ig34_p0320_a012": {
+   "num": "T137",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:25",
+   "note": "全格一致",
+   "reg": null
+  },
+  "ig34_p0330_a007": {
+   "num": "T138",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:26",
+   "note": "(UNIT) (KB 追加 C71620) / Variable Qualifier / \"Unit for RSORRES.\" / Perm 一致. 包内指针 (assumptions.md:80) 偏",
+   "reg": null
+  },
+  "ig34_p0331_a016": {
+   "num": "T139",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:27",
+   "note": "CT \"ISO 8601 duration or interval\"、Timing、Notes 全句 (含 \"-P2M\") 一致, Perm",
+   "reg": null
+  },
+  "ig34_p0357_a011": {
+   "num": "T140",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:28",
+   "note": "23 格逐格一致 (TRMETHOD/TRDTC/TRDY 空, 折行合并), 实为逐字",
+   "reg": null
+  },
+  "ig34_p0358_a003": {
+   "num": "T141",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:29",
+   "note": "逐格一致 (NON-TARGET、2010-04-02、88; TRORRESU/TRSTRESN/TRSTRESU 空), 实为逐字",
+   "reg": null
+  },
+  "ig34_p0358_a006": {
+   "num": "T142",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:30",
+   "note": "逐格一致 (R1-NEW02 折行合并), 实为逐字",
+   "reg": null
+  },
+  "ig34_p0396_a020": {
+   "num": "T143",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:31",
+   "note": "11 格一致, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0396_a032": {
+   "num": "T144",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:32",
+   "note": "11 格一致, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0424_a028": {
+   "num": "T145",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:33",
+   "note": "3/QS/Sufficient quantity/定义全句一致, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0448_a016": {
+   "num": "T146",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:34",
+   "note": "ADJUSTMENT/ADJ, 实为逐字 (原子页号比文本层早 1 页, 内容无误)",
+   "reg": null
+  },
+  "ig34_p0449_a001": {
+   "num": "T147",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:35",
+   "note": "EXTERNAL/X, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0449_a007": {
+   "num": "T148",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:36",
+   "note": "GRADE/GR, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0449_a013": {
+   "num": "T149",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:37",
+   "note": "INTERPRETATION/INTP, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0449_a033": {
+   "num": "T150",
+   "layer": "R3_IG34_EQUIV",
+   "final": "EQUIVALENT",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_6.md:38",
+   "note": "OUTCOME/OUT, 实为逐字",
+   "reg": null
+  },
+  "ig34_p0010_a023": {
+   "num": "T151",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:16",
+   "note": "登记 B-ch01 T-2. PDF 两句 ONE/MANY 都写 --LNKID, KB MANY 处改 --LNKGRP (and not --LNKID); 整段其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0018_a012": {
+   "num": "T152",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:17",
+   "note": "登记 B-ch03 T-1. 其余 7 格 (BE / Biospecimen Events / Events / Structure / Tabulation / 其余 keys / be.xpt) 逐格一致",
+   "reg": null
+  },
+  "ig34_p0041_a038": {
+   "num": "T153",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:18",
+   "note": "登记 B-ch04 N-1 (handling KB 写正确值; basis 字段写 \"照录\" 是措辞残留, 以 handling 为准). KB \"forward slash\", 其余逐字",
+   "reg": null
+  },
+  "ig34_p0063_a023": {
+   "num": "T154",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:19",
+   "note": "登记 S-SPEC1 T-1. ¹ 是 \"In this column, an asterisk…\" 脚注, ² 才是 FDA guidance, 问题属实. KB 改 ². 其余格: Ethnicity / Char / (ETHNIC) / Record Qualifier / Notes / Perm 一致; K",
+   "reg": null
+  },
+  "ig34_p0068_a010": {
+   "num": "T155",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:20",
+   "note": "登记 B-DM T-2. 逐格比对 PDF Row 6: ABC123/DM/ABC12302002/02002/2006-02-03/2006-04-05/2006-02-03/2006-04-05/2006-01-10/2006-04-25/02/GONZALEZ, E/1956-05-05/49/YEARS/F/",
+   "reg": null
+  },
+  "ig34_p0089_a026": {
+   "num": "T156",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:21",
+   "note": "登记 B-SV T-1. KB 补句点, 其余逐字",
+   "reg": null
+  },
+  "ig34_p0107_a002": {
+   "num": "T157",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:22",
+   "note": "登记 S-INT EX T-7. 渲染页确认重复文字是可见印刷 (非文本层伪影). KB 第 5 条止于 \"Define-XML document.\", 第 6 条标题保留; 其余逐字",
+   "reg": null
+  },
+  "ig34_p0113_a011": {
+   "num": "T158",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:23",
+   "note": "登记 B-EX T-3. KB \"bottles\", 其余逐字",
+   "reg": null
+  },
+  "ig34_p0115_a009": {
+   "num": "T159",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:24",
+   "note": "登记 B-EX T-4. KB \"protocol-specified\", 其余逐字",
+   "reg": null
+  },
+  "ig34_p0118_a017": {
+   "num": "T160",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:25",
+   "note": "登记 B-EX T-6. KB \"mg/kg\", 同行 Rows 1, 3, 5 前半句一致",
+   "reg": null
+  },
+  "ig34_p0119_a011": {
+   "num": "T161",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:26",
+   "note": "登记 B-EX T-2. KB \"using --LNKID.\", 其余逐字",
+   "reg": null
+  },
+  "ig34_p0123_a005": {
+   "num": "T162",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:27",
+   "note": "登记 B-ML T-2. KB 去重词, 其余逐字",
+   "reg": null
+  },
+  "ig34_p0132_a014": {
+   "num": "T163",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:28",
+   "note": "登记 B-SU T-1. KB \"SUENTPT\", 其余 (SUSTTPT/SUSTRTPT/SUENRTPT 值、Section 4.4.7 引用) 逐字",
+   "reg": null
+  },
+  "ig34_p0142_a012": {
+   "num": "T164",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:29",
+   "note": "登记 B-AE T-3 (cat 知悉, 改词判断). KB \"to the device\", 其余逐字",
+   "reg": null
+  },
+  "ig34_p0142_a014": {
+   "num": "T165",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:30",
+   "note": "登记 B-AE T-4. KB 首格 \"Row\", 其后 29 个列名与 PDF 逐个一致 (STUDYID…AEENDY)",
+   "reg": null
+  },
+  "ig34_p0142_a015": {
+   "num": "T166",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:31",
+   "note": "登记 B-AE T-1. 逐格: T002/AE/002/HipX22/1/AE0099/Twisted left ankle/SPRAIN/ANKLE JOINT/LEFT/N/MILD/NONE/NOT RELATED/RECOVERED/RESOLVED/N/N/N/N/N/N/N/Y/N/Y/2018-04-2",
+   "reg": null
+  },
+  "ig34_p0142_a016": {
+   "num": "T167",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:32",
+   "note": "登记 B-AE T-2. 逐格: …Y/MODERATE/REMOVED/PROBABLE/[SEQUELAE]/N/Y/Y/N/N/N/Y/Y/N/N/2018-05-01/2018-05-10/15/25, KB 全同",
+   "reg": null
+  },
+  "ig34_p0146_a005": {
+   "num": "T168",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:33",
+   "note": "登记 B-BE T-1 + B-BE T-2. KB 两格改 ISOPROPANOL、BSDTC 改 2005-03-20 (同组 r1/r2 为 2005-03-20). 其余逐格: ABC134/BS/43871/3/267FF/1148.267/FFRZMAT/Flash Freeze Material/SPEC",
+   "reg": null
+  },
+  "ig34_p0152_a0019": {
+   "num": "T169",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:34",
+   "note": "登记 B-CE T-1. KB 补空格, 其余逐字",
+   "reg": null
+  },
+  "ig34_p0160_a0026": {
+   "num": "T170",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:35",
+   "note": "登记 B-DS U-4. KB 删 \"in\", 同段前句逐字",
+   "reg": null
+  },
+  "ig34_p0160_a0028": {
+   "num": "T171",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:36",
+   "note": "登记 B-DS T-3. KB \"(DSSTDTC).\", 其余逐字",
+   "reg": null
+  },
+  "ig34_p0165_a0007": {
+   "num": "T172",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:37",
+   "note": "登记 B-DS U-1. 逐格 Row 5: XYZ/SE/XYZ-767-002/1/[SCREEN→SCRN]/Screen/2016-02-04/2016-02-21/1/SCREENING, KB 全同",
+   "reg": null
+  },
+  "ig34_p0166_a0035": {
+   "num": "T173",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:38",
+   "note": "登记 B-DS T-5. KB \"received\", 其余逐字",
+   "reg": null
+  },
+  "ig34_p0169_a0024": {
+   "num": "T174",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:39",
+   "note": "登记 B-HO T-1. 逐格 Row 5: ABC/HO/ABC123102/3/[REHABILITATION] FACILITY/TREATMENT/2011-08-15/2011-08-20/空, KB 全同. 注: 原子严重抽错 — verbatim \"5 / ABC123105 / 1 / GENERAL ",
+   "reg": null
+  },
+  "ig34_p0173_a0007": {
+   "num": "T175",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_7.md:40",
+   "note": "登记 B-MH T-3. KB 去掉逗号后空格 → \"“Allergy Medical History,“\"; 按弯直引号归一 = 登记 kb_value \"\\\"Allergy Medical History,\\\"\". 注: KB 闭引号字节是 U+201C (左引号方向), 与 PDF 同句 \"General Med",
+   "reg": null
+  },
+  "ig34_p0174_a0012": {
+   "num": "T176",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:18",
+   "note": "B-MH T-1: PDF 第二处 `MHENDTYP = \"DIAGNOSIS\"`, KB `MHEVDTYP`; 词级 diff 仅此一处",
+   "reg": null
+  },
+  "ig34_p0190_a017": {
+   "num": "T177",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:19",
+   "note": "B-EG T-3: PDF \"principal investigation\" → KB \"investigator\"; 其余逐词一致 (\"SCREEN 2\" 照录, 属 B-EG T-2 照录+T4, KB = PDF)",
+   "reg": null
+  },
+  "ig34_p0198_a014": {
+   "num": "T178",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:20",
+   "note": "B-BS T-3 (`--STRNLO`→`--STNRLO`) 成立。同句另有 `--ORNLO, --ORNHI` → KB `--ORNRLO, --ORNRHI`, 样本包没列, 但已另登记 **REG BS N-1** (KB 写正确值, U-7 B 定), 故不算未登记差异。其余项逐个一致",
+   "reg": null
+  },
+  "ig34_p0200_a006": {
+   "num": "T179",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:21",
+   "note": "S-SPC1 CP T-17: \"marker sting\" → \"marker string\"; 其余一致",
+   "reg": null
+  },
+  "ig34_p0200_a007": {
+   "num": "T180",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:22",
+   "note": "S-SPC1 CP T-21 (\"--GATEDEF ×2\", note 含 :42): PDF `--GATEDEF` → KB `--GATDEF`; 其余逐词一致",
+   "reg": null
+  },
+  "ig34_p0206_a001": {
+   "num": "T181",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:23",
+   "note": "S-SPC1 CP T-21 (note 含 :72): PDF `CPBNDAGT` → KB `CPBDAGNT`; 原子部分其余一致 (KB :72 前半为 p205 上的 6c 前文)",
+   "reg": null
+  },
+  "ig34_p0206_a003": {
+   "num": "T182",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:24",
+   "note": "S-SPC1 CP T-18: 7a 第一处 `CSMRKS` → `CPCSMRKS`; 其余一致",
+   "reg": null
+  },
+  "ig34_p0206_a009": {
+   "num": "T183",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:25",
+   "note": "S-SPC1 CP T-19: `CPSMRKS` → `CPSBMRKS`。另 2 处差异: 渲染页确为 `\"CD3+CD19- (T lymphocyte)`、`\"CD278+ (activated)` 引号未闭合, KB 闭合 → 属 **S-SPC1 CP T-16a** (KB 写正确值)。注: 登记表 T-",
+   "reg": null
+  },
+  "ig34_p0211_a004": {
+   "num": "T184",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:26",
+   "note": "B-CP T-15: `(CPGATEDEF)` → `(CPGATDEF)`; 其余一致",
+   "reg": null
+  },
+  "ig34_p0213_a002": {
+   "num": "T185",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:27",
+   "note": "B-CP T-15: 两处 `CPGATEDEF` → `CPGATDEF`; 其余逐词一致 (diff 里 \"CDxx+CDyy-monocyte\" 是脚本跨行拼接伪差, PDF 实为 \"CDxx+CDyy- monocyte\")",
+   "reg": null
+  },
+  "ig34_p0215_a017": {
+   "num": "T186",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:28",
+   "note": "B-CP T-3: 渲染页为 \"(e.g., CD40+ in rows 15-16 in addition to non-cell state, non-sublineage marker(s). Rows 17-18\" — \"(e.g.,\" 括号没有闭合; KB 在 \"15-16\" 后补 \")\" = 登记的 kb_",
+   "reg": null
+  },
+  "ig34_p0217_a015": {
+   "num": "T187",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:29",
+   "note": "B-CP T-15: `CPGATEDEF` → `CPGATDEF`; 其余一致",
+   "reg": null
+  },
+  "ig34_p0218_a014": {
+   "num": "T188",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:30",
+   "note": "B-CP T-15: `CPGATEDEF` → `CPGATDEF`; 其余一致",
+   "reg": null
+  },
+  "ig34_p0220_a001": {
+   "num": "T189",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:31",
+   "note": "B-CP T-15: 句首 `CPGATEDEF` → `CPGATDEF`; 原子这段 (到 \"…on which the test was performed.\") 其余逐词一致",
+   "reg": null
+  },
+  "ig34_p0224_a013": {
+   "num": "T190",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:32",
+   "note": "B-GF T-1: inheritabilty → inheritability; 其余一致",
+   "reg": null
+  },
+  "ig34_p0225_a019": {
+   "num": "T191",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:33",
+   "note": "B-GF T-3: PDF \"respresented\" → KB \"represented\"; 其余一致。原子写成 \"rerspresented\", 是原子抽错 (PDF 文本层为 \"respresented\")",
+   "reg": null
+  },
+  "ig34_p0227_a018": {
+   "num": "T192",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:34",
+   "note": "B-GF T-2: MBTEST \"Idenitifcation\" → \"Identification\"。16 格逐格: 1 / INFLU122 / MB / INF01-01 / 1 / INFLU0101 (B-GF U-2 照录, KB = PDF) / MCORGIDN / MBTEST / MBORRES、",
+   "reg": null
+  },
+  "ig34_p0228_a002": {
+   "num": "T193",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:35",
+   "note": "B-GF T-5: PDF 句末没有句号, KB 补了; 其余一致",
+   "reg": null
+  },
+  "ig34_p0228_a009": {
+   "num": "T194",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:36",
+   "note": "B-GF T-4: PDF `GFLINKID` → KB `GFLNKID`; 其余一致 (原子已被抽成改正值)",
+   "reg": null
+  },
+  "ig34_p0236_a005": {
+   "num": "T195",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:37",
+   "note": "B-IS T-3: \"NON-STUDY RELATED\" → \"NON-STUDY-RELATED\"; 其余一致",
+   "reg": null
+  },
+  "ig34_p0236_a015": {
+   "num": "T196",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:38",
+   "note": "B-IS T-2: r7 STUDYID RSC1230 → RSV1230。22 格逐格: 7 / STUDYID / IS / RSV1230-011 / 3 / 13671 / ISGRPID 空 / MBIGGAB / Microbial-induced IgG Antibody / HUMAN RESPIRA",
+   "reg": null
+  },
+  "ig34_p0257_a016": {
+   "num": "T197",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:39",
+   "note": "B-MS T-1: 渲染页 r9 的 MSSTRESC 格为空 (MSORRES 25 / MSORRESU mm / MSSTRESN 25 / MSSTRESU mm), KB 的 MSSTRESC 是 25。其余 21 格逐格一致 (NHOID ENTEROCOCCUS FAECALIS, MSGRPID 4, ",
+   "reg": null
+  },
+  "ig34_p0262_a020": {
+   "num": "T198",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:40",
+   "note": "B-MS T-2: `MSCONU` → `MSCONCU`; 其余一致",
+   "reg": null
+  },
+  "ig34_p0262_a030": {
+   "num": "T199",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:41",
+   "note": "B-MS T-3: IDVAR `MBREFID` → `MSREFID`。10 格逐格: 2 / ABC / MS / ABC-01-101 / IDVAR / 100.5 / MSMEDTYPE (B-MS T-4 照录, KB = PDF) / Medium Type / LOWENSTEIN-JENSEN / ",
+   "reg": null
+  },
+  "ig34_p0263_a020": {
+   "num": "T200",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_8.md:42",
+   "note": "B-MB T-3: `MBTRESN` → `MBSTRESN`。同一表头还有 `MBGPRID` → KB `MBGRPID` (渲染页确认), 样本包没列, 但已登记 **B-MB T-2** (KB 写正确值)。其余 21 列名逐个一致",
+   "reg": null
+  },
+  "ig34_p0267_a006": {
+   "num": "T201",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:18",
+   "note": "B-MI T-1. 渲染页表头确为 \"MIDRVL\"; KB \"MIDRVFL\" (改正值); 其余 19 个表头逐格一致",
+   "reg": null
+  },
+  "ig34_p0273_a037": {
+   "num": "T202",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:19",
+   "note": "B-PCPP T-9. PDF \"pre-corrdinating\", KB \"pre-coordinating\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0274_a009": {
+   "num": "T203",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:20",
+   "note": "B-PCPP T-5. 渲染页 r6 PPSEQ 印 \"1\", KB 写 6; 其余 19 格 (ABC-123/PP/123-1001/B2222/AUCIFO/AUC Infinity Obs/DRUG PARENT/NCA/520/h*ng/L/520/520/h*ng/L/PLASMA/LIN-LOG TRAP",
+   "reg": null
+  },
+  "ig34_p0280_a036": {
+   "num": "T204",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:21",
+   "note": "B-PCPP T-8b. 渲染页确为 \"DYDRGX_HALF\" (同页 relrec IDVARVAL 为 DY1DRGX_HALF); KB \"DY1DRGX_HALF\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0280_a039": {
+   "num": "T205",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:22",
+   "note": "B-PCPP T-8. 放大后字形为衬线大写 I (\"DYIDRGX_A\"), 与同段 \"DY1_DRGX_A\" 的 1 不同, 不是文本层误识; KB \"DY1DRGX_A\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0281_a002": {
+   "num": "T206",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:23",
+   "note": "S-SPC2 N-1. PDF \"includes PP records with PCSEQ\", 同页 relrec r1-12 RDOMAIN=PC; KB \"PC records\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0281_a003": {
+   "num": "T207",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:24",
+   "note": "S-SPC2 N-1 (包里 KB 指针给的是 :299, 实际对应 :300). PDF \"PP records with PCSEQ\", KB \"PC records\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0281_a031": {
+   "num": "T208",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:25",
+   "note": "S-SPC2 N-2. PDF \"all PP records with PGRPID values\", 同页 relrec r1-2 RDOMAIN=PC / IDVAR=PCGRPID; KB \"all PC records with PCGRPID values\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0281_a032": {
+   "num": "T209",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:26",
+   "note": "S-SPC2 N-2 (包里指针 :333, 实际 :334). PDF \"all PP records with PGRPID value\", relrec r8 RDOMAIN=PC/PCGRPID; KB \"all PC records with PCGRPID value\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0285_a015": {
+   "num": "T210",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:27",
+   "note": "B-NV N-1. PDF \"may included\", KB \"may include\"; 其余逐字一致, 位置在 §6.3.7.1 节下",
+   "reg": null
+  },
+  "ig34_p0293_a038": {
+   "num": "T211",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "UNVERIFIABLE",
+   "raw": "evidence/t4_round3_raw/pack_9.md:28",
+   "note": "B-MK T-2. ② ③ 成立: KB \"REPLACEMENT/SURGICAL\", 其余 19 格逐格一致 (含 3 个空格子、NOT DONE、PROXIMAL INTERPHALANGEAL JOINT 2 OF THE HAND 等). ① 判不了: 渲染页 MKREASND 格里 \"REPLACEMENT",
+   "reg": null
+  },
+  "ig34_p0296_a019": {
+   "num": "T212",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:29",
+   "note": "B-NV T-1. PDF \"an fluorodeoxyglucose\", KB \"a fluorodeoxyglucose\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0298_a001": {
+   "num": "T213",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:30",
+   "note": "B-NV N-2. PDF \"links the / each\" (跨行), KB \"links each\"; 原子这一段在 KB :63 末尾, 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0304_a012": {
+   "num": "T214",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:31",
+   "note": "B-OE T-1. 渲染页表头确为 \"IDVARAL\"; KB \"IDVARVAL\"; 其余 7 个表头一致 (下方 r1/r2 数据也一致: :123-:124)",
+   "reg": null
+  },
+  "ig34_p0311_a035": {
+   "num": "T215",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:32",
+   "note": "B-RE T-1. PDF \"IREEA2\", KB \"IRREA2\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0328_a007": {
+   "num": "T216",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:33",
+   "note": "B-RS T-6 (QS 副本). PDF \"--STRNC\", KB \"--STNRC\"; 其余逐字一致 (\"--⏎SPCCND\" 是折行)",
+   "reg": null
+  },
+  "ig34_p0332_a009": {
+   "num": "T217",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:34",
+   "note": "B-RS T-2. PDF \"will contained\", KB \"will contain\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0334_a011": {
+   "num": "T218",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:35",
+   "note": "B-RS T-8. PDF \"symptomatic determination\", KB \"symptomatic deterioration\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0335_a016": {
+   "num": "T219",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:36",
+   "note": "B-RS T-7. PDF \"RSPLNKGRP = \"CM2\"\", KB \"RSLNKGRP\"; 其余逐字一致 (包里指针 :50 是 Row 1, 实际 :51)",
+   "reg": null
+  },
+  "ig34_p0335_a017": {
+   "num": "T220",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:37",
+   "note": "B-RS T-7. PDF \"RSPLNKGRP = \"PR2\"\", KB \"RSLNKGRP\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0335_a018": {
+   "num": "T221",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:38",
+   "note": "B-RS T-7. PDF \"RSPLNKGRP = \"CM3\"\", KB \"RSLNKGRP\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0336_a005": {
+   "num": "T222",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:39",
+   "note": "B-RS T-1. 渲染页 RSSTRESC 格确为 \"REPSONSE\" (RSORRES 是 RESPONSE); KB 写 \"MINIMAL RESPONSE\". 23 格逐格一致 (表头 23 列; RSDTC/RSDY/RSSTRTPT/RSSTTPT 四格空, RSENRTPT=BEFORE, RSENTP",
+   "reg": null
+  },
+  "ig34_p0338_a006": {
+   "num": "T223",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:40",
+   "note": "B-RS T-5 (RS 副本). PDF \"providing an resolution\", KB \"providing a resolution\"; 其余逐字一致",
+   "reg": null
+  },
+  "ig34_p0342_a006": {
+   "num": "T224",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:41",
+   "note": "B-SC T-1. 渲染页 SCDTC 印 \"20-17-04-01\"; KB \"2017-04-01\"; 其余 16 格逐格一致",
+   "reg": null
+  },
+  "ig34_p0342_a007": {
+   "num": "T225",
+   "layer": "R3_PDF_TYPO",
+   "final": "PDF_TYPO",
+   "verdict": "HOLDS",
+   "raw": "evidence/t4_round3_raw/pack_9.md:42",
+   "note": "B-SC T-1. 渲染页 SCDTC 印 \"20-17-06-10\"; KB \"2017-06-10\"; 其余 16 格逐格一致 (VISITNUM 13.1, SCDY 297) (包里指针 :35 是 r2, 实际 :36)",
+   "reg": null
+  }
+ },
  "supp": {
   "ig34_p0032_a013": {
    "num": "1",
