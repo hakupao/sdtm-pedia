@@ -1335,216 +1335,24 @@
     }
    ],
    "map": {
-    "knowledge_base/chapters/ch03_submitting_data.md:22": {
-     "to": "knowledge_base/chapters/ch03_submitting_data.md:22",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:421": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:438",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:431": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:448",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:443": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:460",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:497": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:514",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1034": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1053",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:52": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:52",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:678": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:695",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:825": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:842",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1084": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1105",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:425": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:442",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:435": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:452",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:391": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:408",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1412": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1439",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1395": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1422",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1426": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1453",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:292": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:304",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:298": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:310",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1401": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1428",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1418": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1445",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1468": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1493",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1434": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1461",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1495": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1520",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:84": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:84",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:465": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:482",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:471": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:488",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:477": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:494",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1511": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1536",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:223": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:235",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:901": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:918",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:921": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:938",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:942": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:959",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1057": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1078",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1545": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1570",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1112": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1131",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1135": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1154",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1074": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1095",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:319": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:323",
-     "text_changed": true
-    },
-    "knowledge_base/chapters/ch08_relationships.md:46": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:46",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:110": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:110",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:125": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:125",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:139": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:139",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:86": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:86",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:197": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:199",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:351": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:355",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:420": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:429",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch10_appendices.md:93": {
-     "to": "knowledge_base/chapters/ch10_appendices.md:161",
-     "text_changed": true
-    },
-    "knowledge_base/chapters/ch10_appendices.md:230": {
-     "to": "knowledge_base/chapters/ch10_appendices.md:335",
-     "text_changed": true
-    },
     "knowledge_base/domains/AE/assumptions.md:49": {
      "to": "knowledge_base/domains/AE/assumptions.md:61",
      "text_changed": false
     },
-    "knowledge_base/domains/AE/examples.md:60": {
-     "to": "knowledge_base/domains/AE/examples.md:60",
-     "text_changed": false
-    },
-    "knowledge_base/domains/AE/examples.md:43": {
-     "to": "knowledge_base/domains/AE/examples.md:43",
+    "knowledge_base/domains/AE/examples.md:13": {
+     "to": "knowledge_base/domains/AE/examples.md:13",
      "text_changed": false
     },
     "knowledge_base/domains/AE/examples.md:29": {
      "to": "knowledge_base/domains/AE/examples.md:29",
      "text_changed": false
     },
-    "knowledge_base/domains/AE/examples.md:13": {
-     "to": "knowledge_base/domains/AE/examples.md:13",
+    "knowledge_base/domains/AE/examples.md:43": {
+     "to": "knowledge_base/domains/AE/examples.md:43",
+     "text_changed": false
+    },
+    "knowledge_base/domains/AE/examples.md:60": {
+     "to": "knowledge_base/domains/AE/examples.md:60",
      "text_changed": false
     },
     "knowledge_base/domains/AE/examples.md:79": {
@@ -1555,14 +1363,6 @@
      "to": "knowledge_base/domains/AE/examples.md:94",
      "text_changed": false
     },
-    "knowledge_base/domains/AG/examples.md:60": {
-     "to": "knowledge_base/domains/AG/examples.md:60",
-     "text_changed": false
-    },
-    "knowledge_base/domains/AG/examples.md:36": {
-     "to": "knowledge_base/domains/AG/examples.md:36",
-     "text_changed": false
-    },
     "knowledge_base/domains/AG/examples.md:13": {
      "to": "knowledge_base/domains/AG/examples.md:13",
      "text_changed": false
@@ -1571,48 +1371,56 @@
      "to": "knowledge_base/domains/AG/examples.md:28",
      "text_changed": false
     },
+    "knowledge_base/domains/AG/examples.md:36": {
+     "to": "knowledge_base/domains/AG/examples.md:36",
+     "text_changed": false
+    },
     "knowledge_base/domains/AG/examples.md:50": {
      "to": "knowledge_base/domains/AG/examples.md:50",
+     "text_changed": false
+    },
+    "knowledge_base/domains/AG/examples.md:60": {
+     "to": "knowledge_base/domains/AG/examples.md:60",
      "text_changed": false
     },
     "knowledge_base/domains/AG/examples.md:68": {
      "to": "knowledge_base/domains/AG/examples.md:68",
      "text_changed": false
     },
-    "knowledge_base/domains/BE/examples.md:39": {
-     "to": "knowledge_base/domains/BE/examples.md:39",
-     "text_changed": false
-    },
-    "knowledge_base/domains/BE/examples.md:120": {
-     "to": "knowledge_base/domains/BE/examples.md:120",
-     "text_changed": false
-    },
     "knowledge_base/domains/BE/examples.md:17": {
      "to": "knowledge_base/domains/BE/examples.md:17",
-     "text_changed": false
-    },
-    "knowledge_base/domains/BE/examples.md:80": {
-     "to": "knowledge_base/domains/BE/examples.md:80",
      "text_changed": false
     },
     "knowledge_base/domains/BE/examples.md:27": {
      "to": "knowledge_base/domains/BE/examples.md:27",
      "text_changed": false
     },
-    "knowledge_base/domains/BE/examples.md:101": {
-     "to": "knowledge_base/domains/BE/examples.md:101",
+    "knowledge_base/domains/BE/examples.md:39": {
+     "to": "knowledge_base/domains/BE/examples.md:39",
      "text_changed": false
     },
     "knowledge_base/domains/BE/examples.md:53": {
      "to": "knowledge_base/domains/BE/examples.md:53",
      "text_changed": false
     },
-    "knowledge_base/domains/BE/examples.md:149": {
-     "to": "knowledge_base/domains/BE/examples.md:149",
+    "knowledge_base/domains/BE/examples.md:80": {
+     "to": "knowledge_base/domains/BE/examples.md:80",
+     "text_changed": false
+    },
+    "knowledge_base/domains/BE/examples.md:101": {
+     "to": "knowledge_base/domains/BE/examples.md:101",
+     "text_changed": false
+    },
+    "knowledge_base/domains/BE/examples.md:120": {
+     "to": "knowledge_base/domains/BE/examples.md:120",
      "text_changed": false
     },
     "knowledge_base/domains/BE/examples.md:136": {
      "to": "knowledge_base/domains/BE/examples.md:136",
+     "text_changed": false
+    },
+    "knowledge_base/domains/BE/examples.md:149": {
+     "to": "knowledge_base/domains/BE/examples.md:149",
      "text_changed": false
     },
     "knowledge_base/domains/BS/examples.md:15": {
@@ -1627,44 +1435,56 @@
      "to": "knowledge_base/domains/CE/examples.md:11",
      "text_changed": false
     },
+    "knowledge_base/domains/CE/examples.md:24": {
+     "to": "knowledge_base/domains/CE/examples.md:24",
+     "text_changed": false
+    },
     "knowledge_base/domains/CE/examples.md:41": {
      "to": "knowledge_base/domains/CE/examples.md:41",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CE/examples.md:72": {
-     "to": "knowledge_base/domains/CE/examples.md:72",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CE/examples.md:121": {
-     "to": "knowledge_base/domains/CE/examples.md:121",
      "text_changed": false
     },
     "knowledge_base/domains/CE/examples.md:58": {
      "to": "knowledge_base/domains/CE/examples.md:58",
      "text_changed": false
     },
-    "knowledge_base/domains/CE/examples.md:24": {
-     "to": "knowledge_base/domains/CE/examples.md:24",
+    "knowledge_base/domains/CE/examples.md:72": {
+     "to": "knowledge_base/domains/CE/examples.md:72",
      "text_changed": false
     },
     "knowledge_base/domains/CE/examples.md:99": {
      "to": "knowledge_base/domains/CE/examples.md:99",
      "text_changed": false
     },
-    "knowledge_base/domains/CE/examples.md:146": {
-     "to": "knowledge_base/domains/CE/examples.md:146",
+    "knowledge_base/domains/CE/examples.md:108": {
+     "to": "knowledge_base/domains/CE/examples.md:108",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CE/examples.md:121": {
+     "to": "knowledge_base/domains/CE/examples.md:121",
      "text_changed": false
     },
     "knowledge_base/domains/CE/examples.md:131": {
      "to": "knowledge_base/domains/CE/examples.md:131",
      "text_changed": false
     },
-    "knowledge_base/domains/CE/examples.md:108": {
-     "to": "knowledge_base/domains/CE/examples.md:108",
+    "knowledge_base/domains/CE/examples.md:146": {
+     "to": "knowledge_base/domains/CE/examples.md:146",
      "text_changed": false
     },
     "knowledge_base/domains/CE/examples.md:160": {
      "to": "knowledge_base/domains/CE/examples.md:160",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CM/examples.md:17": {
+     "to": "knowledge_base/domains/CM/examples.md:17",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CM/examples.md:36": {
+     "to": "knowledge_base/domains/CM/examples.md:36",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CM/examples.md:55": {
+     "to": "knowledge_base/domains/CM/examples.md:55",
      "text_changed": false
     },
     "knowledge_base/domains/CM/examples.md:71": {
@@ -1675,52 +1495,8 @@
      "to": "knowledge_base/domains/CM/examples.md:96",
      "text_changed": false
     },
-    "knowledge_base/domains/CM/examples.md:36": {
-     "to": "knowledge_base/domains/CM/examples.md:36",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CM/examples.md:17": {
-     "to": "knowledge_base/domains/CM/examples.md:17",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CM/examples.md:55": {
-     "to": "knowledge_base/domains/CM/examples.md:55",
-     "text_changed": false
-    },
     "knowledge_base/domains/CO/examples.md:23": {
      "to": "knowledge_base/domains/CO/examples.md:23",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:85": {
-     "to": "knowledge_base/domains/CP/examples.md:85",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:177": {
-     "to": "knowledge_base/domains/CP/examples.md:177",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:157": {
-     "to": "knowledge_base/domains/CP/examples.md:157",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:127": {
-     "to": "knowledge_base/domains/CP/examples.md:127",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:206": {
-     "to": "knowledge_base/domains/CP/examples.md:206",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:311": {
-     "to": "knowledge_base/domains/CP/examples.md:311",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:279": {
-     "to": "knowledge_base/domains/CP/examples.md:279",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:255": {
-     "to": "knowledge_base/domains/CP/examples.md:255",
      "text_changed": false
     },
     "knowledge_base/domains/CP/examples.md:31": {
@@ -1731,16 +1507,44 @@
      "to": "knowledge_base/domains/CP/examples.md:60",
      "text_changed": false
     },
+    "knowledge_base/domains/CP/examples.md:85": {
+     "to": "knowledge_base/domains/CP/examples.md:85",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:127": {
+     "to": "knowledge_base/domains/CP/examples.md:127",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:157": {
+     "to": "knowledge_base/domains/CP/examples.md:157",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:177": {
+     "to": "knowledge_base/domains/CP/examples.md:177",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:206": {
+     "to": "knowledge_base/domains/CP/examples.md:206",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:255": {
+     "to": "knowledge_base/domains/CP/examples.md:255",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:279": {
+     "to": "knowledge_base/domains/CP/examples.md:279",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:311": {
+     "to": "knowledge_base/domains/CP/examples.md:311",
+     "text_changed": false
+    },
     "knowledge_base/domains/CV/examples.md:9": {
      "to": "knowledge_base/domains/CV/examples.md:9",
      "text_changed": false
     },
     "knowledge_base/domains/CV/examples.md:23": {
      "to": "knowledge_base/domains/CV/examples.md:23",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DA/examples.md:41": {
-     "to": "knowledge_base/domains/DA/examples.md:41",
      "text_changed": false
     },
     "knowledge_base/domains/DA/examples.md:9": {
@@ -1751,12 +1555,16 @@
      "to": "knowledge_base/domains/DA/examples.md:24",
      "text_changed": false
     },
-    "knowledge_base/domains/DD/examples.md:31": {
-     "to": "knowledge_base/domains/DD/examples.md:31",
+    "knowledge_base/domains/DA/examples.md:41": {
+     "to": "knowledge_base/domains/DA/examples.md:41",
      "text_changed": false
     },
     "knowledge_base/domains/DD/examples.md:15": {
      "to": "knowledge_base/domains/DD/examples.md:15",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DD/examples.md:31": {
+     "to": "knowledge_base/domains/DD/examples.md:31",
      "text_changed": false
     },
     "knowledge_base/domains/DD/examples.md:39": {
@@ -1771,92 +1579,88 @@
      "to": "knowledge_base/domains/DD/examples.md:61",
      "text_changed": false
     },
-    "knowledge_base/domains/DM/examples.md:178": {
-     "to": "knowledge_base/domains/DM/examples.md:178",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DM/examples.md:330": {
-     "to": "knowledge_base/domains/DM/examples.md:330",
+    "knowledge_base/domains/DM/examples.md:7": {
+     "to": "knowledge_base/domains/DM/examples.md:7",
      "text_changed": false
     },
     "knowledge_base/domains/DM/examples.md:32": {
      "to": "knowledge_base/domains/DM/examples.md:32",
      "text_changed": false
     },
-    "knowledge_base/domains/DM/examples.md:76": {
-     "to": "knowledge_base/domains/DM/examples.md:76",
-     "text_changed": false
-    },
     "knowledge_base/domains/DM/examples.md:52": {
      "to": "knowledge_base/domains/DM/examples.md:52",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DM/examples.md:76": {
+     "to": "knowledge_base/domains/DM/examples.md:76",
      "text_changed": false
     },
     "knowledge_base/domains/DM/examples.md:92": {
      "to": "knowledge_base/domains/DM/examples.md:92",
      "text_changed": false
     },
-    "knowledge_base/domains/DM/examples.md:263": {
-     "to": "knowledge_base/domains/DM/examples.md:263",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DM/examples.md:435": {
-     "to": "knowledge_base/domains/DM/examples.md:435",
+    "knowledge_base/domains/DM/examples.md:178": {
+     "to": "knowledge_base/domains/DM/examples.md:178",
      "text_changed": false
     },
     "knowledge_base/domains/DM/examples.md:206": {
      "to": "knowledge_base/domains/DM/examples.md:206",
      "text_changed": false
     },
-    "knowledge_base/domains/DM/examples.md:356": {
-     "to": "knowledge_base/domains/DM/examples.md:356",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DM/examples.md:7": {
-     "to": "knowledge_base/domains/DM/examples.md:7",
-     "text_changed": false
-    },
     "knowledge_base/domains/DM/examples.md:220": {
      "to": "knowledge_base/domains/DM/examples.md:220",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DM/examples.md:263": {
+     "to": "knowledge_base/domains/DM/examples.md:263",
      "text_changed": false
     },
     "knowledge_base/domains/DM/examples.md:274": {
      "to": "knowledge_base/domains/DM/examples.md:274",
      "text_changed": false
     },
+    "knowledge_base/domains/DM/examples.md:330": {
+     "to": "knowledge_base/domains/DM/examples.md:330",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DM/examples.md:356": {
+     "to": "knowledge_base/domains/DM/examples.md:356",
+     "text_changed": false
+    },
     "knowledge_base/domains/DM/examples.md:372": {
      "to": "knowledge_base/domains/DM/examples.md:372",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DM/examples.md:435": {
+     "to": "knowledge_base/domains/DM/examples.md:435",
      "text_changed": false
     },
     "knowledge_base/domains/DM/examples.md:450": {
      "to": "knowledge_base/domains/DM/examples.md:450",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:247": {
-     "to": "knowledge_base/domains/DS/examples.md:247",
+    "knowledge_base/domains/DS/examples.md:23": {
+     "to": "knowledge_base/domains/DS/examples.md:23",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:353": {
-     "to": "knowledge_base/domains/DS/examples.md:353",
+    "knowledge_base/domains/DS/examples.md:57": {
+     "to": "knowledge_base/domains/DS/examples.md:57",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:226": {
-     "to": "knowledge_base/domains/DS/examples.md:226",
+    "knowledge_base/domains/DS/examples.md:77": {
+     "to": "knowledge_base/domains/DS/examples.md:77",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:342": {
-     "to": "knowledge_base/domains/DS/examples.md:342",
+    "knowledge_base/domains/DS/examples.md:93": {
+     "to": "knowledge_base/domains/DS/examples.md:93",
      "text_changed": false
     },
     "knowledge_base/domains/DS/examples.md:101": {
      "to": "knowledge_base/domains/DS/examples.md:101",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:23": {
-     "to": "knowledge_base/domains/DS/examples.md:23",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DS/examples.md:317": {
-     "to": "knowledge_base/domains/DS/examples.md:317",
+    "knowledge_base/domains/DS/examples.md:109": {
+     "to": "knowledge_base/domains/DS/examples.md:109",
      "text_changed": false
     },
     "knowledge_base/domains/DS/examples.md:128": {
@@ -1875,24 +1679,20 @@
      "to": "knowledge_base/domains/DS/examples.md:181",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:405": {
-     "to": "knowledge_base/domains/DS/examples.md:405",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DS/examples.md:93": {
-     "to": "knowledge_base/domains/DS/examples.md:93",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DS/examples.md:57": {
-     "to": "knowledge_base/domains/DS/examples.md:57",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DS/examples.md:77": {
-     "to": "knowledge_base/domains/DS/examples.md:77",
-     "text_changed": false
-    },
     "knowledge_base/domains/DS/examples.md:202": {
      "to": "knowledge_base/domains/DS/examples.md:202",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DS/examples.md:226": {
+     "to": "knowledge_base/domains/DS/examples.md:226",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DS/examples.md:247": {
+     "to": "knowledge_base/domains/DS/examples.md:247",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DS/examples.md:262": {
+     "to": "knowledge_base/domains/DS/examples.md:262",
      "text_changed": false
     },
     "knowledge_base/domains/DS/examples.md:271": {
@@ -1903,20 +1703,36 @@
      "to": "knowledge_base/domains/DS/examples.md:292",
      "text_changed": false
     },
+    "knowledge_base/domains/DS/examples.md:317": {
+     "to": "knowledge_base/domains/DS/examples.md:317",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DS/examples.md:342": {
+     "to": "knowledge_base/domains/DS/examples.md:342",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DS/examples.md:353": {
+     "to": "knowledge_base/domains/DS/examples.md:353",
+     "text_changed": false
+    },
     "knowledge_base/domains/DS/examples.md:381": {
      "to": "knowledge_base/domains/DS/examples.md:381",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:262": {
-     "to": "knowledge_base/domains/DS/examples.md:262",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DS/examples.md:109": {
-     "to": "knowledge_base/domains/DS/examples.md:109",
+    "knowledge_base/domains/DS/examples.md:405": {
+     "to": "knowledge_base/domains/DS/examples.md:405",
      "text_changed": false
     },
     "knowledge_base/domains/DV/examples.md:15": {
      "to": "knowledge_base/domains/DV/examples.md:15",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EG/examples.md:23": {
+     "to": "knowledge_base/domains/EG/examples.md:23",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EG/examples.md:48": {
+     "to": "knowledge_base/domains/EG/examples.md:48",
      "text_changed": false
     },
     "knowledge_base/domains/EG/examples.md:62": {
@@ -1927,20 +1743,52 @@
      "to": "knowledge_base/domains/EG/examples.md:101",
      "text_changed": false
     },
-    "knowledge_base/domains/EG/examples.md:48": {
-     "to": "knowledge_base/domains/EG/examples.md:48",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EG/examples.md:23": {
-     "to": "knowledge_base/domains/EG/examples.md:23",
-     "text_changed": false
-    },
     "knowledge_base/domains/EX/examples.md:13": {
      "to": "knowledge_base/domains/EX/examples.md:15",
      "text_changed": false
     },
     "knowledge_base/domains/EX/examples.md:19": {
      "to": "knowledge_base/domains/EX/examples.md:21",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:33": {
+     "to": "knowledge_base/domains/EX/examples.md:35",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:44": {
+     "to": "knowledge_base/domains/EX/examples.md:46",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:54": {
+     "to": "knowledge_base/domains/EX/examples.md:56",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:228": {
+     "to": "knowledge_base/domains/EX/examples.md:230",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:86": {
+     "to": "knowledge_base/domains/EX/examples.md:88",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:96": {
+     "to": "knowledge_base/domains/EX/examples.md:98",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:104": {
+     "to": "knowledge_base/domains/EX/examples.md:106",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:122": {
+     "to": "knowledge_base/domains/EX/examples.md:124",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:141": {
+     "to": "knowledge_base/domains/EX/examples.md:143",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:156": {
+     "to": "knowledge_base/domains/EX/examples.md:158",
      "text_changed": false
     },
     "knowledge_base/domains/EX/examples.md:173": {
@@ -1955,12 +1803,12 @@
      "to": "knowledge_base/domains/EX/examples.md:189",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:426": {
-     "to": "knowledge_base/domains/EX/examples.md:428",
+    "knowledge_base/domains/EX/examples.md:196": {
+     "to": "knowledge_base/domains/EX/examples.md:198",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:422": {
-     "to": "knowledge_base/domains/EX/examples.md:424",
+    "knowledge_base/domains/EX/examples.md:215": {
+     "to": "knowledge_base/domains/EX/examples.md:217",
      "text_changed": false
     },
     "knowledge_base/domains/EX/examples.md:243": {
@@ -1971,128 +1819,56 @@
      "to": "knowledge_base/domains/EX/examples.md:254",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:368": {
-     "to": "knowledge_base/domains/EX/examples.md:370",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:196": {
-     "to": "knowledge_base/domains/EX/examples.md:198",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:33": {
-     "to": "knowledge_base/domains/EX/examples.md:35",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:86": {
-     "to": "knowledge_base/domains/EX/examples.md:88",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:441": {
-     "to": "knowledge_base/domains/EX/examples.md:443",
-     "text_changed": false
-    },
     "knowledge_base/domains/EX/examples.md:263": {
      "to": "knowledge_base/domains/EX/examples.md:265",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:122": {
-     "to": "knowledge_base/domains/EX/examples.md:124",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:385": {
-     "to": "knowledge_base/domains/EX/examples.md:387",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:44": {
-     "to": "knowledge_base/domains/EX/examples.md:46",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:215": {
-     "to": "knowledge_base/domains/EX/examples.md:217",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:96": {
-     "to": "knowledge_base/domains/EX/examples.md:98",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:156": {
-     "to": "knowledge_base/domains/EX/examples.md:158",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:141": {
-     "to": "knowledge_base/domains/EX/examples.md:143",
      "text_changed": false
     },
     "knowledge_base/domains/EX/examples.md:298": {
      "to": "knowledge_base/domains/EX/examples.md:300",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:457": {
-     "to": "knowledge_base/domains/EX/examples.md:459",
+    "knowledge_base/domains/EX/examples.md:339": {
+     "to": "knowledge_base/domains/EX/examples.md:341",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:368": {
+     "to": "knowledge_base/domains/EX/examples.md:370",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:385": {
+     "to": "knowledge_base/domains/EX/examples.md:387",
      "text_changed": false
     },
     "knowledge_base/domains/EX/examples.md:394": {
      "to": "knowledge_base/domains/EX/examples.md:396",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:54": {
-     "to": "knowledge_base/domains/EX/examples.md:56",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:104": {
-     "to": "knowledge_base/domains/EX/examples.md:106",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:228": {
-     "to": "knowledge_base/domains/EX/examples.md:230",
-     "text_changed": false
-    },
     "knowledge_base/domains/EX/examples.md:407": {
      "to": "knowledge_base/domains/EX/examples.md:409",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:339": {
-     "to": "knowledge_base/domains/EX/examples.md:341",
+    "knowledge_base/domains/EX/examples.md:422": {
+     "to": "knowledge_base/domains/EX/examples.md:424",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:65": {
-     "to": "knowledge_base/domains/EX/examples.md:67",
-     "text_changed": true
+    "knowledge_base/domains/EX/examples.md:426": {
+     "to": "knowledge_base/domains/EX/examples.md:428",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:441": {
+     "to": "knowledge_base/domains/EX/examples.md:443",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:457": {
+     "to": "knowledge_base/domains/EX/examples.md:459",
+     "text_changed": false
     },
     "knowledge_base/domains/FA/assumptions.md:97": {
      "to": "knowledge_base/domains/FA/assumptions.md:83",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:273": {
-     "to": "knowledge_base/domains/FA/examples.md:273",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:133": {
-     "to": "knowledge_base/domains/FA/examples.md:133",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:176": {
-     "to": "knowledge_base/domains/FA/examples.md:176",
-     "text_changed": false
-    },
     "knowledge_base/domains/FA/examples.md:7": {
      "to": "knowledge_base/domains/FA/examples.md:7",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:76": {
-     "to": "knowledge_base/domains/FA/examples.md:76",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:293": {
-     "to": "knowledge_base/domains/FA/examples.md:293",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:93": {
-     "to": "knowledge_base/domains/FA/examples.md:93",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:210": {
-     "to": "knowledge_base/domains/FA/examples.md:210",
      "text_changed": false
     },
     "knowledge_base/domains/FA/examples.md:26": {
@@ -2107,20 +1883,32 @@
      "to": "knowledge_base/domains/FA/examples.md:45",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:306": {
-     "to": "knowledge_base/domains/FA/examples.md:306",
+    "knowledge_base/domains/FA/examples.md:67": {
+     "to": "knowledge_base/domains/FA/examples.md:67",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:76": {
+     "to": "knowledge_base/domains/FA/examples.md:76",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:93": {
+     "to": "knowledge_base/domains/FA/examples.md:93",
      "text_changed": false
     },
     "knowledge_base/domains/FA/examples.md:101": {
      "to": "knowledge_base/domains/FA/examples.md:101",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:239": {
-     "to": "knowledge_base/domains/FA/examples.md:239",
+    "knowledge_base/domains/FA/examples.md:122": {
+     "to": "knowledge_base/domains/FA/examples.md:122",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:192": {
-     "to": "knowledge_base/domains/FA/examples.md:192",
+    "knowledge_base/domains/FA/examples.md:133": {
+     "to": "knowledge_base/domains/FA/examples.md:133",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:138": {
+     "to": "knowledge_base/domains/FA/examples.md:138",
      "text_changed": false
     },
     "knowledge_base/domains/FA/examples.md:153": {
@@ -2131,32 +1919,48 @@
      "to": "knowledge_base/domains/FA/examples.md:166",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:67": {
-     "to": "knowledge_base/domains/FA/examples.md:67",
+    "knowledge_base/domains/FA/examples.md:176": {
+     "to": "knowledge_base/domains/FA/examples.md:176",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:122": {
-     "to": "knowledge_base/domains/FA/examples.md:122",
+    "knowledge_base/domains/FA/examples.md:192": {
+     "to": "knowledge_base/domains/FA/examples.md:192",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:319": {
-     "to": "knowledge_base/domains/FA/examples.md:319",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:138": {
-     "to": "knowledge_base/domains/FA/examples.md:138",
+    "knowledge_base/domains/FA/examples.md:210": {
+     "to": "knowledge_base/domains/FA/examples.md:210",
      "text_changed": false
     },
     "knowledge_base/domains/FA/examples.md:219": {
      "to": "knowledge_base/domains/FA/examples.md:219",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:279": {
-     "to": "knowledge_base/domains/FA/examples.md:279",
+    "knowledge_base/domains/FA/examples.md:239": {
+     "to": "knowledge_base/domains/FA/examples.md:239",
      "text_changed": false
     },
     "knowledge_base/domains/FA/examples.md:263": {
      "to": "knowledge_base/domains/FA/examples.md:263",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:273": {
+     "to": "knowledge_base/domains/FA/examples.md:273",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:279": {
+     "to": "knowledge_base/domains/FA/examples.md:279",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:293": {
+     "to": "knowledge_base/domains/FA/examples.md:293",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:306": {
+     "to": "knowledge_base/domains/FA/examples.md:306",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:319": {
+     "to": "knowledge_base/domains/FA/examples.md:319",
      "text_changed": false
     },
     "knowledge_base/domains/FT/examples.md:13": {
@@ -2167,40 +1971,40 @@
      "to": "knowledge_base/domains/FT/examples.md:26",
      "text_changed": false
     },
-    "knowledge_base/domains/GF/examples.md:45": {
-     "to": "knowledge_base/domains/GF/examples.md:45",
+    "knowledge_base/domains/GF/examples.md:27": {
+     "to": "knowledge_base/domains/GF/examples.md:27",
      "text_changed": false
     },
-    "knowledge_base/domains/GF/examples.md:111": {
-     "to": "knowledge_base/domains/GF/examples.md:111",
+    "knowledge_base/domains/GF/examples.md:45": {
+     "to": "knowledge_base/domains/GF/examples.md:45",
      "text_changed": false
     },
     "knowledge_base/domains/GF/examples.md:62": {
      "to": "knowledge_base/domains/GF/examples.md:62",
      "text_changed": false
     },
-    "knowledge_base/domains/GF/examples.md:126": {
-     "to": "knowledge_base/domains/GF/examples.md:126",
+    "knowledge_base/domains/GF/examples.md:86": {
+     "to": "knowledge_base/domains/GF/examples.md:86",
      "text_changed": false
     },
-    "knowledge_base/domains/GF/examples.md:163": {
-     "to": "knowledge_base/domains/GF/examples.md:163",
+    "knowledge_base/domains/GF/examples.md:111": {
+     "to": "knowledge_base/domains/GF/examples.md:111",
+     "text_changed": false
+    },
+    "knowledge_base/domains/GF/examples.md:126": {
+     "to": "knowledge_base/domains/GF/examples.md:126",
      "text_changed": false
     },
     "knowledge_base/domains/GF/examples.md:143": {
      "to": "knowledge_base/domains/GF/examples.md:143",
      "text_changed": false
     },
+    "knowledge_base/domains/GF/examples.md:163": {
+     "to": "knowledge_base/domains/GF/examples.md:163",
+     "text_changed": false
+    },
     "knowledge_base/domains/GF/examples.md:177": {
      "to": "knowledge_base/domains/GF/examples.md:177",
-     "text_changed": false
-    },
-    "knowledge_base/domains/GF/examples.md:86": {
-     "to": "knowledge_base/domains/GF/examples.md:86",
-     "text_changed": false
-    },
-    "knowledge_base/domains/GF/examples.md:27": {
-     "to": "knowledge_base/domains/GF/examples.md:27",
      "text_changed": false
     },
     "knowledge_base/domains/GF/examples.md:187": {
@@ -2211,12 +2015,12 @@
      "to": "knowledge_base/domains/HO/examples.md:19",
      "text_changed": false
     },
-    "knowledge_base/domains/HO/examples.md:61": {
-     "to": "knowledge_base/domains/HO/examples.md:61",
-     "text_changed": false
-    },
     "knowledge_base/domains/HO/examples.md:46": {
      "to": "knowledge_base/domains/HO/examples.md:46",
+     "text_changed": false
+    },
+    "knowledge_base/domains/HO/examples.md:61": {
+     "to": "knowledge_base/domains/HO/examples.md:61",
      "text_changed": false
     },
     "knowledge_base/domains/HO/examples.md:79": {
@@ -2225,18 +2029,6 @@
     },
     "knowledge_base/domains/IE/examples.md:13": {
      "to": "knowledge_base/domains/IE/examples.md:13",
-     "text_changed": false
-    },
-    "knowledge_base/domains/IS/examples.md:262": {
-     "to": "knowledge_base/domains/IS/examples.md:262",
-     "text_changed": false
-    },
-    "knowledge_base/domains/IS/examples.md:273": {
-     "to": "knowledge_base/domains/IS/examples.md:273",
-     "text_changed": false
-    },
-    "knowledge_base/domains/IS/examples.md:220": {
-     "to": "knowledge_base/domains/IS/examples.md:220",
      "text_changed": false
     },
     "knowledge_base/domains/IS/examples.md:17": {
@@ -2251,16 +2043,12 @@
      "to": "knowledge_base/domains/IS/examples.md:62",
      "text_changed": false
     },
-    "knowledge_base/domains/IS/examples.md:113": {
-     "to": "knowledge_base/domains/IS/examples.md:113",
-     "text_changed": false
-    },
-    "knowledge_base/domains/IS/examples.md:246": {
-     "to": "knowledge_base/domains/IS/examples.md:246",
-     "text_changed": false
-    },
     "knowledge_base/domains/IS/examples.md:85": {
      "to": "knowledge_base/domains/IS/examples.md:85",
+     "text_changed": false
+    },
+    "knowledge_base/domains/IS/examples.md:113": {
+     "to": "knowledge_base/domains/IS/examples.md:113",
      "text_changed": false
     },
     "knowledge_base/domains/IS/examples.md:141": {
@@ -2279,20 +2067,28 @@
      "to": "knowledge_base/domains/IS/examples.md:203",
      "text_changed": false
     },
+    "knowledge_base/domains/IS/examples.md:220": {
+     "to": "knowledge_base/domains/IS/examples.md:220",
+     "text_changed": false
+    },
+    "knowledge_base/domains/IS/examples.md:246": {
+     "to": "knowledge_base/domains/IS/examples.md:246",
+     "text_changed": false
+    },
+    "knowledge_base/domains/IS/examples.md:262": {
+     "to": "knowledge_base/domains/IS/examples.md:262",
+     "text_changed": false
+    },
+    "knowledge_base/domains/IS/examples.md:273": {
+     "to": "knowledge_base/domains/IS/examples.md:273",
+     "text_changed": false
+    },
     "knowledge_base/domains/LB/assumptions.md:20": {
      "to": "knowledge_base/domains/LB/assumptions.md:20",
      "text_changed": false
     },
-    "knowledge_base/domains/LB/examples.md:82": {
-     "to": "knowledge_base/domains/LB/examples.md:82",
-     "text_changed": false
-    },
     "knowledge_base/domains/LB/examples.md:22": {
      "to": "knowledge_base/domains/LB/examples.md:22",
-     "text_changed": false
-    },
-    "knowledge_base/domains/LB/examples.md:99": {
-     "to": "knowledge_base/domains/LB/examples.md:99",
      "text_changed": false
     },
     "knowledge_base/domains/LB/examples.md:52": {
@@ -2303,68 +2099,76 @@
      "to": "knowledge_base/domains/LB/examples.md:67",
      "text_changed": false
     },
-    "knowledge_base/domains/MB/examples.md:213": {
-     "to": "knowledge_base/domains/MB/examples.md:213",
+    "knowledge_base/domains/LB/examples.md:82": {
+     "to": "knowledge_base/domains/LB/examples.md:82",
      "text_changed": false
     },
-    "knowledge_base/domains/MB/examples.md:111": {
-     "to": "knowledge_base/domains/MB/examples.md:111",
-     "text_changed": false
-    },
-    "knowledge_base/domains/MB/examples.md:39": {
-     "to": "knowledge_base/domains/MB/examples.md:39",
-     "text_changed": false
-    },
-    "knowledge_base/domains/MB/examples.md:145": {
-     "to": "knowledge_base/domains/MB/examples.md:145",
-     "text_changed": false
-    },
-    "knowledge_base/domains/MB/examples.md:241": {
-     "to": "knowledge_base/domains/MB/examples.md:241",
+    "knowledge_base/domains/LB/examples.md:99": {
+     "to": "knowledge_base/domains/LB/examples.md:99",
      "text_changed": false
     },
     "knowledge_base/domains/MB/examples.md:15": {
      "to": "knowledge_base/domains/MB/examples.md:15",
      "text_changed": false
     },
-    "knowledge_base/domains/MB/examples.md:74": {
-     "to": "knowledge_base/domains/MB/examples.md:74",
+    "knowledge_base/domains/MB/examples.md:26": {
+     "to": "knowledge_base/domains/MB/examples.md:26",
      "text_changed": false
     },
-    "knowledge_base/domains/MB/examples.md:187": {
-     "to": "knowledge_base/domains/MB/examples.md:187",
+    "knowledge_base/domains/MB/examples.md:39": {
+     "to": "knowledge_base/domains/MB/examples.md:39",
      "text_changed": false
     },
     "knowledge_base/domains/MB/examples.md:53": {
      "to": "knowledge_base/domains/MB/examples.md:53",
      "text_changed": false
     },
+    "knowledge_base/domains/MB/examples.md:74": {
+     "to": "knowledge_base/domains/MB/examples.md:74",
+     "text_changed": false
+    },
     "knowledge_base/domains/MB/examples.md:87": {
      "to": "knowledge_base/domains/MB/examples.md:87",
+     "text_changed": false
+    },
+    "knowledge_base/domains/MB/examples.md:111": {
+     "to": "knowledge_base/domains/MB/examples.md:111",
      "text_changed": false
     },
     "knowledge_base/domains/MB/examples.md:126": {
      "to": "knowledge_base/domains/MB/examples.md:126",
      "text_changed": false
     },
+    "knowledge_base/domains/MB/examples.md:145": {
+     "to": "knowledge_base/domains/MB/examples.md:145",
+     "text_changed": false
+    },
+    "knowledge_base/domains/MB/examples.md:162": {
+     "to": "knowledge_base/domains/MB/examples.md:162",
+     "text_changed": false
+    },
+    "knowledge_base/domains/MB/examples.md:187": {
+     "to": "knowledge_base/domains/MB/examples.md:187",
+     "text_changed": false
+    },
     "knowledge_base/domains/MB/examples.md:198": {
      "to": "knowledge_base/domains/MB/examples.md:198",
      "text_changed": false
     },
-    "knowledge_base/domains/MB/examples.md:250": {
-     "to": "knowledge_base/domains/MB/examples.md:250",
-     "text_changed": false
-    },
-    "knowledge_base/domains/MB/examples.md:26": {
-     "to": "knowledge_base/domains/MB/examples.md:26",
+    "knowledge_base/domains/MB/examples.md:213": {
+     "to": "knowledge_base/domains/MB/examples.md:213",
      "text_changed": false
     },
     "knowledge_base/domains/MB/examples.md:222": {
      "to": "knowledge_base/domains/MB/examples.md:222",
      "text_changed": false
     },
-    "knowledge_base/domains/MB/examples.md:162": {
-     "to": "knowledge_base/domains/MB/examples.md:162",
+    "knowledge_base/domains/MB/examples.md:241": {
+     "to": "knowledge_base/domains/MB/examples.md:241",
+     "text_changed": false
+    },
+    "knowledge_base/domains/MB/examples.md:250": {
+     "to": "knowledge_base/domains/MB/examples.md:250",
      "text_changed": false
     },
     "knowledge_base/domains/MH/assumptions.md:36": {
@@ -2375,36 +2179,36 @@
      "to": "knowledge_base/domains/MH/examples.md:13",
      "text_changed": false
     },
-    "knowledge_base/domains/MH/examples.md:104": {
-     "to": "knowledge_base/domains/MH/examples.md:104",
-     "text_changed": false
-    },
     "knowledge_base/domains/MH/examples.md:39": {
      "to": "knowledge_base/domains/MH/examples.md:39",
-     "text_changed": false
-    },
-    "knowledge_base/domains/MH/examples.md:83": {
-     "to": "knowledge_base/domains/MH/examples.md:83",
      "text_changed": false
     },
     "knowledge_base/domains/MH/examples.md:60": {
      "to": "knowledge_base/domains/MH/examples.md:60",
      "text_changed": false
     },
-    "knowledge_base/domains/MI/examples.md:50": {
-     "to": "knowledge_base/domains/MI/examples.md:50",
+    "knowledge_base/domains/MH/examples.md:83": {
+     "to": "knowledge_base/domains/MH/examples.md:83",
      "text_changed": false
     },
-    "knowledge_base/domains/MI/examples.md:27": {
-     "to": "knowledge_base/domains/MI/examples.md:27",
+    "knowledge_base/domains/MH/examples.md:104": {
+     "to": "knowledge_base/domains/MH/examples.md:104",
      "text_changed": false
     },
     "knowledge_base/domains/MI/examples.md:12": {
      "to": "knowledge_base/domains/MI/examples.md:12",
      "text_changed": false
     },
+    "knowledge_base/domains/MI/examples.md:27": {
+     "to": "knowledge_base/domains/MI/examples.md:27",
+     "text_changed": false
+    },
     "knowledge_base/domains/MI/examples.md:37": {
      "to": "knowledge_base/domains/MI/examples.md:37",
+     "text_changed": false
+    },
+    "knowledge_base/domains/MI/examples.md:50": {
+     "to": "knowledge_base/domains/MI/examples.md:50",
      "text_changed": false
     },
     "knowledge_base/domains/MI/examples.md:62": {
@@ -2415,13 +2219,13 @@
      "to": "knowledge_base/domains/MK/examples.md:17",
      "text_changed": false
     },
-    "knowledge_base/domains/MK/examples.md:49": {
-     "to": "knowledge_base/domains/MK/examples.md:49",
-     "text_changed": true
+    "knowledge_base/domains/ML/examples.md:14": {
+     "to": "knowledge_base/domains/ML/examples.md:14",
+     "text_changed": false
     },
-    "knowledge_base/domains/ML/examples.md:52": {
-     "to": "knowledge_base/domains/ML/examples.md:52",
-     "text_changed": true
+    "knowledge_base/domains/ML/examples.md:25": {
+     "to": "knowledge_base/domains/ML/examples.md:25",
+     "text_changed": false
     },
     "knowledge_base/domains/ML/examples.md:39": {
      "to": "knowledge_base/domains/ML/examples.md:39",
@@ -2429,14 +2233,6 @@
     },
     "knowledge_base/domains/ML/examples.md:63": {
      "to": "knowledge_base/domains/ML/examples.md:63",
-     "text_changed": false
-    },
-    "knowledge_base/domains/ML/examples.md:25": {
-     "to": "knowledge_base/domains/ML/examples.md:25",
-     "text_changed": false
-    },
-    "knowledge_base/domains/ML/examples.md:14": {
-     "to": "knowledge_base/domains/ML/examples.md:14",
      "text_changed": false
     },
     "knowledge_base/domains/MS/examples.md:21": {
@@ -2459,10 +2255,6 @@
      "to": "knowledge_base/domains/NV/assumptions.md:29",
      "text_changed": false
     },
-    "knowledge_base/domains/NV/examples.md:74": {
-     "to": "knowledge_base/domains/NV/examples.md:74",
-     "text_changed": false
-    },
     "knowledge_base/domains/NV/examples.md:15": {
      "to": "knowledge_base/domains/NV/examples.md:15",
      "text_changed": false
@@ -2475,56 +2267,64 @@
      "to": "knowledge_base/domains/NV/examples.md:48",
      "text_changed": false
     },
-    "knowledge_base/domains/OE/examples.md:110": {
-     "to": "knowledge_base/domains/OE/examples.md:110",
-     "text_changed": false
-    },
-    "knowledge_base/domains/OE/examples.md:159": {
-     "to": "knowledge_base/domains/OE/examples.md:159",
-     "text_changed": false
-    },
-    "knowledge_base/domains/OE/examples.md:75": {
-     "to": "knowledge_base/domains/OE/examples.md:75",
-     "text_changed": false
-    },
-    "knowledge_base/domains/OE/examples.md:140": {
-     "to": "knowledge_base/domains/OE/examples.md:140",
-     "text_changed": false
-    },
-    "knowledge_base/domains/OE/examples.md:42": {
-     "to": "knowledge_base/domains/OE/examples.md:42",
+    "knowledge_base/domains/NV/examples.md:74": {
+     "to": "knowledge_base/domains/NV/examples.md:74",
      "text_changed": false
     },
     "knowledge_base/domains/OE/examples.md:12": {
      "to": "knowledge_base/domains/OE/examples.md:12",
      "text_changed": false
     },
-    "knowledge_base/domains/OE/examples.md:98": {
-     "to": "knowledge_base/domains/OE/examples.md:98",
-     "text_changed": false
-    },
     "knowledge_base/domains/OE/examples.md:22": {
      "to": "knowledge_base/domains/OE/examples.md:22",
+     "text_changed": false
+    },
+    "knowledge_base/domains/OE/examples.md:42": {
+     "to": "knowledge_base/domains/OE/examples.md:42",
      "text_changed": false
     },
     "knowledge_base/domains/OE/examples.md:57": {
      "to": "knowledge_base/domains/OE/examples.md:57",
      "text_changed": false
     },
+    "knowledge_base/domains/OE/examples.md:75": {
+     "to": "knowledge_base/domains/OE/examples.md:75",
+     "text_changed": false
+    },
     "knowledge_base/domains/OE/examples.md:88": {
      "to": "knowledge_base/domains/OE/examples.md:88",
      "text_changed": false
     },
-    "knowledge_base/domains/OE/examples.md:151": {
-     "to": "knowledge_base/domains/OE/examples.md:151",
+    "knowledge_base/domains/OE/examples.md:98": {
+     "to": "knowledge_base/domains/OE/examples.md:98",
+     "text_changed": false
+    },
+    "knowledge_base/domains/OE/examples.md:110": {
+     "to": "knowledge_base/domains/OE/examples.md:110",
      "text_changed": false
     },
     "knowledge_base/domains/OE/examples.md:121": {
      "to": "knowledge_base/domains/OE/examples.md:121",
      "text_changed": false
     },
+    "knowledge_base/domains/OE/examples.md:140": {
+     "to": "knowledge_base/domains/OE/examples.md:140",
+     "text_changed": false
+    },
+    "knowledge_base/domains/OE/examples.md:151": {
+     "to": "knowledge_base/domains/OE/examples.md:151",
+     "text_changed": false
+    },
+    "knowledge_base/domains/OE/examples.md:159": {
+     "to": "knowledge_base/domains/OE/examples.md:159",
+     "text_changed": false
+    },
     "knowledge_base/domains/OI/examples.md:17": {
      "to": "knowledge_base/domains/OI/examples.md:17",
+     "text_changed": false
+    },
+    "knowledge_base/domains/PC/assumptions.md:29": {
+     "to": "knowledge_base/domains/PC/assumptions.md:33",
      "text_changed": false
     },
     "knowledge_base/domains/PC/assumptions.md:55": {
@@ -2533,10 +2333,6 @@
     },
     "knowledge_base/domains/PC/assumptions.md:86": {
      "to": "knowledge_base/domains/PC/assumptions.md:90",
-     "text_changed": false
-    },
-    "knowledge_base/domains/PC/assumptions.md:29": {
-     "to": "knowledge_base/domains/PC/assumptions.md:33",
      "text_changed": false
     },
     "knowledge_base/domains/PC/examples.md:25": {
@@ -2603,16 +2399,8 @@
      "to": "knowledge_base/domains/PE/examples.md:12",
      "text_changed": false
     },
-    "knowledge_base/domains/PP/examples.md:120": {
-     "to": "knowledge_base/domains/PP/examples.md:120",
-     "text_changed": false
-    },
     "knowledge_base/domains/PP/examples.md:16": {
      "to": "knowledge_base/domains/PP/examples.md:14",
-     "text_changed": false
-    },
-    "knowledge_base/domains/PP/examples.md:87": {
-     "to": "knowledge_base/domains/PP/examples.md:85",
      "text_changed": false
     },
     "knowledge_base/domains/PP/examples.md:54": {
@@ -2623,48 +2411,52 @@
      "to": "knowledge_base/domains/PP/examples.md:66",
      "text_changed": false
     },
+    "knowledge_base/domains/PP/examples.md:87": {
+     "to": "knowledge_base/domains/PP/examples.md:85",
+     "text_changed": false
+    },
+    "knowledge_base/domains/PP/examples.md:120": {
+     "to": "knowledge_base/domains/PP/examples.md:120",
+     "text_changed": false
+    },
     "knowledge_base/domains/PP/examples.md:152": {
      "to": "knowledge_base/domains/PP/examples.md:152",
-     "text_changed": false
-    },
-    "knowledge_base/domains/PR/examples.md:33": {
-     "to": "knowledge_base/domains/PR/examples.md:33",
-     "text_changed": false
-    },
-    "knowledge_base/domains/PR/examples.md:25": {
-     "to": "knowledge_base/domains/PR/examples.md:25",
-     "text_changed": false
-    },
-    "knowledge_base/domains/PR/examples.md:54": {
-     "to": "knowledge_base/domains/PR/examples.md:54",
      "text_changed": false
     },
     "knowledge_base/domains/PR/examples.md:9": {
      "to": "knowledge_base/domains/PR/examples.md:9",
      "text_changed": false
     },
+    "knowledge_base/domains/PR/examples.md:25": {
+     "to": "knowledge_base/domains/PR/examples.md:25",
+     "text_changed": false
+    },
+    "knowledge_base/domains/PR/examples.md:33": {
+     "to": "knowledge_base/domains/PR/examples.md:33",
+     "text_changed": false
+    },
     "knowledge_base/domains/PR/examples.md:43": {
      "to": "knowledge_base/domains/PR/examples.md:43",
+     "text_changed": false
+    },
+    "knowledge_base/domains/PR/examples.md:54": {
+     "to": "knowledge_base/domains/PR/examples.md:54",
      "text_changed": false
     },
     "knowledge_base/domains/QS/examples.md:13": {
      "to": "knowledge_base/domains/QS/examples.md:13",
      "text_changed": false
     },
+    "knowledge_base/domains/RE/examples.md:15": {
+     "to": "knowledge_base/domains/RE/examples.md:15",
+     "text_changed": false
+    },
     "knowledge_base/domains/RE/examples.md:27": {
      "to": "knowledge_base/domains/RE/examples.md:27",
      "text_changed": false
     },
-    "knowledge_base/domains/RE/examples.md:74": {
-     "to": "knowledge_base/domains/RE/examples.md:74",
-     "text_changed": false
-    },
     "knowledge_base/domains/RE/examples.md:36": {
      "to": "knowledge_base/domains/RE/examples.md:36",
-     "text_changed": false
-    },
-    "knowledge_base/domains/RE/examples.md:15": {
-     "to": "knowledge_base/domains/RE/examples.md:15",
      "text_changed": false
     },
     "knowledge_base/domains/RE/examples.md:49": {
@@ -2675,12 +2467,12 @@
      "to": "knowledge_base/domains/RE/examples.md:63",
      "text_changed": false
     },
-    "knowledge_base/domains/RELREC/examples.md:17": {
-     "to": "knowledge_base/domains/RELREC/examples.md:17",
+    "knowledge_base/domains/RE/examples.md:74": {
+     "to": "knowledge_base/domains/RE/examples.md:74",
      "text_changed": false
     },
-    "knowledge_base/domains/RELREC/examples.md:63": {
-     "to": "knowledge_base/domains/RELREC/examples.md:63",
+    "knowledge_base/domains/RELREC/examples.md:17": {
+     "to": "knowledge_base/domains/RELREC/examples.md:17",
      "text_changed": false
     },
     "knowledge_base/domains/RELREC/examples.md:32": {
@@ -2689,6 +2481,10 @@
     },
     "knowledge_base/domains/RELREC/examples.md:46": {
      "to": "knowledge_base/domains/RELREC/examples.md:46",
+     "text_changed": false
+    },
+    "knowledge_base/domains/RELREC/examples.md:63": {
+     "to": "knowledge_base/domains/RELREC/examples.md:63",
      "text_changed": false
     },
     "knowledge_base/domains/RELSPEC/examples.md:44": {
@@ -2711,10 +2507,6 @@
      "to": "knowledge_base/domains/RS/assumptions.md:46",
      "text_changed": false
     },
-    "knowledge_base/domains/RS/examples.md:57": {
-     "to": "knowledge_base/domains/RS/examples.md:57",
-     "text_changed": false
-    },
     "knowledge_base/domains/RS/examples.md:16": {
      "to": "knowledge_base/domains/RS/examples.md:16",
      "text_changed": false
@@ -2723,8 +2515,16 @@
      "to": "knowledge_base/domains/RS/examples.md:35",
      "text_changed": false
     },
+    "knowledge_base/domains/RS/examples.md:57": {
+     "to": "knowledge_base/domains/RS/examples.md:57",
+     "text_changed": false
+    },
     "knowledge_base/domains/RS/examples.md:82": {
      "to": "knowledge_base/domains/RS/examples.md:82",
+     "text_changed": false
+    },
+    "knowledge_base/domains/SC/examples.md:11": {
+     "to": "knowledge_base/domains/SC/examples.md:11",
      "text_changed": false
     },
     "knowledge_base/domains/SC/examples.md:32": {
@@ -2735,64 +2535,64 @@
      "to": "knowledge_base/domains/SC/examples.md:44",
      "text_changed": false
     },
-    "knowledge_base/domains/SC/examples.md:11": {
-     "to": "knowledge_base/domains/SC/examples.md:11",
-     "text_changed": false
-    },
     "knowledge_base/domains/SE/examples.md:23": {
      "to": "knowledge_base/domains/SE/examples.md:23",
-     "text_changed": false
-    },
-    "knowledge_base/domains/SE/examples.md:64": {
-     "to": "knowledge_base/domains/SE/examples.md:64",
      "text_changed": false
     },
     "knowledge_base/domains/SE/examples.md:44": {
      "to": "knowledge_base/domains/SE/examples.md:44",
      "text_changed": false
     },
+    "knowledge_base/domains/SE/examples.md:64": {
+     "to": "knowledge_base/domains/SE/examples.md:64",
+     "text_changed": false
+    },
     "knowledge_base/domains/SE/examples.md:79": {
      "to": "knowledge_base/domains/SE/examples.md:79",
-     "text_changed": false
-    },
-    "knowledge_base/domains/SM/examples.md:37": {
-     "to": "knowledge_base/domains/SM/examples.md:37",
-     "text_changed": false
-    },
-    "knowledge_base/domains/SM/examples.md:28": {
-     "to": "knowledge_base/domains/SM/examples.md:28",
      "text_changed": false
     },
     "knowledge_base/domains/SM/examples.md:15": {
      "to": "knowledge_base/domains/SM/examples.md:15",
      "text_changed": false
     },
-    "knowledge_base/domains/SR/examples.md:105": {
-     "to": "knowledge_base/domains/SR/examples.md:105",
+    "knowledge_base/domains/SM/examples.md:28": {
+     "to": "knowledge_base/domains/SM/examples.md:28",
      "text_changed": false
     },
-    "knowledge_base/domains/SR/examples.md:51": {
-     "to": "knowledge_base/domains/SR/examples.md:51",
+    "knowledge_base/domains/SM/examples.md:37": {
+     "to": "knowledge_base/domains/SM/examples.md:37",
      "text_changed": false
     },
     "knowledge_base/domains/SR/examples.md:14": {
      "to": "knowledge_base/domains/SR/examples.md:14",
      "text_changed": false
     },
-    "knowledge_base/domains/SR/examples.md:95": {
-     "to": "knowledge_base/domains/SR/examples.md:95",
-     "text_changed": false
-    },
     "knowledge_base/domains/SR/examples.md:34": {
      "to": "knowledge_base/domains/SR/examples.md:34",
+     "text_changed": false
+    },
+    "knowledge_base/domains/SR/examples.md:51": {
+     "to": "knowledge_base/domains/SR/examples.md:51",
      "text_changed": false
     },
     "knowledge_base/domains/SR/examples.md:64": {
      "to": "knowledge_base/domains/SR/examples.md:64",
      "text_changed": false
     },
+    "knowledge_base/domains/SR/examples.md:95": {
+     "to": "knowledge_base/domains/SR/examples.md:95",
+     "text_changed": false
+    },
+    "knowledge_base/domains/SR/examples.md:105": {
+     "to": "knowledge_base/domains/SR/examples.md:105",
+     "text_changed": false
+    },
     "knowledge_base/domains/SR/examples.md:113": {
      "to": "knowledge_base/domains/SR/examples.md:113",
+     "text_changed": false
+    },
+    "knowledge_base/domains/SS/examples.md:7": {
+     "to": "knowledge_base/domains/SS/examples.md:9",
      "text_changed": false
     },
     "knowledge_base/domains/SU/examples.md:35": {
@@ -2807,6 +2607,10 @@
      "to": "knowledge_base/domains/SUPPQUAL/examples.md:24",
      "text_changed": false
     },
+    "knowledge_base/domains/SV/examples.md:19": {
+     "to": "knowledge_base/domains/SV/examples.md:19",
+     "text_changed": false
+    },
     "knowledge_base/domains/SV/examples.md:46": {
      "to": "knowledge_base/domains/SV/examples.md:46",
      "text_changed": false
@@ -2815,68 +2619,60 @@
      "to": "knowledge_base/domains/SV/examples.md:79",
      "text_changed": false
     },
-    "knowledge_base/domains/SV/examples.md:19": {
-     "to": "knowledge_base/domains/SV/examples.md:19",
+    "knowledge_base/domains/TA/examples.md:141": {
+     "to": "knowledge_base/domains/TA/examples.md:141",
      "text_changed": false
-    },
-    "knowledge_base/domains/TA/assumptions.md:31": {
-     "to": "knowledge_base/domains/TA/assumptions.md:31",
-     "text_changed": true
     },
     "knowledge_base/domains/TA/examples.md:151": {
      "to": "knowledge_base/domains/TA/examples.md:151",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:335": {
-     "to": "knowledge_base/domains/TA/examples.md:335",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:506": {
-     "to": "knowledge_base/domains/TA/examples.md:506",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:676": {
-     "to": "knowledge_base/domains/TA/examples.md:676",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:762": {
-     "to": "knowledge_base/domains/TA/examples.md:762",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:844": {
-     "to": "knowledge_base/domains/TA/examples.md:844",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:985": {
-     "to": "knowledge_base/domains/TA/examples.md:985",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:495": {
-     "to": "knowledge_base/domains/TA/examples.md:495",
      "text_changed": false
     },
     "knowledge_base/domains/TA/examples.md:325": {
      "to": "knowledge_base/domains/TA/examples.md:325",
      "text_changed": false
     },
-    "knowledge_base/domains/TA/examples.md:976": {
-     "to": "knowledge_base/domains/TA/examples.md:976",
+    "knowledge_base/domains/TA/examples.md:335": {
+     "to": "knowledge_base/domains/TA/examples.md:335",
      "text_changed": false
     },
-    "knowledge_base/domains/TA/examples.md:141": {
-     "to": "knowledge_base/domains/TA/examples.md:141",
+    "knowledge_base/domains/TA/examples.md:495": {
+     "to": "knowledge_base/domains/TA/examples.md:495",
      "text_changed": false
     },
-    "knowledge_base/domains/TA/examples.md:753": {
-     "to": "knowledge_base/domains/TA/examples.md:753",
+    "knowledge_base/domains/TA/examples.md:506": {
+     "to": "knowledge_base/domains/TA/examples.md:506",
      "text_changed": false
     },
     "knowledge_base/domains/TA/examples.md:667": {
      "to": "knowledge_base/domains/TA/examples.md:667",
      "text_changed": false
     },
+    "knowledge_base/domains/TA/examples.md:676": {
+     "to": "knowledge_base/domains/TA/examples.md:676",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:753": {
+     "to": "knowledge_base/domains/TA/examples.md:753",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:762": {
+     "to": "knowledge_base/domains/TA/examples.md:762",
+     "text_changed": false
+    },
     "knowledge_base/domains/TA/examples.md:835": {
      "to": "knowledge_base/domains/TA/examples.md:835",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:844": {
+     "to": "knowledge_base/domains/TA/examples.md:844",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:976": {
+     "to": "knowledge_base/domains/TA/examples.md:976",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:985": {
+     "to": "knowledge_base/domains/TA/examples.md:985",
      "text_changed": false
     },
     "knowledge_base/domains/TD/examples.md:48": {
@@ -2889,10 +2685,6 @@
     },
     "knowledge_base/domains/TD/examples.md:161": {
      "to": "knowledge_base/domains/TD/examples.md:167",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TE/examples.md:99": {
-     "to": "knowledge_base/domains/TE/examples.md:99",
      "text_changed": false
     },
     "knowledge_base/domains/TE/examples.md:11": {
@@ -2911,6 +2703,10 @@
      "to": "knowledge_base/domains/TE/examples.md:79",
      "text_changed": false
     },
+    "knowledge_base/domains/TE/examples.md:99": {
+     "to": "knowledge_base/domains/TE/examples.md:99",
+     "text_changed": false
+    },
     "knowledge_base/domains/TI/examples.md:13": {
      "to": "knowledge_base/domains/TI/examples.md:13",
      "text_changed": false
@@ -2927,10 +2723,6 @@
      "to": "knowledge_base/domains/TR/examples.md:17",
      "text_changed": false
     },
-    "knowledge_base/domains/TR/examples.md:68": {
-     "to": "knowledge_base/domains/TR/examples.md:68",
-     "text_changed": false
-    },
     "knowledge_base/domains/TR/examples.md:51": {
      "to": "knowledge_base/domains/TR/examples.md:51",
      "text_changed": false
@@ -2939,12 +2731,16 @@
      "to": "knowledge_base/domains/TR/examples.md:107",
      "text_changed": false
     },
-    "knowledge_base/domains/TS/assumptions.md:75": {
-     "to": "knowledge_base/domains/TS/assumptions.md:75",
+    "knowledge_base/domains/TR/examples.md:68": {
+     "to": "knowledge_base/domains/TR/examples.md:68",
      "text_changed": false
     },
     "knowledge_base/domains/TS/assumptions.md:45": {
      "to": "knowledge_base/domains/TS/assumptions.md:45",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TS/assumptions.md:75": {
+     "to": "knowledge_base/domains/TS/assumptions.md:75",
      "text_changed": false
     },
     "knowledge_base/domains/TS/examples.md:9": {
@@ -2963,8 +2759,8 @@
      "to": "knowledge_base/domains/TS/examples.md:113",
      "text_changed": false
     },
-    "knowledge_base/domains/TU/assumptions.md:109": {
-     "to": "knowledge_base/domains/TU/assumptions.md:109",
+    "knowledge_base/domains/TU/assumptions.md:38": {
+     "to": "knowledge_base/domains/TU/assumptions.md:38",
      "text_changed": false
     },
     "knowledge_base/domains/TU/assumptions.md:56": {
@@ -2979,32 +2775,32 @@
      "to": "knowledge_base/domains/TU/assumptions.md:88",
      "text_changed": false
     },
-    "knowledge_base/domains/TU/assumptions.md:38": {
-     "to": "knowledge_base/domains/TU/assumptions.md:38",
-     "text_changed": false
-    },
     "knowledge_base/domains/TU/assumptions.md:98": {
      "to": "knowledge_base/domains/TU/assumptions.md:98",
      "text_changed": false
     },
-    "knowledge_base/domains/TU/examples.md:53": {
-     "to": "knowledge_base/domains/TU/examples.md:53",
+    "knowledge_base/domains/TU/assumptions.md:109": {
+     "to": "knowledge_base/domains/TU/assumptions.md:109",
      "text_changed": false
     },
     "knowledge_base/domains/TU/examples.md:21": {
      "to": "knowledge_base/domains/TU/examples.md:21",
      "text_changed": false
     },
-    "knowledge_base/domains/TU/examples.md:90": {
-     "to": "knowledge_base/domains/TU/examples.md:90",
-     "text_changed": false
-    },
     "knowledge_base/domains/TU/examples.md:33": {
      "to": "knowledge_base/domains/TU/examples.md:33",
      "text_changed": false
     },
+    "knowledge_base/domains/TU/examples.md:53": {
+     "to": "knowledge_base/domains/TU/examples.md:53",
+     "text_changed": false
+    },
     "knowledge_base/domains/TU/examples.md:68": {
      "to": "knowledge_base/domains/TU/examples.md:68",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TU/examples.md:90": {
+     "to": "knowledge_base/domains/TU/examples.md:90",
      "text_changed": false
     },
     "knowledge_base/domains/TV/examples.md:63": {
@@ -3027,21 +2823,277 @@
      "to": "knowledge_base/domains/VS/examples.md:15",
      "text_changed": false
     },
-    "knowledge_base/model/02_observation_classes.md:41": {
-     "to": "knowledge_base/model/02_observation_classes.md:43",
-     "text_changed": true
+    "knowledge_base/chapters/ch03_submitting_data.md:22": {
+     "to": "knowledge_base/chapters/ch03_submitting_data.md:22",
+     "text_changed": false
     },
-    "knowledge_base/model/02_observation_classes.md:93": {
-     "to": "knowledge_base/model/02_observation_classes.md:97",
-     "text_changed": true
+    "knowledge_base/chapters/ch04_general_assumptions.md:52": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:52",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:84": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:84",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:102": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:104",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:115": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:119",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:126": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:132",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:143": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:151",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:150": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:160",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:165": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:177",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:223": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:235",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:292": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:304",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:298": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:310",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:391": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:408",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:421": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:438",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:425": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:442",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:435": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:452",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:431": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:448",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:443": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:460",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:465": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:482",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:471": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:488",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:477": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:494",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:497": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:514",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:558": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:574",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:564": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:580",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:576": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:592",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:582": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:598",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:597": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:613",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:603": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:619",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:678": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:695",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:825": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:842",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:901": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:918",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:921": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:938",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:942": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:959",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1034": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1053",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1057": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1078",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1074": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1095",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1084": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1105",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1112": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1131",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1135": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1154",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1304": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1327",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1328": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1353",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1346": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1373",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1395": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1422",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1401": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1428",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1412": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1439",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1418": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1445",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1426": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1453",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1434": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1461",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1468": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1493",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1495": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1520",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1511": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1536",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1545": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1570",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:46": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:46",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:86": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:86",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:110": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:110",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:125": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:125",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:139": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:139",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:162": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:164",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:197": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:199",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:232": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:236",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:241": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:245",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:351": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:355",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:383": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:390",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:397": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:406",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:420": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:429",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:457": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:468",
+     "text_changed": false
     },
     "knowledge_base/model/02_observation_classes.md:212": {
      "to": "knowledge_base/model/02_observation_classes.md:289",
      "text_changed": false
     },
-    "knowledge_base/model/03_special_purpose_domains.md:17": {
-     "to": "knowledge_base/model/03_special_purpose_domains.md:23",
-     "text_changed": true
+    "knowledge_base/model/03_special_purpose_domains.md:79": {
+     "to": "knowledge_base/model/03_special_purpose_domains.md:91",
+     "text_changed": false
     },
     "knowledge_base/model/03_special_purpose_domains.md:105": {
      "to": "knowledge_base/model/03_special_purpose_domains.md:127",
@@ -3051,22 +3103,6 @@
      "to": "knowledge_base/model/03_special_purpose_domains.md:153",
      "text_changed": false
     },
-    "knowledge_base/model/03_special_purpose_domains.md:152": {
-     "to": "knowledge_base/model/03_special_purpose_domains.md:178",
-     "text_changed": true
-    },
-    "knowledge_base/model/03_special_purpose_domains.md:179": {
-     "to": "knowledge_base/model/03_special_purpose_domains.md:211",
-     "text_changed": true
-    },
-    "knowledge_base/model/03_special_purpose_domains.md:79": {
-     "to": "knowledge_base/model/03_special_purpose_domains.md:91",
-     "text_changed": false
-    },
-    "knowledge_base/model/03_special_purpose_domains.md:60": {
-     "to": "knowledge_base/model/03_special_purpose_domains.md:68",
-     "text_changed": true
-    },
     "knowledge_base/model/05_study_level_data.md:99": {
      "to": "knowledge_base/model/05_study_level_data.md:99",
      "text_changed": false
@@ -3075,22 +3111,6 @@
      "to": "knowledge_base/model/05_study_level_data.md:119",
      "text_changed": false
     },
-    "knowledge_base/model/05_study_level_data.md:35": {
-     "to": "knowledge_base/model/05_study_level_data.md:35",
-     "text_changed": true
-    },
-    "knowledge_base/model/05_study_level_data.md:53": {
-     "to": "knowledge_base/model/05_study_level_data.md:53",
-     "text_changed": true
-    },
-    "knowledge_base/model/05_study_level_data.md:74": {
-     "to": "knowledge_base/model/05_study_level_data.md:72",
-     "text_changed": true
-    },
-    "knowledge_base/model/05_study_level_data.md:144": {
-     "to": "knowledge_base/model/05_study_level_data.md:146",
-     "text_changed": true
-    },
     "knowledge_base/model/05_study_level_data.md:164": {
      "to": "knowledge_base/model/05_study_level_data.md:166",
      "text_changed": false
@@ -3098,18 +3118,6 @@
     "knowledge_base/model/05_study_level_data.md:182": {
      "to": "knowledge_base/model/05_study_level_data.md:184",
      "text_changed": false
-    },
-    "knowledge_base/model/05_study_level_data.md:196": {
-     "to": "knowledge_base/model/05_study_level_data.md:198",
-     "text_changed": true
-    },
-    "knowledge_base/model/05_study_level_data.md:215": {
-     "to": "knowledge_base/model/05_study_level_data.md:215",
-     "text_changed": true
-    },
-    "knowledge_base/model/05_study_level_data.md:235": {
-     "to": "knowledge_base/model/05_study_level_data.md:235",
-     "text_changed": true
     },
     "knowledge_base/model/05_study_level_data.md:267": {
      "to": "knowledge_base/model/05_study_level_data.md:267",
@@ -3123,12 +3131,12 @@
      "to": "knowledge_base/model/06_relationship_datasets.md:33",
      "text_changed": false
     },
-    "knowledge_base/model/06_relationship_datasets.md:71": {
-     "to": "knowledge_base/model/06_relationship_datasets.md:71",
+    "knowledge_base/model/06_relationship_datasets.md:50": {
+     "to": "knowledge_base/model/06_relationship_datasets.md:50",
      "text_changed": false
     },
-    "knowledge_base/model/06_relationship_datasets.md:173": {
-     "to": "knowledge_base/model/06_relationship_datasets.md:173",
+    "knowledge_base/model/06_relationship_datasets.md:71": {
+     "to": "knowledge_base/model/06_relationship_datasets.md:71",
      "text_changed": false
     },
     "knowledge_base/model/06_relationship_datasets.md:101": {
@@ -3147,13 +3155,93 @@
      "to": "knowledge_base/model/06_relationship_datasets.md:155",
      "text_changed": false
     },
+    "knowledge_base/model/06_relationship_datasets.md:173": {
+     "to": "knowledge_base/model/06_relationship_datasets.md:173",
+     "text_changed": false
+    },
     "knowledge_base/model/06_relationship_datasets.md:190": {
      "to": "knowledge_base/model/06_relationship_datasets.md:190",
      "text_changed": false
     },
-    "knowledge_base/model/06_relationship_datasets.md:50": {
-     "to": "knowledge_base/model/06_relationship_datasets.md:50",
-     "text_changed": false
+    "knowledge_base/chapters/ch08_relationships.md:319": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:323",
+     "text_changed": true
+    },
+    "knowledge_base/chapters/ch10_appendices.md:93": {
+     "to": "knowledge_base/chapters/ch10_appendices.md:161",
+     "text_changed": true
+    },
+    "knowledge_base/chapters/ch10_appendices.md:230": {
+     "to": "knowledge_base/chapters/ch10_appendices.md:335",
+     "text_changed": true
+    },
+    "knowledge_base/domains/EX/examples.md:65": {
+     "to": "knowledge_base/domains/EX/examples.md:67",
+     "text_changed": true
+    },
+    "knowledge_base/domains/MK/examples.md:49": {
+     "to": "knowledge_base/domains/MK/examples.md:49",
+     "text_changed": true
+    },
+    "knowledge_base/domains/ML/examples.md:52": {
+     "to": "knowledge_base/domains/ML/examples.md:52",
+     "text_changed": true
+    },
+    "knowledge_base/domains/TA/assumptions.md:31": {
+     "to": "knowledge_base/domains/TA/assumptions.md:31",
+     "text_changed": true
+    },
+    "knowledge_base/model/02_observation_classes.md:41": {
+     "to": "knowledge_base/model/02_observation_classes.md:43",
+     "text_changed": true
+    },
+    "knowledge_base/model/02_observation_classes.md:93": {
+     "to": "knowledge_base/model/02_observation_classes.md:97",
+     "text_changed": true
+    },
+    "knowledge_base/model/03_special_purpose_domains.md:17": {
+     "to": "knowledge_base/model/03_special_purpose_domains.md:23",
+     "text_changed": true
+    },
+    "knowledge_base/model/03_special_purpose_domains.md:152": {
+     "to": "knowledge_base/model/03_special_purpose_domains.md:178",
+     "text_changed": true
+    },
+    "knowledge_base/model/03_special_purpose_domains.md:179": {
+     "to": "knowledge_base/model/03_special_purpose_domains.md:211",
+     "text_changed": true
+    },
+    "knowledge_base/model/03_special_purpose_domains.md:60": {
+     "to": "knowledge_base/model/03_special_purpose_domains.md:68",
+     "text_changed": true
+    },
+    "knowledge_base/model/05_study_level_data.md:35": {
+     "to": "knowledge_base/model/05_study_level_data.md:35",
+     "text_changed": true
+    },
+    "knowledge_base/model/05_study_level_data.md:53": {
+     "to": "knowledge_base/model/05_study_level_data.md:53",
+     "text_changed": true
+    },
+    "knowledge_base/model/05_study_level_data.md:74": {
+     "to": "knowledge_base/model/05_study_level_data.md:72",
+     "text_changed": true
+    },
+    "knowledge_base/model/05_study_level_data.md:144": {
+     "to": "knowledge_base/model/05_study_level_data.md:146",
+     "text_changed": true
+    },
+    "knowledge_base/model/05_study_level_data.md:196": {
+     "to": "knowledge_base/model/05_study_level_data.md:198",
+     "text_changed": true
+    },
+    "knowledge_base/model/05_study_level_data.md:215": {
+     "to": "knowledge_base/model/05_study_level_data.md:215",
+     "text_changed": true
+    },
+    "knowledge_base/model/05_study_level_data.md:235": {
+     "to": "knowledge_base/model/05_study_level_data.md:235",
+     "text_changed": true
     },
     "knowledge_base/chapters/ch04_general_assumptions.md:487": {
      "to": "knowledge_base/chapters/ch04_general_assumptions.md:504",
@@ -3171,18 +3259,6 @@
      "to": "knowledge_base/chapters/ch04_general_assumptions.md:778",
      "text_changed": true
     },
-    "knowledge_base/chapters/ch04_general_assumptions.md:558": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:574",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:576": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:592",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:597": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:613",
-     "text_changed": false
-    },
     "knowledge_base/chapters/ch04_general_assumptions.md:1450": {
      "to": "knowledge_base/chapters/ch04_general_assumptions.md:1475",
      "text_changed": true
@@ -3195,85 +3271,9 @@
      "to": "knowledge_base/chapters/ch04_general_assumptions.md:425",
      "text_changed": true
     },
-    "knowledge_base/chapters/ch04_general_assumptions.md:564": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:580",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:582": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:598",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:603": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:619",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1328": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1353",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1304": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1327",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:102": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:104",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:126": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:132",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:115": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:119",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:143": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:151",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:150": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:160",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:165": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:177",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1346": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1373",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:383": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:390",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:232": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:236",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:241": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:245",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:162": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:164",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:457": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:468",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:397": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:406",
-     "text_changed": false
-    },
     "knowledge_base/chapters/ch10_appendices.md:19": {
      "to": "knowledge_base/chapters/ch10_appendices.md:94",
      "text_changed": true
-    },
-    "knowledge_base/domains/SS/examples.md:7": {
-     "to": "knowledge_base/domains/SS/examples.md:9",
-     "text_changed": false
     },
     "knowledge_base/model/02_observation_classes.md:251": {
      "to": "knowledge_base/model/02_observation_classes.md:334",
@@ -3534,7 +3534,7 @@
    "a": "00a2e93",
    "b": "HEAD",
    "paired": 497,
-   "unchanged": 479,
+   "unchanged": 480,
    "changed": [
     {
      "kinds": [
@@ -3956,42 +3956,6 @@
     },
     {
      "kinds": [
-      "n_rows",
-      "text"
-     ],
-     "a": {
-      "file": "knowledge_base/model/05_study_level_data.md",
-      "line": 215,
-      "header": "# | Variable | Label | Type | Role",
-      "ex": null,
-      "ds": null,
-      "status": "UNPARSEABLE",
-      "n_rows": 11,
-      "n_diffs": 0,
-      "md5": "cd485b694a5437a155d6d54fa061cc4b"
-     },
-     "b": {
-      "file": "knowledge_base/model/05_study_level_data.md",
-      "line": 237,
-      "header": "# | Variable | Label | Type | Role",
-      "ex": null,
-      "ds": null,
-      "status": "UNPARSEABLE",
-      "n_rows": 12,
-      "n_diffs": 0,
-      "md5": "6d10f89cef5950b1765c910302cea452"
-     },
-     "lines_removed": 9,
-     "lines_added": 10,
-     "sample": "`TS` → `AC`",
-     "diff_removed": [],
-     "diff_added": [],
-     "commits": [
-      "a59c2d3 fix(kb,tier-b): T4 thaw round (delegated rulings) — U-7 21 rows + A6 + CRF 58 + A5 structure/D6 prefix"
-     ]
-    },
-    {
-     "kinds": [
       "text"
      ],
      "a": {
@@ -4167,19 +4131,18 @@
     },
     {
      "kinds": [
-      "n_rows",
       "text"
      ],
      "a": {
       "file": "knowledge_base/model/05_study_level_data.md",
-      "line": 235,
+      "line": 215,
       "header": "# | Variable | Label | Type | Role",
       "ex": null,
       "ds": null,
       "status": "UNPARSEABLE",
-      "n_rows": 12,
+      "n_rows": 11,
       "n_diffs": 0,
-      "md5": "6d10f89cef5950b1765c910302cea452"
+      "md5": "cd485b694a5437a155d6d54fa061cc4b"
      },
      "b": {
       "file": "knowledge_base/model/05_study_level_data.md",
@@ -4192,7 +4155,7 @@
       "n_diffs": 0,
       "md5": "df8c3af66233a8e0a48163e53ffe12ca"
      },
-     "lines_removed": 14,
+     "lines_removed": 13,
      "lines_added": 13,
      "sample": "`` → ` Usage Restrictions |`",
      "diff_removed": [],
@@ -4203,352 +4166,24 @@
     }
    ],
    "map": {
-    "knowledge_base/chapters/ch03_submitting_data.md:22": {
-     "to": "knowledge_base/chapters/ch03_submitting_data.md:22",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:504": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:504",
-     "text_changed": true
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:574": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:574",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:592": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:592",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:613": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:613",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:438": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:438",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:448": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:448",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:460": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:460",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:514": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:514",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1053": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1053",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:52": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:52",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:695": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:695",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:842": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:842",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:470": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:470",
-     "text_changed": true
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:425": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:425",
-     "text_changed": true
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1105": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1105",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:580": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:580",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:598": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:598",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:619": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:619",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:442": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:442",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:452": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:452",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:408": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:408",
-     "text_changed": true
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1353": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1353",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1327": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1327",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1439": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1439",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1422": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1422",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1453": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1453",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:104": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:104",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:132": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:132",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:119": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:119",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:304": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:304",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:310": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:310",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1428": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1428",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1445": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1445",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1493": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1493",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:151": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:151",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:160": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:160",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:177": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:177",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1461": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1461",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1520": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1520",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:84": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:84",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1373": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1373",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:482": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:482",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:488": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:488",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:494": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:494",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1536": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1536",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:235": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:235",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1475": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1475",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:918": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:918",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:938": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:938",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:959": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:959",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1078": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1078",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1570": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1570",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1131": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1131",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1154": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1154",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:1095": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1095",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:787": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:787",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:766": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:766",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch04_general_assumptions.md:778": {
-     "to": "knowledge_base/chapters/ch04_general_assumptions.md:778",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:323": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:323",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:390": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:390",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:46": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:46",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:236": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:236",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:245": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:245",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:110": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:110",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:164": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:164",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:125": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:125",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:139": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:139",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:468": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:468",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:406": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:406",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:86": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:86",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:199": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:199",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:355": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:355",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch08_relationships.md:429": {
-     "to": "knowledge_base/chapters/ch08_relationships.md:429",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch10_appendices.md:323": {
-     "to": "knowledge_base/chapters/ch10_appendices.md:323",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch10_appendices.md:177": {
-     "to": "knowledge_base/chapters/ch10_appendices.md:177",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch10_appendices.md:11": {
-     "to": "knowledge_base/chapters/ch10_appendices.md:11",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch10_appendices.md:161": {
-     "to": "knowledge_base/chapters/ch10_appendices.md:161",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch10_appendices.md:407": {
-     "to": "knowledge_base/chapters/ch10_appendices.md:407",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch10_appendices.md:413": {
-     "to": "knowledge_base/chapters/ch10_appendices.md:413",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch10_appendices.md:335": {
-     "to": "knowledge_base/chapters/ch10_appendices.md:335",
-     "text_changed": false
-    },
-    "knowledge_base/chapters/ch10_appendices.md:94": {
-     "to": "knowledge_base/chapters/ch10_appendices.md:94",
-     "text_changed": false
-    },
     "knowledge_base/domains/AE/assumptions.md:61": {
      "to": "knowledge_base/domains/AE/assumptions.md:61",
      "text_changed": false
     },
-    "knowledge_base/domains/AE/examples.md:60": {
-     "to": "knowledge_base/domains/AE/examples.md:60",
-     "text_changed": false
-    },
-    "knowledge_base/domains/AE/examples.md:43": {
-     "to": "knowledge_base/domains/AE/examples.md:43",
+    "knowledge_base/domains/AE/examples.md:13": {
+     "to": "knowledge_base/domains/AE/examples.md:13",
      "text_changed": false
     },
     "knowledge_base/domains/AE/examples.md:29": {
      "to": "knowledge_base/domains/AE/examples.md:29",
      "text_changed": false
     },
-    "knowledge_base/domains/AE/examples.md:13": {
-     "to": "knowledge_base/domains/AE/examples.md:13",
+    "knowledge_base/domains/AE/examples.md:43": {
+     "to": "knowledge_base/domains/AE/examples.md:43",
+     "text_changed": false
+    },
+    "knowledge_base/domains/AE/examples.md:60": {
+     "to": "knowledge_base/domains/AE/examples.md:60",
      "text_changed": false
     },
     "knowledge_base/domains/AE/examples.md:79": {
@@ -4559,14 +4194,6 @@
      "to": "knowledge_base/domains/AE/examples.md:94",
      "text_changed": false
     },
-    "knowledge_base/domains/AG/examples.md:60": {
-     "to": "knowledge_base/domains/AG/examples.md:60",
-     "text_changed": false
-    },
-    "knowledge_base/domains/AG/examples.md:36": {
-     "to": "knowledge_base/domains/AG/examples.md:36",
-     "text_changed": false
-    },
     "knowledge_base/domains/AG/examples.md:13": {
      "to": "knowledge_base/domains/AG/examples.md:13",
      "text_changed": false
@@ -4575,48 +4202,56 @@
      "to": "knowledge_base/domains/AG/examples.md:28",
      "text_changed": false
     },
+    "knowledge_base/domains/AG/examples.md:36": {
+     "to": "knowledge_base/domains/AG/examples.md:36",
+     "text_changed": false
+    },
     "knowledge_base/domains/AG/examples.md:50": {
      "to": "knowledge_base/domains/AG/examples.md:50",
+     "text_changed": false
+    },
+    "knowledge_base/domains/AG/examples.md:60": {
+     "to": "knowledge_base/domains/AG/examples.md:60",
      "text_changed": false
     },
     "knowledge_base/domains/AG/examples.md:68": {
      "to": "knowledge_base/domains/AG/examples.md:68",
      "text_changed": false
     },
-    "knowledge_base/domains/BE/examples.md:39": {
-     "to": "knowledge_base/domains/BE/examples.md:39",
-     "text_changed": false
-    },
-    "knowledge_base/domains/BE/examples.md:120": {
-     "to": "knowledge_base/domains/BE/examples.md:120",
-     "text_changed": false
-    },
     "knowledge_base/domains/BE/examples.md:17": {
      "to": "knowledge_base/domains/BE/examples.md:17",
-     "text_changed": false
-    },
-    "knowledge_base/domains/BE/examples.md:80": {
-     "to": "knowledge_base/domains/BE/examples.md:80",
      "text_changed": false
     },
     "knowledge_base/domains/BE/examples.md:27": {
      "to": "knowledge_base/domains/BE/examples.md:27",
      "text_changed": false
     },
-    "knowledge_base/domains/BE/examples.md:101": {
-     "to": "knowledge_base/domains/BE/examples.md:101",
+    "knowledge_base/domains/BE/examples.md:39": {
+     "to": "knowledge_base/domains/BE/examples.md:39",
      "text_changed": false
     },
     "knowledge_base/domains/BE/examples.md:53": {
      "to": "knowledge_base/domains/BE/examples.md:53",
      "text_changed": false
     },
-    "knowledge_base/domains/BE/examples.md:149": {
-     "to": "knowledge_base/domains/BE/examples.md:149",
+    "knowledge_base/domains/BE/examples.md:80": {
+     "to": "knowledge_base/domains/BE/examples.md:80",
+     "text_changed": false
+    },
+    "knowledge_base/domains/BE/examples.md:101": {
+     "to": "knowledge_base/domains/BE/examples.md:101",
+     "text_changed": false
+    },
+    "knowledge_base/domains/BE/examples.md:120": {
+     "to": "knowledge_base/domains/BE/examples.md:120",
      "text_changed": false
     },
     "knowledge_base/domains/BE/examples.md:136": {
      "to": "knowledge_base/domains/BE/examples.md:136",
+     "text_changed": false
+    },
+    "knowledge_base/domains/BE/examples.md:149": {
+     "to": "knowledge_base/domains/BE/examples.md:149",
      "text_changed": false
     },
     "knowledge_base/domains/BS/examples.md:15": {
@@ -4631,44 +4266,48 @@
      "to": "knowledge_base/domains/CE/examples.md:11",
      "text_changed": false
     },
-    "knowledge_base/domains/CE/examples.md:41": {
-     "to": "knowledge_base/domains/CE/examples.md:41",
-     "text_changed": true
-    },
-    "knowledge_base/domains/CE/examples.md:72": {
-     "to": "knowledge_base/domains/CE/examples.md:72",
-     "text_changed": true
-    },
-    "knowledge_base/domains/CE/examples.md:121": {
-     "to": "knowledge_base/domains/CE/examples.md:121",
+    "knowledge_base/domains/CE/examples.md:24": {
+     "to": "knowledge_base/domains/CE/examples.md:24",
      "text_changed": false
     },
     "knowledge_base/domains/CE/examples.md:58": {
      "to": "knowledge_base/domains/CE/examples.md:58",
      "text_changed": false
     },
-    "knowledge_base/domains/CE/examples.md:24": {
-     "to": "knowledge_base/domains/CE/examples.md:24",
-     "text_changed": false
-    },
     "knowledge_base/domains/CE/examples.md:99": {
      "to": "knowledge_base/domains/CE/examples.md:99",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CE/examples.md:146": {
-     "to": "knowledge_base/domains/CE/examples.md:146",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CE/examples.md:131": {
-     "to": "knowledge_base/domains/CE/examples.md:131",
      "text_changed": false
     },
     "knowledge_base/domains/CE/examples.md:108": {
      "to": "knowledge_base/domains/CE/examples.md:108",
      "text_changed": false
     },
+    "knowledge_base/domains/CE/examples.md:121": {
+     "to": "knowledge_base/domains/CE/examples.md:121",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CE/examples.md:131": {
+     "to": "knowledge_base/domains/CE/examples.md:131",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CE/examples.md:146": {
+     "to": "knowledge_base/domains/CE/examples.md:146",
+     "text_changed": false
+    },
     "knowledge_base/domains/CE/examples.md:160": {
      "to": "knowledge_base/domains/CE/examples.md:160",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CM/examples.md:17": {
+     "to": "knowledge_base/domains/CM/examples.md:17",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CM/examples.md:36": {
+     "to": "knowledge_base/domains/CM/examples.md:36",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CM/examples.md:55": {
+     "to": "knowledge_base/domains/CM/examples.md:55",
      "text_changed": false
     },
     "knowledge_base/domains/CM/examples.md:71": {
@@ -4679,52 +4318,8 @@
      "to": "knowledge_base/domains/CM/examples.md:96",
      "text_changed": false
     },
-    "knowledge_base/domains/CM/examples.md:36": {
-     "to": "knowledge_base/domains/CM/examples.md:36",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CM/examples.md:17": {
-     "to": "knowledge_base/domains/CM/examples.md:17",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CM/examples.md:55": {
-     "to": "knowledge_base/domains/CM/examples.md:55",
-     "text_changed": false
-    },
     "knowledge_base/domains/CO/examples.md:23": {
      "to": "knowledge_base/domains/CO/examples.md:23",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:85": {
-     "to": "knowledge_base/domains/CP/examples.md:85",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:177": {
-     "to": "knowledge_base/domains/CP/examples.md:177",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:157": {
-     "to": "knowledge_base/domains/CP/examples.md:157",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:127": {
-     "to": "knowledge_base/domains/CP/examples.md:127",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:206": {
-     "to": "knowledge_base/domains/CP/examples.md:206",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:311": {
-     "to": "knowledge_base/domains/CP/examples.md:311",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:279": {
-     "to": "knowledge_base/domains/CP/examples.md:279",
-     "text_changed": false
-    },
-    "knowledge_base/domains/CP/examples.md:255": {
-     "to": "knowledge_base/domains/CP/examples.md:255",
      "text_changed": false
     },
     "knowledge_base/domains/CP/examples.md:31": {
@@ -4735,16 +4330,44 @@
      "to": "knowledge_base/domains/CP/examples.md:60",
      "text_changed": false
     },
+    "knowledge_base/domains/CP/examples.md:85": {
+     "to": "knowledge_base/domains/CP/examples.md:85",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:127": {
+     "to": "knowledge_base/domains/CP/examples.md:127",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:157": {
+     "to": "knowledge_base/domains/CP/examples.md:157",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:177": {
+     "to": "knowledge_base/domains/CP/examples.md:177",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:206": {
+     "to": "knowledge_base/domains/CP/examples.md:206",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:255": {
+     "to": "knowledge_base/domains/CP/examples.md:255",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:279": {
+     "to": "knowledge_base/domains/CP/examples.md:279",
+     "text_changed": false
+    },
+    "knowledge_base/domains/CP/examples.md:311": {
+     "to": "knowledge_base/domains/CP/examples.md:311",
+     "text_changed": false
+    },
     "knowledge_base/domains/CV/examples.md:9": {
      "to": "knowledge_base/domains/CV/examples.md:9",
      "text_changed": false
     },
     "knowledge_base/domains/CV/examples.md:23": {
      "to": "knowledge_base/domains/CV/examples.md:23",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DA/examples.md:41": {
-     "to": "knowledge_base/domains/DA/examples.md:41",
      "text_changed": false
     },
     "knowledge_base/domains/DA/examples.md:9": {
@@ -4755,12 +4378,16 @@
      "to": "knowledge_base/domains/DA/examples.md:24",
      "text_changed": false
     },
-    "knowledge_base/domains/DD/examples.md:31": {
-     "to": "knowledge_base/domains/DD/examples.md:31",
+    "knowledge_base/domains/DA/examples.md:41": {
+     "to": "knowledge_base/domains/DA/examples.md:41",
      "text_changed": false
     },
     "knowledge_base/domains/DD/examples.md:15": {
      "to": "knowledge_base/domains/DD/examples.md:15",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DD/examples.md:31": {
+     "to": "knowledge_base/domains/DD/examples.md:31",
      "text_changed": false
     },
     "knowledge_base/domains/DD/examples.md:39": {
@@ -4775,92 +4402,88 @@
      "to": "knowledge_base/domains/DD/examples.md:61",
      "text_changed": false
     },
-    "knowledge_base/domains/DM/examples.md:178": {
-     "to": "knowledge_base/domains/DM/examples.md:178",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DM/examples.md:330": {
-     "to": "knowledge_base/domains/DM/examples.md:330",
+    "knowledge_base/domains/DM/examples.md:7": {
+     "to": "knowledge_base/domains/DM/examples.md:7",
      "text_changed": false
     },
     "knowledge_base/domains/DM/examples.md:32": {
      "to": "knowledge_base/domains/DM/examples.md:32",
      "text_changed": false
     },
-    "knowledge_base/domains/DM/examples.md:76": {
-     "to": "knowledge_base/domains/DM/examples.md:76",
-     "text_changed": false
-    },
     "knowledge_base/domains/DM/examples.md:52": {
      "to": "knowledge_base/domains/DM/examples.md:52",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DM/examples.md:76": {
+     "to": "knowledge_base/domains/DM/examples.md:76",
      "text_changed": false
     },
     "knowledge_base/domains/DM/examples.md:92": {
      "to": "knowledge_base/domains/DM/examples.md:92",
      "text_changed": false
     },
-    "knowledge_base/domains/DM/examples.md:263": {
-     "to": "knowledge_base/domains/DM/examples.md:263",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DM/examples.md:435": {
-     "to": "knowledge_base/domains/DM/examples.md:435",
+    "knowledge_base/domains/DM/examples.md:178": {
+     "to": "knowledge_base/domains/DM/examples.md:178",
      "text_changed": false
     },
     "knowledge_base/domains/DM/examples.md:206": {
      "to": "knowledge_base/domains/DM/examples.md:206",
      "text_changed": false
     },
-    "knowledge_base/domains/DM/examples.md:356": {
-     "to": "knowledge_base/domains/DM/examples.md:356",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DM/examples.md:7": {
-     "to": "knowledge_base/domains/DM/examples.md:7",
-     "text_changed": false
-    },
     "knowledge_base/domains/DM/examples.md:220": {
      "to": "knowledge_base/domains/DM/examples.md:220",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DM/examples.md:263": {
+     "to": "knowledge_base/domains/DM/examples.md:263",
      "text_changed": false
     },
     "knowledge_base/domains/DM/examples.md:274": {
      "to": "knowledge_base/domains/DM/examples.md:274",
      "text_changed": false
     },
+    "knowledge_base/domains/DM/examples.md:330": {
+     "to": "knowledge_base/domains/DM/examples.md:330",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DM/examples.md:356": {
+     "to": "knowledge_base/domains/DM/examples.md:356",
+     "text_changed": false
+    },
     "knowledge_base/domains/DM/examples.md:372": {
      "to": "knowledge_base/domains/DM/examples.md:372",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DM/examples.md:435": {
+     "to": "knowledge_base/domains/DM/examples.md:435",
      "text_changed": false
     },
     "knowledge_base/domains/DM/examples.md:450": {
      "to": "knowledge_base/domains/DM/examples.md:450",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:247": {
-     "to": "knowledge_base/domains/DS/examples.md:247",
+    "knowledge_base/domains/DS/examples.md:23": {
+     "to": "knowledge_base/domains/DS/examples.md:23",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:353": {
-     "to": "knowledge_base/domains/DS/examples.md:353",
+    "knowledge_base/domains/DS/examples.md:57": {
+     "to": "knowledge_base/domains/DS/examples.md:57",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:226": {
-     "to": "knowledge_base/domains/DS/examples.md:226",
+    "knowledge_base/domains/DS/examples.md:77": {
+     "to": "knowledge_base/domains/DS/examples.md:77",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:342": {
-     "to": "knowledge_base/domains/DS/examples.md:342",
+    "knowledge_base/domains/DS/examples.md:93": {
+     "to": "knowledge_base/domains/DS/examples.md:93",
      "text_changed": false
     },
     "knowledge_base/domains/DS/examples.md:101": {
      "to": "knowledge_base/domains/DS/examples.md:101",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:23": {
-     "to": "knowledge_base/domains/DS/examples.md:23",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DS/examples.md:317": {
-     "to": "knowledge_base/domains/DS/examples.md:317",
+    "knowledge_base/domains/DS/examples.md:109": {
+     "to": "knowledge_base/domains/DS/examples.md:109",
      "text_changed": false
     },
     "knowledge_base/domains/DS/examples.md:128": {
@@ -4879,48 +4502,56 @@
      "to": "knowledge_base/domains/DS/examples.md:181",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:405": {
-     "to": "knowledge_base/domains/DS/examples.md:405",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DS/examples.md:93": {
-     "to": "knowledge_base/domains/DS/examples.md:93",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DS/examples.md:57": {
-     "to": "knowledge_base/domains/DS/examples.md:57",
-     "text_changed": false
-    },
-    "knowledge_base/domains/DS/examples.md:77": {
-     "to": "knowledge_base/domains/DS/examples.md:77",
-     "text_changed": false
-    },
     "knowledge_base/domains/DS/examples.md:202": {
      "to": "knowledge_base/domains/DS/examples.md:202",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:271": {
-     "to": "knowledge_base/domains/DS/examples.md:271",
+    "knowledge_base/domains/DS/examples.md:226": {
+     "to": "knowledge_base/domains/DS/examples.md:226",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:292": {
-     "to": "knowledge_base/domains/DS/examples.md:292",
-     "text_changed": true
-    },
-    "knowledge_base/domains/DS/examples.md:381": {
-     "to": "knowledge_base/domains/DS/examples.md:381",
+    "knowledge_base/domains/DS/examples.md:247": {
+     "to": "knowledge_base/domains/DS/examples.md:247",
      "text_changed": false
     },
     "knowledge_base/domains/DS/examples.md:262": {
      "to": "knowledge_base/domains/DS/examples.md:262",
      "text_changed": false
     },
-    "knowledge_base/domains/DS/examples.md:109": {
-     "to": "knowledge_base/domains/DS/examples.md:109",
+    "knowledge_base/domains/DS/examples.md:271": {
+     "to": "knowledge_base/domains/DS/examples.md:271",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DS/examples.md:317": {
+     "to": "knowledge_base/domains/DS/examples.md:317",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DS/examples.md:342": {
+     "to": "knowledge_base/domains/DS/examples.md:342",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DS/examples.md:353": {
+     "to": "knowledge_base/domains/DS/examples.md:353",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DS/examples.md:381": {
+     "to": "knowledge_base/domains/DS/examples.md:381",
+     "text_changed": false
+    },
+    "knowledge_base/domains/DS/examples.md:405": {
+     "to": "knowledge_base/domains/DS/examples.md:405",
      "text_changed": false
     },
     "knowledge_base/domains/DV/examples.md:15": {
      "to": "knowledge_base/domains/DV/examples.md:15",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EG/examples.md:23": {
+     "to": "knowledge_base/domains/EG/examples.md:23",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EG/examples.md:48": {
+     "to": "knowledge_base/domains/EG/examples.md:48",
      "text_changed": false
     },
     "knowledge_base/domains/EG/examples.md:62": {
@@ -4931,20 +4562,56 @@
      "to": "knowledge_base/domains/EG/examples.md:101",
      "text_changed": false
     },
-    "knowledge_base/domains/EG/examples.md:48": {
-     "to": "knowledge_base/domains/EG/examples.md:48",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EG/examples.md:23": {
-     "to": "knowledge_base/domains/EG/examples.md:23",
-     "text_changed": false
-    },
     "knowledge_base/domains/EX/examples.md:15": {
      "to": "knowledge_base/domains/EX/examples.md:15",
      "text_changed": false
     },
     "knowledge_base/domains/EX/examples.md:21": {
      "to": "knowledge_base/domains/EX/examples.md:21",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:35": {
+     "to": "knowledge_base/domains/EX/examples.md:35",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:46": {
+     "to": "knowledge_base/domains/EX/examples.md:46",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:56": {
+     "to": "knowledge_base/domains/EX/examples.md:56",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:230": {
+     "to": "knowledge_base/domains/EX/examples.md:230",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:67": {
+     "to": "knowledge_base/domains/EX/examples.md:67",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:88": {
+     "to": "knowledge_base/domains/EX/examples.md:88",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:98": {
+     "to": "knowledge_base/domains/EX/examples.md:98",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:106": {
+     "to": "knowledge_base/domains/EX/examples.md:106",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:124": {
+     "to": "knowledge_base/domains/EX/examples.md:124",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:143": {
+     "to": "knowledge_base/domains/EX/examples.md:143",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:158": {
+     "to": "knowledge_base/domains/EX/examples.md:158",
      "text_changed": false
     },
     "knowledge_base/domains/EX/examples.md:175": {
@@ -4959,12 +4626,12 @@
      "to": "knowledge_base/domains/EX/examples.md:189",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:428": {
-     "to": "knowledge_base/domains/EX/examples.md:428",
+    "knowledge_base/domains/EX/examples.md:198": {
+     "to": "knowledge_base/domains/EX/examples.md:198",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:424": {
-     "to": "knowledge_base/domains/EX/examples.md:424",
+    "knowledge_base/domains/EX/examples.md:217": {
+     "to": "knowledge_base/domains/EX/examples.md:217",
      "text_changed": false
     },
     "knowledge_base/domains/EX/examples.md:245": {
@@ -4975,128 +4642,56 @@
      "to": "knowledge_base/domains/EX/examples.md:254",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:370": {
-     "to": "knowledge_base/domains/EX/examples.md:370",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:198": {
-     "to": "knowledge_base/domains/EX/examples.md:198",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:35": {
-     "to": "knowledge_base/domains/EX/examples.md:35",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:88": {
-     "to": "knowledge_base/domains/EX/examples.md:88",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:443": {
-     "to": "knowledge_base/domains/EX/examples.md:443",
-     "text_changed": false
-    },
     "knowledge_base/domains/EX/examples.md:265": {
      "to": "knowledge_base/domains/EX/examples.md:265",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:124": {
-     "to": "knowledge_base/domains/EX/examples.md:124",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:387": {
-     "to": "knowledge_base/domains/EX/examples.md:387",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:46": {
-     "to": "knowledge_base/domains/EX/examples.md:46",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:217": {
-     "to": "knowledge_base/domains/EX/examples.md:217",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:98": {
-     "to": "knowledge_base/domains/EX/examples.md:98",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:158": {
-     "to": "knowledge_base/domains/EX/examples.md:158",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:143": {
-     "to": "knowledge_base/domains/EX/examples.md:143",
      "text_changed": false
     },
     "knowledge_base/domains/EX/examples.md:300": {
      "to": "knowledge_base/domains/EX/examples.md:300",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:459": {
-     "to": "knowledge_base/domains/EX/examples.md:459",
+    "knowledge_base/domains/EX/examples.md:341": {
+     "to": "knowledge_base/domains/EX/examples.md:341",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:370": {
+     "to": "knowledge_base/domains/EX/examples.md:370",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:387": {
+     "to": "knowledge_base/domains/EX/examples.md:387",
      "text_changed": false
     },
     "knowledge_base/domains/EX/examples.md:396": {
      "to": "knowledge_base/domains/EX/examples.md:396",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:56": {
-     "to": "knowledge_base/domains/EX/examples.md:56",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:106": {
-     "to": "knowledge_base/domains/EX/examples.md:106",
-     "text_changed": false
-    },
-    "knowledge_base/domains/EX/examples.md:230": {
-     "to": "knowledge_base/domains/EX/examples.md:230",
-     "text_changed": false
-    },
     "knowledge_base/domains/EX/examples.md:409": {
      "to": "knowledge_base/domains/EX/examples.md:409",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:341": {
-     "to": "knowledge_base/domains/EX/examples.md:341",
+    "knowledge_base/domains/EX/examples.md:424": {
+     "to": "knowledge_base/domains/EX/examples.md:424",
      "text_changed": false
     },
-    "knowledge_base/domains/EX/examples.md:67": {
-     "to": "knowledge_base/domains/EX/examples.md:67",
+    "knowledge_base/domains/EX/examples.md:428": {
+     "to": "knowledge_base/domains/EX/examples.md:428",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:443": {
+     "to": "knowledge_base/domains/EX/examples.md:443",
+     "text_changed": false
+    },
+    "knowledge_base/domains/EX/examples.md:459": {
+     "to": "knowledge_base/domains/EX/examples.md:459",
      "text_changed": false
     },
     "knowledge_base/domains/FA/assumptions.md:83": {
      "to": "knowledge_base/domains/FA/assumptions.md:83",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:273": {
-     "to": "knowledge_base/domains/FA/examples.md:273",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:133": {
-     "to": "knowledge_base/domains/FA/examples.md:133",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:176": {
-     "to": "knowledge_base/domains/FA/examples.md:176",
-     "text_changed": false
-    },
     "knowledge_base/domains/FA/examples.md:7": {
      "to": "knowledge_base/domains/FA/examples.md:7",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:76": {
-     "to": "knowledge_base/domains/FA/examples.md:76",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:293": {
-     "to": "knowledge_base/domains/FA/examples.md:293",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:93": {
-     "to": "knowledge_base/domains/FA/examples.md:93",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:210": {
-     "to": "knowledge_base/domains/FA/examples.md:210",
      "text_changed": false
     },
     "knowledge_base/domains/FA/examples.md:26": {
@@ -5111,20 +4706,32 @@
      "to": "knowledge_base/domains/FA/examples.md:45",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:306": {
-     "to": "knowledge_base/domains/FA/examples.md:306",
+    "knowledge_base/domains/FA/examples.md:67": {
+     "to": "knowledge_base/domains/FA/examples.md:67",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:76": {
+     "to": "knowledge_base/domains/FA/examples.md:76",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:93": {
+     "to": "knowledge_base/domains/FA/examples.md:93",
      "text_changed": false
     },
     "knowledge_base/domains/FA/examples.md:101": {
      "to": "knowledge_base/domains/FA/examples.md:101",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:239": {
-     "to": "knowledge_base/domains/FA/examples.md:239",
+    "knowledge_base/domains/FA/examples.md:122": {
+     "to": "knowledge_base/domains/FA/examples.md:122",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:192": {
-     "to": "knowledge_base/domains/FA/examples.md:192",
+    "knowledge_base/domains/FA/examples.md:133": {
+     "to": "knowledge_base/domains/FA/examples.md:133",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:138": {
+     "to": "knowledge_base/domains/FA/examples.md:138",
      "text_changed": false
     },
     "knowledge_base/domains/FA/examples.md:153": {
@@ -5135,32 +4742,48 @@
      "to": "knowledge_base/domains/FA/examples.md:166",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:67": {
-     "to": "knowledge_base/domains/FA/examples.md:67",
+    "knowledge_base/domains/FA/examples.md:176": {
+     "to": "knowledge_base/domains/FA/examples.md:176",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:122": {
-     "to": "knowledge_base/domains/FA/examples.md:122",
+    "knowledge_base/domains/FA/examples.md:192": {
+     "to": "knowledge_base/domains/FA/examples.md:192",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:319": {
-     "to": "knowledge_base/domains/FA/examples.md:319",
-     "text_changed": false
-    },
-    "knowledge_base/domains/FA/examples.md:138": {
-     "to": "knowledge_base/domains/FA/examples.md:138",
+    "knowledge_base/domains/FA/examples.md:210": {
+     "to": "knowledge_base/domains/FA/examples.md:210",
      "text_changed": false
     },
     "knowledge_base/domains/FA/examples.md:219": {
      "to": "knowledge_base/domains/FA/examples.md:219",
      "text_changed": false
     },
-    "knowledge_base/domains/FA/examples.md:279": {
-     "to": "knowledge_base/domains/FA/examples.md:279",
+    "knowledge_base/domains/FA/examples.md:239": {
+     "to": "knowledge_base/domains/FA/examples.md:239",
      "text_changed": false
     },
     "knowledge_base/domains/FA/examples.md:263": {
      "to": "knowledge_base/domains/FA/examples.md:263",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:273": {
+     "to": "knowledge_base/domains/FA/examples.md:273",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:279": {
+     "to": "knowledge_base/domains/FA/examples.md:279",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:293": {
+     "to": "knowledge_base/domains/FA/examples.md:293",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:306": {
+     "to": "knowledge_base/domains/FA/examples.md:306",
+     "text_changed": false
+    },
+    "knowledge_base/domains/FA/examples.md:319": {
+     "to": "knowledge_base/domains/FA/examples.md:319",
      "text_changed": false
     },
     "knowledge_base/domains/FT/examples.md:13": {
@@ -5171,40 +4794,40 @@
      "to": "knowledge_base/domains/FT/examples.md:26",
      "text_changed": false
     },
-    "knowledge_base/domains/GF/examples.md:45": {
-     "to": "knowledge_base/domains/GF/examples.md:45",
+    "knowledge_base/domains/GF/examples.md:27": {
+     "to": "knowledge_base/domains/GF/examples.md:27",
      "text_changed": false
     },
-    "knowledge_base/domains/GF/examples.md:111": {
-     "to": "knowledge_base/domains/GF/examples.md:111",
+    "knowledge_base/domains/GF/examples.md:45": {
+     "to": "knowledge_base/domains/GF/examples.md:45",
      "text_changed": false
     },
     "knowledge_base/domains/GF/examples.md:62": {
      "to": "knowledge_base/domains/GF/examples.md:62",
      "text_changed": false
     },
-    "knowledge_base/domains/GF/examples.md:126": {
-     "to": "knowledge_base/domains/GF/examples.md:126",
+    "knowledge_base/domains/GF/examples.md:86": {
+     "to": "knowledge_base/domains/GF/examples.md:86",
      "text_changed": false
     },
-    "knowledge_base/domains/GF/examples.md:163": {
-     "to": "knowledge_base/domains/GF/examples.md:163",
+    "knowledge_base/domains/GF/examples.md:111": {
+     "to": "knowledge_base/domains/GF/examples.md:111",
+     "text_changed": false
+    },
+    "knowledge_base/domains/GF/examples.md:126": {
+     "to": "knowledge_base/domains/GF/examples.md:126",
      "text_changed": false
     },
     "knowledge_base/domains/GF/examples.md:143": {
      "to": "knowledge_base/domains/GF/examples.md:143",
      "text_changed": false
     },
+    "knowledge_base/domains/GF/examples.md:163": {
+     "to": "knowledge_base/domains/GF/examples.md:163",
+     "text_changed": false
+    },
     "knowledge_base/domains/GF/examples.md:177": {
      "to": "knowledge_base/domains/GF/examples.md:177",
-     "text_changed": false
-    },
-    "knowledge_base/domains/GF/examples.md:86": {
-     "to": "knowledge_base/domains/GF/examples.md:86",
-     "text_changed": false
-    },
-    "knowledge_base/domains/GF/examples.md:27": {
-     "to": "knowledge_base/domains/GF/examples.md:27",
      "text_changed": false
     },
     "knowledge_base/domains/GF/examples.md:187": {
@@ -5215,12 +4838,12 @@
      "to": "knowledge_base/domains/HO/examples.md:19",
      "text_changed": false
     },
-    "knowledge_base/domains/HO/examples.md:61": {
-     "to": "knowledge_base/domains/HO/examples.md:61",
-     "text_changed": false
-    },
     "knowledge_base/domains/HO/examples.md:46": {
      "to": "knowledge_base/domains/HO/examples.md:46",
+     "text_changed": false
+    },
+    "knowledge_base/domains/HO/examples.md:61": {
+     "to": "knowledge_base/domains/HO/examples.md:61",
      "text_changed": false
     },
     "knowledge_base/domains/HO/examples.md:79": {
@@ -5229,18 +4852,6 @@
     },
     "knowledge_base/domains/IE/examples.md:13": {
      "to": "knowledge_base/domains/IE/examples.md:13",
-     "text_changed": false
-    },
-    "knowledge_base/domains/IS/examples.md:262": {
-     "to": "knowledge_base/domains/IS/examples.md:262",
-     "text_changed": false
-    },
-    "knowledge_base/domains/IS/examples.md:273": {
-     "to": "knowledge_base/domains/IS/examples.md:273",
-     "text_changed": false
-    },
-    "knowledge_base/domains/IS/examples.md:220": {
-     "to": "knowledge_base/domains/IS/examples.md:220",
      "text_changed": false
     },
     "knowledge_base/domains/IS/examples.md:17": {
@@ -5255,16 +4866,12 @@
      "to": "knowledge_base/domains/IS/examples.md:62",
      "text_changed": false
     },
-    "knowledge_base/domains/IS/examples.md:113": {
-     "to": "knowledge_base/domains/IS/examples.md:113",
-     "text_changed": false
-    },
-    "knowledge_base/domains/IS/examples.md:246": {
-     "to": "knowledge_base/domains/IS/examples.md:246",
-     "text_changed": false
-    },
     "knowledge_base/domains/IS/examples.md:85": {
      "to": "knowledge_base/domains/IS/examples.md:85",
+     "text_changed": false
+    },
+    "knowledge_base/domains/IS/examples.md:113": {
+     "to": "knowledge_base/domains/IS/examples.md:113",
      "text_changed": false
     },
     "knowledge_base/domains/IS/examples.md:141": {
@@ -5279,24 +4886,28 @@
      "to": "knowledge_base/domains/IS/examples.md:183",
      "text_changed": false
     },
-    "knowledge_base/domains/IS/examples.md:203": {
-     "to": "knowledge_base/domains/IS/examples.md:203",
-     "text_changed": true
+    "knowledge_base/domains/IS/examples.md:220": {
+     "to": "knowledge_base/domains/IS/examples.md:220",
+     "text_changed": false
+    },
+    "knowledge_base/domains/IS/examples.md:246": {
+     "to": "knowledge_base/domains/IS/examples.md:246",
+     "text_changed": false
+    },
+    "knowledge_base/domains/IS/examples.md:262": {
+     "to": "knowledge_base/domains/IS/examples.md:262",
+     "text_changed": false
+    },
+    "knowledge_base/domains/IS/examples.md:273": {
+     "to": "knowledge_base/domains/IS/examples.md:273",
+     "text_changed": false
     },
     "knowledge_base/domains/LB/assumptions.md:20": {
      "to": "knowledge_base/domains/LB/assumptions.md:20",
      "text_changed": false
     },
-    "knowledge_base/domains/LB/examples.md:82": {
-     "to": "knowledge_base/domains/LB/examples.md:82",
-     "text_changed": false
-    },
     "knowledge_base/domains/LB/examples.md:22": {
      "to": "knowledge_base/domains/LB/examples.md:22",
-     "text_changed": false
-    },
-    "knowledge_base/domains/LB/examples.md:99": {
-     "to": "knowledge_base/domains/LB/examples.md:99",
      "text_changed": false
     },
     "knowledge_base/domains/LB/examples.md:52": {
@@ -5307,68 +4918,76 @@
      "to": "knowledge_base/domains/LB/examples.md:67",
      "text_changed": false
     },
-    "knowledge_base/domains/MB/examples.md:213": {
-     "to": "knowledge_base/domains/MB/examples.md:213",
+    "knowledge_base/domains/LB/examples.md:82": {
+     "to": "knowledge_base/domains/LB/examples.md:82",
      "text_changed": false
     },
-    "knowledge_base/domains/MB/examples.md:111": {
-     "to": "knowledge_base/domains/MB/examples.md:111",
-     "text_changed": false
-    },
-    "knowledge_base/domains/MB/examples.md:39": {
-     "to": "knowledge_base/domains/MB/examples.md:39",
-     "text_changed": false
-    },
-    "knowledge_base/domains/MB/examples.md:145": {
-     "to": "knowledge_base/domains/MB/examples.md:145",
-     "text_changed": false
-    },
-    "knowledge_base/domains/MB/examples.md:241": {
-     "to": "knowledge_base/domains/MB/examples.md:241",
+    "knowledge_base/domains/LB/examples.md:99": {
+     "to": "knowledge_base/domains/LB/examples.md:99",
      "text_changed": false
     },
     "knowledge_base/domains/MB/examples.md:15": {
      "to": "knowledge_base/domains/MB/examples.md:15",
      "text_changed": false
     },
-    "knowledge_base/domains/MB/examples.md:74": {
-     "to": "knowledge_base/domains/MB/examples.md:74",
+    "knowledge_base/domains/MB/examples.md:26": {
+     "to": "knowledge_base/domains/MB/examples.md:26",
      "text_changed": false
     },
-    "knowledge_base/domains/MB/examples.md:187": {
-     "to": "knowledge_base/domains/MB/examples.md:187",
+    "knowledge_base/domains/MB/examples.md:39": {
+     "to": "knowledge_base/domains/MB/examples.md:39",
      "text_changed": false
     },
     "knowledge_base/domains/MB/examples.md:53": {
      "to": "knowledge_base/domains/MB/examples.md:53",
      "text_changed": false
     },
+    "knowledge_base/domains/MB/examples.md:74": {
+     "to": "knowledge_base/domains/MB/examples.md:74",
+     "text_changed": false
+    },
     "knowledge_base/domains/MB/examples.md:87": {
      "to": "knowledge_base/domains/MB/examples.md:87",
+     "text_changed": false
+    },
+    "knowledge_base/domains/MB/examples.md:111": {
+     "to": "knowledge_base/domains/MB/examples.md:111",
      "text_changed": false
     },
     "knowledge_base/domains/MB/examples.md:126": {
      "to": "knowledge_base/domains/MB/examples.md:126",
      "text_changed": false
     },
+    "knowledge_base/domains/MB/examples.md:145": {
+     "to": "knowledge_base/domains/MB/examples.md:145",
+     "text_changed": false
+    },
+    "knowledge_base/domains/MB/examples.md:162": {
+     "to": "knowledge_base/domains/MB/examples.md:162",
+     "text_changed": false
+    },
+    "knowledge_base/domains/MB/examples.md:187": {
+     "to": "knowledge_base/domains/MB/examples.md:187",
+     "text_changed": false
+    },
     "knowledge_base/domains/MB/examples.md:198": {
      "to": "knowledge_base/domains/MB/examples.md:198",
      "text_changed": false
     },
-    "knowledge_base/domains/MB/examples.md:250": {
-     "to": "knowledge_base/domains/MB/examples.md:250",
-     "text_changed": false
-    },
-    "knowledge_base/domains/MB/examples.md:26": {
-     "to": "knowledge_base/domains/MB/examples.md:26",
+    "knowledge_base/domains/MB/examples.md:213": {
+     "to": "knowledge_base/domains/MB/examples.md:213",
      "text_changed": false
     },
     "knowledge_base/domains/MB/examples.md:222": {
      "to": "knowledge_base/domains/MB/examples.md:222",
      "text_changed": false
     },
-    "knowledge_base/domains/MB/examples.md:162": {
-     "to": "knowledge_base/domains/MB/examples.md:162",
+    "knowledge_base/domains/MB/examples.md:241": {
+     "to": "knowledge_base/domains/MB/examples.md:241",
+     "text_changed": false
+    },
+    "knowledge_base/domains/MB/examples.md:250": {
+     "to": "knowledge_base/domains/MB/examples.md:250",
      "text_changed": false
     },
     "knowledge_base/domains/MH/assumptions.md:36": {
@@ -5379,36 +4998,36 @@
      "to": "knowledge_base/domains/MH/examples.md:13",
      "text_changed": false
     },
-    "knowledge_base/domains/MH/examples.md:104": {
-     "to": "knowledge_base/domains/MH/examples.md:104",
-     "text_changed": false
-    },
     "knowledge_base/domains/MH/examples.md:39": {
      "to": "knowledge_base/domains/MH/examples.md:39",
-     "text_changed": false
-    },
-    "knowledge_base/domains/MH/examples.md:83": {
-     "to": "knowledge_base/domains/MH/examples.md:83",
      "text_changed": false
     },
     "knowledge_base/domains/MH/examples.md:60": {
      "to": "knowledge_base/domains/MH/examples.md:60",
      "text_changed": false
     },
-    "knowledge_base/domains/MI/examples.md:50": {
-     "to": "knowledge_base/domains/MI/examples.md:50",
+    "knowledge_base/domains/MH/examples.md:83": {
+     "to": "knowledge_base/domains/MH/examples.md:83",
      "text_changed": false
     },
-    "knowledge_base/domains/MI/examples.md:27": {
-     "to": "knowledge_base/domains/MI/examples.md:27",
+    "knowledge_base/domains/MH/examples.md:104": {
+     "to": "knowledge_base/domains/MH/examples.md:104",
      "text_changed": false
     },
     "knowledge_base/domains/MI/examples.md:12": {
      "to": "knowledge_base/domains/MI/examples.md:12",
      "text_changed": false
     },
+    "knowledge_base/domains/MI/examples.md:27": {
+     "to": "knowledge_base/domains/MI/examples.md:27",
+     "text_changed": false
+    },
     "knowledge_base/domains/MI/examples.md:37": {
      "to": "knowledge_base/domains/MI/examples.md:37",
+     "text_changed": false
+    },
+    "knowledge_base/domains/MI/examples.md:50": {
+     "to": "knowledge_base/domains/MI/examples.md:50",
      "text_changed": false
     },
     "knowledge_base/domains/MI/examples.md:62": {
@@ -5423,24 +5042,24 @@
      "to": "knowledge_base/domains/MK/examples.md:49",
      "text_changed": false
     },
-    "knowledge_base/domains/ML/examples.md:52": {
-     "to": "knowledge_base/domains/ML/examples.md:52",
-     "text_changed": false
-    },
-    "knowledge_base/domains/ML/examples.md:39": {
-     "to": "knowledge_base/domains/ML/examples.md:39",
-     "text_changed": false
-    },
-    "knowledge_base/domains/ML/examples.md:63": {
-     "to": "knowledge_base/domains/ML/examples.md:63",
+    "knowledge_base/domains/ML/examples.md:14": {
+     "to": "knowledge_base/domains/ML/examples.md:14",
      "text_changed": false
     },
     "knowledge_base/domains/ML/examples.md:25": {
      "to": "knowledge_base/domains/ML/examples.md:25",
      "text_changed": false
     },
-    "knowledge_base/domains/ML/examples.md:14": {
-     "to": "knowledge_base/domains/ML/examples.md:14",
+    "knowledge_base/domains/ML/examples.md:39": {
+     "to": "knowledge_base/domains/ML/examples.md:39",
+     "text_changed": false
+    },
+    "knowledge_base/domains/ML/examples.md:52": {
+     "to": "knowledge_base/domains/ML/examples.md:52",
+     "text_changed": false
+    },
+    "knowledge_base/domains/ML/examples.md:63": {
+     "to": "knowledge_base/domains/ML/examples.md:63",
      "text_changed": false
     },
     "knowledge_base/domains/MS/examples.md:21": {
@@ -5463,10 +5082,6 @@
      "to": "knowledge_base/domains/NV/assumptions.md:29",
      "text_changed": false
     },
-    "knowledge_base/domains/NV/examples.md:74": {
-     "to": "knowledge_base/domains/NV/examples.md:74",
-     "text_changed": false
-    },
     "knowledge_base/domains/NV/examples.md:15": {
      "to": "knowledge_base/domains/NV/examples.md:15",
      "text_changed": false
@@ -5479,56 +5094,64 @@
      "to": "knowledge_base/domains/NV/examples.md:48",
      "text_changed": false
     },
-    "knowledge_base/domains/OE/examples.md:110": {
-     "to": "knowledge_base/domains/OE/examples.md:110",
-     "text_changed": false
-    },
-    "knowledge_base/domains/OE/examples.md:159": {
-     "to": "knowledge_base/domains/OE/examples.md:159",
-     "text_changed": false
-    },
-    "knowledge_base/domains/OE/examples.md:75": {
-     "to": "knowledge_base/domains/OE/examples.md:75",
-     "text_changed": false
-    },
-    "knowledge_base/domains/OE/examples.md:140": {
-     "to": "knowledge_base/domains/OE/examples.md:140",
-     "text_changed": false
-    },
-    "knowledge_base/domains/OE/examples.md:42": {
-     "to": "knowledge_base/domains/OE/examples.md:42",
+    "knowledge_base/domains/NV/examples.md:74": {
+     "to": "knowledge_base/domains/NV/examples.md:74",
      "text_changed": false
     },
     "knowledge_base/domains/OE/examples.md:12": {
      "to": "knowledge_base/domains/OE/examples.md:12",
      "text_changed": false
     },
-    "knowledge_base/domains/OE/examples.md:98": {
-     "to": "knowledge_base/domains/OE/examples.md:98",
-     "text_changed": false
-    },
     "knowledge_base/domains/OE/examples.md:22": {
      "to": "knowledge_base/domains/OE/examples.md:22",
+     "text_changed": false
+    },
+    "knowledge_base/domains/OE/examples.md:42": {
+     "to": "knowledge_base/domains/OE/examples.md:42",
      "text_changed": false
     },
     "knowledge_base/domains/OE/examples.md:57": {
      "to": "knowledge_base/domains/OE/examples.md:57",
      "text_changed": false
     },
+    "knowledge_base/domains/OE/examples.md:75": {
+     "to": "knowledge_base/domains/OE/examples.md:75",
+     "text_changed": false
+    },
     "knowledge_base/domains/OE/examples.md:88": {
      "to": "knowledge_base/domains/OE/examples.md:88",
      "text_changed": false
     },
-    "knowledge_base/domains/OE/examples.md:151": {
-     "to": "knowledge_base/domains/OE/examples.md:151",
+    "knowledge_base/domains/OE/examples.md:98": {
+     "to": "knowledge_base/domains/OE/examples.md:98",
+     "text_changed": false
+    },
+    "knowledge_base/domains/OE/examples.md:110": {
+     "to": "knowledge_base/domains/OE/examples.md:110",
      "text_changed": false
     },
     "knowledge_base/domains/OE/examples.md:121": {
      "to": "knowledge_base/domains/OE/examples.md:121",
      "text_changed": false
     },
+    "knowledge_base/domains/OE/examples.md:140": {
+     "to": "knowledge_base/domains/OE/examples.md:140",
+     "text_changed": false
+    },
+    "knowledge_base/domains/OE/examples.md:151": {
+     "to": "knowledge_base/domains/OE/examples.md:151",
+     "text_changed": false
+    },
+    "knowledge_base/domains/OE/examples.md:159": {
+     "to": "knowledge_base/domains/OE/examples.md:159",
+     "text_changed": false
+    },
     "knowledge_base/domains/OI/examples.md:17": {
      "to": "knowledge_base/domains/OI/examples.md:17",
+     "text_changed": false
+    },
+    "knowledge_base/domains/PC/assumptions.md:33": {
+     "to": "knowledge_base/domains/PC/assumptions.md:33",
      "text_changed": false
     },
     "knowledge_base/domains/PC/assumptions.md:59": {
@@ -5537,10 +5160,6 @@
     },
     "knowledge_base/domains/PC/assumptions.md:90": {
      "to": "knowledge_base/domains/PC/assumptions.md:90",
-     "text_changed": false
-    },
-    "knowledge_base/domains/PC/assumptions.md:33": {
-     "to": "knowledge_base/domains/PC/assumptions.md:33",
      "text_changed": false
     },
     "knowledge_base/domains/PC/examples.md:25": {
@@ -5607,14 +5226,6 @@
      "to": "knowledge_base/domains/PE/examples.md:12",
      "text_changed": false
     },
-    "knowledge_base/domains/PP/examples.md:14": {
-     "to": "knowledge_base/domains/PP/examples.md:14",
-     "text_changed": true
-    },
-    "knowledge_base/domains/PP/examples.md:85": {
-     "to": "knowledge_base/domains/PP/examples.md:85",
-     "text_changed": false
-    },
     "knowledge_base/domains/PP/examples.md:52": {
      "to": "knowledge_base/domains/PP/examples.md:52",
      "text_changed": false
@@ -5623,44 +5234,44 @@
      "to": "knowledge_base/domains/PP/examples.md:66",
      "text_changed": false
     },
-    "knowledge_base/domains/PR/examples.md:33": {
-     "to": "knowledge_base/domains/PR/examples.md:33",
-     "text_changed": false
-    },
-    "knowledge_base/domains/PR/examples.md:25": {
-     "to": "knowledge_base/domains/PR/examples.md:25",
-     "text_changed": false
-    },
-    "knowledge_base/domains/PR/examples.md:54": {
-     "to": "knowledge_base/domains/PR/examples.md:54",
+    "knowledge_base/domains/PP/examples.md:85": {
+     "to": "knowledge_base/domains/PP/examples.md:85",
      "text_changed": false
     },
     "knowledge_base/domains/PR/examples.md:9": {
      "to": "knowledge_base/domains/PR/examples.md:9",
      "text_changed": false
     },
+    "knowledge_base/domains/PR/examples.md:25": {
+     "to": "knowledge_base/domains/PR/examples.md:25",
+     "text_changed": false
+    },
+    "knowledge_base/domains/PR/examples.md:33": {
+     "to": "knowledge_base/domains/PR/examples.md:33",
+     "text_changed": false
+    },
     "knowledge_base/domains/PR/examples.md:43": {
      "to": "knowledge_base/domains/PR/examples.md:43",
+     "text_changed": false
+    },
+    "knowledge_base/domains/PR/examples.md:54": {
+     "to": "knowledge_base/domains/PR/examples.md:54",
      "text_changed": false
     },
     "knowledge_base/domains/QS/examples.md:13": {
      "to": "knowledge_base/domains/QS/examples.md:13",
      "text_changed": false
     },
+    "knowledge_base/domains/RE/examples.md:15": {
+     "to": "knowledge_base/domains/RE/examples.md:15",
+     "text_changed": false
+    },
     "knowledge_base/domains/RE/examples.md:27": {
      "to": "knowledge_base/domains/RE/examples.md:27",
      "text_changed": false
     },
-    "knowledge_base/domains/RE/examples.md:74": {
-     "to": "knowledge_base/domains/RE/examples.md:74",
-     "text_changed": false
-    },
     "knowledge_base/domains/RE/examples.md:36": {
      "to": "knowledge_base/domains/RE/examples.md:36",
-     "text_changed": false
-    },
-    "knowledge_base/domains/RE/examples.md:15": {
-     "to": "knowledge_base/domains/RE/examples.md:15",
      "text_changed": false
     },
     "knowledge_base/domains/RE/examples.md:49": {
@@ -5671,12 +5282,12 @@
      "to": "knowledge_base/domains/RE/examples.md:63",
      "text_changed": false
     },
-    "knowledge_base/domains/RELREC/examples.md:17": {
-     "to": "knowledge_base/domains/RELREC/examples.md:17",
+    "knowledge_base/domains/RE/examples.md:74": {
+     "to": "knowledge_base/domains/RE/examples.md:74",
      "text_changed": false
     },
-    "knowledge_base/domains/RELREC/examples.md:63": {
-     "to": "knowledge_base/domains/RELREC/examples.md:63",
+    "knowledge_base/domains/RELREC/examples.md:17": {
+     "to": "knowledge_base/domains/RELREC/examples.md:17",
      "text_changed": false
     },
     "knowledge_base/domains/RELREC/examples.md:32": {
@@ -5685,6 +5296,10 @@
     },
     "knowledge_base/domains/RELREC/examples.md:46": {
      "to": "knowledge_base/domains/RELREC/examples.md:46",
+     "text_changed": false
+    },
+    "knowledge_base/domains/RELREC/examples.md:63": {
+     "to": "knowledge_base/domains/RELREC/examples.md:63",
      "text_changed": false
     },
     "knowledge_base/domains/RELSPEC/examples.md:44": {
@@ -5707,10 +5322,6 @@
      "to": "knowledge_base/domains/RS/assumptions.md:46",
      "text_changed": false
     },
-    "knowledge_base/domains/RS/examples.md:57": {
-     "to": "knowledge_base/domains/RS/examples.md:57",
-     "text_changed": false
-    },
     "knowledge_base/domains/RS/examples.md:16": {
      "to": "knowledge_base/domains/RS/examples.md:16",
      "text_changed": false
@@ -5719,8 +5330,16 @@
      "to": "knowledge_base/domains/RS/examples.md:35",
      "text_changed": false
     },
+    "knowledge_base/domains/RS/examples.md:57": {
+     "to": "knowledge_base/domains/RS/examples.md:57",
+     "text_changed": false
+    },
     "knowledge_base/domains/RS/examples.md:82": {
      "to": "knowledge_base/domains/RS/examples.md:82",
+     "text_changed": false
+    },
+    "knowledge_base/domains/SC/examples.md:11": {
+     "to": "knowledge_base/domains/SC/examples.md:11",
      "text_changed": false
     },
     "knowledge_base/domains/SC/examples.md:32": {
@@ -5731,60 +5350,56 @@
      "to": "knowledge_base/domains/SC/examples.md:44",
      "text_changed": false
     },
-    "knowledge_base/domains/SC/examples.md:11": {
-     "to": "knowledge_base/domains/SC/examples.md:11",
-     "text_changed": false
-    },
     "knowledge_base/domains/SE/examples.md:23": {
      "to": "knowledge_base/domains/SE/examples.md:23",
-     "text_changed": false
-    },
-    "knowledge_base/domains/SE/examples.md:64": {
-     "to": "knowledge_base/domains/SE/examples.md:64",
      "text_changed": false
     },
     "knowledge_base/domains/SE/examples.md:44": {
      "to": "knowledge_base/domains/SE/examples.md:44",
      "text_changed": false
     },
+    "knowledge_base/domains/SE/examples.md:64": {
+     "to": "knowledge_base/domains/SE/examples.md:64",
+     "text_changed": false
+    },
     "knowledge_base/domains/SE/examples.md:79": {
      "to": "knowledge_base/domains/SE/examples.md:79",
-     "text_changed": false
-    },
-    "knowledge_base/domains/SM/examples.md:37": {
-     "to": "knowledge_base/domains/SM/examples.md:37",
-     "text_changed": false
-    },
-    "knowledge_base/domains/SM/examples.md:28": {
-     "to": "knowledge_base/domains/SM/examples.md:28",
      "text_changed": false
     },
     "knowledge_base/domains/SM/examples.md:15": {
      "to": "knowledge_base/domains/SM/examples.md:15",
      "text_changed": false
     },
-    "knowledge_base/domains/SR/examples.md:105": {
-     "to": "knowledge_base/domains/SR/examples.md:105",
+    "knowledge_base/domains/SM/examples.md:28": {
+     "to": "knowledge_base/domains/SM/examples.md:28",
      "text_changed": false
     },
-    "knowledge_base/domains/SR/examples.md:51": {
-     "to": "knowledge_base/domains/SR/examples.md:51",
+    "knowledge_base/domains/SM/examples.md:37": {
+     "to": "knowledge_base/domains/SM/examples.md:37",
      "text_changed": false
     },
     "knowledge_base/domains/SR/examples.md:14": {
      "to": "knowledge_base/domains/SR/examples.md:14",
      "text_changed": false
     },
-    "knowledge_base/domains/SR/examples.md:95": {
-     "to": "knowledge_base/domains/SR/examples.md:95",
-     "text_changed": false
-    },
     "knowledge_base/domains/SR/examples.md:34": {
      "to": "knowledge_base/domains/SR/examples.md:34",
      "text_changed": false
     },
+    "knowledge_base/domains/SR/examples.md:51": {
+     "to": "knowledge_base/domains/SR/examples.md:51",
+     "text_changed": false
+    },
     "knowledge_base/domains/SR/examples.md:64": {
      "to": "knowledge_base/domains/SR/examples.md:64",
+     "text_changed": false
+    },
+    "knowledge_base/domains/SR/examples.md:95": {
+     "to": "knowledge_base/domains/SR/examples.md:95",
+     "text_changed": false
+    },
+    "knowledge_base/domains/SR/examples.md:105": {
+     "to": "knowledge_base/domains/SR/examples.md:105",
      "text_changed": false
     },
     "knowledge_base/domains/SR/examples.md:113": {
@@ -5807,6 +5422,10 @@
      "to": "knowledge_base/domains/SUPPQUAL/examples.md:24",
      "text_changed": false
     },
+    "knowledge_base/domains/SV/examples.md:19": {
+     "to": "knowledge_base/domains/SV/examples.md:19",
+     "text_changed": false
+    },
     "knowledge_base/domains/SV/examples.md:46": {
      "to": "knowledge_base/domains/SV/examples.md:46",
      "text_changed": false
@@ -5815,68 +5434,60 @@
      "to": "knowledge_base/domains/SV/examples.md:79",
      "text_changed": false
     },
-    "knowledge_base/domains/SV/examples.md:19": {
-     "to": "knowledge_base/domains/SV/examples.md:19",
-     "text_changed": false
-    },
     "knowledge_base/domains/TA/assumptions.md:31": {
      "to": "knowledge_base/domains/TA/assumptions.md:31",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:151": {
-     "to": "knowledge_base/domains/TA/examples.md:151",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:335": {
-     "to": "knowledge_base/domains/TA/examples.md:335",
-     "text_changed": true
-    },
-    "knowledge_base/domains/TA/examples.md:506": {
-     "to": "knowledge_base/domains/TA/examples.md:506",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:676": {
-     "to": "knowledge_base/domains/TA/examples.md:676",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:762": {
-     "to": "knowledge_base/domains/TA/examples.md:762",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:844": {
-     "to": "knowledge_base/domains/TA/examples.md:844",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:985": {
-     "to": "knowledge_base/domains/TA/examples.md:985",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:495": {
-     "to": "knowledge_base/domains/TA/examples.md:495",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:325": {
-     "to": "knowledge_base/domains/TA/examples.md:325",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TA/examples.md:976": {
-     "to": "knowledge_base/domains/TA/examples.md:976",
      "text_changed": false
     },
     "knowledge_base/domains/TA/examples.md:141": {
      "to": "knowledge_base/domains/TA/examples.md:141",
      "text_changed": false
     },
-    "knowledge_base/domains/TA/examples.md:753": {
-     "to": "knowledge_base/domains/TA/examples.md:753",
+    "knowledge_base/domains/TA/examples.md:151": {
+     "to": "knowledge_base/domains/TA/examples.md:151",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:325": {
+     "to": "knowledge_base/domains/TA/examples.md:325",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:495": {
+     "to": "knowledge_base/domains/TA/examples.md:495",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:506": {
+     "to": "knowledge_base/domains/TA/examples.md:506",
      "text_changed": false
     },
     "knowledge_base/domains/TA/examples.md:667": {
      "to": "knowledge_base/domains/TA/examples.md:667",
      "text_changed": false
     },
+    "knowledge_base/domains/TA/examples.md:676": {
+     "to": "knowledge_base/domains/TA/examples.md:676",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:753": {
+     "to": "knowledge_base/domains/TA/examples.md:753",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:762": {
+     "to": "knowledge_base/domains/TA/examples.md:762",
+     "text_changed": false
+    },
     "knowledge_base/domains/TA/examples.md:835": {
      "to": "knowledge_base/domains/TA/examples.md:835",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:844": {
+     "to": "knowledge_base/domains/TA/examples.md:844",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:976": {
+     "to": "knowledge_base/domains/TA/examples.md:976",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TA/examples.md:985": {
+     "to": "knowledge_base/domains/TA/examples.md:985",
      "text_changed": false
     },
     "knowledge_base/domains/TD/examples.md:50": {
@@ -5889,10 +5500,6 @@
     },
     "knowledge_base/domains/TD/examples.md:167": {
      "to": "knowledge_base/domains/TD/examples.md:167",
-     "text_changed": false
-    },
-    "knowledge_base/domains/TE/examples.md:99": {
-     "to": "knowledge_base/domains/TE/examples.md:99",
      "text_changed": false
     },
     "knowledge_base/domains/TE/examples.md:11": {
@@ -5911,6 +5518,10 @@
      "to": "knowledge_base/domains/TE/examples.md:79",
      "text_changed": false
     },
+    "knowledge_base/domains/TE/examples.md:99": {
+     "to": "knowledge_base/domains/TE/examples.md:99",
+     "text_changed": false
+    },
     "knowledge_base/domains/TI/examples.md:13": {
      "to": "knowledge_base/domains/TI/examples.md:13",
      "text_changed": false
@@ -5927,10 +5538,6 @@
      "to": "knowledge_base/domains/TR/examples.md:17",
      "text_changed": false
     },
-    "knowledge_base/domains/TR/examples.md:68": {
-     "to": "knowledge_base/domains/TR/examples.md:68",
-     "text_changed": false
-    },
     "knowledge_base/domains/TR/examples.md:51": {
      "to": "knowledge_base/domains/TR/examples.md:51",
      "text_changed": false
@@ -5939,13 +5546,13 @@
      "to": "knowledge_base/domains/TR/examples.md:107",
      "text_changed": false
     },
+    "knowledge_base/domains/TR/examples.md:68": {
+     "to": "knowledge_base/domains/TR/examples.md:68",
+     "text_changed": false
+    },
     "knowledge_base/domains/TS/assumptions.md:75": {
      "to": "knowledge_base/domains/TS/assumptions.md:75",
      "text_changed": false
-    },
-    "knowledge_base/domains/TS/assumptions.md:45": {
-     "to": "knowledge_base/domains/TS/assumptions.md:45",
-     "text_changed": true
     },
     "knowledge_base/domains/TS/examples.md:9": {
      "to": "knowledge_base/domains/TS/examples.md:9",
@@ -5963,8 +5570,8 @@
      "to": "knowledge_base/domains/TS/examples.md:113",
      "text_changed": false
     },
-    "knowledge_base/domains/TU/assumptions.md:109": {
-     "to": "knowledge_base/domains/TU/assumptions.md:109",
+    "knowledge_base/domains/TU/assumptions.md:38": {
+     "to": "knowledge_base/domains/TU/assumptions.md:38",
      "text_changed": false
     },
     "knowledge_base/domains/TU/assumptions.md:56": {
@@ -5979,32 +5586,32 @@
      "to": "knowledge_base/domains/TU/assumptions.md:88",
      "text_changed": false
     },
-    "knowledge_base/domains/TU/assumptions.md:38": {
-     "to": "knowledge_base/domains/TU/assumptions.md:38",
-     "text_changed": false
-    },
     "knowledge_base/domains/TU/assumptions.md:98": {
      "to": "knowledge_base/domains/TU/assumptions.md:98",
      "text_changed": false
     },
-    "knowledge_base/domains/TU/examples.md:53": {
-     "to": "knowledge_base/domains/TU/examples.md:53",
+    "knowledge_base/domains/TU/assumptions.md:109": {
+     "to": "knowledge_base/domains/TU/assumptions.md:109",
      "text_changed": false
     },
     "knowledge_base/domains/TU/examples.md:21": {
      "to": "knowledge_base/domains/TU/examples.md:21",
      "text_changed": false
     },
-    "knowledge_base/domains/TU/examples.md:90": {
-     "to": "knowledge_base/domains/TU/examples.md:90",
-     "text_changed": false
-    },
     "knowledge_base/domains/TU/examples.md:33": {
      "to": "knowledge_base/domains/TU/examples.md:33",
      "text_changed": false
     },
+    "knowledge_base/domains/TU/examples.md:53": {
+     "to": "knowledge_base/domains/TU/examples.md:53",
+     "text_changed": false
+    },
     "knowledge_base/domains/TU/examples.md:68": {
      "to": "knowledge_base/domains/TU/examples.md:68",
+     "text_changed": false
+    },
+    "knowledge_base/domains/TU/examples.md:90": {
+     "to": "knowledge_base/domains/TU/examples.md:90",
      "text_changed": false
     },
     "knowledge_base/domains/TV/examples.md:63": {
@@ -6027,8 +5634,316 @@
      "to": "knowledge_base/domains/VS/examples.md:15",
      "text_changed": false
     },
-    "knowledge_base/model/02_observation_classes.md:334": {
-     "to": "knowledge_base/model/02_observation_classes.md:334",
+    "knowledge_base/chapters/ch03_submitting_data.md:22": {
+     "to": "knowledge_base/chapters/ch03_submitting_data.md:22",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:52": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:52",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:84": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:84",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:104": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:104",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:119": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:119",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:132": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:132",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:151": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:151",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:160": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:160",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:177": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:177",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:235": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:235",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:304": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:304",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:310": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:310",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:438": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:438",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:442": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:442",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:452": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:452",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:448": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:448",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:460": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:460",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:482": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:482",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:488": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:488",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:494": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:494",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:514": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:514",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:574": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:574",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:580": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:580",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:592": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:592",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:598": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:598",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:613": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:613",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:619": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:619",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:695": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:695",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:766": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:766",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:778": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:778",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:787": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:787",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:842": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:842",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:918": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:918",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:938": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:938",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:959": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:959",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1053": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1053",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1078": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1078",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1095": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1095",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1105": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1105",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1131": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1131",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1154": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1154",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1327": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1327",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1353": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1353",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1373": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1373",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1422": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1422",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1428": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1428",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1439": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1439",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1445": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1445",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1453": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1453",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1461": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1461",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1475": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1475",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1493": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1493",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1520": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1520",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1536": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1536",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:1570": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:1570",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:46": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:46",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:86": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:86",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:110": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:110",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:125": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:125",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:139": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:139",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:164": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:164",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:199": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:199",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:236": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:236",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:245": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:245",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:323": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:323",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:355": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:355",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:390": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:390",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:406": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:406",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:429": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:429",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch08_relationships.md:468": {
+     "to": "knowledge_base/chapters/ch08_relationships.md:468",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch10_appendices.md:11": {
+     "to": "knowledge_base/chapters/ch10_appendices.md:11",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch10_appendices.md:94": {
+     "to": "knowledge_base/chapters/ch10_appendices.md:94",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch10_appendices.md:161": {
+     "to": "knowledge_base/chapters/ch10_appendices.md:161",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch10_appendices.md:177": {
+     "to": "knowledge_base/chapters/ch10_appendices.md:177",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch10_appendices.md:323": {
+     "to": "knowledge_base/chapters/ch10_appendices.md:323",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch10_appendices.md:335": {
+     "to": "knowledge_base/chapters/ch10_appendices.md:335",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch10_appendices.md:407": {
+     "to": "knowledge_base/chapters/ch10_appendices.md:407",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch10_appendices.md:413": {
+     "to": "knowledge_base/chapters/ch10_appendices.md:413",
      "text_changed": false
     },
     "knowledge_base/model/02_observation_classes.md:43": {
@@ -6055,6 +5970,10 @@
      "to": "knowledge_base/model/02_observation_classes.md:320",
      "text_changed": false
     },
+    "knowledge_base/model/02_observation_classes.md:334": {
+     "to": "knowledge_base/model/02_observation_classes.md:334",
+     "text_changed": false
+    },
     "knowledge_base/model/02_observation_classes.md:342": {
      "to": "knowledge_base/model/02_observation_classes.md:342",
      "text_changed": false
@@ -6079,6 +5998,14 @@
      "to": "knowledge_base/model/03_special_purpose_domains.md:23",
      "text_changed": false
     },
+    "knowledge_base/model/03_special_purpose_domains.md:68": {
+     "to": "knowledge_base/model/03_special_purpose_domains.md:68",
+     "text_changed": false
+    },
+    "knowledge_base/model/03_special_purpose_domains.md:91": {
+     "to": "knowledge_base/model/03_special_purpose_domains.md:91",
+     "text_changed": false
+    },
     "knowledge_base/model/03_special_purpose_domains.md:127": {
      "to": "knowledge_base/model/03_special_purpose_domains.md:127",
      "text_changed": false
@@ -6093,14 +6020,6 @@
     },
     "knowledge_base/model/03_special_purpose_domains.md:211": {
      "to": "knowledge_base/model/03_special_purpose_domains.md:211",
-     "text_changed": false
-    },
-    "knowledge_base/model/03_special_purpose_domains.md:91": {
-     "to": "knowledge_base/model/03_special_purpose_domains.md:91",
-     "text_changed": false
-    },
-    "knowledge_base/model/03_special_purpose_domains.md:68": {
-     "to": "knowledge_base/model/03_special_purpose_domains.md:68",
      "text_changed": false
     },
     "knowledge_base/model/04_associated_persons.md:37": {
@@ -6135,9 +6054,9 @@
      "to": "knowledge_base/model/05_study_level_data.md:198",
      "text_changed": false
     },
-    "knowledge_base/model/05_study_level_data.md:215": {
+    "knowledge_base/model/05_study_level_data.md:235": {
      "to": "knowledge_base/model/05_study_level_data.md:237",
-     "text_changed": true
+     "text_changed": false
     },
     "knowledge_base/model/05_study_level_data.md:267": {
      "to": "knowledge_base/model/05_study_level_data.md:269",
@@ -6145,18 +6064,6 @@
     },
     "knowledge_base/model/05_study_level_data.md:305": {
      "to": "knowledge_base/model/05_study_level_data.md:307",
-     "text_changed": false
-    },
-    "knowledge_base/model/06_relationship_datasets.md:33": {
-     "to": "knowledge_base/model/06_relationship_datasets.md:35",
-     "text_changed": true
-    },
-    "knowledge_base/model/06_relationship_datasets.md:71": {
-     "to": "knowledge_base/model/06_relationship_datasets.md:64",
-     "text_changed": true
-    },
-    "knowledge_base/model/06_relationship_datasets.md:173": {
-     "to": "knowledge_base/model/06_relationship_datasets.md:166",
      "text_changed": false
     },
     "knowledge_base/model/06_relationship_datasets.md:101": {
@@ -6175,6 +6082,62 @@
      "to": "knowledge_base/model/06_relationship_datasets.md:148",
      "text_changed": false
     },
+    "knowledge_base/model/06_relationship_datasets.md:173": {
+     "to": "knowledge_base/model/06_relationship_datasets.md:166",
+     "text_changed": false
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:504": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:504",
+     "text_changed": true
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:470": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:470",
+     "text_changed": true
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:425": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:425",
+     "text_changed": true
+    },
+    "knowledge_base/chapters/ch04_general_assumptions.md:408": {
+     "to": "knowledge_base/chapters/ch04_general_assumptions.md:408",
+     "text_changed": true
+    },
+    "knowledge_base/domains/CE/examples.md:41": {
+     "to": "knowledge_base/domains/CE/examples.md:41",
+     "text_changed": true
+    },
+    "knowledge_base/domains/CE/examples.md:72": {
+     "to": "knowledge_base/domains/CE/examples.md:72",
+     "text_changed": true
+    },
+    "knowledge_base/domains/DS/examples.md:292": {
+     "to": "knowledge_base/domains/DS/examples.md:292",
+     "text_changed": true
+    },
+    "knowledge_base/domains/IS/examples.md:203": {
+     "to": "knowledge_base/domains/IS/examples.md:203",
+     "text_changed": true
+    },
+    "knowledge_base/domains/PP/examples.md:14": {
+     "to": "knowledge_base/domains/PP/examples.md:14",
+     "text_changed": true
+    },
+    "knowledge_base/domains/TA/examples.md:335": {
+     "to": "knowledge_base/domains/TA/examples.md:335",
+     "text_changed": true
+    },
+    "knowledge_base/domains/TS/assumptions.md:45": {
+     "to": "knowledge_base/domains/TS/assumptions.md:45",
+     "text_changed": true
+    },
+    "knowledge_base/model/06_relationship_datasets.md:33": {
+     "to": "knowledge_base/model/06_relationship_datasets.md:35",
+     "text_changed": true
+    },
+    "knowledge_base/model/06_relationship_datasets.md:71": {
+     "to": "knowledge_base/model/06_relationship_datasets.md:64",
+     "text_changed": true
+    },
     "knowledge_base/model/06_relationship_datasets.md:190": {
      "to": "knowledge_base/model/06_relationship_datasets.md:183",
      "text_changed": true
@@ -6187,7 +6150,7 @@
      "to": "knowledge_base/model/05_study_level_data.md:119",
      "text_changed": true
     },
-    "knowledge_base/model/05_study_level_data.md:235": {
+    "knowledge_base/model/05_study_level_data.md:215": {
      "to": "knowledge_base/model/05_study_level_data.md:217",
      "text_changed": true
     }

@@ -1,7 +1,7 @@
 # 10 Tier B 内容修复 — Plan (Tier 3)
 
 <!-- chain: E (plans) ; KB 改动走 Chain D -->
-> 状态: **v1.4** (2026-11-27) — T4.2 口径与 G-TB3 口径经主人本人确认 (`evidence/checkpoints/t4_owner_confirmation.md`); 执行中 (T4.1 attempt 2 CONDITIONAL 后)
+> 状态: **v1.4.1** (2026-11-27) — T4.2 口径与 G-TB3 口径: 按上一任主控会话的记录, 主人在该会话直接确认 (`evidence/checkpoints/t4_owner_confirmation.md`; 一个词加多选勾选, 无截图; 是否足够由 T4.1 总闸 attempt 3 判断); 执行中 (T4.1 attempt 2 CONDITIONAL 后; Q9 已触发, 第二轮待主人裁定见 `evidence/checkpoints/t4_owner_decisions_round2.md`)
 > 模板: `~/.claude/templates/workflow-tier3.md` (+ tier2 基础)
 > 前序: `archive/deep_verification/` (06 深审, 已冻结只读) RETRO 缺口 3 / 决策 2; `issues_found.md` Issue 5
 
@@ -108,6 +108,12 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 | G-TB8 | trace.jsonl 中每批有 3 个不同 subagent_type 的 `subagent_done`; 无 main-session 写 KB 的记录 | 100% 批次 |
 | G-TB9 | T0.4 变异验证 (针对 fp_match / table_census / t3_recompute) | 3/3 变红再复原变绿 |
 
+**v1.4 / v1.4.1 口径注** (闸的判定口径在 T4 有三处不再按上表字面; 来源: `evidence/checkpoints/t4_user_decisions.md` §000 委托代裁, 后按 `t4_owner_confirmation.md` 的记录经主人确认):
+- G-TB3: 过闸口径 = **U-1 B** (ATOM_ERR + PDF_TYPO 算已覆盖, FIGURE_DEFERRED 算未覆盖, 分母同 06 公式); 06 公式照套的 strict 值与内容指标 (EXACT+EQUIVALENT) 必须并列报告. 字面的 "06 口径 ≥ 99.02%" 在 strict 下不达标.
+- G-TB2: 结构父节只看 §5.0 范围内的子节 (**U-3 A**); 字面 "所有子节" 的值并列报告.
+- G-TB6: C 层 (MERMAID / TABLE_TOKENS 等宽口径行) 按抽样过 (**U-4 A**), 不是逐行 100%.
+- G-TB9: T0 的基线随 KB 变化会过期; 现 KB 上的重证见 `evidence/checkpoints/t4_t0_refresh.md` (新基线另存 `work/t4/t0_head/`, M4a 换靶 = 主控决定 M-8, 待主人追认).
+
 ### 5.2 覆盖重算 (T3) 怎么做
 
 1. `scripts/t3_recompute.py` = `archive/deep_verification/scripts/p4b_section_aggregate.py` 的重定向副本 (BASE 指 `work/`, 输出 `work/section_coverage.wc.jsonl`), 外加 G-TB1/G-TB2 新指标列. 不改原脚本.
@@ -124,7 +130,7 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 - **表格 / 数据值**: 不抽样, G-TB4 全检.
 - **T1 分诊复核**: 高风险类 100%, PRESENT / IE_CAND 20%.
 - **T4.1 总闸**: 跨批分层 N=72 (PRESENT / REWRITE_OK / REAL_GAP / VALUE_DIFF / IE 五类各 12, 外加**对照层 12 条**: 本范围内原本就标 EXACT/EQUIVALENT、本项目没碰过的原子 — 验 P4a 匹配器的旧标签, 见 Q9), 总闸 reviewer 与各批 auditor 不同 agent.
-- **T4.2 人工** (v1.4, 主人 2026-11-27 改定并本人确认, `evidence/checkpoints/t4_owner_confirmation.md`): AI 预筛 42 条 (正式 30 = REWRITE_OK 10 / REAL_GAP 10 / VALUE_DIFF 5 + IE 5, 外加风险层 12) + 主人本人分层抽查 6 条 (seed 20261130). 判据: 内容错误 0. 原定 "分层 N=30 交用户" 作废; 已知代价: 6/6 零错的 95% 上界约 39% (30/30 约 9.5%), 由 AI 预筛 42/42 补强 (非人工证据).
+- **T4.2 人工** (v1.4; 主人 2026-11-27 改定 — 先经协调方转达 `evidence/checkpoints/t4_human_verdicts.md`, 后按上一任主控会话的记录由主人在该会话直接确认 `evidence/checkpoints/t4_owner_confirmation.md`): AI 预筛 42 条 (正式 30 = REWRITE_OK 10 / REAL_GAP 10 / VALUE_DIFF 5 + IE 5, 外加风险层 12) + 主人本人分层抽查 6 条 (seed 20261130). 判据: 内容错误 0. 原定 "分层 N=30 交用户" 作废; 已知代价: 6/6 零错的 95% 上界约 39% (30/30 约 9.5%), 由 AI 预筛 42/42 补强 (非人工证据).
 - 结果统一进 `audit_matrix.md`; 失败条目不删 (规则 B).
 
 ## 6. 批次 (按 KB 文件切, 避免冲突)
@@ -183,14 +189,15 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 | Q6 | 目录编号: `.work/08_` 已被 `08_repo_refactor_v2` 占用, 是否改名 `10_tier_b_repair`? | 已改名 `10_tier_b_repair` |
 | Q7 | 是否把全量 md_atoms/P4a 重跑 (方案 B) 列为后续? | 列后续, 不在本项目 |
 | Q8 | 允许每批在本地 commit (便于按批回滚; 不 push)? | 允许 |
-| Q9 | 已标 EXACT/EQUIVALENT 的原子 (同一 P4a 匹配器, P7 发现过同表错行) 是否也要验? | T4.1 加对照层 12 条; 若发现错 → 扩为全量指纹复验 |
+| Q9 | 已标 EXACT/EQUIVALENT 的原子 (同一 P4a 匹配器, P7 发现过同表错行) 是否也要验? | T4.1 加对照层 12 条; 若发现错 → 扩为全量指纹复验. **2026-11-27 已触发** (补检 PRE_EXISTING 层 2 条旧 EXACT 不成立): 旧 EXACT 全量指纹复验 + 58 条未命中全审; 旧 EQUIVALENT 指纹验不了 → sv20 127 条全检 / ig34 2207 条抽 65; 结果与待主人裁定见 `evidence/checkpoints/t4_supp_fullcheck.md`、`t4_owner_decisions_round2.md` |
 
 ## Changelog
 
 | Version | Date | Change |
 |---|---|---|
 | v0.1 | 2026-11-25 | 初稿: T0 基线已出, 其余待 §9 拍板 |
-| v1.4 | 2026-11-27 | T4.2 口径改为 "AI 预筛 42 + 主人抽查 6" (主人本人确认, `evidence/checkpoints/t4_owner_confirmation.md`); G-TB3 按 U-1 B 口径 (主人确认), 并列 strict; FIGURE 12→11 更正 |
+| v1.4.1 | 2026-11-27 | 接手主控核对 v1.4 并补齐: 状态行与 §5.3 把确认来源写实 (记录人 = 上一任主控会话; 不改结论); §5.1 加 "口径注" (U-1 B / U-3 A / U-4 A / G-TB9 重证) — v1.4 的 Changelog 写了 G-TB3 口径但闸表没改; §9 Q9 记 "已触发" 及扩检方案; 第二轮待主人裁定 (57 条旧标签 / 旧 EQUIVALENT 抽查是否够 / M-8 等) 见 `t4_owner_decisions_round2.md`, 未定之前不改台账 |
+| v1.4 | 2026-11-27 | (上一任主控会话) T4.2 口径改为 "AI 预筛 42 + 主人抽查 6"; G-TB3 按 U-1 B 口径, 并列 strict; FIGURE 12→11 更正. 确认来源: `evidence/checkpoints/t4_owner_confirmation.md` (该会话记录的主人直接确认) |
 | v1.3 | 2026-11-26 | 加 T2S 扫描批步 (覆盖矩阵 §7 分组; 新 brief `t2s_scan_writer_v1.0.md` / `t2s_scan_review_audit_v1.0.md`; U3 宿主按 PDF 标题序定首域; 排版字符统一归 S-TYPO) |
 | v1.2 | 2026-11-26 | T1.4 补充 D1-D5: 59 批; 去重 + 删扩写 (RELOCATE 外新增允许的删除: 重复副本去重 / 超出 PDF 的扩写); 成本 18-24 sessions |
 | v1.1 | 2026-11-26 | T1.4 ack: R1 v2.0 表行 IE / §1 引言补; R2 丢短语即 REAL_GAP (B4 收紧); R3 T2 纳入全 KB census (Q9 升级触发); R4 IE 587 ack, 44→PRESENT; 成本 10-12 sessions |

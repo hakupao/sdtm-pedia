@@ -1,5 +1,5 @@
 # 10_tier_b_repair — 主控 handoff (压缩/换 session 时先读)
-> 更新: 2026-11-27 (T4.1 attempt 1 后). 本文件只记"在途状态 + 主控规程", 规则本体见 PLAN.md / subagent_prompts/t2_dispatch_notes.md / evidence/checkpoints/t1_user_ack.md (R1-R4, D1-D7).
+> 更新: 2026-11-27 下午 (接手主控: attempt 2 缺口补做后; **最新状态看文末 "T4 接手主控" 一节**, 上面各节是历史). 本文件只记"在途状态 + 主控规程", 规则本体见 PLAN.md / subagent_prompts/t2_dispatch_notes.md / evidence/checkpoints/t1_user_ack.md (R1-R4, D1-D7).
 
 ## 每批流程 (主控只派发/裁定/提交, 不写 KB)
 writer (oh-my-claudecode:executor, opus) → reviewer (oh-my-claudecode:code-reviewer) → auditor (oh-my-claudecode:verifier).
@@ -38,3 +38,13 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - 已知未修 (记后续): trace 中本 session 追加行的时间戳为事后取整回填 (06:00Z / 12:00Z, 总闸 attempt 2 已指出); `t4_ack_lists.md` 把 p0362_a010 记在 U-7 名下 (实为主控决定 M-4); registry B-IS T-6 页号写 p241 应为 p239 (W1 发现); audit_matrix 缺 U-5 / 解冻轮 / attempt 2 行; MK 表 en dash (代裁 Q3); O63-O67; TT/TP DOMAIN 格 (M-2).
 - 汇报文件: `evidence/checkpoints/t4_attempt2_report.md`.
 - **2026-11-27 主人本人确认** U-1 口径 / T4.2 方案 / 追认 M-1..M-7 / §000 委托代裁全部 → `evidence/checkpoints/t4_owner_confirmation.md`; PLAN 升 v1.4 (T4.2 行改口径, FIG 12→11). 仍开: C3 逐表结案清单、t0 baseline 刷新、pre_existing 58 / FIG 11 / 规则 0 抽中类、audit_matrix 行 → 然后 T4.1 attempt 3.
+## T4 接手主控 (2026-11-27 下午, 新 session): attempt 2 缺口已补做; **等主人第二轮回答**, 之后改台账 → 总闸 attempt 3
+- 入口: `evidence/checkpoints/t4_owner_decisions_round2.md` (给主人的一页: 57 条旧标签 / 旧 EQUIVALENT 抽查够不够 / 追认 M-8 / 范围外 3 条 / 两处补登记). **不按委托代裁处理; 主人答复前不改台账.** 主人会在主控聊天里直接回答 → 原话逐字追加到 `t4_owner_confirmation.md` 新增一节.
+- 上一轮四件事 (U-1 口径 / T4.2 方案及 6 条 / M-1..M-7 / 委托本身): 以 `t4_owner_confirmation.md` (`c555bd8`, 上一任主控会话记录的主人直接确认) 为准往下走 (协调方 2026-11-27 指示); 局限照其自述保留, 由总闸 attempt 3 判断.
+- 补检 (attempt 2 点名的 "0 抽中" 各类, tracer ×8 全检 203): **PRE_EXISTING 层 2 条 NOT_HOLD → 触发 Q9**; 其余 10 层通过. Q9 扩检 (tracer ×8): sv20 旧 EQUIVALENT 127 全检 → 51 条不成立 (标签问题, 非 KB 错); ig34 旧 EQUIVALENT 2207 抽 65 → 0 错. 汇总 `t4_supp_fullcheck.md`; 待改清单 `t4_relabel_pending.md` (57 条, 台账副本预演 U-1 B 99.2690 → 99.2651); 归档 `evidence/failures/step_T4.SUPP_attempt_1.md`.
+- G-TB4: `t4_c3_closeout.md` = census 三时点逐表比对 (50c3958 / 00a2e93 / HEAD: KB 表 501 / 500 / 497) + C3 60 张逐表结案 (49 已结 + 4 解冻轮改符号 + 7 批内重建). 脚本 `scripts/t4/t4_census_tablediff.py` → `t4_c3_closeout.py` → `t4_c3_report.py`.
+- G-TB9: `t4_t0_refresh.md` — 现 KB 上重证 ALL MATCH (`scripts/t4/t0_mutation_head.sh`; 基线 `work/t4/t0_head/`, **T0 基线不覆盖**; M4a 换靶 = M-8 待追认). 基线绑定当前 KB + 台账: **改台账后必须重跑 `--make-baseline` 再跑变异**.
+- 文档更正: ack 清单 p0362_a010 归 M-4 (`t4_ack_lists.py` MAIN_CTRL); `t4_user_decisions.md` 状态行按确认层级重写 + §000b 加 M-8; PLAN v1.4.1 (闸表下加口径注, Q9 已触发); `audit_matrix.md` 补 T3 / U-5 / U-7 / U-6 / T4.2 / 解冻轮 / attempt 2 / 补检 / Q9 / C3 行.
+- **未做 (留到改台账那一批)**: registry `B-IS T-6` 页号 241 → 239 (页号参与登记匹配 `t3_errata_build.py:150` / `t3_writeback.py:404`, 单改有改变台账的风险). trace 里上一任会话的整点时间戳 (06:00Z / 12:00Z) 无法还原, 保持原样; 本会话追加行用真实 `date -u`.
+- 脚本坑: **不要 import / 重跑 `t4_sample.py`、`t4_render.py`** (模块级写 gate / human 样本文件); 补检 / Q9 脚本是 exec 它们的定义段. 写含 heredoc 的 shell 脚本用写文件工具, 不要外层再套 heredoc.
+- 禁止仍有效: 不 push、不打 kb tag、不做 T4.3; KB 冻结 (`git rev-parse HEAD:knowledge_base` = `63f857774a42cfaa71798705ad40ab51bc5e378a`). 同一工作树若出现不是自己做的新提交 → 先停下来告诉协调方.

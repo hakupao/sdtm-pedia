@@ -95,7 +95,7 @@ python3 -I $T/scripts/t4/t4_c3_report.py          # -> 本文件 (文末审查�
 
 ## 4. `00a2e93` (解冻前) → `HEAD` (HEAD) 逐表变化
 
-配对 497 张, 其中完全不变 (状态 / 差异集 / 行数 / 表文本 md5 都相同) **479** 张; 有变化 18 张; 删 3 张; 增 0 张.
+配对 497 张, 其中完全不变 (状态 / 差异集 / 行数 / 表文本 md5 都相同) **480** 张; 有变化 17 张; 删 3 张; 增 0 张.
 
 ### 删 / 增的表
 
@@ -122,11 +122,10 @@ python3 -I $T/scripts/t4/t4_c3_report.py          # -> 本文件 (文末审查�
 | 11 | `domains/TS/assumptions.md:45` → `:45` | UNPARSEABLE | text | −2/+2 | `E` → `` | T4 解冻轮 `a59c2d3` |
 | 12 | `model/05_study_level_data.md:99` → `:99` | UNPARSEABLE | text | −2/+2 | `N` → `Usage Restricti`; `te` → `n` | T4 解冻轮 `a59c2d3` |
 | 13 | `model/05_study_level_data.md:119` → `:119` | UNPARSEABLE | text | −2/+2 | `N` → `Usage Restricti`; `te` → `n` | T4 解冻轮 `a59c2d3` |
-| 14 | `model/05_study_level_data.md:215` → `:237` | UNPARSEABLE | n_rows, text | −9/+10 | `TS` → `AC` | T4 解冻轮 `a59c2d3` |
-| 15 | `model/05_study_level_data.md:235` → `:217` | UNPARSEABLE | n_rows, text | −14/+13 | `` → ` Usage Restrictions ¦` | (未定位) |
-| 16 | `model/06_relationship_datasets.md:33` → `:35` | UNPARSEABLE | text | −1/+1 | `` → ` of associated persons`; `` → `. If APID identifies a pool, POOLDEF rec` | T4 解冻轮 `a59c2d3` |
-| 17 | `model/06_relationship_datasets.md:71` → `:64` | UNPARSEABLE | text | −1/+1 | `` → ` (QNAM)` | T4 解冻轮 `a59c2d3` |
-| 18 | `model/06_relationship_datasets.md:190` → `:183` | UNPARSEABLE | text | −1/+1 | `Y` → `Par`; `s` → `nt record (USUBJID, APID, POOLID, or SPD` | T4 解冻轮 `a59c2d3` |
+| 14 | `model/05_study_level_data.md:215` → `:217` | UNPARSEABLE | text | −13/+13 | `` → ` Usage Restrictions ¦` | T4 解冻轮 `a59c2d3` |
+| 15 | `model/06_relationship_datasets.md:33` → `:35` | UNPARSEABLE | text | −1/+1 | `` → ` of associated persons`; `` → `. If APID identifies a pool, POOLDEF rec` | T4 解冻轮 `a59c2d3` |
+| 16 | `model/06_relationship_datasets.md:71` → `:64` | UNPARSEABLE | text | −1/+1 | `` → ` (QNAM)` | T4 解冻轮 `a59c2d3` |
+| 17 | `model/06_relationship_datasets.md:190` → `:183` | UNPARSEABLE | text | −1/+1 | `Y` → `Par`; `s` → `nt record (USUBJID, APID, POOLID, or SPD` | T4 解冻轮 `a59c2d3` |
 
 ## 5. C3 60 张逐表结案
 

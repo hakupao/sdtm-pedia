@@ -3,8 +3,9 @@
 Inputs (all produced read-only by scripts/table_census.py --manifest work/census_full_manifest.json):
   work/scratch/t4/census_hist/census_<rev>.json + the KB tree of that rev under work/scratch/t4/census_hist/kb_<rev>/
   (git archive <rev> knowledge_base | tar -x); HEAD = the working tree.
-Pairing across commits is never by line number: key = (file, normalised header, ex, ds) + order of appearance; leftovers
-in the same file are paired by table-body similarity (>= 0.6), the rest are reported as removed / added.
+Pairing across commits is never by line number: (0) byte-identical table text in the same file; (1) key = (file,
+normalised header, ex, ds) when unique, by text similarity when the key repeats; (2) leftovers in the same file by
+table-body similarity (>= 0.6); the rest are reported as removed / added.
 For every pair: status, census diff set (kb_row, col, kb, pdf), n_rows, and an md5 of the table text (so a changed
 UNPARSEABLE table is visible even though the census cannot compare it).
 Usage (repo root): python3 -I .work/10_tier_b_repair/scripts/t4/t4_census_tablediff.py  -> work/t4/census_tablediff.json
@@ -46,6 +47,19 @@ def nh(h):
 def pair(A, B):
     """[(a, b)], removed, added"""
     pairs, ua, ub = [], [], []
+    # pass 0: tables whose text is byte-identical in the same file pair first (in order of appearance), so an unchanged
+    # table can never be cross-paired with a changed neighbour that happens to share its header key
+    ia, ib = collections.defaultdict(list), collections.defaultdict(list)
+    for t in A:
+        ia[(t["file"], t["md5"])].append(t)
+    for t in B:
+        ib[(t["file"], t["md5"])].append(t)
+    done_a, done_b = set(), set()
+    for k in ia:
+        for x, y in zip(ia[k], ib.get(k, [])):
+            pairs.append((x, y)); done_a.add(id(x)); done_b.add(id(y))
+    A = [t for t in A if id(t) not in done_a]
+    B = [t for t in B if id(t) not in done_b]
     ka, kb = collections.defaultdict(list), collections.defaultdict(list)
     for t in A:
         ka[(t["file"], nh(t["header"]), t.get("ex"), t.get("ds"))].append(t)
@@ -53,9 +67,9 @@ def pair(A, B):
         kb[(t["file"], nh(t["header"]), t.get("ex"), t.get("ds"))].append(t)
     for k in sorted(set(ka) | set(kb), key=str):
         a, b = ka.get(k, []), kb.get(k, [])
-        if len(a) == len(b):
+        if len(a) == len(b) == 1:
             pairs += list(zip(a, b))
-        else:  # same key, different multiplicity: align by text similarity in order
+        else:  # same key more than once (or different multiplicity): align by text similarity, not by position
             used = set()
             for x in a:
                 best = max(((difflib.SequenceMatcher(None, x["text"], y["text"]).ratio(), j) for j, y in enumerate(b) if j not in used),
