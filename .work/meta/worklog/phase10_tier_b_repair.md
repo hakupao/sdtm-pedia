@@ -41,3 +41,8 @@
 - attempt 3 的 delta 闸审 (另一个 `feature-dev:code-reviewer` 新实例) = **PASS** → **T4.1 总闸通过**。`t4_gate_review.md` "§attempt 3 delta"。不挡闸的未决: M-10 待主人追认; ATOM_ERR 约 83 条是否加一轮逐条审。
 - 仍未 push, 未打 kb tag, 未做 T4.3; KB 树不变。
 
+## 2026-11-27 夜 T4 加查: ATOM_ERR (S1-R1) 里没被逐条看过的那批 (KB / 台账都没动)
+- 主人选 "加查" (协调方转述). 筛法 `scripts/t4/t4_atomerr_sample.py`: S1-R1 157 = 已逐条判过 80 + 从未逐条判过 77 (总闸估 83 = 157 − 74)。
+- 全检 83 条 (77 + 6 盲复检), `oh-my-claudecode:tracer` ×4: 成立 82 / 不成立 1 / 判不了 0。不成立 = `ig34_p0124_a001` (标 ATOM_ERR, 实为 EXACT); `general-purpose` 盲复看相同。汇总 `.work/10_tier_b_repair/evidence/checkpoints/t4_atomerr_fullcheck.md`; 归档 `evidence/failures/step_T4.AE_attempt_1.md`。
+- 台账未改 (md5 `43809870…`); 问题 C (改回 EXACT / 维持) 与 M-10 追认都等主人直接答 — 本会话两项都问了, 未答。
+- 未 push, 未打 kb tag, 未做 T4.3; KB 树 `63f857774a42cfaa71798705ad40ab51bc5e378a` 不变。

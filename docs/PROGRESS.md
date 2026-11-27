@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-11-27 (Tier B T4: T4.1 总闸 PASS)
+> 最后更新: 2026-11-27 (Tier B T4: T4.1 总闸 PASS; ATOM_ERR 加查 1 条不成立待主人定)
 
 ---
 
@@ -19,7 +19,7 @@
 | **Phase 7** RAG + KG | ↗ 已拆仓 | 独立公开仓 `hakupao/sdtm-rag` | — |
 | **06 旁枝** Deep Verification | ✅ 完成 | P1-P7 全 PASS ★★ (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档) | `archive/deep_verification/RETROSPECTIVE.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
-| **10 旁枝** Tier B 内容补修 | 🔄 T4.1 总闸 PASS (attempt 3 + delta), T4.2 已关; 待 T4.3 (本地 commit, 未 push) | 主人直接回答后改台账两批共 82 条 (KB 未动, 冻结); 残留 0, G-TB2 174/174, G-TB3 U-1 B 口径 99.27% (strict 95.57%); 9 条闸无不达标 | T4.3 (push / kb tag / RETRO; 等协调方放行); 不挡闸的未决: M-10 追认、ATOM_ERR 约 83 条是否加一轮; `.work/10_tier_b_repair/HANDOFF.md` 末节 |
+| **10 旁枝** Tier B 内容补修 | 🔄 T4.1 总闸 PASS (attempt 3 + delta), T4.2 已关; 待 T4.3 (本地 commit, 未 push) | 主人直接回答后改台账两批共 82 条 (KB 未动, 冻结); 残留 0, G-TB2 174/174, G-TB3 U-1 B 口径 99.27% (strict 95.57%); 9 条闸无不达标 | T4.3 (push / kb tag / RETRO; 等协调方放行); 未决: M-10 追认; ATOM_ERR 加查已做 (全检 83 条: 82 成立 / 1 条 `ig34_p0124_a001` 应为 EXACT, 台账未改, 等主人定); `.work/10_tier_b_repair/HANDOFF.md` 末节 |
 | **refactor v1/v2/v3** 项目重构 | ✅ 完成 | v1 段1-3 (2026-05-11) · v2 release 提顶层 (2026-05-11) · v3 branches→milestones (2026-07-21) · **R2 milestones→releases+archive (2026-11-25)** | `docs/PATH_MAP.md` |
 
 **图例**: ✅ 完成 · 🟢 进行中 · ⏸ 待启动 · 🔴 阻塞

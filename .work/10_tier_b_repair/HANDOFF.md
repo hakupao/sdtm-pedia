@@ -1,5 +1,5 @@
 # 10_tier_b_repair — 主控 handoff (压缩/换 session 时先读)
-> 更新: 2026-11-27 下午 (接手主控: attempt 2 缺口补做后; **最新状态看文末 "T4 接手主控" 一节**, 上面各节是历史). 本文件只记"在途状态 + 主控规程", 规则本体见 PLAN.md / subagent_prompts/t2_dispatch_notes.md / evidence/checkpoints/t1_user_ack.md (R1-R4, D1-D7).
+> 更新: 2026-11-27 下午 (接手主控: attempt 2 缺口补做后; **最新状态看文末 "最新" 一节**, 上面各节是历史). 本文件只记"在途状态 + 主控规程", 规则本体见 PLAN.md / subagent_prompts/t2_dispatch_notes.md / evidence/checkpoints/t1_user_ack.md (R1-R4, D1-D7).
 
 ## 每批流程 (主控只派发/裁定/提交, 不写 KB)
 writer (oh-my-claudecode:executor, opus) → reviewer (oh-my-claudecode:code-reviewer) → auditor (oh-my-claudecode:verifier).
@@ -66,7 +66,7 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - 禁止仍有效: 不 push、不打 kb tag、不做 T4.3; KB 冻结 (`git rev-parse HEAD:knowledge_base` = `63f857774a42cfaa71798705ad40ab51bc5e378a`); 主人若日后对问题 A 选改回 EXACT, 走同一套 writer → reviewer 流程 (清单已在 `work/t4/supp/relabel_pending.json` 的 `typo-overlabel` 组), 之后重建 T0 基线. 注意: `scripts/t4/t4_supp_report.py` 现在硬断言 "工作台账里已执行的 = 主人已定的 78 条", 那 4 条一旦改回它会断言失败 — 届时把 `DECIDED` 与 `NOT_APPLIED` 两处断言按新的已定集合改掉再重生成.
 - 改动集与样本交集的复核脚本 (只读): `python3 -I .work/10_tier_b_repair/scripts/t4/t4_r2l_sample_overlap.py` — 78 条改标与总闸样本 84 / T4.2 预筛 42 / 主人抽查 6 的交集都是 0; 78 条全部落在补检 / Q9 / 第二轮 / 第三轮各样本里 (6 + 51 + 15 + 6).
 
-## 现状 (2026-11-27 夜): **T4.1 总闸 PASS** — 主人答 A1 / B1 / 追认 M-9 → R3L 改 4 条 → attempt 3 的 delta 闸审 PASS; 下一步 T4.3 (等协调方放行)
+## (仍有效; 其中 "仍开 ①②" 的最新情况看最后一节) 现状 (2026-11-27 夜): **T4.1 总闸 PASS** — 主人答 A1 / B1 / 追认 M-9 → R3L 改 4 条 → attempt 3 的 delta 闸审 PASS; 下一步 T4.3 (等协调方放行)
 - **主人消息 4** (直接在主控聊天里发; 逐字在 `evidence/checkpoints/t4_owner_confirmation.md`): 「A1、B1、追认 M-9」. A1 = 4 条多标的 PDF_TYPO 改回 EXACT; B1 = `ig34_p0293_a038` 维持 PDF_TYPO 并写明无法判定 (折行处有没有空格); M-9 追认. 登记 `t4_user_decisions.md` §000c.
 - **R3L** (提交 `d794fb6`): `ig34_p0412_a006` / `a007` / `a008`、`ig34_p0413_a010` PDF_TYPO → EXACT (由现有 live-hit 判出, 不是硬写). 台账 md5 `16024ac0…` → **`438098704becc84eda01a925b80defaa`**; 清单外变化 0; 备份 `work/coverage_ledger.wc.pre_r3l.jsonl`. writer `oh-my-claudecode:executor` (`t4_round3_ledger_W.md`; 规格 `subagent_prompts/t4/t4_round3_ledger_spec_v1.0.md`) → reviewer `oh-my-claudecode:code-reviewer` PASS (`t4_round3_ledger_review.md`; 隔离副本整链三遍 + 7 个变异). 没有另设语义 auditor: 语义依据是第三轮审查者与总闸 attempt 3 审查者两次独立复核.
 - **现数字** (`python3 -I .work/10_tier_b_repair/scripts/t4/t4_coverage_decomp.py`): U-1 B 9860/9933 = **99.2651%** (闸线 99.0192%; 与 R2L 后相同); strict 9493/9933 = 95.5703%; mapped 9493/9555 = 99.3511%; 内容 8659/9555 = 90.6227%. 终态: EXACT 4710 / EQUIVALENT 3949 / IE 2559 / PDF_TYPO 170 / ATOM_ERR 197 / FIG 11. G-TB1 174/174 残留 0; G-TB2 范围内 174/174 (字面 157/174). direct_hit GREEN (TB 1033 / stock 1748 / pre_existing 52). 待改清单 82 条全部已执行 (`t4_relabel_pending.md`).
@@ -74,3 +74,11 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - **仍开** (都不是挡闸项; 如实): ① **M-10** (R3L 的机制选择) 待主人追认 (`t4_user_decisions.md` §000b). ② ATOM_ERR 的 S1-R1 类 157 条里约 83 条没有被单独逐条看过 (既有状态; 协调方说由主人定是否加一轮, 他说要之前不做). ③ 抽样而非全检: SDTMIG 旧 EQUIVALENT 2207 抽 215 (0 错); 标题类 71 / 316; TYPO 宽筛候选 (范围内 169 / 范围外 142) 未审 (主人 4d = A); 范围外跨文档指针 146 条不动 (7a = C). ④ 约 80 条标签级别后续项; KB 观察项 O68-O71 只记录不修. ⑤ `t4_owner_confirmation.md` 的记录局限 (短句 + 选项清单, 无截图). ⑥ R2L / R3L 后的 T0 基线重建未送独立审查 (脚本与用例未改).
 - **坑**: `scripts/t3/t3_build_keep.py` 若被重跑会抹掉 keep 清单里的 `t4_r3l_drop` 标记 (writeback 的断言会直接失败, 不会悄悄回退) — 重跑整链用 `work/scratch/t4/r3l/run_chain.sh` 的顺序 (或 `t4_round3_ledger_W.md` §0), 先跑 `scripts/t4/t4_r3l_build.py`. `t3_writeback.py` 是先写台账后断言 (既有设计): 断言失败后要从备份还原再重跑. 改台账后必须 `t0_mutation_head.sh --make-baseline` 再跑变异; `t4_gate_prerun.sh` 不要与别的变异脚本并发.
 - 禁止仍有效: 不 push、不打 kb tag、不做 T4.3; KB 冻结 (`git rev-parse HEAD:knowledge_base` = `63f857774a42cfaa71798705ad40ab51bc5e378a`).
+
+## 最新 (2026-11-27 夜, 加查会话; 任务 `task_5b6b27f6c68d`): ATOM_ERR 加查做完 — 1 条不成立, **等主人定问题 C; 台账没改**
+- 汇总: `evidence/checkpoints/t4_atomerr_fullcheck.md`. S1-R1 157 条 = 此前逐条判过 80 + 从未逐条判过 **77** (总闸估的 83 = 157 − 74). 全检 83 (77 + 6 盲复检), `oh-my-claudecode:tracer` ×4: 成立 82 / **不成立 1** / 判不了 0; 盲复检 6 / 6 一致. 原始结果 `evidence/t4_atomerr_raw/`.
+- 不成立 = `ig34_p0124_a001` (标 ATOM_ERR, 实际原子没抽错, KB 逐字承载, 应为 EXACT); `general-purpose` 盲复看结论相同. 归档 `evidence/failures/step_T4.AE_attempt_1.md`.
+- **问题 C 待主人直接答**: C1 改回 EXACT (建议; U-1 B 不变 99.2651%, strict → 95.5804%) / C2 维持并说明理由. 已在聊天里问, 未答. 主人答 C1 → 比照 R3L (executor → code-reviewer → 重建 T0 基线 → 总闸角色 delta 判断); 做法与要顺带补的 4 条登记指针见归档文件 "下一 attempt 输入". 注意 `t4_supp_report.py` 的硬断言 (已执行集合) 届时不受影响 (这条不在那 82 条里), 但 `t4_ack_lists.py` / `t4_coverage_decomp.py` / T0 基线要重跑.
+- **M-10 仍未答** (本会话开头又问了一次; `t4_owner_confirmation.md` "第三个会话" 一节).
+- "ATOM_ERR / PDF_TYPO 补抽 = 部分关" 改成什么、以及这 1 条对已 PASS 的总闸有无影响: 都由总闸角色 / 协调方判, 主控没判 (`t4_gate_review.md` 文末).
+- 禁止仍有效: 不 push、不打 kb tag、不做 T4.3; KB 冻结 (树 `63f857774a42cfaa71798705ad40ab51bc5e378a`); 台账 md5 `438098704becc84eda01a925b80defaa`.

@@ -3,9 +3,9 @@
  "tier": 3,
  "plan": "PLAN.md",
  "plan_version": "v1.4.3",
- "status": "T4.1 总闸 PASS (attempt 3 + delta, 2026-11-27); T4.2 已按主人口径关闭; T4.3 / push / kb tag 未做 (不在主控任务内); KB 冻结 (树 63f85777…), 本地未 push",
- "current_step": "T4.1 / T4.2 已过; 等协调方 / 主人指示 T4.3",
- "next_step": "T4.3 (push / kb tag / 收尾 / RETROSPECTIVE; 需协调方放行, KB 冻结解除与否由协调方定). 仍待主人 (不挡闸): M-10 追认; ATOM_ERR S1-R1 约 83 条是否再加一轮逐条审",
+ "status": "T4.1 总闸 PASS (attempt 3 + delta, 2026-11-27); T4.2 已按主人口径关闭; T4.3 / push / kb tag 未做 (不在主控任务内); KB 冻结 (树 63f85777…), 本地未 push; 加查 (ATOM_ERR S1-R1 83 条全检) 做完: 1 条不成立 (ig34_p0124_a001 应为 EXACT), 台账未改, 等主人定问题 C",
+ "current_step": "T4.1 / T4.2 已过; ATOM_ERR 加查已做 (不通过: 1 条 NOT_HOLD); 等主人答问题 C 与 M-10, 等协调方 / 主人指示 T4.3",
+ "next_step": "主人答问题 C (C1 改回 EXACT → executor → code-reviewer → T0 基线重建 → 总闸角色 delta 判断 / C2 维持并说明理由); M-10 追认; T4.3 (push / kb tag / 收尾 / RETROSPECTIVE; 需协调方放行)",
  "baseline": {
   "tier_b_p4b_orig": {
    "SIBLING_DROPPED": 56,
@@ -229,9 +229,10 @@
   },
   "T3.1": "PASS (attempt 4)",
   "T3.2": "PASS (attempt 4)",
-  "T4.1": "PASS (2026-11-27): attempt 3 CONDITIONAL (唯一挡闸项 = 问题 A) → 主人答 A1 → R3L 改 4 条 → delta 闸审 PASS. 历史: attempt 1 CONDITIONAL → attempt 2 CONDITIONAL → attempt 3 CONDITIONAL → attempt 3 delta PASS. 不挡闸的未决: M-10 待主人追认; ATOM_ERR 约 83 条是否加一轮",
+  "T4.1": "PASS (2026-11-27): attempt 3 CONDITIONAL (唯一挡闸项 = 问题 A) → 主人答 A1 → R3L 改 4 条 → delta 闸审 PASS. 历史: attempt 1 CONDITIONAL → attempt 2 CONDITIONAL → attempt 3 CONDITIONAL → attempt 3 delta PASS. 不挡闸的未决: M-10 待主人追认; ATOM_ERR 加查已做 (见 T4.AE; 1 条不成立待主人定问题 C)",
   "T4.2": "按主人改定的口径关闭: AI 预筛 42 + 主人抽查 6/6 (t4_human_verdicts.md; 确认记录 t4_owner_confirmation.md 第一节; 总闸 attempt 3 判 '足够, 带已公开的局限')",
-  "T4.3": "pending"
+  "T4.3": "pending",
+  "T4.AE": "attempt 1 不通过 (2026-11-27): S1-R1 157 = 已逐条判过 80 + 从未逐条判过 77; 全检 83 (77 + 6 盲复检; oh-my-claudecode:tracer ×4) = HOLDS 82 / NOT_HOLD 1 (ig34_p0124_a001, 应为 EXACT; general-purpose 盲复看相同) / UNVERIFIABLE 0; 台账未改; evidence/checkpoints/t4_atomerr_fullcheck.md; 归档 evidence/failures/step_T4.AE_attempt_1.md"
  },
  "gates": {
   "G-TB1": "残留 0 (174/174 节); ATOM_ERR 197 / PDF_TYPO 170 / FIG 11; ack 来源见 t4_ack_lists.md (PDF_TYPO: U-5 118 / U-7 22 / 主人第二轮 3=A 19 / 7b=A 6 / U-8 4 / M-4 1); 4 条多标已按主人 A1 改回 EXACT (R3L); ig34_p0293_a038 按主人 B1 维持并写明无法判定",

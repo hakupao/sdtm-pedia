@@ -12,7 +12,7 @@
 | census 变化逐表说明 | 已关: 三时点 (`50c3958` / `00a2e93` / HEAD) 逐表配对, KB 表 501 / 500 / 497 | 同上 §3 / §4; `work/t4/census_tablediff.json` | 同上 |
 | t0 baseline 过期 / 在 HEAD 重跑变异 | 已关: 原基线生成于 T0 的 KB, 所以过期; 现 KB 上另建基线 (`work/t4/t0_head/`, T0 基线不覆盖) 后重证 13 例全部施加、红绿全对 (ALL MATCH). 改台账两次之后各重建并重跑一次, 仍 ALL MATCH | `evidence/checkpoints/t4_t0_refresh.md` (§6 / §7 = 两次重建); `evidence/checkpoints/t0_mutation_head.log`; 脚本 `scripts/t4/t0_mutation_head.sh` | 独立审查 A (自己复跑 + 反向验证 2 组) → 总闸 attempt 3 判已关. **如实**: M4a 换了靶 (M-8, 主人已追认); 两次重建没有再送独立审查 (脚本与用例未改) |
 | "规则 0 抽中" 各类补抽或全检 | 已关 (全检), 并引出下面 §2 的扩检 | `evidence/checkpoints/t4_supp_fullcheck.md`; 原始结果 `evidence/t4_supp_raw/` 等四个目录 | 审查者 `oh-my-claudecode:tracer`; 对汇总的独立审查 B / C (`oh-my-claudecode:code-reviewer`, `review_b.md` / `review_c.md`) → 总闸 attempt 3 判已关 |
-| ATOM_ERR / PDF_TYPO 补抽 | **部分关** (总闸 attempt 3 的判断): PDF_TYPO 每一条都被独立审查者看过; ATOM_ERR 的 S1-R1 类 157 条里约 83 条没有被单独逐条看过 (既有状态) | `evidence/t4_gate_raw/attempt3_report.md` D 项 | 总闸 attempt 3 |
+| ATOM_ERR / PDF_TYPO 补抽 | **部分关** (总闸 attempt 3 的判断): PDF_TYPO 每一条都被独立审查者看过; ATOM_ERR 的 S1-R1 类 157 条里约 83 条没有被单独逐条看过 (既有状态) | `evidence/t4_gate_raw/attempt3_report.md` D 项; **后续见 §7** (加查: 确切 77 条, 全检 83 → 1 条不成立, 待主人定) | 总闸 attempt 3 |
 | 文档一致性 | 已关; attempt 3 另指出 5 处、delta 另指出 8 处过期文字, 文字类都已改, 2 处在台账辅助字段里的记为已知 | `evidence/checkpoints/t4_gate_review.md` "§attempt 3" 与 "§attempt 3 delta" 的主控处理 | 两位总闸审查者 |
 | PLAN 修订稿 | 已关: `PLAN.md` v1.4.1 → v1.4.3 (FIG 11、T4.2 口径、G-TB3 口径注、Q9 已触发、现值) | `PLAN.md` 状态行 / §5.1 口径注 / Changelog | 总闸 attempt 3 判已关 |
 
@@ -51,7 +51,7 @@
 ## 5. 仍开但不挡闸 (如实)
 
 - **M-10** (R3L 落地时的机制选择, 含 "这 4 条没另设语义抽检, trace 里这一批只有两类审查角色") 待主人追认; delta 审查者把后一点记在 G-TB8 的字面条件下. 已在聊天里告诉主人 (记录在 `t4_owner_confirmation.md` "主控的第四次告知").
-- ATOM_ERR 的 S1-R1 类约 83 条没有被单独逐条看过 — 是否加一轮由主人定 (协调方已说会转告; 主人还没表态, 没做).
+- ATOM_ERR 的 S1-R1 类约 83 条没有被单独逐条看过 — 是否加一轮由主人定 (协调方已说会转告; 主人还没表态, 没做). **后续: 主人选了加查, 已做, 见 §7.**
 - 抽样而非全检: SDTMIG 旧 "等价" 2207 条抽 215; 标题类 71 / 316; 笔误同类宽筛候选 (范围内 169 / 范围外 142) 未审 (主人 4d = A); 范围外跨文档指针 146 条不动 (主人 7a = C).
 - 约 80 条 "标签级别" 后续项 (内容成立); KB 观察项 O68-O71 只记录没修 (KB 冻结).
 - 两次 T0 基线重建未送独立审查; 给主人的一页第 3 稿未再送审; 主人确认记录的形式局限 (短句 + 选项清单, 无截图); 上一任会话的 trace 整点时间戳无法还原.
@@ -64,3 +64,12 @@
 - 未打 tag: `git for-each-ref --sort=-creatordate refs/tags | head -1` 最新一个仍是 `kb-2026.11.25` (2026-11-25), 早于本任务.
 - 任务基线 `d46f8af` 之后本地共 20 多个提交, 其中 `c555bd8` 是上一任主控会话的, 其余是本会话的 (`git log --oneline d46f8af..HEAD`).
 - 未做 T4.3. 交接: `HANDOFF.md` 最后一节; 进度 `_progress.json`; `docs/PROGRESS.md`.
+
+## 7. 后续: ATOM_ERR 加查 (2026-11-27 夜; 新会话主控, 任务 `task_5b6b27f6c68d`)
+
+- §1 表里 "ATOM_ERR / PDF_TYPO 补抽 = 部分关" 与 §5 第 2 条的后续. 主人选了 "加查" (协调方转述). 汇总: `evidence/checkpoints/t4_atomerr_fullcheck.md`.
+- 确切条数 77 (不是约 83; 83 = 157 − 74, 没扣总闸样本 5 条和预筛 1 条). 全检 83 条 (77 首次 + 6 盲复检), 审查者 `oh-my-claudecode:tracer` ×4: **成立 82 / 不成立 1 / 判不了 0**.
+- 不成立: `ig34_p0124_a001` — 标的是 "原子抽错", 实际原子没抽错、KB 逐字承载, 应为 "逐字有". 第二位不同类型的审查者 (`general-purpose`) 盲判相同. 不是 KB 内容错.
+- 台账**没改**, KB 没改. 问题 C (C1 改回 EXACT / C2 维持) 等主人直接定. 数字影响 (副本实算): 过闸口径不变 99.2651%; strict 95.5703% → 95.5804%.
+- 这一项从 "部分关" 改成什么状态: 由总闸角色或协调方判, 主控不判.
+- M-10: 本会话开头又问了一次, **主人未答** (`t4_owner_confirmation.md` "第三个会话" 一节).

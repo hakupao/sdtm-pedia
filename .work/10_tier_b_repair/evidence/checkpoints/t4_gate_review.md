@@ -265,3 +265,15 @@ attempt 3 指出的 5 处都已改 (其中两处改得不彻底 → 并入下面
 - G-TB8: 本次 delta 审查的 `subagent_done` 行已记入 `trace.jsonl` (`T4.1` attempt `3-delta`), 作为 R3L 这一批第三个不同 subagent_type 的独立核验; 是否认可随 M-10 由主人定.
 - 需主人但不挡闸的两件事 (M-10 追认; ATOM_ERR 约 83 条是否加一轮): 2026-11-27T13:46:05Z 在聊天里告诉主人 (要点记在 `t4_owner_confirmation.md` "主控的第四次告知"), 并写进给协调方的完成报告 `evidence/checkpoints/t4_attempt3_report.md` §5; 主控没有替他定.
 - (主控注) `evidence/checkpoints/t4_ack_lists.md` 在 delta 审查之后因 LOW-7 重生成过一次: md5 `18a2981ce5bcdb11989cfdcf6ba46a4e` → `91ad638504915b98a1fed79b40b0d719`, 唯一差别是 `ig34_p0293_a038` 那一行末列多了 B1 的备注 (`git diff` 为 1 行). `t4_round3_ledger_W.md` §7 与 R3L reviewer 原文里引的是旧值, 那两份原文不改.
+
+---
+
+# attempt 3 D 项 "ATOM_ERR / PDF_TYPO 补抽 = 部分关" 的后续: 加查 (2026-11-27 夜; 主控登记, **不改判**)
+
+- 主人选了 "加查" (协调方转述; 来源如实记在 `t4_owner_confirmation.md` "第三个会话" 一节). 新会话主控 (任务 `task_5b6b27f6c68d`) 执行, 汇总 `evidence/checkpoints/t4_atomerr_fullcheck.md`.
+- 确切条数: S1-R1 157 条 = 此前已逐条判过 80 (补检 74 + 总闸样本 5 + T4.2 预筛 1) + **从未逐条判过 77**. attempt 3 估的 "约 83" = 157 − 74. 本轮全检 83 = 77 (首次) + 6 (盲复检). 筛法 `scripts/t4/t4_atomerr_sample.py`.
+- 审查者 `oh-my-claudecode:tracer` ×4 (新实例; 口径 `subagent_prompts/t4/t4_atomerr_s1r1_v1.0.md` 派发前提交 `bf303d8`): **成立 82 / 不成立 1 / 判不了 0**; 盲复检 6 / 6 与先前判定一致. 原始结果 `evidence/t4_atomerr_raw/pack_{1..4}.md`.
+- 不成立的 1 条: `ig34_p0124_a001` (ATOM_ERR, S1-R1) — 原子与 PDF 逐格一致, 没抽错; KB 逐字承载 → 按定义应为 EXACT. 另一类型的独立审查者 (`general-purpose`) 盲复看结论相同 (`evidence/t4_atomerr_raw/second_look.md`). 台账副本实算: U-1 B 不变 (99.2651%), strict +1 条 (95.5804%).
+- **台账没改** (md5 `438098704becc84eda01a925b80defaa`), KB 没改. 改不改 = 问题 C, 等主人直接定. 按写死条款本轮记 "不通过", 归档 `evidence/failures/step_T4.AE_attempt_1.md`.
+- 这一项的现状事实: ATOM_ERR 197 条与 PDF_TYPO 170 条现在每一条都有独立审查者的逐条判定; ATOM_ERR 里有 1 条已判不成立而标签未改. **"部分关" 改成什么状态由总闸角色 (`feature-dev:code-reviewer` 新实例) 或协调方判, 主控不判** (规则 D). 主人选 C1 并改完后, 可与那一处的 delta 闸审一并判.
+- 对已通过的 T4.1 总闸的影响, 主控只陈述事实不下结论: 这 1 条与 attempt 3 当时挡闸的 4 条多标 PDF_TYPO 是同一种情况 (已证实不成立的标签留在台账里), 方向同样是改回 EXACT、同样不影响过闸口径数字. 是否影响 PASS 的有效性, 同样由总闸角色 / 协调方判.
