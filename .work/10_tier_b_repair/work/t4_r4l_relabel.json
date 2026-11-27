@@ -1,0 +1,52 @@
+{
+ "_note": "T4 问题 C 改台账 R4L (主人 2026-11-27 直接回答 C1; evidence/checkpoints/t4_owner_confirmation.md 消息 5). relabel: 1 条 ATOM_ERR → EXACT; t3_errata_build.py 撤销它的 t1 errata 条目 (断言: 只因这条 errata 才是 ATOM_ERR), t3_writeback.py 让它进允许集并由现有 live-hit 路径判定 (断言 rule = live-hit, 终态 = to). registry_ptr: 4 条 ATOM_ERR 只补 evidence.registry (断言标签 / 规则不变). 生成: scripts/t4/t4_r4l_build.py (一次性).",
+ "relabel": {
+  "ig34_p0124_a001": {
+   "group": "atomerr-not-hold",
+   "now": "ATOM_ERR",
+   "to": "EXACT",
+   "raw": [
+    "evidence/t4_atomerr_raw/pack_1.md:29",
+    "evidence/t4_atomerr_raw/second_look.md:20"
+   ],
+   "decision": "owner 2026-11-27 问题 C = C1 (evidence/checkpoints/t4_owner_confirmation.md 消息 5)",
+   "why": "两位互不知情的独立审查者 (tracer / general-purpose) 都判 NOT_HOLD: 原子与 PDF 逐格一致 (没抽错), KB 与 PDF 逐字一致; ATOM_ERR 只出自 t1_errata t3_atom_err 的一句 B-ML review 顺带话",
+   "revoke": "t1_errata.t3_atom_err",
+   "spec": "subagent_prompts/t4/t4_round4_ledger_spec_v1.0.md §1"
+  }
+ },
+ "registry_ptr": {
+  "ig34_p0161_a0012": {
+   "add": [
+    "B-DS T-4"
+   ],
+   "raw": "evidence/t4_atomerr_raw/pack_2.md:18",
+   "decision": "t4_atomerr_fullcheck.md §5b (只补登记指针; 规格 §1 末项)",
+   "spec": "subagent_prompts/t4/t4_round4_ledger_spec_v1.0.md §1"
+  },
+  "ig34_p0337_a003": {
+   "add": [
+    "B-RS T-3"
+   ],
+   "raw": "evidence/t4_atomerr_raw/pack_4.md:14",
+   "decision": "t4_atomerr_fullcheck.md §5b (只补登记指针; 规格 §1 末项)",
+   "spec": "subagent_prompts/t4/t4_round4_ledger_spec_v1.0.md §1"
+  },
+  "ig34_p0339_a001": {
+   "add": [
+    "B-RS T-6 (RS 副本)"
+   ],
+   "raw": "evidence/t4_atomerr_raw/pack_4.md:21",
+   "decision": "t4_atomerr_fullcheck.md §5b (只补登记指针; 规格 §1 末项)",
+   "spec": "subagent_prompts/t4/t4_round4_ledger_spec_v1.0.md §1"
+  },
+  "ig34_p0361_a016": {
+   "add": [
+    "B-FA T-2"
+   ],
+   "raw": "evidence/t4_atomerr_raw/pack_4.md:29",
+   "decision": "t4_atomerr_fullcheck.md §5b (只补登记指针; 规格 §1 末项)",
+   "spec": "subagent_prompts/t4/t4_round4_ledger_spec_v1.0.md §1"
+  }
+ }
+}

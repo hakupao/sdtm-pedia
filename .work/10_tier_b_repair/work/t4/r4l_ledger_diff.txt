@@ -1,0 +1,10 @@
+rows 12492 / 12492; identical 12487; label-changed 1; other-changed 4
+listed atoms not changed: []
+label ('atomerr-not-hold', 'ATOM_ERR', 'EXACT', True): 1
+fields-only [registry]: 4
+
+LABEL	3280	ig34_p0124_a001	ATOM_ERR->EXACT	atomerr-not-hold	OK	rule=live-hit
+FIELDS	4187	ig34_p0161_a0012	ATOM_ERR	registry	matched_by.evidence.registry: [] -> ["B-DS T-4"]
+FIELDS	8478	ig34_p0337_a003	ATOM_ERR	registry	matched_by.evidence.registry: [] -> ["B-RS T-3"]
+FIELDS	8507	ig34_p0339_a001	ATOM_ERR	registry	matched_by.evidence.registry: [] -> ["B-RS T-6 (RS 副本)"]
+FIELDS	9039	ig34_p0361_a016	ATOM_ERR	registry	matched_by.evidence.registry: [] -> ["B-FA T-2"]

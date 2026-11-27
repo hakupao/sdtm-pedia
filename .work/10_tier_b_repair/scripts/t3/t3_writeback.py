@@ -19,7 +19,10 @@ Allowed set = triage_merged.json atoms ∪ work/t3_t2s_atoms.jsonl ∪ t3_errata
   8 else residual (verdict kept, listed)
 T4 R3L (主人 2026-11-27 问题 A = A1): work/t4_r3l_relabel.json lists atoms whose K3b touch the reviewers rejected; that touch
 (exactly the listed registry ids) is dropped after the K3b scan, the atoms join the allowed set and must end live-hit EXACT.
-Only rows whose verdict changes are rewritten (every row of a duplicated id; T4 R3L rows always). The 4 in-scope triage atoms that have no
+T4 R4L (主人 2026-11-27 问题 C = C1): work/t4_r4l_relabel.json `relabel` atoms had their errata ATOM_ERR revoked by
+t3_errata_build.py (t3_errata.json r4l_revoked); they join the allowed set and must end live-hit EXACT. Its `registry_ptr`
+only appends registry ids to the evidence of atoms that stay ATOM_ERR via S1-R1 (label / rule / batch unchanged).
+Only rows whose verdict changes are rewritten (every row of a duplicated id; T4 R3L / R4L rows always). The 4 in-scope triage atoms that have no
 ledger row are appended. Asserts (exit 1): changed/appended ids ⊆ allowed; untouched lines byte-identical to backup;
 every changed row matched_by.phase == 'TB'; IE flips ⊆ t1_ie_final.md (except rule T4-R2L-owner-IE);
 every T4 R2L listed atom ends on its listed label.
@@ -63,6 +66,16 @@ R2L = R2L_ALL["relabel"]
 R2L_IE = {i: e for i, e in R2L.items() if e["to"] == "INTENTIONAL_EXCLUDE"}
 assert set(R2L_IE) <= set(A) and not set(R2L_IE) & set(ER["atom_err"]), sorted(set(R2L_IE) & set(ER["atom_err"]))
 ALLOWED |= set(R2L_IE)
+# T4 问题 C 改台账 R4L: the revoked errata atoms (must equal t3_errata.json r4l_revoked) join the allowed set
+R4L_ALL = json.load(open(f"{W}/t4_r4l_relabel.json"))
+R4L = R4L_ALL["relabel"]
+assert set(R4L) <= set(A) and set(R4L) == set(ER.get("r4l_revoked", {})) and not set(R4L) & (set(ER["atom_err"]) | set(R2L)), \
+    ("T4 R4L list != t3_errata r4l_revoked / still in atom_err / in R2L", sorted(R4L), sorted(ER.get("r4l_revoked", {})))
+# reviewer M-1: the revoke must exist and the list must equal the add-on check's NOT_HOLD atoms (second data source)
+R4L_NH = {i for i, v in json.load(open(f"{W}/t4/atomerr/verdicts.json", encoding="utf-8")).items() if v["verdict"] == "NOT_HOLD"}
+assert ER.get("r4l_revoked") and set(R4L) == R4L_NH, \
+    ("T4 R4L: r4l_revoked empty or relabel ids != verdicts.json NOT_HOLD", sorted(R4L), sorted(ER.get("r4l_revoked", {})), sorted(R4L_NH))
+ALLOWED |= set(R4L)
 C1 = {k: v for k, v in json.load(open(f"{W}/t3_c1_manual.json")).items() if not k.startswith("_")}
 order, idx = atom_order()
 WR = collections.defaultdict(list)
@@ -489,6 +502,7 @@ K3B_KEEP_A3 = sorted(i for i, k in KEEP.items() if k["action"] == "keep_k3b")
 # existing branches (asserted below: live-hit EXACT). Their keep-list entries carry action t4_r3l_drop.
 R3L = json.load(open(f"{W}/t4_r3l_relabel.json"))["relabel"]
 assert set(R3L) <= set(A) and not set(R3L) & (set(ER["atom_err"]) | set(R2L)), sorted(set(R3L) & (set(ER["atom_err"]) | set(R2L)))
+assert not set(R3L) & set(R4L), sorted(set(R3L) & set(R4L))
 assert {i for i, k in KEEP.items() if k["action"] == "t4_r3l_drop"} == set(R3L), sorted(i for i, k in KEEP.items() if k["action"] == "t4_r3l_drop")
 K3B_R3L = {}
 for i, e in R3L.items():
@@ -522,6 +536,21 @@ for i, p in R2L_ALL["registry_ptr"].items():
     ev = decided[i][3]
     ev["registry"] = list(ev.get("registry") or []) + [r for r in p["add"] if r not in (ev.get("registry") or [])]
     ev["t4_r2l_registry_ptr"] = dict(add=p["add"], raw=p["raw"], note="T4 R2L §2.3: 只补登记指针, 标签与规则不变")
+# T4 R4L registry_ptr (pointer only; t4_atomerr_fullcheck.md §5b): the atom must stay ATOM_ERR via S1-R1; only evidence.registry
+# changes (provenance stays in work/t4_r4l_relabel.json, so no other evidence key is added)
+for i, p in R4L_ALL["registry_ptr"].items():
+    assert all(r in REG_IDS for r in p["add"]), ("T4 R4L registry_ptr: registry id not in t2_pdf_typo_registry.jsonl", i,
+                                                 [r for r in p["add"] if r not in REG_IDS])
+    assert i in decided and decided[i][:2] == ("ATOM_ERR", "S1-R1"), \
+        ("T4 R4L registry_ptr atom not ATOM_ERR via S1-R1", i, decided.get(i, [None, None])[:2])
+    ev = decided[i][3]
+    ev["registry"] = list(ev.get("registry") or []) + [r for r in p["add"] if r not in (ev.get("registry") or [])]
+# T4 R4L: decision source + reviewer pointers; batch T4-R4L (the live-hit fallback would say T3-errata-key)
+for i, e in R4L.items():
+    verdict, rule, batch, ev, extra = decided[i]
+    ev["t4_r4l"] = dict(group=e["group"], decision=e["decision"], raw=e["raw"], before="ATOM_ERR (S1-R1, t1_errata t3_atom_err)",
+                        errata_revoked=f"work/t3_errata.json#r4l_revoked/{i}", spec=e["spec"])
+    decided[i] = (verdict, rule, "T4-R4L", ev, extra)
 # T4 R3L: decision source + reviewer pointer on the evidence; batch T4-R3L (the live-hit fallback would say T3-errata-key)
 for i, e in R3L.items():
     verdict, rule, batch, ev, extra = decided[i]
@@ -535,7 +564,7 @@ for i in sorted(ALLOWED):
     old = led.get(i, {}).get("verdict", "NO_LEDGER_ROW")
     decisions[i] = dict(old=old, new=verdict or old, rule=rule, batch=batch, in_triage=i in T, in_t2s=i in S2S,
                         short_verbatim=len(norm(A[i]["verbatim"])) < 25, evidence=ev)
-    if verdict and (verdict != old or i in R3L):  # T4 R3L rows are rewritten as TB rows even when equal to pre_t3 (direct_hit checks TB rows)
+    if verdict and (verdict != old or i in R3L or i in R4L):  # T4 R3L / R4L rows are rewritten as TB rows even when equal to pre_t3 (direct_hit checks TB rows)
         mb = dict(phase="TB", subagent_type="script/t3_writeback", batch_id=batch, rule=rule, prev_verdict=old,
                   evidence=ev, prompt_version="t3_writer_v1.0", ts=a.ts)
         new_rows[i] = (verdict, mb, extra)
@@ -623,6 +652,9 @@ for i, e in ((i, e) for i, e in R2L.items() if i in decided):
 for i, e in R3L.items():  # T4 R3L: the listed label must come from the existing live-hit path, not be assigned
     if final.get(i) != e["to"] or decided[i][1] != "live-hit" or i in K3B or i not in new_rows:
         bad.append(f"T4 R3L atom not live-hit {e['to']}: {i} {final.get(i)} {decided[i][1]} in_k3b={i in K3B}")
+for i, e in R4L.items():  # T4 R4L: EXACT must come from the existing live-hit path (pre_t3 is already EXACT: check the rule)
+    if final.get(i) != e["to"] or decided[i][1] != "live-hit" or i in K3B or i not in new_rows:
+        bad.append(f"T4 R4L atom not live-hit {e['to']}: {i} {final.get(i)} {decided[i][1]} in_k3b={i in K3B}")
 for i in K3B_ASSERT_HITS:
     bad.append(f"§5.0 EXACT/EQUIVALENT touched by registered deviation (final ledger): {i} {K3B[i]}")
 open(f"{W}/t3_t4_k3b_out_of_scope.txt", "w").write("".join(f"{i}\t{final.get(i)}\t{';'.join(sorted(set(v)))}\n" for i, v in sorted(K3B_OUT.items())))
@@ -655,6 +687,9 @@ print("K3 allowed-set extension (writer T-n atoms not otherwise allowed):", len(
 print("T4 R2L:", len(R2L), "listed; final label as listed:", sum(final.get(i) == e["to"] for i, e in R2L.items()), "| IE", len(R2L_IE))
 print("T4 R3L:", len(R3L), "listed; K3b touches dropped:", {i: x["registry"] for i, x in K3B_R3L.items()},
       "| final label as listed via live-hit:", sum(final.get(i) == e["to"] and decided[i][1] == "live-hit" for i, e in R3L.items()))
+print("T4 R4L:", len(R4L), "listed (errata revoked) | final label as listed via live-hit:",
+      sum(final.get(i) == e["to"] and decided[i][1] == "live-hit" for i, e in R4L.items()),
+      "| registry_ptr:", {i: decided[i][3]["registry"] for i in R4L_ALL["registry_ptr"]})
 print("K11 groups short of occurrences:", json.dumps(K11, ensure_ascii=False))
 print("T1 kb_loc check:", dict(C((d["evidence"].get("t1_kb_loc_check") or {}).get("status") for d in decisions.values() if d["evidence"].get("t1_kb_loc_check"))))
 print("residual (allowed, verdict kept):", len(res), dict(C((d["old"], d["in_triage"]) for d in res.values())))

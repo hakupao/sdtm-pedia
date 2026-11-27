@@ -741,19 +741,6 @@
    "page": 123,
    "atom_in_pdf": false
   },
-  "ig34_p0124_a001": {
-   "cls": "R1",
-   "terminal": "ATOM_ERR",
-   "basis": "B-ML review: 原子 verbatim MIDSDTC 截断; KB 与 PDF 一致",
-   "source": "t1_errata.t3_atom_err",
-   "registry": [],
-   "checkpoint": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-ML_review.md:70",
-   "in_allowed_set": true,
-   "ledger_verdict_now": "EXACT",
-   "triage_class": null,
-   "page": 124,
-   "atom_in_pdf": false
-  },
   "ig34_p0133_a003": {
    "cls": "R1",
    "terminal": "ATOM_ERR",
@@ -3647,5 +3634,28 @@
    ]
   },
   "dropped": {}
+ },
+ "r4l_revoked": {
+  "ig34_p0124_a001": {
+   "entry": {
+    "cls": "R1",
+    "terminal": "ATOM_ERR",
+    "basis": "B-ML review: 原子 verbatim MIDSDTC 截断; KB 与 PDF 一致",
+    "source": "t1_errata.t3_atom_err",
+    "registry": [],
+    "checkpoint": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-ML_review.md:70",
+    "in_allowed_set": true,
+    "ledger_verdict_now": "EXACT",
+    "triage_class": null,
+    "page": 124,
+    "atom_in_pdf": false
+   },
+   "decision": "owner 2026-11-27 问题 C = C1 (evidence/checkpoints/t4_owner_confirmation.md 消息 5)",
+   "raw": [
+    "evidence/t4_atomerr_raw/pack_1.md:29",
+    "evidence/t4_atomerr_raw/second_look.md:20"
+   ],
+   "spec": "subagent_prompts/t4/t4_round4_ledger_spec_v1.0.md §1"
+  }
  }
 }

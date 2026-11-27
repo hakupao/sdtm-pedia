@@ -16575,9 +16575,9 @@
 },
 "ig34_p0124_a001": {
 "old": "EXACT",
-"new": "ATOM_ERR",
-"rule": "S1-R1",
-"batch": "T1/T2-errata",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T4-R4L",
 "in_triage": false,
 "in_t2s": false,
 "short_verbatim": false,
@@ -16597,10 +16597,17 @@
 "writer": [],
 "t2s": [],
 "k11_surplus": false,
-"errata": "work/t3_errata.json#atom_err/ig34_p0124_a001",
-"registry": [],
-"checkpoint": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-ML_review.md:70",
-"basis": "B-ML review: 原子 verbatim MIDSDTC 截断; KB 与 PDF 一致"
+"t4_r4l": {
+"group": "atomerr-not-hold",
+"decision": "owner 2026-11-27 问题 C = C1 (evidence/checkpoints/t4_owner_confirmation.md 消息 5)",
+"raw": [
+"evidence/t4_atomerr_raw/pack_1.md:29",
+"evidence/t4_atomerr_raw/second_look.md:20"
+],
+"before": "ATOM_ERR (S1-R1, t1_errata t3_atom_err)",
+"errata_revoked": "work/t3_errata.json#r4l_revoked/ig34_p0124_a001",
+"spec": "subagent_prompts/t4/t4_round4_ledger_spec_v1.0.md §1"
+}
 }
 },
 "ig34_p0124_a017": {
@@ -25510,7 +25517,9 @@
 "t2s": [],
 "k11_surplus": false,
 "errata": "work/t3_errata.json#atom_err/ig34_p0161_a0012",
-"registry": [],
+"registry": [
+"B-DS T-4"
+],
 "checkpoint": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-DS.md:137",
 "basis": "B-DS audit: verbatim DSCAT 应为 DSSCAT (渲染页)"
 }
@@ -55399,7 +55408,9 @@
 "t2s": [],
 "k11_surplus": false,
 "errata": "work/t3_errata.json#atom_err/ig34_p0337_a003",
-"registry": [],
+"registry": [
+"B-RS T-3"
+],
 "checkpoint": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-RS_audit.md:11 (页级行; 该批以范围/页号记这组原子)",
 "basis": "B-RS audit: verbatim 与 PDF 页文本不符 实为 p336 CC 3c; KB 与页文本一致"
 }
@@ -55633,7 +55644,9 @@
 "t2s": [],
 "k11_surplus": false,
 "errata": "work/t3_errata.json#atom_err/ig34_p0339_a001",
-"registry": [],
+"registry": [
+"B-RS T-6 (RS 副本)"
+],
 "checkpoint": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-RS_audit.md:15 (页级行; 该批以范围/页号记这组原子)",
 "basis": "B-RS audit: verbatim 与 PDF 页文本不符; KB 与页文本一致"
 }
@@ -58290,7 +58303,9 @@
 "t2s": [],
 "k11_surplus": false,
 "errata": "work/t3_errata.json#atom_err/ig34_p0361_a016",
-"registry": [],
+"registry": [
+"B-FA T-2"
+],
 "checkpoint": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-FA_audit.md:36",
 "basis": "B-FA audit: 原子抽错"
 }
