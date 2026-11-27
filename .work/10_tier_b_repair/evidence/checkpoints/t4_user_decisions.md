@@ -44,7 +44,7 @@
 | 追加 Q2 | A2-16 按审查者值执行 | 登记写明草拟候选值有误、由审查者更正 | `t4_u7_rowcheck.md` |
 | 追加 Q3 | B-MK T-1 MK 表范围 en dash 本次不改, 记后续 | — | — |
 
-### 000b. 主控决定 (实施层, **不在委托代裁内**; 总闸 attempt 2 要求单列. M-1 ~ M-7: 按 `t4_owner_confirmation.md` 的记录已由主人追认; M-8: 主人第二轮问题 5 已追认 (见 §000c); **M-9 待主人追认**)
+### 000b. 主控决定 (实施层, **不在委托代裁内**; 总闸 attempt 2 要求单列. M-1 ~ M-7: 按 `t4_owner_confirmation.md` 的记录已由主人追认; M-8: 主人第二轮问题 5 已追认 (见 §000c); M-9: 主人 2026-11-27 消息 4 已追认 (见 §000c))
 | # | 决定 | 出处 |
 |---|---|---|
 | M-1 | 解冻门禁替代证明: `typo_assert --plan` / `ct_assert` 结构性 FAIL, 以 W1 拆分验证 + reviewer 逐条归因代替; S-TYPO.fixed 追加 58 行 CRF 放行 | `t4_thaw_review.md` 主控追认 |
@@ -55,7 +55,7 @@
 | M-6 | 5 条 `> Note:` 行反向溯源豁免 (整行锚定) | 同上 |
 | M-7 | ack 清单 "决定来源" 归属 (U-5 / U-2 / U-8 / U-7) | 同上. 2026-11-27 接手主控更正一处登记错误: `ig34_p0362_a010` 原记在 U-7 名下, 实为 M-4 → `scripts/t4/t4_ack_lists.py` 加 `MAIN_CTRL` 后重生成 (U-7 23 → 22, 主控决定 M-4 1; 其余行不变). 注: 这处更正发生在 `t4_owner_confirmation.md` 所记的确认之后, 那次追认是否覆盖它, 留给总闸 attempt 3 判断 |
 | M-8 | (接手主控; 不在 `t4_owner_confirmation.md` 第一节所记范围内; **主人 2026-11-27 第二轮问题 5 已追认**, 见 §000c) T0 变异在现 KB 上重证时 M4a 换靶: 原靶 (MB 第二份 suppbe 副本) 已被 D2 去重删掉 → 改用 PDF p431 relrec Ex1 的两份 KB 副本 (ch08 / RELREC), 只变异 ch08 那份; 现 KB 基线另存 `work/t4/t0_head/`, T0 基线不覆盖 | `t4_t0_refresh.md` §3 |
-| M-9 | (接手主控, **待主人追认**; 主人第二轮定的是 "改哪些标签", 下面这些是落地时的机制选择, 不是他定的) 第二轮改台账 (R2L) 的实施做法: ① 范围外 6 条笔误同类没照规格字面 "比照 U-8 keep 清单", 而是走 errata R2 + 运行时 pdf / kb 行 token 断言 (原因: 这 6 条没被 K3b 触及, 写进 keep 清单会撞断言, 且 ack 清单会把来源误归 U-8); ② IE 53 条用新规则 `T4-R2L-owner-IE`, `IE flip not in t1_ie_final` 断言只对它放行, `t1_ie_final.md` 不加这 53 条; ③ 范围内 19 条不走 `s0_classify` 条目, 做成 errata 里的逐原子登记绑定; ④ 登记表新字段 `other_kb_lines` (B-SUPPQUAL T-1) 与 `t4_r2l_fix` (记更正前后); 9 行登记文字 / 页号更正 + 2 行新登记 (后者 = 问题 9 = A); 5 条原子补登记指针 (不改标签); ⑤ 新写行沿用固定 `ts` 2026-11-26T12:00:00Z / `prompt_version` t3_writer_v1.0 (为了让没改判的行逐字节不变), 决定日期写在 `evidence.t4_r2l` 里. 标签结果: 78 条恰按主人选的清单, 清单外 0 条 | `t4_round2_ledger_W.md` §1 / §2 / §5; reviewer `t4_round2_ledger_review.md`; auditor `t4_round2_ledger_audit.md` |
+| M-9 | (接手主控; **主人 2026-11-27 消息 4 「A1、B1、追认 M-9」已追认**; 主人第二轮定的是 "改哪些标签", 下面这些是落地时的机制选择, 不是他定的) 第二轮改台账 (R2L) 的实施做法: ① 范围外 6 条笔误同类没照规格字面 "比照 U-8 keep 清单", 而是走 errata R2 + 运行时 pdf / kb 行 token 断言 (原因: 这 6 条没被 K3b 触及, 写进 keep 清单会撞断言, 且 ack 清单会把来源误归 U-8); ② IE 53 条用新规则 `T4-R2L-owner-IE`, `IE flip not in t1_ie_final` 断言只对它放行, `t1_ie_final.md` 不加这 53 条; ③ 范围内 19 条不走 `s0_classify` 条目, 做成 errata 里的逐原子登记绑定; ④ 登记表新字段 `other_kb_lines` (B-SUPPQUAL T-1) 与 `t4_r2l_fix` (记更正前后); 9 行登记文字 / 页号更正 + 2 行新登记 (后者 = 问题 9 = A); 5 条原子补登记指针 (不改标签); ⑤ 新写行沿用固定 `ts` 2026-11-26T12:00:00Z / `prompt_version` t3_writer_v1.0 (为了让没改判的行逐字节不变), 决定日期写在 `evidence.t4_r2l` 里. 标签结果: 78 条恰按主人选的清单, 清单外 0 条 | `t4_round2_ledger_W.md` §1 / §2 / §5; reviewer `t4_round2_ledger_review.md`; auditor `t4_round2_ledger_audit.md` |
 
 ### 000c. 第二轮: 主人本人裁定 (2026-11-27, 在接手主控聊天里直接回答; **不是委托代裁**)
 
@@ -76,8 +76,9 @@
 | 7b (范围外笔误同类) | A: 独立审查确认后改记 PDF_TYPO | 第三轮 R3_XTYPO 6 条全部对渲染页确认 → 并入 R2L | 已执行 (同问题 1 行) |
 | 8 (EG / RE 省略号) | A: 接受现状 | 不改 KB; `EG/examples.md` 例 3 表 25 行 + `RE/examples.md:15` 用 `...` 而 PDF 为 `…`, 登记为接受的排版差异 | 已登记 |
 | 9 (两处 PDF 自身不一致) | A: 补登记 | 登记表加两行 (随 R2L): `T4R2 sv20 N-1`、`T4R2 RELSPEC N-1` | 已登记 |
-| **A** (4 条多标的 PDF_TYPO 是否改回 EXACT) | **未答** | 不动, 维持 PDF_TYPO | **待主人** |
-| **B** (`ig34_p0293_a038` 判不了的怎么记) | **未答** | 不动 (现状 = PDF_TYPO, 登记已注折行歧义) | **待主人** |
+| **A** (4 条多标的 PDF_TYPO 是否改回 EXACT) | 第一次问: 未答 (消息 3 「继续」); 总闸 attempt 3 判它为唯一挡闸项后再问 → **A1: 改回 EXACT** (消息 4) | 改台账批 R3L (`subagent_prompts/t4/t4_round3_ledger_spec_v1.0.md`) | 见 `t4_round3_ledger_W.md` |
+| **B** (`ig34_p0293_a038` 判不了的怎么记) | 第一次问: 未答; 再问 → **B1: 维持 PDF_TYPO 并写明无法判定** (消息 4) | 标签不动; 无法判定之处 = 折行处有没有空格 (登记 `B-MK T-2` 已注折行歧义; 第三轮与总闸审查者都判 UNVERIFIABLE, KB 两种情况下都对) | 已登记 |
+| M-9 (R2L 机制选择) | **追认** (消息 4) | — | 已追认 |
 
 ## 0. 用法
 - 每行二选一: **A = 维持现状** (KB 照录 PDF), **B = 改为候选值**。"主控建议" 列是登记员草拟, 主控审后可改。

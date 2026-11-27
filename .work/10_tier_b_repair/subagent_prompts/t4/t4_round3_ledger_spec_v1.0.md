@@ -1,7 +1,7 @@
 # T4 问题 A 改台账 (R3L) — writer 规格 v1.0 (预备稿; **仅在主人直接回答 A1 之后才派发**)
 
 <!-- chain: E (plans) -->
-> 状态: 预备 (2026-11-27). 主人尚未回答问题 A; 本规格在他答 A1 之前**不执行**, 答 A2 或别的则作废 (保留不删).
+> 状态: **生效** — 主人 2026-11-27 直接回答 「A1、B1、追认 M-9」 (原话与时间: `evidence/checkpoints/t4_owner_confirmation.md` 消息 4). (写成预备稿时主人尚未回答; 规格正文在他回答之后没有改.)
 > 用途: 把 4 条多标的 PDF_TYPO 改回 EXACT. 依据: 第三轮审查者 `evidence/t4_round3_raw/` (R3_PDF_TYPO 层 NOT_HOLD 4 条) 与总闸 attempt 3 审查者的独立复核 (`evidence/t4_gate_raw/attempt3_report.md` "样本里仍未处理的 NOT_HOLD" 表) — 两位独立审查者结论一致, 本批不再另设语义 auditor.
 > writer = `oh-my-claudecode:executor` (opus); reviewer = `oh-my-claudecode:code-reviewer` (复跑逐行核; 规则 D). 主控不写台账.
 > **KB 冻结**: `knowledge_base/` 一个字节都不许改 (`git rev-parse HEAD:knowledge_base` = `63f857774a42cfaa71798705ad40ab51bc5e378a`). `archive/`、`releases/` 不碰. 不 git add / commit / push (主控提交).
