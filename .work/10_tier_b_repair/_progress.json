@@ -3,9 +3,9 @@
   "tier": 3,
   "plan": "PLAN.md",
   "plan_version": "v1.3",
-  "status": "EXECUTING — T3 完成 (attempt 4 PASS), 进入 T4",
-  "current_step": "T4.1",
-  "next_step": "T4.1 总闸独立审 (feature-dev:code-reviewer) → T4.2 人工 30 抽样 + t4_user_decisions → T4.3 收尾 push",
+  "status": "EXECUTING — T4.1 总闸 attempt 1 = 不通过 (CONDITIONAL, 样本 84/84 HOLDS, 证据层待用户裁定); T4.2 样本已备, 等用户",
+  "current_step": "T4.2 (等用户)",
+  "next_step": "用户裁定 t4_user_decisions.md §00 U-1~U-11 + t4_human_sample.md 42 条 + t4_ack_lists.md → 主控按裁定改 ledger/KB (KB 解冻后) → T4.1 attempt 2 → T4.3",
   "baseline": {
     "tier_b_p4b_orig": {
       "SIBLING_DROPPED": 56,
@@ -229,19 +229,19 @@
     },
     "T3.1": "PASS (attempt 4)",
     "T3.2": "PASS (attempt 4)",
-    "T4.1": "pending",
-    "T4.2": "pending",
+    "T4.1": "CONDITIONAL (attempt 1, 2026-11-27): 样本 84/84 HOLDS; 证据层 G-TB1/2 NOT_MET, G-TB3 字面 NOT_MET (mapped 过) → 待用户 U-1~U-5",
+    "T4.2": "样本已备 (42 = 正式 30 + 风险 12), 待用户判定",
     "T4.3": "pending"
   },
   "gates": {
     "G-TB1": "数值: 残留 1 (ig34_p0056_a006 pending_user), 173/174 节; 用户 ack 待 T4",
     "G-TB2": "170/174 (范围内口径; 参考 strict 155/174)",
     "G-TB3": "99.3578% mapped ≥99.02 (参考 strict 96.0741%)",
-    "G-TB4": null,
-    "G-TB5": null,
+    "G-TB4": "MET_WITH_CONDITION (T4.1): HEAD census OK 311 / DIFF 37 / diffs 144 与 50c3958 一致; C3 逐表结案清单缺",
+    "G-TB5": "MET (T4.1 证据层)",
     "G-TB6": "新增 5336 行未溯源 0 (1370 行宽口径类经审计抽 30 无内容错)",
-    "G-TB7": "live docs 42",
-    "G-TB8": null,
+    "G-TB7": "live docs 42 (T4.1 后复跑)",
+    "G-TB8": "MET 字面 (T4.1 证据层; trace 有回填行)",
     "G-TB9": "PASS 3/3 (待用户 ack)"
   },
   "open_decisions": [
@@ -297,7 +297,9 @@
     "scripts/helpers/t2_pkg.py (T1.4-apply)": "dbc8a57e81d544dd1f6b205873fc1515",
     "work/coverage_ledger.wc.jsonl (T3 attempt 4)": "a8011432d42e1e9db0e3fd775cf28fad (pre_t3 = 620c4a19e5d433b000327b32693c4c9c = archive)",
     "work/t3_k3b_out_of_scope_keep.json": "07ac3786e60842d66ed3383b61a4d03d",
-    "work/t3_errata.json": "1d27f0fa6c2538e5900a37b6b3cd9cd9"
+    "work/t3_errata.json": "1d27f0fa6c2538e5900a37b6b3cd9cd9",
+    "t4_gate_sample": "67b1013f496096df483eb300a66150d6",
+    "t4_human_sample": "206d6eabd58c96eb66e7cc3a7bc64fc7"
   },
   "t2s": {
     "committed": [

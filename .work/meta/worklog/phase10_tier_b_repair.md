@@ -15,3 +15,9 @@
 - 两个脚本批按 advisor 意见先 dry-run, 断言均做变异测试 (S-CT 12 种 / S-TYPO 27+9 种), reviewer 各抓出一个断言盲区后补强。
 - 产出 PDF_TYPO 登记表 270 条 + T4 用户裁定汇总 (O25)。范围外 O54-O62。
 - 下一步 T3 (ledger 回写 + 重算) → T4 → push。
+
+## 2026-11-27 T4.1 总闸 attempt 1 + T4.2 样本备齐 (等用户)
+- 总闸 `feature-dev:code-reviewer` ×5 (本项目首次用): 分层样本 84 条 (PLAN 72 + 补充 SUPP 12, seed 20261127) 全部 HOLDS; 证据层判 **不通过 (CONDITIONAL)**: G-TB1/2 未过 (残留 `ig34_p0056_a006` + 三类无用户 ack), G-TB3 06 公式照套 strict 96.0741% < 99.02%, mapped 99.3578% 过但口径未经用户认可。报告 `.work/10_tier_b_repair/evidence/checkpoints/t4_gate_review.md`。
+- 覆盖率下降分解: 319 行 "06 算覆盖 → 现标 ATOM_ERR/PDF_TYPO/FIG" 贡献约 −3.19pp; 若这 319 行仍算覆盖为 99.27% (`scripts/t4/t4_coverage_decomp.py`)。
+- T4.2 人工抽样包 42 条 (正式 30 + 节锚无效风险层 12) 已备, 判定栏空; ATOM_ERR/PDF_TYPO/FIG 330 原子确认清单 `t4_ack_lists.md`; 用户裁定入口 `t4_user_decisions.md` §00 U-1~U-11。
+- KB 冻结 (sdtm-rag 入库预演), 本日 KB 0 改动; 未 push、未打 tag。

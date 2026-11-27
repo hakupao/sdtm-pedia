@@ -1,5 +1,5 @@
 # 10_tier_b_repair — 主控 handoff (压缩/换 session 时先读)
-> 更新: 2026-11-26. 本文件只记"在途状态 + 主控规程", 规则本体见 PLAN.md / subagent_prompts/t2_dispatch_notes.md / evidence/checkpoints/t1_user_ack.md (R1-R4, D1-D7).
+> 更新: 2026-11-27 (T4.1 attempt 1 后). 本文件只记"在途状态 + 主控规程", 规则本体见 PLAN.md / subagent_prompts/t2_dispatch_notes.md / evidence/checkpoints/t1_user_ack.md (R1-R4, D1-D7).
 
 ## 每批流程 (主控只派发/裁定/提交, 不写 KB)
 writer (oh-my-claudecode:executor, opus) → reviewer (oh-my-claudecode:code-reviewer) → auditor (oh-my-claudecode:verifier).
@@ -18,5 +18,11 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - 结果摘要: `evidence/checkpoints/t3_recompute.md` §0 顶部 (最终有效 = attempt 4); 审计 `evidence/step_T3_audit.md`; 复跑入口 §A4.5.
 - 终态 EXACT 1016 / EQUIV 54 / IE 494 / ATOM_ERR 197 / PDF_TYPO 122 / FIG 11; 残留 1 (`ig34_p0056_a006` pending_user). G-TB2 170/174, G-TB3 99.3578%, live docs 42.
 - 之后跑 fp_match 必加 `--sections work/section_coverage.wc.baseline.jsonl`.
-## 下一步: T4 (总闸 feature-dev:code-reviewer + `t4_user_decisions.md` 逐条 A/B + 人工 30 抽样 + Chain D) → push + KB tag + 提醒 sdtm-rag
-- T4 须并入: PDF_TYPO/ATOM_ERR/FIG 用户 ack; 风险层 `work/t3_t4_risk_anchorless.txt` (508 条节锚无效 EXACT) 加一层人工抽样; 范围外 `work/t3_t4_k3b_out_of_scope.txt`; keep 清单 p0412_a008/p0342_a007 定位行 (低).
+## T4 在途 (2026-11-27): T4.1 attempt 1 = **不通过 (CONDITIONAL)**; T4.2 样本已备; **全部等用户裁定**
+- KB 冻结中 (sdtm-rag 用 00a2e93 内容做入库预演): 本阶段 **不改 `knowledge_base/`**, 不 push, 不打 kb tag, 不做 T4.3.
+- 总闸: `evidence/checkpoints/t4_gate_review.md` (主控誊录 + 计数); 审查原文 `evidence/t4_gate_raw/{pack1..4,evidence_layer}.md`; brief `subagent_prompts/t4_gate_reviewer_v1.0.md`.
+  - 样本 84/84 HOLDS (正式 72 + 补充 SUPP 12; seed 20261127). 证据层: G-TB1/2 NOT_MET (残留 p0056_a006 + 三类无 ack)、G-TB3 字面 NOT_MET (strict 96.0741%) / mapped 99.3578% 过但无用户认可.
+- 用户待裁 (唯一入口): `evidence/checkpoints/t4_user_decisions.md` **§00 U-1~U-11** (口径/残留/父节/C 层/三类 ack/人工抽样/A-B 表/范围外 4/S-TYPO/KB 观察项/Mermaid); 三类逐条 `evidence/checkpoints/t4_ack_lists.md`; 人工抽样 `evidence/checkpoints/t4_human_sample.md` (42 条, 判定栏空).
+- 复跑: `python3 -I $T/scripts/t4/t4_sample.py && python3 -I $T/scripts/t4/t4_render.py` (注意: render 会整体重写 t4_human_sample.md, 有用户判定后不要再跑或先誊出); `t4_ack_lists.py`; `t4_coverage_decomp.py`. HEAD 复跑结果 (live docs 42 / t3_mutation 同 T3 / census OK311 DIFF37 diffs144) 见 gate_review §3.
+- 用户裁定回来后: ① 按 U-2/U-8 改 ledger (走 writer→reviewer, 主控不写); ② KB 解冻后按 U-7/U-9/U-10 改 KB (正常批流程); ③ 证据层审查者建议的补强 (pre_existing 58 条单独核、C7 38 条 ATOM_ERR 全检、FIG 11 条、C3 表结案清单、文档状态行过期) 视用户 U-5 选择做; ④ T4.1 attempt 2 (同角色 feature-dev:code-reviewer, 新实例) → T4.3 (Chain D + RETROSPECTIVE + push + kb tag + 提醒 sdtm-rag).
+- 风险提示: 下一个会话若重跑 `t4_render.py` 会覆盖用户在 t4_human_sample.md 的勾选.
