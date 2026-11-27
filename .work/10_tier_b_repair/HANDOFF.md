@@ -18,7 +18,7 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - 结果摘要: `evidence/checkpoints/t3_recompute.md` §0 顶部 (最终有效 = attempt 4); 审计 `evidence/step_T3_audit.md`; 复跑入口 §A4.5.
 - 终态 EXACT 1016 / EQUIV 54 / IE 494 / ATOM_ERR 197 / PDF_TYPO 122 / FIG 11; 残留 1 (`ig34_p0056_a006` pending_user). G-TB2 170/174, G-TB3 99.3578%, live docs 42.
 - 之后跑 fp_match 必加 `--sections work/section_coverage.wc.baseline.jsonl`.
-## T4 在途 (2026-11-27): T4.1 attempt 1 = **不通过 (CONDITIONAL)**; T4.2 样本已备; **全部等用户裁定**
+## (历史) T4 attempt 1 阶段 (2026-11-27): T4.1 attempt 1 = **不通过 (CONDITIONAL)**; T4.2 样本已备; **全部等用户裁定**
 - KB 冻结中 (sdtm-rag 用 00a2e93 内容做入库预演): 本阶段 **不改 `knowledge_base/`**, 不 push, 不打 kb tag, 不做 T4.3.
 - 总闸: `evidence/checkpoints/t4_gate_review.md` (主控誊录 + 计数); 审查原文 `evidence/t4_gate_raw/{pack1..4,evidence_layer}.md`; brief `subagent_prompts/t4_gate_reviewer_v1.0.md`.
   - 样本 84/84 HOLDS (正式 72 + 补充 SUPP 12; seed 20261127). 证据层: G-TB1/2 NOT_MET (残留 p0056_a006 + 三类无 ack)、G-TB3 字面 NOT_MET (strict 96.0741%) / mapped 99.3578% 过但无用户认可.
@@ -26,7 +26,11 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - 复跑: `python3 -I $T/scripts/t4/t4_sample.py && python3 -I $T/scripts/t4/t4_render.py` (注意: render 会整体重写 t4_human_sample.md, 有用户判定后不要再跑或先誊出); `t4_ack_lists.py`; `t4_coverage_decomp.py`. HEAD 复跑结果 (live docs 42 / t3_mutation 同 T3 / census OK311 DIFF37 diffs144) 见 gate_review §3.
 - 用户裁定回来后: ① 按 U-2/U-8 改 ledger (走 writer→reviewer, 主控不写); ② KB 解冻后按 U-7/U-9/U-10 改 KB (正常批流程); ③ 证据层审查者建议的补强 (pre_existing 58 条单独核、C7 38 条 ATOM_ERR 全检、FIG 11 条、C3 表结案清单、文档状态行过期) 视用户 U-5 选择做; ④ T4.1 attempt 2 (同角色 feature-dev:code-reviewer, 新实例) → T4.3 (Chain D + RETROSPECTIVE + push + kb tag + 提醒 sdtm-rag).
 - 风险提示: 下一个会话若重跑 `t4_render.py` 会覆盖用户在 t4_human_sample.md 的勾选.
-## T4 attempt 2 在途 (2026-11-27, 新 session 主控)
-- 裁定 = 协调 bot「sdtm开发」委托代裁 (非主人逐条), 记录 `evidence/checkpoints/t4_user_decisions.md` §000. U-6 人工闸不在委托内.
-- 已完成并提交 `3a24a1c`: U-5 C7 38/38 成立、U-6 AI 预筛 42/42 (`t4_human_prescreen.md`)、U-7 复核 (`t4_u7_rowcheck.md`)、Mermaid 42/42.
-- 解冻轮规格 `subagent_prompts/t4/t4_thaw_spec_v1.0.md`. W1 (`t4_thaw_W1.md`) + W2 (`t4_thaw_W2.md`) KB 改动**在工作树未提交**, reviewer PASS (`t4_thaw_review.md`). 下一步 W3 台账重算 → reviewer-L → auditor → commit → 总闸 attempt 2.
+## T4 现状 (2026-11-27 晚, 新 session 主控): **T4.1 attempt 2 = 不通过 (CONDITIONAL)**; KB 已解冻改完一次 (本地, 未 push)
+- 裁定 = 协调 bot「sdtm开发」委托代裁 (非主人逐条), `evidence/checkpoints/t4_user_decisions.md` §000; 主控实施决定 M-1..M-7 单列 §000b (不在委托内, 待追认).
+- 提交: `3a24a1c` 解冻前只读核查 (U-5 38/38、U-6 预筛 42/42、U-7 复核 21 B / 5 回 A / B 组 15 维持, Mermaid 42/42); `a59c2d3` 解冻轮 (KB 25 文件 +118/−179; W1/W2/W3 executor → reviewer ×2 code-reviewer → auditor verifier 全 PASS; 证据 `t4_thaw_*.md`); `d3f2ea9` 下游说明 + 状态行; 其后 attempt 2 誊录提交.
+- 终值: ledger md5 `60729f7b64b7c1dfaf2174e394f6dd9c`; 残留 0; G-TB2 174/174 [严格 157]; G-TB3 strict 95.8041 / mapped 99.3561 / U-1 B 99.2690 / 内容 90.6948; live docs 42; t3_mutation M0/2/7 绿 M1/3-6 红; t0_mutation MISMATCH (既有, T0 baseline 过期).
+- T4.2: 主人 (经协调方转达) 改口径为 "AI 预筛 42 + 主人抽查 6", 判 6/6 → `t4_human_verdicts.md`; 6 条解冻后未变. **勿重跑 `t4_render.py`** (包头已加指针; 模板 `scripts/t4/t4_human_header.md` 同步).
+- 总闸 attempt 2: `t4_gate_review.md` §attempt 2; 缺: 主人确认 U-1 口径 / T4.2 口径 / M-1..M-7 + 仓内可核原话; C3 逐表结案清单; t0 baseline 刷新; pre_existing 58 / FIG 11 / 规则 0 抽中类; PLAN FIG 12→11 与 T4.2 口径修订; audit_matrix T3/T4 行.
+- 下游: `t4_downstream_notes.md` 末节 (rag R4 只多 TSVALCD/TSVCDREF/TSVCDVER; 标题变动 8 文件; 勿改用 R4n).
+- 禁止仍有效: 不 push、不打 kb tag、不做 T4.3.

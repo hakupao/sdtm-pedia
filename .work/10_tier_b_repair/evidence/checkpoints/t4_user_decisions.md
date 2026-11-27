@@ -25,7 +25,7 @@
 ## 000. 裁定记录: 委托代裁 (2026-11-27)
 
 > **性质**: 下列裁定**不是主人逐条裁定**. 主人于 2026-11-27 把本清单的选择题委托给协调 bot「sdtm开发」, 委托原话: 「之前那些选项，你可以替我分析后决定嘛。我听从你的建议」. 裁定人 = 协调 bot「sdtm开发」(受托代裁); 执行 = 本项目主控. 是否足以替代 "用户认可记录" 由 T4.1 总闸审查者判断.
-> **委托不覆盖 U-6** (T4.2 人工闸): 只做了 AI 预筛 (`evidence/checkpoints/t4_human_prescreen.md`, 42/42 内容正确), 不是人工判定; `t4_human_sample.md` 判定栏保持空白, 人工闸仍开着.
+> **委托不覆盖 U-6** (T4.2 人工闸): AI 预筛 (`t4_human_prescreen.md` 42/42 + 解冻后 `t4_human_prescreen_postthaw.md` 4/4) 不是人工判定. 之后主人 (经协调方转达) 本人把 T4.2 改为 "AI 预筛 42 + 主人抽查 6", 判 6/6 内容正确 → 登记 `t4_human_verdicts.md` (仓内无主人原话独立凭证; 总闸 attempt 2 判 "需主人确认 / 可核性不足").
 
 | # | 代裁 | 附加条件 / 执行说明 | 证据 |
 |---|---|---|---|
@@ -34,7 +34,7 @@
 | U-3 | **A**: 父节只看范围内子节 | — | — |
 | U-4 | **A**: 接受抽样 | — | — |
 | U-5 | **B**: 先全检 C7 38 条 (独立审查者), 全部成立 → 整类确认 | 全检结果 38 成立 / 0 不成立 / 0 看不出 → ATOM_ERR 197 / PDF_TYPO 122 / FIG 11 整类确认 (委托代裁) | `t4_u5_c7_fullcheck.md` (oh-my-claudecode:tracer) |
-| U-6 | **不在委托内**: 仅 AI 预筛 | 预筛者 general-purpose (与各批 auditor、总闸审查者不同); 主人是否接受 "预筛 + 主人抽查" 由协调方另问 | `t4_human_prescreen.md` |
+| U-6 | **不在委托内**: 仅 AI 预筛 | 预筛者 general-purpose (与各批 auditor、总闸审查者不同); 主人本人 (经转达) 选 "预筛 + 抽查 6", 判 6/6 → `t4_human_verdicts.md` | `t4_human_prescreen.md` |
 | U-7 | A1-A3 默认 A, 仅单值可定时 B; 草拟 B 逐行复核; A4 = A; A5 按主控建议 (A5-12/A5-15 = A, 其余 B); A6 = B; B 组维持, 不能单值定的否决 | 复核 (pr-review-toolkit:code-reviewer): 草拟 B 26 行 → 维持 B 21 / 改回 A 5 (A2-12, A3-24, A3-28, A3-31, A3-32); B 组 15 维持 / 0 否决. A2-16 草拟候选值 (PPGRPID) 有误, 审查者按同页 relrec 更正为 "PC records with PCGRPID" (代裁同意按审查者值). A2-5 扩到 :48/:50. 行数: 任务原述 "40 行", 实数 A1-A3 26 + A5 13 + A6 2 = 41 (代裁: 以实数为准) | `t4_u7_rowcheck.md` |
 | U-8 | 四条都 **A**: 台账改标 PDF_TYPO, 不动 KB | — | — |
 | U-9 | (a) S-TYPO **口径 A (按渲染外观)**: CE 39 + ch04 19 = 58 处, ML 保持 `[X]`/`[ ]`; (b) MH `History“` **A** 照录; (c) 残余 230 行 **A** 接受现状 | (a) 指 `t2_S-TYPO.md` 的口径名, 不是 §00 (a) 行的字母 | `t2_S-TYPO.md` "CRF 符号" |
@@ -43,6 +43,17 @@
 | 追加 Q1 | A5-3 照做 (TS 表加第 6 列, 同 TT/TP 承载) | 在 `t4_downstream_notes.md` 写明 rag 定义出处映射新增 TSVALCD/TSVCDREF/TSVCDVER → model/05, 解冻后用 rag 只读脚本 `defhome_rules.py` 实算并贴结果; 超出这 3 条且判断不了 → 停下问 | — |
 | 追加 Q2 | A2-16 按审查者值执行 | 登记写明草拟候选值有误、由审查者更正 | `t4_u7_rowcheck.md` |
 | 追加 Q3 | B-MK T-1 MK 表范围 en dash 本次不改, 记后续 | — | — |
+
+### 000b. 主控决定 (实施层, **不在委托代裁内**; 总闸 attempt 2 要求单列, 待主人追认)
+| # | 决定 | 出处 |
+|---|---|---|
+| M-1 | 解冻门禁替代证明: `typo_assert --plan` / `ct_assert` 结构性 FAIL, 以 W1 拆分验证 + reviewer 逐条归因代替; S-TYPO.fixed 追加 58 行 CRF 放行 | `t4_thaw_review.md` 主控追认 |
+| M-2 | TT/TP DOMAIN 格保留在 Usage Restrictions 列下 (避免改 rag 所读内容), 记后续 | 同上 |
+| M-3 | W3 打标机制 = 逐原子 s0 条目 + registry 事实修正 6 行 (B-NV 页号, B-TS pdf_value); 不改 K3b 规则 | `t4_thaw_W3.md` attempt 1 续 |
+| M-4 | `ig34_p0362_a010` ATOM_ERR → PDF_TYPO (K3b(b) 口径; ack 清单记在 U-7 名下, 实为主控决定) | 同上 |
+| M-5 | t3_mutation M3 换靶 (DM/spec.md:219); CE p153 14 原子块级补核 | 同上 |
+| M-6 | 5 条 `> Note:` 行反向溯源豁免 (整行锚定) | 同上 |
+| M-7 | ack 清单 "决定来源" 归属 (U-5 / U-2 / U-8 / U-7) | 同上 |
 
 ## 0. 用法
 - 每行二选一: **A = 维持现状** (KB 照录 PDF), **B = 改为候选值**。"主控建议" 列是登记员草拟, 主控审后可改。

@@ -3,9 +3,9 @@
   "tier": 3,
   "plan": "PLAN.md",
   "plan_version": "v1.3",
-  "status": "EXECUTING — T4.1 总闸 attempt 1 = 不通过 (CONDITIONAL, 样本 84/84 HOLDS, 证据层待用户裁定); T4.2 样本已备, 等用户",
-  "current_step": "T4.2 (等用户)",
-  "next_step": "用户裁定 t4_user_decisions.md §00 U-1~U-11 + t4_human_sample.md 42 条 + t4_ack_lists.md → 主控按裁定改 ledger/KB (KB 解冻后) → T4.1 attempt 2 → T4.3",
+  "status": "EXECUTING — T4.1 attempt 2 = 不通过 (CONDITIONAL): G-TB 无 NOT_MET, 样本无 NOT_HOLD; 缺主人层面确认 (委托代裁口径/T4.2 口径/来源可核性) + 若干仍开缺口. 解冻轮已完成 (a59c2d3, 本地未 push)",
+  "current_step": "T4.1 attempt 2 (CONDITIONAL, 等主人确认)",
+  "next_step": "主人确认 U-1 口径 + T4.2 口径 + M-1..M-7 并在仓内留可核记录 → 补/豁免仍开缺口 → T4.1 attempt 3 → T4.3",
   "baseline": {
     "tier_b_p4b_orig": {
       "SIBLING_DROPPED": 56,

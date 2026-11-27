@@ -1,7 +1,7 @@
 # 进度看板
 
 > **唯一进度状态源**. 历史细节看 `.work/meta/worklog/INDEX.md`. 文件结构看 `.work/MANIFEST.md`. 一页纸入门看 `.work/AGENT_GUIDE.md`.
-> 最后更新: 2026-11-27 (Tier B T4.1 总闸 attempt 1)
+> 最后更新: 2026-11-27 (Tier B T4 解冻轮 + T4.1 总闸 attempt 2)
 
 ---
 
@@ -19,7 +19,7 @@
 | **Phase 7** RAG + KG | ↗ 已拆仓 | 独立公开仓 `hakupao/sdtm-rag` | — |
 | **06 旁枝** Deep Verification | ✅ 完成 | P1-P7 全 PASS ★★ (coverage 99.02%, Issues 5-16 repaired, P7 content error 3.3%, RETROSPECTIVE.md 归档) | `archive/deep_verification/RETROSPECTIVE.md` |
 | **07 旁枝** Website | ✅ 完成 | Phase 6/7/8/9/10/11 全 closed; prod sdtm-pedia.pages.dev | — |
-| **10 旁枝** Tier B 内容补修 | 🔄 T4 等用户裁定 (本地 commit, 未 push) | T4.1 总闸 attempt 1 不通过 (CONDITIONAL): 样本 84/84 成立, G-TB1/2 未过 (残留 1), G-TB3 strict 96.07% / mapped 99.36% 口径待定; T4.2 样本 42 条已备 | 用户裁定 `.work/10_tier_b_repair/evidence/checkpoints/t4_user_decisions.md` §00 → T4.1 attempt 2 → T4.3 push; `.work/10_tier_b_repair/HANDOFF.md` |
+| **10 旁枝** Tier B 内容补修 | 🔄 T4.1 attempt 2 不通过 (CONDITIONAL), 等主人确认 (本地 commit, 未 push) | 委托代裁已落实; 唯一一次解冻改 KB `a59c2d3` (25 文件, reviewer/auditor PASS); 残留 0, G-TB2 174/174, G-TB3 U-1 B 口径 99.27% (strict 95.80%); T4.2 主人抽查 6/6 + AI 预筛 42 | 主人确认口径与来源 (`.work/10_tier_b_repair/evidence/checkpoints/t4_gate_review.md` §attempt 2) → attempt 3 → T4.3; `.work/10_tier_b_repair/HANDOFF.md` |
 | **refactor v1/v2/v3** 项目重构 | ✅ 完成 | v1 段1-3 (2026-05-11) · v2 release 提顶层 (2026-05-11) · v3 branches→milestones (2026-07-21) · **R2 milestones→releases+archive (2026-11-25)** | `docs/PATH_MAP.md` |
 
 **图例**: ✅ 完成 · 🟢 进行中 · ⏸ 待启动 · 🔴 阻塞

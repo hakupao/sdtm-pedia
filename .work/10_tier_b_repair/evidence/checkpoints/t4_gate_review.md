@@ -114,3 +114,53 @@ python3 -I .work/10_tier_b_repair/scripts/table_census.py --manifest .work/10_ti
 - `knowledge_base/domains/CE/examples.md:39` CRF 标题 "CE Example 2 — Clinical Events with Severity" 为 KB 自拟, PDF p152 只有 "CRF", 无 KB note.
 - `knowledge_base/chapters/ch02_fundamentals.md:158` / `:167` KB 自拟标题无 D6 标注.
 - PDF p354 叙述 "Lymph Nodes State" vs p355 表 "Lymph Node State", KB 分别照录, 未登记.
+
+---
+
+# §attempt 2 (2026-11-27) — **不通过 (CONDITIONAL)**
+
+> 审查: `feature-dev:code-reviewer` (opus) 新实例, 只读, brief `subagent_prompts/t4_gate_reviewer_v2.0.md`; 对象 HEAD `d3f2ea9` (含解冻轮 `a59c2d3`). 主控誊录要点, 不改判 (规则 D). 规则 B: 不是证据失败, 是缺主人层面的确认 + 若干仍开缺口; 指针 `evidence/failures/step_T4.1_attempt_2.md`.
+> 审查者实例**无 Bash**: 数字标 [自算 Grep] / [读日志] / [采信]; 其要求的复跑由主控在下方 "主控补跑" 给出当前输出 (与 attempt 1 §3 同做法).
+
+## 结论: CONDITIONAL
+- G-TB1-9 无 NOT_MET (6 条 MET_WITH_CONDITION); 样本层无 NOT_HOLD.
+- C(3) 人工判定来源可核性 **不足**; C(1) 中 G-TB3 口径与 C(2) T4.2 口径 **需主人确认** → 上限 CONDITIONAL.
+- 另缺: 有 Bash 的复跑 (主控已补, 见下); G-TB9 table_census / fp_match 在现 KB 上无变异再证明 (t0_mutation MISMATCH); G-TB4 C3 逐表结案清单.
+
+## G-TB 表 (誊录)
+| 闸 | 判定 | 要点 | 条件 / 缺口 |
+|---|---|---|---|
+| G-TB1 | MET_WITH_CONDITION | ledger 12492 行 EXACT 4718 / EQUIV 4015 / IE 2506 / PARTIAL 637 / MISPLACED 197 / ATOM_ERR 197 / PDF_TYPO 149 / FIG 11 / ERROR 62; p0056_a006 = ATOM_ERR; 范围内 174 节残留 0; PDF_TYPO 149/149 带 registry | ack 靠委托代裁; p0362_a010 改标是主控决定 (不在 §000 委托内) 却记在 U-7 名下; PLAN §5.0 FIG 12 实为 11 未更正 |
+| G-TB2 | MET (U-3 范围内口径) | 范围内 174/174; 字面严格 157/174 (17 个结构父节仅因范围外子节) | 取决于 U-3 代裁 |
+| G-TB3 | MET_WITH_CONDITION (U-1 B 口径) | B 9913/9986 = 99.2690% ≥ 99.0192%; strict 95.8041% (attempt 1 96.07%, 再降); mapped 99.3561%; 内容 90.6948% | 按 PLAN 字面不达标, 过闸完全依赖代裁 B 口径; 代裁时 PDF_TYPO 122, 现 149 |
+| G-TB4 | MET_WITH_CONDITION | census DIFF 37→38, diffs 144→148 = DS SCRN ×2 + PP h ×2 (均登记 KB 写正确值, PDF_TYPO 例外); 删 3 表对得上 A5-8/A5-10 | 逐表配对只有 W3 做过; **C3 结案清单仍缺** |
+| G-TB5 | MET | auditor 30/30 + 15/15 | audit_matrix 缺 T3 / U-5 / 解冻轮行 |
+| G-TB6 | MET_WITH_CONDITION | 5414 行未溯源 0, NOTE_EXEMPT 5 | 5 条豁免是主控决定; C 层抽样 (U-4) |
+| G-TB7 | MET_WITH_CONDITION | 日志 live docs 42 | 审查者未复跑 (主控补跑见下) |
+| G-TB8 | MET (字面) 带局限 | 解冻轮 writer executor / reviewer code-reviewer / auditor verifier | trace 时间戳事后回填 (W1 03:02Z 早于 U-5/U-7 的 06:00Z; review/audit 整点 12:00Z), 证明不了先后; W3 中途 5 项主控决定超出委托 |
+| G-TB9 | MET_WITH_CONDITION | t3_mutation M0 绿 / M1 红 / M2 绿 / M3 红 / M4-6 红 / M7 绿, 真 KB md5 不变 | t0_mutation 在现 KB MISMATCH (变异断言未施加, HEAD 副本同格局, 既有) → table_census / fp_match 在现 KB 无 "变红再复原" 证明; M3 换靶是主控决定; CE p153 14 原子只块级核 |
+
+## 样本层延续性
+- 解冻后有变化 4 条 (#22 ig34_p0151_a0013、#23 p0153_a0009、#24 p0153_a0019、#84 sv20_p0051_a016) + 相邻变化 1 条 (#65 p0152_a0003): 渲染页 p151-153 / model/05 重判 **全部 HOLDS**; 其余 79 条沿用 attempt 1 (指针不在改动 hunk 内; #3/#25/#26/#28 长行 Grep 截断未逐字核, 所在行不在任何 hunk).
+- 审查者另记: auditor kb.diff 为 25 个文件, KB reviewer 写 "26 个", 交主控核.
+
+## C 项 (裁定来源)
+1. 委托代裁作 G-TB1 用户 ack: **足够** (委托明确覆盖 §00 选择题, U-6 排除, ack 按来源分登). 作 G-TB3 口径认可: **需主人确认** (U-1 实为改闸口径, strict 95.80%, 过闸全靠该口径). 委托**未覆盖**主控在 W3 的 5 项决定 (p0362 改标 / registry 事实修正 / Note 豁免 / M3 换靶 / ack 来源归属) → 需主人追认或在 §000 单列为主控决定.
+2. "AI 预筛 42 + 主人抽查 6" 关闭 T4.2 hard 闸: **需主人确认** —— 主人有权改口径, 但 PLAN:82/127 未修订、Changelog 无记录; 6/6 零错 95% 上界约 39% vs 30/30 约 9.5%; AI 预筛不是独立人工证据; `t4_user_decisions.md` 状态与 `t4_human_verdicts.md` 自相矛盾.
+3. 人工判定来源可核性: **不足** —— 委托原话与 "6 条都对" 都经协调方转达, 仓内无独立凭证; 需主人直接确认或在仓内留可核原话 / 截图 (委托原话、T4.2 口径变更、6 条判定).
+
+## D 项 (attempt 1 缺口现状)
+已关: 残留 p0056_a006; C7 38 全检; 文档状态行 (t3_recompute:4、audit_matrix:7; 另 step_T3_audit:4). 部分关: census 汇总变化原因 (解冻轮已归因, 500/148/0 vs T2 收尾仍未逐表); ATOM_ERR/PDF_TYPO 补抽 (仅 C7 38). **仍开**: C3 逐表结案清单; pre_existing 58 条单独核; FIG 11 条逐条核; 规则 0 抽中 5 类及 88 条; PLAN FIG 12→11; audit_matrix 缺 T3/T4 行. t0_mutation 已跑 = MISMATCH.
+
+## 主控补跑 (HEAD `d3f2ea9`, 只读; 审查者无 Bash 时的当前输出)
+```bash
+python3 tools/check_links.py 2>&1 | grep "live docs"
+# broken relative links: 18668 (live docs: 42)
+bash .work/10_tier_b_repair/scripts/t3/t3_mutation.sh > .work/10_tier_b_repair/work/t4/t4_mutation_gate2.log 2>&1
+# RESULT 依次: GREEN RED GREEN RED RED RED RED GREEN (M0..M7); real KB md5 before/after b71a466d6e618f995c493a82de3e3eb7, unchanged OK
+python3 -I .work/10_tier_b_repair/scripts/t4/t4_coverage_decomp.py
+# final strict 9567/9986 = 95.8041% / mapped 9567/9629 = 99.3561% / U-1 B 9913/9986 = 99.2690% / content 8733/9629 = 90.6948%
+git status --short   # 补跑后仅本节新增文件 (日志 + brief v2.0), 无 tracked 改动
+```
+- t0_mutation 未重新跑 (W3 已在解冻后 KB 与 HEAD 副本各跑一次, 日志 `work/t4/t0_mutation_thaw.log` / `t0_mutation_kbhead.log`, 同格局 MISMATCH); 要恢复 G-TB9 对 table_census / fp_match 的证明需刷新 T0 baseline, 属后续项.
+- 文件数: `git show --stat --format= a59c2d3 -- knowledge_base` → `25 files changed, 118 insertions(+), 179 deletions(-)`; KB reviewer 写的 "26 个" 不准, 以 25 为准.
