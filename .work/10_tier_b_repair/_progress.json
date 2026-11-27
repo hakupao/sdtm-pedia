@@ -3,7 +3,7 @@
   "tier": 3,
   "plan": "PLAN.md",
   "plan_version": "v1.4.1",
-  "status": "EXECUTING — T4.1 attempt 2 缺口已补做 (2026-11-27 接手主控); 补检 PRE_EXISTING 层 2 条 NOT_HOLD → Q9 已触发并扩检; 57 条旧标签待主人裁定, 台账未改; KB 冻结 (树 63f85777…), 本地未 push",
+  "status": "EXECUTING — T4.1 attempt 2 缺口已补做 (2026-11-27 接手主控); 补检 PRE_EXISTING 层 2 条 NOT_HOLD → Q9 已触发并扩检, 另做第二轮; 72 条标签待主人裁定, 台账未改; KB 冻结 (树 63f85777…), 本地未 push",
   "current_step": "T4.1 attempt 2 缺口补做完成 → 等主人第二轮回答 (evidence/checkpoints/t4_owner_decisions_round2.md)",
   "next_step": "主人在主控聊天直接回答第二轮 (逐字记入 t4_owner_confirmation.md 新增一节) → 按回答改台账 (executor → reviewer; 同批更正 registry B-IS T-6 页号) → 重跑 t0_mutation_head.sh --make-baseline + 变异 / t4_coverage_decomp / t4_ack_lists → T4.1 attempt 3 (feature-dev:code-reviewer 新实例) → T4.3. 上一轮四件事以 t4_owner_confirmation.md (c555bd8, 上一任主控会话记录) 为准, 由 attempt 3 判断是否足够",
   "baseline": {
@@ -234,9 +234,9 @@
     "T4.3": "pending"
   },
   "gates": {
-    "G-TB1": "残留 0 (174/174 节); ATOM_ERR 197 / PDF_TYPO 149 / FIG 11 ack = 委托代裁 + t4_owner_confirmation.md 记录; 另有 57 条旧标签待改 (待主人)",
+    "G-TB1": "残留 0 (174/174 节); ATOM_ERR 197 / PDF_TYPO 149 / FIG 11 ack = 委托代裁 + t4_owner_confirmation.md 记录; 另有 72 条标签待改 (待主人; t4_relabel_pending.md)",
     "G-TB2": "174/174 (U-3 范围内口径; 字面 157/174)",
-    "G-TB3": "U-1 B 99.2690% (9913/9986); strict 95.8041%; mapped 99.3561%; 内容 90.6948% — 57 条改标预演后 U-1 B 99.2651%",
+    "G-TB3": "U-1 B 99.2690% (9913/9986); strict 95.8041%; mapped 99.3561%; 内容 90.6948% — 72 条改标预演后 U-1 B 99.2651% / strict 95.5905% (work/t4/supp/scenarios.json)",
     "G-TB4": "census HEAD: KB 表 497 / OK 309 / DIFF 38 / diffs 148 / UNPARSEABLE 146; 逐表变化与 C3 60 张结案见 t4_c3_closeout.md",
     "G-TB5": "MET (attempt 2); audit_matrix 已补 T3 / T4 行",
     "G-TB6": "未溯源 0, NOTE_EXEMPT 5 (M-6); C 层抽样 (U-4)",

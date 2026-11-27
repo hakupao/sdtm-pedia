@@ -21,8 +21,8 @@ for l in subprocess.run(["git", "-C", TB, "show", f"{U5_REV}:.work/10_tier_b_rep
         r = json.loads(l); U5[r["pdf_atom_id"]] = r["verdict"]
 REGD = {r["id"]: r.get("t4_decision") for r in lj(f"{W}/t2_pdf_typo_registry.jsonl")}
 KEEPD = {k: v.get("t4_decision") for k, v in json.load(open(f"{W}/t3_k3b_out_of_scope_keep.json")).items() if not k.startswith("_")}
-# 主控实施决定 (不在委托代裁内; t4_user_decisions.md §000b). 总闸 attempt 2 指出 p0362_a010 的改标是主控决定 M-4, 不是 U-7
-MAIN_CTRL = {"ig34_p0362_a010": "主控决定 M-4 (§000b; 非委托代裁, 待主人追认); 登记 B-FA T-4 本身 = U-7 A3-7"}
+# 主控实施决定 (不在委托代裁内; t4_user_decisions.md §000b; M-1..M-7 按 t4_owner_confirmation.md 的记录已追认). 总闸 attempt 2 指出 p0362_a010 的改标是主控决定 M-4, 不是 U-7
+MAIN_CTRL = {"ig34_p0362_a010": "主控决定 M-4 (§000b; 非委托代裁; 按 t4_owner_confirmation.md 的记录已追认); 登记 B-FA T-4 本身 = U-7 A3-7"}
 def source(i, v):
     if U5.get(i) == v:
         return "U-5 (整类, 委托代裁)"

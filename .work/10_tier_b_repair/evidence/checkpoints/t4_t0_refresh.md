@@ -19,11 +19,11 @@
 
 ## 2. 做了什么
 
-- 新脚本 `scripts/t4/t0_mutation_head.sh`; 原脚本 `scripts/t0_mutation.sh` 与 T0 基线 (`work/fp_baseline.jsonl`, `work/section_coverage.wc.baseline.jsonl`, `work/census_BPCPP.v2.json`, `work/census_mut_{MB,EG}.v2.json`) **原样保留** — T3 / T4 脚本还在读它们 (`t3_direct_hit.py`, `t3_writeback.py`, `s0_*.py`, `t3_mutation.sh`, `t4_sample.py`; T3 复跑命令预期 "regressions=72" 就是相对 T0 基线).
+- 新脚本 `scripts/t4/t0_mutation_head.sh`; 原脚本 `scripts/t0_mutation.sh` 与 T0 基线 (`work/fp_baseline.jsonl`, `work/section_coverage.wc.baseline.jsonl`, `work/census_BPCPP.v2.json`, `work/census_mut_{MB,EG}.v2.json`) **原样保留**. 其中 `fp_baseline.jsonl` 与 `section_coverage.wc.baseline.jsonl` 还被 T3 / T4 脚本读 (`t3_direct_hit.py`, `t3_writeback.py`, `s0_*.py`, `t3_mutation.sh`, `t4_sample.py`; T3 复跑命令预期 "regressions=72" 就是相对 T0 基线), 覆盖会破坏它们; 三个 census 基线只有原 `t0_mutation.sh` 自己读 (`scripts/helpers/regen.sh` 会重写它们), 保留是为了原脚本与 T0 记录可对照 (规则 B).
 - 现 KB 基线写到新目录 `work/t4/t0_head/` (在真 KB 上只读生成): `fp_baseline.head.jsonl` / `section_coverage.wc.head.jsonl` / `census_BPCPP.v2.head.json` / `census_mut_{MB,EG,REL}.v2.head.json`.
 - 三道闸 (fp_match / table_census / t3_recompute) 的调用与原脚本相同, 只换基线路径; fp_match 加 `--sections work/section_coverage.wc.baseline.jsonl` (HANDOFF 规程).
 - 每个变异目标改为**按内容定位** (唯一命中, 或在指定标题之下), 不再用行号.
-- 新增一道检查: 变异脚本没跑到底 (断言失败) → 该用例记 "mutation applied: NO" → 整体 MISMATCH. 原脚本只把 AssertionError 打进日志, 靠三道闸的退出码间接发现.
+- 新增一道检查: 变异脚本没跑到底 (定位不到 / 断言失败) → 该用例记 "mutation applied: NO" → 整体 MISMATCH. 原脚本只把 AssertionError 打进日志, 靠三道闸的退出码间接发现. 这道检查**只管 "定位失败"**, 管不了 "改了等于没改" (空操作也会记 yes); 后者仍靠三道闸的退出码与定点断言抓 (独立审查的反向验证 rev1: 把 M2 / M4a 改成空操作 → `applied: yes` 但结果 MISMATCH).
 - 依据: `t0_mutation.md` §6.3 已预告 "T2 补上该表后此断言会失败 → 届时改断言并重做 v2 基线"; 该文档连同 T0.4 结果在 2026-11-25 经用户 ack (`t0_user_ack.md`). 重做基线属于预告过的维护, 不改闸的定义与红绿判据.
 
 ## 3. 逐用例: 与 T0 是否同一目标
@@ -78,8 +78,20 @@ real KB md5 before = after e2d862e25f04a3757a5ba5436092c416; git status knowledg
 - 基线绑定当前 KB 与当前台账 (`coverage_ledger.wc.jsonl` md5 `60729f7b…`). KB 或台账再改 (例如 `t4_relabel_pending.md` 的改标执行后) 须重跑 `--make-baseline` 再跑一遍变异.
 - fp_match 仍只能检出 "基线里命中、现在没命中" 的原子 (`t0_mutation.md` §3 限制 2 未变); t3 侧的直接命中与锚点变异由 `scripts/t3/t3_mutation.sh` 负责 (HEAD 上 M0/M2/M7 绿、M1/M3-M6 红, 见 `t4_gate_review.md` §attempt 2 主控补跑).
 - M4a 换了靶; 原靶 (同一文件内的第二份副本) 这种形态在现 KB 的 MB / EG 单元里已不存在, 新靶是跨文件的两份副本.
+- fp_match 的 `--sections` 仍用 T0 的 `section_coverage.wc.baseline.jsonl` (只取其中 "节 → 目标文件" 的映射), 所以现基线的取靶范围同样绑定在 T0 的节划分上.
+- 脚本里的 `kbsum` 只算 `*.md` (真 KB 目录下另有一个未跟踪的 `.omc`); 独立审查另用全文件 md5 清单 + `cmp` 证明运行前后 KB 无变化.
 
 <!-- REVIEW -->
-## 独立审查
+## 独立审查 (誊录; 审查者 `oh-my-claudecode:verifier` opus, 只读, 2026-11-27; 对象 HEAD `1df9f60`; 主控不改判)
 
-(待审)
+**结论 (A 部分 = T0 变异重证): CONDITIONAL** — 技术上通过; 条件 = M4a 换靶 (M-8) 待主人追认 + 下列 LOW 项文字更正 (已在上文按意见改). HIGH 0.
+
+审查者做的事 (原话摘要):
+- 自己复跑 `t0_mutation_head.sh`: exit 0, 耗时 1:13; 与本目录 `t0_mutation_head.log` 逐行 diff, 唯一差别是写作者日志末行的 `exit=0`. 13/13 applied; EXPECT 8/8 OK; M4 7/7 OK; M4d0 PASS ×2; RESTORE 三个 GREEN; 6 个基线 md5 与 §4 相同.
+- 真 KB: 运行前后用全文件 md5 清单 + `cmp` → 不变.
+- 反向验证 2 组 (脚本拷到 scratch 改写): rev1 把 M2 与 M4a 改成空操作 → `M2 got=[0 0 0] MISMATCH`、`M4a v2=0 assert=1 MISMATCH`, exit 1; rev2 让 M2c 定位不到、把 M4a 改到 RELREC 那份 → `M2c mutation applied: NO` → MISMATCH, M4a 的 cell 断言与 `ok RELREC` 断言都 FAIL, exit 1.
+- 逐用例对照 T0 提交 `e3c2f5d` 的 KB: M1 / M2 / M2b / M2c / M2d / M3 / EG 各例都是同一句 / 同一行 / 同一节 (M3 37 行 → 39 行, 多的 2 行是 KB note); M4d0 的改法与 `t0_mutation.md` §6.3 预告一致; M4d 是同一张 Ex2 suppbe; M4a 的两份确为同一张 PDF 表 (p431 relrec Ex1) 的两份 KB 副本, 断言确实检验了 "只改一份". **没有发现换了目标却写成同目标的用例.**
+- expect() 与 M4 判据与原脚本逐字相同, 没有放宽; 基线与被测对象不是同一个文件.
+
+发现 (全部 LOW; 编号沿用审查报告): #10 §2 "还在读" 对三个 census 基线不成立 (已改); #11 "mutation applied" 的检查能力写过头 (已改); #12 §5 漏两条限制 (已补).
+审查报告全文 (含 B 部分) 的誊录见 `t4_c3_closeout.md` 文末; 审查者的脚本与日志在 gitignored 的 `work/scratch/review_a/`.

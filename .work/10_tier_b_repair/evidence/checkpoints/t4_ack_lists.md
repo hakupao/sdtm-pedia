@@ -339,7 +339,7 @@
 | 116 | `ig34_p0355_a027` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-3 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:17` | U-5 (整类, 委托代裁) | |
 | 117 | `ig34_p0356_a001` | 356 | §6.3.12.3 Tumor Identification/Tumor Results Examp | K3b-registry | B-TR T-3 | `-` | U-5 (整类, 委托代裁) | |
 | 118 | `ig34_p0356_a002` | 356 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:19` | U-5 (整类, 委托代裁) | |
-| 119 | `ig34_p0362_a010` | 362 | §6.4.1 When to Use Findings About Events or Interv | S1-R2 | T4 U-7 后依据变更: KB 按 U-7 A3-7 写正确值 'thought to be related' (= 原子), PDF p362 'thought be rela [B-FA T-4] | `evidence/checkpoints/t2_B-FA_audit.md:36` | 主控决定 M-4 (§000b; 非委托代裁, 待主人追认); 登记 B-FA T-4 本身 = U-7 A3-7 | |
+| 119 | `ig34_p0362_a010` | 362 | §6.4.1 When to Use Findings About Events or Interv | S1-R2 | T4 U-7 后依据变更: KB 按 U-7 A3-7 写正确值 'thought to be related' (= 原子), PDF p362 'thought be rela [B-FA T-4] | `evidence/checkpoints/t2_B-FA_audit.md:36` | 主控决定 M-4 (§000b; 非委托代裁; 按 t4_owner_confirmation.md 的记录已追认); 登记 B-FA T-4 本身 = U-7 A3-7 | |
 | 120 | `ig34_p0363_a008` | 363 | §6.4.1 When to Use Findings About Events or Interv | writer-Tn-registry | B-FA T-5 (KB 写正确值) | `work/t2_batches/B-FA.writer.jsonl:22` | U-5 (整类, 委托代裁) | |
 | 121 | `ig34_p0363_a009` | 363 | §6.4.1 When to Use Findings About Events or Interv | K3b-registry | B-FA T-6 | `-` | U-7 委托代裁 (§000), 非 U-5; B-FA T-6: U-7 B (委托代裁 2026-11-27) [A3-8] | |
 | 122 | `ig34_p0370_a021` | 370 | FA – Examples | S1-R2 | B-FA T-7: PDF parent CE record → KB AE | `evidence/checkpoints/t2_B-FA.md:129` | U-5 (整类, 委托代裁) | |

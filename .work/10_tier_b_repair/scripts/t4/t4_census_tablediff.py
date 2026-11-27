@@ -109,10 +109,15 @@ for rev in REVS:
                                pdf_only_list=[dict(ds=p.get("ds"), ex=p.get("ex"), pages=p.get("pages")) for p in r["pdf_only"]])
 for a, b in zip(REVS, REVS[1:]):
     pairs, rem, add = pair(C[a]["tables"], C[b]["tables"])
-    ch = []
+    ch, meta_only = [], []
     for x, y in pairs:
+        meta = lambda t: (t.get("ex"), t.get("ds"), t.get("pdf_ex"), t.get("pdf_ds"), tuple(t.get("pdf_pages") or []), t.get("kb_duplicate"))
         kinds = [k for k, c in (("status", x["status"] != y["status"]), ("diffset", x["dset"] != y["dset"]),
                                 ("n_rows", x["n_rows"] != y["n_rows"]), ("text", x["md5"] != y["md5"])) if c]
+        if not kinds and meta(x) != meta(y):   # same text / status / diffs, but the census paired it differently
+            F = ("ex", "ds", "pdf_ex", "pdf_ds", "pdf_pages", "kb_duplicate")
+            meta_only.append(dict(file=x["file"], a_line=x["line"], b_line=y["line"], status=y["status"],
+                                  changes={f: [m, n] for f, m, n in zip(F, meta(x), meta(y)) if m != n}))
         if kinds:
             la, lb = x["text"].split("\n"), y["text"].split("\n")
             ops = [o for o in difflib.SequenceMatcher(None, la, lb, autojunk=False).get_opcodes() if o[0] != "equal"]
@@ -126,13 +131,14 @@ for a, b in zip(REVS, REVS[1:]):
                            lines_added=sum(o[4] - o[3] for o in ops), sample=samp,
                            diff_removed=[d for d in x["dset"] if d not in y["dset"]],
                            diff_added=[d for d in y["dset"] if d not in x["dset"]], commits=commits(a, b, x["file"])))
-    step: dict = dict(a=a, b=b, paired=len(pairs), unchanged=len(pairs) - len(ch), changed=ch,
+    step: dict = dict(a=a, b=b, paired=len(pairs), unchanged=len(pairs) - len(ch), changed=ch, meta_only=meta_only,
                 map={f"{x['file']}:{x['line']}": dict(to=f"{y['file']}:{y['line']}", text_changed=x["md5"] != y["md5"]) for x, y in pairs},
                 removed=[dict(brief(t), commits=commits(a, b, t["file"])) for t in rem],
                 added=[dict(brief(t), commits=commits(a, b, t["file"])) for t in add])
     res["steps"].append(step)
     kc = collections.Counter(k for c in ch for k in c["kinds"])
     print(f"{a} -> {b}: paired {len(pairs)} (unchanged {step['unchanged']}), changed {len(ch)} {dict(kc)}, removed {len(rem)}, added {len(add)}")
+    print("   pairing-metadata-only changes:", len(meta_only), dict(collections.Counter(k for m in meta_only for k in m["changes"])))
     print("   status moves:", dict(collections.Counter((c["a"]["status"], c["b"]["status"]) for c in ch if "status" in c["kinds"])))
     print("   changed tables by status (text changed):", dict(collections.Counter(c["b"]["status"] for c in ch if "text" in c["kinds"])))
 os.makedirs(f"{TB}/work/t4", exist_ok=True)

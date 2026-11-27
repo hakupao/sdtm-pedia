@@ -189,14 +189,14 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 | Q6 | 目录编号: `.work/08_` 已被 `08_repo_refactor_v2` 占用, 是否改名 `10_tier_b_repair`? | 已改名 `10_tier_b_repair` |
 | Q7 | 是否把全量 md_atoms/P4a 重跑 (方案 B) 列为后续? | 列后续, 不在本项目 |
 | Q8 | 允许每批在本地 commit (便于按批回滚; 不 push)? | 允许 |
-| Q9 | 已标 EXACT/EQUIVALENT 的原子 (同一 P4a 匹配器, P7 发现过同表错行) 是否也要验? | T4.1 加对照层 12 条; 若发现错 → 扩为全量指纹复验. **2026-11-27 已触发** (补检 PRE_EXISTING 层 2 条旧 EXACT 不成立): 旧 EXACT 全量指纹复验 + 58 条未命中全审; 旧 EQUIVALENT 指纹验不了 → sv20 127 条全检 / ig34 2207 条抽 65; 结果与待主人裁定见 `evidence/checkpoints/t4_supp_fullcheck.md`、`t4_owner_decisions_round2.md` |
+| Q9 | 已标 EXACT/EQUIVALENT 的原子 (同一 P4a 匹配器, P7 发现过同表错行) 是否也要验? | T4.1 加对照层 12 条; 若发现错 → 扩为全量指纹复验. **2026-11-27 已触发** (补检 PRE_EXISTING 层 2 条旧 EXACT 不成立): 旧 EXACT 全量指纹复验 + 58 条未命中全审; 旧 EQUIVALENT 指纹验不了 → sv20 127 条全检 / ig34 2207 条抽 65; 另做第二轮 (跨文档指针 27 全检 / 已登记笔误的同类原子 103 全检 / PDF_TYPO 抽 45); 结果与待主人裁定见 `evidence/checkpoints/t4_supp_fullcheck.md`、`t4_owner_decisions_round2.md` |
 
 ## Changelog
 
 | Version | Date | Change |
 |---|---|---|
 | v0.1 | 2026-11-25 | 初稿: T0 基线已出, 其余待 §9 拍板 |
-| v1.4.1 | 2026-11-27 | 接手主控核对 v1.4 并补齐: 状态行与 §5.3 把确认来源写实 (记录人 = 上一任主控会话; 不改结论); §5.1 加 "口径注" (U-1 B / U-3 A / U-4 A / G-TB9 重证) — v1.4 的 Changelog 写了 G-TB3 口径但闸表没改; §9 Q9 记 "已触发" 及扩检方案; 第二轮待主人裁定 (57 条旧标签 / 旧 EQUIVALENT 抽查是否够 / M-8 等) 见 `t4_owner_decisions_round2.md`, 未定之前不改台账 |
+| v1.4.1 | 2026-11-27 | 接手主控核对 v1.4 并补齐: 状态行与 §5.3 把确认来源写实 (记录人 = 上一任主控会话; 不改结论); §5.1 加 "口径注" (U-1 B / U-3 A / U-4 A / G-TB9 重证) — v1.4 的 Changelog 写了 G-TB3 口径但闸表没改; §9 Q9 记 "已触发" 及扩检方案; 第二轮待主人裁定 (72 条待改标签 / 几处抽查是否够 / M-8 等) 见 `t4_owner_decisions_round2.md`, 未定之前不改台账 |
 | v1.4 | 2026-11-27 | (上一任主控会话) T4.2 口径改为 "AI 预筛 42 + 主人抽查 6"; G-TB3 按 U-1 B 口径, 并列 strict; FIGURE 12→11 更正. 确认来源: `evidence/checkpoints/t4_owner_confirmation.md` (该会话记录的主人直接确认) |
 | v1.3 | 2026-11-26 | 加 T2S 扫描批步 (覆盖矩阵 §7 分组; 新 brief `t2s_scan_writer_v1.0.md` / `t2s_scan_review_audit_v1.0.md`; U3 宿主按 PDF 标题序定首域; 排版字符统一归 S-TYPO) |
 | v1.2 | 2026-11-26 | T1.4 补充 D1-D5: 59 批; 去重 + 删扩写 (RELOCATE 外新增允许的删除: 重复副本去重 / 超出 PDF 的扩写); 成本 18-24 sessions |

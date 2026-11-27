@@ -1334,6 +1334,340 @@
      ]
     }
    ],
+   "meta_only": [
+    {
+     "file": "knowledge_base/domains/RELSPEC/examples.md",
+     "a_line": 44,
+     "b_line": 44,
+     "status": "OK",
+     "changes": {
+      "kb_duplicate": [
+       false,
+       true
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/domains/RELSUB/examples.md",
+     "a_line": 17,
+     "b_line": 17,
+     "status": "OK",
+     "changes": {
+      "kb_duplicate": [
+       false,
+       true
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/domains/RELSUB/examples.md",
+     "a_line": 33,
+     "b_line": 33,
+     "status": "OK",
+     "changes": {
+      "kb_duplicate": [
+       false,
+       true
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/domains/SS/examples.md",
+     "a_line": 7,
+     "b_line": 9,
+     "status": "OK",
+     "changes": {
+      "ds": [
+       null,
+       "ss.xpt"
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/domains/SUPPQUAL/examples.md",
+     "a_line": 13,
+     "b_line": 13,
+     "status": "OK",
+     "changes": {
+      "kb_duplicate": [
+       false,
+       true
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 102,
+     "b_line": 104,
+     "status": "OK",
+     "changes": {
+      "ds": [
+       null,
+       "qscg.xpt"
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 115,
+     "b_line": 119,
+     "status": "OK",
+     "changes": {
+      "ds": [
+       null,
+       "qspi.xpt"
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 126,
+     "b_line": 132,
+     "status": "OK",
+     "changes": {
+      "ds": [
+       null,
+       "qssw.xpt"
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 143,
+     "b_line": 151,
+     "status": "OK",
+     "changes": {
+      "ds": [
+       null,
+       "suppqscg.xpt"
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 150,
+     "b_line": 160,
+     "status": "OK",
+     "changes": {
+      "ds": [
+       null,
+       "suppqspi.xpt"
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 165,
+     "b_line": 177,
+     "status": "OK",
+     "changes": {
+      "ds": [
+       null,
+       "suppqssw.xpt"
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 558,
+     "b_line": 574,
+     "status": "UNPARSEABLE",
+     "changes": {
+      "ex": [
+       "1",
+       null
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 564,
+     "b_line": 580,
+     "status": "UNPARSEABLE",
+     "changes": {
+      "ex": [
+       "1",
+       null
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 576,
+     "b_line": 592,
+     "status": "UNPARSEABLE",
+     "changes": {
+      "ex": [
+       "1",
+       null
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 582,
+     "b_line": 598,
+     "status": "UNPARSEABLE",
+     "changes": {
+      "ex": [
+       "1",
+       null
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 597,
+     "b_line": 613,
+     "status": "UNPARSEABLE",
+     "changes": {
+      "ex": [
+       "1",
+       null
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 603,
+     "b_line": 619,
+     "status": "UNPARSEABLE",
+     "changes": {
+      "ex": [
+       "1",
+       null
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 1304,
+     "b_line": 1327,
+     "status": "OK",
+     "changes": {
+      "ds": [
+       null,
+       "lb.xpt"
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 1328,
+     "b_line": 1353,
+     "status": "DIFF",
+     "changes": {
+      "ds": [
+       null,
+       "eg.xpt"
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch04_general_assumptions.md",
+     "a_line": 1346,
+     "b_line": 1373,
+     "status": "OK",
+     "changes": {
+      "ds": [
+       null,
+       "vs.xpt"
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch08_relationships.md",
+     "a_line": 162,
+     "b_line": 164,
+     "status": "OK",
+     "changes": {
+      "ex": [
+       null,
+       "1"
+      ],
+      "kb_duplicate": [
+       true,
+       false
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch08_relationships.md",
+     "a_line": 232,
+     "b_line": 236,
+     "status": "OK",
+     "changes": {
+      "ex": [
+       null,
+       "1"
+      ],
+      "kb_duplicate": [
+       true,
+       false
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch08_relationships.md",
+     "a_line": 241,
+     "b_line": 245,
+     "status": "OK",
+     "changes": {
+      "ex": [
+       null,
+       "1"
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch08_relationships.md",
+     "a_line": 383,
+     "b_line": 390,
+     "status": "OK",
+     "changes": {
+      "ex": [
+       null,
+       "1"
+      ],
+      "kb_duplicate": [
+       true,
+       false
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch08_relationships.md",
+     "a_line": 397,
+     "b_line": 406,
+     "status": "OK",
+     "changes": {
+      "ex": [
+       null,
+       "1"
+      ],
+      "kb_duplicate": [
+       true,
+       false
+      ]
+     }
+    },
+    {
+     "file": "knowledge_base/chapters/ch08_relationships.md",
+     "a_line": 457,
+     "b_line": 468,
+     "status": "OK",
+     "changes": {
+      "ex": [
+       null,
+       "1"
+      ],
+      "kb_duplicate": [
+       true,
+       false
+      ]
+     }
+    }
+   ],
    "map": {
     "knowledge_base/domains/AE/assumptions.md:49": {
      "to": "knowledge_base/domains/AE/assumptions.md:61",
@@ -4165,6 +4499,7 @@
      ]
     }
    ],
+   "meta_only": [],
    "map": {
     "knowledge_base/domains/AE/assumptions.md:61": {
      "to": "knowledge_base/domains/AE/assumptions.md:61",

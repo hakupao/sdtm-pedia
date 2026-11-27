@@ -1,20 +1,23 @@
-# T4.1 补检 ("0 抽中" 各类全检) + Q9 扩检 — 汇总
+# T4.1 补检 ("0 抽中" 各类全检) + Q9 扩检 + 第二轮补检 — 汇总
 
 <!-- chain: E (plans) -->
-> 状态: **补检 PRE_EXISTING 层不通过 (2 条 NOT_HOLD) → 触发 Q9 升级; Q9 扩检已跑完, 结论待主人裁定** (2026-11-27). 其余各层通过. KB 未改; 台账未改.
-> 审查: `oh-my-claudecode:tracer` (opus) × 16 个独立实例 (补检 8 + Q9 8), 只读; 原始结果由审查者自己写入 `evidence/t4_supp_raw/pack_{1..8}.md` 与 `evidence/t4_q9_raw/pack_{1..8}.md`. 本文件是主控用 `scripts/t4/t4_supp_report.py` 从原始结果机械汇总的, 不改判 (规则 D).
-> 口径 (派发前写死): `subagent_prompts/t4/t4_supp_fullcheck_v1.0.md`, `subagent_prompts/t4/t4_q9_extension_v1.0.md`. 规则 B 归档: `evidence/failures/step_T4.SUPP_attempt_1.md`.
+> 状态: **补检 PRE_EXISTING 层不通过 → 触发 Q9 升级; Q9 扩检与第二轮补检已跑完; 共 72 条标签待改, 待主人裁定** (2026-11-27). KB 未改; 台账未改.
+> 审查: `oh-my-claudecode:tracer` (opus) 独立实例, 只读: 补检 8 + Q9 8 + 第二轮 8. 原始结果由审查者自己写入 `evidence/t4_supp_raw/`、`evidence/t4_q9_raw/`、`evidence/t4_round2_raw/`. 本文件 §1-§6 是主控用 `scripts/t4/t4_supp_report.py` 从原始结果机械汇总的, 不改判 (规则 D); 文末一节是主控手写的 "独立审查 B 的处理".
+> 口径 (派发前写死): `subagent_prompts/t4/t4_supp_fullcheck_v1.0.md`, `t4_q9_extension_v1.0.md`, `t4_supp_round2_v1.0.md`. 规则 B 归档: `evidence/failures/step_T4.SUPP_attempt_1.md`. 对本汇总的独立审查原文: `evidence/t4_gap_review_raw/review_b.md`.
 
 ## 1. 复跑
 
 ```bash
 T=.work/10_tier_b_repair
 python3 -I $T/scripts/t3/t3_direct_hit.py --out $T/work/t4/supp/direct_hit_head.json   # pre_existing 58 (GREEN)
-python3 -I $T/scripts/t4/t4_supp_sample.py   # 203 条 / 8 包; 不触碰 gate / human 样本文件
-python3 -I $T/scripts/t4/t4_q9_sample.py     # 192 条 / 8 包 (seed 20261131)
-python3 -I $T/scripts/t4/t4_supp_report.py   # 本文件 + t4_relabel_pending.md (台账只读)
+python3 -I $T/scripts/t4/t4_supp_sample.py     # 补检 203 条 / 8 包
+python3 -I $T/scripts/t4/t4_q9_sample.py       # Q9 192 条 / 8 包 (seed 20261131)
+python3 -I $T/scripts/t4/t4_round2_sample.py   # 第二轮 135 条 / 7 包 (seed 20261132)
+python3 -I $T/scripts/t4/t4_round2b_sample.py  # 第二轮补充 40 条 / 2 包
+python3 -I $T/scripts/t4/t4_supp_report.py     # 本文件 + t4_relabel_pending.md (台账只读)
 ```
-- 样本 md5: `work/t4/supp/supp_sample.jsonl` `0fb5799b821c5a4dc900b39fbf86bf86`; `work/t4/q9/q9_sample.jsonl` `5ad82bea9a68db72616a19f414afd5de`. 总闸 / 人工样本文件未动 (`gate_sample.jsonl` `67b1013f496096df483eb300a66150d6`, `human_sample.jsonl` `5b4212ee6b5deb873ab29d7f13e17232`).
+- 这些抽样脚本不触碰总闸 / 人工样本文件 (`gate_sample.jsonl` `67b1013f496096df483eb300a66150d6`, `human_sample.jsonl` `5b4212ee6b5deb873ab29d7f13e17232`); 它们只 exec `t4_sample.py` / `t4_render.py` 的定义段.
+- 样本 md5: supp `0fb5799b821c5a4dc900b39fbf86bf86`; q9 `5ad82bea9a68db72616a19f414afd5de`; round2 `f212fc3c7e8aacf10c1b94c1534de3bc`; round2b `6f9a13b8bbfa2dbe74b5361accd04f2f`.
 
 ## 2. 补检: 总体与结果 (全检, 不抽样)
 
@@ -26,7 +29,7 @@ python3 -I $T/scripts/t4/t4_supp_report.py   # 本文件 + t4_relabel_pending.md
 | FIG | FIGURE_DEFERRED | 11 | 0 | 11 | 11 | 0 | 0 | 0 | 通过 |
 | TRIAGE_ATOM_ERR | ATOM_ERR | 74 | 0 | 74 | 74 | 0 | 0 | 0 | 通过 |
 | TRIAGE_RELOCATE | EXACT | 3 | 0 | 3 | 3 | 0 | 0 | 0 | 通过 |
-| TRIAGE_LOCATE | — | 0 | 0 | 0 | — | — | — | — | 总体为空 (T1 的 LOCATE 类在 T2 已全部定位) |
+| TRIAGE_LOCATE | — | 0 | 0 | 0 | — | — | — | — | 总体为空 (T1 的 28 条 LOCATE 在 T1.4 定批时按 `ruling:LOCATE-LB` 转成了 REAL_GAP, 归 B-LB 批; `t2_batch_table.md:18`) |
 | RULE_T1-two-agent+T2-rework | EQUIVALENT | 27 | 2 | 25 | 25 | 0 | 0 | 0 | 通过 |
 | RULE_T2-fix+deltaRereviewPASS+auditPASS | EQUIVALENT | 5 | 0 | 5 | 5 | 0 | 0 | 0 | 通过 |
 | RULE_live-hit(was-IE-ack) | EXACT | 19 | 0 | 19 | 19 | 0 | 0 | 0 | 通过 |
@@ -67,13 +70,13 @@ python3 -I $T/scripts/t4/t4_supp_report.py   # 本文件 + t4_relabel_pending.md
 | 已登记 PDF 笔误造成的差异 (B-MB T-1); 标签宜为 PDF_TYPO | 2 | `ig34_p0262_a016`, `ig34_p0262_a017` |
 | 已登记 PDF 笔误造成的差异 (B-NV T-2); 标签宜为 PDF_TYPO | 1 | `ig34_p0296_a023` |
 
-这 30 条在各覆盖率口径里仍算已覆盖 (EXACT 与 EQUIVALENT 同计); 其中 4 条登记笔误的见 `t4_relabel_pending.md` (改 PDF_TYPO 会影响 strict 口径). 其余 26 条归入 "标签级别" 后续项 (同 U-10⑤), 不改.
+这 30 条在各覆盖率口径里仍算已覆盖 (EXACT 与 EQUIVALENT 同计); 其中 4 条登记笔误的进 `t4_relabel_pending.md` (改 PDF_TYPO 会影响 strict 口径). 其余 26 条归入 "标签级别" 后续项 (同 U-10⑤), 不改.
 
 ## 3. Q9 扩检 (PRE_EXISTING 层不通过 → 按 PLAN §9 Q9 升级)
 
-- 范围内、本项目没改过的旧标签 (stock) 共 4968 条: EXACT 1753 / EQUIVALENT 2334 / INTENTIONAL_EXCLUDE 881.
-- 旧 EXACT: 已由 `t3_direct_hit.py` 全量指纹复验, 命中不了的 58 条就是上面的 PRE_EXISTING 层 (全部审完). Q9 写的 "全量指纹复验" 对 EXACT 已做完.
-- 旧 EQUIVALENT 指纹验不了, 另定方案: SDTM v2.0 的 127 条**全检** (出问题的正是 v2.0 变量表); SDTMIG v3.4 的 2207 条按原子类型分层随机抽 65 条 (seed 20261131; 另有 8 条已在总闸对照层判过, 全成立).
+- 范围内、本项目没改过的旧标签 (stock), **不含标题类原子** (G-TB1 的定义就是 "非 HEADING"): 4968 条 = EXACT 1753 / EQUIVALENT 2334 / INTENTIONAL_EXCLUDE 881. 范围内另有 stock 标题类原子 EXACT 149 / EQUIVALENT 167, 不在指纹复验里也不在 Q9 里 (其中 11 条因台账指针跨文档在第二轮 XDOC 层审过, 见 §4).
+- 旧 EXACT: `scripts/t3/t3_direct_hit.py` 做的是全量指纹复验 — 原子文字须在它的目标文件里逐字命中并锚在本节. 它检查 1758 条 (上面 1753 条 + 5 条虽在决策表里但标签未变的), 命中不了的 58 条就是 §2 的 PRE_EXISTING 层 (全部审完). **它验不了两件事**: ① 目标文件属于另一份 PDF 的 KB 文件时不做节锚点检查 (`t3_common.py` 的 `anchor_ok` 直接放行), 即不判 "文字落在哪份文档"; ② 原子抽取时把 PDF 的笔误 "顺手改对" 了的, 原子文字 = KB 改正值, 指纹照样命中 — 这两类分别由第二轮的 XDOC 层与 TYPO_SIB 层补 (§4).
+- 旧 EQUIVALENT 指纹验不了, 另定方案: SDTM v2.0 的 127 条**全检** (出问题的正是 v2.0 变量表); SDTMIG v3.4 的 2207 条按原子类型分层随机抽 65 条 (seed 20261131).
 
 | 层 | 总体 | 本次审 | HOLDS | NOT_HOLD_R1 | NOT_HOLD | UNVERIFIABLE |
 |---|--:|--:|--:|--:|--:|--:|
@@ -81,20 +84,82 @@ python3 -I $T/scripts/t4/t4_supp_report.py   # 本文件 + t4_relabel_pending.md
 | Q9_IG34_EQUIV | 2207 | 65 | 65 | 0 | 0 | 0 |
 
 - **SDTM v2.0**: 127 条里 51 条旧 EQUIVALENT 不成立 — 49 条是变量表行 / 表头 (NOT_HOLD_R1: KB 精简列对, PDF 其它列的内容 KB 本表没收), 2 条是目录条目被跨文档配到了 SDTMIG ch10 (`sv20_p0003_a011` / `a012`). 都不是 KB 内容错.
-- **SDTMIG v3.4**: 抽 65 条 0 错; 连同总闸对照层的 8 条共 73 条 0 错. 0 错时错误率的 95% 置信上界约 4.0% (按 1 − 0.05^(1/n), n = 73; 假设简单随机, 实际是分层抽). **这不等于全检**; 2207 条是否全检由主人定 (按每包 26 条约需 85 个审查实例).
-- NOT_HOLD_R1 按 PDF 表分布: p46 1, p47 1, p52 5, p53 7, p55 8, p56 4, p57 4, p58 6, p59 9, p60 1, p65 1, p69 2.
+- **SDTMIG v3.4**: 抽 65 条 0 错 → 错误率 95% 置信上界约 **4.5%** (1 − 0.05^(1/65)). 若把总闸对照层判过的 8 条也算上 (另一个抽样框), 73 条 0 错 → 约 4.0%. 两个数都是近似: 按简单随机算, 实际是按原子类型分层且不按比例. **这不等于全检**; 是否够由主人定.
+- NOT_HOLD_R1 按 PDF 页分布: p46 1, p47 1, p52 5, p53 7, p55 8, p56 4, p57 4, p58 6, p59 9, p60 1, p65 1, p69 2.
+- 与 Q9 brief 的一处偏离 (收紧, 不是放宽): brief 的后果条款写 "NOT_HOLD_R1 → 台账改标 IE (R1, 用户已 ack 的类别)"; 实际没有直接改, 而是列入待改清单请主人定 — 协调方 2026-11-27 指示 "不按委托代裁处理, 先不改台账" (`t4_coordinator_note_20261127.md`), 且 R1 当时 ack 的是列出的 70 条, 这 51 条不在其中.
 
-## 4. 后果 (按派发前写死的条款)
+## 4. 第二轮补检 (独立审查 B 指出的三处没覆盖到)
 
-- PRE_EXISTING 层 NOT_HOLD ≥ 1 → Q9 升级已触发并执行到 §3; **主控不自行结案**. 需要主人定的事列在 `t4_owner_decisions_round2.md`.
-- 待改标签共 57 条, 逐条清单与改后各闸数字 (在台账副本上算) 见 `t4_relabel_pending.md`. **台账现在没改** (md5 仍 `60729f7b…`): IE 要逐条清单经用户 ack 才生效 (PLAN B5), PDF_TYPO 每条要用户 ack (G-TB1).
-- 其余各层 (145 条) 通过: FIG 11、triage ATOM_ERR 74、RELOCATE 3、六条规则类 57.
+| 层 | 取法 | 本次审 | 结果 |
+|---|---|--:|---|
+| XDOC | 范围内 stock EXACT / EQUIVALENT (含标题类) 且台账 `md_atom_ids` 只指向另一份文档的 KB 文件; 共 57 条, 其中 30 条已在 Q9 / 补检审过 | 27 (全检) | HOLDS 24 / NOT_HOLD_XDOC 0 / NOT_HOLD_R1 0 / NOT_HOLD 3 / UNVERIFIABLE 0 |
+| TYPO_SIB | 范围内 EXACT / EQUIVALENT, 与某条 "KB 写正确值" 登记同页 (±1), 原子文字含改正值且与登记所在 KB 行重合 ≥ 0.8; 候选 70 条, 其中 7 条已审过 | 63 (全检) | TYPO_AFFECTED 10 / NOT_AFFECTED 53 / NOT_HOLD 0 / UNVERIFIABLE 0 |
+| TYPO_SIB2 | 同上但原子文字**不含**改正值, 只取 EQUIVALENT (EXACT 须逐字命中 KB, 覆盖笔误处的 EXACT 原子必含改正值); 候选 40 条 | 40 (全检) | TYPO_AFFECTED 5 / NOT_AFFECTED 35 / NOT_HOLD 0 / UNVERIFIABLE 0 |
+| PDF_TYPO | 终态 PDF_TYPO 149 条里未被任何审查者看过的 144 条, 按判定规则分层各抽 15 (seed 20261132) | 45 (抽样) | HOLDS 45 / NOT_HOLD 0 / UNVERIFIABLE 0 |
 
-## 5. 审查者顺带记录的事项 (都不改 KB; KB 冻结)
+- **XDOC**: 没有跨文档误配 — 16 条 SDTMIG 非标题原子与 8 条标题原子的内容都在 SDTMIG 自己的 KB 文件里 (台账指针指向 model/ 只是旧匹配器的指针问题). 3 条 NOT_HOLD 都是标题类, 属口径问题而非内容问题: `ig34_p0079_a001` (5.3 SE) 与 `ig34_p0442_a001` (9.2 OI) — KB 域文件标题 `# XX — 域名` 不带 PDF 节号; `ig34_p0441_a006` (9.1 Device Identifiers) — KB 对应标题是自拟的 `## DI – Description/Overview (§9.1)`. 审查者指出 64 个域目录里 57 个同型. 标题类不在 G-TB1 范围内; 口径交主人定 (`t4_owner_decisions_round2.md`).
+- **TYPO_SIB / TYPO_SIB2**: 15 条原子所在处 PDF 印的是已登记的笔误、KB 是改正值, 现标签 EXACT / EQUIVALENT 不准 → 进待改清单 (改 PDF_TYPO). 其余候选的笔误实际在同页别处.
+- **PDF_TYPO**: 抽 45 条 0 错 → 错误率 95% 上界约 6.4% (同样是近似). 连同总闸样本里判过的 5 条共 50 条看过; PDF_TYPO 类**不是全检**. attempt 1 要求的 "ATOM_ERR / PDF_TYPO 合计补抽到 ≥ 30" 现为: ATOM_ERR 侧 C7 38 + triage 74 + K4 2 全检, PDF_TYPO 侧抽 45.
+- 范围外 (只列不审): 台账指针跨文档的旧标签另有 146 条在 §5.0 范围外 (PARTIAL 113 / EQUIVALENT 21 / EXACT 12), 其中 SDTM v2.0 第 74 页 14 条已被 Q9 审查者指认为配到了 SDTMIG 附录 F. 清单 `work/t4/round2/round2_population.json` 的 `xdoc_out_of_scope`.
 
-- KB 观察 (排版): `knowledge_base/domains/EG/examples.md:62-87` (Ex3 表) 省略列写 `...`, PDF p190-191 是 `…` (U+2026). S-TYPO 闭表含 `...`↔`…`, 该文件有 48 行在残余清单 (`work/t2_batches/S-TYPO.residual.jsonl`; U-9(c) 代裁 "接受现状").
-- PDF 自身不一致, 未登记: sv20 p69 SREL 行 Notes 写 "subject or pool identified in RDEVID", p50 同句写 "device" (`evidence/t4_q9_raw/pack_5.md`); ig34 p440 图中 SPC-003 标 "(Brain)", 同页表写 TISSUE (`evidence/t4_supp_raw/pack_6.md`).
-- 范围外旧标签同类错配 (未改, 只记): `sv20_p0074_a001` (PARTIAL) / `a002` / `a003` (EXACT) 被配到 SDTMIG `ch10_appendices.md` 的 Appendix F (`evidence/t4_q9_raw/pack_2.md`).
-- 台账指针类 (不影响标签): 若干 `md_atom_ids` 指向别的域 / 文件 (如 `ig34_p0153_a0009` → DM; `ig34_p0255_a036` → MS examples); 原子页号偏一页 (`ig34_p0169_a0025` 等实在 p170; `ig34_p0057_a001` 实在 p56). 样本包里的 KB 指针多处近似, 审查者都自行重新定位.
-- 标签级别 (内容成立): `ig34_p0057_a006`、`ig34_p0068_a004` (旧 EQUIVALENT, 实为原子抽错 + KB 逐字); 补检 #3 / #4 (旧 EXACT, 实为原子抽错).
+## 5. 后果 (按派发前写死的条款)
 
+- PRE_EXISTING 层 NOT_HOLD ≥ 1 → Q9 升级已触发并执行到 §3 / §4; **主控不自行结案**. 需要主人定的事列在 `t4_owner_decisions_round2.md`.
+- 待改标签共 72 条, 逐条清单与各选法下的闸数字 (在台账副本上算) 见 `t4_relabel_pending.md`. **台账现在没改** (md5 仍 `60729f7b…`): 这些都是闸口径层面的事, 须主人本人定 (总闸 attempt 2 C 项; 协调方指示); PDF_TYPO 每条须用户 ack (G-TB1).
+- 补检其余 9 个非空层 (145 条) 通过: FIG 11、triage ATOM_ERR 74、RELOCATE 3、六条规则类 57.
+
+## 6. 审查者顺带记录的事项 (都不改 KB; KB 冻结)
+
+需要定口径的 (已并入给主人的一页):
+- 标题后缀: Q9 包 1 的 Q19-Q26 (8 条 v2.0 目录条目) KB 标题带 `(TE)` 等域代码后缀, 审查者按 "附加信息不改原意" 判 HOLDS 并提醒 "若任何附加都算标题文字不同, 这 8 条要改判" (`evidence/t4_q9_raw/pack_1.md`). 主控依据: U-10① 已定 "(XX) 后缀为保留的检索导航, 只补登记" (`t4_user_decisions.md` §000), 维持 HOLDS.
+- 域标题不带节号 / DI 自拟标题: 见 §4 XDOC.
+- `sv20` §6.4 RELSUB / §6.5 DR 的 KB 表也只有 5 列, PDF 对应表有 C-code 与 Definition 格 (`evidence/t4_supp_raw/pack_2.md` 样本外发现; 审查者写 "需要 owner 定口径"). 与 R1 同类; 这两节不在 §5.0 范围内.
+- KB 排版: `knowledge_base/domains/EG/examples.md:62-87` (Ex3 表) 省略列写 `...`, PDF p190-191 是 `…` (U+2026). 这 26 行在 S-TYPO 残余清单里归类 `table_elision` (`work/t2_batches/S-TYPO.residual.jsonl`; 全表 1091 行 = kb_nav 685 / body 235 / heading 144 / table_elision 26 / kb_note 1). U-9(c) 当时说的是 "残余 230 行", 与文件行数对不上, **不能确认 U-9(c) 的 "接受现状" 覆盖这 26 行**.
+
+PDF 自身不一致 (前两条未登记):
+- sv20 p69 SREL 行 Notes 写 "subject or pool identified in RDEVID", p50 同句写 "device" (`evidence/t4_q9_raw/pack_5.md`).
+- ig34 p440 图中 SPC-003 标 "(Brain)", 同页表写 TISSUE (`evidence/t4_supp_raw/pack_6.md`).
+- ig34 p278 Method B: 叙述说第 14-26 行 RELID 为 2 / `DY8DRGX`, 表里这些行印 RELID 1, 第 26 行 IDVARVAL 印 `DY1DRGX` (`evidence/t4_round2_raw/pack_sib_3.md`). 这一处**已登记**: `t4_user_decisions.md` A1-20 / `B-PCPP T-4` (照录 + T4), 不是新发现.
+- 登记页号: `B-CP T-5` 的 `pdf_page` 写 211, 该行实际在 p212 (`pack_sib2_1.md`); `B-IS T-6` 写 241 实为 239 (解冻轮 W1 已发现). 都留到改台账那一批更正.
+
+台账 / 登记的指针类 (不影响标签):
+- 若干 `md_atom_ids` 指向别的域 / 文件 (如 `ig34_p0153_a0009` → DM; `ig34_p0255_a036` → MS examples; XDOC 层 27 条); 原子页号偏一页 (`ig34_p0169_a0025` 等实在 p170; `ig34_p0057_a001` 实在 p56; `ig34_p0442_a001` 实在 p441).
+- `ig34_p0355_a027` (PDF_TYPO): 决策表登记指针只列 `B-TR T-3`, 漏 `B-TR T-1` (`evidence/t4_round2_raw/pack_typo_2.md`). `chapters/ch08_relationships.md:228` 也承载了 `B-SUPPQUAL T-1` 的改正值, 登记的位置清单没列这一行 (`pack_sib_3.md`).
+- 登记 `S-CH4 T-10e` (p43 两句之间缺空格) 落在 `ig34_p0043_a022` 与 `a023` 的交界; 仅空白差异, 两条 EXACT 按定义成立 (`pack_sib_1.md` R29).
+- 样本包里的 KB 指针多处近似, 审查者都自行重新定位.
+
+标签级别 (内容成立; 记后续, 同 U-10⑤):
+- 旧 EXACT / EQUIVALENT 实为 "原子抽错 + KB 与 PDF 一致" (按定义更接近 ATOM_ERR): 补检 PRE_EXISTING 层 #3、#4、#11-#16、#19-#26、#46-#48、#51、#53 (见 `evidence/t4_supp_raw/pack_1.md` / `pack_2.md` 各行说明); Q9 的 `ig34_p0057_a006`、`ig34_p0068_a004` 及包 6 的 Q132-Q135、Q146; 第二轮 `pack_sib_2.md` 附注的 8 条 (R55 / R56 / R59 / R60 / R63 / R64 / R66 / R75).
+- 原子抽取本身的问题 (只影响台账, KB 对): p69 原子 a023-a032 把两张 se.xpt 的值混在一起、p77 原子 a015-a018 把 dm.xpt 抽成 suppdm (`evidence/t4_supp_raw/pack_3.md`); `sv20_p0053_a018` 把 Notes 文字放进 Definition 格 (`evidence/t4_q9_raw/pack_3.md`).
+- KB 附加信息: `CE/spec.md:261,279`、`HO/spec.md:81` 的受控术语格比 PDF 多写了 NCI C-code (`evidence/t4_supp_raw/pack_4.md`; S-CT 批 U5/U6 的做法, 各 spec.md 有统一 KB note, 这三格是否在其覆盖内待核).
+
+<!-- REVIEW: 以下由主控手写 / 誊录, 脚本重跑时原样保留 -->
+
+## 独立审查 B 的处理 (主控手写; 审查原文 `evidence/t4_gap_review_raw/review_b.md`)
+
+审查者 `oh-my-claudecode:code-reviewer` (opus), 对象 HEAD `1df9f60` 的第 1 稿. 结论 **CONDITIONAL, HIGH 4**; 数字与 395 条逐条判定全部复现. 逐条处理:
+
+| # | 严重度 | 审查意见 (摘) | 处理 |
+|--:|---|---|---|
+| 1 | HIGH | 漏报同类原子 `ig34_p0147_a026` (B-BE T-3); PRE_EXISTING 层看不见 "原子文字 = KB 改正值 ≠ PDF" | 采纳. 按建议做了反查: 第二轮 TYPO_SIB 63 条 + TYPO_SIB2 40 条由独立审查者全检 (§4), 确认 15 条 (含 a026), 连同原 4 条共 19 条进待改清单; §3 写明指纹复验验不了这一类 |
+| 2 | HIGH | 给主人一页的 "第 74 页 3 条" 实为 14 条; "不影响任何一道闸" 与给出的数字自相矛盾; U-8 不是 "同类" | 采纳. 一页重写 (问题 7): 范围外跨文档指针共 146 条 (第 74 页 14 条); 写明不在 G-TB1 / G-TB2 范围内但进 G-TB3; 各选法实算; U-8 的说法改为 "上一轮范围外的 4 条已登记笔误是改了标签的" |
+| 3 | HIGH | 确认来源多写了 "主人对协调方说过会去发 / 时间线吻合" | **不采纳为事实错**: 这两点在协调方消息原文里有, 是主控给审查者的 brief 漏给了. 已把协调方原文留档 `t4_coordinator_note_20261127.md` (注明是转达), 各文档改为引用该留档 |
+| 4 | HIGH (把握中等) | "SDTMIG 没有 v2.0 那种结构性原因" 不成立: 16 条 SDTMIG 旧 EQUIVALENT 的台账指针指向 model/, 抽样没抽到 | 采纳. 该句已删. 这 16 条连同 11 条标题类 (共 27 条) 作 XDOC 层全检 (§4): 无跨文档误配, 3 条标题口径问题交主人 (一页问题 6) |
+| 5 | MEDIUM | 置信上界合并了 gate 8 条, brief 要求报 65 条的 | 采纳. §3 与一页都先报 65 条的 4.5%, 再注 73 条的 4.0%, 并写明是近似 (分层抽样按简单随机算) |
+| 6 | MEDIUM | 没写明总体不含 HEADING; 指纹复验不查 "落在哪份文档"; 1753 vs 1758 | 采纳. §3 写明; 标题类 316 条未查列为一页问题 4c; 范围内 sv20 标题 3 条已在 XDOC 层审 (成立) |
+| 7 | MEDIUM | PDF_TYPO 149 条里 142 条没人看过, 没写明 | 采纳. 第二轮分层抽 45 条 (0 错, §4); 写明不是全检; 是否全看列为一页问题 4b |
+| 8 | MEDIUM | 审查者的 "需复议" 没转述 (Q19-Q26 标题后缀; §6.4 / §6.5 五列表) | 采纳. §6 补上并写明依据 |
+| 9 | MEDIUM | M-4 写成 "待追认", 与确认记录不一致; §000b 标题过时 | 采纳. `t4_ack_lists.py` / `t4_ack_lists.md` / `t4_user_decisions.md` §000b 已改为 "M-1 ~ M-7 按 `t4_owner_confirmation.md` 的记录已追认, M-8 待追认" |
+| 10 | MEDIUM | 两份文档选项不一致; 目录条目应单独成问; 预测性措辞; "未单独算" 可算 | 采纳. 一页重写: 变量表行 / 目录条目 / 笔误原子各成一问; 选项只在一页里写, `t4_relabel_pending.md` 只列组与数字; 各选法数字由脚本实算 (`work/t4/supp/scenarios.json`); 删去 "总闸会再点名" |
+| 11 | LOW | "其余 10 层" 应为 9 | 已改 (失败归档 / HANDOFF / audit_matrix / 本文件) |
+| 12 | LOW | `relabel_pending` 的 G-TB2 标注错 | 已改: 表头写明是字面口径, 并注范围内口径 174/174 |
+| 13 | LOW | 标签级别项列得不全; 几条审查者观察没转述 | 采纳. §6 补全 |
+| 14 | LOW | 没写明偏离 Q9 brief 的后果条款; "PLAN §3.1 B5" 引用不当 | 采纳. §3 末条写明偏离 (收紧) 及原因; 不再引 B5 |
+| 15 | LOW | 失败归档的输入 HEAD 应为 `c555bd8` | 已改 |
+| 16 | LOW (待核) | "EG 省略号已由 U-9(c) 定" 无法确认; LOCATE 的原因写错 | 采纳. 核实: 残余清单 1091 行, EG 那 26 行归 `table_elision`, 与 U-9(c) 的 "230 行" 对不上 → 改为单独问主人 (一页问题 8); LOCATE 行改为 "28 条按 `ruling:LOCATE-LB` 转 REAL_GAP" |
+
+改动后的文档 (本文件、`t4_relabel_pending.md`、`t4_owner_decisions_round2.md` 第 2 稿等) 由同类型的新审查实例做 delta 复审; 结论誊在下面.
+
+## delta 复审
+
+(待审)

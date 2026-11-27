@@ -408,12 +408,100 @@
   "raw": "evidence/t4_q9_raw/pack_5.md:44"
  },
  {
+  "atom_id": "ig34_p0037_a002",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-ch04 T-3; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib2_1.md:21"
+ },
+ {
+  "atom_id": "ig34_p0043_a010",
+  "now": "EXACT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 S-CH4 T-8; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib_1.md:18"
+ },
+ {
+  "atom_id": "ig34_p0047_a009",
+  "now": "EXACT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 S-CH4 T-9; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib_1.md:21"
+ },
+ {
+  "atom_id": "ig34_p0064_a012",
+  "now": "EXACT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 S-SPEC1 T-3; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib_1.md:22"
+ },
+ {
+  "atom_id": "ig34_p0069_a004",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-DM T-3; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib2_1.md:27"
+ },
+ {
+  "atom_id": "ig34_p0078_a022",
+  "now": "EXACT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-DM T-1; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib_1.md:25"
+ },
+ {
+  "atom_id": "ig34_p0119_a017",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-EX T-1; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib_1.md:31"
+ },
+ {
   "atom_id": "ig34_p0147_a025",
   "now": "EXACT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
   "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-BE T-3 (KB 写正确值)",
   "raw": "evidence/t4_supp_raw/pack_1.md:35"
+ },
+ {
+  "atom_id": "ig34_p0147_a026",
+  "now": "EXACT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-BE T-3; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib_1.md:35"
+ },
+ {
+  "atom_id": "ig34_p0201_a005",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 S-SPC1 CP T-20; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib2_1.md:32"
+ },
+ {
+  "atom_id": "ig34_p0212_a001",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-CP T-5; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib2_1.md:34"
+ },
+ {
+  "atom_id": "ig34_p0256_a007",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-MS T-5; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib2_2.md:17"
  },
  {
   "atom_id": "ig34_p0262_a016",
@@ -432,12 +520,44 @@
   "raw": "evidence/t4_supp_raw/pack_2.md:43"
  },
  {
+  "atom_id": "ig34_p0277_a026",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-PCPP T-1; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib_3.md:22"
+ },
+ {
+  "atom_id": "ig34_p0278_a015",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-PCPP T-2 / B-PCPP T-3; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib_3.md:23"
+ },
+ {
+  "atom_id": "ig34_p0278_a028",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-PCPP T-2 / B-PCPP T-3; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib_3.md:24"
+ },
+ {
   "atom_id": "ig34_p0296_a023",
   "now": "EXACT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
   "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-NV T-2 (KB 写正确值)",
   "raw": "evidence/t4_supp_raw/pack_2.md:47"
+ },
+ {
+  "atom_id": "ig34_p0357_a014",
+  "now": "EQUIVALENT",
+  "to": "PDF_TYPO",
+  "group": "registered-typo",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-TR T-2; 确切 id 以原始结果为准; KB 写正确值)",
+  "raw": "evidence/t4_round2_raw/pack_sib_3.md:28"
  },
  {
   "atom_id": "sv20_p0003_a011",
