@@ -1,7 +1,7 @@
 # T4 问题 C 改台账 (R4L) — writer 规格 v1.0 (预备稿; **仅在主人直接回答 C1 之后才派发**)
 
 <!-- chain: E (plans) -->
-> 状态: **预备稿, 未生效** — 写成时主人尚未回答问题 C. 主人直接回答 C1 之后由主控在这里补一行生效说明 (原话与时间指向 `evidence/checkpoints/t4_owner_confirmation.md`), 规格正文不改.
+> 状态: **生效** — 主人 2026-11-27 直接回答 「C1、D1、追认 M-10」 (原话与时间: `evidence/checkpoints/t4_owner_confirmation.md` 消息 5; 收到时间 2026-11-27T14:41:14Z). (写成预备稿时主人尚未回答; 规格正文在他回答之后没有改.) 问题 D = D1: `B-CE T-2` 那 8 条维持 ATOM_ERR, 本批不动.
 > 用途: 把 1 条多标的 ATOM_ERR (`ig34_p0124_a001`) 改回 EXACT. 依据: 加查的两位互不知情的独立审查者结论一致 — `evidence/t4_atomerr_raw/pack_1.md` (E12, `oh-my-claudecode:tracer`) 与 `evidence/t4_atomerr_raw/second_look.md` (E12, `general-purpose`): 原子与 PDF p124 `ml.xpt` 第 2 行逐格一致 (没抽错), KB `knowledge_base/domains/ML/examples.md:42` 与 PDF 逐字一致. 汇总 `evidence/checkpoints/t4_atomerr_fullcheck.md` §3 / §4. 本批不另设语义 auditor (语义已由这两位独立判过); 改完后由总闸角色的新实例对这一处再判.
 > writer = `oh-my-claudecode:executor` (opus); reviewer = `oh-my-claudecode:code-reviewer` (复跑逐行核; 规则 D). 主控不写台账.
 > **KB 冻结**: `knowledge_base/` 一个字节都不许改 (`git rev-parse HEAD:knowledge_base` = `63f857774a42cfaa71798705ad40ab51bc5e378a`). `archive/`、`releases/`、`web/` 不碰. 不 git add / commit / push (主控提交).
