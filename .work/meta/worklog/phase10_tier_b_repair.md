@@ -21,3 +21,7 @@
 - 覆盖率下降分解: 319 行 "06 算覆盖 → 现标 ATOM_ERR/PDF_TYPO/FIG" 贡献约 −3.19pp; 若这 319 行仍算覆盖为 99.27% (`scripts/t4/t4_coverage_decomp.py`)。
 - T4.2 人工抽样包 42 条 (正式 30 + 节锚无效风险层 12) 已备, 判定栏空; ATOM_ERR/PDF_TYPO/FIG 330 原子确认清单 `t4_ack_lists.md`; 用户裁定入口 `t4_user_decisions.md` §00 U-1~U-11。
 - KB 冻结 (sdtm-rag 入库预演), 本日 KB 0 改动; 未 push、未打 tag。
+
+## 2026-11-27 答复 sdtm-rag 入库预演的 7 个问题 (只读)
+- 文档 `.work/10_tier_b_repair/evidence/checkpoints/t4_downstream_notes.md`: CT 单元格 6 种形态与 "下游格式约定" (以后改格式先通知 sdtm-rag); `*` = SDTMIG §4.3.1 "CT 暂无" 标记; DOMAIN CT = 字面值; DM RFSTDTC/RFENDTC = Char 照 PDF p63; model 6 列行照 SDTM v2.0 (第 6 列为 KB 自写); kb-2026.11.25 以来节变动清单 (脚本 `scripts/t4/t4_heading_diff.py`); 示例标题格式 7 个文件有变 (PC `## PC – Examples`)。
+- 新 KB 观察项 2 条记入 `t4_user_decisions.md` U-10 ⑥⑦。KB 未改, 未 push。
