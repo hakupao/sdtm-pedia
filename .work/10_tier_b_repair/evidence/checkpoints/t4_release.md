@@ -1,7 +1,7 @@
 # T4.3 发版记录 (推送 / 标签 / 网站核对)
 
 <!-- chain: E (plans) -->
-> 状态: **已完成** (2026-11-27T15:51:20Z; 本地日期 2026-11-28). 记录人 = 主控 (任务 `task_015df04443e6`). 本文件在标签之后的一个提交里: **main 比标签 `kb-2026.11.28` 多一个只含本记录与 trace 行的提交, KB 树相同**. 路径省略前缀 `.work/10_tier_b_repair/`.
+> 状态: **已完成** (2026-11-27T15:51:20Z; 本地日期 2026-11-28). 记录人 = 主控 (任务 `task_015df04443e6`). 本文件在标签之后的提交里: **main 比标签 `kb-2026.11.28` 多两个只含本记录与 trace 行的提交 (发版记录 + 网站一项的补记), KB 树相同**. 路径省略前缀 `.work/10_tier_b_repair/`.
 
 ## 1. 依据
 - 主人对发版的同意 (经协调方待办项转达): 「直接发版，不用再问我」, 范围 = "这 1 条改完并复审通过" (`evidence/checkpoints/t4_owner_confirmation.md` "主人对发版的同意").
@@ -52,7 +52,11 @@ RESULT: no blocking item
 - 构建状态取自 GitHub 的 check-run (`gh api repos/hakupao/sdtm-pedia/commits/b2bd837…/check-runs`): `Cloudflare Pages | completed | success | Deployed successfully`, Latest commit `b2bd837`, 开始 2026-11-27T15:48:54Z, 结束 15:50:32Z; 预览地址 `https://731a8aac.sdtm-pedia.pages.dev`.
 - `https://sdtm-pedia.pages.dev/` → 301 → `/zh/` 200 (标题 "SDTM 知识库"); `/en/` 200.
 - 没有为让构建通过改任何代码; `web/` 在 `origin/main..HEAD` 里无改动.
-- 本记录所在的提交推送后会再触发一次构建 (只多一个文档提交); 那一次的结果不在本文件里, 在主控给协调方的完成报告里.
+- **第二次推送 (本记录所在的提交 `cca98c1`, 只改 `.work/` 下的文件) 没有触发构建, 是被跳过, 不是失败** (2026-11-27T16:13:03Z 补记):
+  - 主控看到的: 推送后轮询 GitHub 上 `cca98c1` 的 check-run 约 20 分钟, 一直没有出现 `Cloudflare Pages` 这一项; 网站 `/zh/`、`/en/` 仍是 200.
+  - 协调方查 Cloudflare 部署记录后告知 (只读; 主控没有 Cloudflare 的访问权, 照其所述记录): 第一次 (`b2bd837`) 五个阶段全部 success, 已对外, 别名指向正式域名; 第二次 (`cca98c1`) `is_skipped: true`, 各阶段 idle — 被 "构建监听路径" 规则跳过. 该项目的监听路径是主人此前让协调方设的, 只看 `web/*` 和 `releases/v1.4/*`; 一次推送超过 20 个提交时 Cloudflare 不看这条规则, 所以那次大推送仍然构建了.
+  - 以后: 只改 `knowledge_base/` 或 `.work/` 的推送都不会触发网站构建 (网站读的是 `releases/v1.4/`); 要让网站重建, 得改到 `web/` 或 `releases/v1.4/`.
+- 本节这段补记所在的提交同样只改 `.work/`, 推送后也不会触发构建.
 
 ## 6. 没做的 (按任务要求)
 - 没改 `knowledge_base/`、`archive/`、`releases/`、`web/`; 没写 sdtm-rag 仓, 没替它做 "KB 更新" (协调方另派); 没有 force push; 没删远端的任何标签或分支.
