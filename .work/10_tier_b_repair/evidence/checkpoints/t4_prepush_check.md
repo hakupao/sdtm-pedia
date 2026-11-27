@@ -1,7 +1,7 @@
 # T4.3 推送前检查 (push 之前; 只读)
 
 <!-- chain: E (plans) -->
-> 状态: **预跑** (2026-11-27T14:30:33Z; HEAD `734b91e` 时). 真正 push 之前在最终 HEAD 上重跑一次, 输出追加在文末 "§3 最终一次". 路径省略前缀 `.work/10_tier_b_repair/`.
+> 状态: **最终一次已跑, 无拦截项** (见 §4); 下面 §3 是预跑 (2026-11-27T14:30:33Z; HEAD `734b91e` 时). 真正 push 之前在最终 HEAD 上重跑一次, 输出追加在文末 "§3 最终一次". 路径省略前缀 `.work/10_tier_b_repair/`.
 > 检查对象 = `git push origin main` 会公开的东西: `origin/main..HEAD` 的新增行 + 提交元数据.
 
 ## 1. 怎么查 (可复跑)
@@ -45,3 +45,27 @@ RESULT: no blocking item
 
 - 说明: `"token": "…"` 那 31 行是本项目数据文件里的文本 token 字段 (PDF / KB 行里的词, 值已全部列在上面), 不是凭据; 脚本只列出不拦.
 - 提交邮箱: 129 个待推提交的作者 / 提交者邮箱与远端 main 上已公开的提交相同 (脚本比较的是两边的邮箱集合, 新出现的 0 个).
+
+## 4. 最终一次 (2026-11-27T15:45:57Z; 在收尾提交 `4e70f9f` 上; 原样)
+
+```
+range origin/main..HEAD = 7819398..4e70f9f; commits 137; added lines 416717
+BLOCKING  /Users/<name> or /home/<name> paths: 0
+BLOCKING  personal patterns (from env, not stored): 0
+BLOCKING  e-mail addresses other than the Co-Authored-By noreply address: 0
+BLOCKING  private network addresses: 0
+BLOCKING  key-shaped strings: 0
+BLOCKING  password / secret / api key assignments: 0
+REPORTED  "token": "..." assignments (text-token data fields): 31 lines; distinct values: 123-1001 2017-04-01 assessments assessments. biological\ birthdtc contained define-xml detailing document.additional idvarval informed laterallity pre-coordinating pre-corrdinating reactogencity reactogenicity received recieved replacement/ replacement/surgical repsonse tdtgtpai visitnum, 
+BLOCKING  pdf / xlsx / source / pdf_pages / pdf_bbox files in the range: 0
+BLOCKING  tracked files under pdf_pages / pdf_bbox / source: 0
+BLOCKING  commits whose author or committer is not hakupao: 0
+BLOCKING  author / committer e-mails not already public on origin/main: 0
+REPORTED  machine paths without a user name: /Volumes/ 369 lines, /private/tmp 322 lines, files 366
+REPORTED  Co-Authored-By trailers: 137 (noreply@anthropic.com )
+RESULT: no blocking item
+```
+
+- 结论: 拦截项 0 → 可以 push. 不含用户名的机器路径 369 + 322 行 / 366 个文件, 按 §2 协调方的裁定放行 (比预跑多出的几行来自预跑之后的提交: 重生成的总闸预跑日志、引用这两类路径前缀的审查记录与本文件).
+- 本文件这一节提交后 HEAD 会再前进一个提交 (只含本节、`RETROSPECTIVE.md` 的一处数字更正与 trace 行); 提交后主控又跑了一次同一命令确认结果仍是 "no blocking item", 那次输出记在 `evidence/checkpoints/t4_release.md`.
+- 另核 (命令在 `t4_release.md`): `git status --short` 为空; `git rev-parse HEAD:knowledge_base` = `63f857774a42cfaa71798705ad40ab51bc5e378a`; `origin/main..HEAD` 对 `archive/`、`releases/`、`web/` 无改动; `python3 tools/check_links.py` live docs = 42.
