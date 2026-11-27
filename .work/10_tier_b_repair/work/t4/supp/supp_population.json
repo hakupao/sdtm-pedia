@@ -1,0 +1,337 @@
+[
+ {
+  "layer": "PRE_EXISTING",
+  "population": 58,
+  "in_gate": [],
+  "in_c7": [],
+  "in_earlier_layer": [],
+  "checked_here": [
+   "ig34_p0032_a013",
+   "ig34_p0073_a001",
+   "ig34_p0076_a002",
+   "ig34_p0101_a030",
+   "ig34_p0123_a009",
+   "ig34_p0123_a010",
+   "ig34_p0123_a011",
+   "ig34_p0123_a016",
+   "ig34_p0123_a017",
+   "ig34_p0123_a018",
+   "ig34_p0141_a005",
+   "ig34_p0141_a013",
+   "ig34_p0146_a003",
+   "ig34_p0146_a004",
+   "ig34_p0146_a030",
+   "ig34_p0147_a024",
+   "ig34_p0147_a025",
+   "ig34_p0153_a0002",
+   "ig34_p0182_a007",
+   "ig34_p0182_a009",
+   "ig34_p0182_a016",
+   "ig34_p0182_a017",
+   "ig34_p0182_a025",
+   "ig34_p0182_a026",
+   "ig34_p0182_a028",
+   "ig34_p0190_a014",
+   "ig34_p0191_a001",
+   "ig34_p0191_a003",
+   "ig34_p0191_a005",
+   "ig34_p0191_a006",
+   "ig34_p0191_a007",
+   "ig34_p0191_a008",
+   "ig34_p0191_a009",
+   "ig34_p0191_a010",
+   "ig34_p0191_a011",
+   "ig34_p0191_a012",
+   "ig34_p0191_a013",
+   "ig34_p0191_a014",
+   "ig34_p0191_a015",
+   "ig34_p0191_a016",
+   "ig34_p0191_a017",
+   "ig34_p0191_a018",
+   "ig34_p0191_a019",
+   "ig34_p0191_a020",
+   "ig34_p0191_a021",
+   "ig34_p0192_a002",
+   "ig34_p0192_a003",
+   "ig34_p0262_a015",
+   "ig34_p0262_a016",
+   "ig34_p0262_a017",
+   "ig34_p0262_a025",
+   "ig34_p0262_a026",
+   "ig34_p0289_a018",
+   "ig34_p0296_a023",
+   "sv20_p0009_a009",
+   "sv20_p0009_a010",
+   "sv20_p0069_a001",
+   "sv20_p0069_a003"
+  ],
+  "final": {
+   "EXACT": 58
+  }
+ },
+ {
+  "layer": "FIG",
+  "population": 11,
+  "in_gate": [],
+  "in_c7": [],
+  "in_earlier_layer": [],
+  "checked_here": [
+   "ig34_p0044_a023",
+   "ig34_p0387_a011",
+   "ig34_p0388_a001",
+   "ig34_p0388_a003",
+   "ig34_p0388_a005",
+   "ig34_p0397_a005",
+   "ig34_p0397_a009",
+   "ig34_p0398_a012",
+   "ig34_p0398_a016",
+   "ig34_p0409_a007",
+   "ig34_p0440_a009"
+  ],
+  "final": {
+   "FIGURE_DEFERRED": 11
+  }
+ },
+ {
+  "layer": "TRIAGE_ATOM_ERR",
+  "population": 74,
+  "in_gate": [],
+  "in_c7": [],
+  "in_earlier_layer": [],
+  "checked_here": [
+   "ig34_p0056_a001",
+   "ig34_p0057_a002",
+   "ig34_p0063_a017",
+   "ig34_p0067_a014",
+   "ig34_p0068_a017",
+   "ig34_p0069_a013",
+   "ig34_p0069_a023",
+   "ig34_p0069_a024",
+   "ig34_p0069_a025",
+   "ig34_p0069_a027",
+   "ig34_p0069_a029",
+   "ig34_p0069_a030",
+   "ig34_p0069_a031",
+   "ig34_p0069_a032",
+   "ig34_p0070_a022",
+   "ig34_p0077_a015",
+   "ig34_p0078_a007",
+   "ig34_p0078_a021",
+   "ig34_p0080_a002",
+   "ig34_p0101_a011",
+   "ig34_p0112_a009",
+   "ig34_p0116_a009",
+   "ig34_p0116_a010",
+   "ig34_p0116_a012",
+   "ig34_p0116_a014",
+   "ig34_p0116_a016",
+   "ig34_p0116_a018",
+   "ig34_p0116_a020",
+   "ig34_p0117_a001",
+   "ig34_p0120_a003",
+   "ig34_p0121_a011",
+   "ig34_p0122_a010",
+   "ig34_p0122_a011",
+   "ig34_p0149_a006",
+   "ig34_p0149_a009",
+   "ig34_p0149_a013",
+   "ig34_p0149_a016",
+   "ig34_p0149_a019",
+   "ig34_p0150_a001",
+   "ig34_p0150_a002",
+   "ig34_p0150_a003",
+   "ig34_p0168_a0002",
+   "ig34_p0168_a0003",
+   "ig34_p0168_a0004",
+   "ig34_p0168_a0005",
+   "ig34_p0168_a0007",
+   "ig34_p0169_a0021",
+   "ig34_p0169_a0022",
+   "ig34_p0169_a0023",
+   "ig34_p0169_a0025",
+   "ig34_p0169_a0029",
+   "ig34_p0170_a0004",
+   "ig34_p0170_a0006",
+   "ig34_p0192_a006",
+   "ig34_p0192_a009",
+   "ig34_p0226_a008",
+   "ig34_p0226_a009",
+   "ig34_p0226_a010",
+   "ig34_p0226_a011",
+   "ig34_p0226_a012",
+   "ig34_p0226_a013",
+   "ig34_p0226_a014",
+   "ig34_p0226_a015",
+   "ig34_p0226_a016",
+   "ig34_p0226_a017",
+   "ig34_p0226_a018",
+   "ig34_p0226_a019",
+   "ig34_p0226_a020",
+   "ig34_p0226_a021",
+   "ig34_p0226_a022",
+   "ig34_p0226_a023",
+   "ig34_p0226_a024",
+   "ig34_p0389_a012",
+   "ig34_p0389_a013"
+  ],
+  "final": {
+   "ATOM_ERR": 74
+  }
+ },
+ {
+  "layer": "TRIAGE_RELOCATE",
+  "population": 3,
+  "in_gate": [],
+  "in_c7": [],
+  "in_earlier_layer": [],
+  "checked_here": [
+   "ig34_p0363_a014",
+   "ig34_p0364_a003",
+   "ig34_p0364_a011"
+  ],
+  "final": {
+   "EXACT": 3
+  }
+ },
+ {
+  "layer": "TRIAGE_LOCATE",
+  "population": 0,
+  "in_gate": [],
+  "in_c7": [],
+  "in_earlier_layer": [],
+  "checked_here": [],
+  "final": {}
+ },
+ {
+  "layer": "RULE_T1-two-agent+T2-rework",
+  "population": 27,
+  "in_gate": [
+   "ig34_p0153_a0009",
+   "ig34_p0153_a0019"
+  ],
+  "in_c7": [],
+  "in_earlier_layer": [],
+  "checked_here": [
+   "ig34_p0032_a014",
+   "ig34_p0071_a002",
+   "ig34_p0152_a0004",
+   "ig34_p0152_a0005",
+   "ig34_p0152_a0006",
+   "ig34_p0152_a0007",
+   "ig34_p0152_a0008",
+   "ig34_p0152_a0009",
+   "ig34_p0152_a0010",
+   "ig34_p0152_a0011",
+   "ig34_p0152_a0012",
+   "ig34_p0152_a0014",
+   "ig34_p0152_a0015",
+   "ig34_p0153_a0006",
+   "ig34_p0153_a0007",
+   "ig34_p0153_a0008",
+   "ig34_p0153_a0011",
+   "ig34_p0153_a0012",
+   "ig34_p0153_a0013",
+   "ig34_p0153_a0016",
+   "ig34_p0153_a0018",
+   "ig34_p0153_a0022",
+   "ig34_p0153_a0023",
+   "ig34_p0153_a0024",
+   "ig34_p0153_a0025"
+  ],
+  "final": {
+   "EQUIVALENT": 27
+  }
+ },
+ {
+  "layer": "RULE_T2-fix+deltaRereviewPASS+auditPASS",
+  "population": 5,
+  "in_gate": [],
+  "in_c7": [],
+  "in_earlier_layer": [],
+  "checked_here": [
+   "ig34_p0195_a004",
+   "ig34_p0195_a005",
+   "ig34_p0195_a006",
+   "ig34_p0211_a009",
+   "ig34_p0277_a003"
+  ],
+  "final": {
+   "EQUIVALENT": 5
+  }
+ },
+ {
+  "layer": "RULE_live-hit(was-IE-ack)",
+  "population": 19,
+  "in_gate": [],
+  "in_c7": [],
+  "in_earlier_layer": [],
+  "checked_here": [
+   "ig34_p0063_a022",
+   "ig34_p0064_a011",
+   "ig34_p0084_a018",
+   "ig34_p0129_a005",
+   "ig34_p0134_a002",
+   "ig34_p0137_a010",
+   "ig34_p0148_a017",
+   "ig34_p0150_a004",
+   "ig34_p0172_a0013",
+   "ig34_p0183_a006",
+   "ig34_p0183_a020",
+   "ig34_p0185_a022",
+   "ig34_p0193_a025",
+   "ig34_p0195_a008",
+   "ig34_p0288_a018",
+   "ig34_p0296_a005",
+   "ig34_p0310_a005",
+   "ig34_p0320_a023",
+   "sv20_p0064_a020"
+  ],
+  "final": {
+   "EXACT": 19
+  }
+ },
+ {
+  "layer": "RULE_C1-manual-PDF+KB",
+  "population": 3,
+  "in_gate": [],
+  "in_c7": [],
+  "in_earlier_layer": [],
+  "checked_here": [
+   "ig34_p0039_a014",
+   "ig34_p0057_a001",
+   "ig34_p0441_a003"
+  ],
+  "final": {
+   "EQUIVALENT": 3
+  }
+ },
+ {
+  "layer": "RULE_C7-K4-rereview",
+  "population": 2,
+  "in_gate": [],
+  "in_c7": [],
+  "in_earlier_layer": [],
+  "checked_here": [
+   "ig34_p0196_a006",
+   "ig34_p0247_a021"
+  ],
+  "final": {
+   "ATOM_ERR": 2
+  }
+ },
+ {
+  "layer": "RULE_T1-two-agent",
+  "population": 3,
+  "in_gate": [],
+  "in_c7": [],
+  "in_earlier_layer": [],
+  "checked_here": [
+   "ig34_p0048_a012",
+   "ig34_p0064_a001",
+   "ig34_p0115_a030"
+  ],
+  "final": {
+   "EQUIVALENT": 3
+  }
+ }
+]

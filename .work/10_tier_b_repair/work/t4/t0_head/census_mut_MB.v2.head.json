@@ -1,0 +1,531 @@
+{
+ "version": 2,
+ "pages": "ig34:248-264",
+ "manifest": null,
+ "kb_files": [
+  "knowledge_base/domains/MB/assumptions.md",
+  "knowledge_base/domains/MB/examples.md"
+ ],
+ "tables": [
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 15,
+   "n_rows": 2,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | MBSEQ | MBREFID | MBLNKID | MBTESTCD | MBTEST | MBORRES | MBSTRESC | MBNAM | MBSPEC |",
+   "ex": "1",
+   "ds": "mb.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    256
+   ],
+   "pdf_ex": "1",
+   "pdf_ds": "mb.xpt",
+   "pdf_rows": 2,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 36,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 26,
+   "n_rows": 2,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "ex": "1",
+   "ds": "relrec.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    257
+   ],
+   "pdf_ex": "1",
+   "pdf_ds": "relrec.xpt",
+   "pdf_rows": 2,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 16,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 39,
+   "n_rows": 3,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | BESEQ | BEREFID | BETERM | BEDTC",
+   "ex": "2",
+   "ds": "be.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    257
+   ],
+   "pdf_ex": "2",
+   "pdf_ds": "be.xpt",
+   "pdf_rows": 3,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 24,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 53,
+   "n_rows": 6,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG",
+   "ex": "2",
+   "ds": "suppbe.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    258
+   ],
+   "pdf_ex": "2",
+   "pdf_ds": "suppbe.xpt",
+   "pdf_rows": 6,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 60,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 74,
+   "n_rows": 8,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | MBSEQ | MBREFID | MBTESTCD | MBTEST | MBTSTDTL | MBORRES | MBRSLSCL | MBSTRESC | MBLO",
+   "ex": "2",
+   "ds": "mb.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    258
+   ],
+   "pdf_ex": "2",
+   "pdf_ds": "mb.xpt",
+   "pdf_rows": 8,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 136,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 87,
+   "n_rows": 1,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG",
+   "ex": "2",
+   "ds": "suppmb.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    258
+   ],
+   "pdf_ex": "2",
+   "pdf_ds": "suppmb.xpt",
+   "pdf_rows": 1,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 10,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 111,
+   "n_rows": 10,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | BESEQ | BEREFID | BELNKID | BETERM | BECAT | BEDTC | BESTDTC | BEENDTC",
+   "ex": "3",
+   "ds": "be.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    260
+   ],
+   "pdf_ex": "3",
+   "pdf_ds": "be.xpt",
+   "pdf_rows": 10,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 120,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 126,
+   "n_rows": 8,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG",
+   "ex": "3",
+   "ds": "suppbe.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    260
+   ],
+   "pdf_ex": "3",
+   "pdf_ds": "suppbe.xpt",
+   "pdf_rows": 8,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 80,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 145,
+   "n_rows": 6,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | BSSEQ | BSREFID | BSTESTCD | BSTEST | BSORRES | BSORRESU | BSSTRESC | BSSTRESN | BSST",
+   "ex": "3",
+   "ds": "bs.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    260
+   ],
+   "pdf_ex": "3",
+   "pdf_ds": "bs.xpt",
+   "pdf_rows": 6,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 96,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 162,
+   "n_rows": 6,
+   "header": "Row | STUDYID | USUBJID | REFID | SPEC | PARENT | LEVEL",
+   "ex": "3",
+   "ds": "relspec.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    261
+   ],
+   "pdf_ex": "3",
+   "pdf_ds": "relspec.xpt",
+   "pdf_rows": 6,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 42,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 187,
+   "n_rows": 6,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | SPDEVID | MBSEQ | MBGRPID | MBLNKGRP | MBREFID | MBTESTCD | MBTEST | MBTSTDTL | MBORR",
+   "ex": "3",
+   "ds": "mb.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    262
+   ],
+   "pdf_ex": "3",
+   "pdf_ds": "mb.xpt",
+   "pdf_rows": 6,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 144,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 198,
+   "n_rows": 6,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG",
+   "ex": "3",
+   "ds": "suppmb.xpt",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    262
+   ],
+   "pdf_ex": "3",
+   "pdf_ds": "suppmb.xpt",
+   "pdf_rows": 6,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 60,
+   "ws_only_cells": 0,
+   "rows_renumbered": 2,
+   "sim": 1.033,
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "type": "CELL",
+     "kb_row": "5",
+     "pdf_row": 7,
+     "kb_line": 204,
+     "col": "Row",
+     "kb": "5",
+     "pdf": "7"
+    },
+    {
+     "type": "CELL",
+     "kb_row": "6",
+     "pdf_row": 8,
+     "kb_line": 205,
+     "col": "Row",
+     "kb": "6",
+     "pdf": "8"
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 213,
+   "n_rows": 2,
+   "header": "Row | STUDYID | DOMAIN | SPDEVID | DISEQ | DIPARMCD | DIPARM | DIVAL",
+   "ex": "3",
+   "ds": "di.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    263
+   ],
+   "pdf_ex": "3",
+   "pdf_ds": "di.xpt",
+   "pdf_rows": 2,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 16,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 222,
+   "n_rows": 6,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID",
+   "ex": "3",
+   "ds": "relrec.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    263
+   ],
+   "pdf_ex": "3",
+   "pdf_ds": "relrec.xpt",
+   "pdf_rows": 6,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 48,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 241,
+   "n_rows": 2,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | MBSEQ | MBREFID | MBGRPID | MBTESTCD | MBTEST | MBTSTDTL | MBORRES | MBORRESU | MBRSL",
+   "ex": "4",
+   "ds": "mb.xpt",
+   "status": "DIFF",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    263
+   ],
+   "pdf_ex": "4",
+   "pdf_ds": "mb.xpt",
+   "pdf_rows": 2,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 46,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": [
+    {
+     "type": "HEADER",
+     "cols": [
+      {
+       "idx": 6,
+       "kb": "MBGRPID",
+       "pdf": "MBGPRID"
+      },
+      {
+       "idx": 14,
+       "kb": "MBSTRESN",
+       "pdf": "MBTRESN"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "knowledge_base/domains/MB/examples.md",
+   "line": 250,
+   "n_rows": 2,
+   "header": "Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG",
+   "ex": "4",
+   "ds": "suppmb.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    263
+   ],
+   "pdf_ex": "4",
+   "pdf_ds": "suppmb.xpt",
+   "pdf_rows": 2,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 20,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  }
+ ],
+ "pdf_only": [
+  {
+   "src": "ig34",
+   "pages": [
+    248
+   ],
+   "ex": "4",
+   "ds": "lb.xpt",
+   "sec": null,
+   "header": "Row STUDYID DOMAIN USUBJID LBGRPID LBSEQ LBTESTCD LBTEST LBTSTOPO LBCAT LBORRES LBORRESU LBSTRESC LBSTRESN LBSTRESU LBLO",
+   "n_rows": 3
+  },
+  {
+   "src": "ig34",
+   "pages": [
+    248
+   ],
+   "ex": "5",
+   "ds": "lb.xpt",
+   "sec": null,
+   "header": "Row STUDYID DOMAIN USUBJID LBSEQ LBTESTCD LBTEST LBBDAGNT LBCAT LBORRES LBORRESU LBSTRESC LBSTRESN LBSTRESU LBSPEC LBMET",
+   "n_rows": 4
+  },
+  {
+   "src": "ig34",
+   "pages": [
+    257
+   ],
+   "ex": "1",
+   "ds": "ms.xpt",
+   "sec": "6.3.5.7.3",
+   "header": "Row STUDYID DOMAIN USUBJID NHOID MSGRPID MSSEQ MSREFID MSLNKGRP MSTESTCD MSTEST MSAGENT MSCONC MSCONCU MSORRES MSORRESU ",
+   "n_rows": 10
+  },
+  {
+   "src": "ig34",
+   "pages": [
+    259
+   ],
+   "ex": "2",
+   "ds": "ms.xpt",
+   "sec": "6.3.5.7.3",
+   "header": "Row STUDYID DOMAIN USUBJID NHOID MSSEQ MSREFID MSGRPID MSTESTCD MSTEST MSAGENT MSORRES MSORRESU MSSTRESC MSSTRESN MSSTRE",
+   "n_rows": 10
+  },
+  {
+   "src": "ig34",
+   "pages": [
+    262
+   ],
+   "ex": "3",
+   "ds": "ms.xpt",
+   "sec": "6.3.5.7.3",
+   "header": "Row STUDYID DOMAIN USUBJID SPDEVID NHOID MSSEQ MSREFID MSLNKID MSTESTCD MSTEST MSAGENT MSCONC MSCONCU MSORRES MSSTRESC M",
+   "n_rows": 4
+  },
+  {
+   "src": "ig34",
+   "pages": [
+    262
+   ],
+   "ex": "3",
+   "ds": "suppms.xpt",
+   "sec": "6.3.5.7.3",
+   "header": "Row STUDYID RDOMAIN USUBJID IDVAR IDVARVAL QNAM QLABEL QVAL QORIG",
+   "n_rows": 2
+  }
+ ],
+ "pdf_unparsed": []
+}

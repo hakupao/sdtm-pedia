@@ -1,0 +1,152 @@
+{
+ "version": 2,
+ "pages": "ig34:185-193",
+ "manifest": null,
+ "kb_files": [
+  "knowledge_base/domains/EG/assumptions.md",
+  "knowledge_base/domains/EG/examples.md"
+ ],
+ "tables": [
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "line": 23,
+   "n_rows": 12,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | EGSEQ | EGREFID | EGTESTCD | EGTEST | EGCAT | EGPOS | EGORRES | EGORRESU | EGSTRESC |",
+   "ex": "1",
+   "ds": "eg.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    190
+   ],
+   "pdf_ex": "1",
+   "pdf_ds": "eg.xpt",
+   "pdf_rows": 12,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 288,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "line": 48,
+   "n_rows": 5,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | EGSEQ | EGGRPID | EGTESTCD | EGTEST | EGPOS | EGORRES | EGSTRESC | EGSTRESN | EGLOBXF",
+   "ex": "2",
+   "ds": "eg.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    190
+   ],
+   "pdf_ex": "2",
+   "pdf_ds": "eg.xpt",
+   "pdf_rows": 5,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 95,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "line": 62,
+   "n_rows": 24,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | EGSEQ | ... | EGTESTCD | EGTEST | EGCAT | EGPOS | EGORRES | EGORRESU | EGSTRESC | EGS",
+   "ex": "3",
+   "ds": "eg.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    190,
+    191
+   ],
+   "pdf_ex": "3",
+   "pdf_ds": "eg.xpt",
+   "pdf_rows": 24,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 576,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  },
+  {
+   "file": "knowledge_base/domains/EG/examples.md",
+   "line": 101,
+   "n_rows": 8,
+   "header": "Row | STUDYID | DOMAIN | USUBJID | EGSEQ | EGBEATNO | EGTESTCD | EGTEST | EGCAT | EGPOS | EGORRES | EGORRESU | EGSTRESC ",
+   "ex": "4",
+   "ds": "eg.xpt",
+   "status": "OK",
+   "kb_duplicate": false,
+   "pdf_src": "ig34",
+   "pdf_pages": [
+    192
+   ],
+   "pdf_ex": "4",
+   "pdf_ds": "eg.xpt",
+   "pdf_rows": 8,
+   "pdf_no_row_header": false,
+   "pdf_rows_centred_after_page_break": 0,
+   "orphan_reading": null,
+   "cells_compared": 176,
+   "ws_only_cells": 0,
+   "rows_renumbered": 0,
+   "sim": 1.05,
+   "rows_out_of_page_range": [],
+   "diffs": []
+  }
+ ],
+ "pdf_only": [
+  {
+   "src": "ig34",
+   "pages": [
+    185
+   ],
+   "ex": null,
+   "ds": "dd.xpt",
+   "sec": null,
+   "header": "Row STUDYID DOMAIN USUBJID DDSEQ DDTESTCD DDTEST DDORRES DDSTRESC DDDTC",
+   "n_rows": 1
+  },
+  {
+   "src": "ig34",
+   "pages": [
+    185
+   ],
+   "ex": null,
+   "ds": "ds.xpt",
+   "sec": null,
+   "header": "Row STUDYID DOMAIN USUBJID DSSEQ DSTERM DSDECOD DSCAT DSDTC DSSTDTC",
+   "n_rows": 3
+  },
+  {
+   "src": "ig34",
+   "pages": [
+    185
+   ],
+   "ex": null,
+   "ds": "relrec.xpt",
+   "sec": null,
+   "header": "Row STUDYID RDOMAIN USUBJID IDVAR IDVARVAL RELTYPE RELID",
+   "n_rows": 3
+  }
+ ],
+ "pdf_unparsed": []
+}

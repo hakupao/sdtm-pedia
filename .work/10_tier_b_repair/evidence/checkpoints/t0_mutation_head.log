@@ -1,0 +1,354 @@
+real KB md5 (before): e2d862e25f04a3757a5ba5436092c416; KB tree 63f857774a42cfaa71798705ad40ab51bc5e378a
+==== M0 pristine copy
+copy KB md5: e2d862e25f04a3757a5ba5436092c416
+---- [M0] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/fp_baseline.head.jsonl: regressions=0 new_hits=0
+RESULT: GREEN
+fp_match exit=0
+---- [M0] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 2, 'OK': 16}; PDF_ONLY: 0; cells compared: 3247; diffs: 3
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_BPCPP.v2.head.json: identical
+RESULT: GREEN
+table_census exit=0
+---- [M0] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
+TB: current Tier B sections=101 residual_gap=82
+TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=0
+RESULT: GREEN
+t3_recompute exit=0
+==== M1 delete 1 prose sentence (atom ig34_p0008_a022, EXACT, unique in ch01_introduction.md) [same target as T0]
+  M1 deleted: The SDTMIG is best read online, so the reader can benefit fr ...
+  APPLIED
+---- [M1] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/fp_baseline.head.jsonl: regressions=1 new_hits=0
+  REGRESS ig34_p0008_a022 EXACT §1.4 [How to Read this Implementation Guide]
+RESULT: RED
+fp_match exit=1
+---- [M1] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 2, 'OK': 16}; PDF_ONLY: 0; cells compared: 3247; diffs: 3
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_BPCPP.v2.head.json: identical
+RESULT: GREEN
+table_census exit=0
+---- [M1] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 1
+TB: current Tier B sections=101 residual_gap=82
+TB: §5.0 scope sections=174 residual_gap=1 G-TB1 pass=173/174 G-TB2 pass=155/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=2
+  DIFF ('ig34', '§1 [Introduction]') {'tb_g2_pass': (True, False)}
+  DIFF ('ig34', '§1.4 [How to Read this Implementation Guide]') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.9333), 'tb_density_excl_ie': (1.0, 0.9333), 'tb_g1_pass': (True, False), 'tb_g2_pass': (True, False), 'tb_residual_gap': (0, 1)}
+RESULT: RED
+t3_recompute exit=1
+==== M2 change 1 table value (PC/examples.md Example 1 Method C relrec row 5: IDVARVAL 4 -> 9) [same row as T0; located under its headings]
+  M2 line 131 : | 5 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 1 | -> | 5 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 9 | | 1 |
+  APPLIED
+---- [M2] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/fp_baseline.head.jsonl: regressions=0 new_hits=0
+RESULT: GREEN
+fp_match exit=0
+---- [M2] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 3, 'OK': 15}; PDF_ONLY: 0; cells compared: 3247; diffs: 4
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_BPCPP.v2.head.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/examples.md 125 DIFF [{'type': 'CELL', 'kb_row': '5', 'pdf_row': 5, 'kb_line': 131, 'col': 'IDVARVAL', 'col_idx': 6, 'kb': '9', 'pdf': '4', 'wrapped': False}]
+RESULT: RED
+table_census exit=1
+---- [M2] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
+TB: current Tier B sections=101 residual_gap=82
+TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=0
+RESULT: GREEN
+t3_recompute exit=0
+==== M2b move 1 value into an empty neighbour cell (PC/assumptions.md relrec row 1: MANY RELTYPE -> IDVARVAL) [same row as T0]
+  M2b line 35 : | 1 | ABC-123 | PC | | PCGRPID | | MANY | A | -> | 1 | ABC-123 | PC | | PCGRPID | MANY | | A |
+  APPLIED
+---- [M2b] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/fp_baseline.head.jsonl: regressions=0 new_hits=0
+RESULT: GREEN
+fp_match exit=0
+---- [M2b] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 3, 'OK': 15}; PDF_ONLY: 0; cells compared: 3247; diffs: 5
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_BPCPP.v2.head.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/assumptions.md 33 DIFF [{'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 35, 'col': 'IDVARVAL', 'col_idx': 6, 'kb': 'MANY', 'pdf': '', 'wrapped': False}, {'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 35, 'col': 'RELTYPE', 'col_idx': 7, 'kb': '', 'pdf': 'MANY', 'wrapped': False}]
+RESULT: RED
+table_census exit=1
+---- [M2b] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
+TB: current Tier B sections=101 residual_gap=82
+TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=0
+RESULT: GREEN
+t3_recompute exit=0
+==== M2c change 1 value in a wrapped (multi-line) PDF record (PC/assumptions.md pc.xpt row 13 PCORRES 10 -> 11) [same row as T0]
+  M2c line 73 : PCORRES 10 -> 11
+  APPLIED
+---- [M2c] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/fp_baseline.head.jsonl: regressions=0 new_hits=0
+RESULT: GREEN
+fp_match exit=0
+---- [M2c] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 3, 'OK': 15}; PDF_ONLY: 0; cells compared: 3247; diffs: 4
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_BPCPP.v2.head.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/assumptions.md 59 DIFF [{'type': 'CELL', 'kb_row': '13', 'pdf_row': 13, 'kb_line': 73, 'col': 'PCORRES', 'col_idx': 14, 'kb': '11', 'pdf': '10', 'wrapped': True}]
+RESULT: RED
+table_census exit=1
+---- [M2c] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
+TB: current Tier B sections=101 residual_gap=82
+TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=0
+RESULT: GREEN
+t3_recompute exit=0
+==== M2d delete 1 KB table row (PC/examples.md Example 1 Method D relrec row 20) [same row as T0]
+  M2d deleted line 172 (row 20)
+  APPLIED
+---- [M2d] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/fp_baseline.head.jsonl: regressions=0 new_hits=0
+RESULT: GREEN
+fp_match exit=0
+---- [M2d] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 3, 'OK': 15}; PDF_ONLY: 0; cells compared: 3239; diffs: 4
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_BPCPP.v2.head.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/examples.md 151 DIFF [{'type': 'PDF_ROW_MISSING', 'pdf_row': 20, 'pdf_page': 279}]
+  CHANGED knowledge_base/domains/PC/examples.md 205 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 216 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 236 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 253 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 288 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 303 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 337 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 357 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 406 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 444 OK []
+RESULT: RED
+table_census exit=1
+---- [M2d] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
+TB: current Tier B sections=101 residual_gap=82
+TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=0
+RESULT: GREEN
+t3_recompute exit=0
+==== M3 delete 1 subsection (ch04 '#### 4.5.1.2 Tests Not Done' .. before '#### 4.5.1.3') [same subsection as T0]
+  M3 deleted 39 lines (4.5.1.2 heading..before 4.5.1.3), from line 1268
+  APPLIED
+---- [M3] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/fp_baseline.head.jsonl: regressions=23 new_hits=0
+  REGRESS ig34_p0052_a005 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a006 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a007 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a008 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a009 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a010 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a011 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a012 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a013 EQUIVALENT §4.5.1.2 [Tests Not Done]
+  REGRESS ig34_p0052_a014 EQUIVALENT §4.5.1.2 [Tests Not Done]
+fp_match exit=1
+---- [M3] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 2, 'OK': 16}; PDF_ONLY: 0; cells compared: 3247; diffs: 3
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_BPCPP.v2.head.json: identical
+RESULT: GREEN
+table_census exit=0
+---- [M3] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 23
+TB: current Tier B sections=102 residual_gap=82
+TB: §5.0 scope sections=174 residual_gap=23 G-TB1 pass=173/174 G-TB2 pass=156/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=2
+  DIFF ('ig34', '§4.5.1 [Original and Standardized Results of Findings and Tests Not Done]') {'aggregate_verdict': ('FULL_COVERAGE', 'SIBLING_DROPPED')}
+  DIFF ('ig34', '§4.5.1.2 [Tests Not Done]') {'aggregate_verdict': ('FULL_COVERAGE', 'SKELETON_ONLY'), 'coverage_density': (1.0, 0.1481), 'tb_density_excl_ie': (1.0, 0.1481), 'tb_g1_pass': (True, False), 'tb_g2_pass': (True, False), 'tb_residual_gap': (0, 23)}
+RESULT: RED
+t3_recompute exit=1
+==== M4 setup: v1 baselines on a pristine copy; v2 vs current-KB baselines on the pristine copy must be GREEN
+RESULT: GREEN
+RESULT: GREEN
+RESULT: GREEN
+---- [M4d0] real-KB pairing (mode d). T0 asserted the then-defect 'MB Ex3 relrec missing -> PDF Ex3 relrec PDF_ONLY';
+     t0_mutation.md 6.3 said: once T2 adds the table, assert instead 'Ex1 relrec still pairs with Ex1, the new table pairs with Ex3'.
+  assert pairds MB/examples.md relrec.xpt ex 1 -> [(26, 'OK', '1', [257])] | PDF_ONLY: []
+  ASSERT PASS
+  assert pairds MB/examples.md relrec.xpt ex 3 -> [(222, 'OK', '3', [263])] | PDF_ONLY: []
+  ASSERT PASS
+==== M4a every KB copy checked (mode a). T0 target (second MB copy of Ex2 suppbe) was removed by D2 de-duplication.
+     Retargeted (main-controller decision, listed for owner ratification): PDF p431 relrec Ex1 has two KB copies (D7):
+     chapters/ch08_relationships.md and domains/RELREC/examples.md. Mutate the ch08 copy only (row 2 RELTYPE MANY -> ONE).
+  M4a ch08 line 167 : | 2 | EFC1234 | TR | | TRLNKID | | MANY | 1 | -> | 2 | EFC1234 | TR | | TRLNKID | | ONE | 1 |
+  APPLIED
+     ch08 table header line 164, RELREC copy table header line 63
+---- [M4a] table_census v2 (REL)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_mut_REL.v2.head.json: DIFFERS
+  CHANGED knowledge_base/chapters/ch08_relationships.md 164 DIFF [{'type': 'CELL', 'kb_row': '2', 'pdf_row': 2, 'kb_line': 167, 'col': 'RELTYPE', 'col_idx': 7, 'kb': 'ONE', 'pdf': 'MANY', 'wrapped': False}]
+RESULT: RED
+---- [M4a] targeted assert: cell ch08_relationships.md 164 2 RELTYPE
+  assert cell ch08_relationships.md 164 row 2 RELTYPE -> [{'type': 'CELL', 'kb_row': '2', 'pdf_row': 2, 'kb_line': 167, 'col': 'RELTYPE', 'col_idx': 7, 'kb': 'ONE', 'pdf': 'MANY', 'wrapped': False}] | in baseline: False
+  ASSERT PASS
+---- [M4a] extra assert: ok RELREC/examples.md 63
+  assert ok RELREC/examples.md 63 -> OK 0
+  ASSERT PASS
+---- [M4a] table_census v1 (REL, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/v1base_REL.json: DIFFERS
+  CHANGED knowledge_base/chapters/ch08_relationships.md 164 DIFF [{'row': 2, 'mode': 'columns', 'kb_only': ["col7='ONE'"], 'pdf_only': ["col7='MANY'"]}]
+  CHANGED knowledge_base/domains/RELREC/examples.md 63 OK []
+RESULT: RED
+==== M4b swap 2 values inside a wrapped (multi-line) PDF record (mode b): EG/examples.md Ex3 row 1 EGCAT <-> EGPOS [same as T0]
+  M4b line 64
+  APPLIED
+---- [M4b] table_census v2 (EG)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_mut_EG.v2.head.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGCAT', 'col_idx': 9, 'kb': 'SUPINE', 'pdf': 'INTERVAL', 'wrapped': True}, {'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGPOS', 'col_idx': 10, 'kb': 'INTERVAL', 'pdf': 'SUPINE', 'wrapped': True}]
+RESULT: RED
+---- [M4b] targeted assert: cell EG/examples.md 62 1 EGPOS
+  assert cell EG/examples.md 62 row 1 EGPOS -> [{'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGPOS', 'col_idx': 10, 'kb': 'INTERVAL', 'pdf': 'SUPINE', 'wrapped': True}] | in baseline: False
+  ASSERT PASS
+---- [M4b] table_census v1 (EG, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/v1base_EG.json: identical
+RESULT: GREEN
+==== M4b2 move a value into the empty neighbour cell of a wrapped record (mode b): same row, EGLEAD -> EGLOBXFL [same as T0]
+  M4b2 line 64
+  APPLIED
+---- [M4b2] table_census v2 (EG)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_mut_EG.v2.head.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGLEAD', 'col_idx': 17, 'kb': '', 'pdf': 'LEAD II', 'wrapped': True}, {'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGLOBXFL', 'col_idx': 18, 'kb': 'LEAD II', 'pdf': '', 'wrapped': True}]
+RESULT: RED
+---- [M4b2] targeted assert: cell EG/examples.md 62 1 EGLOBXFL
+  assert cell EG/examples.md 62 row 1 EGLOBXFL -> [{'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGLOBXFL', 'col_idx': 18, 'kb': 'LEAD II', 'pdf': '', 'wrapped': True}] | in baseline: False
+  ASSERT PASS
+---- [M4b2] table_census v1 (EG, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/v1base_EG.json: identical
+RESULT: GREEN
+==== M4c duplicate KB row number (mode c): EG Ex3, wrong copy of row 5 inserted before row 5 [same as T0]
+  M4c inserted before line 68
+  APPLIED
+---- [M4c] table_census v2 (EG)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_mut_EG.v2.head.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'type': 'KB_ROW_UNMATCHED', 'kb_row': '5', 'kb_line': 68}]
+  CHANGED knowledge_base/domains/EG/examples.md 102 OK []
+RESULT: RED
+---- [M4c] targeted assert: row EG/examples.md 62 5
+  assert row EG/examples.md 62 row 5 -> [{'type': 'KB_ROW_UNMATCHED', 'kb_row': '5', 'kb_line': 68}] | in baseline: False
+  ASSERT PASS
+---- [M4c] table_census v1 (EG, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/v1base_EG.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 62 OK []
+  CHANGED knowledge_base/domains/EG/examples.md 102 OK []
+RESULT: RED
+==== M4c2 row alignment by content (mode c): EG Ex3 extra KB row after row 10, later rows renumbered +1, one real change
+     (row 20 -> 21 EGORRES 402 -> 403). Only that one non-Row cell may be reported (no cascade), plus 1 unmatched row. [same as T0]
+  M4c2 applied; table row 1 at line 64
+  APPLIED
+---- [M4c2] table_census v2 (EG)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_mut_EG.v2.head.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'type': 'KB_ROW_UNMATCHED', 'kb_row': '11', 'kb_line': 74}, {'type': 'CELL', 'kb_row': '12', 'pdf_row': 11, 'kb_line': 75, 'col': 'Row', 'kb': '12', 'pdf': '11'}, {'type': 'CELL', 'kb_row': '13', 'pdf_row': 12, 'kb_line': 76, 'col': 'Row', 'kb': '13', 'pdf': '12'}, {'type': 'CELL', 'kb_row': '14', 'pdf_row': 13, 'kb_line': 77, 'col': 'Row', 'kb': '14', 'pdf': '13'}, {'type': 'CELL', 'kb_row': '15', 'pdf_row': 14, 'kb_line': 78, 'col': 'Row', 'kb': '15', 'pdf': '14'}]
+  CHANGED knowledge_base/domains/EG/examples.md 102 OK []
+RESULT: RED
+---- [M4c2] targeted assert: only1 EG/examples.md 62 EGORRES 403
+  assert only1 EG/examples.md 62 non-Row cell diffs: [('21', 'EGORRES', '403', '402')] | unmatched rows: [('KB_ROW_UNMATCHED', '11', None)]
+  ASSERT PASS
+---- [M4c2] table_census v1 (EG, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/v1base_EG.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'row': 11, 'mode': 'multiset', 'kb_only': ['123', '123', '123', 'Interval,', 'XX', 'XXAG'], 'pdf_only': ['90', '90', '90', 'Duration,', 'QRS', 'QRSAG']}, {'row': 12, 'mode': 'multiset', 'kb_only': ['11', '90', '90', '90', 'Duration,', 'QRS', 'QRSAG'], 'pdf_only': ['12', '377', '377', '377', 'Interval,', 'QT', 'QTAG']}, {'row': 13, 'mode': 'multiset', 'kb_only': ['12', '2014-03-22T10:02:14', '3', '377', '377', '377', 'QT', 'QTAG'], 'pdf_only': ['13', '176', '176', '176', '2', '2014-03-22T11:00:21', 'PR', 'PRAG']}, {'row': 14, 'mode': 'multiset', 'kb_only': ['13', '176', '176', '176', 'PR', 'PRAG'], 'pdf_only': ['14', '771', '771', '771', 'RR', 'RRAG']}, {'row': 15, 'mode': 'multiset', 'kb_only': ['14', '771', '771', '771', 'Interval,', 'RR', 'RRAG'], 'pdf_only': ['100', '100', '100', '15', 'Duration,', 'QRS', 'QRSAG']}]
+  CHANGED knowledge_base/domains/EG/examples.md 102 OK []
+RESULT: RED
+==== M4e KB row shorter than its header (dropped last cell): EG Ex3 row 1 loses EGREPNUM [same as T0]
+  M4e line 64
+  APPLIED
+---- [M4e] table_census v2 (EG)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_mut_EG.v2.head.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'type': 'ROW_SHAPE', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'kb_cells': 23, 'header_cells': 24}, {'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGREPNUM', 'col_idx': 24, 'kb': None, 'pdf': '1', 'wrapped': True}]
+RESULT: RED
+---- [M4e] targeted assert: row EG/examples.md 62 1
+  assert row EG/examples.md 62 row 1 -> [{'type': 'ROW_SHAPE', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'kb_cells': 23, 'header_cells': 24}, {'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGREPNUM', 'col_idx': 24, 'kb': None, 'pdf': '1', 'wrapped': True}] | in baseline: False
+  ASSERT PASS
+---- [M4e] table_census v1 (EG, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/v1base_EG.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'row': 1, 'mode': 'multiset', 'kb_only': [], 'pdf_only': ['1']}]
+RESULT: RED
+==== M4d pairing by example + dataset (mode d): delete every KB copy of MB Ex2 suppbe.xpt -> PDF table must be PDF_ONLY
+     [same table as T0; T0 deleted two copies, D2 left one]
+  M4d deleted lines 51 - 60
+  APPLIED
+---- [M4d] table_census v2 (MB)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_mut_MB.v2.head.json: DIFFERS
+  CHANGED knowledge_base/domains/MB/examples.md 64 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 77 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 101 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 116 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 135 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 152 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 177 OK []
+---- [M4d] targeted assert: pdfonly suppbe.xpt 2
+  assert pdf_only suppbe.xpt ex 2 -> [{'src': 'ig34', 'pages': [258], 'ex': '2', 'ds': 'suppbe.xpt', 'sec': '6.3.5.7.3', 'header': 'Row STUDYID RDOMAIN USUBJID IDVAR IDVARVAL QNAM QLABEL QVAL QORIG', 'n_rows': 6}] | in baseline: False
+  ASSERT PASS
+---- [M4d] table_census v1 (MB, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/v1base_MB.json: DIFFERS
+  CHANGED knowledge_base/domains/MB/examples.md 64 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 77 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 101 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 116 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 135 OK []
+==== RESTORE (fresh copy of the unmodified KB)
+copy KB md5: e2d862e25f04a3757a5ba5436092c416
+---- [RESTORE] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/t0_head/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/fp_baseline.head.jsonl: regressions=0 new_hits=0
+RESULT: GREEN
+fp_match exit=0
+---- [RESTORE] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 2, 'OK': 16}; PDF_ONLY: 0; cells compared: 3247; diffs: 3
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/census_BPCPP.v2.head.json: identical
+RESULT: GREEN
+table_census exit=0
+---- [RESTORE] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
+TB: current Tier B sections=101 residual_gap=82
+TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=0
+RESULT: GREEN
+t3_recompute exit=0
+real KB md5 (after): e2d862e25f04a3757a5ba5436092c416; KB tree 63f857774a42cfaa71798705ad40ab51bc5e378a
+git status knowledge_base/ archive/ releases/:
+(end)
+==== MUTATIONS APPLIED (a case whose mutation was not applied is a MISMATCH)
+M1     mutation applied: yes
+M2     mutation applied: yes
+M2b    mutation applied: yes
+M2c    mutation applied: yes
+M2d    mutation applied: yes
+M3     mutation applied: yes
+M4a    mutation applied: yes
+M4b    mutation applied: yes
+M4b2   mutation applied: yes
+M4c    mutation applied: yes
+M4c2   mutation applied: yes
+M4e    mutation applied: yes
+M4d    mutation applied: yes
+==== EXPECT TABLE (fp census t3)
+M0       expect=[0 0 0] got=[0 0 0] OK
+M1       expect=[1 0 1] got=[1 0 1] OK
+M2       expect=[0 1 0] got=[0 1 0] OK
+M2b      expect=[0 1 0] got=[0 1 0] OK
+M2c      expect=[0 1 0] got=[0 1 0] OK
+M2d      expect=[0 1 0] got=[0 1 0] OK
+M3       expect=[1 0 1] got=[1 0 1] OK
+RESTORE  expect=[0 0 0] got=[0 0 0] OK
+==== M4 TABLE (census v2 RED + targeted assert; v1 logged)
+M4a    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4b    v2=1(expect 1) assert=0(expect 0) v1=GREEN-blind OK
+M4b2   v2=1(expect 1) assert=0(expect 0) v1=GREEN-blind OK
+M4c    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4c2   v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4e    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4d    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+---- RESTORE census v2 MB/EG/REL vs baselines (must be GREEN)
+RESULT: GREEN
+RESULT: GREEN
+RESULT: GREEN
+MUTATION RESULT: ALL MATCH (exit 0)
+exit=0
