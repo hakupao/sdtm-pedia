@@ -15,8 +15,7 @@ blk() { local n; n=$(cnt "$2"); echo "BLOCKING  $1: $n"; [ "$n" = 0 ] || bad=1; 
 echo "range $BASE..HEAD = $(git rev-parse --short "$BASE")..$(git rev-parse --short HEAD); commits $(git rev-list --count "$BASE"..HEAD); added lines $(wc -l < "$TMP" | tr -d ' ')"
 blk "/Users/<name> or /home/<name> paths" '/Users/[A-Za-z0-9._-]+|/home/[A-Za-z0-9._-]+'
 if [ -n "${PREPUSH_PERSONAL:-}" ]; then blk "personal patterns (from env, not stored)" "$PREPUSH_PERSONAL"; else echo "BLOCKING  personal patterns: NOT RUN (set PREPUSH_PERSONAL)"; bad=1; fi
-blk "e-mail addresses (except noreply@anthropic.com)" '[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,}' 
-n=$(grep -oE '[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}' "$TMP" | grep -vc 'noreply@anthropic.com'); echo "          (of which not noreply@anthropic.com: $n)"
+n=$(grep -oE '[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}' "$TMP" | grep -vc 'noreply@anthropic\.com'); echo "BLOCKING  e-mail addresses other than the Co-Authored-By noreply address: $n"; [ "$n" = 0 ] || bad=1
 blk "private network addresses" '(^|[^0-9])(192\.168\.[0-9]+\.[0-9]+|10\.[0-9]+\.[0-9]+\.[0-9]+|172\.(1[6-9]|2[0-9]|3[01])\.[0-9]+\.[0-9]+)([^0-9]|$)'
 blk "key-shaped strings" '(sk-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY|xox[baprs]-[A-Za-z0-9-]{10,})'
 blk "password / secret / api key assignments" '(password|passwd|secret|api[_-]?key)["'"'"']?[[:space:]]*[:=][[:space:]]*["'"'"'][^"'"'"' ]{8,}'
