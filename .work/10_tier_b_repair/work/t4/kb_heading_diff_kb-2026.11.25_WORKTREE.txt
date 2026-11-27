@@ -1,0 +1,505 @@
+# knowledge_base heading diff kb-2026.11.25 -> WORKTREE
+files removed: []; files added: []
+
+## knowledge_base/chapters/ch01_introduction.md (headings 10 -> 9; commits: 78c859f B-ch01)
+  - ### Related Implementation Guides
+
+## knowledge_base/chapters/ch02_fundamentals.md (headings 21 -> 16; commits: bc4e42e S-TYPO, c8802bf B-FA, 4f8bde8 B-ch02)
+  - ### From §1.2 Organization of this Document (p7)
+  - ### From §1.4 How to Read this Implementation Guide (p9)
+  - ### From §1.4.1 How to Read a Domain Specification (pp 9-10)
+  - ### Must NEVER be used in DM domain (SEND nonclinical only):
+  - ### Use with extreme caution (not fully evaluated for human clinical trials):
+  - ### May be used when appropriate:
+  - ## Findings About — Naming Findings About Domains (Reference Material)
+  - ### Points to Consider
+  + ### Must NEVER be used in DM domain for human clinical trials (SEND nonclinical only):
+  + ### Use with extreme caution (not evaluated for use in human clinical trials):
+  + ### May be used in human clinical trials when appropriate:
+
+## knowledge_base/chapters/ch04_general_assumptions.md (headings 87 -> 83; commits: bc4e42e S-TYPO, 42fecd3 S-CH4, fb87b40 B-ch04)
+  - ### 4.2.1 Variable-Naming Conventions
+  - #### 4.2.1.1 --TEST and --TESTCD Conventions (Findings)
+  - #### 4.2.1.2 --TRT Conventions (Interventions)
+  - #### 4.2.1.3 --TERM Conventions (Events)
+  - #### 4.2.7.1 "Specify" Values for Non-Result Qualifier Variables
+  - ### 4.3.5 Storing Controlled Terminology for Synonym Qualifier Variables (MedDRA and WHODrug)
+  - #### MedDRA Coding (Events)
+  - #### WHODrug Coding (Interventions)
+  - #### Disease Milestone Naming (MIDS)
+  - ### 4.5.1 Original and Standardized Results
+  - ### §6.1.3.3 Exposure/Exposure as Collected Examples (p115)
+  - ### §6.3.5.7 Microbiology Domains — RELSPEC parent/aliquot relationship (p261)
+  + ### 4.2.1 Variable-naming Conventions
+  + #### 4.2.7.1 "Specify" Values for Non-result Qualifier Variables
+  + ### 4.3.5 Storing Controlled Terminology for Synonym Qualifier Variables
+  + #### Examples of --STRTPT, --STTPT, --ENRTPT, and --ENTPT
+  + #### Disease Milestone Naming
+  + #### Disease Milestone Name (MIDS)
+  + ### 4.5.1 Original and Standardized Results of Findings and Tests Not Done
+  + #### 4.5.1.1 Original and Standardized Results
+
+## knowledge_base/chapters/ch08_relationships.md (headings 29 -> 29; commits: bc4e42e S-TYPO, fe3f59c S-CH8, 718c278 B-ch08)
+  - ## 8.1 Relating Groups of Records Within a Domain Using --GRPID
+  - ## 8.3 Relating Datasets Using RELREC
+  - ### Key Rules
+  - ### 8.4.3 Examples
+  - ## 8.6 Where Data Belong
+  - ### Specification
+  - ### Assumptions
+  - ### Example
+  + ## 8.1 Relating Groups of Records Within a Domain Using the --GRPID Variable
+  + ## 8.3 Relating Datasets
+  + ### 8.4.3 SUPP-- Examples
+  + ## 8.6 How to Determine Where Data Belong in SDTM-Compliant Data Tabulations
+  + ### RELSUB — Description/Overview
+  + ### RELSUB — Specification
+  + ### RELSUB — Assumptions
+  + ### RELSUB — Examples
+  + ### RELSPEC — Specification
+  + ### RELSPEC — Assumptions
+  + ### RELSPEC — Examples
+
+## knowledge_base/chapters/ch10_appendices.md (headings 20 -> 18; commits: bc4e42e S-TYPO, b80d263 S-CH10)
+  - ### Key Points
+  - ### Rules for Using Fragments
+  - ### Decommissioning of MO (Morphology)
+  + ### A note on the decommissioning of MO
+
+## knowledge_base/domains/AE/assumptions.md (headings 1 -> 5; commits: bc4e42e S-TYPO, 056d8cc S-EVT, 396482e B-AE)
+  + ## §6.2 Models for Events Domains
+  + ## AE – Description/Overview
+  + ## AE – Specification
+  + ## AE – Assumptions
+
+## knowledge_base/domains/AG/assumptions.md (headings 1 -> 5; commits: acb93ae S-INT)
+  + ## §6.1 Models for Interventions Domains
+  + ## AG – Description/Overview
+  + ## AG – Specification
+  + ## AG – Assumptions
+
+## knowledge_base/domains/BE/assumptions.md (headings 3 -> 4; commits: 0e100b7 B-BE)
+  + ## BE – Description/Overview
+
+## knowledge_base/domains/BS/assumptions.md (headings 1 -> 4; commits: c3625c7 B-BS)
+  + ## BS – Description/Overview
+  + ## BS – Specification
+  + ## BS – Assumptions
+
+## knowledge_base/domains/CE/assumptions.md (headings 1 -> 4; commits: bc4e42e S-TYPO, c11084b B-CE)
+  + ## CE – Description/Overview
+  + ## CE – Specification
+  + ## CE – Assumptions
+
+## knowledge_base/domains/CP/assumptions.md (headings 8 -> 5; commits: 8426871 S-SPC1, 59d2451 B-CP)
+  - ### Example 1a (p209)
+  - ### Example 7 (p217)
+  - ### Example 8 (p218)
+  - ### Example 9 (p219-220)
+  + ## CP – Specification
+
+## knowledge_base/domains/CV/assumptions.md (headings 1 -> 4; commits: a2739dd B-CV)
+  + ## CV – Description/Overview
+  + ## CV – Specification
+  + ## CV – Assumptions
+
+## knowledge_base/domains/DA/assumptions.md (headings 1 -> 5; commits: 0d0e813 S-FND, ab8e73d B-DA)
+  + ## §6.3 Models for Findings Domains
+  + ## DA – Description/Overview
+  + ## DA – Specification
+  + ## DA – Assumptions
+
+## knowledge_base/domains/DD/assumptions.md (headings 1 -> 4; commits: 0192ae8 B-DD)
+  + ## DD – Description/Overview
+  + ## DD – Specification
+  + ## DD – Assumptions
+
+## knowledge_base/domains/DI/assumptions.md (headings 2 -> 3; commits: 669405f S-SPREL, 5ea73ac B-DI)
+  + ## §9 Study References
+
+## knowledge_base/domains/DM/assumptions.md (headings 3 -> 4; commits: bc4e42e S-TYPO, 7aa61d8 B-DM)
+  + ## DM – Specification
+
+## knowledge_base/domains/DS/assumptions.md (headings 1 -> 4; commits: bc4e42e S-TYPO, 056d8cc S-EVT)
+  + ## DS – Description/Overview
+  + ## DS – Specification
+  + ## DS – Assumptions
+
+## knowledge_base/domains/DV/assumptions.md (headings 1 -> 4; commits: ef696db B-DV)
+  + ## DV – Description/Overview
+  + ## DV – Specification
+  + ## DV – Assumptions
+
+## knowledge_base/domains/EC/assumptions.md (headings 1 -> 4; commits: 5440dc5 B-EC)
+  + ## EC – Description/Overview
+  + ## EC – Specification
+  + ## EC – Assumptions
+
+## knowledge_base/domains/EC/examples.md (headings 8 -> 1; commits: 5440dc5 B-EC)
+  - ## Example 1
+  - ## Example 2
+  - ## Example 3
+  - ## Example 5
+  - ## Example 6
+  - ## Example 7
+  - ## Example 8
+
+## knowledge_base/domains/EG/assumptions.md (headings 1 -> 4; commits: 0d0e813 S-FND, 466e0c3 B-EG)
+  + ## EG – Description/Overview
+  + ## EG – Specification
+  + ## EG – Assumptions
+
+## knowledge_base/domains/EX/assumptions.md (headings 1 -> 5; commits: acb93ae S-INT)
+  + ## §6.1.3 Exposure Domains
+  + ## EX – Description/Overview
+  + ## EX – Specification
+  + ## EX – Assumptions
+
+## knowledge_base/domains/EX/examples.md (headings 9 -> 10; commits: acb93ae S-INT, 5440dc5 B-EC, ae17f74 B-EX)
+  + ## §6.1.3.3 Exposure/Exposure as Collected Examples
+
+## knowledge_base/domains/FA/assumptions.md (headings 6 -> 10; commits: 330e2ed S-TUFA, f22fe60 B-SR, c8802bf B-FA)
+  - ## §6.4.4 FA – Description/Overview
+  + ## §6.4 Findings About Events or Interventions
+  + ## §6.4.4 Findings About Events or Interventions (FA)
+  + ## FA – Description/Overview
+  + ## FA – Specification
+  + ## FA – Assumptions
+
+## knowledge_base/domains/FT/assumptions.md (headings 2 -> 7; commits: bc4e42e S-TYPO, 85d3057 B-FT)
+  + ## §6.3.9 Questionnaires, Ratings, and Scales (QRS) Domains (FT, QS, RS)
+  + ## §6.3.9.1 Functional Tests (FT)
+  + ## FT – Description/Overview
+  + ## FT – Specification
+  + ## FT – Assumptions
+
+## knowledge_base/domains/GF/assumptions.md (headings 5 -> 4; commits: 8426871 S-SPC1, bdb54fe B-GF)
+  - ## GF – Example 4 (p227)
+
+## knowledge_base/domains/HO/assumptions.md (headings 1 -> 4; commits: 25fbebd B-HO)
+  + ## HO – Description/Overview
+  + ## HO – Specification
+  + ## HO – Assumptions
+
+## knowledge_base/domains/IE/assumptions.md (headings 1 -> 4; commits: 68bfa64 B-IE)
+  + ## IE – Description/Overview
+  + ## IE – Specification
+  + ## IE – Assumptions
+
+## knowledge_base/domains/IS/assumptions.md (headings 8 -> 5; commits: bc4e42e S-TYPO, 8426871 S-SPC1)
+  - ### Example 1 (Tiered ADA testing)
+  - ### Examples 8–9 (Microneutralization and OPK)
+  - ### Example 10 (Sjögren's syndrome autoantibody tests)
+  - ### Example 11 (Mixed animal allergens test)
+  + ## IS – Specification
+
+## knowledge_base/domains/LB/assumptions.md (headings 1 -> 6; commits: bc4e42e S-TYPO, 8426871 S-SPC1, 470b473 B-LB)
+  + ## §6.3.5 Specimen-based Findings Domains
+  + ## §6.3.5.1 Generic Specimen-based Lab Findings Domain Specification
+  + ## LB – Description/Overview
+  + ## LB – Specification
+  + ## LB – Assumptions
+
+## knowledge_base/domains/MB/assumptions.md (headings 4 -> 5; commits: bc4e42e S-TYPO, f534395 S-SPC2)
+  + ## MB – Specification
+
+## knowledge_base/domains/MB/examples.md (headings 9 -> 6; commits: 955e9d5 B-MS, c3b7b56 B-MB)
+  - ## Example 1
+  - ## Example 2
+  - ## Example 3
+  - ## §6.3.5.7.3 Microbiology Specimen and Microbiology Susceptibility Examples
+  + ## §6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples
+
+## knowledge_base/domains/MH/assumptions.md (headings 3 -> 5; commits: bc4e42e S-TYPO, fb62af2 B-MH)
+  + ## MH – Description/Overview
+  + ## MH – Specification
+
+## knowledge_base/domains/MI/assumptions.md (headings 1 -> 4; commits: a4c9359 B-MI)
+  + ## MI – Description/Overview
+  + ## MI – Specification
+  + ## MI – Assumptions
+
+## knowledge_base/domains/MK/assumptions.md (headings 1 -> 4; commits: c54ec61 B-MK)
+  + ## MK – Description/Overview
+  + ## MK – Specification
+  + ## MK – Assumptions
+
+## knowledge_base/domains/ML/assumptions.md (headings 1 -> 4; commits: e9a40d8 B-ML)
+  + ## ML – Description/Overview
+  + ## ML – Specification
+  + ## ML – Assumptions
+
+## knowledge_base/domains/NV/assumptions.md (headings 4 -> 7; commits: 70a7373 S-HOST, b093218 B-NV)
+  + ## §6.3.6 Morphology (MO)
+  + ## NV – Description/Overview
+  + ## NV – Specification
+
+## knowledge_base/domains/OE/assumptions.md (headings 1 -> 4; commits: 0d0e813 S-FND)
+  + ## OE – Description/Overview
+  + ## OE – Specification
+  + ## OE – Assumptions
+
+## knowledge_base/domains/OI/assumptions.md (headings 1 -> 4; commits: bc4e42e S-TYPO, 669405f S-SPREL)
+  + ## OI – Description/Overview
+  + ## OI – Specification
+  + ## OI – Assumptions
+
+## knowledge_base/domains/PC/assumptions.md (headings 9 -> 10; commits: f534395 S-SPC2, 97e1895 B-PCPP)
+  + ## PC – Description/Overview
+
+## knowledge_base/domains/PC/examples.md (headings 20 -> 22; commits: f534395 S-SPC2, 97e1895 B-PCPP)
+  + ## PC – Examples
+  + ### Example 1
+
+## knowledge_base/domains/PE/assumptions.md (headings 5 -> 7; commits: 0d0e813 S-FND)
+  + ## PE – Description/Overview
+  + ## PE – Specification
+
+## knowledge_base/domains/PP/assumptions.md (headings 1 -> 4; commits: bc4e42e S-TYPO, f534395 S-SPC2)
+  + ## PP – Description/Overview
+  + ## PP – Specification
+  + ## PP – Assumptions
+
+## knowledge_base/domains/PP/examples.md (headings 12 -> 5; commits: f534395 S-SPC2, 97e1895 B-PCPP)
+  - ## §6.3.5.9.3 RELREC Method Quick Reference (PP-side view)
+  - ### Method label mapping (anti-drift anchor)
+  - ### Method A — Many to Many, Using PCGRPID and PPGRPID (p277)
+  - ### Method B — One to Many, Using PCSEQ and PPGRPID (pp 277-278)
+  - ### Method C — Many to One, Using PCGRPID and PPSEQ (p278)
+  - ### Method D — One to One, Using PCSEQ and PPSEQ (pp 278-280)
+  - ### Cross-domain summary (Examples 2-4 on pp 281-284)
+
+## knowledge_base/domains/PR/assumptions.md (headings 1 -> 4; commits: bc4e42e S-TYPO, acb93ae S-INT)
+  + ## PR – Description/Overview
+  + ## PR – Specification
+  + ## PR – Assumptions
+
+## knowledge_base/domains/QS/assumptions.md (headings 2 -> 5; commits: bc4e42e S-TYPO, 437c2ad B-QS)
+  + ## QS – Description/Overview
+  + ## QS – Specification
+  + ## QS – Assumptions
+
+## knowledge_base/domains/RE/assumptions.md (headings 3 -> 4; commits: f45d915 B-RE)
+  + ## RE – Description/Overview
+
+## knowledge_base/domains/RELREC/assumptions.md (headings 3 -> 5; commits: 7a2f326 B-REL)
+  + ## RELREC – Description/Overview
+  + ## RELREC – Specification
+
+## knowledge_base/domains/RELSPEC/assumptions.md (headings 1 -> 4; commits: 7a2f326 B-REL)
+  + ## RELSPEC – Description/Overview
+  + ## RELSPEC – Specification
+  + ## RELSPEC – Assumptions
+
+## knowledge_base/domains/RELSUB/assumptions.md (headings 1 -> 4; commits: 7a2f326 B-REL)
+  + ## RELSUB – Description/Overview
+  + ## RELSUB – Specification
+  + ## RELSUB – Assumptions
+
+## knowledge_base/domains/RP/assumptions.md (headings 3 -> 4; commits: bc4e42e S-TYPO, 8c4227a B-RP)
+  + ## RP – Description/Overview
+
+## knowledge_base/domains/RS/assumptions.md (headings 4 -> 8; commits: d84a225 B-RS)
+  + ## RS – Description/Overview
+  + ## RS – Specification
+  + ## §6.3.9.3.1 Disease Response Use Case
+  + ## §6.3.9.3.2 Clinical Classifications Use Case
+
+## knowledge_base/domains/SC/assumptions.md (headings 3 -> 4; commits: 52858fc B-SC)
+  + ## SC – Specification
+
+## knowledge_base/domains/SC/examples.md (headings 5 -> 4; commits: 52858fc B-SC)
+  - ## SC – Specification (p340)
+
+## knowledge_base/domains/SE/assumptions.md (headings 3 -> 4; commits: bc4e42e S-TYPO, 669405f S-SPREL)
+  + ## SE – Specification
+
+## knowledge_base/domains/SM/assumptions.md (headings 1 -> 4; commits: bc4e42e S-TYPO, 8e5016e B-SM)
+  + ## SM – Description/Overview
+  + ## SM – Specification
+  + ## SM – Assumptions
+
+## knowledge_base/domains/SR/assumptions.md (headings 1 -> 4; commits: f22fe60 B-SR)
+  + ## SR – Description/Overview
+  + ## SR – Specification
+  + ## SR – Assumptions
+
+## knowledge_base/domains/SS/assumptions.md (headings 1 -> 4; commits: 0d0e813 S-FND)
+  + ## SS – Description/Overview
+  + ## SS – Specification
+  + ## SS – Assumptions
+
+## knowledge_base/domains/SS/examples.md (headings 2 -> 2; commits: 0d0e813 S-FND)
+  - ##### Example 1
+  + ## Example 1
+
+## knowledge_base/domains/SU/assumptions.md (headings 1 -> 4; commits: bc4e42e S-TYPO, d1fca9c B-SU)
+  + ## SU – Description/Overview
+  + ## SU – Specification
+  + ## SU – Assumptions
+
+## knowledge_base/domains/SUPPQUAL/assumptions.md (headings 3 -> 4; commits: bc4e42e S-TYPO, 47c3cfd B-SUPPQUAL)
+  + ## Supplemental Qualifiers (SUPP--)
+
+## knowledge_base/domains/TA/assumptions.md (headings 12 -> 13; commits: bc4e42e S-TYPO, d500b1b S-TDM, a91e198 B-TE, d33674e B-TA)
+  - ## Trial Design Model Overview (§7.1)
+  - ## Trial Arms and Trial Elements (§7.2)
+  - ## TA-Specific Assumptions
+  + ## §7.1 Introduction to Trial Design Model Datasets
+  + ## §7.2 Experimental Design (TA and TE)
+  + ### §7.2.1 Trial Arms (TA) – Specification
+  + ## TA – Assumptions
+
+## knowledge_base/domains/TD/assumptions.md (headings 1 -> 4; commits: bc4e42e S-TYPO, d500b1b S-TDM)
+  + ## TD – Description/Overview
+  + ## TD – Specification
+  + ## TD – Assumptions
+
+## knowledge_base/domains/TE/assumptions.md (headings 2 -> 4; commits: bc4e42e S-TYPO, a91e198 B-TE)
+  + ## TE — Specification
+  + ## TE — Assumptions
+
+## knowledge_base/domains/TI/assumptions.md (headings 4 -> 7; commits: bc4e42e S-TYPO, 8bcba6f B-TI)
+  - ## §7.4 Trial Eligibility and Summary (TI, TS) — Introduction
+  + ## §7.4 Trial Eligibility and Summary (TI and TS)
+  + ## TI – Proposed Removal of Variable TIRL
+  + ## TI – Description/Overview
+  + ## TI – Specification
+
+## knowledge_base/domains/TM/assumptions.md (headings 2 -> 4; commits: d500b1b S-TDM)
+  + ## TM – Specification
+  + ## TM – Assumptions
+
+## knowledge_base/domains/TR/assumptions.md (headings 1 -> 4; commits: bc4e42e S-TYPO, 330e2ed S-TUFA)
+  + ## TR – Description/Overview
+  + ## TR – Specification
+  + ## TR – Assumptions
+
+## knowledge_base/domains/TS/assumptions.md (headings 2 -> 5; commits: f6f06a1 B-TS)
+  + ## TS – Description/Overview
+  + ## TS – Specification
+  + ## TS – Assumptions
+
+## knowledge_base/domains/TU/assumptions.md (headings 3 -> 6; commits: bc4e42e S-TYPO, 9478eb7 B-TU)
+  + ## 6.3.12.1 Tumor/Lesion Identification (TU)
+  + ## TU – Specification
+  + ## TU – Assumptions
+
+## knowledge_base/domains/TU/examples.md (headings 4 -> 5; commits: 9478eb7 B-TU)
+  + ## §6.3.12.3 Tumor Identification/Tumor Results Examples
+
+## knowledge_base/domains/TV/assumptions.md (headings 4 -> 5; commits: bc4e42e S-TYPO, 4df3f02 B-TV)
+  + ## TV – Specification
+
+## knowledge_base/domains/UR/assumptions.md (headings 1 -> 4; commits: 0d0e813 S-FND)
+  + ## UR – Description/Overview
+  + ## UR – Specification
+  + ## UR – Assumptions
+
+## knowledge_base/domains/VS/assumptions.md (headings 1 -> 4; commits: 884560f B-VS)
+  + ## VS – Description/Overview
+  + ## VS – Specification
+  + ## VS – Assumptions
+
+## knowledge_base/model/01_concepts_and_terms.md (headings 7 -> 15; commits: ed7fd2b S-MOD1, 0dc4f14 B-model01)
+  - # SDTM v2.0 — Chapter 2: Model Concepts and Terms
+  - ## 2.1 Model Concepts and Terms — Variables
+  - ### Concept Map: Relationships Between SDTM Domains
+  - ### Domain Codes
+  + # SDTM v2.0 — Sections 1-2: Introduction; Model Concepts and Terms – Organization of the SDTM
+  + ## 1 Introduction
+  + ## 1.1 Purpose
+  + ## 1.2 Implementation Advice for this Model
+  + ## 1.3 Relationship to Prior CDISC Models
+  + ## 1.4 Significant Changes from Prior Versions
+  + ### Reorganization of Content
+  + ### Changes to Structures of Tables
+  + ### Changes to Datasets and Variables
+  + ## 2 Model Concepts and Terms – Organization of the SDTM
+  + ### Concept Map. Relationships Between SDTM Domains
+  + ## 2.1 Model Concepts and Terms – Variables
+
+## knowledge_base/model/02_observation_classes.md (headings 19 -> 19; commits: 6f2c38a S-MOD2, c8802bf B-FA, 0dc4f14 B-model01)
+  - # SDTM v2.0 — Chapter 3.1: The General Observation Classes
+  - ## Overview
+  - ### Findings About (Subtype)
+  - ### §6.4.3 Variables Unique to Findings About (Reference Material, SDTMIG v3.4 p364)
+  + # SDTM v2.0 — Sections 3-3.1: Study Subject Data; The General Observation Classes
+  + ## 3 Study Subject Data
+  + ## 3.1 The General Observation Classes
+  + ### 3.1.3.1 Findings About Events or Interventions
+
+## knowledge_base/model/03_special_purpose_domains.md (headings 15 -> 17; commits: ed7fd2b S-MOD1)
+  - ## Demographics (DM)
+  - ## Comments (CO)
+  - ## Subject Elements (SE)
+  - ## Subject Repro Stages
+  - ## Subject Visits (SV)
+  - ## Subject Disease Milestones (SM)
+  + ### 3.2 Special-purpose Domains
+  + ## 3.2.1 Demographics
+  + ## 3.2.2 Comments
+  + ## 3.2.3 Subject Summary Domains
+  + ### 3.2.3.1 Subject Elements
+  + ### 3.2.3.2 Subject Repro Stages
+  + ### 3.2.3.3 Subject Visits
+  + ### 3.2.3.4 Subject Disease Milestones
+
+## knowledge_base/model/04_associated_persons.md (headings 5 -> 6; commits: ed7fd2b S-MOD1)
+  + ### 4 Associated Persons Data
+
+## knowledge_base/model/05_study_level_data.md (headings 17 -> 20; commits: a197773 S-MOD3, 40bc23a B-model05)
+  - ## Overview
+  - ## 5.1 Trial Design Model
+  - ### Trial Elements (TE)
+  - ### Trial Arms (TA)
+  - ### Trial Sets (TX)
+  - ### Trial Reproductive Stages (TT)
+  - ### Trial Reproductive Paths (TP)
+  - ### Trial Visits (TV)
+  - ### Trial Disease Assessments (TD)
+  - ### Trial Disease Milestones (TM)
+  - ### Trial Inclusion/Exclusion Criteria (TI)
+  - ### Trial Summary (TS)
+  - ### Challenge Agent Characterization (AC)
+  - ### Device Identifiers (DI)
+  - ### Non-host Organism Identifiers (OI)
+  + ## 5 Study-level Data
+  + ## 5.1 The Trial Design Model
+  + ### 5.1.1 Trial Arms and Trial Elements
+  + #### 5.1.1.1 Trial Elements (TE)
+  + #### 5.1.1.2 Trial Arms (TA)
+  + ### 5.1.2 Trial Sets (TX)
+  + ### 5.1.3 Trial Repro Stages and Trial Repro Paths
+  + #### 5.1.3.1 Trial Repro Stages (TT)
+  + #### 5.1.3.2 Trial Repro Paths (TP)
+  + ### 5.1.4 Trial Planned Data Collection
+  + #### 5.1.4.1 Trial Visits (TV)
+  + #### 5.1.4.2 Trial Disease Assessments (TD)
+  + #### 5.1.4.3 Trial Disease Milestones (TM)
+  + ### 5.1.5 Trial Inclusion/Exclusion Criteria (TI)
+  + ### 5.1.6 Trial Summary Information (TS)
+  + ### 5.1.7 Challenge Agent Characterization (AC)
+  + ### 5.2.1 Device Identifiers Dataset (DI)
+  + ### 5.2.2 Non-host Organism Identifiers Dataset (OI)
+
+## knowledge_base/model/06_relationship_datasets.md (headings 14 -> 13; commits: cbc6b75 B-model06)
+  - ## Overview
+  - ## 6.1 Related Records (RELREC)
+  - ### RELTYPE Combinations
+  - ## 6.2 Supplemental Qualifiers (SUPP--)
+  - ## 6.3 Pool Definition (POOLDEF)
+  - ## 6.4 Related Subjects (RELSUB)
+  - ## 6.5 Device-subject Relationships (DR)
+  - ## 6.6 Associated Persons Related Subjects (APRELSUB)
+  - ## 6.7 Related Specimens (RELSPEC)
+  + ## 6 Datasets for Representing Relationships
+  + ## 6.1 Related Records Dataset (RELREC)
+  + ## 6.2 Supplemental Qualifiers Dataset (SUPP--)
+  + ## 6.3 Pool Definition Dataset (POOLDEF)
+  + ## 6.4 Related Subjects Dataset (RELSUB)
+  + ## 6.5 Device-subject Relationships Dataset (DR)
+  + ## 6.6 Associated Persons Relationships (APRELSUB)
+  + ## 6.7 Related Specimens Dataset (RELSPEC)
+
+files with heading changes 79; removed 104; added 239

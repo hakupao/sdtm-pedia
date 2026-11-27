@@ -1,0 +1,70 @@
+# knowledge_base heading diff 00a2e93 -> WORKTREE
+files removed: []; files added: []
+
+## knowledge_base/domains/FA/assumptions.md (headings 9 -> 10; commits: -)
+  - ## §6.4.4 FA – Description/Overview
+  + ## §6.4.4 Findings About Events or Interventions (FA)
+  + ## FA – Description/Overview
+
+## knowledge_base/domains/MB/examples.md (headings 6 -> 6; commits: -)
+  - ## §6.3.5.7.3 Microbiology Specimen and Microbiology Susceptibility Examples
+  + ## §6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples
+
+## knowledge_base/domains/PP/examples.md (headings 11 -> 5; commits: -)
+  - ## RELREC Method Quick Reference (PP-side view)
+  - ### Method label mapping (anti-drift anchor)
+  - ### Method A — Many to Many, Using PCGRPID and PPGRPID (p277)
+  - ### Method B — One to Many, Using PCSEQ and PPGRPID (pp 277-278)
+  - ### Method C — Many to One, Using PCGRPID and PPSEQ (p278)
+  - ### Method D — One to One, Using PCSEQ and PPSEQ (pp 278-279)
+
+## knowledge_base/domains/SS/examples.md (headings 2 -> 2; commits: -)
+  - ##### Example 1
+  + ## Example 1
+
+## knowledge_base/domains/TA/assumptions.md (headings 13 -> 13; commits: -)
+  - ## Trial Design Model Overview (§7.1)
+  - ## Trial Arms and Trial Elements (§7.2)
+  + ## §7.1 Introduction to Trial Design Model Datasets
+  + ## §7.2 Experimental Design (TA and TE)
+
+## knowledge_base/domains/TI/assumptions.md (headings 7 -> 7; commits: -)
+  - ## §7.4 Trial Eligibility and Summary (TI, TS) — Introduction
+  + ## §7.4 Trial Eligibility and Summary (TI and TS)
+
+## knowledge_base/model/05_study_level_data.md (headings 20 -> 20; commits: -)
+  - ### 5.1.1.1 Trial Elements (TE)
+  - ### 5.1.1.2 Trial Arms (TA)
+  - ### 5.1.3.1 Trial Repro Stages (TT)
+  - ### 5.1.3.2 Trial Repro Paths (TP)
+  - ### 5.1.4.1 Trial Visits (TV)
+  - ### 5.1.4.2 Trial Disease Assessments (TD)
+  - ### 5.1.4.3 Trial Disease Milestones (TM)
+  + #### 5.1.1.1 Trial Elements (TE)
+  + #### 5.1.1.2 Trial Arms (TA)
+  + #### 5.1.3.1 Trial Repro Stages (TT)
+  + #### 5.1.3.2 Trial Repro Paths (TP)
+  + #### 5.1.4.1 Trial Visits (TV)
+  + #### 5.1.4.2 Trial Disease Assessments (TD)
+  + #### 5.1.4.3 Trial Disease Milestones (TM)
+
+## knowledge_base/model/06_relationship_datasets.md (headings 14 -> 13; commits: -)
+  - ## Overview
+  - ## 6.1 Related Records (RELREC)
+  - ### RELTYPE Combinations
+  - ## 6.2 Supplemental Qualifiers (SUPP--)
+  - ## 6.3 Pool Definition (POOLDEF)
+  - ## 6.4 Related Subjects (RELSUB)
+  - ## 6.5 Device-subject Relationships (DR)
+  - ## 6.6 Associated Persons Related Subjects (APRELSUB)
+  - ## 6.7 Related Specimens (RELSPEC)
+  + ## 6 Datasets for Representing Relationships
+  + ## 6.1 Related Records Dataset (RELREC)
+  + ## 6.2 Supplemental Qualifiers Dataset (SUPP--)
+  + ## 6.3 Pool Definition Dataset (POOLDEF)
+  + ## 6.4 Related Subjects Dataset (RELSUB)
+  + ## 6.5 Device-subject Relationships Dataset (DR)
+  + ## 6.6 Associated Persons Relationships (APRELSUB)
+  + ## 6.7 Related Specimens Dataset (RELSPEC)
+
+files with heading changes 8; removed 28; added 22

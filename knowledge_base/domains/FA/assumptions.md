@@ -36,7 +36,7 @@ Every record in the AE domain must represent an event that actually occurred. Th
 
 Previous versions of the SDTMIG included the criterion, "Data or observations about an Event or Intervention for which no Event or Intervention record has been collected or created." This criterion has been removed, because the amount of data collected about an event or intervention should not determine whether data are represented in an FA dataset. Data that can be represented in an event or intervention record, particularly data for which standard variables exist, should be represented in the appropriate Event or Intervention domain, even if the record is sparse. The absence of a "parent" event or intervention record does not prevent representing data about an event or intervention in an FA dataset. One situation that previously used this criterion was the collection of a diagnosis date or symptom onset date for the disease under study when the occurrence of the disease was collected in an inclusion criterion, rather than as medical history. That situation can now be represented in an MH record that includes MHEVDTYP. Events identified during a physical examination would, in accordance with CDASH best practices, be recorded in medical history or adverse events CRFs.
 
-Previous versions of the SDTMIG included the criterion, "Data or information about an Event or Intervention that indicate the occurrence of related symptoms or therapies." This criterion has been removed because information about related symptoms or therapies is more appropriately represented as information about those symptoms or therapies rather than as information about the event or intervention to which they are thought be related. Data about related symptoms or interventions should be evaluated against the above Criterion 1 - 3 to determine whether they should be represented in an FA dataset. If data do not meet one of the criteria above, they should be represented in an event or interventions record. If data do meet criteria to be represented in the findings about structure, FAOBJ will be the name of the symptom. The relationship to the disease under study may be represented in FACAT or FASCAT, as in FA Example 5.
+Previous versions of the SDTMIG included the criterion, "Data or information about an Event or Intervention that indicate the occurrence of related symptoms or therapies." This criterion has been removed because information about related symptoms or therapies is more appropriately represented as information about those symptoms or therapies rather than as information about the event or intervention to which they are thought to be related. Data about related symptoms or interventions should be evaluated against the above Criterion 1 - 3 to determine whether they should be represented in an FA dataset. If data do not meet one of the criteria above, they should be represented in an event or interventions record. If data do meet criteria to be represented in the findings about structure, FAOBJ will be the name of the symptom. The relationship to the disease under study may be represented in FACAT or FASCAT, as in FA Example 5.
 
 The term "symptom" is often used loosely to refer to both symptoms (reported by the subject) and signs (observable by others). When data about signs is collected via questions about the subject's past experience, signs are appropriately represented as SDTM events. However, when a sign is identified or assessed during an examination at a point in time, it may be more appropriate to represent it as an SDTM finding.
 
@@ -48,7 +48,7 @@ The choice between representing a data item as a supplemental qualifier or as a 
   - If the event or intervention is a disease milestone, then RELMIDS is not included in this event or intervention record. Is the relationship of a data item to the disease milestone (RELMIDS) needed? If so, it can be represented in FA, but not as a supplemental qualifier to the parent record.
 - Are there several items which would be clearer if they could be grouped together? If so, the FA structure allows the use of FAGRPID, FACAT, or FASCAT to group the items.
 - Is the data item alone in a particular study, but related to other data items likely to be collected in other studies? If so, it may be preferable to represent the item in FA, where other FA variables might be needed for related items in the future. For example, the response to "Was a rechallenge conducted?" might be represented as a supplemental qualifier, but if additional information about the rechallenge (e.g., When?, What was the result?) were collected, then the FA structure would be needed.
-- Are there multiple evaluators for a data item that could otherwise be represented as a supplemental qualifier? If so, FA may provided a clearer representation of the multiple opinions, and would also allow the use of FAEVALID.
+- Are there multiple evaluators for a data item that could otherwise be represented as a supplemental qualifier? If so, FA may provide a clearer representation of the multiple opinions, and would also allow the use of FAEVALID.
 
 ## §6.4.2 Naming Findings About Domains
 
@@ -92,7 +92,9 @@ A record in FA may or may not have a parent record in an events or interventions
 
 Examples for the FA and Skin Response (SR) domains include the use of RELREC to represent the relationship between an FA domain and a parent domain.
 
-## §6.4.4 FA – Description/Overview
+## §6.4.4 Findings About Events or Interventions (FA)
+
+## FA – Description/Overview
 
 A findings domain that contains the findings about an event or intervention that cannot be represented within an events or interventions domain record or as a supplemental qualifier.
 

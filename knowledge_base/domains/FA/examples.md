@@ -180,7 +180,7 @@ In this example, the occurrence of prespecified adverse events was solicited at 
 | Respiratory infection | ○ No   ○ Yes   ○ Not Done |
 | Nausea | ○ No   ○ Yes   ○ Not Done |
 
-This example shows data for 1 subject at 2 visits. Each response (e.g., No, Yes) to the prespecified terms is represented in the FA domain. The visit date was used to populated FADTC.
+This example shows data for 1 subject at 2 visits. Each response (e.g., No, Yes) to the prespecified terms is represented in the FA domain. The visit date was used to populate FADTC.
 
 **Rows 1, 4:** "Headache" was reported at both visits.
 **Rows 2, 5:** "Respiratory infection" was not present at either visit.

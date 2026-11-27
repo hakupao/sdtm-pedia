@@ -26,3 +26,7 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - 复跑: `python3 -I $T/scripts/t4/t4_sample.py && python3 -I $T/scripts/t4/t4_render.py` (注意: render 会整体重写 t4_human_sample.md, 有用户判定后不要再跑或先誊出); `t4_ack_lists.py`; `t4_coverage_decomp.py`. HEAD 复跑结果 (live docs 42 / t3_mutation 同 T3 / census OK311 DIFF37 diffs144) 见 gate_review §3.
 - 用户裁定回来后: ① 按 U-2/U-8 改 ledger (走 writer→reviewer, 主控不写); ② KB 解冻后按 U-7/U-9/U-10 改 KB (正常批流程); ③ 证据层审查者建议的补强 (pre_existing 58 条单独核、C7 38 条 ATOM_ERR 全检、FIG 11 条、C3 表结案清单、文档状态行过期) 视用户 U-5 选择做; ④ T4.1 attempt 2 (同角色 feature-dev:code-reviewer, 新实例) → T4.3 (Chain D + RETROSPECTIVE + push + kb tag + 提醒 sdtm-rag).
 - 风险提示: 下一个会话若重跑 `t4_render.py` 会覆盖用户在 t4_human_sample.md 的勾选.
+## T4 attempt 2 在途 (2026-11-27, 新 session 主控)
+- 裁定 = 协调 bot「sdtm开发」委托代裁 (非主人逐条), 记录 `evidence/checkpoints/t4_user_decisions.md` §000. U-6 人工闸不在委托内.
+- 已完成并提交 `3a24a1c`: U-5 C7 38/38 成立、U-6 AI 预筛 42/42 (`t4_human_prescreen.md`)、U-7 复核 (`t4_u7_rowcheck.md`)、Mermaid 42/42.
+- 解冻轮规格 `subagent_prompts/t4/t4_thaw_spec_v1.0.md`. W1 (`t4_thaw_W1.md`) + W2 (`t4_thaw_W2.md`) KB 改动**在工作树未提交**, reviewer PASS (`t4_thaw_review.md`). 下一步 W3 台账重算 → reviewer-L → auditor → commit → 总闸 attempt 2.

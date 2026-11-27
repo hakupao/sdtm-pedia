@@ -407,9 +407,9 @@ Another example is a CRF that collects reason for dose adjustment with additiona
 
 | Reason for Dose Adjustment (EXADJ) | Describe |
 |------------------------------------|----------|
-| [ ] Adverse Event                  |          |
-| [ ] Insufficient Response          |          |
-| [ ] Non-medical Reason             |          |
+| ○ Adverse Event                  |          |
+| ○ Insufficient Response          |          |
+| ○ Non-medical Reason             |          |
 
 The free-text description should be stored in the SUPPEX dataset.
 
@@ -424,12 +424,12 @@ For example, consider a CRF that collects the indication for an analgesic concom
 
 | Indication for analgesic |                                |
 |--------------------------|--------------------------------|
-|                          | [ ] Post-operative pain        |
-|                          | [ ] Headache                   |
-|                          | [ ] Menstrual pain             |
-|                          | [ ] Myalgia                    |
-|                          | [ ] Toothache                  |
-|                          | [ ] Other, specify: _________  |
+|                          | ○ Post-operative pain        |
+|                          | ○ Headache                   |
+|                          | ○ Menstrual pain             |
+|                          | ○ Myalgia                    |
+|                          | ○ Toothache                  |
+|                          | ○ Other, specify: _________  |
 
 An investigator has selected "OTHER" and specified "Broken arm". Several options are available for submission of this data:
 
@@ -469,11 +469,11 @@ For example, consider a CRF where the sponsor requests the subject's eye color:
 
 | Eye Color |                               |
 |-----------|-------------------------------|
-|           | [ ] Brown                     |
-|           | [ ] Black                     |
-|           | [ ] Blue                      |
-|           | [ ] Green                     |
-|           | [ ] Other, specify: _________ |
+|           | ○ Brown                     |
+|           | ○ Black                     |
+|           | ○ Blue                      |
+|           | ○ Green                     |
+|           | ○ Other, specify: _________ |
 
 An investigator has selected "OTHER" and specified "BLUEISH GRAY". As in the preceding discussion for non-result qualifier values, the sponsor has several options for submission:
 
@@ -503,11 +503,11 @@ If a list of specific treatments is provided along with "Other, Specify", --TRT 
 
 | Indicate which of the following concomitant medications was used to treat the subject’s headaches: |                               |
 |----------------------------------------------------------------------------------------------------|-------------------------------|
-|                                                                                                    | [ ] Acetaminophen             |
-|                                                                                                    | [ ] Aspirin                   |
-|                                                                                                    | [ ] Ibuprofen                 |
-|                                                                                                    | [ ] Naproxen                  |
-|                                                                                                    | [ ] Other, specify: _________ |
+|                                                                                                    | ○ Acetaminophen             |
+|                                                                                                    | ○ Aspirin                   |
+|                                                                                                    | ○ Ibuprofen                 |
+|                                                                                                    | ○ Naproxen                  |
+|                                                                                                    | ○ Other, specify: _________ |
 
 If ibuprofen and diclofenac were reported, the CM dataset would include the following:
 
@@ -860,7 +860,7 @@ When an interval of time is an amount of time (duration) following an event whos
 
 `YYYY-MM-DDThh:mm:ss/PnYnMnDTnHnMnS`
 
-where the start date/time is represented before the solidus or foreword slash [/], the "Pn…" following the solidus represents a "duration," and the entire representation is known as an "interval." Note that this is the recommended representation of elapsed time, given a start date/time and the duration elapsed.
+where the start date/time is represented before the solidus or forward slash [/], the "Pn…" following the solidus represents a "duration," and the entire representation is known as an "interval." Note that this is the recommended representation of elapsed time, given a start date/time and the duration elapsed.
 
 When an interval of time is an amount of time (duration) measured prior to an event whose start date/time is recorded (with some level of precision, e.g., where one knows the end date/time and the duration preceding that end date/time), the syntax is:
 

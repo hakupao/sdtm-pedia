@@ -1,5 +1,5 @@
 # T4 用户裁定汇总 (O25)
-> 状态: **待用户裁定** (主控 T4 整理 2026-11-27; 原稿 2026-11-26 T2S.REG executor 草拟). 各表末列 "用户选" 留空待勾.
+> 状态: **已代裁 (委托代裁, 非主人逐条裁定)** 2026-11-27 — 见下方 §000; §00 表 "用户选" 列保持空白 (那一列留给主人本人). 原稿: 主控 T4 整理 2026-11-27; T2S.REG executor 草拟 2026-11-26.
 > 来源: `evidence/checkpoints/t2_B-*.md` / `t2_S-*.md` (含 _review / _audit 改判)、`work/out_of_scope_findings.md` O1-O61、`evidence/checkpoints/t2_post_user_ack.md`、`evidence/checkpoints/t1_lane_notes.md` "T4 汇总须列" 条、`work/t1_errata.json` (pending_user 4 条为 T1 REAL_GAP 争议, 非 typo, 不入本表)。
 > 机读登记: `work/t2_pdf_typo_registry.jsonl` (269 行; 位置按 HEAD b982581 内容重定位)。引文 ≤ 25 词/处。
 
@@ -21,6 +21,28 @@
 | U-9 | **S-TYPO 追加** (见文末 "主控补注"): (a) CRF 选项符号口径 (PDF ○□ vs KB `( )`/`[ ]`; CE 用 `( )` 而 FA 用 `○`, 不统一; 候选见 `evidence/checkpoints/t2_S-TYPO.md`); (b) MH `History“` ×2 方向; (c) S-TYPO 残余 230 行 (`work/t2_batches/S-TYPO.residual.jsonl`) | (a) A = 照 PDF 字形 / B = 维持 KB 写法; (b) A = 照录 / B = 改正方向; (c) A = 接受现状 / B = 人工逐行 | (a) 用户定; (b) A; (c) A | (a) ☐A ☐B (b) ☐A ☐B (c) ☐A ☐B |
 | U-10 | **总闸新报 KB 观察项** (KB 冻结, 只记录): ① `model/05_study_level_data.md:29/45` 等 5.1.x 标题加了 PDF 没有的 "(TE)" "(TA)" 后缀 (与 A5-1/A5-11 同类); ② `domains/CE/examples.md:39` CRF 标题 KB 自拟无 KB note; ③ `chapters/ch02_fundamentals.md:158/:167` KB 自拟标题无 D6 标注; ④ PDF p354 "Lymph Nodes State" vs p355 "Lymph Node State" 未登记; ⑤ 标签口径: 原子抽错但 KB 对的原子有的标 ATOM_ERR、有的标 EXACT/EQUIV; stock EQUIV 实为逐字; ⑥ (2026-11-27 下游答复时发现) `model/06_relationship_datasets.md:177-178` RELSPEC REFID/SPEC 的 Notes 列旧 KB 有 C-code、重写后为空, 而 `model/03` SE 表 TAETORD/EPOCH 的 Notes 列仍放 C-code, 做法不一致; ⑦ `domains/PC/examples.md` 有无编号的 `## PC – Examples` 层, 其他域 examples.md 没有这一层 (详 `evidence/checkpoints/t4_downstream_notes.md`) | 每条: A = 解冻后修 / 补登记 / B = 不处理 | A (①-④); ⑤ 记 D7 后续 | ☐A ☐B (逐条备注) |
 | U-11 | **O51 Mermaid 统一渲染** (TA/DM/model05/TV/TD) 与 **A5-14 D6 前缀口径** (主控意见见 A5-14 行) | 随 T4.3 前处理 / 推迟 | 解冻后一次做 | ☐处理 ☐推迟 |
+
+## 000. 裁定记录: 委托代裁 (2026-11-27)
+
+> **性质**: 下列裁定**不是主人逐条裁定**. 主人于 2026-11-27 把本清单的选择题委托给协调 bot「sdtm开发」, 委托原话: 「之前那些选项，你可以替我分析后决定嘛。我听从你的建议」. 裁定人 = 协调 bot「sdtm开发」(受托代裁); 执行 = 本项目主控. 是否足以替代 "用户认可记录" 由 T4.1 总闸审查者判断.
+> **委托不覆盖 U-6** (T4.2 人工闸): 只做了 AI 预筛 (`evidence/checkpoints/t4_human_prescreen.md`, 42/42 内容正确), 不是人工判定; `t4_human_sample.md` 判定栏保持空白, 人工闸仍开着.
+
+| # | 代裁 | 附加条件 / 执行说明 | 证据 |
+|---|---|---|---|
+| U-1 | **B**: ATOM_ERR + PDF_TYPO 算覆盖、FIG 算未覆盖 (99.27% 口径) 过闸; 并列报 strict 96.07% 与内容指标 | 前提 = U-5 全检成立 (已成立, 38/38); 全检改变标签则按新标签重算 (未改变) | `t4_u5_c7_fullcheck.md` |
+| U-2 | **A**: `ig34_p0056_a006` 改标 ATOM_ERR, 只改台账 | 不动 KB | — |
+| U-3 | **A**: 父节只看范围内子节 | — | — |
+| U-4 | **A**: 接受抽样 | — | — |
+| U-5 | **B**: 先全检 C7 38 条 (独立审查者), 全部成立 → 整类确认 | 全检结果 38 成立 / 0 不成立 / 0 看不出 → ATOM_ERR 197 / PDF_TYPO 122 / FIG 11 整类确认 (委托代裁) | `t4_u5_c7_fullcheck.md` (oh-my-claudecode:tracer) |
+| U-6 | **不在委托内**: 仅 AI 预筛 | 预筛者 general-purpose (与各批 auditor、总闸审查者不同); 主人是否接受 "预筛 + 主人抽查" 由协调方另问 | `t4_human_prescreen.md` |
+| U-7 | A1-A3 默认 A, 仅单值可定时 B; 草拟 B 逐行复核; A4 = A; A5 按主控建议 (A5-12/A5-15 = A, 其余 B); A6 = B; B 组维持, 不能单值定的否决 | 复核 (pr-review-toolkit:code-reviewer): 草拟 B 26 行 → 维持 B 21 / 改回 A 5 (A2-12, A3-24, A3-28, A3-31, A3-32); B 组 15 维持 / 0 否决. A2-16 草拟候选值 (PPGRPID) 有误, 审查者按同页 relrec 更正为 "PC records with PCGRPID" (代裁同意按审查者值). A2-5 扩到 :48/:50. 行数: 任务原述 "40 行", 实数 A1-A3 26 + A5 13 + A6 2 = 41 (代裁: 以实数为准) | `t4_u7_rowcheck.md` |
+| U-8 | 四条都 **A**: 台账改标 PDF_TYPO, 不动 KB | — | — |
+| U-9 | (a) S-TYPO **口径 A (按渲染外观)**: CE 39 + ch04 19 = 58 处, ML 保持 `[X]`/`[ ]`; (b) MH `History“` **A** 照录; (c) 残余 230 行 **A** 接受现状 | (a) 指 `t2_S-TYPO.md` 的口径名, 不是 §00 (a) 行的字母 | `t2_S-TYPO.md` "CRF 符号" |
+| U-10 | ①②③④ **A** (解冻后修或补登记; ① 按 S-MOD3 主控规则 "(XX)" 后缀为保留的检索导航 → 只补登记, 不改 KB); ⑤ 记后续; ⑥ 本次不处理, 记后续, **将来改前先通知 sdtm-rag** (rag 读该列是否为空); ⑦ 不处理, 照 PDF | — | — |
+| U-11 | **处理**: Mermaid 统一渲染 + A5-14 前缀口径 (按主控意见), 本次解冻一次做完 | 解冻前渲染 42/42 OK (`scripts/t4/t4_mermaid_render.sh`) | — |
+| 追加 Q1 | A5-3 照做 (TS 表加第 6 列, 同 TT/TP 承载) | 在 `t4_downstream_notes.md` 写明 rag 定义出处映射新增 TSVALCD/TSVCDREF/TSVCDVER → model/05, 解冻后用 rag 只读脚本 `defhome_rules.py` 实算并贴结果; 超出这 3 条且判断不了 → 停下问 | — |
+| 追加 Q2 | A2-16 按审查者值执行 | 登记写明草拟候选值有误、由审查者更正 | `t4_u7_rowcheck.md` |
+| 追加 Q3 | B-MK T-1 MK 表范围 en dash 本次不改, 记后续 | — | — |
 
 ## 0. 用法
 - 每行二选一: **A = 维持现状** (KB 照录 PDF), **B = 改为候选值**。"主控建议" 列是登记员草拟, 主控审后可改。

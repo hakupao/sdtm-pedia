@@ -1,6 +1,6 @@
 # PP — Examples
 
-> KB note (not in SDTMIG): PC and PP share a combined examples section (6.3.5.9.3 Relating PP Records to PC Records). The PP parameter data tables are shown here; see also PC examples for the concentration data and detailed RELREC method descriptions.
+> Note: PC and PP share a combined examples section (6.3.5.9.3 Relating PP Records to PC Records). The PP parameter data tables are shown here; see also PC examples for the concentration data and detailed RELREC method descriptions.
 
 ## Example 1
 
@@ -13,10 +13,10 @@ This example shows PK parameters calculated from time-concentration profiles for
 
 | Row | STUDYID | DOMAIN | USUBJID | PPSEQ | PPGRPID | PPTESTCD | PPTEST | PPCAT | PPORRES | PPORRESU | PPSTRESC | PPSTRESN | PPSTRESU | PPSPEC | VISITNUM | VISIT | PPDTC | PPRFTDTC |
 |-----|---------|--------|---------|-------|---------|----------|--------|-------|---------|----------|----------|----------|----------|--------|----------|-------|-------|----------|
-| 1 | ABC-123 | PP | ABC-123-0001 | 1 | DAY1_PAR | TMAX | Time of CMAX | DRUG A PARENT | 1.87 | h | 1.87 | 1.87 | H | PLASMA | 1 | DAY 1 | 2001-03-01 | 2001-02-01T08:00 |
+| 1 | ABC-123 | PP | ABC-123-0001 | 1 | DAY1_PAR | TMAX | Time of CMAX | DRUG A PARENT | 1.87 | h | 1.87 | 1.87 | h | PLASMA | 1 | DAY 1 | 2001-03-01 | 2001-02-01T08:00 |
 | 2 | ABC-123 | PP | ABC-123-0001 | 2 | DAY1_PAR | CMAX | Max Conc | DRUG A PARENT | 44.5 | ug/L | 44.5 | 44.5 | ug/L | PLASMA | 1 | DAY 1 | 2001-03-01 | 2001-02-01T08:00 |
 | 3 | ABC-123 | PP | ABC-123-0001 | 3 | DAY1_PAR | AUCALL | AUC All | DRUG A PARENT | 294.7 | h*mg/L | 294.7 | 294.7 | h*mg/L | PLASMA | 1 | DAY 1 | 2001-03-01 | 2001-02-01T08:00 |
-| 4 | ABC-123 | PP | ABC-123-0001 | 4 | DAY1_PAR | LAMZHL | Half-Life Lambda z | DRUG A PARENT | 0.75 | h | 0.75 | 0.75 | H | PLASMA | 1 | DAY 1 | 2001-03-01 | 2001-02-01T08:00 |
+| 4 | ABC-123 | PP | ABC-123-0001 | 4 | DAY1_PAR | LAMZHL | Half-Life Lambda z | DRUG A PARENT | 0.75 | h | 0.75 | 0.75 | h | PLASMA | 1 | DAY 1 | 2001-03-01 | 2001-02-01T08:00 |
 | 5 | ABC-123 | PP | ABC-123-0001 | 5 | DAY1_PAR | VZO | Vz Obs | DRUG A PARENT | 10.9 | L | 10.9 | 10.9 | L | PLASMA | 1 | DAY 1 | 2001-03-01 | 2001-02-01T08:00 |
 | 6 | ABC-123 | PP | ABC-123-0001 | 6 | DAY1_PAR | CLO | Total CL Obs | DRUG A PARENT | 1.68 | L/h | 1.68 | 1.68 | L/h | | 1 | DAY 1 | 2001-03-01 | 2001-02-01T08:00 |
 | 7 | ABC-123 | PP | ABC-123-0001 | 7 | DAY1_MET | TMAX | Time of CMAX | DRUG A METABOLITE | 0.94 | h | 0.94 | 0.94 | h | PLASMA | 1 | DAY 1 | 2001-03-01 | 2001-02-01T08:00 |
@@ -109,62 +109,4 @@ This example shows the use of PPSTINT and PPENINT to describe the AUC segments f
 
 *See PC examples for the full description of RELREC Methods A through D and their corresponding relrec.xpt tables.*
 
-## RELREC Method Quick Reference (PP-side view)
-
-> KB note (not in SDTMIG): this entire section (from this heading to the end of the file, including the Method label mapping table, the PP-side row forms, the paraphrased Rows notes and the abbreviated relrec.xpt) is a KB-authored PP-side quick reference; the SDTMIG text and complete tables are in PC/examples.md.
-
-The full 4 worked Examples (1-4) with complete `relrec.xpt` tables for all 4 Methods (A/B/C/D) appear in `PC/examples.md` (the shared §6.3.5.9.3 host). This section gives a PP-domain-focused quick reference of how each Method appears on the PP side, plus one abbreviated `relrec.xpt` showing the actual PP rows for Method C.
-
-### Method label mapping (anti-drift anchor)
-
-| Method | Cardinality | PC-side IDVAR | PP-side IDVAR |
-|--------|-------------|---------------|---------------|
-| **A** | Many-to-Many | `PCGRPID` | `PPGRPID` |
-| **B** | One-to-Many | `PCSEQ` | `PPGRPID` |
-| **C** | Many-to-One | `PCGRPID` | `PPSEQ` |
-| **D** | One-to-One | `PCSEQ` | `PPSEQ` |
-
-These four pairs are the canonical mappings from SDTMIG v3.4 §6.3.5.9.3. When answering Method-label questions, cite this table directly — do not infer labels from cardinality alone.
-
-### Method A — Many to Many, Using PCGRPID and PPGRPID (p277)
-
-PP-side row form: `IDVAR = PPGRPID`, `IDVARVAL = <ppgrpid-value>` (e.g., `DY1DRGX`).
-
-- Rows 1-2: The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX" and all PP records with PPGRPID = "DY1DRGX".
-- Rows 3-4: The relationship with RELID "2" includes all PC records with PCGRPID = "DY8_DRGX" and all PP records with PPGRPID = "DY8DRGX".
-
-### Method B — One to Many, Using PCSEQ and PPGRPID (pp 277-278)
-
-PP-side row form: `IDVAR = PPGRPID` (one PP-side row collects an entire PP group per RELID).
-
-- Rows 1-13: The relationship with RELID "1" includes individual PC records with PCSEQ values "1" to "12" and all PP records with PPGRPID = "DY1DRGX".
-- Rows 14-26: The relationship with RELID "2" includes individual PC records with PCSEQ values "13" to "24" and all PP records with PPGRPID = "DY8DRGX".
-
-### Method C — Many to One, Using PCGRPID and PPSEQ (p278)
-
-PP-side row form: `IDVAR = PPSEQ`, `IDVARVAL = <ppseq>` (one PP-side row per individual PP record).
-
-- Rows 1-8: The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX" and PP records with PPSEQ values "1" through "7".
-- Rows 9-16: The relationship with RELID "2" includes all PC records with PCGRPID = "DY8_DRGX" and PP records with PPSEQ values "8" through "14".
-
-**relrec.xpt (Method C, abbreviated to show PP-side rows for RELID = "1"; full table in `PC/examples.md`)**
-
-| Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | RELTYPE | RELID |
-|-----|---------|---------|---------|-------|----------|---------|-------|
-| 1 | ABC-123 | PC | ABC-123-0001 | PCGRPID | DY1_DRGX | | 1 |
-| 2 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 1 | | 1 |
-| 3 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 2 | | 1 |
-| 4 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 3 | | 1 |
-| 5 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 4 | | 1 |
-| 6 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 5 | | 1 |
-| 7 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 6 | | 1 |
-| 8 | ABC-123 | PP | ABC-123-0001 | PPSEQ | 7 | | 1 |
-
-Reading the PP-side rows: each individual PP record (PPSEQ 1 through 7) carries its own row in `relrec.xpt`, pointing back to the same `RELID = "1"` as the PC group `PCGRPID = "DY1_DRGX"`.
-
-### Method D — One to One, Using PCSEQ and PPSEQ (pp 278-279)
-
-PP-side row form: `IDVAR = PPSEQ`, one PP-side row per PP record, paired with one PC-side row per PC record (the most verbose form).
-
-- The relationship with RELID "1" includes individual PC records with PCSEQ values "1" through "12" and individual PP records with PPSEQ values "1" through "7".
-- The relationship with RELID "2" includes individual PC records with PCSEQ values "13" through "24" and individual PP records with PPSEQ values "8" through "14".
+> See [PC/examples.md](../PC/examples.md#63593-relating-pp-records-to-pc-records--worked-examples) for the RELREC Methods A-D worked examples (SDTMIG v3.4 §6.3.5.9.3).

@@ -1,0 +1,746 @@
+real KB md5 (before): e2d862e25f04a3757a5ba5436092c416
+==== M0 pristine copy
+copy KB md5: e2d862e25f04a3757a5ba5436092c416
+---- [M0] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=82 new_hits=771
+  REGRESS ig34_p0060_a024 EXACT §5.1 [Comments (CO)]
+  REGRESS ig34_p0079_a004 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a006 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a009 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a010 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0085_a010 PDF_TYPO §5.4 [Subject Disease Milestones (SM)]
+  REGRESS ig34_p0118_a017 PDF_TYPO §6.1.3.3 [Exposure/Exposure as Collected Examples]
+  REGRESS ig34_p0153_a0034 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0002 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0013 ATOM_ERR §6.2.3 [Clinical Events]
+fp_match exit=1
+---- [M0] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 2, 'OK': 16}; PDF_ONLY: 0; cells compared: 3247; diffs: 3
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/examples.md 25 NO_PDF []
+  CHANGED knowledge_base/domains/PC/examples.md 75 DIFF [{'type': 'CELL', 'kb_row': '3', 'pdf_row': 3, 'kb_line': 79, 'col': 'IDVAR', 'col_idx': 5, 'kb': 'PCGRPID', 'pdf': 'PPGRPID', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 89 DIFF [{'type': 'CELL', 'kb_row': '13', 'pdf_row': 13, 'kb_line': 103, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}, {'type': 'CELL', 'kb_row': '26', 'pdf_row': 26, 'kb_line': 116, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 125 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 151 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 206 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 217 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 237 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 254 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 289 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 304 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 338 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 358 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 407 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 445 OK []
+  CHANGED knowledge_base/domains/PP/examples.md 14 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 52 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 66 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 85 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 33 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 59 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 90 OK []
+RESULT: RED
+table_census exit=1
+---- [M0] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 34
+TB: current Tier B sections=102 residual_gap=94
+TB: §5.0 scope sections=174 residual_gap=34 G-TB1 pass=164/174 G-TB2 pass=147/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=223
+  DIFF ('ig34', 'FA – Examples') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8049, 0.9512), 'tb_density_excl_ie': (0.825, 0.9949), 'tb_residual_gap': (35, 1)}
+  DIFF ('ig34', 'RELREC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSPEC – Assumptions') {}
+  DIFF ('ig34', 'RELSPEC – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.7143, 0.9286), 'tb_density_excl_ie': (0.7143, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (4, 0)}
+  DIFF ('ig34', 'RELSPEC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSUB – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.875)}
+  DIFF ('ig34', 'RELSUB – Description/Overview') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'FULL_COVERAGE'), 'coverage_density': (0.25, 1.0), 'tb_density_excl_ie': (0.25, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (3, 0)}
+  DIFF ('ig34', 'RELSUB – Specification') {'aggregate_verdict': ('SKELETON_ONLY', 'CONTENT_TRUNCATED'), 'coverage_density': (0.1, 0.2), 'tb_density_excl_ie': (0.5, 0.6667)}
+  DIFF ('ig34', 'SC – Examples') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.8929)}
+  DIFF ('ig34', 'SR – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'CONTENT_TRUNCATED'), 'coverage_density': (1.0, 0.75)}
+  DIFF ('ig34', 'SR – Examples') {'coverage_density': (0.9452, 0.9315), 'tb_density_excl_ie': (0.9452, 0.9444)}
+  DIFF ('ig34', 'SR – Specification') {'coverage_density': (0.0233, 0.0465), 'tb_density_excl_ie': (0.0714, 0.1429), 'tb_residual_gap': (13, 12)}
+  DIFF ('ig34', 'SS – Description/Overview') {}
+  DIFF ('ig34', 'SS – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.75, 0.875)}
+  DIFF ('ig34', 'SS – Specification') {'coverage_density': (0.0, 0.08), 'tb_density_excl_ie': (None, 1.0)}
+  DIFF ('ig34', 'TR – Description/Overview') {}
+  DIFF ('ig34', 'TR – Specification') {}
+  DIFF ('ig34', 'TU – Assumptions') {'coverage_density': (0.9859, 0.9718), 'tb_density_excl_ie': (0.9859, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'TU – Description/Overview') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8571, 1.0), 'tb_density_excl_ie': (0.8571, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'VS – Specification') {'coverage_density': (0.0, 0.0244), 'tb_density_excl_ie': (None, 1.0)}
+RESULT: RED
+t3_recompute exit=1
+==== M1 delete 1 prose sentence (atom ig34_p0008_a022, EXACT, unique in ch01_introduction.md)
+M1 deleted: The SDTMIG is best read online, so the reader can benefit fr ...
+---- [M1] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=83 new_hits=771
+  REGRESS ig34_p0008_a022 EXACT §1.4 [How to Read this Implementation Guide]
+  REGRESS ig34_p0060_a024 EXACT §5.1 [Comments (CO)]
+  REGRESS ig34_p0079_a004 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a006 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a009 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a010 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0085_a010 PDF_TYPO §5.4 [Subject Disease Milestones (SM)]
+  REGRESS ig34_p0118_a017 PDF_TYPO §6.1.3.3 [Exposure/Exposure as Collected Examples]
+  REGRESS ig34_p0153_a0034 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0002 ATOM_ERR §6.2.3 [Clinical Events]
+fp_match exit=1
+---- [M1] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 2, 'OK': 16}; PDF_ONLY: 0; cells compared: 3247; diffs: 3
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/examples.md 25 NO_PDF []
+  CHANGED knowledge_base/domains/PC/examples.md 75 DIFF [{'type': 'CELL', 'kb_row': '3', 'pdf_row': 3, 'kb_line': 79, 'col': 'IDVAR', 'col_idx': 5, 'kb': 'PCGRPID', 'pdf': 'PPGRPID', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 89 DIFF [{'type': 'CELL', 'kb_row': '13', 'pdf_row': 13, 'kb_line': 103, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}, {'type': 'CELL', 'kb_row': '26', 'pdf_row': 26, 'kb_line': 116, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 125 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 151 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 206 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 217 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 237 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 254 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 289 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 304 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 338 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 358 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 407 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 445 OK []
+  CHANGED knowledge_base/domains/PP/examples.md 14 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 52 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 66 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 85 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 33 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 59 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 90 OK []
+RESULT: RED
+table_census exit=1
+---- [M1] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 35
+TB: current Tier B sections=102 residual_gap=94
+TB: §5.0 scope sections=174 residual_gap=35 G-TB1 pass=163/174 G-TB2 pass=145/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=223
+  DIFF ('ig34', 'FA – Examples') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8049, 0.9512), 'tb_density_excl_ie': (0.825, 0.9949), 'tb_residual_gap': (35, 1)}
+  DIFF ('ig34', 'RELREC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSPEC – Assumptions') {}
+  DIFF ('ig34', 'RELSPEC – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.7143, 0.9286), 'tb_density_excl_ie': (0.7143, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (4, 0)}
+  DIFF ('ig34', 'RELSPEC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSUB – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.875)}
+  DIFF ('ig34', 'RELSUB – Description/Overview') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'FULL_COVERAGE'), 'coverage_density': (0.25, 1.0), 'tb_density_excl_ie': (0.25, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (3, 0)}
+  DIFF ('ig34', 'RELSUB – Specification') {'aggregate_verdict': ('SKELETON_ONLY', 'CONTENT_TRUNCATED'), 'coverage_density': (0.1, 0.2), 'tb_density_excl_ie': (0.5, 0.6667)}
+  DIFF ('ig34', 'SC – Examples') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.8929)}
+  DIFF ('ig34', 'SR – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'CONTENT_TRUNCATED'), 'coverage_density': (1.0, 0.75)}
+  DIFF ('ig34', 'SR – Examples') {'coverage_density': (0.9452, 0.9315), 'tb_density_excl_ie': (0.9452, 0.9444)}
+  DIFF ('ig34', 'SR – Specification') {'coverage_density': (0.0233, 0.0465), 'tb_density_excl_ie': (0.0714, 0.1429), 'tb_residual_gap': (13, 12)}
+  DIFF ('ig34', 'SS – Description/Overview') {}
+  DIFF ('ig34', 'SS – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.75, 0.875)}
+  DIFF ('ig34', 'SS – Specification') {'coverage_density': (0.0, 0.08), 'tb_density_excl_ie': (None, 1.0)}
+  DIFF ('ig34', 'TR – Description/Overview') {}
+  DIFF ('ig34', 'TR – Specification') {}
+  DIFF ('ig34', 'TU – Assumptions') {'coverage_density': (0.9859, 0.9718), 'tb_density_excl_ie': (0.9859, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'TU – Description/Overview') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8571, 1.0), 'tb_density_excl_ie': (0.8571, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'VS – Specification') {'coverage_density': (0.0, 0.0244), 'tb_density_excl_ie': (None, 1.0)}
+RESULT: RED
+t3_recompute exit=1
+==== M2 change 1 table value (PC/examples.md Ex1 Method C relrec row 5: IDVARVAL 4 -> 9)
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+AssertionError: | 2 | ABC-123 | PP | ABC-123-0001 | PPGRPID | DY1DRGX | | 1 |
+---- [M2] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=82 new_hits=771
+  REGRESS ig34_p0060_a024 EXACT §5.1 [Comments (CO)]
+  REGRESS ig34_p0079_a004 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a006 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a009 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a010 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0085_a010 PDF_TYPO §5.4 [Subject Disease Milestones (SM)]
+  REGRESS ig34_p0118_a017 PDF_TYPO §6.1.3.3 [Exposure/Exposure as Collected Examples]
+  REGRESS ig34_p0153_a0034 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0002 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0013 ATOM_ERR §6.2.3 [Clinical Events]
+fp_match exit=1
+---- [M2] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 2, 'OK': 16}; PDF_ONLY: 0; cells compared: 3247; diffs: 3
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/examples.md 25 NO_PDF []
+  CHANGED knowledge_base/domains/PC/examples.md 75 DIFF [{'type': 'CELL', 'kb_row': '3', 'pdf_row': 3, 'kb_line': 79, 'col': 'IDVAR', 'col_idx': 5, 'kb': 'PCGRPID', 'pdf': 'PPGRPID', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 89 DIFF [{'type': 'CELL', 'kb_row': '13', 'pdf_row': 13, 'kb_line': 103, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}, {'type': 'CELL', 'kb_row': '26', 'pdf_row': 26, 'kb_line': 116, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 125 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 151 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 206 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 217 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 237 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 254 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 289 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 304 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 338 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 358 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 407 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 445 OK []
+  CHANGED knowledge_base/domains/PP/examples.md 14 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 52 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 66 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 85 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 33 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 59 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 90 OK []
+RESULT: RED
+table_census exit=1
+---- [M2] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 34
+TB: current Tier B sections=102 residual_gap=94
+TB: §5.0 scope sections=174 residual_gap=34 G-TB1 pass=164/174 G-TB2 pass=147/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=223
+  DIFF ('ig34', 'FA – Examples') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8049, 0.9512), 'tb_density_excl_ie': (0.825, 0.9949), 'tb_residual_gap': (35, 1)}
+  DIFF ('ig34', 'RELREC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSPEC – Assumptions') {}
+  DIFF ('ig34', 'RELSPEC – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.7143, 0.9286), 'tb_density_excl_ie': (0.7143, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (4, 0)}
+  DIFF ('ig34', 'RELSPEC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSUB – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.875)}
+  DIFF ('ig34', 'RELSUB – Description/Overview') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'FULL_COVERAGE'), 'coverage_density': (0.25, 1.0), 'tb_density_excl_ie': (0.25, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (3, 0)}
+  DIFF ('ig34', 'RELSUB – Specification') {'aggregate_verdict': ('SKELETON_ONLY', 'CONTENT_TRUNCATED'), 'coverage_density': (0.1, 0.2), 'tb_density_excl_ie': (0.5, 0.6667)}
+  DIFF ('ig34', 'SC – Examples') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.8929)}
+  DIFF ('ig34', 'SR – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'CONTENT_TRUNCATED'), 'coverage_density': (1.0, 0.75)}
+  DIFF ('ig34', 'SR – Examples') {'coverage_density': (0.9452, 0.9315), 'tb_density_excl_ie': (0.9452, 0.9444)}
+  DIFF ('ig34', 'SR – Specification') {'coverage_density': (0.0233, 0.0465), 'tb_density_excl_ie': (0.0714, 0.1429), 'tb_residual_gap': (13, 12)}
+  DIFF ('ig34', 'SS – Description/Overview') {}
+  DIFF ('ig34', 'SS – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.75, 0.875)}
+  DIFF ('ig34', 'SS – Specification') {'coverage_density': (0.0, 0.08), 'tb_density_excl_ie': (None, 1.0)}
+  DIFF ('ig34', 'TR – Description/Overview') {}
+  DIFF ('ig34', 'TR – Specification') {}
+  DIFF ('ig34', 'TU – Assumptions') {'coverage_density': (0.9859, 0.9718), 'tb_density_excl_ie': (0.9859, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'TU – Description/Overview') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8571, 1.0), 'tb_density_excl_ie': (0.8571, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'VS – Specification') {'coverage_density': (0.0, 0.0244), 'tb_density_excl_ie': (None, 1.0)}
+RESULT: RED
+t3_recompute exit=1
+==== M2b move 1 value into an empty neighbour cell (PC/assumptions.md:31 relrec row 1: MANY RELTYPE -> IDVARVAL)
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+AssertionError: **relrec.xpt**
+---- [M2b] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=82 new_hits=771
+  REGRESS ig34_p0060_a024 EXACT §5.1 [Comments (CO)]
+  REGRESS ig34_p0079_a004 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a006 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a009 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a010 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0085_a010 PDF_TYPO §5.4 [Subject Disease Milestones (SM)]
+  REGRESS ig34_p0118_a017 PDF_TYPO §6.1.3.3 [Exposure/Exposure as Collected Examples]
+  REGRESS ig34_p0153_a0034 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0002 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0013 ATOM_ERR §6.2.3 [Clinical Events]
+fp_match exit=1
+---- [M2b] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 2, 'OK': 16}; PDF_ONLY: 0; cells compared: 3247; diffs: 3
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/examples.md 25 NO_PDF []
+  CHANGED knowledge_base/domains/PC/examples.md 75 DIFF [{'type': 'CELL', 'kb_row': '3', 'pdf_row': 3, 'kb_line': 79, 'col': 'IDVAR', 'col_idx': 5, 'kb': 'PCGRPID', 'pdf': 'PPGRPID', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 89 DIFF [{'type': 'CELL', 'kb_row': '13', 'pdf_row': 13, 'kb_line': 103, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}, {'type': 'CELL', 'kb_row': '26', 'pdf_row': 26, 'kb_line': 116, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 125 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 151 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 206 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 217 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 237 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 254 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 289 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 304 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 338 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 358 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 407 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 445 OK []
+  CHANGED knowledge_base/domains/PP/examples.md 14 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 52 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 66 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 85 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 33 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 59 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 90 OK []
+RESULT: RED
+table_census exit=1
+---- [M2b] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 34
+TB: current Tier B sections=102 residual_gap=94
+TB: §5.0 scope sections=174 residual_gap=34 G-TB1 pass=164/174 G-TB2 pass=147/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=223
+  DIFF ('ig34', 'FA – Examples') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8049, 0.9512), 'tb_density_excl_ie': (0.825, 0.9949), 'tb_residual_gap': (35, 1)}
+  DIFF ('ig34', 'RELREC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSPEC – Assumptions') {}
+  DIFF ('ig34', 'RELSPEC – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.7143, 0.9286), 'tb_density_excl_ie': (0.7143, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (4, 0)}
+  DIFF ('ig34', 'RELSPEC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSUB – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.875)}
+  DIFF ('ig34', 'RELSUB – Description/Overview') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'FULL_COVERAGE'), 'coverage_density': (0.25, 1.0), 'tb_density_excl_ie': (0.25, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (3, 0)}
+  DIFF ('ig34', 'RELSUB – Specification') {'aggregate_verdict': ('SKELETON_ONLY', 'CONTENT_TRUNCATED'), 'coverage_density': (0.1, 0.2), 'tb_density_excl_ie': (0.5, 0.6667)}
+  DIFF ('ig34', 'SC – Examples') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.8929)}
+  DIFF ('ig34', 'SR – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'CONTENT_TRUNCATED'), 'coverage_density': (1.0, 0.75)}
+  DIFF ('ig34', 'SR – Examples') {'coverage_density': (0.9452, 0.9315), 'tb_density_excl_ie': (0.9452, 0.9444)}
+  DIFF ('ig34', 'SR – Specification') {'coverage_density': (0.0233, 0.0465), 'tb_density_excl_ie': (0.0714, 0.1429), 'tb_residual_gap': (13, 12)}
+  DIFF ('ig34', 'SS – Description/Overview') {}
+  DIFF ('ig34', 'SS – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.75, 0.875)}
+  DIFF ('ig34', 'SS – Specification') {'coverage_density': (0.0, 0.08), 'tb_density_excl_ie': (None, 1.0)}
+  DIFF ('ig34', 'TR – Description/Overview') {}
+  DIFF ('ig34', 'TR – Specification') {}
+  DIFF ('ig34', 'TU – Assumptions') {'coverage_density': (0.9859, 0.9718), 'tb_density_excl_ie': (0.9859, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'TU – Description/Overview') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8571, 1.0), 'tb_density_excl_ie': (0.8571, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'VS – Specification') {'coverage_density': (0.0, 0.0244), 'tb_density_excl_ie': (None, 1.0)}
+RESULT: RED
+t3_recompute exit=1
+==== M2c change 1 value in a wrapped (multi-line) PDF record (PC/assumptions.md:69 pc.xpt row 13 PCORRES 10 -> 11)
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+AssertionError: | 9 | ABC-123 | PC | ABC-123-0001 | 9 | DY1_DRGX | EXCLUDE | DY1_DRGX_B | DY1_DR
+---- [M2c] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=82 new_hits=771
+  REGRESS ig34_p0060_a024 EXACT §5.1 [Comments (CO)]
+  REGRESS ig34_p0079_a004 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a006 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a009 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a010 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0085_a010 PDF_TYPO §5.4 [Subject Disease Milestones (SM)]
+  REGRESS ig34_p0118_a017 PDF_TYPO §6.1.3.3 [Exposure/Exposure as Collected Examples]
+  REGRESS ig34_p0153_a0034 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0002 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0013 ATOM_ERR §6.2.3 [Clinical Events]
+fp_match exit=1
+---- [M2c] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 2, 'OK': 16}; PDF_ONLY: 0; cells compared: 3247; diffs: 3
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/examples.md 25 NO_PDF []
+  CHANGED knowledge_base/domains/PC/examples.md 75 DIFF [{'type': 'CELL', 'kb_row': '3', 'pdf_row': 3, 'kb_line': 79, 'col': 'IDVAR', 'col_idx': 5, 'kb': 'PCGRPID', 'pdf': 'PPGRPID', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 89 DIFF [{'type': 'CELL', 'kb_row': '13', 'pdf_row': 13, 'kb_line': 103, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}, {'type': 'CELL', 'kb_row': '26', 'pdf_row': 26, 'kb_line': 116, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 125 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 151 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 206 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 217 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 237 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 254 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 289 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 304 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 338 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 358 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 407 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 445 OK []
+  CHANGED knowledge_base/domains/PP/examples.md 14 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 52 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 66 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 85 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 33 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 59 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 90 OK []
+RESULT: RED
+table_census exit=1
+---- [M2c] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 34
+TB: current Tier B sections=102 residual_gap=94
+TB: §5.0 scope sections=174 residual_gap=34 G-TB1 pass=164/174 G-TB2 pass=147/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=223
+  DIFF ('ig34', 'FA – Examples') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8049, 0.9512), 'tb_density_excl_ie': (0.825, 0.9949), 'tb_residual_gap': (35, 1)}
+  DIFF ('ig34', 'RELREC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSPEC – Assumptions') {}
+  DIFF ('ig34', 'RELSPEC – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.7143, 0.9286), 'tb_density_excl_ie': (0.7143, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (4, 0)}
+  DIFF ('ig34', 'RELSPEC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSUB – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.875)}
+  DIFF ('ig34', 'RELSUB – Description/Overview') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'FULL_COVERAGE'), 'coverage_density': (0.25, 1.0), 'tb_density_excl_ie': (0.25, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (3, 0)}
+  DIFF ('ig34', 'RELSUB – Specification') {'aggregate_verdict': ('SKELETON_ONLY', 'CONTENT_TRUNCATED'), 'coverage_density': (0.1, 0.2), 'tb_density_excl_ie': (0.5, 0.6667)}
+  DIFF ('ig34', 'SC – Examples') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.8929)}
+  DIFF ('ig34', 'SR – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'CONTENT_TRUNCATED'), 'coverage_density': (1.0, 0.75)}
+  DIFF ('ig34', 'SR – Examples') {'coverage_density': (0.9452, 0.9315), 'tb_density_excl_ie': (0.9452, 0.9444)}
+  DIFF ('ig34', 'SR – Specification') {'coverage_density': (0.0233, 0.0465), 'tb_density_excl_ie': (0.0714, 0.1429), 'tb_residual_gap': (13, 12)}
+  DIFF ('ig34', 'SS – Description/Overview') {}
+  DIFF ('ig34', 'SS – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.75, 0.875)}
+  DIFF ('ig34', 'SS – Specification') {'coverage_density': (0.0, 0.08), 'tb_density_excl_ie': (None, 1.0)}
+  DIFF ('ig34', 'TR – Description/Overview') {}
+  DIFF ('ig34', 'TR – Specification') {}
+  DIFF ('ig34', 'TU – Assumptions') {'coverage_density': (0.9859, 0.9718), 'tb_density_excl_ie': (0.9859, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'TU – Description/Overview') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8571, 1.0), 'tb_density_excl_ie': (0.8571, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'VS – Specification') {'coverage_density': (0.0, 0.0244), 'tb_density_excl_ie': (None, 1.0)}
+RESULT: RED
+t3_recompute exit=1
+==== M2d delete 1 KB table row (PC/examples.md:119 Ex1 Method D relrec row 20)
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+AssertionError
+---- [M2d] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=82 new_hits=771
+  REGRESS ig34_p0060_a024 EXACT §5.1 [Comments (CO)]
+  REGRESS ig34_p0079_a004 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a006 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a009 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a010 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0085_a010 PDF_TYPO §5.4 [Subject Disease Milestones (SM)]
+  REGRESS ig34_p0118_a017 PDF_TYPO §6.1.3.3 [Exposure/Exposure as Collected Examples]
+  REGRESS ig34_p0153_a0034 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0002 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0013 ATOM_ERR §6.2.3 [Clinical Events]
+fp_match exit=1
+---- [M2d] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 2, 'OK': 16}; PDF_ONLY: 0; cells compared: 3247; diffs: 3
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/examples.md 25 NO_PDF []
+  CHANGED knowledge_base/domains/PC/examples.md 75 DIFF [{'type': 'CELL', 'kb_row': '3', 'pdf_row': 3, 'kb_line': 79, 'col': 'IDVAR', 'col_idx': 5, 'kb': 'PCGRPID', 'pdf': 'PPGRPID', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 89 DIFF [{'type': 'CELL', 'kb_row': '13', 'pdf_row': 13, 'kb_line': 103, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}, {'type': 'CELL', 'kb_row': '26', 'pdf_row': 26, 'kb_line': 116, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 125 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 151 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 206 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 217 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 237 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 254 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 289 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 304 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 338 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 358 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 407 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 445 OK []
+  CHANGED knowledge_base/domains/PP/examples.md 14 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 52 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 66 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 85 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 33 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 59 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 90 OK []
+RESULT: RED
+table_census exit=1
+---- [M2d] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 34
+TB: current Tier B sections=102 residual_gap=94
+TB: §5.0 scope sections=174 residual_gap=34 G-TB1 pass=164/174 G-TB2 pass=147/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=223
+  DIFF ('ig34', 'FA – Examples') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8049, 0.9512), 'tb_density_excl_ie': (0.825, 0.9949), 'tb_residual_gap': (35, 1)}
+  DIFF ('ig34', 'RELREC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSPEC – Assumptions') {}
+  DIFF ('ig34', 'RELSPEC – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.7143, 0.9286), 'tb_density_excl_ie': (0.7143, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (4, 0)}
+  DIFF ('ig34', 'RELSPEC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSUB – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.875)}
+  DIFF ('ig34', 'RELSUB – Description/Overview') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'FULL_COVERAGE'), 'coverage_density': (0.25, 1.0), 'tb_density_excl_ie': (0.25, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (3, 0)}
+  DIFF ('ig34', 'RELSUB – Specification') {'aggregate_verdict': ('SKELETON_ONLY', 'CONTENT_TRUNCATED'), 'coverage_density': (0.1, 0.2), 'tb_density_excl_ie': (0.5, 0.6667)}
+  DIFF ('ig34', 'SC – Examples') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.8929)}
+  DIFF ('ig34', 'SR – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'CONTENT_TRUNCATED'), 'coverage_density': (1.0, 0.75)}
+  DIFF ('ig34', 'SR – Examples') {'coverage_density': (0.9452, 0.9315), 'tb_density_excl_ie': (0.9452, 0.9444)}
+  DIFF ('ig34', 'SR – Specification') {'coverage_density': (0.0233, 0.0465), 'tb_density_excl_ie': (0.0714, 0.1429), 'tb_residual_gap': (13, 12)}
+  DIFF ('ig34', 'SS – Description/Overview') {}
+  DIFF ('ig34', 'SS – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.75, 0.875)}
+  DIFF ('ig34', 'SS – Specification') {'coverage_density': (0.0, 0.08), 'tb_density_excl_ie': (None, 1.0)}
+  DIFF ('ig34', 'TR – Description/Overview') {}
+  DIFF ('ig34', 'TR – Specification') {}
+  DIFF ('ig34', 'TU – Assumptions') {'coverage_density': (0.9859, 0.9718), 'tb_density_excl_ie': (0.9859, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'TU – Description/Overview') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8571, 1.0), 'tb_density_excl_ie': (0.8571, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'VS – Specification') {'coverage_density': (0.0, 0.0244), 'tb_density_excl_ie': (None, 1.0)}
+RESULT: RED
+t3_recompute exit=1
+==== M3 delete 1 subsection (ch04 '#### 4.5.1.2 Tests Not Done', lines 1171-1207)
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+AssertionError: ('| | | PRE-DOSE | 1 | PM DOSE |', '')
+---- [M3] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=82 new_hits=771
+  REGRESS ig34_p0060_a024 EXACT §5.1 [Comments (CO)]
+  REGRESS ig34_p0079_a004 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a006 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a009 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a010 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0085_a010 PDF_TYPO §5.4 [Subject Disease Milestones (SM)]
+  REGRESS ig34_p0118_a017 PDF_TYPO §6.1.3.3 [Exposure/Exposure as Collected Examples]
+  REGRESS ig34_p0153_a0034 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0002 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0013 ATOM_ERR §6.2.3 [Clinical Events]
+fp_match exit=1
+---- [M3] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 2, 'OK': 16}; PDF_ONLY: 0; cells compared: 3247; diffs: 3
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/examples.md 25 NO_PDF []
+  CHANGED knowledge_base/domains/PC/examples.md 75 DIFF [{'type': 'CELL', 'kb_row': '3', 'pdf_row': 3, 'kb_line': 79, 'col': 'IDVAR', 'col_idx': 5, 'kb': 'PCGRPID', 'pdf': 'PPGRPID', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 89 DIFF [{'type': 'CELL', 'kb_row': '13', 'pdf_row': 13, 'kb_line': 103, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}, {'type': 'CELL', 'kb_row': '26', 'pdf_row': 26, 'kb_line': 116, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 125 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 151 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 206 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 217 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 237 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 254 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 289 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 304 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 338 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 358 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 407 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 445 OK []
+  CHANGED knowledge_base/domains/PP/examples.md 14 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 52 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 66 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 85 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 33 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 59 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 90 OK []
+RESULT: RED
+table_census exit=1
+---- [M3] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 34
+TB: current Tier B sections=102 residual_gap=94
+TB: §5.0 scope sections=174 residual_gap=34 G-TB1 pass=164/174 G-TB2 pass=147/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=223
+  DIFF ('ig34', 'FA – Examples') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8049, 0.9512), 'tb_density_excl_ie': (0.825, 0.9949), 'tb_residual_gap': (35, 1)}
+  DIFF ('ig34', 'RELREC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSPEC – Assumptions') {}
+  DIFF ('ig34', 'RELSPEC – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.7143, 0.9286), 'tb_density_excl_ie': (0.7143, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (4, 0)}
+  DIFF ('ig34', 'RELSPEC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSUB – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.875)}
+  DIFF ('ig34', 'RELSUB – Description/Overview') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'FULL_COVERAGE'), 'coverage_density': (0.25, 1.0), 'tb_density_excl_ie': (0.25, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (3, 0)}
+  DIFF ('ig34', 'RELSUB – Specification') {'aggregate_verdict': ('SKELETON_ONLY', 'CONTENT_TRUNCATED'), 'coverage_density': (0.1, 0.2), 'tb_density_excl_ie': (0.5, 0.6667)}
+  DIFF ('ig34', 'SC – Examples') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.8929)}
+  DIFF ('ig34', 'SR – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'CONTENT_TRUNCATED'), 'coverage_density': (1.0, 0.75)}
+  DIFF ('ig34', 'SR – Examples') {'coverage_density': (0.9452, 0.9315), 'tb_density_excl_ie': (0.9452, 0.9444)}
+  DIFF ('ig34', 'SR – Specification') {'coverage_density': (0.0233, 0.0465), 'tb_density_excl_ie': (0.0714, 0.1429), 'tb_residual_gap': (13, 12)}
+  DIFF ('ig34', 'SS – Description/Overview') {}
+  DIFF ('ig34', 'SS – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.75, 0.875)}
+  DIFF ('ig34', 'SS – Specification') {'coverage_density': (0.0, 0.08), 'tb_density_excl_ie': (None, 1.0)}
+  DIFF ('ig34', 'TR – Description/Overview') {}
+  DIFF ('ig34', 'TR – Specification') {}
+  DIFF ('ig34', 'TU – Assumptions') {'coverage_density': (0.9859, 0.9718), 'tb_density_excl_ie': (0.9859, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'TU – Description/Overview') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8571, 1.0), 'tb_density_excl_ie': (0.8571, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'VS – Specification') {'coverage_density': (0.0, 0.0244), 'tb_density_excl_ie': (None, 1.0)}
+RESULT: RED
+t3_recompute exit=1
+==== M4 setup: v1 baselines on a pristine copy; v2 vs real-KB baselines on the pristine copy must be GREEN
+RESULT: RED
+M4 setup: MB not GREEN
+RESULT: RED
+M4 setup: EG not GREEN
+---- [M4d0] real-KB pairing (mode d): MB copy-2 Ex1 relrec @229 must pair with PDF Ex1, PDF Ex3 relrec PDF_ONLY
+  assert pair MB/examples.md 229 -> pdf_ex None None | PDF_ONLY relrec.xpt 3 -> []
+  ASSERT FAIL
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+IndexError: list index out of range
+==== M4a every KB copy checked (mode a): MB/examples.md:258 copy-2 suppbe row 1 QVAL SPUTUM -> BLOOD (copy 1 @48 untouched)
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+IndexError: list index out of range
+---- [M4a] table_census v2 (MB)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_mut_MB.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/MB/examples.md 15 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 26 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 39 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 53 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 74 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 87 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 111 OK []
+---- [M4a] targeted assert: cell MB/examples.md 256 1 QVAL
+  assert cell MB/examples.md 256 row 1 QVAL -> [] | in baseline: False
+  ASSERT FAIL
+---- [M4a] table_census v1 (MB, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/v1base_MB.json: identical
+RESULT: GREEN
+==== M4b swap 2 values inside a wrapped (multi-line) PDF record (mode b): EG/examples.md:64 Ex3 row 1 EGCAT <-> EGPOS
+---- [M4b] table_census v2 (EG)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_mut_EG.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 23 OK []
+  CHANGED knowledge_base/domains/EG/examples.md 48 OK []
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGCAT', 'col_idx': 9, 'kb': 'SUPINE', 'pdf': 'INTERVAL', 'wrapped': True}, {'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGPOS', 'col_idx': 10, 'kb': 'INTERVAL', 'pdf': 'SUPINE', 'wrapped': True}]
+  CHANGED knowledge_base/domains/EG/examples.md 101 OK []
+RESULT: RED
+---- [M4b] targeted assert: cell EG/examples.md 62 1 EGPOS
+  assert cell EG/examples.md 62 row 1 EGPOS -> [{'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGPOS', 'col_idx': 10, 'kb': 'INTERVAL', 'pdf': 'SUPINE', 'wrapped': True}] | in baseline: False
+  ASSERT PASS
+---- [M4b] table_census v1 (EG, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/v1base_EG.json: identical
+RESULT: GREEN
+==== M4b2 move a value into the empty neighbour cell of a wrapped record (mode b): EG/examples.md:64 EGLEAD -> EGLOBXFL
+---- [M4b2] table_census v2 (EG)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_mut_EG.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 23 OK []
+  CHANGED knowledge_base/domains/EG/examples.md 48 OK []
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGLEAD', 'col_idx': 17, 'kb': '', 'pdf': 'LEAD II', 'wrapped': True}, {'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGLOBXFL', 'col_idx': 18, 'kb': 'LEAD II', 'pdf': '', 'wrapped': True}]
+  CHANGED knowledge_base/domains/EG/examples.md 101 OK []
+RESULT: RED
+---- [M4b2] targeted assert: cell EG/examples.md 62 1 EGLOBXFL
+  assert cell EG/examples.md 62 row 1 EGLOBXFL -> [{'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGLOBXFL', 'col_idx': 18, 'kb': 'LEAD II', 'pdf': '', 'wrapped': True}] | in baseline: False
+  ASSERT PASS
+---- [M4b2] table_census v1 (EG, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/v1base_EG.json: identical
+RESULT: GREEN
+==== M4c duplicate KB row number (mode c, v1 keyed rows on Row): EG/examples.md Ex3, wrong copy of row 5 inserted before row 5
+---- [M4c] table_census v2 (EG)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_mut_EG.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 23 OK []
+  CHANGED knowledge_base/domains/EG/examples.md 48 OK []
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'type': 'KB_ROW_UNMATCHED', 'kb_row': '5', 'kb_line': 68}]
+  CHANGED knowledge_base/domains/EG/examples.md 102 OK []
+RESULT: RED
+---- [M4c] targeted assert: row EG/examples.md 62 5
+  assert row EG/examples.md 62 row 5 -> [{'type': 'KB_ROW_UNMATCHED', 'kb_row': '5', 'kb_line': 68}] | in baseline: False
+  ASSERT PASS
+---- [M4c] table_census v1 (EG, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/v1base_EG.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 62 OK []
+  CHANGED knowledge_base/domains/EG/examples.md 102 OK []
+RESULT: RED
+==== M4c2 row alignment by content (mode c): EG Ex3 extra KB row after row 10, later rows renumbered +1, one real change
+     (row 20 -> 21 EGORRES 402 -> 403). Only that one non-Row cell may be reported (no cascade), plus 1 unmatched row.
+---- [M4c2] table_census v2 (EG)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_mut_EG.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 23 OK []
+  CHANGED knowledge_base/domains/EG/examples.md 48 OK []
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'type': 'KB_ROW_UNMATCHED', 'kb_row': '11', 'kb_line': 74}, {'type': 'CELL', 'kb_row': '12', 'pdf_row': 11, 'kb_line': 75, 'col': 'Row', 'kb': '12', 'pdf': '11'}, {'type': 'CELL', 'kb_row': '13', 'pdf_row': 12, 'kb_line': 76, 'col': 'Row', 'kb': '13', 'pdf': '12'}, {'type': 'CELL', 'kb_row': '14', 'pdf_row': 13, 'kb_line': 77, 'col': 'Row', 'kb': '14', 'pdf': '13'}, {'type': 'CELL', 'kb_row': '15', 'pdf_row': 14, 'kb_line': 78, 'col': 'Row', 'kb': '15', 'pdf': '14'}]
+  CHANGED knowledge_base/domains/EG/examples.md 102 OK []
+RESULT: RED
+---- [M4c2] targeted assert: only1 EG/examples.md 62 EGORRES 403
+  assert only1 EG/examples.md 62 non-Row cell diffs: [('21', 'EGORRES', '403', '402')] | unmatched rows: [('KB_ROW_UNMATCHED', '11', None)]
+  ASSERT PASS
+---- [M4c2] table_census v1 (EG, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/v1base_EG.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'row': 11, 'mode': 'multiset', 'kb_only': ['123', '123', '123', 'Interval,', 'XX', 'XXAG'], 'pdf_only': ['90', '90', '90', 'Duration,', 'QRS', 'QRSAG']}, {'row': 12, 'mode': 'multiset', 'kb_only': ['11', '90', '90', '90', 'Duration,', 'QRS', 'QRSAG'], 'pdf_only': ['12', '377', '377', '377', 'Interval,', 'QT', 'QTAG']}, {'row': 13, 'mode': 'multiset', 'kb_only': ['12', '2014-03-22T10:02:14', '3', '377', '377', '377', 'QT', 'QTAG'], 'pdf_only': ['13', '176', '176', '176', '2', '2014-03-22T11:00:21', 'PR', 'PRAG']}, {'row': 14, 'mode': 'multiset', 'kb_only': ['13', '176', '176', '176', 'PR', 'PRAG'], 'pdf_only': ['14', '771', '771', '771', 'RR', 'RRAG']}, {'row': 15, 'mode': 'multiset', 'kb_only': ['14', '771', '771', '771', 'Interval,', 'RR', 'RRAG'], 'pdf_only': ['100', '100', '100', '15', 'Duration,', 'QRS', 'QRSAG']}]
+  CHANGED knowledge_base/domains/EG/examples.md 102 OK []
+RESULT: RED
+==== M4e KB row shorter than its header (dropped last cell): EG/examples.md:64 Ex3 row 1 loses EGREPNUM
+---- [M4e] table_census v2 (EG)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_mut_EG.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 23 OK []
+  CHANGED knowledge_base/domains/EG/examples.md 48 OK []
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'type': 'ROW_SHAPE', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'kb_cells': 23, 'header_cells': 24}, {'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGREPNUM', 'col_idx': 24, 'kb': None, 'pdf': '1', 'wrapped': True}]
+  CHANGED knowledge_base/domains/EG/examples.md 101 OK []
+RESULT: RED
+---- [M4e] targeted assert: row EG/examples.md 62 1
+  assert row EG/examples.md 62 row 1 -> [{'type': 'ROW_SHAPE', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'kb_cells': 23, 'header_cells': 24}, {'type': 'CELL', 'kb_row': '1', 'pdf_row': 1, 'kb_line': 64, 'col': 'EGREPNUM', 'col_idx': 24, 'kb': None, 'pdf': '1', 'wrapped': True}] | in baseline: False
+  ASSERT PASS
+---- [M4e] table_census v1 (EG, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/v1base_EG.json: DIFFERS
+  CHANGED knowledge_base/domains/EG/examples.md 62 DIFF [{'row': 1, 'mode': 'multiset', 'kb_only': [], 'pdf_only': ['1']}]
+RESULT: RED
+==== M4d pairing by example + dataset (mode d): delete both KB copies of MB Ex2 suppbe.xpt -> PDF table must be PDF_ONLY
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+AssertionError
+---- [M4d] table_census v2 (MB)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_mut_MB.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/MB/examples.md 15 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 26 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 39 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 53 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 74 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 87 OK []
+  CHANGED knowledge_base/domains/MB/examples.md 111 OK []
+---- [M4d] targeted assert: pdfonly suppbe.xpt 2
+  assert pdf_only suppbe.xpt ex 2 -> [] | in baseline: False
+  ASSERT FAIL
+---- [M4d] table_census v1 (MB, vs v1 pristine baseline)
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/v1base_MB.json: identical
+RESULT: GREEN
+==== RESTORE (fresh copy of the unmodified KB)
+copy KB md5: e2d862e25f04a3757a5ba5436092c416
+---- [RESTORE] fp_match
+atoms checked: 6636  kb files: 296  kb_root: /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/scratch/knowledge_base
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=82 new_hits=771
+  REGRESS ig34_p0060_a024 EXACT §5.1 [Comments (CO)]
+  REGRESS ig34_p0079_a004 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a006 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a009 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0079_a010 ATOM_ERR §5.3 [Subject Elements]
+  REGRESS ig34_p0085_a010 PDF_TYPO §5.4 [Subject Disease Milestones (SM)]
+  REGRESS ig34_p0118_a017 PDF_TYPO §6.1.3.3 [Exposure/Exposure as Collected Examples]
+  REGRESS ig34_p0153_a0034 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0002 ATOM_ERR §6.2.3 [Clinical Events]
+  REGRESS ig34_p0154_a0013 ATOM_ERR §6.2.3 [Clinical Events]
+fp_match exit=1
+---- [RESTORE] table_census
+PDF tables parsed: 18 (+0 unparsed); KB tables: 22; status: {'NO_PDF': 4, 'DIFF': 2, 'OK': 16}; PDF_ONLY: 0; cells compared: 3247; diffs: 3
+BASELINE /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/census_BPCPP.v2.json: DIFFERS
+  CHANGED knowledge_base/domains/PC/examples.md 25 NO_PDF []
+  CHANGED knowledge_base/domains/PC/examples.md 75 DIFF [{'type': 'CELL', 'kb_row': '3', 'pdf_row': 3, 'kb_line': 79, 'col': 'IDVAR', 'col_idx': 5, 'kb': 'PCGRPID', 'pdf': 'PPGRPID', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 89 DIFF [{'type': 'CELL', 'kb_row': '13', 'pdf_row': 13, 'kb_line': 103, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}, {'type': 'CELL', 'kb_row': '26', 'pdf_row': 26, 'kb_line': 116, 'col': 'RDOMAIN', 'col_idx': 3, 'kb': 'PP', 'pdf': 'PC', 'wrapped': False}]
+  CHANGED knowledge_base/domains/PC/examples.md 125 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 151 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 206 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 217 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 237 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 254 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 289 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 304 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 338 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 358 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 407 OK []
+  CHANGED knowledge_base/domains/PC/examples.md 445 OK []
+  CHANGED knowledge_base/domains/PP/examples.md 14 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 52 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 66 NO_PDF []
+  CHANGED knowledge_base/domains/PP/examples.md 85 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 33 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 59 OK []
+  CHANGED knowledge_base/domains/PC/assumptions.md 90 OK []
+RESULT: RED
+table_census exit=1
+---- [RESTORE] t3_recompute (--downgrade fp regressions)
+  downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 34
+TB: current Tier B sections=102 residual_gap=94
+TB: §5.0 scope sections=174 residual_gap=34 G-TB1 pass=164/174 G-TB2 pass=147/174
+BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/section_coverage.wc.baseline.jsonl: differing sections=223
+  DIFF ('ig34', 'FA – Examples') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8049, 0.9512), 'tb_density_excl_ie': (0.825, 0.9949), 'tb_residual_gap': (35, 1)}
+  DIFF ('ig34', 'RELREC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSPEC – Assumptions') {}
+  DIFF ('ig34', 'RELSPEC – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.7143, 0.9286), 'tb_density_excl_ie': (0.7143, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (4, 0)}
+  DIFF ('ig34', 'RELSPEC – Specification') {'coverage_density': (0.0909, 0.1818)}
+  DIFF ('ig34', 'RELSUB – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.875)}
+  DIFF ('ig34', 'RELSUB – Description/Overview') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'FULL_COVERAGE'), 'coverage_density': (0.25, 1.0), 'tb_density_excl_ie': (0.25, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (3, 0)}
+  DIFF ('ig34', 'RELSUB – Specification') {'aggregate_verdict': ('SKELETON_ONLY', 'CONTENT_TRUNCATED'), 'coverage_density': (0.1, 0.2), 'tb_density_excl_ie': (0.5, 0.6667)}
+  DIFF ('ig34', 'SC – Examples') {'aggregate_verdict': ('FULL_COVERAGE', 'MOSTLY_COMPLETE'), 'coverage_density': (1.0, 0.8929)}
+  DIFF ('ig34', 'SR – Assumptions') {'aggregate_verdict': ('FULL_COVERAGE', 'CONTENT_TRUNCATED'), 'coverage_density': (1.0, 0.75)}
+  DIFF ('ig34', 'SR – Examples') {'coverage_density': (0.9452, 0.9315), 'tb_density_excl_ie': (0.9452, 0.9444)}
+  DIFF ('ig34', 'SR – Specification') {'coverage_density': (0.0233, 0.0465), 'tb_density_excl_ie': (0.0714, 0.1429), 'tb_residual_gap': (13, 12)}
+  DIFF ('ig34', 'SS – Description/Overview') {}
+  DIFF ('ig34', 'SS – Examples') {'aggregate_verdict': ('CONTENT_TRUNCATED', 'MOSTLY_COMPLETE'), 'coverage_density': (0.75, 0.875)}
+  DIFF ('ig34', 'SS – Specification') {'coverage_density': (0.0, 0.08), 'tb_density_excl_ie': (None, 1.0)}
+  DIFF ('ig34', 'TR – Description/Overview') {}
+  DIFF ('ig34', 'TR – Specification') {}
+  DIFF ('ig34', 'TU – Assumptions') {'coverage_density': (0.9859, 0.9718), 'tb_density_excl_ie': (0.9859, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'TU – Description/Overview') {'aggregate_verdict': ('MOSTLY_COMPLETE', 'FULL_COVERAGE'), 'coverage_density': (0.8571, 1.0), 'tb_density_excl_ie': (0.8571, 1.0), 'tb_g1_pass': (False, True), 'tb_g2_pass': (False, True), 'tb_residual_gap': (1, 0)}
+  DIFF ('ig34', 'VS – Specification') {'coverage_density': (0.0, 0.0244), 'tb_density_excl_ie': (None, 1.0)}
+RESULT: RED
+t3_recompute exit=1
+real KB md5 (after): e2d862e25f04a3757a5ba5436092c416
+git status knowledge_base/ archive/ releases/:
+ M knowledge_base/chapters/ch02_fundamentals.md
+ M knowledge_base/chapters/ch04_general_assumptions.md
+ M knowledge_base/domains/BS/assumptions.md
+ M knowledge_base/domains/CE/examples.md
+ M knowledge_base/domains/DS/examples.md
+ M knowledge_base/domains/EG/examples.md
+ M knowledge_base/domains/EX/examples.md
+ M knowledge_base/domains/FA/assumptions.md
+ M knowledge_base/domains/FA/examples.md
+ M knowledge_base/domains/IS/examples.md
+ M knowledge_base/domains/MB/examples.md
+ M knowledge_base/domains/MS/examples.md
+ M knowledge_base/domains/NV/assumptions.md
+ M knowledge_base/domains/NV/examples.md
+ M knowledge_base/domains/PC/examples.md
+ M knowledge_base/domains/PP/examples.md
+ M knowledge_base/domains/RELREC/assumptions.md
+ M knowledge_base/domains/SM/examples.md
+ M knowledge_base/domains/SS/examples.md
+ M knowledge_base/domains/TA/assumptions.md
+ M knowledge_base/domains/TA/examples.md
+ M knowledge_base/domains/TI/assumptions.md
+ M knowledge_base/domains/TS/assumptions.md
+ M knowledge_base/model/05_study_level_data.md
+ M knowledge_base/model/06_relationship_datasets.md
+(end)
+==== EXPECT TABLE (fp census t3)
+M0       expect=[0 0 0] got=[1 1 1] MISMATCH
+M1       expect=[1 0 1] got=[1 1 1] MISMATCH
+M2       expect=[0 1 0] got=[1 1 1] MISMATCH
+M2b      expect=[0 1 0] got=[1 1 1] MISMATCH
+M2c      expect=[0 1 0] got=[1 1 1] MISMATCH
+M2d      expect=[0 1 0] got=[1 1 1] MISMATCH
+M3       expect=[1 0 1] got=[1 1 1] MISMATCH
+RESTORE  expect=[0 0 0] got=[1 1 1] MISMATCH
+==== M4 TABLE (census v2 RED + targeted assert; v1 logged)
+M4a    v2=1(expect 1) assert=1(expect 0) v1=GREEN-blind MISMATCH
+M4b    v2=1(expect 1) assert=0(expect 0) v1=GREEN-blind OK
+M4b2   v2=1(expect 1) assert=0(expect 0) v1=GREEN-blind OK
+M4c    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4c2   v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4e    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4d    v2=1(expect 1) assert=1(expect 0) v1=GREEN-blind MISMATCH
+---- RESTORE census v2 MB/EG vs baselines (must be GREEN)
+RESULT: RED
+RESULT: RED
+RESTORE M4 census not GREEN
+MUTATION RESULT: MISMATCH (exit 1)

@@ -26,7 +26,7 @@ Many Trial Design domains define study-specific terminology (e.g., for study arm
 
 The Trial Arms dataset describes arms as sequences of trial elements, with trial elements described in the Trial Elements dataset.
 
-### 5.1.1.1 Trial Elements (TE)
+#### 5.1.1.1 Trial Elements (TE)
 
 Trial Elements describes the periods of times through which subjects pass in the course of a trial. The domain is identified by the domain code "TE".
 
@@ -42,7 +42,7 @@ Trial Elements describes the periods of times through which subjects pass in the
 | 6 | TEENRL | Rule for End of Element | Char | Rule |
 | 7 | TEDUR | Planned Duration of Element | Char | Timing |
 
-### 5.1.1.2 Trial Arms (TA)
+#### 5.1.1.2 Trial Arms (TA)
 
 Trial Arms describes each planned arm in a trial. An arm is an ordered sequence of elements; the same element may occur more than once in a given arm. In order to accommodate complex trial designs, this dataset allows for rules for branching from one element to another when a choice is available, and a rule for transitions to allow a subject to skip ahead to another element rather than proceed linearly.
 
@@ -86,7 +86,7 @@ Trial Sets allows the submission of detailed information about planned groups of
 
 The Trial Repro Paths dataset describes the series of reproductive stages planned for study subjects. The reproductive stages are defined in the Trial Repro Stages dataset. These datasets are relevant only for studies in which reproductive stages are part of the study plan.
 
-### 5.1.3.1 Trial Repro Stages (TT)
+#### 5.1.3.1 Trial Repro Stages (TT)
 
 **Note:** Not for use with human clinical trials.
 
@@ -94,10 +94,10 @@ Trial Repro Stages describes the unique repro stages in a study, with repro stag
 
 **Trial Repro Stages—One Record per Planned Repro Stage**
 
-> KB note (not in SDTM v2.0): the Notes column below is not the PDF Notes column: rows 3-7 carry the PDF Usage Restrictions value ("Not in human clinical trials"); the DOMAIN row carries the domain code from the PDF Notes column.
+> KB note (not in SDTM v2.0): the table below adds only the PDF Usage Restrictions column to the 5 base columns; rows 3-7 carry its value ("Not in human clinical trials"). Exception: the DOMAIN cell "TT" is not a Usage Restrictions value (that PDF cell is blank); it condenses the PDF Notes column.
 
-| # | Variable | Label | Type | Role | Notes |
-|---|----------|-------|------|------|-------|
+| # | Variable | Label | Type | Role | Usage Restrictions |
+|---|----------|-------|------|------|--------------------|
 | 1 | STUDYID | Study Identifier | Char | Identifier | |
 | 2 | DOMAIN | Domain Abbreviation | Char | Identifier | "TT" |
 | 3 | RSTGCD | Repro Stage Code | Char | Topic | Not in human clinical trials |
@@ -106,7 +106,7 @@ Trial Repro Stages describes the unique repro stages in a study, with repro stag
 | 6 | TTENRL | Rule for End of Repro Stage | Char | Rule | Not in human clinical trials |
 | 7 | TTDUR | Planned Duration of Repro Stage | Char | Timing | Not in human clinical trials |
 
-### 5.1.3.2 Trial Repro Paths (TP)
+#### 5.1.3.2 Trial Repro Paths (TP)
 
 **Note:** Not for use with human clinical trials.
 
@@ -114,10 +114,10 @@ Trial Repro Paths describes each planned repro path in a repro study, with the o
 
 **Trial Repro Paths—One Record per Planned Repro Stage per Repro Path**
 
-> KB note (not in SDTM v2.0): the Notes column below is not the PDF Notes column: rows 3-10 carry the PDF Usage Restrictions value ("Not in human clinical trials"); the DOMAIN row carries the domain code from the PDF Notes column.
+> KB note (not in SDTM v2.0): the table below adds only the PDF Usage Restrictions column to the 5 base columns; rows 3-10 carry its value ("Not in human clinical trials"). Exception: the DOMAIN cell "TP" is not a Usage Restrictions value (that PDF cell is blank); it condenses the PDF Notes column.
 
-| # | Variable | Label | Type | Role | Notes |
-|---|----------|-------|------|------|-------|
+| # | Variable | Label | Type | Role | Usage Restrictions |
+|---|----------|-------|------|------|--------------------|
 | 1 | STUDYID | Study Identifier | Char | Identifier | |
 | 2 | DOMAIN | Domain Abbreviation | Char | Identifier | "TP" |
 | 3 | RPATHCD | Planned Repro Path Code | Char | Topic | Not in human clinical trials |
@@ -137,7 +137,7 @@ The datasets in this section describe parts of a study's schedule of activities.
 - Trial Disease Assessments describes schedules for disease assessments which are not easily expressed as taking place at visits.
 - Trial Disease Milestones describes plans to collect data when triggered by the occurrence of particular anticipated events, findings, or activities, rather than at scheduled times.
 
-### 5.1.4.1 Trial Visits (TV)
+#### 5.1.4.1 Trial Visits (TV)
 
 Trial Visits describes the planned order and number of visits in the study. Trial Visits also describes the allowable or planned values for VISIT, VISITNUM, and VISITDY in the trial (which are subsequently used as timing variables for the collected study data), and rules for starting and ending each visit. In most blinded trials, the timing of visits is the same for all subjects in all arms. In the case where visits vary for each arm, there would be a separate record per visit per arm.
 
@@ -155,7 +155,7 @@ Trial Visits describes the planned order and number of visits in the study. Tria
 | 8 | TVSTRL | Visit Start Rule | Char | Rule |
 | 9 | TVENRL | Visit End Rule | Char | Rule |
 
-### 5.1.4.2 Trial Disease Assessments (TD)
+#### 5.1.4.2 Trial Disease Assessments (TD)
 
 Trial Disease Assessments provides information on the planned protocol-specified disease assessment schedule when those disease assessments cannot be expressed using Trial Visits.
 
@@ -175,7 +175,7 @@ In oncology studies, compliance with the disease-assessment schedule is essentia
 | 8 | TDMAXPAI | Planned Assessment Interval Maximum | Char | Timing |
 | 9 | TDNUMRPT | Maximum Number of Actual Assessments | Num | Record Qualifier |
 
-### 5.1.4.3 Trial Disease Milestones (TM)
+#### 5.1.4.3 Trial Disease Milestones (TM)
 
 Trial Disease Milestones is used to describe observations or activities expected to occur in the course of the disease under study, the timing of which is of interest for the study.
 
@@ -212,19 +212,21 @@ Trial Summary Information contains 1 record for each trial summary characteristi
 
 **Trial Summary—One Record per Trial Summary Parameter**
 
-| # | Variable | Label | Type | Role |
-|---|----------|-------|------|------|
-| 1 | STUDYID | Study Identifier | Char | Identifier |
-| 2 | DOMAIN | Domain Abbreviation | Char | Identifier |
-| 3 | TSSEQ | Sequence Number | Num | Identifier |
-| 4 | TSGRPID | Group ID | Char | Identifier |
-| 5 | TSPARMCD | Trial Summary Parameter Short Name | Char | Topic |
-| 6 | TSPARM | Trial Summary Parameter | Char | Synonym Qualifier (TSPARMCD) |
-| 7 | TSVAL | Parameter Value | Char | Result Qualifier |
-| 8 | TSVALNF | Parameter Null Flavor | Char | Result Qualifier |
-| 9 | TSVALCD | Parameter Value Code | Char | Result Qualifier |
-| 10 | TSVCDREF | Name of the Reference Terminology | Char | Result Qualifier |
-| 11 | TSVCDVER | Version of the Reference Terminology | Char | Result Qualifier |
+> KB note (not in SDTM v2.0): the table below adds only the PDF Usage Restrictions column to the 5 base columns; rows 9-11 carry its value ("Not in nonclinical trials"); the other rows are blank in that PDF column.
+
+| # | Variable | Label | Type | Role | Usage Restrictions |
+|---|----------|-------|------|------|--------------------|
+| 1 | STUDYID | Study Identifier | Char | Identifier | |
+| 2 | DOMAIN | Domain Abbreviation | Char | Identifier | |
+| 3 | TSSEQ | Sequence Number | Num | Identifier | |
+| 4 | TSGRPID | Group ID | Char | Identifier | |
+| 5 | TSPARMCD | Trial Summary Parameter Short Name | Char | Topic | |
+| 6 | TSPARM | Trial Summary Parameter | Char | Synonym Qualifier (TSPARMCD) | |
+| 7 | TSVAL | Parameter Value | Char | Result Qualifier | |
+| 8 | TSVALNF | Parameter Null Flavor | Char | Result Qualifier | |
+| 9 | TSVALCD | Parameter Value Code | Char | Result Qualifier | Not in nonclinical trials |
+| 10 | TSVCDREF | Name of the Reference Terminology | Char | Result Qualifier | Not in nonclinical trials |
+| 11 | TSVCDVER | Version of the Reference Terminology | Char | Result Qualifier | Not in nonclinical trials |
 
 ### 5.1.7 Challenge Agent Characterization (AC)
 

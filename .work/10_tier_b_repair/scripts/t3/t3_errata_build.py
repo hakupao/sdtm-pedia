@@ -100,18 +100,37 @@ for i, note in E1["t3_atom_err"].items():
 # BS p0198_a012: note has no T-n; registry B-BS T-2 'part the' -> 'part of the'
 if "ig34_p0198_a012" in atom_err:
     atom_err["ig34_p0198_a012"].update(cls="R2", terminal="PDF_TYPO", registry=["B-BS T-2"])
+# T4 解冻 (主控决定 2026-11-27, t4_thaw_W3.md "attempt 1 续"): U-7 R2 atoms of s0_classify -> their registry rows
+T4_U7_REG = {"ig34_p0160_a0026": ["B-DS U-4"], "ig34_p0165_a0007": ["B-DS U-1"], "ig34_p0419_a006": ["B-TS T-3", "B-TS T-2"],
+             "ig34_p0419_a011": ["B-TS T-3"], "ig34_p0419_a013": ["B-TS T-3"], "ig34_p0425_a024": ["B-TS T-6"], "ig34_p0372_a013": ["B-FA T-8"],
+             "ig34_p0298_a001": ["B-NV N-2"], "ig34_p0285_a015": ["B-NV N-1"], "ig34_p0280_a036": ["B-PCPP T-8b"],
+             "ig34_p0280_a039": ["B-PCPP T-8"], "ig34_p0280_a040": ["B-PCPP T-8"], "ig34_p0281_a002": ["S-SPC2 N-1"],
+             "ig34_p0281_a003": ["S-SPC2 N-1"], "ig34_p0281_a031": ["S-SPC2 N-2"], "ig34_p0281_a032": ["S-SPC2 N-2"],
+             "ig34_p0085_a010": ["B-SM O32"], "ig34_p0190_a017": ["B-EG T-3"], "ig34_p0419_a017": ["B-TS T-4"]}
+assert all(r in {x["id"] for x in REG} for v in T4_U7_REG.values() for r in v)
+# T4 解冻 (主控决定 2): ig34_p0362_a010 was R1 (KB = PDF "thought be related"); after U-7 A3-7 KB = atom ≠ PDF -> R2 PDF_TYPO
+if "ig34_p0362_a010" in atom_err:
+    atom_err["ig34_p0362_a010"].update(cls="R2", terminal="PDF_TYPO", registry=["B-FA T-4"],
+        basis="T4 U-7 后依据变更: KB 按 U-7 A3-7 写正确值 'thought to be related' (= 原子), PDF p362 'thought be related' → R2 PDF_TYPO "
+              "(主控决定 2026-11-27). 原 basis: " + atom_err["ig34_p0362_a010"]["basis"])
 # (2) t3_fp_expected R1/R2 not yet keyed (S0 additions: SE x4, CP x5, IS, PC a051)
 for i, r in X.items():
     if r["class"] in ("R1", "R2") and i not in atom_err:
         cls, regs, b = classify(i, r["note"])
         if i == "ig34_p0240_a004":
             regs = ["B-IS T-4"]
+        if i in T4_U7_REG:  # T4 解冻 (主控决定): registry given per atom (non T-n ids, T-8 vs T-8b)
+            regs = T4_U7_REG[i]
         put(i, cls, r["note"], "t3_fp_expected_regressions.jsonl (S0)", regs, _find(f"{W}/t3_fp_expected_regressions.jsonl", [f'"atom_id": "{i}"']))
 # (3) triage ATOM_ERR (T1.2 writer + T1.3 reviewer 100%)
 for i, t in T.items():
     if t["final_class"] == "ATOM_ERR" and i not in atom_err:
         put(i, "R1", f"T1 triage ATOM_ERR ({t['src']}, reviewed={t['reviewed']})", "triage_merged.json",
             [], _find(f"{W}/triage_merged.json", [f'"atom_id": "{i}"']) + f" (lane {t['lane']} {t['pack_id']}; T1.3 reviewer 100%)")
+# (4) T4 U-2 (委托代裁 2026-11-27, t4_user_decisions.md §000): pending_user residual -> R1. PDF p56 (ig34_p0056.txt:37-40) and
+# KB ch04:1478 read "...split between words to improve readability."; the atom drops "to improve readability" (K4 below re-checks atom ∉ PDF)
+put("ig34_p0056_a006", "R1", "T4 U-2 A (委托代裁): 原子第 2/3 格漏 'to improve readability' 与句点; PDF p56:37-40 与 KB ch04:1478 一致",
+    "T4 U-2 (t4_user_decisions.md §000)", [], _find(f"{CK}/t4_user_decisions.md", ["| U-2 | **A**"]))
 
 # ── attempt 2 / 审计 K4: an R1 (ATOM_ERR) needs norm(atom) ∉ norm_pdf(p-1..p+1). If the atom IS on the PDF page and the
 # batch registered a KB deviation for it (registry row on p-1..p+1 whose pdf_value ⊂ atom) -> R2 PDF_TYPO; else drop it.
@@ -176,7 +195,9 @@ for i, v in E1["pending_user"].items():
     files = sorted({w["kb_file"] for w in WR[i]})
     hit = next((f for f in files if norm(A[i]["verbatim"]) in kb_norm(f)), None)
     fixed = any(w["action"] in ("INSERTED", "REPLACED", "TABLE_REBUILT") for w in WR[i])
-    if i in atom_err:
+    if i in atom_err and atom_err[i]["source"].startswith("T4 "):
+        concl = f"{atom_err[i]['source']} → 终态 {atom_err[i]['terminal']} (S1 atom_err)"
+    elif i in atom_err:
         concl = f"T2 改判 keep-correct ({'/'.join(atom_err[i]['registry'])}) → 终态 {atom_err[i]['terminal']} (S1 atom_err), T4 用户知悉"
     elif fixed and hit:
         concl = f"T2 实修且 target 命中 ({hit}) → 可翻 EXACT"

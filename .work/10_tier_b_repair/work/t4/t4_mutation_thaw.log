@@ -1,0 +1,63 @@
+real KB md5 before: b71a466d6e618f995c493a82de3e3eb7
+== M0 copy as-is
+  tb_exact_miss: 0 []
+  unexplained: 2 ['ig34_p0419_a011', 'ig34_p0419_a013']
+RESULT: RED
+rc=1
+deleted chars 224 from .work/10_tier_b_repair/work/scratch/t3/kbcopy/domains/AE/assumptions.md
+== M1 sentence deleted
+  tb_exact_miss: 1 ['ig34_p0133_a021']
+  unexplained: 2 ['ig34_p0419_a011', 'ig34_p0419_a013']
+RESULT: RED
+rc=1
+== M1 fp_match regression on the same copy (blind check)
+BASELINE .work/10_tier_b_repair/work/fp_baseline.jsonl: regressions=99 new_hits=758
+  mutated atom in fp regress list: 0
+== M2 restored
+  tb_exact_miss: 0 []
+  unexplained: 2 ['ig34_p0419_a011', 'ig34_p0419_a013']
+RESULT: RED
+rc=1
+  domains/CE/examples.md: 0 replacement(s)
+== M3 CE '[ ] Surgery' deleted
+  tb_exact_miss: 0 []
+  k11_short: 0 []
+  anchor_lost: 0 []
+  unexplained: 2 ['ig34_p0419_a011', 'ig34_p0419_a013']
+RESULT: RED
+rc=1
+  domains/EX/examples.md: 7 replacement(s)
+  domains/EC/examples.md: 1 replacement(s)
+== M4 EX/EC ec.xpt renamed
+  tb_exact_miss: 4 ['ig34_p0111_a016', 'ig34_p0112_a025', 'ig34_p0118_a022', 'ig34_p0120_a001']
+  k11_short: 0 []
+  anchor_lost: 0 []
+  unexplained: 2 ['ig34_p0419_a011', 'ig34_p0419_a013']
+RESULT: RED
+rc=1
+  domains/NV/spec.md: 1 replacement(s)
+== M5 NV/spec '### VISITNUM' block deleted
+  tb_exact_miss: 0 []
+  k11_short: 0 []
+  anchor_lost: 1 ["ig34_p0295_a020 IE spec block '### VISITNUM' (knowledge_base/domains/NV/spec.md:275)"]
+  unexplained: 2 ['ig34_p0419_a011', 'ig34_p0419_a013']
+RESULT: RED
+rc=1
+  domains/CE/examples.md: 0 replacement(s)
+  domains/EX/examples.md: 7 replacement(s)
+  domains/EC/examples.md: 1 replacement(s)
+  domains/NV/spec.md: 1 replacement(s)
+== M6 M3+M4+M5
+  tb_exact_miss: 4 ['ig34_p0111_a016', 'ig34_p0112_a025', 'ig34_p0118_a022', 'ig34_p0120_a001']
+  k11_short: 0 []
+  anchor_lost: 1 ["ig34_p0295_a020 IE spec block '### VISITNUM' (knowledge_base/domains/NV/spec.md:275)"]
+  unexplained: 2 ['ig34_p0419_a011', 'ig34_p0419_a013']
+RESULT: RED
+rc=1
+== M7 fresh copy (restored)
+  tb_exact_miss: 0 []
+  anchor_lost: 0 []
+RESULT: RED
+rc=1
+real KB md5 after:  b71a466d6e618f995c493a82de3e3eb7
+real KB unchanged: OK

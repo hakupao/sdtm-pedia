@@ -39,7 +39,7 @@ This example shows ECG measurements and other findings from one ECG for one subj
 
 This example shows ECG results where only the overall assessment was collected. Results are for one subject across multiple visits. In addition, the ECG interpretation was provided by the investigator and, when necessary, by a cardiologist. EGGRPID is used to group the overall assessments collected on each ECG.
 
-**Rows 1-3:** Show interpretations performed by the principal investigation on three different occasions. The ECG at Visit "SCREEN 2" has been flagged as the last observation before start of study treatment.
+**Rows 1-3:** Show interpretations performed by the principal investigator on three different occasions. The ECG at Visit "SCREEN 2" has been flagged as the last observation before start of study treatment.
 
 **Rows 4-5:** Show interpretations of the same ECG by both the investigator and a cardiologist. EGGRPID has been used to group these two records to emphasize their relationship.
 

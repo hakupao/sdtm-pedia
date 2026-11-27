@@ -1,6 +1,6 @@
 # TA — Assumptions
 
-## Trial Design Model Overview (§7.1)
+## §7.1 Introduction to Trial Design Model Datasets
 
 ### §7.1.1 Purpose of the Trial Design Model
 
@@ -71,7 +71,7 @@ There may also be limitations in representing other patterns of Elements within 
 
 For the purpose of submissions about trials that have already completed, these limitations are not critical, so it is expected that development of the Trial Design Model to address these limitations will have a minimal impact on the SDTM.
 
-## Trial Arms and Trial Elements (§7.2)
+## §7.2 Experimental Design (TA and TE)
 
 This subsection contains the Trial Design datasets that describe the planned design of the study, and provide the representation of study treatment in its most granular components (Section 7.2.2, Trial Elements (TE)), as well as the representation of all sequences of these components (Section 7.2.1, Trial Arms (TA)) as specified by the study protocol.
 

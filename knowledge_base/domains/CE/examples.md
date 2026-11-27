@@ -36,14 +36,14 @@ These data are about the event as a whole, so they are represented in the CE dom
 
 In this example, the use of "Other, Specify" for clinical events is likely to require manual review of the data, to be sure that none of the write-in terms should have been reported as adverse events based on the sponsor's criteria for this study.
 
-**CRF: CE Example 2 — Clinical Events with Severity**
+**CRF**
 
 | Event | | Date Started | Date Ended | Severity |
 |-------|---|-------------|-----------|----------|
-| Nausea | ( ) Yes  ( ) No | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
-| Vomit | ( ) Yes  ( ) No | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
-| Diarrhea | ( ) Yes  ( ) No | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
-| Other, Specify: | ___ | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
+| Nausea | ○ Yes  ○ No | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ○ Mild  ○ Moderate  ○ Severe |
+| Vomit | ○ Yes  ○ No | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ○ Mild  ○ Moderate  ○ Severe |
+| Diarrhea | ○ Yes  ○ No | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ○ Mild  ○ Moderate  ○ Severe |
+| Other, Specify: | ___ | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ○ Mild  ○ Moderate  ○ Severe |
 
 **Rows 1-2:** Show records for 2 instances of the prespecified clinical event, nausea. The CEPRESP value of "Y" indicates that there was a probing question; the response to the probe (CEOCCUR) was "Yes". CEPRESP and CEOCCUR are included in both records for "Nausea". The record includes additional data about the event.
 
@@ -71,16 +71,16 @@ In this study, a prior fracture in the previous 5 years was a requirement for st
 
 | Question | Response Options |
 |----------|-----------------|
-| Which fracture? | ( ) Pre-study fracture, reference number ___  ( ) On-study fracture, reference number ___ |
+| Which fracture? | ○ Pre-study fracture, reference number ___  ○ On-study fracture, reference number ___ |
 | Date of collection | --/---/-- |
 | Date of fracture | --/---/-- |
-| How did fracture occur? | ( ) Pathologic  ( ) Fall  ( ) Other trauma  ( ) Unknown |
+| How did fracture occur? | ○ Pathologic  ○ Fall  ○ Other trauma  ○ Unknown |
 | What was the location of the fracture? | ___ |
-| What was the laterality? | ( ) Left  ( ) Right  ( ) Not applicable |
-| Were therapeutic measures required? | ( ) Yes  ( ) No  ( ) Unknown |
-| If therapeutic measures were required, select all that apply. | [ ] Casting/immobilization  [ ] Traction  [ ] Surgery |
-| Were there any complications of the fracture? | ( ) Yes  ( ) No  ( ) Unknown |
-| If there were complications, select all that apply. | [ ] Infection of fracture site  [ ] Improper healing requiring bone reset  [ ] Soft tissue damage, specify location ___ |
+| What was the laterality? | ○ Left  ○ Right  ○ Not applicable |
+| Were therapeutic measures required? | ○ Yes  ○ No  ○ Unknown |
+| If therapeutic measures were required, select all that apply. | □ Casting/immobilization  □ Traction  □ Surgery |
+| Were there any complications of the fracture? | ○ Yes  ○ No  ○ Unknown |
+| If there were complications, select all that apply. | □ Infection of fracture site  □ Improper healing requiring bone reset  □ Soft tissue damage, specify location ___ |
 
 The collected data do not meet criteria for representation in FA. Data about the most recent pre-study fracture were represented in the Medical History (MH) domain, and data about fractures during the study were represented in the CE domain.
 

@@ -2,7 +2,7 @@
 
 > Source text: SDTMIG v3.4 §8 (introduction), §8.2, §8.2.1, §8.3, §8.3.1 (also in chapters/ch08_relationships.md).
 
-> KB note (not in SDTMIG): the next paragraph and list are from the SDTMIG v3.4 §8 introduction (p427).
+> Note: the next paragraph and list are from the SDTMIG v3.4 §8 introduction (p427).
 
 All relationships make use of the standard domain identifiers STUDYID, DOMAIN, and USUBJID. In addition, the variables IDVAR and IDVARVAL are used for identifying the record-level merge/join keys. These keys are used to tie information together by linking records. The specific set of identifiers necessary to properly identify each type of relationship is described in detail in the following sections. The following are examples of variables that could be used in IDVAR:
 - The sequence number (--SEQ) variable uniquely identifies a record for a given USUBJID within a domain. The variable --SEQ is required in all domains except DM. For example, if a subject has 25 adverse events in the Adverse Event (AE) domain, then 25 unique AESEQ values should be established for this subject. Conventions for establishing and maintaining --SEQ values are sponsor-defined. Values may or may not be sequential depending on data processes and sources.

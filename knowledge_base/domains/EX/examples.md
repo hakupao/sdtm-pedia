@@ -2,7 +2,7 @@
 
 ## §6.1.3.3 Exposure/Exposure as Collected Examples
 
-> KB note (not in SDTMIG): Examples for EX and EC are shared in Section 6.1.3.3 of the SDTMIG; EC/examples.md points here.
+> Note: Examples for EX and EC are shared in Section 6.1.3.3 of the SDTMIG; EC/examples.md points here.
 
 ## Example 1
 

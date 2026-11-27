@@ -2,7 +2,7 @@
 
 Source: SDTM v2.0, Sections 6.1-6.7 (Pages 64-69)
 
-## Overview
+## 6 Datasets for Representing Relationships
 
 There are many occasions when it is necessary or desirable to represent relationships among datasets or records. The SDTM includes the following relationship datasets:
 
@@ -20,7 +20,7 @@ The implementation guides define specific details and examples for each of these
 
 ---
 
-## 6.1 Related Records (RELREC)
+## 6.1 Related Records Dataset (RELREC)
 
 > KB note (not in SDTM v2.0): **Structure:** One record per related record, group of records, or dataset
 >
@@ -30,12 +30,14 @@ The implementation guides define specific details and examples for each of these
 
 **RELREC Dataset**
 
+> KB note (not in SDTM v2.0): the Notes cells of USUBJID and POOLID in the table below are KB-authored; these PDF Notes cells are blank.
+
 | # | Variable | Label | Type | Role | Notes |
 |---|----------|-------|------|------|-------|
 | 1 | STUDYID | Study Identifier | Char | Identifier | |
 | 2 | RDOMAIN | Related Domain Abbreviation | Char | Identifier | 2-character abbreviation for the domain of the parent record(s). |
 | 3 | USUBJID | Unique Subject Identifier | Char | Identifier | Null for dataset-level relationships |
-| 4 | APID | Associated Persons Identifier | Char | Identifier | Identifier for a single associated person, a group, or a pool of associated persons |
+| 4 | APID | Associated Persons Identifier | Char | Identifier | Identifier for a single associated person, a group of associated persons, or a pool of associated persons. If APID identifies a pool, POOLDEF records must exist for each associated person (see Section 6.3, Pool Definition Dataset, and Section 4, Associated Persons Data). |
 | 5 | POOLID | Pool Identifier | Char | Identifier | For pooled subject data |
 | 6 | SPDEVID | Sponsor Device Identifier | Char | Identifier | |
 | 7 | IDVAR | Identifying Variable | Char | Identifier | Name of the identifying variable in the general-observation-class dataset that identifies the related record(s). |
@@ -43,20 +45,11 @@ The implementation guides define specific details and examples for each of these
 | 9 | RELTYPE | Relationship Type | Char | Record Qualifier | Identifies the hierarchical level of the records in the relationship. Values should be either ONE or MANY. However, values are only necessary when identifying a relationship between datasets. |
 | 10 | RELID | Relationship Identifier | Char | Record Qualifier | RELID value should be unique within the ID variable (e.g., USUBJID, APID, POOLID, SPDEVID) that is the subject of the relationship. All records with this ID variable that have the same RELID are considered related/associated. RELID can be any value the sponsor chooses, and is only meaningful within the RELREC dataset to identify the related/associated Domain records. |
 
-### RELTYPE Combinations
-
-> KB note (not in SDTM v2.0): the RELTYPE combinations table below is KB-authored.
-
-| Source RELTYPE | Target RELTYPE | Meaning |
-|---------------|----------------|---------|
-| ONE | ONE | One record relates to one record |
-| ONE | MANY | One record relates to many records |
-| MANY | ONE | Many records relate to one record |
-| MANY | MANY | Many records relate to many records |
+> See [ch08_relationships.md §8.3.1](../chapters/ch08_relationships.md#831-relrec-dataset-relationship-example) for the dataset-level RELTYPE combinations (SDTMIG v3.4).
 
 ---
 
-## 6.2 Supplemental Qualifiers (SUPP--)
+## 6.2 Supplemental Qualifiers Dataset (SUPP--)
 
 For information on the naming of supplemental qualifier datasets, see the SDTMIG, SENDIG, and SDTMIG-AP.
 
@@ -79,7 +72,7 @@ For information on the naming of supplemental qualifier datasets, see the SDTMIG
 | 7 | IDVAR | Identifying Variable | Char | Identifier | Identifying variable in the parent dataset that identifies the related record(s). |
 | 8 | IDVARVAL | Identifying Variable Value | Char | Identifier | Value of identifying variable of the parent record(s). |
 | 9 | QNAM | Qualifier Variable Name | Char | Topic | The short name of the qualifier variable, which is used as a column name in a domain view with data from the parent domain. The value in QNAM cannot be longer than 8 characters, nor can it start with a number (e.g., "1TEST"). QNAM cannot contain characters other than letters, numbers, or underscores. This will often be the column name in the sponsor's operational dataset. QNAM should not be the name of any standard ADaM variable. |
-| 10 | QLABEL | Qualifier Variable Label | Char | Synonym Qualifier | This is the long name or label associated with QNAM. The value in QLABEL cannot be longer than 40 characters. This will often be the column label in the sponsor's original dataset. |
+| 10 | QLABEL | Qualifier Variable Label | Char | Synonym Qualifier (QNAM) | This is the long name or label associated with QNAM. The value in QLABEL cannot be longer than 40 characters. This will often be the column label in the sponsor's original dataset. |
 | 11 | QVAL | Data Value | Char | Result Qualifier | Result of, response to, or value associated with QNAM. A value for this column is required; no records can be in a SUPP-- dataset with a null value for QVAL. |
 | 12 | QORIG | Origin | Char | Record Qualifier | Because QVAL can represent a mixture of collected (on a CRF), derived, or assigned items, QORIG is used to indicate the origin of this data. |
 | 13 | QEVAL | Evaluator | Char | Record Qualifier | Used only for results that are subjective (e.g., assigned by a person or a group). Should be null for records that contain objectively collected or derived data. |
@@ -90,7 +83,7 @@ For information on the naming of supplemental qualifier datasets, see the SDTMIG
 
 ---
 
-## 6.3 Pool Definition (POOLDEF)
+## 6.3 Pool Definition Dataset (POOLDEF)
 
 This dataset identifies individual subjects included in a pool of subjects for which a single observation record (pool level) is captured.
 
@@ -107,7 +100,7 @@ This dataset identifies individual subjects included in a pool of subjects for w
 
 ---
 
-## 6.4 Related Subjects (RELSUB)
+## 6.4 Related Subjects Dataset (RELSUB)
 
 Some studies include subjects who are related to each other, and in some cases it is important to record those relationships. Studies in which pregnant women are treated and both the mother and her child(ren) are study subjects are the most common case in which relationships between subjects are collected. There are also studies of genetically based diseases where subjects who are related to each other are enrolled, and the relationships between subjects are recorded.
 
@@ -125,7 +118,7 @@ Some studies include subjects who are related to each other, and in some cases i
 
 ---
 
-## 6.5 Device-subject Relationships (DR)
+## 6.5 Device-subject Relationships Dataset (DR)
 
 The Device-subject Relationships (DR) domain is a special-purpose domain that links each subject to the associated devices. Information in this domain may have been collected and submitted in other domains (e.g., Device Exposure, Device Tracking and Disposition, Device Events). This domain, however, provides a single, consistent location to find the relationship between a subject and a device, regardless of the device or the domain in which subject-related data may have been collected or submitted.
 
@@ -142,7 +135,7 @@ The Device-subject Relationships (DR) domain is a special-purpose domain that li
 
 ---
 
-## 6.6 Associated Persons Related Subjects (APRELSUB)
+## 6.6 Associated Persons Relationships (APRELSUB)
 
 To justify collection of AP data, some sort of a relationship is necessary between the associated person and a study, a subject, or a device. However, a single value in SREL is inadequate to describe relationships to multiple subjects or devices and/or multiple relationships to a single subject or device. In such cases, the value MULTIPLE should appear in SREL. MULTIPLE may also appear in RSUBJID to describe relationships with multiple subjects. When other SDTM variables are populated with MULTIPLE, the multiple values are stored in supplemental qualifiers.
 
@@ -162,7 +155,7 @@ However, this approach has been found to be an indirect and cumbersome way to ha
 
 ---
 
-## 6.7 Related Specimens (RELSPEC)
+## 6.7 Related Specimens Dataset (RELSPEC)
 
 > KB note (not in SDTM v2.0): **Structure:** One record per specimen identifier per subject
 >
@@ -190,7 +183,7 @@ However, this approach has been found to be an indirect and cumbersome way to ha
 | Dataset | Code | Purpose | Subject-level? |
 |---------|------|---------|----------------|
 | Related Records | RELREC | Link records/datasets | Both |
-| Supplemental Qualifiers | SUPP-- | Non-standard variables | Yes |
+| Supplemental Qualifiers | SUPP-- | Non-standard variables | Parent record (USUBJID, APID, POOLID, or SPDEVID) |
 | Pool Definition | POOLDEF | Pool membership | Yes |
 | Related Subjects | RELSUB | Subject relationships | Yes |
 | Device-subject Relationships | DR | Device-subject links | Yes |

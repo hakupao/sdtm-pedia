@@ -84,7 +84,7 @@ Data on protocol milestones were not collected, but data were collected if a sub
 
 ## Example 4
 
-In this example, the CRF included collection of an AE number when study participation was incomplete due to an adverse event. The relationship between the DS record and in the AE record was represented in a RELREC dataset.
+In this example, the CRF included collection of an AE number when study participation was incomplete due to an adverse event. The relationship between the DS record and the AE record was represented in a RELREC dataset.
 
 The DS domain represents the end of the subject's participation in the study, due to their death from heart failure. In this case, the disposition was collected (DSDTC) on the same day that death occurred and the subject's study participation ended. (DSSTDTC).
 
@@ -291,11 +291,11 @@ The SE dataset shows the dates for the elements for each subject.
 
 | Row | STUDYID | DOMAIN | USUBJID | SESEQ | ETCD | ELEMENT | SESTDTC | SEENDTC | TAETORD | EPOCH |
 |-----|---------|--------|---------|-------|------|---------|---------|---------|---------|-------|
-| 1 | XYZ | SE | XYZ-767-001 | 1 | SCREEN | Screen | 2016-02-02 | 2016-02-14 | 1 | SCREENING |
+| 1 | XYZ | SE | XYZ-767-001 | 1 | SCRN | Screen | 2016-02-02 | 2016-02-14 | 1 | SCREENING |
 | 2 | XYZ | SE | XYZ-767-001 | 2 | DRUG1 | Drug-1 | 2016-02-14 | 2016-03-14 | 2 | TREATMENT 1 |
 | 3 | XYZ | SE | XYZ-767-001 | 3 | DG1INDG | Drug 1 + Investigational Drug | 2016-03-14 | 2016-04-24 | 3 | TREATMENT 2 |
 | 4 | XYZ | SE | XYZ-767-001 | 4 | FU | Follow-up | 2016-04-24 | 2016-04-24 | 4 | FOLLOW-UP |
-| 5 | XYZ | SE | XYZ-767-002 | 1 | SCREEN | Screen | 2016-02-04 | 2016-02-21 | 1 | SCREENING |
+| 5 | XYZ | SE | XYZ-767-002 | 1 | SCRN | Screen | 2016-02-04 | 2016-02-21 | 1 | SCREENING |
 | 6 | XYZ | SE | XYZ-767-002 | 2 | DRUG2 | Drug-2 | 2016-02-21 | 2016-03-24 | 2 | TREATMENT 1 |
 | 7 | XYZ | SE | XYZ-767-002 | 3 | DG2INDG | Drug 2 + Investigational Drug | 2016-03-24 | 2016-04-29 | 3 | TREATMENT 2 |
 | 8 | XYZ | SE | XYZ-767-002 | 4 | FU | Follow-up | 2016-04-29 | 2016-04-29 | 4 | FOLLOW-UP |

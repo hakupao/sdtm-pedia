@@ -173,7 +173,7 @@ The following variables have not been evaluated for use in human clinical trials
 - --DISTR (Findings)
 - SETCD (Demographics)
 
-The use of SETCD additionally requires the use of the Trials Sets domain.
+The use of SETCD additionally requires the use of the Trial Sets domain.
 
 ### May be used in human clinical trials when appropriate:
 

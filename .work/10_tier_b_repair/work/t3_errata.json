@@ -68,6 +68,19 @@
    "page": 56,
    "atom_in_pdf": false
   },
+  "ig34_p0056_a006": {
+   "cls": "R1",
+   "terminal": "ATOM_ERR",
+   "basis": "T4 U-2 A (委托代裁): 原子第 2/3 格漏 'to improve readability' 与句点; PDF p56:37-40 与 KB ch04:1478 一致",
+   "source": "T4 U-2 (t4_user_decisions.md §000)",
+   "registry": [],
+   "checkpoint": ".work/10_tier_b_repair/evidence/checkpoints/t4_user_decisions.md:33",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "PARTIAL",
+   "triage_class": "REAL_GAP",
+   "page": 56,
+   "atom_in_pdf": false
+  },
   "ig34_p0057_a002": {
    "cls": "R1",
    "terminal": "ATOM_ERR",
@@ -353,6 +366,20 @@
    "triage_class": "ATOM_ERR",
    "page": 80,
    "atom_in_pdf": false
+  },
+  "ig34_p0085_a010": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-8 B-SM O32 SMDY→SMSTDY | errata: t3_atom_err | new_target: domains/SM/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-SM O32"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:6",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 85
   },
   "ig34_p0086_a011": {
    "cls": "R1",
@@ -904,6 +931,20 @@
    "page": 155,
    "atom_in_pdf": false
   },
+  "ig34_p0160_a0026": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-2 B-DS U-4 删 in | errata: t3_atom_err | new_target: domains/DS/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-DS U-4"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:17",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 160
+  },
   "ig34_p0160_a0028": {
    "cls": "R2",
    "terminal": "PDF_TYPO",
@@ -912,7 +953,7 @@
    "registry": [
     "B-DS T-3"
    ],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:16",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:18",
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
@@ -930,6 +971,20 @@
    "triage_class": null,
    "page": 161,
    "atom_in_pdf": false
+  },
+  "ig34_p0165_a0007": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A1-9 B-DS U-1 se ETCD SCREEN→SCRN | errata: t3_atom_err | new_target: domains/DS/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-DS U-1"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:19",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 165
   },
   "ig34_p0167_a0010": {
    "cls": "R1",
@@ -1153,6 +1208,20 @@
    "page": 190,
    "atom_in_pdf": false
   },
+  "ig34_p0190_a017": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-5 B-EG T-3 investigation→investigator | errata: t3_atom_err | new_target: domains/EG/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-EG T-3"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:22",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 190
+  },
   "ig34_p0192_a006": {
    "cls": "R1",
    "terminal": "ATOM_ERR",
@@ -1253,7 +1322,7 @@
    "registry": [
     "S-SPC1 CP T-21"
    ],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:19",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:23",
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
@@ -1267,7 +1336,7 @@
    "registry": [
     "S-SPC1 CP T-17"
    ],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:20",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:24",
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
@@ -1281,7 +1350,7 @@
    "registry": [
     "S-SPC1 CP T-21"
    ],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:21",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:25",
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
@@ -1295,7 +1364,7 @@
    "registry": [
     "S-SPC1 CP T-21"
    ],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:22",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:26",
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
@@ -1309,7 +1378,7 @@
    "registry": [
     "S-SPC1 CP T-18"
    ],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:23",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:27",
    "in_allowed_set": true,
    "ledger_verdict_now": "EXACT",
    "triage_class": null,
@@ -1668,7 +1737,7 @@
    "registry": [
     "B-IS T-4"
    ],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:26",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:30",
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
@@ -1905,7 +1974,7 @@
    "basis": "原子 row 7 多 `Collected`; PDF p274 文本层 :35 row 7 = SINGLE DOSE 无 Collected; KB PP/examples.md:74 = PDF | errata: t3_atom_err | new_target: domains/PP/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=False",
    "source": "t3_fp_expected_regressions.jsonl (S0)",
    "registry": [],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:45",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:49",
    "in_allowed_set": true,
    "ledger_verdict_now": "EXACT",
    "triage_class": null,
@@ -1918,12 +1987,124 @@
    "basis": "S-SPC2 #15: 原子抄自旧错 KB (多 and \"10\" through \"12\"/individual); KB PC/examples.md:146 = p278 渲染 (非 fp 机制回归: baseline 即未命中) | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=None; atom∈PDF=False",
    "source": "t3_fp_expected_regressions.jsonl (S0)",
    "registry": [],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:46",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:64",
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
    "page": 278,
    "atom_in_pdf": false
+  },
+  "ig34_p0280_a036": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-3 B-PCPP T-8b DYDRGX_HALF→DY1DRGX_HALF | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-PCPP T-8b"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:66",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 280
+  },
+  "ig34_p0280_a039": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-2 B-PCPP T-8 DYIDRGX_A→DY1DRGX_A | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-PCPP T-8"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:67",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 280
+  },
+  "ig34_p0280_a040": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-2 B-PCPP T-8 DYIDRGX_HALF→DY1DRGX_HALF | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-PCPP T-8"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:68",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 280
+  },
+  "ig34_p0281_a002": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-15 S-SPC2 N-1 PP→PC records with PCSEQ | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "S-SPC2 N-1"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:69",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 281
+  },
+  "ig34_p0281_a003": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-15 S-SPC2 N-1 PP→PC records with PCSEQ | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "S-SPC2 N-1"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:70",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 281
+  },
+  "ig34_p0281_a031": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-16 S-SPC2 N-2 PP/PGRPID→PC/PCGRPID | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "S-SPC2 N-2"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:71",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 281
+  },
+  "ig34_p0281_a032": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-16 S-SPC2 N-2 PP/PGRPID→PC/PCGRPID | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "S-SPC2 N-2"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:72",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 281
+  },
+  "ig34_p0285_a015": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-14 B-NV N-1 may included→include | errata: t3_atom_err | new_target: domains/NV/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-NV N-1"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:77",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 285
   },
   "ig34_p0289_a024": {
    "cls": "R1",
@@ -1950,6 +2131,20 @@
    "triage_class": null,
    "page": 289,
    "atom_in_pdf": false
+  },
+  "ig34_p0298_a001": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-15 B-NV N-2 删 the | errata: t3_atom_err | new_target: domains/NV/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-NV N-2"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:80",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 298
   },
   "ig34_p0301_a017": {
    "cls": "R1",
@@ -2104,7 +2299,7 @@
    "registry": [
     "B-RS T-7"
    ],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:51",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:83",
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
@@ -2118,7 +2313,7 @@
    "registry": [
     "B-RS T-7"
    ],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:52",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:84",
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
@@ -2132,7 +2327,7 @@
    "registry": [
     "B-RS T-7"
    ],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:53",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:85",
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
@@ -2146,7 +2341,7 @@
    "registry": [
     "B-RS T-7"
    ],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:54",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:86",
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
@@ -2290,7 +2485,7 @@
    "basis": "原子表头 SCORESU; PDF p342 与 KB 均 SCORRESU | errata: t3_atom_err | new_target: domains/SC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=False",
    "source": "t3_fp_expected_regressions.jsonl (S0)",
    "registry": [],
-   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:56",
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:88",
    "in_allowed_set": true,
    "ledger_verdict_now": "EXACT",
    "triage_class": null,
@@ -2389,17 +2584,18 @@
    "atom_in_pdf": false
   },
   "ig34_p0362_a010": {
-   "cls": "R1",
-   "terminal": "ATOM_ERR",
-   "basis": "B-FA audit: 原子抽错",
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 后依据变更: KB 按 U-7 A3-7 写正确值 'thought to be related' (= 原子), PDF p362 'thought be related' → R2 PDF_TYPO (主控决定 2026-11-27). 原 basis: B-FA audit: 原子抽错",
    "source": "t1_errata.t3_atom_err",
-   "registry": [],
+   "registry": [
+    "B-FA T-4"
+   ],
    "checkpoint": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-FA_audit.md:36",
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
-   "page": 362,
-   "atom_in_pdf": false
+   "page": 362
   },
   "ig34_p0370_a021": {
    "cls": "R2",
@@ -2414,6 +2610,20 @@
    "ledger_verdict_now": "EXACT",
    "triage_class": null,
    "page": 370
+  },
+  "ig34_p0372_a013": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-9 B-FA T-8 populated→populate | errata: t3_atom_err | new_target: domains/FA/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-FA T-8"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:113",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 372
   },
   "ig34_p0373_a013": {
    "cls": "R2",
@@ -2520,6 +2730,77 @@
    "triage_class": null,
    "page": 419,
    "atom_in_pdf": false
+  },
+  "ig34_p0419_a006": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ (+A2-4 B-TS T-2 Dose→DOSE) | errata: t3_atom_err | new_target: domains/TS/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-TS T-3",
+    "B-TS T-2"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:117",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 419
+  },
+  "ig34_p0419_a011": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ | errata: t3_atom_err | new_target: domains/TS/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-TS T-3"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:118",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 419
+  },
+  "ig34_p0419_a013": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ | errata: t3_atom_err | new_target: domains/TS/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-TS T-3"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:119",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 419
+  },
+  "ig34_p0419_a017": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-6 B-TS T-4 OUTMSPR→OUTMSPRI | errata: t3_atom_err | new_target: domains/TS/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-TS T-4"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:120",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 419
+  },
+  "ig34_p0425_a024": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-7 B-TS T-6 MAXAGE→AGEMAX | errata: t3_atom_err | new_target: domains/TS/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "registry": [
+    "B-TS T-6"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:121",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 425
   }
  },
  "target_remap": {
@@ -2594,6 +2875,158 @@
    "in_allowed_set": true,
    "ledger_verdict_now": "EQUIVALENT",
    "verbatim_hits_target": false
+  },
+  "ig34_p0275_a019": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0277_a020": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0277_a023": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0277_a024": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0278_a002": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0278_a033": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0278_a034": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0278_a035": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0278_a036": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0278_a037": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0278_a038": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0278_a039": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0278_a040": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0278_a041": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0278_a054": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0281_a034": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "PARTIAL",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0281_a049": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "PARTIAL",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0282_a035": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "PARTIAL",
+   "verbatim_hits_target": true
+  },
+  "ig34_p0283_a012": {
+   "target": "knowledge_base/domains/PC/examples.md",
+   "basis": "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md | errata: t3_target_remap→domains/PC/examples.md | new_target: domains/PC/examples.md | ",
+   "source": "t3_fp_expected_regressions.jsonl (S0)",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "PARTIAL",
+   "verbatim_hits_target": true
   },
   "ig34_p0340_a002": {
    "target": "knowledge_base/domains/SC/assumptions.md",
@@ -2854,7 +3287,7 @@
    ],
    "hit": null,
    "fixed": true,
-   "conclusion": "T2 已改但 target 不逐字命中 → 残留 (保持原 verdict), 标 T4 待裁"
+   "conclusion": "T4 U-2 (t4_user_decisions.md §000) → 终态 ATOM_ERR (S1 atom_err)"
   }
  },
  "k4": {

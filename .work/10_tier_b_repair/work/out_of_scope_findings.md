@@ -63,3 +63,8 @@
 | O60 | 主控 (S-MOD3) | KB 自拟标题 vs PDF 原标题口径不一 | S-MOD2/S-MOD3 在 0 入站链接时已改为 PDF 原标题; 先前按规则 6 保留的 TA §7.1/§7.2 (X-4)、FA §6.4.4 合并标题、MB H2 "and"、SS `#####` 层级等 → T4 统一处理 (或 S-TYPO 后一次性脚本 + 抽检) |
 | O61 | S-SPEC1 review | 原子 ig34_p0122_a015 文本 "CDISC/NCIBI" | PDF 原文 "CDISC/NCI", KB 正确 → T3 t3_atom_err; 该原子即 ML spec 脚注原子, 覆盖矩阵 ML fn=True 为假阳 |
 | O62 | T2S.REG | CP N-1 `GATE and GATEDEF` (p214) / SM N-1 SMSEQ 缺 "with" (p84) / BS N-1 `--ORNLO, --ORNHI` (p198, 同句 --STRNLO 已按 B-BS T-3 改正) | 未经 reviewer; 进 T4 (t4_user_decisions.md 主控补注) |
+| O63 | T4.THAW.W2 (U-10③) | chapters/ch02_fundamentals.md:158 / :167 (同型 :133 / :178) | KB 自拟 `###` 标题; PDF p15-16 §2.7 同位置只有正文句、无标签/标题 → 按规格 §2.15 保留 (导航, 不加 D6), 仅登记 |
+| O64 | T4.THAW.W2 (U-10② 同型) | domains/CE/examples.md:7 / :70 | `**CRF: CE Example 1 — …**` / `**CRF: CE Example 3 — …**` 与已改的 :39 同型; PDF p151 标签为 "CRF", p153 表单内标题 "Bone Fracture Assessment"; 本轮规格只列 :39, 未改 |
+| O65 | T4.THAW.W2 (A5-10) | domains/PP/examples.md:110 / :112 | :110 KB 既有斜体指针 (指向 PC examples, 非 PDF) 与 A5-10 新增一行交叉引用内容重叠; 规格只授权替换 :112 起整节, :110 未动 |
+| O66 | T4.THAW.W2 (A5-11 同型) | domains/TA/assumptions.md:80-106 | `### §7.2.1 Trial Arms (TA) – Description/Overview` / `– Specification` / `– Example 2` 等标题合并 PDF 两级标题或 KB 自拟 (同 FA §6.4.4 型), 不在 A5-11 列项, 未改 |
+| O67 | T4 thaw review LOW-2 | model/06_relationship_datasets.md:191 Summary 表 'AP Related Subjects' 与改后 6.6 标题 'Associated Persons Relationships' (sv20 p68) 不一致 | 后续顺手改 (KB 自写 D6 表) |

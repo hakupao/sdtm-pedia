@@ -1,6 +1,6 @@
 # PC — Examples
 
-> KB note (not in SDTMIG): PC and PP share a combined examples section (§6.3.5.9.3 Relating PP Records to PC Records). The shared PC/PP datasets, dataset-level RELREC discussion, conclusions, and implementation suggestions are in `PC/assumptions.md`. This file contains the 4 worked Examples (1–4) illustrating the 4 RELREC methods (A/B/C/D) for relating PC to PP records.
+> Note: PC and PP share a combined examples section (§6.3.5.9.3 Relating PP Records to PC Records). The shared PC/PP datasets, dataset-level RELREC discussion, conclusions, and implementation suggestions are in `PC/assumptions.md`. This file contains the 4 worked Examples (1–4) illustrating the 4 RELREC methods (A/B/C/D) for relating PC to PP records.
 
 ## PC – Examples
 
@@ -275,14 +275,14 @@ The relationship with RELID "1" includes individual PC records with PCSEQ values
 
 Only some records in PC were used to calculate some parameters; time points 8 and 9 on day 1 were not used for half-life calculations, but were used for other parameters.
 
-This example uses --GRPID values in the PCGRPID (Example 3) and PPGRPID (Example 3) columns. Note that the 2 excluded PC records have PCGRPID = "DY1_DRGX_B"; the other PC records have PCGRPID = "DY1_DRGX_A". Note also that the PP records for half-life calculations have PPGRPID = "DYDRGX_HALF", whereas the other PP records have PPGRPID = "DY1DRGX_A".
+This example uses --GRPID values in the PCGRPID (Example 3) and PPGRPID (Example 3) columns. Note that the 2 excluded PC records have PCGRPID = "DY1_DRGX_B"; the other PC records have PCGRPID = "DY1_DRGX_A". Note also that the PP records for half-life calculations have PPGRPID = "DY1DRGX_HALF", whereas the other PP records have PPGRPID = "DY1DRGX_A".
 
 All pharmacokinetic concentrations for day 8 were used to calculate all pharmacokinetic parameters. Because day 8 relationships are the same as in Example 1, they are not included here.
 
 #### Method A (Many to Many, Using PCGRPID and PPGRPID)
 
-- Rows 1-3: The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX_A", all PC records with PCGRPID = "DY1_DRGX_B" (which in this case is all the PP records for Day 1) and all PP records with PPGRPID = "DYIDRGX_A".
-- Rows 4-6: The relationship with RELID "2" includes only PC records with PCGRPID = "DY1_DRGX_A" and all PP records with PPGRPID = "DYIDRGX_HALF".
+- Rows 1-3: The relationship with RELID "1" includes all PC records with PCGRPID = "DY1_DRGX_A", all PC records with PCGRPID = "DY1_DRGX_B" (which in this case is all the PP records for Day 1) and all PP records with PPGRPID = "DY1DRGX_A".
+- Rows 4-6: The relationship with RELID "2" includes only PC records with PCGRPID = "DY1_DRGX_A" and all PP records with PPGRPID = "DY1DRGX_HALF".
 
 **relrec.xpt**
 
@@ -296,8 +296,8 @@ All pharmacokinetic concentrations for day 8 were used to calculate all pharmaco
 
 #### Method B (One to Many, Using PCSEQ and PPGRPID)
 
-- Rows 1-13: The relationship with RELID "1" includes PP records with PCSEQ values "1" through "12" and PP records with PPGRPID = "DY1DRGX_A".
-- Rows 14-24: The relationship with RELID "2" includes PP records with PCSEQ values "1" through "7" and "10" through "12" and PP records with PPGRPID = "DY1DRGX_HALF".
+- Rows 1-13: The relationship with RELID "1" includes PC records with PCSEQ values "1" through "12" and PP records with PPGRPID = "DY1DRGX_A".
+- Rows 14-24: The relationship with RELID "2" includes PC records with PCSEQ values "1" through "7" and "10" through "12" and PP records with PPGRPID = "DY1DRGX_HALF".
 
 **relrec.xpt**
 
@@ -330,8 +330,8 @@ All pharmacokinetic concentrations for day 8 were used to calculate all pharmaco
 
 #### Method C (Many to One, Using PCGRPID and PPSEQ)
 
-- Rows 1-7: The relationship with RELID "1" includes all PP records with PGRPID values "DY1_DRGX_A" and "DY1_DRGX_B" and PP records with PPSEQ values "1" through "3", "6", and "7".
-- Rows 8-10: The relationship with RELID "2" includes all PP records with PGRPID value "DY1_DRGX_A" and PP records with PPSEQ values "4" and "5".
+- Rows 1-7: The relationship with RELID "1" includes all PC records with PCGRPID values "DY1_DRGX_A" and "DY1_DRGX_B" and PP records with PPSEQ values "1" through "3", "6", and "7".
+- Rows 8-10: The relationship with RELID "2" includes all PC records with PCGRPID value "DY1_DRGX_A" and PP records with PPSEQ values "4" and "5".
 
 **relrec.xpt**
 

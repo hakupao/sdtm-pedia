@@ -22,6 +22,7 @@ Per added line (git diff -U0 <base>..<rev>), first class that applies:
   UNEXPLAINED      listed one by one
 Source PDF: model/* -> sv20, else ig34.
 Usage: python3 -I .work/10_tier_b_repair/scripts/t3/t3_reverse_trace.py [--base 302ec4c] [--rev HEAD] [--out JSON]
+  --rev WORKTREE (T4 W3): diff <base> against the uncommitted working tree and read <rev> files from disk.
 """
 import argparse, collections, glob, json, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -49,7 +50,9 @@ for r in lj(f"{W}/t2_pdf_typo_registry.jsonl"):
 def git(*args):
     return subprocess.run(["git", "-C", ROOT, *args], capture_output=True, text=True).stdout
 
-diff = git("diff", "-U0", f"{a.base}..{a.rev}", "--", "knowledge_base/")
+WT = a.rev == "WORKTREE"
+show = lambda f: open(f"{ROOT}/{f}", encoding="utf-8").read() if WT else git("show", f"{a.rev}:{f}")
+diff = git("diff", "-U0", a.base, "--", "knowledge_base/") if WT else git("diff", "-U0", f"{a.base}..{a.rev}", "--", "knowledge_base/")
 added, f, ln = [], None, 0
 for l in diff.splitlines():
     if l.startswith("+++ "):
@@ -65,7 +68,7 @@ def file_ctx(f):
     """line no -> 'MERMAID' | 'CODE' | 'KB_NOTE' from the <rev> version of f."""
     if f not in ctx:
         m, fence, note = {}, None, False
-        for n, l in enumerate(git("show", f"{a.rev}:{f}").splitlines(), 1):
+        for n, l in enumerate(show(f).splitlines(), 1):
             s = l.strip()
             if s.startswith("```"):
                 fence = None if fence else ("MERMAID" if s.startswith("```mermaid") else "CODE")
@@ -109,7 +112,7 @@ def d6_scope(f, n):
     """D6 note whose declared scope covers line n: 'X column is KB-written' / 'table is KB-authored' (same table block,
     note directly above the table), 'this entire section … to the end of the file' (any later line), Mermaid 'caption'
     (first non-blank line after the diagram). Returns 'file:line' of the note or None."""
-    L = git("show", f"{a.rev}:{f}").splitlines()
+    L = show(f).splitlines()
     j = n - 2
     while j >= 0 and L[j].lstrip().startswith("|"):
         j -= 1
@@ -159,6 +162,9 @@ def near(src, v, k=6):
     g = [" ".join(w[j:j + k]) for j in range(len(w) - k + 1)]
     return sum(x in grams[src] for x in g) / len(g) >= 0.9
 
+# T4 W3 (主控决定 4): explicit exemption list for the 5 A5-14 '> Note:' lines, anchored by file + full line text
+NOTE_EX = {(e["file"], e["text"]) for e in json.load(open(f"{W}/t4_note_exempt.json", encoding="utf-8"))["entries"]}
+NOTE_EX_HIT = collections.Counter()
 res, detail = collections.Counter(), collections.defaultdict(list)
 for f, n, raw in added:
     src = "sv20" if f.startswith("knowledge_base/model/") else "ig34"
@@ -180,6 +186,9 @@ for f, n, raw in added:
         cls = "XREF_D2"
     elif c == "KB_NOTE" or NAV.match(raw):
         cls = "KB_NOTE"
+    elif (f, raw) in NOTE_EX:
+        cls = "NOTE_EXEMPT"
+        NOTE_EX_HIT[(f, raw)] += 1
     elif re.match(r"^\s*-\s*\*\*Controlled Terms:\*\*\s*\*\s*$", raw):
         cls = "U_RULE"  # U2: CT column '*' copied from PDF
     elif sentences(v) and all(in_pdf(src, s) for s in sentences(v)):
@@ -227,7 +236,7 @@ for f, n, raw in added:
 traced = sum(v for k, v in res.items() if k not in ("PDF_NEAR", "UNEXPLAINED"))
 TIER = {"PDF (strict substring tier)": ("PDF_SUBSTR", "PDF_LOOSE", "PDF_SENTENCES", "PDF_SEGMENTS", "HEADING_PDF"),
         "brief buckets (structural / PDF_TYPO / U-rule)": ("BLANK", "STRUCT", "PDF_TYPO", "U_RULE"),
-        "added buckets (writer-defined; reviewer to sample)": ("TABLE_TOKENS", "SPEC_FIELD", "MERMAID", "KB_NOTE", "KB_NOTE_SCOPE", "XREF_D2", "HEADING_NOT_IN_PDF"),
+        "added buckets (writer-defined; reviewer to sample)": ("TABLE_TOKENS", "SPEC_FIELD", "MERMAID", "KB_NOTE", "KB_NOTE_SCOPE", "NOTE_EXEMPT", "XREF_D2", "HEADING_NOT_IN_PDF"),
         "not traced": ("PDF_NEAR", "UNEXPLAINED")}
 for k, cs in TIER.items():
     print(f"  {k}: {sum(res[c] for c in cs)}  " + ", ".join(f"{c}={res[c]}" for c in cs))
@@ -235,3 +244,6 @@ json.dump(dict(base=a.base, rev=a.rev, counts=res, detail=detail), open(a.out, "
 print(f"base={a.base} rev={a.rev} added_lines={len(added)} traced={traced} ({traced / len(added) * 100:.2f}%)")
 print("by class:", dict(sorted(res.items(), key=lambda x: -x[1])))
 print("NOT traced: PDF_NEAR", res["PDF_NEAR"], "UNEXPLAINED", res["UNEXPLAINED"], "-> details", os.path.relpath(a.out, ROOT))
+bad_ex = [k for k in NOTE_EX if NOTE_EX_HIT[k] != 1] if a.rev == "WORKTREE" or NOTE_EX_HIT else []
+print("NOTE_EXEMPT list:", len(NOTE_EX), "entries, hits", sum(NOTE_EX_HIT.values()), "| entries not hit exactly once:", bad_ex)
+sys.exit(1 if bad_ex else 0)

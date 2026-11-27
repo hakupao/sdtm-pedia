@@ -1,6 +1,6 @@
 # MB — Examples
 
-## §6.3.5.7.3 Microbiology Specimen and Microbiology Susceptibility Examples
+## §6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples
 
 ### Example 1
 

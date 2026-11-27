@@ -3087,18 +3087,16 @@
 },
 "ig34_p0016_a019": {
 "old": "EQUIVALENT",
-"new": "EXACT",
-"rule": "live-hit",
+"new": "PDF_TYPO",
+"rule": "writer-Tn-registry",
 "batch": "B-ch02",
 "in_triage": false,
 "in_t2s": false,
 "short_verbatim": false,
 "evidence": {
-"hit_file": "knowledge_base/chapters/ch02_fundamentals.md",
-"hit_lines": [
-176
-],
-"hit_target_src": "tier1: ledger md_atom_ids file",
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
 "targets": [
 "knowledge_base/chapters/ch02_fundamentals.md"
 ],
@@ -3117,7 +3115,12 @@
 }
 ],
 "t2s": [],
-"k11_surplus": false
+"k11_surplus": false,
+"registry": [
+"B-ch02 T-1"
+],
+"writer_row": ".work/10_tier_b_repair/work/t2_batches/B-ch02.writer.jsonl:34",
+"registry_handling": "KB 写正确值"
 }
 },
 "ig34_p0016_a021": {
@@ -5040,6 +5043,34 @@
 "k11_surplus": false
 }
 },
+"ig34_p0026_a037": {
+"old": "PARTIAL",
+"new": "PDF_TYPO",
+"rule": "K3b-registry",
+"batch": "B-ch04",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/chapters/ch04_general_assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"registry": [
+"B-ch04 T-7"
+],
+"k3b": [
+"B-ch04 T-7:a:pdf-side:['vistnum']"
+]
+}
+},
 "ig34_p0026_a039": {
 "old": "EQUIVALENT",
 "new": "EXACT",
@@ -5695,6 +5726,34 @@
 ],
 "t2s": [],
 "k11_surplus": false
+}
+},
+"ig34_p0041_a038": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "K3b-registry",
+"batch": "B-ch04",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/chapters/ch04_general_assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"registry": [
+"B-ch04 N-1"
+],
+"k3b": [
+"B-ch04 N-1:a:pdf-side:['foreword']"
+]
 }
 },
 "ig34_p0041_a040": {
@@ -7834,9 +7893,9 @@
 },
 "ig34_p0056_a006": {
 "old": "PARTIAL",
-"new": "PARTIAL",
-"rule": "pending_user-residual",
-"batch": null,
+"new": "ATOM_ERR",
+"rule": "S1-R1",
+"batch": "T1/T2-errata",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": false,
@@ -7867,7 +7926,10 @@
 ],
 "t2s": [],
 "k11_surplus": false,
-"pending_user": "T2 已改但 target 不逐字命中 → 残留 (保持原 verdict), 标 T4 待裁"
+"errata": "work/t3_errata.json#atom_err/ig34_p0056_a006",
+"registry": [],
+"checkpoint": ".work/10_tier_b_repair/evidence/checkpoints/t4_user_decisions.md:33",
+"basis": "T4 U-2 A (委托代裁): 原子第 2/3 格漏 'to improve readability' 与句点; PDF p56:37-40 与 KB ch04:1478 一致"
 }
 },
 "ig34_p0057_a001": {
@@ -10619,6 +10681,36 @@
 "k11_surplus": false
 }
 },
+"ig34_p0082_a025": {
+"old": "EXACT",
+"new": "PDF_TYPO",
+"rule": "K3b-registry",
+"batch": "S-SPREL",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/SE/examples.md",
+"knowledge_base/domains/SE/assumptions.md",
+"knowledge_base/domains/SE/spec.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"registry": [
+"S-SPREL SE T-1"
+],
+"k3b": [
+"S-SPREL SE T-1:a:pdf-side:['birthdtc']"
+]
+}
+},
 "ig34_p0084_a004": {
 "old": "PARTIAL",
 "new": "EXACT",
@@ -11081,6 +11173,36 @@
 "ack": "evidence/checkpoints/t1_user_ack.md R4 (+R1 for VERSION_MISMATCH); list evidence/checkpoints/t1_ie_final.md",
 "note": "主控 C5: 当场命中 → EXACT 优先于 IE"
 }
+}
+},
+"ig34_p0085_a010": {
+"old": "EXACT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-SM",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/SM/examples.md",
+"knowledge_base/domains/SM/assumptions.md",
+"knowledge_base/domains/SM/spec.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0085_a010",
+"registry": [
+"B-SM O32"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:6",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-8 B-SM O32 SMDY→SMSTDY | errata: t3_atom_err | new_target: domains/SM/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
 "ig34_p0085_a019": {
@@ -23090,8 +23212,8 @@
 "ig34_p0153_a0006": {
 "old": "PARTIAL",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": false,
@@ -23121,17 +23243,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:77",
-"head_line": "knowledge_base/domains/CE/examples.md:77"
+"head_line": "knowledge_base/domains/CE/examples.md:77",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0007": {
 "old": "ERROR",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": true,
@@ -23161,17 +23294,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:77",
-"head_line": "knowledge_base/domains/CE/examples.md:77"
+"head_line": "knowledge_base/domains/CE/examples.md:77",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0008": {
 "old": "PARTIAL",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": true,
@@ -23201,17 +23345,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:77",
-"head_line": "knowledge_base/domains/CE/examples.md:77"
+"head_line": "knowledge_base/domains/CE/examples.md:77",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0009": {
 "old": "PARTIAL",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": true,
@@ -23242,17 +23397,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:77",
-"head_line": "knowledge_base/domains/CE/examples.md:77"
+"head_line": "knowledge_base/domains/CE/examples.md:77",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0011": {
 "old": "PARTIAL",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": false,
@@ -23282,17 +23448,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:79",
-"head_line": "knowledge_base/domains/CE/examples.md:79"
+"head_line": "knowledge_base/domains/CE/examples.md:79",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0012": {
 "old": "PARTIAL",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": true,
@@ -23323,17 +23500,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:79",
-"head_line": "knowledge_base/domains/CE/examples.md:79"
+"head_line": "knowledge_base/domains/CE/examples.md:79",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0013": {
 "old": "PARTIAL",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": true,
@@ -23364,17 +23552,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:79",
-"head_line": "knowledge_base/domains/CE/examples.md:79"
+"head_line": "knowledge_base/domains/CE/examples.md:79",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0016": {
 "old": "PARTIAL",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": true,
@@ -23405,17 +23604,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:80",
-"head_line": "knowledge_base/domains/CE/examples.md:80"
+"head_line": "knowledge_base/domains/CE/examples.md:80",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0018": {
 "old": "ERROR",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": true,
@@ -23446,17 +23656,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:81",
-"head_line": "knowledge_base/domains/CE/examples.md:81"
+"head_line": "knowledge_base/domains/CE/examples.md:81",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0019": {
 "old": "ERROR",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": true,
@@ -23494,17 +23715,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:81",
-"head_line": "knowledge_base/domains/CE/examples.md:81"
+"head_line": "knowledge_base/domains/CE/examples.md:81",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0022": {
 "old": "PARTIAL",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": true,
@@ -23535,17 +23767,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:82",
-"head_line": "knowledge_base/domains/CE/examples.md:82"
+"head_line": "knowledge_base/domains/CE/examples.md:82",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0023": {
 "old": "PARTIAL",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": false,
@@ -23575,17 +23818,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:83",
-"head_line": "knowledge_base/domains/CE/examples.md:83"
+"head_line": "knowledge_base/domains/CE/examples.md:83",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0024": {
 "old": "ERROR",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": false,
@@ -23615,17 +23869,28 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:83",
-"head_line": "knowledge_base/domains/CE/examples.md:83"
+"head_line": "knowledge_base/domains/CE/examples.md:83",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
 "ig34_p0153_a0025": {
 "old": "ERROR",
 "new": "EQUIVALENT",
-"rule": "T1-two-agent",
-"batch": "T1:pack_011",
+"rule": "T1-two-agent+T2-rework",
+"batch": "B-CE",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": false,
@@ -23655,9 +23920,20 @@
 "t2s": [],
 "k11_surplus": false,
 "t1_kb_loc_check": {
-"status": "unchanged",
+"status": "reworked-by-T2",
 "base_line": "302ec4c:knowledge_base/domains/CE/examples.md:83",
-"head_line": "knowledge_base/domains/CE/examples.md:83"
+"head_line": "knowledge_base/domains/CE/examples.md:83",
+"block": [
+72,
+83
+],
+"batch": "B-CE",
+"fix_row": ".work/10_tier_b_repair/work/t2_batches/B-CE.writer.jsonl:8",
+"fix_ref": "unparseable:knowledge_base/domains/CE/examples.md:72",
+"review": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_review.md:94",
+"review_status": "PASS",
+"audit": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-CE_audit.md:45",
+"commit": "c11084b"
 }
 }
 },
@@ -24862,6 +25138,42 @@
 "k11_surplus": false
 }
 },
+"ig34_p0160_a0026": {
+"old": "EXACT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-DS",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/DS/examples.md",
+"knowledge_base/domains/DS/assumptions.md",
+"knowledge_base/domains/DS/spec.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [
+{
+"batch": "B-DS",
+"action": "REPLACED",
+"ptr": ".work/10_tier_b_repair/work/t2_batches/B-DS.writer.jsonl:56"
+}
+],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0160_a0026",
+"registry": [
+"B-DS U-4"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:17",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-2 B-DS U-4 删 in | errata: t3_atom_err | new_target: domains/DS/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
+}
+},
 "ig34_p0160_a0028": {
 "old": "EQUIVALENT",
 "new": "PDF_TYPO",
@@ -24894,7 +25206,7 @@
 "registry": [
 "B-DS T-3"
 ],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:16",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:18",
 "basis": "B-DS T-3 PDF_TYPO (DSDTDTC)→(DSSTDTC) (t2_B-DS.md:35) | errata: t3_atom_err | new_target: domains/DS/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
@@ -24924,6 +25236,36 @@
 "registry": [],
 "checkpoint": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-DS.md:137",
 "basis": "B-DS audit: verbatim DSCAT 应为 DSSCAT (渲染页)"
+}
+},
+"ig34_p0165_a0007": {
+"old": "EXACT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-DS",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/DS/examples.md",
+"knowledge_base/domains/DS/assumptions.md",
+"knowledge_base/domains/DS/spec.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0165_a0007",
+"registry": [
+"B-DS U-1"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:19",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A1-9 B-DS U-1 se ETCD SCREEN→SCRN | errata: t3_atom_err | new_target: domains/DS/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
 "ig34_p0166_a0035": {
@@ -29224,6 +29566,36 @@
 "basis": "B-EG review: verbatim P0W 应为 PQW, VISIT 漏折行 1"
 }
 },
+"ig34_p0190_a017": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-EG",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/EG/examples.md",
+"knowledge_base/domains/EG/assumptions.md",
+"knowledge_base/domains/EG/spec.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0190_a017",
+"registry": [
+"B-EG T-3"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:22",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-5 B-EG T-3 investigation→investigator | errata: t3_atom_err | new_target: domains/EG/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
+}
+},
 "ig34_p0191_a023": {
 "old": "PARTIAL",
 "new": "EXACT",
@@ -32081,7 +32453,7 @@
 "registry": [
 "S-SPC1 CP T-21"
 ],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:19",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:23",
 "basis": "S-SPC1 CP T-21 PDF_TYPO --BNDAGT/--GATEDEF→--BDAGNT/--GATDEF (spec 变量名) | errata: t3_atom_err | new_target: domains/CP/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=False"
 }
 },
@@ -32130,7 +32502,7 @@
 "registry": [
 "S-SPC1 CP T-17"
 ],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:20",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:24",
 "basis": "S-SPC1 CP T-17 PDF_TYPO sting→string | errata: t3_atom_err | new_target: domains/CP/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
@@ -32179,7 +32551,7 @@
 "registry": [
 "S-SPC1 CP T-21"
 ],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:21",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:25",
 "basis": "S-SPC1 CP T-21 PDF_TYPO --GATEDEF→--GATDEF | errata: t3_atom_err | new_target: domains/CP/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
@@ -32578,7 +32950,7 @@
 "registry": [
 "S-SPC1 CP T-21"
 ],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:22",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:26",
 "basis": "S-SPC1 CP T-21 PDF_TYPO CPBNDAGT→CPBDAGNT | errata: t3_atom_err | new_target: domains/CP/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
@@ -32627,7 +32999,7 @@
 "registry": [
 "S-SPC1 CP T-18"
 ],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:23",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:27",
 "basis": "S-SPC1 CP T-18 PDF_TYPO CSMRKS→CPCSMRKS | errata: t3_atom_err | new_target: domains/CP/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
@@ -37693,7 +38065,7 @@
 "registry": [
 "B-IS T-4"
 ],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:26",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:30",
 "basis": "B-IS T-4 PDF_TYPO nucleoar→nucleolar; S-SPC1 D2 删 IS/assumptions 附录副本, 现在 IS/examples.md:215 | errata: t3_atom_err (次: t3_target_remap→IS/examples.md) | new_target: domains/IS/examples.md | v∈KB=False"
 }
 },
@@ -42946,8 +43318,46 @@
 "k11_surplus": false,
 "errata": "work/t3_errata.json#atom_err/ig34_p0274_a019",
 "registry": [],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:45",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:49",
 "basis": "原子 row 7 多 `Collected`; PDF p274 文本层 :35 row 7 = SINGLE DOSE 无 Collected; KB PP/examples.md:74 = PDF | errata: t3_atom_err | new_target: domains/PP/examples.md | v∈KB=False; kbTok=True; pdfTok=True; a"
+}
+},
+"ig34_p0275_a019": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+75,
+89,
+125,
+151,
+206,
+217,
+237,
+254,
+289,
+304,
+338,
+358,
+407,
+445
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/examples.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
 }
 },
 "ig34_p0277_a003": {
@@ -43546,6 +43956,396 @@
 "atom_in_pdf": false
 }
 },
+"ig34_p0277_a020": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+70
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/assumptions.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/examples.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0277_a023": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+75,
+89,
+125,
+151,
+206,
+217,
+237,
+254,
+289,
+304,
+338,
+358,
+407,
+445
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0277_a024": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+77,
+127,
+208,
+239
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0278_a002": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+75,
+89,
+125,
+151,
+206,
+217,
+237,
+254,
+289,
+304,
+338,
+358,
+407,
+445
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0278_a033": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+75,
+89,
+125,
+151,
+206,
+217,
+237,
+254,
+289,
+304,
+338,
+358,
+407,
+445
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0278_a034": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+77,
+127,
+208,
+239
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0278_a035": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+128,
+240
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0278_a036": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+129,
+241
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0278_a037": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+130,
+242
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0278_a038": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+131,
+243
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0278_a039": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+132,
+244
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0278_a040": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+133,
+245
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0278_a041": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+134,
+246
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
 "ig34_p0278_a051": {
 "old": "EQUIVALENT",
 "new": "ATOM_ERR",
@@ -43569,8 +44369,182 @@
 "k11_surplus": false,
 "errata": "work/t3_errata.json#atom_err/ig34_p0278_a051",
 "registry": [],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:46",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:64",
 "basis": "S-SPC2 #15: 原子抄自旧错 KB (多 and \"10\" through \"12\"/individual); KB PC/examples.md:146 = p278 渲染 (非 fp 机制回归: baseline 即未命中) | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=Tr"
+}
+},
+"ig34_p0278_a054": {
+"old": "EQUIVALENT",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T3-errata-key",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": "knowledge_base/domains/PC/examples.md",
+"hit_lines": [
+75,
+89,
+125,
+151,
+206,
+217,
+237,
+254,
+289,
+304,
+338,
+358,
+407,
+445
+],
+"hit_target_src": "tier1: S1 remap (t3_fp_expected_regressions.jsonl (S0))",
+"targets": [
+"knowledge_base/domains/PP/examples.md",
+"knowledge_base/domains/PC/examples.md",
+"knowledge_base/domains/PP/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false
+}
+},
+"ig34_p0280_a036": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-PCPP",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/PP/examples.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0280_a036",
+"registry": [
+"B-PCPP T-8b"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:66",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-3 B-PCPP T-8b DYDRGX_HALF→DY1DRGX_HALF | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+"c7_delta_rereview": ".work/10_tier_b_repair/evidence/checkpoints/t3_delta_rereview.md:18"
+}
+},
+"ig34_p0280_a039": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-PCPP",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0280_a039",
+"registry": [
+"B-PCPP T-8"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:67",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-2 B-PCPP T-8 DYIDRGX_A→DY1DRGX_A | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+"c7_delta_rereview": ".work/10_tier_b_repair/evidence/checkpoints/t3_delta_rereview.md:18"
+}
+},
+"ig34_p0280_a040": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-PCPP",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0280_a040",
+"registry": [
+"B-PCPP T-8"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:68",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-2 B-PCPP T-8 DYIDRGX_HALF→DY1DRGX_HALF | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True",
+"c7_delta_rereview": ".work/10_tier_b_repair/evidence/checkpoints/t3_delta_rereview.md:18"
+}
+},
+"ig34_p0281_a002": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "S-SPC2",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0281_a002",
+"registry": [
+"S-SPC2 N-1"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:69",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-15 S-SPC2 N-1 PP→PC records with PCSEQ | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
+}
+},
+"ig34_p0281_a003": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "S-SPC2",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0281_a003",
+"registry": [
+"S-SPC2 N-1"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:70",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-15 S-SPC2 N-1 PP→PC records with PCSEQ | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
 "ig34_p0281_a009": {
@@ -44345,6 +45319,58 @@
 "writer": [],
 "t2s": [],
 "k11_surplus": false
+}
+},
+"ig34_p0281_a031": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "S-SPC2",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0281_a031",
+"registry": [
+"S-SPC2 N-2"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:71",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-16 S-SPC2 N-2 PP/PGRPID→PC/PCGRPID | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
+}
+},
+"ig34_p0281_a032": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "S-SPC2",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0281_a032",
+"registry": [
+"S-SPC2 N-2"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:72",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-16 S-SPC2 N-2 PP/PGRPID→PC/PCGRPID | errata: t3_atom_err | new_target: domains/PC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
 "ig34_p0281_a034": {
@@ -46908,6 +47934,34 @@
 ],
 "t2s": [],
 "k11_surplus": false
+}
+},
+"ig34_p0285_a015": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-NV",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/chapters/ch08_relationships.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0285_a015",
+"registry": [
+"B-NV N-1"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:77",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-14 B-NV N-1 may included→include | errata: t3_atom_err | new_target: domains/NV/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
 "ig34_p0286_a017": {
@@ -50136,6 +51190,36 @@
 ],
 "writer_row": ".work/10_tier_b_repair/work/t2_batches/B-NV.writer.jsonl:11",
 "registry_handling": "KB 写正确值"
+}
+},
+"ig34_p0298_a001": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-NV",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/NV/examples.md",
+"knowledge_base/domains/NV/assumptions.md",
+"knowledge_base/domains/NV/spec.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0298_a001",
+"registry": [
+"B-NV N-2"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:80",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-15 B-NV N-2 删 the | errata: t3_atom_err | new_target: domains/NV/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
 "ig34_p0298_a024": {
@@ -53410,7 +54494,7 @@
 "registry": [
 "B-RS T-7"
 ],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:51",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:83",
 "basis": "B-RS T-7 PDF_TYPO 叙述 RSPLNKGRP→RSLNKGRP | errata: t3_atom_err | new_target: domains/RS/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
@@ -53439,7 +54523,7 @@
 "registry": [
 "B-RS T-7"
 ],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:52",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:84",
 "basis": "B-RS T-7 PDF_TYPO 叙述 RSPLNKGRP→RSLNKGRP | errata: t3_atom_err | new_target: domains/RS/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
@@ -53468,7 +54552,7 @@
 "registry": [
 "B-RS T-7"
 ],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:53",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:85",
 "basis": "B-RS T-7 PDF_TYPO 叙述 RSPLNKGRP→RSLNKGRP | errata: t3_atom_err | new_target: domains/RS/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
@@ -53497,7 +54581,7 @@
 "registry": [
 "B-RS T-7"
 ],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:54",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:86",
 "basis": "B-RS T-7 PDF_TYPO 叙述 RSPLNKGRP→RSLNKGRP | errata: t3_atom_err | new_target: domains/RS/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
@@ -53916,8 +55000,64 @@
 "k11_surplus": false,
 "errata": "work/t3_errata.json#atom_err/ig34_p0342_a004",
 "registry": [],
-"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:56",
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:88",
 "basis": "原子表头 SCORESU; PDF p342 与 KB 均 SCORRESU | errata: t3_atom_err | new_target: domains/SC/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=False"
+}
+},
+"ig34_p0342_a006": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "K3b-registry",
+"batch": "B-SC",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/SC/examples.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"registry": [
+"B-SC T-1"
+],
+"k3b": [
+"B-SC T-1:a:pdf-side:['20-17-04-01']"
+]
+}
+},
+"ig34_p0342_a007": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "K3b-registry",
+"batch": "B-SC",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/SC/examples.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"registry": [
+"B-SC T-1"
+],
+"k3b": [
+"B-SC T-1:a:pdf-side:['20-17-06-10']"
+]
 }
 },
 "ig34_p0342_a019": {
@@ -56727,16 +57867,18 @@
 },
 "ig34_p0362_a010": {
 "old": "EQUIVALENT",
-"new": "ATOM_ERR",
-"rule": "S1-R1",
-"batch": "T1/T2-errata",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-FA",
 "in_triage": false,
 "in_t2s": false,
 "short_verbatim": false,
 "evidence": {
-"hit_file": null,
-"hit_lines": [],
-"hit_target_src": null,
+"hit_file": "knowledge_base/domains/FA/assumptions.md",
+"hit_lines": [
+39
+],
+"hit_target_src": "tier1: writer .work/10_tier_b_repair/work/t2_batches/B-FA.writer.jsonl:22 REPLACED",
 "targets": [
 "knowledge_base/domains/FA/assumptions.md"
 ],
@@ -56752,9 +57894,11 @@
 "t2s": [],
 "k11_surplus": false,
 "errata": "work/t3_errata.json#atom_err/ig34_p0362_a010",
-"registry": [],
+"registry": [
+"B-FA T-4"
+],
 "checkpoint": ".work/10_tier_b_repair/evidence/checkpoints/t2_B-FA_audit.md:36",
-"basis": "B-FA audit: 原子抽错"
+"basis": "T4 U-7 后依据变更: KB 按 U-7 A3-7 写正确值 'thought to be related' (= 原子), PDF p362 'thought be related' → R2 PDF_TYPO (主控决定 2026-11-27). 原 basis: B-FA audit: 原子抽错"
 }
 },
 "ig34_p0363_a001": {
@@ -57003,18 +58147,16 @@
 },
 "ig34_p0363_a009": {
 "old": "EQUIVALENT",
-"new": "EXACT",
-"rule": "live-hit",
+"new": "PDF_TYPO",
+"rule": "K3b-registry",
 "batch": "B-FA",
 "in_triage": false,
 "in_t2s": false,
 "short_verbatim": false,
 "evidence": {
-"hit_file": "knowledge_base/domains/FA/assumptions.md",
-"hit_lines": [
-51
-],
-"hit_target_src": "tier1: writer .work/10_tier_b_repair/work/t2_batches/B-FA.writer.jsonl:22 REPLACED",
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
 "targets": [
 "knowledge_base/domains/FA/assumptions.md"
 ],
@@ -57028,7 +58170,13 @@
 }
 ],
 "t2s": [],
-"k11_surplus": false
+"k11_surplus": false,
+"registry": [
+"B-FA T-6"
+],
+"k3b": [
+"B-FA T-6:a:pdf-side:['provided']"
+]
 }
 },
 "ig34_p0363_a011": {
@@ -57755,7 +58903,7 @@
 "hit_file": "knowledge_base/domains/FA/assumptions.md",
 "hit_lines": [
 1,
-103
+105
 ],
 "hit_target_src": "tier1: ledger md_atom_ids file",
 "targets": [
@@ -57799,7 +58947,7 @@
 "evidence": {
 "hit_file": "knowledge_base/domains/FA/assumptions.md",
 "hit_lines": [
-105
+107
 ],
 "hit_target_src": "tier1: ledger md_atom_ids file",
 "targets": [
@@ -57842,7 +58990,7 @@
 "evidence": {
 "hit_file": "knowledge_base/domains/FA/assumptions.md",
 "hit_lines": [
-107
+109
 ],
 "hit_target_src": "tier1: ledger md_atom_ids file",
 "targets": [
@@ -57885,7 +59033,7 @@
 "evidence": {
 "hit_file": "knowledge_base/domains/FA/assumptions.md",
 "hit_lines": [
-109
+111
 ],
 "hit_target_src": "tier1: ledger md_atom_ids file",
 "targets": [
@@ -57928,7 +59076,7 @@
 "evidence": {
 "hit_file": "knowledge_base/domains/FA/assumptions.md",
 "hit_lines": [
-111
+113
 ],
 "hit_target_src": "tier1: ledger md_atom_ids file",
 "targets": [
@@ -57971,7 +59119,7 @@
 "evidence": {
 "hit_file": "knowledge_base/domains/FA/assumptions.md",
 "hit_lines": [
-112
+114
 ],
 "hit_target_src": "tier1: ledger md_atom_ids file",
 "targets": [
@@ -58014,7 +59162,7 @@
 "evidence": {
 "hit_file": "knowledge_base/domains/FA/assumptions.md",
 "hit_lines": [
-114
+116
 ],
 "hit_target_src": "tier1: ledger md_atom_ids file",
 "targets": [
@@ -58057,7 +59205,7 @@
 "evidence": {
 "hit_file": "knowledge_base/domains/FA/assumptions.md",
 "hit_lines": [
-115
+117
 ],
 "hit_target_src": "tier1: ledger md_atom_ids file",
 "targets": [
@@ -58100,7 +59248,7 @@
 "evidence": {
 "hit_file": "knowledge_base/domains/FA/assumptions.md",
 "hit_lines": [
-117
+119
 ],
 "hit_target_src": "tier1: ledger md_atom_ids file",
 "targets": [
@@ -59129,6 +60277,34 @@
 ],
 "t2s": [],
 "k11_surplus": false
+}
+},
+"ig34_p0372_a013": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-FA",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/FA/examples.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0372_a013",
+"registry": [
+"B-FA T-8"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:113",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-9 B-FA T-8 populated→populate | errata: t3_atom_err | new_target: domains/FA/examples.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
 "ig34_p0373_a012": {
@@ -62934,6 +64110,123 @@
 "basis": "B-TS writer: 原子抽取错, KB 正确"
 }
 },
+"ig34_p0419_a006": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-TS",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/TS/assumptions.md",
+"knowledge_base/domains/TS/spec.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0419_a006",
+"registry": [
+"B-TS T-3",
+"B-TS T-2"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:117",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ (+A2-4 B-TS T-2 Dose→DOSE) | errata: t3_atom_err | new_target: domains/TS/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True;"
+}
+},
+"ig34_p0419_a011": {
+"old": "EXACT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-TS",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/TS/assumptions.md",
+"knowledge_base/domains/TS/spec.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0419_a011",
+"registry": [
+"B-TS T-3"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:118",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ | errata: t3_atom_err | new_target: domains/TS/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
+}
+},
+"ig34_p0419_a013": {
+"old": "EXACT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-TS",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/TS/assumptions.md",
+"knowledge_base/domains/TS/spec.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0419_a013",
+"registry": [
+"B-TS T-3"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:119",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ | errata: t3_atom_err | new_target: domains/TS/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
+}
+},
+"ig34_p0419_a017": {
+"old": "EXACT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-TS",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/TS/assumptions.md",
+"knowledge_base/domains/TS/spec.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0419_a017",
+"registry": [
+"B-TS T-4"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:120",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-6 B-TS T-4 OUTMSPR→OUTMSPRI | errata: t3_atom_err | new_target: domains/TS/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
+}
+},
 "ig34_p0424_a002": {
 "old": "PARTIAL",
 "new": "EXACT",
@@ -63080,6 +64373,40 @@
 "writer": [],
 "t2s": [],
 "k11_surplus": false
+}
+},
+"ig34_p0425_a024": {
+"old": "EQUIVALENT",
+"new": "PDF_TYPO",
+"rule": "S1-R2",
+"batch": "B-TS",
+"in_triage": false,
+"in_t2s": false,
+"short_verbatim": false,
+"evidence": {
+"hit_file": null,
+"hit_lines": [],
+"hit_target_src": null,
+"targets": [
+"knowledge_base/domains/TS/assumptions.md"
+],
+"rejected_hits": {},
+"triage": null,
+"writer": [
+{
+"batch": "B-TS",
+"action": "REPLACED",
+"ptr": ".work/10_tier_b_repair/work/t2_batches/B-TS.writer.jsonl:17"
+}
+],
+"t2s": [],
+"k11_surplus": false,
+"errata": "work/t3_errata.json#atom_err/ig34_p0425_a024",
+"registry": [
+"B-TS T-6"
+],
+"checkpoint": ".work/10_tier_b_repair/work/t3_fp_expected_regressions.jsonl:121",
+"basis": "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-7 B-TS T-6 MAXAGE→AGEMAX | errata: t3_atom_err | new_target: domains/TS/assumptions.md | v∈KB=False; kbTok=True; pdfTok=True; atom∈PDF=True"
 }
 },
 "ig34_p0425_a030": {
@@ -71836,7 +73163,7 @@
 "evidence": {
 "hit_file": "knowledge_base/model/05_study_level_data.md",
 "hit_lines": [
-229
+231
 ],
 "hit_target_src": "tier1: ledger md_atom_ids file",
 "targets": [
@@ -71926,7 +73253,7 @@
 "evidence": {
 "hit_file": "knowledge_base/model/05_study_level_data.md",
 "hit_lines": [
-259
+261
 ],
 "hit_target_src": "tier1: ledger md_atom_ids file",
 "targets": [
@@ -71969,7 +73296,7 @@
 "evidence": {
 "hit_file": "knowledge_base/model/05_study_level_data.md",
 "hit_lines": [
-297
+299
 ],
 "hit_target_src": "tier1: ledger md_atom_ids file",
 "targets": [
@@ -72067,29 +73394,24 @@
 },
 "sv20_p0064_a020": {
 "old": "MISPLACED",
-"new": "INTENTIONAL_EXCLUDE",
-"rule": "IE-ack",
+"new": "EXACT",
+"rule": "live-hit(was-IE-ack)",
 "batch": "T1:pack_024",
 "in_triage": true,
 "in_t2s": false,
 "short_verbatim": false,
 "evidence": {
-"hit_file": null,
-"hit_lines": [],
-"hit_target_src": null,
+"hit_file": "knowledge_base/model/06_relationship_datasets.md",
+"hit_lines": [
+40
+],
+"hit_target_src": "tier1: triage kb_loc knowledge_base/model/06_relationship_datasets.md:34",
 "targets": [
 "knowledge_base/model/04_associated_persons.md",
 "knowledge_base/model/06_relationship_datasets.md",
 "knowledge_base/chapters/ch08_relationships.md"
 ],
-"rejected_hits": {
-"knowledge_base/model/06_relationship_datasets.md": [
-[
-76,
-"heading:59 §6.2 vs atom §6.1"
-]
-]
-},
+"rejected_hits": {},
 "triage": {
 "final_class": "IE",
 "src": "ruling:R1-row",
@@ -72102,7 +73424,13 @@
 },
 "writer": [],
 "t2s": [],
-"k11_surplus": false
+"k11_surplus": false,
+"ie_ack_original": {
+"ie_cat": "VERSION_MISMATCH",
+"src": "ruling:R1-row",
+"ack": "evidence/checkpoints/t1_user_ack.md R4 (+R1 for VERSION_MISMATCH); list evidence/checkpoints/t1_ie_final.md",
+"note": "主控 C5: 当场命中 → EXACT 优先于 IE"
+}
 }
 },
 "sv20_p0065_a001": {
@@ -72180,7 +73508,7 @@
 "evidence": {
 "hit_file": "knowledge_base/model/06_relationship_datasets.md",
 "hit_lines": [
-147
+140
 ],
 "hit_target_src": "tier1: writer .work/10_tier_b_repair/work/t2_batches/B-model06.writer.jsonl:1 INSERTED",
 "targets": [
@@ -72221,7 +73549,7 @@
 "evidence": {
 "hit_file": "knowledge_base/model/06_relationship_datasets.md",
 "hit_lines": [
-149
+142
 ],
 "hit_target_src": "tier1: writer .work/10_tier_b_repair/work/t2_batches/B-model06.writer.jsonl:2 INSERTED",
 "targets": [
@@ -72262,7 +73590,7 @@
 "evidence": {
 "hit_file": "knowledge_base/model/06_relationship_datasets.md",
 "hit_lines": [
-149
+142
 ],
 "hit_target_src": "tier1: writer .work/10_tier_b_repair/work/t2_batches/B-model06.writer.jsonl:3 INSERTED",
 "targets": [

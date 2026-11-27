@@ -369,14 +369,14 @@ ig34_p0356_a005	no governing numbered heading	knowledge_base/domains/TR/examples
 ig34_p0360_a005	atom section has no number	knowledge_base/domains/VS/spec.md:348
 ig34_p0366_a013	no governing numbered heading	knowledge_base/domains/FA/spec.md:276
 ig34_p0366_a014	no governing numbered heading	knowledge_base/domains/FA/assumptions.md:1
-ig34_p0366_a015	atom section has no number	knowledge_base/domains/FA/assumptions.md:105
-ig34_p0366_a016	atom section has no number	knowledge_base/domains/FA/assumptions.md:107
-ig34_p0366_a017	atom section has no number	knowledge_base/domains/FA/assumptions.md:109
-ig34_p0366_a018	atom section has no number	knowledge_base/domains/FA/assumptions.md:111
-ig34_p0366_a019	atom section has no number	knowledge_base/domains/FA/assumptions.md:112
-ig34_p0367_a001	atom section has no number	knowledge_base/domains/FA/assumptions.md:114
-ig34_p0367_a002	atom section has no number	knowledge_base/domains/FA/assumptions.md:115
-ig34_p0367_a003	atom section has no number	knowledge_base/domains/FA/assumptions.md:117
+ig34_p0366_a015	atom section has no number	knowledge_base/domains/FA/assumptions.md:107
+ig34_p0366_a016	atom section has no number	knowledge_base/domains/FA/assumptions.md:109
+ig34_p0366_a017	atom section has no number	knowledge_base/domains/FA/assumptions.md:111
+ig34_p0366_a018	atom section has no number	knowledge_base/domains/FA/assumptions.md:113
+ig34_p0366_a019	atom section has no number	knowledge_base/domains/FA/assumptions.md:114
+ig34_p0367_a001	atom section has no number	knowledge_base/domains/FA/assumptions.md:116
+ig34_p0367_a002	atom section has no number	knowledge_base/domains/FA/assumptions.md:117
+ig34_p0367_a003	atom section has no number	knowledge_base/domains/FA/assumptions.md:119
 ig34_p0367_a007	atom section has no number	knowledge_base/domains/FA/examples.md:7
 ig34_p0367_a008	atom section has no number	knowledge_base/domains/FA/examples.md:9
 ig34_p0367_a009	atom section has no number	knowledge_base/domains/FA/examples.md:10

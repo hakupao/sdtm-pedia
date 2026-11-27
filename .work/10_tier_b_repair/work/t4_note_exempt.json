@@ -1,0 +1,30 @@
+{
+ "_note": "T4 W3 (主控决定 4, 2026-11-27): G-TB6 反向溯源的显式豁免清单. 5 行 KB `> Note:` (只说明来源/位置), 由 A5-14 从 '> KB note (not in SDTMIG):' 改前缀而来 (委托代裁 U-11, t4_user_decisions.md §000; 分类清单见 evidence/checkpoints/t4_thaw_W2.md). 按 文件 + 整行文本 锚定, 不按前缀放行; t3_reverse_trace.py 断言每条恰好命中 1 行.",
+ "entries": [
+  {
+   "file": "knowledge_base/domains/EX/examples.md",
+   "text": "> Note: Examples for EX and EC are shared in Section 6.1.3.3 of the SDTMIG; EC/examples.md points here.",
+   "source": "A5-14 (委托代裁 U-11)"
+  },
+  {
+   "file": "knowledge_base/domains/MS/examples.md",
+   "text": "> Note: MB and MS share a combined examples section (6.3.5.7.3 Microbiology Specimen/Microbiology Susceptibility Examples). MS-specific data tables are shown here; see also MB examples for organism identification data from the same studies.",
+   "source": "A5-14 (委托代裁 U-11)"
+  },
+  {
+   "file": "knowledge_base/domains/PC/examples.md",
+   "text": "> Note: PC and PP share a combined examples section (§6.3.5.9.3 Relating PP Records to PC Records). The shared PC/PP datasets, dataset-level RELREC discussion, conclusions, and implementation suggestions are in `PC/assumptions.md`. This file contains the 4 worked Examples (1–4) illustrating the 4 RELREC methods (A/B/C/D) for relating PC to PP records.",
+   "source": "A5-14 (委托代裁 U-11)"
+  },
+  {
+   "file": "knowledge_base/domains/PP/examples.md",
+   "text": "> Note: PC and PP share a combined examples section (6.3.5.9.3 Relating PP Records to PC Records). The PP parameter data tables are shown here; see also PC examples for the concentration data and detailed RELREC method descriptions.",
+   "source": "A5-14 (委托代裁 U-11)"
+  },
+  {
+   "file": "knowledge_base/domains/RELREC/assumptions.md",
+   "text": "> Note: the next paragraph and list are from the SDTMIG v3.4 §8 introduction (p427).",
+   "source": "A5-14 (委托代裁 U-11)"
+  }
+ ]
+}

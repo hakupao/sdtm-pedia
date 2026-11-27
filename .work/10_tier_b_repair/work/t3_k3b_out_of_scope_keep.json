@@ -1,5 +1,5 @@
 {
- "_note": "attempt 4 可复现性修复 (审计 A4-5.1): 范围外 K3b 保留 21 条 (action=keep_k3b) + 审计点名仅登记 3 条 (action=t4_only). t3_writeback.py 只读本清单; 每条运行时断言 pdf.token ⊂ norm(PDF 行) 且 kb.token ⊂ norm(KB 行). 生成: scripts/t3/t3_build_keep.py (一次性).",
+ "_note": "attempt 4 可复现性修复 (审计 A4-5.1): 范围外 K3b 保留 21 条 (action=keep_k3b) + 审计点名仅登记 3 条 (action=t4_only). t3_writeback.py 只读本清单; 每条运行时断言 pdf.token ⊂ norm(PDF 行) 且 kb.token ⊂ norm(KB 行). 生成: scripts/t3/t3_build_keep.py (一次性). | T4 解冻轮 W3 (2026-11-27): U-8 四条 (ig34_p0026_a037 新增, ig34_p0082_a025 / ig34_p0342_a006 / a007 由 t4_only 改) 均为 keep_k3b (委托代裁 U-8=A); 现 keep_k3b 25 / t4_only 0.",
  "ig34_p0049_a008": {
   "action": "keep_k3b",
   "registry": [
@@ -381,7 +381,7 @@
   }
  },
  "ig34_p0082_a025": {
-  "action": "t4_only",
+  "action": "keep_k3b",
   "registry": [
    "S-SPREL SE T-1"
   ],
@@ -396,10 +396,11 @@
   "kb": {
    "line": "knowledge_base/domains/SE/examples.md:44",
    "token": "brthdtc"
-  }
+  },
+  "t4_decision": "U-8 A (委托代裁 2026-11-27; t4_user_decisions.md §000): t4_only → keep_k3b, 台账改标 PDF_TYPO, 不动 KB"
  },
  "ig34_p0342_a006": {
-  "action": "t4_only",
+  "action": "keep_k3b",
   "registry": [
    "B-SC T-1"
   ],
@@ -414,10 +415,11 @@
   "kb": {
    "line": "knowledge_base/domains/SC/examples.md:35",
    "token": "2017-04-01"
-  }
+  },
+  "t4_decision": "U-8 A (委托代裁 2026-11-27; t4_user_decisions.md §000): t4_only → keep_k3b, 台账改标 PDF_TYPO, 不动 KB"
  },
  "ig34_p0342_a007": {
-  "action": "t4_only",
+  "action": "keep_k3b",
   "registry": [
    "B-SC T-1"
   ],
@@ -432,6 +434,26 @@
   "kb": {
    "line": "knowledge_base/domains/SC/examples.md:35",
    "token": "2017-04-01"
-  }
+  },
+  "t4_decision": "U-8 A (委托代裁 2026-11-27; t4_user_decisions.md §000): t4_only → keep_k3b, 台账改标 PDF_TYPO, 不动 KB"
+ },
+ "ig34_p0026_a037": {
+  "action": "keep_k3b",
+  "registry": [
+   "B-ch04 T-7"
+  ],
+  "rule": "a",
+  "why": [
+   "B-ch04 T-7:a:pdf-side:['vistnum']"
+  ],
+  "pdf": {
+   "line": "ig34_p0026:55",
+   "token": "vistnum"
+  },
+  "kb": {
+   "line": "knowledge_base/chapters/ch04_general_assumptions.md:200",
+   "token": "visitnum, mktestcd"
+  },
+  "t4_decision": "U-8 A (委托代裁 2026-11-27; t4_user_decisions.md §000): 新增 keep_k3b, 台账改标 PDF_TYPO, 不动 KB"
  }
 }

@@ -73,8 +73,36 @@ add(["ig34_p0335_a015", "ig34_p0335_a016", "ig34_p0335_a017", "ig34_p0335_a018"]
 add(["ig34_p0340_a002"], "R3", "B-SC dedup: spec 首句迁到 SC/assumptions.md:9 (t2_B-SC_audit.md:16)", "t3_target_remap→domains/SC/assumptions.md", "domains/SC/assumptions.md", None, None)
 add(["ig34_p0342_a004"], "R1", "原子表头 SCORESU; PDF p342 与 KB 均 SCORRESU", "t3_atom_err", "domains/SC/examples.md", "scorres scorresu scstresc", "scorres scorresu scstresc")
 
+# ---- T4 解冻 (主控决定 2026-11-27, evidence/checkpoints/t4_thaw_W3.md "attempt 1 续"): U-7 KB 写正确值 → 原子 = PDF 原错 (R2, 16);
+#      A5-10 PP "RELREC Method Quick Reference" 换成交叉引用 → 原文只在 PC/examples.md (R3, 19)
+U7 = "T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF"
+add(["ig34_p0160_a0026"], "R2", f"{U7}: A3-2 B-DS U-4 删 in", "t3_atom_err", "domains/DS/examples.md", "between the ds record and the ae record was represented", "between the ds record and in the ae record")
+add(["ig34_p0165_a0007"], "R2", f"{U7}: A1-9 B-DS U-1 se ETCD SCREEN→SCRN", "t3_atom_err", "domains/DS/examples.md", "xyz-767-002 1 scrn screen 2016-02-04", "screen screen 2016-02-04")
+add(["ig34_p0419_a006"], "R2", f"{U7}: A2-5 B-TS T-3 DOSFREQ→DOSFRQ (+A2-4 B-TS T-2 Dose→DOSE)", "t3_atom_err", "domains/TS/assumptions.md", 'tsparmcd = "dose" and tsparmcd = "dosfrq"', 'tsparmcd = "dosfreq"')
+add(["ig34_p0419_a011"], "R2", f"{U7}: A2-5 B-TS T-3 DOSFREQ→DOSFRQ", "t3_atom_err", "domains/TS/assumptions.md", "1 a dosfrq dosing frequency bid", "dosfreq dosing frequency bid")
+add(["ig34_p0419_a013"], "R2", f"{U7}: A2-5 B-TS T-3 DOSFREQ→DOSFRQ", "t3_atom_err", "domains/TS/assumptions.md", "2 b dosfrq dosing frequency q24h", "dosfreq dosing frequency q24h")
+add(["ig34_p0425_a024"], "R2", f"{U7}: A2-7 B-TS T-6 MAXAGE→AGEMAX", "t3_atom_err", "domains/TS/assumptions.md", "for the agemax case", "maxage case that provided")
+add(["ig34_p0372_a013"], "R2", f"{U7}: A3-9 B-FA T-8 populated→populate", "t3_atom_err", "domains/FA/examples.md", "used to populate fadtc", "used to populated fadtc")
+add(["ig34_p0298_a001"], "R2", f"{U7}: A3-15 B-NV N-2 删 the", "t3_atom_err", "domains/NV/examples.md", "nvgrpid links each", "nvgrpid links the")
+add(["ig34_p0285_a015"], "R2", f"{U7}: A3-14 B-NV N-1 may included→include", "t3_atom_err", "domains/NV/assumptions.md", "may include additional", "may included additional")
+add(["ig34_p0280_a036"], "R2", f"{U7}: A2-3 B-PCPP T-8b DYDRGX_HALF→DY1DRGX_HALF", "t3_atom_err", "domains/PC/examples.md", 'ppgrpid = "dy1drgx half", whereas', "dydrgx half")
+add(["ig34_p0280_a039"], "R2", f"{U7}: A2-2 B-PCPP T-8 DYIDRGX_A→DY1DRGX_A", "t3_atom_err", "domains/PC/examples.md", 'all pp records with ppgrpid = "dy1drgx a"', "dyidrgx a")
+add(["ig34_p0280_a040"], "R2", f"{U7}: A2-2 B-PCPP T-8 DYIDRGX_HALF→DY1DRGX_HALF", "t3_atom_err", "domains/PC/examples.md", 'all pp records with ppgrpid = "dy1drgx half"', "dyidrgx half")
+add(["ig34_p0281_a002"], "R2", f"{U7}: A2-15 S-SPC2 N-1 PP→PC records with PCSEQ", "t3_atom_err", "domains/PC/examples.md", 'includes pc records with pcseq values "1" through "12"', "includes pp records with pcseq values")
+add(["ig34_p0281_a003"], "R2", f"{U7}: A2-15 S-SPC2 N-1 PP→PC records with PCSEQ", "t3_atom_err", "domains/PC/examples.md", 'includes pc records with pcseq values "1" through "7"', "includes pp records with pcseq values")
+add(["ig34_p0281_a031"], "R2", f"{U7}: A2-16 S-SPC2 N-2 PP/PGRPID→PC/PCGRPID", "t3_atom_err", "domains/PC/examples.md", 'all pc records with pcgrpid values "dy1 drgx a"', "all pp records with pgrpid values")
+add(["ig34_p0281_a032"], "R2", f"{U7}: A2-16 S-SPC2 N-2 PP/PGRPID→PC/PCGRPID", "t3_atom_err", "domains/PC/examples.md", 'all pc records with pcgrpid value "dy1 drgx a"', "all pp records with pgrpid value")
+# 另 3 条 U-7 原子 (已由 K3b 转 PDF_TYPO) 同为 fp 回归, 为使 NEW = 0 一并登记 (S1-R2 先于 K3b, 终态同为 PDF_TYPO)
+add(["ig34_p0085_a010"], "R2", f"{U7}: A2-8 B-SM O32 SMDY→SMSTDY", "t3_atom_err", "domains/SM/examples.md", "smstdy is not populated", "smdy is not populated")
+add(["ig34_p0190_a017"], "R2", f"{U7}: A3-5 B-EG T-3 investigation→investigator", "t3_atom_err", "domains/EG/examples.md", "principal investigator on three", "principal investigation on three")
+add(["ig34_p0419_a017"], "R2", f"{U7}: A2-6 B-TS T-4 OUTMSPR→OUTMSPRI", "t3_atom_err", "domains/TS/assumptions.md", 'tsparm = "outmspri"', 'tsparm = "outmspr"')
+add(["ig34_p0275_a019", "ig34_p0277_a020", "ig34_p0277_a023", "ig34_p0277_a024", "ig34_p0278_a002"] + [f"ig34_p0278_a0{n}" for n in range(33, 42)] +
+    ["ig34_p0278_a054", "ig34_p0281_a034", "ig34_p0281_a049", "ig34_p0282_a035", "ig34_p0283_a012"], "R3",
+    "T4 A5-10: PP RELREC Method Quick Reference 整节改为交叉引用, 原文在 PC/examples.md", "t3_target_remap→domains/PC/examples.md", "domains/PC/examples.md", None, None)
+
 ids = [r["atom_id"] for r in R]
-assert len(set(ids)) == len(ids) == 83, len(ids)
+# 83 = T3 attempt 4 list; + 19 (T4 U-7 R2: 主控定 16 + 已由 K3b 触及的 3) + 19 (T4 A5-10 R3) = 121 (主控决定 2026-11-27, t4_thaw_W3.md "attempt 1 续")
+assert len(set(ids)) == len(ids) == 121, len(ids)
 missing = set(reg) - set(ids)          # current regressions not explained by the list = NEW regressions
 print("current regress:", len(reg), " not in t3 list (NEW):", sorted(missing), " list entries not regressing now:", sorted(set(ids) - set(reg)))
 bad = []

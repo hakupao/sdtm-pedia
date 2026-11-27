@@ -1,6 +1,6 @@
 # TI — Assumptions
 
-## §7.4 Trial Eligibility and Summary (TI, TS) — Introduction
+## §7.4 Trial Eligibility and Summary (TI and TS)
 
 This section contains the Trial Design (TD) datasets that describe:
 
