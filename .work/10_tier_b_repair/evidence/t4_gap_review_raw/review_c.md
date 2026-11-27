@@ -1,7 +1,7 @@
 # 独立 delta 复审 C — 第二轮补检 / 待改清单 / 给主人一页第 2 稿 (原文誊录)
 
 <!-- chain: E (plans) -->
-> 审查者: `oh-my-claudecode:code-reviewer` (opus, 新实例), 只读; 对象 HEAD `1b30197`; 返回时间 2026-11-27 约 15:15 JST. 主控原样誊录 (只做了 Markdown 转义还原), 不改判.
+> 审查者: `oh-my-claudecode:code-reviewer` (opus, 新实例), 只读; 对象 HEAD `1b30197`; 主控登记其返回的时刻 = trace `T4.GAP.REVIEW_C` 的 `subagent_done` 行 (2026-11-27T06:09:23Z). 主控原样誊录 (只做了 Markdown 转义还原), 不改判.
 > 主控对各条的处理见 `evidence/checkpoints/t4_supp_fullcheck.md` 文末 "delta 复审 C 的处理". **处理后的第 3 稿没有再送审** (如实); 留给总闸 attempt 3 一并看.
 
 # 独立 delta 复审：T4 第二轮补检、待改清单与给主人一页第 2 稿（HEAD `1b30197`）

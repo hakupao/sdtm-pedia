@@ -1,7 +1,7 @@
 # 独立审查 A — T0 变异重证 (G-TB9) + census 逐表比对 / C3 结案 (G-TB4) (原文誊录)
 
 <!-- chain: E (plans) -->
-> 审查者: `oh-my-claudecode:verifier` (opus), 只读; 对象 HEAD `1df9f60`; 返回时间 2026-11-27 约 14:50 JST. 主控原样誊录 (只做了 Markdown 转义还原), 不改判. 审查者没有 Write 权限, 所以由主控落盘; 它自己的脚本与日志在 gitignored 的 `work/scratch/review_a/`.
+> 审查者: `oh-my-claudecode:verifier` (opus), 只读; 对象 HEAD `1df9f60`; 主控登记其返回的时刻 = trace `T4.GAP.REVIEW_A` 的 `subagent_done` 行 (2026-11-27T05:38:20Z). 主控原样誊录 (只做了 Markdown 转义还原), 不改判. 审查者没有 Write 权限, 所以由主控落盘; 它自己的脚本与日志在 gitignored 的 `work/scratch/review_a/`.
 > 主控对各条的处理见 `evidence/checkpoints/t4_t0_refresh.md` 与 `t4_c3_closeout.md` 文末.
 
 ## 核查报告

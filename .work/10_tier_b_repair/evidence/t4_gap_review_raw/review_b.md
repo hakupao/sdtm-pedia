@@ -1,7 +1,7 @@
 # 独立审查 B — 补检汇总 / 待改清单 / 给主人的一页 / 文档一致性 (原文誊录)
 
 <!-- chain: E (plans) -->
-> 审查者: `oh-my-claudecode:code-reviewer` (opus), 只读; 对象 HEAD `1df9f60`; 返回时间 2026-11-27 约 14:38 JST. 主控原样誊录 (只做了 Markdown 转义还原), 不改判. 审查者没有 Write 权限, 所以由主控落盘.
+> 审查者: `oh-my-claudecode:code-reviewer` (opus), 只读; 对象 HEAD `1df9f60`; 主控登记其返回的时刻 = trace `T4.GAP.REVIEW_B` 的 `subagent_done` 行 (2026-11-27T05:33:56Z). 主控原样誊录 (只做了 Markdown 转义还原), 不改判. 审查者没有 Write 权限, 所以由主控落盘.
 > 主控对各条的处理见 `evidence/checkpoints/t4_supp_fullcheck.md` 文末 "独立审查 B 的处理".
 > 说明 (#3): 审查者认为 "协调方说明您当时回过 '可以, 我去发'" 是多写的 — 那两点在协调方消息原文里有, 是主控给审查者的 brief 里漏了; 原文已留档 `evidence/checkpoints/t4_coordinator_note_20261127.md`.
 
