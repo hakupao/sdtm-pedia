@@ -263,4 +263,5 @@ attempt 3 指出的 5 处都已改 (其中两处改得不彻底 → 并入下面
 - LOW-7: `scripts/t4/t4_ack_lists.py` 加备注表, 重生成 `t4_ack_lists.md`, `ig34_p0293_a038` 那一行末列写明 B1 与 "无法判定"; 台账那一行不动 (主控不写台账).
 - LOW-6 / LOW-8 不改 (都在台账里, 改它们要再跑一批回写): 记为已知 — `discrepancy` / `similarity` 是 06 时期匹配器留下的辅助字段, 不参与任何闸; `ts` 的事已在 M-10 ⑤ 披露.
 - G-TB8: 本次 delta 审查的 `subagent_done` 行已记入 `trace.jsonl` (`T4.1` attempt `3-delta`), 作为 R3L 这一批第三个不同 subagent_type 的独立核验; 是否认可随 M-10 由主人定.
-- 需主人但不挡闸的两件事 (M-10 追认; ATOM_ERR 约 83 条是否加一轮) 已在聊天里告诉主人, 并写进给协调方的完成报告; 主控没有替他定.
+- 需主人但不挡闸的两件事 (M-10 追认; ATOM_ERR 约 83 条是否加一轮): 2026-11-27T13:46:05Z 在聊天里告诉主人 (要点记在 `t4_owner_confirmation.md` "主控的第四次告知"), 并写进给协调方的完成报告 `evidence/checkpoints/t4_attempt3_report.md` §5; 主控没有替他定.
+- (主控注) `evidence/checkpoints/t4_ack_lists.md` 在 delta 审查之后因 LOW-7 重生成过一次: md5 `18a2981ce5bcdb11989cfdcf6ba46a4e` → `91ad638504915b98a1fed79b40b0d719`, 唯一差别是 `ig34_p0293_a038` 那一行末列多了 B1 的备注 (`git diff` 为 1 行). `t4_round3_ledger_W.md` §7 与 R3L reviewer 原文里引的是旧值, 那两份原文不改.
