@@ -156,7 +156,7 @@ archive/jp_delivery/PLAN.md / EXECUTION_PLAN.md          ← 規範改訂
 ├── 04_optimization/         ← Phase 6: 检索优化 (P0-P2 完成)
 ├── (06_deep_verification/ 已迁移 → ../archive/deep_verification/)
 ├── 07_website/              ← Phase 6-8 公开站点 (closed)
-├── 10_tier_b_repair/        ← 06 deferred Tier B 内容补修 (Tier 3, DRAFT)
+├── 10_tier_b_repair/        ← 06 deferred Tier B 内容补修 (Tier 3)
 ├── refactor_v1/             ← 项目重构 v1 (临时, 段 3 close 后归档)
 └── meta/
     ├── worklog/             ← 工作日志 (按 phase 拆分, INDEX.md 入口)

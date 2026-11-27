@@ -164,3 +164,58 @@ git status --short   # 补跑后仅本节新增文件 (日志 + brief v2.0), 无
 ```
 - t0_mutation 未重新跑 (W3 已在解冻后 KB 与 HEAD 副本各跑一次, 日志 `work/t4/t0_mutation_thaw.log` / `t0_mutation_kbhead.log`, 同格局 MISMATCH); 要恢复 G-TB9 对 table_census / fp_match 的证明需刷新 T0 baseline, 属后续项.
 - 文件数: `git show --stat --format= a59c2d3 -- knowledge_base` → `25 files changed, 118 insertions(+), 179 deletions(-)`; KB reviewer 写的 "26 个" 不准, 以 25 为准.
+
+---
+
+# §attempt 3 (2026-11-27) — **不通过 (CONDITIONAL)**
+
+> 审查: `feature-dev:code-reviewer` (opus) 新实例, 只读, brief `subagent_prompts/t4_gate_reviewer_v3.0.md`; 对象 HEAD `4a5dd1d` (KB 树 `63f857774a42cfaa71798705ad40ab51bc5e378a`, 台账 md5 `16024ac09721cb3f8519cd68fa455196`). 审查者实例**无 Bash**: 复跑输出由主控事先在 `a88a585` 上跑好 (`work/t4/gate_prerun.log`), 审查者的数字标 [自算 Grep] / [读日志] / [采信].
+> **报告原文** (脚本从会话记录原样取出, 主控未改一字): `evidence/t4_gate_raw/attempt3_report.md`. 下面是主控的要点誊录, 不改判 (规则 D); 与原文有出入以原文为准. 规则 B 指针: `evidence/failures/step_T4.1_attempt_3.md`.
+
+## 结论: CONDITIONAL
+- G-TB1 ~ G-TB9 **没有一条 NOT_MET**; 审查者从 78 条改标里自挑 10 条 (四组都有) 重判 **10 / 10 HOLDS**; 78 条改标 + 5 条指针行与总闸样本 84、T4.2 预筛 42、主人抽查 6 的交集都是 0 (三份样本沿用 attempt 1 / 2 的判定).
+- **挡住 PASS 的只有一件事 = 问题 A**: 第三轮查出的 4 条多标 PDF_TYPO (`ig34_p0412_a006` / `a007` / `a008`、`ig34_p0413_a010`). 审查者自己用文本层逐条复核: 它们自己的 PDF 原文没有笔误, KB 与 PDF 逐字一致, 应为 EXACT; 挂的登记 `S-TDM TD T-1` / `T-4` 描述的是相邻原子 / 另一张表. 按写死的口径 "任一样本 NOT_HOLD → 不 PASS". 主人对问题 A 只回了「继续」, 没有选.
+- M-9、问题 B、几处过期数字都**不挡闸**, 单列.
+
+## G-TB 表 (誊录)
+| 闸 | 判定 | 要点 | 条件 / 缺口 |
+|---|---|---|---|
+| G-TB1 | MET_WITH_CONDITION | 范围内 174 节残留 0; PDF_TYPO 174 条登记都非空; ack 来源 122 + 22 + 19 + 6 + 4 + 1 = 174, "(未归因)" 0 | 4 条 TD 原子的登记实际描述的是邻近原子, "每条有登记" 在实质上对这 4 条不成立 → 挡 PASS; 问题 B 那 1 条另列 |
+| G-TB2 | MET (U-3 范围内口径) | 范围内 174/174; 字面 157/174 | 取决于 U-3 A |
+| G-TB3 | MET_WITH_CONDITION | U-1 B 9860/9933 = 99.2651% ≥ 99.0192%; strict 95.5301%; mapped 99.3509%; 内容 90.6188%; 等于预演值 | 按 PLAN 字面 strict 不达标, 过闸完全依赖 U-1 B; 现值比主人上一轮确认时低 0.0039 个百分点, 但第二轮那一页给主人看过新值 |
+| G-TB4 | MET_WITH_CONDITION | census 497 表 / OK 309 / DIFF 38 / diffs 148; C3 60 张 = 49 + 4 + 7 已逐表结案, verifier 审过; 审查者抽核 #1、#16 与 DS:292 | census 原始输出是 RED, 靠 "PDF_TYPO 登记例外" 过闸; 148 处差异的基数沿用 T2 分诊 [采信] |
+| G-TB5 | MET_WITH_CONDITION | R2L auditor N=33 (seed 20261134) 33/33; `audit_matrix.md` 已补齐 T3 / T4 行 | N 没写在规格里, "事先定" 的证据只有派发时的 trace 行与 auditor 自述 (33 > PLAN §5.3 公式值 16, 是从严) |
+| G-TB6 | MET (U-4 A / M-6) | 新增 5414 行全部溯源, UNEXPLAINED 0, NOTE_EXEMPT 5 条各命中 1 次 | C 层抽样过闸 (U-4) |
+| G-TB7 | MET | live docs 42 | 审查者未复跑 |
+| G-TB8 | MET | R2L writer `oh-my-claudecode:executor` / reviewer `oh-my-claudecode:code-reviewer` / auditor `oh-my-claudecode:verifier` 三种不同; reviewer 在隔离副本里整链跑了四遍, md5 都是 `16024ac0…` | `t4_r2l_relabel.json` 由一次性脚本生成, 生成人未写明 (内容与主人选的清单逐条一致); 上一任会话的时间戳问题依旧 |
+| G-TB9 | MET_WITH_CONDITION | t3_mutation M0 / M2 / M7 绿、M1 / M3-M6 红, 真 KB md5 不变; t0_mutation_head 13/13 施加, EXPECT 8/8, M4 7/7, ALL MATCH; M-8 主人第二轮已追认 | `t4_t0_refresh.md` §6 的基线重建没有送独立审查 (脚本与用例未改, 风险低) |
+
+## 样本层 (誊录)
+- 自挑 10 条: `sv20_p0052_a012`、`sv20_p0058_a005`、`sv20_p0069_a001` (R1-row); `sv20_p0003_a011` (v2.0-TOC); `ig34_p0043_a010` (仅文本层, 渲染页没看)、`ig34_p0278_a015`、`ig34_p0147_a025` (registered-typo); `ig34_p0083_a020`、`ig34_p0304_a026`、`ig34_p0316_a023` (范围外) — 全部 HOLDS. 审查者说明: 其中 6 条也在 R2L auditor 的 33 条里, 真正独立于 auditor 的是 4 条.
+- 仍未处理: `ig34_p0412_a006` / `a007` / `a008`、`ig34_p0413_a010` = **NOT_HOLD** (应为 EXACT; PDF `ig34_p0412.txt:14-16` 三句本身无误, 登记的 "assessments.." 在 :17; p413:21 印 TDTGTPAI 是对的, 笔误在 p414:29); `ig34_p0293_a038` = UNVERIFIABLE (折行处有没有空格文本层判不了; KB 两种情况下都对).
+
+## C 项 (裁定来源; 誊录)
+1. 上一轮四件事: 作 G-TB1 "用户 ack" **足够**; 作 G-TB3 U-1 B 口径认可 **足够** (第二轮那一页明确以 U-1 B 为过闸口径并给出改后数字, 主人作了正面回答); T4.2 改口径并关闭 **足够, 带已公开的局限**. 局限照实保留: 上一任会话记录、一个词加多选勾选、没有截图.
+2. 第二轮三条原话: 「是，都按建议」是对逐项列出的追问的直接回答, 支撑 78 条改标与问题 1-9 的登记 **足够**; 「继续」没有回答问题 A / B, 主控没有替主人选, 处理得当; M-9 **需主人追认**, 不挡闸.
+3. 人工判定来源可核性 (attempt 2 判 "不足"): 现在 **足够 (带局限)** — 仍然没有截图或会话原文, 无法从仓库外独立核对.
+
+## D 项 (attempt 2 缺口现状; 誊录)
+已关: C3 逐表结案清单; census 变化逐表说明; t0_mutation 在现 KB 重证; pre_existing 58 单独核 (现 52); FIG 11 逐条核; "规则 0 抽中" 各类; PLAN 修订; audit_matrix 缺行; `t4_user_decisions.md` 与 `t4_human_verdicts.md` 的矛盾. **部分关**: ATOM_ERR / PDF_TYPO 补抽 — PDF_TYPO 174 条全部有人看过但留下 4 条 NOT_HOLD + 1 条 UNVERIFIABLE; ATOM_ERR 的 S1-R1 157 条里约 83 条没被单独看过 [审查者采信 / 推算]. **仍开 (LOW, 主控改)**: 5 处过期文字 — `_progress.json` steps.T4.1 / T4.2; `audit_matrix.md:7` "M-8 待追认"; `t4_supp_fullcheck.md:12` 复跑注释 "pre_existing 58"; 同文件 :98 "PDF_TYPO 149" 无时点说明; `HANDOFF.md` 下午那一节的 "M-8 待追认" (该节标题没标 "(历史)").
+
+## E 项 (未审项与未决项的处置; 誊录)
+| 项 | 挡闸? | 由谁补 |
+|---|---|---|
+| 问题 A (4 条多标) | **挡闸** | 主人选 A1 / A2. 若 A1: writer → reviewer 改台账, 改 `t4_supp_report.py` 断言, 重建 T0 基线, 再做一次 delta 闸审 |
+| 问题 B (`ig34_p0293_a038`) | 不挡, 记已知局限 | 主人 (B1 / B2), 可以之后再定 |
+| M-9 | 不挡, 需主人 | 主人追认 |
+| M-7 里 p0362_a010 那处更正 / 第一节的局限 / 第二轮三句话 / 99.2690 → 99.2651 | 不挡 | — |
+| 只抽样的几类; 约 80 条标签级别项、O68-O71; trace 整点时间戳 | 不挡, 记已知局限 | 留后续 |
+| 一页第 3 稿未审; T0 §6 重建未审; 改过的 `t4_supp_report.py` 与两份汇总; 新脚本; 文档更新 | 不挡 | T0 重建可选独立复跑一次; 过期文字主控改 |
+
+审查者没能核的 (原文 §6): 所有渲染页 (含 p43 字形); 各命令没有复跑; 第一轮主人原话的会话原文; 148 处 census 差异逐条对登记; ATOM_ERR S1-R1 剩下的约 83 条.
+
+## 主控对 attempt 3 的处理 (2026-11-27; 不改判)
+- 5 处过期文字 (D 项 LOW) 已改: `_progress.json` steps.T4.1 / T4.2; `audit_matrix.md:7`; `scripts/t4/t4_supp_report.py` 两处措辞加时点说明后重生成 `t4_supp_fullcheck.md`; `HANDOFF.md` 下午那一节标题加 "(历史)".
+- 挡闸项 (问题 A) 是主人的决定, 主控**没有替他定, 台账没有再动**; 已在聊天里再次向主人提问 (说明这是总闸唯一的挡闸项), 回答将逐字记入 `t4_owner_confirmation.md`.
+- G-TB5 的 "N 没写在规格里": 属实 — 主控是在派发 auditor 的消息里定的 N=33 与 seed, 没有写进 `subagent_prompts/t4/t4_round2_ledger_spec_v1.0.md`; 记为已知不足.
+- 审查者指出的 "ATOM_ERR S1-R1 约 83 条没被单独看过" 不是本轮新开的缺口 (U-5 整类确认 + C7 38 全检 + triage 74 全检的既有状态), 记为已知局限, 留给主人 / 协调方决定是否再加一轮.

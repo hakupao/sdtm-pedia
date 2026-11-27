@@ -9,7 +9,7 @@
 
 ```bash
 T=.work/10_tier_b_repair
-python3 -I $T/scripts/t3/t3_direct_hit.py --out $T/work/t4/supp/direct_hit_head.json   # pre_existing 58 (GREEN)
+python3 -I $T/scripts/t3/t3_direct_hit.py --out $T/work/t4/supp/direct_hit_head.json   # GREEN; pre_existing: R2L 之前 58 (补检取的就是这 58 条), R2L 之后 52 (其中 6 条改标后不再是 EXACT)
 python3 -I $T/scripts/t4/t4_supp_sample.py     # 补检 203 条 / 8 包
 python3 -I $T/scripts/t4/t4_q9_sample.py       # Q9 192 条 / 8 包 (seed 20261131)
 python3 -I $T/scripts/t4/t4_round2_sample.py   # 第二轮 135 条 / 7 包 (seed 20261132)
@@ -95,7 +95,7 @@ python3 -I $T/scripts/t4/t4_supp_report.py     # 本文件 + t4_relabel_pending.
 | XDOC | 范围内 stock EXACT / EQUIVALENT (含标题类) 且台账 `md_atom_ids` 只指向另一份文档的 KB 文件; 这一筛法筛出 57 条 (与第 1 稿的 "57 条待改" 只是数字相同, 无关), 其中 30 条已在 Q9 / 补检审过 | 27 (全检) | HOLDS 24 / NOT_HOLD_XDOC 0 / NOT_HOLD_R1 0 / NOT_HOLD 3 / UNVERIFIABLE 0 |
 | TYPO_SIB | 范围内 EXACT / EQUIVALENT, 与某条 "KB 写正确值" 登记同页 (±1), 原子文字含改正值且与登记所在 KB 行重合 ≥ 0.8; 候选 70 条, 其中 7 条已审过 | 63 (全检) | TYPO_AFFECTED 10 / NOT_AFFECTED 53 / NOT_HOLD 0 / UNVERIFIABLE 0 |
 | TYPO_SIB2 | 同上但原子文字**不含**改正值, 只取 EQUIVALENT (EXACT 须逐字命中 KB, 覆盖笔误处的 EXACT 原子必含改正值); 候选 40 条 | 40 (全检) | TYPO_AFFECTED 5 / NOT_AFFECTED 35 / NOT_HOLD 0 / UNVERIFIABLE 0 |
-| PDF_TYPO | 终态 PDF_TYPO 149 条里未被任何审查者看过的 144 条, 按判定规则分层各抽 15 (seed 20261132) | 45 (抽样) | HOLDS 45 / NOT_HOLD 0 / UNVERIFIABLE 0 |
+| PDF_TYPO | (第二轮当时, R2L 之前) 终态 PDF_TYPO 149 条里未被任何审查者看过的 144 条, 按判定规则分层各抽 15 (seed 20261132) | 45 (抽样) | HOLDS 45 / NOT_HOLD 0 / UNVERIFIABLE 0 |
 
 - **XDOC**: 没有跨文档误配 — 16 条 SDTMIG 非标题原子与 8 条标题原子的内容都在 SDTMIG 自己的 KB 文件里 (台账指针指向 model/ 只是旧匹配器的指针问题). 3 条 NOT_HOLD 都是标题类, 属口径问题而非内容问题: `ig34_p0079_a001` (5.3 SE) 与 `ig34_p0442_a001` (9.2 OI) — KB 域文件标题 `# XX — 域名` 不带 PDF 节号; `ig34_p0441_a006` (9.1 Device Identifiers) — KB 对应标题是自拟的 `## DI – Description/Overview (§9.1)`. 审查者指出 64 个域目录里 57 个同型. 标题类不在 G-TB1 范围内; 口径交主人定 (`t4_owner_decisions_round2.md`).
 - **TYPO_SIB / TYPO_SIB2**: 15 条原子所在处 PDF 印的是已登记的笔误、KB 是改正值, 现标签 EXACT / EQUIVALENT 不准 → 进待改清单 (改 PDF_TYPO). 其余候选的笔误实际在同页别处.

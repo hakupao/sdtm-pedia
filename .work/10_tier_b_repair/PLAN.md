@@ -1,7 +1,7 @@
 # 10 Tier B 内容修复 — Plan (Tier 3)
 
 <!-- chain: E (plans) ; KB 改动走 Chain D -->
-> 状态: **v1.4.2** (2026-11-27) — T4.2 口径与 G-TB3 口径: 按上一任主控会话的记录, 主人在该会话直接确认 (`evidence/checkpoints/t4_owner_confirmation.md`; 一个词加多选勾选, 无截图; 是否足够由 T4.1 总闸 attempt 3 判断); 执行中 (T4.1 attempt 2 CONDITIONAL 后; Q9 已触发; 第二轮主人已在主控聊天直接回答 (原话同一文件第二轮一节; 问题 A / B 未答) → 78 条改标已执行 (R2L) → T4.1 attempt 3)
+> 状态: **v1.4.2** (2026-11-27) — T4.2 口径与 G-TB3 口径: 按上一任主控会话的记录, 主人在该会话直接确认 (`evidence/checkpoints/t4_owner_confirmation.md`; 一个词加多选勾选, 无截图; 是否足够由 T4.1 总闸 attempt 3 判断); 执行中 (T4.1 attempt 2 CONDITIONAL 后; Q9 已触发; 第二轮主人已在主控聊天直接回答 (原话同一文件第二轮一节; 问题 A / B 未答) → 78 条改标已执行 (R2L) → **T4.1 attempt 3 = CONDITIONAL** (G-TB1-9 无 NOT_MET; 唯一挡闸项 = 问题 A, 4 条多标 PDF_TYPO 待主人选; `evidence/checkpoints/t4_gate_review.md` §attempt 3))
 > 模板: `~/.claude/templates/workflow-tier3.md` (+ tier2 基础)
 > 前序: `archive/deep_verification/` (06 深审, 已冻结只读) RETRO 缺口 3 / 决策 2; `issues_found.md` Issue 5
 
@@ -197,7 +197,7 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 | Version | Date | Change |
 |---|---|---|
 | v0.1 | 2026-11-25 | 初稿: T0 基线已出, 其余待 §9 拍板 |
-| v1.4.2 | 2026-11-27 | 主人第二轮直接回答 (13 小问全按建议; 原话 `evidence/checkpoints/t4_owner_confirmation.md` 第二轮一节): 追加第三轮核查 315 条; 78 条改标落台账 (R2L: 53 → INTENTIONAL_EXCLUDE, 25 → PDF_TYPO; executor → code-reviewer → verifier); §5.1 口径注补现值与 M-8 追认; 域文件标题不带节号 / EG-RE 省略号登记为认可写法 (`t4_user_decisions.md` §000c). 未决: 问题 A / B (4 条多标 PDF_TYPO / 1 条判不了) 主人未答, 未动; M-9 待追认 |
+| v1.4.2 | 2026-11-27 | 主人第二轮直接回答 (13 小问全按建议; 原话 `evidence/checkpoints/t4_owner_confirmation.md` 第二轮一节): 追加第三轮核查 315 条; 78 条改标落台账 (R2L: 53 → INTENTIONAL_EXCLUDE, 25 → PDF_TYPO; executor → code-reviewer → verifier); §5.1 口径注补现值与 M-8 追认; 域文件标题不带节号 / EG-RE 省略号登记为认可写法 (`t4_user_decisions.md` §000c). 未决: 问题 A / B (4 条多标 PDF_TYPO / 1 条判不了) 主人未答, 未动; M-9 待追认. 同日 T4.1 总闸 attempt 3 = CONDITIONAL (唯一挡闸项 = 问题 A) |
 | v1.4.1 | 2026-11-27 | 接手主控核对 v1.4 并补齐: 状态行与 §5.3 把确认来源写实 (记录人 = 上一任主控会话; 不改结论); §5.1 加 "口径注" (U-1 B / U-3 A / U-4 A / G-TB9 重证) — v1.4 的 Changelog 写了 G-TB3 口径但闸表没改; §9 Q9 记 "已触发" 及扩检方案; 第二轮待主人裁定 (72 条待改标签 / 几处抽查是否够 / M-8 等) 见 `t4_owner_decisions_round2.md`, 未定之前不改台账 |
 | v1.4 | 2026-11-27 | (上一任主控会话) T4.2 口径改为 "AI 预筛 42 + 主人抽查 6"; G-TB3 按 U-1 B 口径, 并列 strict; FIGURE 12→11 更正. 确认来源: `evidence/checkpoints/t4_owner_confirmation.md` (该会话记录的主人直接确认) |
 | v1.3 | 2026-11-26 | 加 T2S 扫描批步 (覆盖矩阵 §7 分组; 新 brief `t2s_scan_writer_v1.0.md` / `t2s_scan_review_audit_v1.0.md`; U3 宿主按 PDF 标题序定首域; 排版字符统一归 S-TYPO) |

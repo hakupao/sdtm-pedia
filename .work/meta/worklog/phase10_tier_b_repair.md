@@ -25,3 +25,15 @@
 ## 2026-11-27 答复 sdtm-rag 入库预演的 7 个问题 (只读)
 - 文档 `.work/10_tier_b_repair/evidence/checkpoints/t4_downstream_notes.md`: CT 单元格 6 种形态与 "下游格式约定" (以后改格式先通知 sdtm-rag); `*` = SDTMIG §4.3.1 "CT 暂无" 标记; DOMAIN CT = 字面值; DM RFSTDTC/RFENDTC = Char 照 PDF p63; model 6 列行照 SDTM v2.0 (第 6 列为 KB 自写); kb-2026.11.25 以来节变动清单 (脚本 `scripts/t4/t4_heading_diff.py`); 示例标题格式 7 个文件有变 (PC `## PC – Examples`)。
 - 新 KB 观察项 2 条记入 `t4_user_decisions.md` U-10 ⑥⑦。KB 未改, 未 push。
+
+## 2026-11-27 T4 解冻轮 + 总闸 attempt 2 (上一任主控会话; 接手主控补记, 细节以 HANDOFF 为准)
+- 委托代裁落实; 唯一一次解冻改 KB (`a59c2d3`, 25 文件; writer / reviewer / auditor 三个角色); 台账重跑后 U-1 B 口径 99.2690%, strict 95.8041%。
+- T4.2 人工闸改为 "AI 预筛 42 + 主人抽查 6" (6/6 内容正确)。总闸 attempt 2 = 不通过 (CONDITIONAL): 来源可核性不足 + C3 结案清单 / T0 变异重证 / "0 抽中" 各类等缺口。
+- 主人确认记录 `.work/10_tier_b_repair/evidence/checkpoints/t4_owner_confirmation.md` 第一节 (`c555bd8`)。
+
+## 2026-11-27 T4 接手主控: 补 attempt 2 缺口 + 主人第二轮 + 改台账 + 总闸 attempt 3 (KB 全程冻结)
+- 补缺口: C3 60 张表逐表结案 + census 三时点逐表说明 (`t4_c3_closeout.md`); T0 变异在现 KB 重证 ALL MATCH (`t4_t0_refresh.md`, 新脚本 `scripts/t4/t0_mutation_head.sh`); "0 抽中" 各类全检 203 条 → 2 条旧 EXACT 不成立 → 触发 PLAN Q9, 追加 Q9 扩检 192 / 第二轮 175 / 第三轮 315, 共 885 条独立审查 (`t4_supp_fullcheck.md`)。没有查出 KB 内容写错; 查出的是台账标签不准。
+- 主人在主控聊天里直接回答第二轮 13 个小问 (全按建议; 原话逐字在 `t4_owner_confirmation.md` 第二轮一节); 问题 A / B 未答。
+- 改台账 R2L (`5d7e4cb`): 78 条 (53 → INTENTIONAL_EXCLUDE, 25 → PDF_TYPO), executor → code-reviewer → verifier (33/33)。现值 U-1 B 99.2651% / strict 95.5301%; PDF_TYPO 174; 登记表 274 行。
+- 总闸 attempt 3 (`feature-dev:code-reviewer`) = **不通过 (CONDITIONAL)**: 9 条闸无 NOT_MET, 裁定来源判足够; 唯一挡闸项 = 4 条多标的 PDF_TYPO 待主人选 (问题 A)。`t4_gate_review.md` §attempt 3; 归档 `evidence/failures/step_T4.1_attempt_3.md`。
+- 未 push, 未打 kb tag, 未做 T4.3; KB 树 `63f857774a42cfaa71798705ad40ab51bc5e378a` 不变。
