@@ -1,7 +1,7 @@
 # T4.1 总闸独立审 — attempt 1 / 2 / 3 (本文件按 attempt 追加; 正文开头是 attempt 1)
 
 <!-- chain: E (plans) -->
-> **最新状态见文末 "§attempt 3 delta"** (attempt 3 = CONDITIONAL, 唯一挡闸项 = 问题 A → 主人答 A1 → R3L 改 4 条 → delta 闸审). attempt 2 = CONDITIONAL 见 "§attempt 2". 以下到 "§attempt 2" 之前是 attempt 1 的原文 (历史, 不改).
+> **最新状态: T4.1 总闸 = PASS (2026-11-27; attempt 3 + delta 合并)** — 见文末 "§attempt 3 delta" (attempt 3 = CONDITIONAL, 唯一挡闸项 = 问题 A → 主人答 A1 → R3L 改 4 条 → delta 闸审 PASS). attempt 2 = CONDITIONAL 见 "§attempt 2". 以下到 "§attempt 2" 之前是 attempt 1 的原文 (历史, 不改).
 > attempt 1 状态: **不通过 — CONDITIONAL (证据层齐, 等用户裁定)** (2026-11-27).
 > 审查角色: `feature-dev:code-reviewer` (opus) × 5 个独立实例, 本项目其它环节未用过 (trace.jsonl 0 次; 证据层审查 §4 核过). 4 个审 84 条样本, 1 个审闸门证据层.
 > 主控只做三件事: 抽样 (脚本)、派发、誊录 + 机械计数. 审查回复原样存于 `evidence/t4_gate_raw/pack{1,2,3,4}.md` 与 `evidence/t4_gate_raw/evidence_layer.md`; 本文件不改判 (规则 D).
@@ -221,3 +221,46 @@ git status --short   # 补跑后仅本节新增文件 (日志 + brief v2.0), 无
 - G-TB5 的 "N 没写在规格里": 属实 — 主控是在派发 auditor 的消息里定的 N=33 与 seed, 没有写进 `subagent_prompts/t4/t4_round2_ledger_spec_v1.0.md`; 记为已知不足.
 - 审查者指出的 "ATOM_ERR S1-R1 约 83 条没被单独看过" 不是本轮新开的缺口 (U-5 整类确认 + C7 38 全检 + triage 74 全检的既有状态), 记为已知局限, 留给主人 / 协调方决定是否再加一轮.
 - (后续, 同日) 主人直接回答 「A1、B1、追认 M-9」 (`t4_owner_confirmation.md` 消息 4) → R3L 批把这 4 条改回 EXACT (提交 `d794fb6`; `t4_round3_ledger_W.md` / `t4_round3_ledger_review.md`) → T0 基线重建 (`t4_t0_refresh.md` §7) → 对这一处的 delta 闸审见下一节.
+
+---
+
+# §attempt 3 delta (2026-11-27) — **PASS** (T4.1 总闸; attempt 3 + 本次 delta 合并)
+
+> 审查: `feature-dev:code-reviewer` (opus) **另一个新实例** (不是做 attempt 3 的那个), 只读, 无 Bash; brief `subagent_prompts/t4_gate_reviewer_v3.1.md`; 对象 HEAD `c09439c` (KB 树 `63f857774a42cfaa71798705ad40ab51bc5e378a`; 台账 md5 `438098704becc84eda01a925b80defaa`; 预跑日志 `work/t4/gate_prerun.log` 在 `b97b1da` 上生成). 范围只限 attempt 3 之后的变化.
+> **报告原文** (脚本从会话记录原样取出, 主控未改一字): `evidence/t4_gate_raw/attempt3_delta_report.md`. 下面是主控的要点誊录, 不改判 (规则 D); 与原文有出入以原文为准. PASS 的含义仅限 T4.1 总闸; push、打 tag、T4.3 都不在范围内.
+
+## 结论: PASS
+- attempt 3 的唯一挡闸项 (问题 A) **已关**, A 的四问都成立: ① 主人消息 4 「A1、B1、追认 M-9」点名了选项, 是正面回答, 够用 (局限同前: 一句短话、无截图); ② 4 条原子审查者只用文本层逐条重判 **4 / 4 HOLDS** (渲染页没看), 现标签 EXACT、规则 live-hit、不再挂登记; ③ 真正有笔误的相邻原子 `ig34_p0412_a009` / `ig34_p0414_a013` 仍是 PDF_TYPO, 登记都在; ④ B1 已落实 (标签没动; "无法判定" 写在 `t4_user_decisions.md` §000c、`t4_supp_fullcheck.md`、登记表原有的 note).
+- R3L 标签变化恰好 4 条 (逐字节相同是 [读日志]); 审查者自己 Grep 的计数全部吻合 (PDF_TYPO 170 / EXACT 4710 / `T4-R3L` 4 行 / PDF_TYPO 空登记 0 条 / 登记表 274 行). "由现有判定路径得出" 属实, 但要说准确: 不是事后覆盖标签, 是**有断言约束的成因层排除** (按清单把这 4 条的 K3b 触及拿掉后走现有判定) — 即 M-10 ③. 审查者没读 `decide()` 本体, "落到 live-hit 分支" 是采信 R3L reviewer.
+- 没有哪条 G-TB 因 R3L 变成 NOT_MET; 没有发现新的挡闸项.
+
+## 有变化的闸 (誊录; 其余沿用 attempt 3)
+| 闸 | 现判 | 要点 |
+|---|---|---|
+| G-TB1 | MET_WITH_CONDITION (条件缩小) | 174/174 残留 0; PDF_TYPO 170 条每条有登记; ack 来源 118 + 22 + 19 + 6 + 4 + 1 = 170, "(未归因)" 0; attempt 3 对这 4 条的实质性缺口已消失, 剩下的条件只有 U-5 整类代裁 |
+| G-TB3 | MET_WITH_CONDITION (沿用) | U-1 B 99.2651% 不变; strict 95.5301% → 95.5703% 是上升; mapped 99.3511%; 内容 90.6227% |
+| G-TB5 | MET_WITH_CONDITION (新条件) | R3L 没设语义 auditor; 语义上的独立核验有三次 (第三轮 tracer、attempt 3 审查者、本次 4 / 4 文本层重判); 不挡闸 |
+| G-TB8 | MET_WITH_CONDITION (新条件) | 按 PLAN 字面 "每批 3 个不同 subagent_type", R3L 在 trace 里只有 2 种 (executor / code-reviewer); 第三个不同类型的独立核验可由本次 delta 审查 (`feature-dev:code-reviewer`) 充当, 要主控补上本次的 subagent_done 行; 随 M-10 ⑥ 一起由主人追认 |
+| G-TB9 | MET_WITH_CONDITION (沿用) | t3_mutation M0 / M2 / M7 绿、M1 / M3-M6 红; t0 13/13 施加, ALL MATCH; §7 的基线重建没有送独立审查 |
+
+## 过期文字 (誊录)
+attempt 3 指出的 5 处都已改 (其中两处改得不彻底 → 并入下面 LOW-1 / LOW-2). 本次新发现 8 条 LOW: LOW-1 `_progress.json` steps.T4.1 仍写 "主人未答"; LOW-2 `audit_matrix.md:7` 与 `PLAN.md` 口径注只引 `t4_t0_refresh.md` §6 没引 §7; LOW-3 `t4_supp_fullcheck.md:119` 仍写 "现共 174 条 … 待主人定"; LOW-4 `t4_user_decisions.md` §000c 引言只写到消息 3; LOW-5 `audit_matrix.md` 三行的业务判定列写 "待主人裁定 / 主人未答" 没有时点说明; LOW-6 `ig34_p0412_a006` / `a008` 已是 EXACT 但台账行还留着 06 时期的 `discrepancy` 文字与较低的 similarity; LOW-7 B1 的 "无法判定" 没写到 ack 清单的备注栏与台账那一行; LOW-8 R3L 4 行的 `ts` 早于主人决定日 (已在 M-10 ⑤ 披露).
+
+## 处置表 (誊录)
+| 项 | 挡闸? | 由谁补 |
+|---|---|---|
+| M-10 (R3L 的机制选择; 含 "不设 auditor") | 不挡, 需主人 | 主人追认 |
+| ATOM_ERR S1-R1 约 83 条没被单独看过 | 不挡, 记已知局限, 需主人 | 主人决定是否加一轮 |
+| T0 §6 / §7 基线重建未送独立审查 | 不挡 | 可选: 独立复跑一次 |
+| 改过的三个脚本与两份汇总; 这次的文档更新 | 不挡 | 主控改字 (LOW-1 ~ LOW-5) |
+| R3L reviewer 的 5 条 LOW 没回 writer 修 | 不挡 | — (主控的处理合理) |
+| attempt 3 已判 "不挡, 记已知局限" 的各项 | 不挡, 同意 attempt 3 | — |
+
+审查者没能核的: 渲染页; 所有命令 (没有 Bash); `decide()` 本体; 消息 4 的会话原文.
+
+## 主控对 delta 审查的处理 (2026-11-27; 不改判)
+- LOW-1 ~ LOW-5 已改 (`_progress.json`; `audit_matrix.md:7` 与三行业务判定加时点与后续; `PLAN.md` 口径注引 §7; `t4_supp_report.py` 一句措辞改后重生成 `t4_supp_fullcheck.md`; `t4_user_decisions.md` §000c 引言补消息 4).
+- LOW-7: `scripts/t4/t4_ack_lists.py` 加备注表, 重生成 `t4_ack_lists.md`, `ig34_p0293_a038` 那一行末列写明 B1 与 "无法判定"; 台账那一行不动 (主控不写台账).
+- LOW-6 / LOW-8 不改 (都在台账里, 改它们要再跑一批回写): 记为已知 — `discrepancy` / `similarity` 是 06 时期匹配器留下的辅助字段, 不参与任何闸; `ts` 的事已在 M-10 ⑤ 披露.
+- G-TB8: 本次 delta 审查的 `subagent_done` 行已记入 `trace.jsonl` (`T4.1` attempt `3-delta`), 作为 R3L 这一批第三个不同 subagent_type 的独立核验; 是否认可随 M-10 由主人定.
+- 需主人但不挡闸的两件事 (M-10 追认; ATOM_ERR 约 83 条是否加一轮) 已在聊天里告诉主人, 并写进给协调方的完成报告; 主控没有替他定.

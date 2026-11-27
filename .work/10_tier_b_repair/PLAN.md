@@ -1,7 +1,7 @@
 # 10 Tier B 内容修复 — Plan (Tier 3)
 
 <!-- chain: E (plans) ; KB 改动走 Chain D -->
-> 状态: **v1.4.3** (2026-11-27) — T4.2 口径与 G-TB3 口径: 按上一任主控会话的记录, 主人在该会话直接确认 (`evidence/checkpoints/t4_owner_confirmation.md`; 一个词加多选勾选, 无截图; 是否足够由 T4.1 总闸 attempt 3 判断); 执行中 (T4.1 attempt 2 CONDITIONAL 后; Q9 已触发; 第二轮主人已在主控聊天直接回答 (原话同一文件第二轮一节; 问题 A / B 未答) → 78 条改标已执行 (R2L) → **T4.1 attempt 3 = CONDITIONAL** (G-TB1-9 无 NOT_MET; 唯一挡闸项 = 问题 A, 4 条多标 PDF_TYPO; `evidence/checkpoints/t4_gate_review.md` §attempt 3) → 主人直接回答 A1 / B1 / 追认 M-9 → 4 条已改回 EXACT (R3L) → 对这一处做 delta 闸审 (同文件 "§attempt 3 delta"))
+> 状态: **v1.4.3** (2026-11-27) — **T4.1 总闸 = PASS** (attempt 3 CONDITIONAL + delta 闸审 PASS; `evidence/checkpoints/t4_gate_review.md` "§attempt 3 delta"); T4.3 / push / kb tag 未做. — T4.2 口径与 G-TB3 口径: 按上一任主控会话的记录, 主人在该会话直接确认 (`evidence/checkpoints/t4_owner_confirmation.md`; 一个词加多选勾选, 无截图; 是否足够由 T4.1 总闸 attempt 3 判断); 执行中 (T4.1 attempt 2 CONDITIONAL 后; Q9 已触发; 第二轮主人已在主控聊天直接回答 (原话同一文件第二轮一节; 问题 A / B 未答) → 78 条改标已执行 (R2L) → **T4.1 attempt 3 = CONDITIONAL** (G-TB1-9 无 NOT_MET; 唯一挡闸项 = 问题 A, 4 条多标 PDF_TYPO; `evidence/checkpoints/t4_gate_review.md` §attempt 3) → 主人直接回答 A1 / B1 / 追认 M-9 → 4 条已改回 EXACT (R3L) → 对这一处做 delta 闸审 (同文件 "§attempt 3 delta"))
 > 模板: `~/.claude/templates/workflow-tier3.md` (+ tier2 基础)
 > 前序: `archive/deep_verification/` (06 深审, 已冻结只读) RETRO 缺口 3 / 决策 2; `issues_found.md` Issue 5
 
@@ -112,7 +112,7 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 - G-TB3: 过闸口径 = **U-1 B** (ATOM_ERR + PDF_TYPO 算已覆盖, FIGURE_DEFERRED 算未覆盖, 分母同 06 公式); 06 公式照套的 strict 值与内容指标 (EXACT+EQUIVALENT) 必须并列报告. 字面的 "06 口径 ≥ 99.02%" 在 strict 下不达标.
 - G-TB2: 结构父节只看 §5.0 范围内的子节 (**U-3 A**); 字面 "所有子节" 的值并列报告.
 - G-TB6: C 层 (MERMAID / TABLE_TOKENS 等宽口径行) 按抽样过 (**U-4 A**), 不是逐行 100%.
-- G-TB9: T0 的基线随 KB 变化会过期; 现 KB 上的重证见 `evidence/checkpoints/t4_t0_refresh.md` (新基线另存 `work/t4/t0_head/`, M4a 换靶 = 主控决定 M-8, 主人 2026-11-27 第二轮问题 5 已追认; R2L 改台账后基线已重建, 见该文 §6).
+- G-TB9: T0 的基线随 KB 变化会过期; 现 KB 上的重证见 `evidence/checkpoints/t4_t0_refresh.md` (新基线另存 `work/t4/t0_head/`, M4a 换靶 = 主控决定 M-8, 主人 2026-11-27 第二轮问题 5 已追认; R2L / R3L 改台账后基线各重建一次, 见该文 §6 / §7).
 - (v1.4.3) G-TB3 现值: U-1 B 9860/9933 = 99.2651%; strict 9493/9933 = 95.5703%; mapped 99.3511%; 内容 90.6227% (R3L 后). 历史: attempt 2 时 99.2690% / 95.8041%; R2L 后 99.2651% / 95.5301%. G-TB1 的 PDF_TYPO 149 → 174 (R2L: 新增 25 条的 ack = 主人第二轮问题 3 = A / 7b = A) → 170 (R3L: 4 条多标按主人 A1 改回 EXACT).
 
 ### 5.2 覆盖重算 (T3) 怎么做
@@ -197,7 +197,7 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 | Version | Date | Change |
 |---|---|---|
 | v0.1 | 2026-11-25 | 初稿: T0 基线已出, 其余待 §9 拍板 |
-| v1.4.3 | 2026-11-27 | 总闸 attempt 3 = CONDITIONAL (唯一挡闸项 = 问题 A) 后, 主人直接回答 「A1、B1、追认 M-9」: 4 条多标的 PDF_TYPO 改回 EXACT (R3L; executor → code-reviewer PASS), `ig34_p0293_a038` 维持并写明无法判定, M-9 追认; §5.1 口径注更新现值; 对这一处做 delta 闸审. 未决: M-10 待追认 |
+| v1.4.3 | 2026-11-27 | 总闸 attempt 3 = CONDITIONAL (唯一挡闸项 = 问题 A) 后, 主人直接回答 「A1、B1、追认 M-9」: 4 条多标的 PDF_TYPO 改回 EXACT (R3L; executor → code-reviewer PASS), `ig34_p0293_a038` 维持并写明无法判定, M-9 追认; §5.1 口径注更新现值; 对这一处做 delta 闸审 = **PASS** (T4.1 总闸通过). 未决 (不挡闸): M-10 待追认; ATOM_ERR 约 83 条是否加一轮 |
 | v1.4.2 | 2026-11-27 | 主人第二轮直接回答 (13 小问全按建议; 原话 `evidence/checkpoints/t4_owner_confirmation.md` 第二轮一节): 追加第三轮核查 315 条; 78 条改标落台账 (R2L: 53 → INTENTIONAL_EXCLUDE, 25 → PDF_TYPO; executor → code-reviewer → verifier); §5.1 口径注补现值与 M-8 追认; 域文件标题不带节号 / EG-RE 省略号登记为认可写法 (`t4_user_decisions.md` §000c). 未决: 问题 A / B (4 条多标 PDF_TYPO / 1 条判不了) 主人未答, 未动; M-9 待追认. 同日 T4.1 总闸 attempt 3 = CONDITIONAL (唯一挡闸项 = 问题 A) |
 | v1.4.1 | 2026-11-27 | 接手主控核对 v1.4 并补齐: 状态行与 §5.3 把确认来源写实 (记录人 = 上一任主控会话; 不改结论); §5.1 加 "口径注" (U-1 B / U-3 A / U-4 A / G-TB9 重证) — v1.4 的 Changelog 写了 G-TB3 口径但闸表没改; §9 Q9 记 "已触发" 及扩检方案; 第二轮待主人裁定 (72 条待改标签 / 几处抽查是否够 / M-8 等) 见 `t4_owner_decisions_round2.md`, 未定之前不改台账 |
 | v1.4 | 2026-11-27 | (上一任主控会话) T4.2 口径改为 "AI 预筛 42 + 主人抽查 6"; G-TB3 按 U-1 B 口径, 并列 strict; FIGURE 12→11 更正. 确认来源: `evidence/checkpoints/t4_owner_confirmation.md` (该会话记录的主人直接确认) |

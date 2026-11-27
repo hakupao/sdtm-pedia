@@ -23,6 +23,8 @@ REGD = {r["id"]: r.get("t4_decision") for r in lj(f"{W}/t2_pdf_typo_registry.jso
 KEEPD = {k: v.get("t4_decision") for k, v in json.load(open(f"{W}/t3_k3b_out_of_scope_keep.json")).items() if not k.startswith("_")}
 # 主控实施决定 (不在委托代裁内; t4_user_decisions.md §000b; M-1..M-7 按 t4_owner_confirmation.md 的记录已追认). 总闸 attempt 2 指出 p0362_a010 的改标是主控决定 M-4, 不是 U-7
 MAIN_CTRL = {"ig34_p0362_a010": "主控决定 M-4 (§000b; 非委托代裁; 按 t4_owner_confirmation.md 的记录已追认); 登记 B-FA T-4 本身 = U-7 A3-7"}
+# 备注 (末列): 主人 2026-11-27 消息 4 问题 B = B1 — 维持 PDF_TYPO 并写明无法判定 (总闸 attempt 3 delta 审查 LOW-7 要求在本清单里也写)
+REMARK = {"ig34_p0293_a038": "注: 主人 2026-11-27 问题 B = B1 — 维持 PDF_TYPO; 折行处无法判定 PDF 有没有空格 (第三轮与总闸审查者均判 UNVERIFIABLE; KB 两种情况下都对)"}
 def source(i, v):
     if U5.get(i) == v:
         return "U-5 (整类, 委托代裁)"
@@ -69,7 +71,7 @@ for v, xs in ids.items():
         ck = d.get("checkpoint") or e.get("checkpoint") or ev.get("checkpoint") or ev.get("writer_row") or ""
         ck = ck.replace(".work/10_tier_b_repair/", "")
         out.append(f"| {n} | `{i}` | {A[i]['page']} | {cell(A[i]['parent_section'], 50)} | {d.get('rule', '-')} | "
-                   f"{cell(basis)}{' [' + cell(reg, 40) + ']' if reg and reg not in str(basis) else ''} | `{cell(ck, 80)}` | {cell(SRC[i], 120)} | |")
+                   f"{cell(basis)}{' [' + cell(reg, 40) + ']' if reg and reg not in str(basis) else ''} | `{cell(ck, 80)}` | {cell(SRC[i], 120)} |{' ' + REMARK[i] if i in REMARK else ''} |")
     out.append("")
 open(f"{TB}/evidence/checkpoints/t4_ack_lists.md", "w", encoding="utf-8").write("\n".join(out) + "\n")
 print({v: len(x) for v, x in ids.items()}, "| decision source:", dict(collections.Counter(s.split(" (")[0].split(";")[0] for s in SRC.values())))

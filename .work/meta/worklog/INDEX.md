@@ -36,7 +36,7 @@
 | 07 旁枝 (Website) | `phase07_website.md` | Phase 6/7/8/9/10/11 closed |
 | 07 Release (公司发布) | `phase_07_release.md` | **CLOSED 冻结** — v1.0-v1.4 全 closed (tag v1.4-company-release) |
 | docs/jp 旁枝 | `phase_jp_delivery.md` | **CLOSED 冻结** 2026-06-15 — 停于 P0 2/4 + 01 v1.1-draft |
-| 10 旁枝 (Tier B 补修) | `phase10_tier_b_repair.md` | T4.1 attempt 3 (2026-11-27) |
+| 10 旁枝 (Tier B 补修) | `phase10_tier_b_repair.md` | T4.1 总闸 PASS (2026-11-27) |
 | refactor v1 (临时) | `phase_meta_refactor.md` | 段 2 close 2026-05-06 |
 
 ## 写入约定

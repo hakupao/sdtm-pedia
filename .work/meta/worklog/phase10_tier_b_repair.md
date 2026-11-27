@@ -37,3 +37,7 @@
 - 改台账 R2L (`5d7e4cb`): 78 条 (53 → INTENTIONAL_EXCLUDE, 25 → PDF_TYPO), executor → code-reviewer → verifier (33/33)。现值 U-1 B 99.2651% / strict 95.5301%; PDF_TYPO 174; 登记表 274 行。
 - 总闸 attempt 3 (`feature-dev:code-reviewer`) = **不通过 (CONDITIONAL)**: 9 条闸无 NOT_MET, 裁定来源判足够; 唯一挡闸项 = 4 条多标的 PDF_TYPO 待主人选 (问题 A)。`t4_gate_review.md` §attempt 3; 归档 `evidence/failures/step_T4.1_attempt_3.md`。
 - 未 push, 未打 kb tag, 未做 T4.3; KB 树 `63f857774a42cfaa71798705ad40ab51bc5e378a` 不变。
+- (同日夜, 续) 主人直接回答 「A1、B1、追认 M-9」: 4 条多标的 PDF_TYPO 改回 EXACT (R3L, `d794fb6`; executor → code-reviewer PASS), 1 条判不了的维持并写明。现值 U-1 B 99.2651% / strict 95.5703%; PDF_TYPO 170; 待改清单 82 条全部已执行。
+- attempt 3 的 delta 闸审 (另一个 `feature-dev:code-reviewer` 新实例) = **PASS** → **T4.1 总闸通过**。`t4_gate_review.md` "§attempt 3 delta"。不挡闸的未决: M-10 待主人追认; ATOM_ERR 约 83 条是否加一轮逐条审。
+- 仍未 push, 未打 kb tag, 未做 T4.3; KB 树不变。
+
