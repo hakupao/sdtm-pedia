@@ -1,0 +1,8 @@
+rows 12492 / 12492; identical 12488; label-changed 4; other-changed 0
+listed atoms not changed: []
+label ('typo-overlabel', 'PDF_TYPO', 'EXACT', True): 4
+
+LABEL	10132	ig34_p0412_a006	PDF_TYPO->EXACT	typo-overlabel	OK	rule=live-hit
+LABEL	10133	ig34_p0412_a007	PDF_TYPO->EXACT	typo-overlabel	OK	rule=live-hit
+LABEL	10134	ig34_p0412_a008	PDF_TYPO->EXACT	typo-overlabel	OK	rule=live-hit
+LABEL	10153	ig34_p0413_a010	PDF_TYPO->EXACT	typo-overlabel	OK	rule=live-hit

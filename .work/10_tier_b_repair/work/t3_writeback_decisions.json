@@ -64118,9 +64118,9 @@
 },
 "ig34_p0412_a006": {
 "old": "EQUIVALENT",
-"new": "PDF_TYPO",
-"rule": "K3b-registry",
-"batch": "S-TDM",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T4-R3L",
 "in_triage": false,
 "in_t2s": false,
 "short_verbatim": false,
@@ -64139,19 +64139,26 @@
 "writer": [],
 "t2s": [],
 "k11_surplus": false,
-"registry": [
+"t4_r3l": {
+"group": "typo-overlabel",
+"decision": "owner 2026-11-27 问题 A = A1 (evidence/checkpoints/t4_owner_confirmation.md 消息 4)",
+"raw": "evidence/t4_round3_raw/pack_10.md:29",
+"before": "PDF_TYPO (K3b-registry, keep_k3b)",
+"k3b_dropped": [
 "S-TDM TD T-1"
 ],
-"k3b": [
+"k3b_why_dropped": [
 "S-TDM TD T-1:c'(punctuation-only, on registered line)"
-]
+],
+"spec": "subagent_prompts/t4/t4_round3_ledger_spec_v1.0.md §1"
+}
 }
 },
 "ig34_p0412_a007": {
 "old": "EXACT",
-"new": "PDF_TYPO",
-"rule": "K3b-registry",
-"batch": "S-TDM",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T4-R3L",
 "in_triage": false,
 "in_t2s": false,
 "short_verbatim": false,
@@ -64170,19 +64177,26 @@
 "writer": [],
 "t2s": [],
 "k11_surplus": false,
-"registry": [
+"t4_r3l": {
+"group": "typo-overlabel",
+"decision": "owner 2026-11-27 问题 A = A1 (evidence/checkpoints/t4_owner_confirmation.md 消息 4)",
+"raw": "evidence/t4_round3_raw/pack_10.md:30",
+"before": "PDF_TYPO (K3b-registry, keep_k3b)",
+"k3b_dropped": [
 "S-TDM TD T-1"
 ],
-"k3b": [
+"k3b_why_dropped": [
 "S-TDM TD T-1:c'(punctuation-only, on registered line)"
-]
+],
+"spec": "subagent_prompts/t4/t4_round3_ledger_spec_v1.0.md §1"
+}
 }
 },
 "ig34_p0412_a008": {
 "old": "EQUIVALENT",
-"new": "PDF_TYPO",
-"rule": "K3b-registry",
-"batch": "S-TDM",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T4-R3L",
 "in_triage": false,
 "in_t2s": false,
 "short_verbatim": false,
@@ -64201,12 +64215,19 @@
 "writer": [],
 "t2s": [],
 "k11_surplus": false,
-"registry": [
+"t4_r3l": {
+"group": "typo-overlabel",
+"decision": "owner 2026-11-27 问题 A = A1 (evidence/checkpoints/t4_owner_confirmation.md 消息 4)",
+"raw": "evidence/t4_round3_raw/pack_10.md:31",
+"before": "PDF_TYPO (K3b-registry, keep_k3b)",
+"k3b_dropped": [
 "S-TDM TD T-1"
 ],
-"k3b": [
+"k3b_why_dropped": [
 "S-TDM TD T-1:c'(punctuation-only, on registered line)"
-]
+],
+"spec": "subagent_prompts/t4/t4_round3_ledger_spec_v1.0.md §1"
+}
 }
 },
 "ig34_p0412_a009": {
@@ -64421,9 +64442,9 @@
 },
 "ig34_p0413_a010": {
 "old": "EXACT",
-"new": "PDF_TYPO",
-"rule": "K3b-registry",
-"batch": "S-TDM",
+"new": "EXACT",
+"rule": "live-hit",
+"batch": "T4-R3L",
 "in_triage": false,
 "in_t2s": false,
 "short_verbatim": false,
@@ -64444,12 +64465,19 @@
 "writer": [],
 "t2s": [],
 "k11_surplus": false,
-"registry": [
+"t4_r3l": {
+"group": "typo-overlabel",
+"decision": "owner 2026-11-27 问题 A = A1 (evidence/checkpoints/t4_owner_confirmation.md 消息 4)",
+"raw": "evidence/t4_round3_raw/pack_10.md:32",
+"before": "PDF_TYPO (K3b-registry, keep_k3b)",
+"k3b_dropped": [
 "S-TDM TD T-4"
 ],
-"k3b": [
+"k3b_why_dropped": [
 "S-TDM TD T-4:c:on-registered-line:['tdtgtpai']"
-]
+],
+"spec": "subagent_prompts/t4/t4_round3_ledger_spec_v1.0.md §1"
+}
 }
 },
 "ig34_p0414_a006": {

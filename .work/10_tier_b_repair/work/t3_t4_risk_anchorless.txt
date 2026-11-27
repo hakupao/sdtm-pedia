@@ -465,10 +465,14 @@ ig34_p0410_a029	no governing numbered heading	knowledge_base/domains/TD/assumpti
 ig34_p0411_a009	no governing numbered heading	knowledge_base/domains/TD/spec.md:87
 ig34_p0411_a011	no governing numbered heading	knowledge_base/domains/TD/assumptions.md:13
 ig34_p0411_a012	no governing numbered heading	knowledge_base/domains/TD/assumptions.md:15
+ig34_p0412_a006	no governing numbered heading	knowledge_base/domains/TD/examples.md:40
+ig34_p0412_a007	no governing numbered heading	knowledge_base/domains/TD/examples.md:40
+ig34_p0412_a008	no governing numbered heading	knowledge_base/domains/TD/examples.md:40
 ig34_p0412_a011	no governing numbered heading	knowledge_base/domains/TD/examples.md:44
 ig34_p0412_a012	no governing numbered heading	knowledge_base/domains/TD/examples.md:46
 ig34_p0413_a003	no governing numbered heading	knowledge_base/domains/TD/examples.md:92
 ig34_p0413_a008	no governing numbered heading	knowledge_base/domains/TD/examples.md:98
+ig34_p0413_a010	no governing numbered heading	knowledge_base/domains/TD/examples.md:50
 ig34_p0414_a009	no governing numbered heading	knowledge_base/domains/TD/examples.md:159
 ig34_p0414_a010	no governing numbered heading	knowledge_base/domains/TD/examples.md:161
 ig34_p0415_a005	no governing numbered heading	knowledge_base/domains/TM/assumptions.md:9

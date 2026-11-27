@@ -1,0 +1,53 @@
+{
+ "_note": "T4 问题 A 改台账 R3L (主人 2026-11-27 直接回答 A1; evidence/checkpoints/t4_owner_confirmation.md 消息 4). relabel: 4 条 PDF_TYPO → EXACT. k3b_drop = 被审查者否定的 K3b 触及 (登记 id); t3_writeback.py 在 K3b 扫描之后剔除这些触及, 原子进允许集, 由现有 live-hit 路径判定 (断言 rule = live-hit, 终态 = to). 对应 keep 清单条目 action 改为 t4_r3l_drop. 生成: scripts/t4/t4_r3l_build.py (一次性).",
+ "relabel": {
+  "ig34_p0412_a006": {
+   "group": "typo-overlabel",
+   "now": "PDF_TYPO",
+   "to": "EXACT",
+   "raw": "evidence/t4_round3_raw/pack_10.md:29",
+   "why": "登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了",
+   "decision": "owner 2026-11-27 问题 A = A1 (evidence/checkpoints/t4_owner_confirmation.md 消息 4)",
+   "k3b_drop": [
+    "S-TDM TD T-1"
+   ],
+   "k3b_rule": "c'"
+  },
+  "ig34_p0412_a007": {
+   "group": "typo-overlabel",
+   "now": "PDF_TYPO",
+   "to": "EXACT",
+   "raw": "evidence/t4_round3_raw/pack_10.md:30",
+   "why": "登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了",
+   "decision": "owner 2026-11-27 问题 A = A1 (evidence/checkpoints/t4_owner_confirmation.md 消息 4)",
+   "k3b_drop": [
+    "S-TDM TD T-1"
+   ],
+   "k3b_rule": "c'"
+  },
+  "ig34_p0412_a008": {
+   "group": "typo-overlabel",
+   "now": "PDF_TYPO",
+   "to": "EXACT",
+   "raw": "evidence/t4_round3_raw/pack_10.md:31",
+   "why": "登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了",
+   "decision": "owner 2026-11-27 问题 A = A1 (evidence/checkpoints/t4_owner_confirmation.md 消息 4)",
+   "k3b_drop": [
+    "S-TDM TD T-1"
+   ],
+   "k3b_rule": "c'"
+  },
+  "ig34_p0413_a010": {
+   "group": "typo-overlabel",
+   "now": "PDF_TYPO",
+   "to": "EXACT",
+   "raw": "evidence/t4_round3_raw/pack_10.md:32",
+   "why": "登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了",
+   "decision": "owner 2026-11-27 问题 A = A1 (evidence/checkpoints/t4_owner_confirmation.md 消息 4)",
+   "k3b_drop": [
+    "S-TDM TD T-4"
+   ],
+   "k3b_rule": "c"
+  }
+ }
+}

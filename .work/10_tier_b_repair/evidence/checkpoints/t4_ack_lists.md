@@ -1,7 +1,7 @@
 # T4 用户确认清单: ATOM_ERR / PDF_TYPO / FIGURE_DEFERRED
 
 <!-- chain: E (plans) -->
-> 状态: **委托代裁整类确认 (U-5=B, C7 38 全检成立), 见 t4_user_decisions.md §000; 非主人逐条确认** (2026-11-27 T4 第二轮改台账 R2L 重生成; 上一次为解冻轮 W3). U-5 裁定时 (ledger @3a24a1c) 为 ATOM_ERR 197 / PDF_TYPO 122 / FIG 11; 之后进入这三类的原子按 "决定来源" 列标注 (U-2 / U-8 / U-7 委托代裁, 见 t4_user_decisions.md §000; 第二轮改台账 25 条 = 主人 2026-11-27 问题 3 = A / 7b = A, 见 t4_owner_confirmation.md 第二轮), 不归入 U-5; 明细见 `evidence/checkpoints/t4_thaw_W3.md`、`evidence/checkpoints/t4_round2_ledger_W.md`. 生成: `python3 -I .work/10_tier_b_repair/scripts/t4/t4_ack_lists.py`.
+> 状态: **委托代裁整类确认 (U-5=B, C7 38 全检成立), 见 t4_user_decisions.md §000; 非主人逐条确认** (2026-11-27 T4 问题 A 改台账 R3L 重生成: 主人 A1, 4 条 PDF_TYPO → EXACT, 见 `evidence/checkpoints/t4_round3_ledger_W.md`; 上一次为 R2L). U-5 裁定时 (ledger @3a24a1c) 为 ATOM_ERR 197 / PDF_TYPO 122 / FIG 11; 之后进入这三类的原子按 "决定来源" 列标注 (U-2 / U-8 / U-7 委托代裁, 见 t4_user_decisions.md §000; 第二轮改台账 25 条 = 主人 2026-11-27 问题 3 = A / 7b = A, 见 t4_owner_confirmation.md 第二轮), 不归入 U-5; 明细见 `evidence/checkpoints/t4_thaw_W3.md`、`evidence/checkpoints/t4_round2_ledger_W.md`. 生成: `python3 -I .work/10_tier_b_repair/scripts/t4/t4_ack_lists.py`.
 > 单位 = PDF 原子 (不是登记行; 一条登记行可覆盖多个原子, 一个原子也可挂多条登记). 数据源: 最终 ledger `work/coverage_ledger.wc.jsonl` + `work/t3_writeback_decisions.json` + `work/t3_errata.json`.
 > G-TB1 要求这三类 "每条有登记 + 用户 ack". 这三类在 G-TB3 mapped 口径中从分母去掉, 在 strict 口径中算未覆盖.
 
@@ -10,7 +10,7 @@
 | 终态 | 原子数 | 按判定规则 | 决定来源 | 用户确认 |
 |---|--:|---|---|---|
 | ATOM_ERR | 197 | S1-R1 157, C7-atom-not-in-PDF 38, C7-K4-rereview 2 | U-5 196, U-2 委托代裁 1 | ☐ 整类确认　☐ 有异议 (在下表备注) |
-| PDF_TYPO | 174 | S1-R2 78, K3b-registry 61, writer-Tn-registry 35 | U-5 122, U-7 委托代裁 22, 主人 2026-11-27 第二轮 问题 3 = A 19, 主人 2026-11-27 第二轮 问题 7b = A 6, U-8 委托代裁 4, 主控决定 M-4 1 | ☐ 整类确认　☐ 有异议 (在下表备注) |
+| PDF_TYPO | 170 | S1-R2 78, K3b-registry 57, writer-Tn-registry 35 | U-5 118, U-7 委托代裁 22, 主人 2026-11-27 第二轮 问题 3 = A 19, 主人 2026-11-27 第二轮 问题 7b = A 6, U-8 委托代裁 4, 主控决定 M-4 1 | ☐ 整类确认　☐ 有异议 (在下表备注) |
 | FIGURE_DEFERRED | 11 | FIGURE 11 | U-5 11 | ☐ 整类确认　☐ 有异议 (在下表备注) |
 
 规则含义: `S1-R1` = 原子 verbatim 与 PDF 不符 (原子抽错, KB 按 PDF); `S1-R2` = PDF 自身笔误且已登记; `C7-atom-not-in-PDF` = 原子文本在 PDF 页中不存在; `K3b-registry` / `writer-Tn-registry` = 由 PDF 笔误登记 (T-n) 触及; `FIGURE` = 图, 暂缓.
@@ -217,7 +217,7 @@
 | 196 | `ig34_p0396_a009` | 396 | §7.2.1 Trial Arms (TA) – Example 4 | S1-R1 | T2 global fp audit R1: 原子 `represents`; PDF p396 为 `represented this rule`, KB 同 (B-TA #31 | `evidence/t2_fp_expected_regressions.md:53` | U-5 (整类, 委托代裁) | |
 | 197 | `ig34_p0419_a004` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R1 | B-TS writer: 原子抽取错, KB 正确 | `evidence/checkpoints/t2_B-TS.md:86` | U-5 (整类, 委托代裁) | |
 
-## PDF_TYPO (174)
+## PDF_TYPO (170)
 
 | # | atom_id | 页 | 节 | 规则 | 依据 / 登记 | 出处 | 决定来源 | 异议 |
 |--:|---|--:|---|---|---|---|---|---|
@@ -373,28 +373,24 @@
 | 150 | `ig34_p0377_a015` | 377 | SR – Specification | S1-R2 | B-SR T-4: verbatim EGTPTREF 为 PDF 笔误, KB 改 SRTPTREF | `evidence/checkpoints/t2_B-SR.md:116` | U-5 (整类, 委托代裁) | |
 | 151 | `ig34_p0377_a021` | 377 | SR – Assumptions | K3b-registry | B-SR T-3 | `-` | U-5 (整类, 委托代裁) | |
 | 152 | `ig34_p0378_a017` | 378 | SR – Examples | K3b-registry | B-SR T-1 (examples) | `-` | U-5 (整类, 委托代裁) | |
-| 153 | `ig34_p0412_a006` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 154 | `ig34_p0412_a007` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 155 | `ig34_p0412_a008` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 156 | `ig34_p0412_a009` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | writer-Tn-registry | S-TDM TD T-1 (KB 写正确值) | `work/t2_batches/S-TDM.writer.jsonl:18` | U-5 (整类, 委托代裁) | |
-| 157 | `ig34_p0413_a010` | 413 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-4 | `-` | U-5 (整类, 委托代裁) | |
-| 158 | `ig34_p0414_a006` | 414 | §7.3.2 Trial Disease Assessments (TD) – Examples | writer-Tn-registry | S-TDM TD T-2 (KB 写正确值) | `work/t2_batches/S-TDM.writer.jsonl:25` | U-5 (整类, 委托代裁) | |
-| 159 | `ig34_p0414_a008` | 414 | §7.3.2 Trial Disease Assessments (TD) – Examples | writer-Tn-registry | S-TDM TD T-3 (KB 写正确值) | `work/t2_batches/S-TDM.writer.jsonl:26` | U-5 (整类, 委托代裁) | |
-| 160 | `ig34_p0414_a013` | 414 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-4 | `-` | U-5 (整类, 委托代裁) | |
-| 161 | `ig34_p0419_a006` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ (+A2-4 B-TS T-2 D [B-TS T-3, B-TS T-2] | `work/t3_fp_expected_regressions.jsonl:117` | U-7 委托代裁 (§000), 非 U-5; B-TS T-3: U-7 B (委托代裁 2026-11-27) [A2-5]; B-TS T-2: U-7 B (委托代裁 2026-11-27) [A2-4] | |
-| 162 | `ig34_p0419_a011` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ \| errata: t3_ato | `work/t3_fp_expected_regressions.jsonl:118` | U-7 委托代裁 (§000), 非 U-5; B-TS T-3: U-7 B (委托代裁 2026-11-27) [A2-5] | |
-| 163 | `ig34_p0419_a013` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ \| errata: t3_ato | `work/t3_fp_expected_regressions.jsonl:119` | U-7 委托代裁 (§000), 非 U-5; B-TS T-3: U-7 B (委托代裁 2026-11-27) [A2-5] | |
-| 164 | `ig34_p0419_a017` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-6 B-TS T-4 OUTMSPR→OUTMSPRI \| errata: t3_a | `work/t3_fp_expected_regressions.jsonl:120` | U-7 委托代裁 (§000), 非 U-5; B-TS T-4: U-7 B (委托代裁 2026-11-27) [A2-6] | |
-| 165 | `ig34_p0425_a024` | 425 | §7.4.2.1 Use of Null Flavor | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-7 B-TS T-6 MAXAGE→AGEMAX \| errata: t3_atom | `work/t3_fp_expected_regressions.jsonl:121` | U-7 委托代裁 (§000), 非 U-5; B-TS T-6: U-7 B (委托代裁 2026-11-27) [A2-7] | |
-| 166 | `ig34_p0427_a011` | 427 | §8 [REPRESENTING RELATIONSHIPS AND DATA] | K3b-registry | B-ch08 T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 167 | `ig34_p0428_a006` | 428 | §8.1.1 --GRPID Example | K3b-registry | B-ch08 T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 168 | `ig34_p0428_a008` | 428 | §8.1.1 --GRPID Example | K3b-registry | B-ch08 T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 169 | `ig34_p0433_a017` | 433 | §8.4.2 Submitting Supplemental Qualifiers in Separ | writer-Tn-registry | B-ch08 T-3 (KB 写正确值) | `work/t2_batches/B-ch08.writer.jsonl:65` | U-5 (整类, 委托代裁) | |
-| 170 | `ig34_p0433_a019` | 433 | §8.4.3 SUPP-- Examples | K3b-registry | B-ch08 T-4 | `-` | U-5 (整类, 委托代裁) | |
-| 171 | `ig34_p0436_a022` | 436 | §8.6.3 Guidelines for Differentiating Between Inte | writer-Tn-registry | B-ch08 T-6 (KB 写正确值) | `work/t2_batches/B-ch08.writer.jsonl:60` | U-5 (整类, 委托代裁) | |
-| 172 | `ig34_p0438_a019` | 438 | RELSUB – Assumptions | K3b-registry | B-REL T-9 (RELSUB 副本), B-ch08 T-9 (ch08 副本) | `-` | U-5 (整类, 委托代裁) | |
-| 173 | `ig34_p0457_a004` | 457 | §10.E Appendix E: Revision History | K3b-registry | S-CH10 T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 174 | `sv20_p0006_a020` | 6 | §1.4 Significant Changes from Prior Versions | writer-Tn-registry | B-model01 T-1 (KB 写正确值) | `work/t2_batches/B-model01.writer.jsonl:82` | U-5 (整类, 委托代裁) | |
+| 153 | `ig34_p0412_a009` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | writer-Tn-registry | S-TDM TD T-1 (KB 写正确值) | `work/t2_batches/S-TDM.writer.jsonl:18` | U-5 (整类, 委托代裁) | |
+| 154 | `ig34_p0414_a006` | 414 | §7.3.2 Trial Disease Assessments (TD) – Examples | writer-Tn-registry | S-TDM TD T-2 (KB 写正确值) | `work/t2_batches/S-TDM.writer.jsonl:25` | U-5 (整类, 委托代裁) | |
+| 155 | `ig34_p0414_a008` | 414 | §7.3.2 Trial Disease Assessments (TD) – Examples | writer-Tn-registry | S-TDM TD T-3 (KB 写正确值) | `work/t2_batches/S-TDM.writer.jsonl:26` | U-5 (整类, 委托代裁) | |
+| 156 | `ig34_p0414_a013` | 414 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-4 | `-` | U-5 (整类, 委托代裁) | |
+| 157 | `ig34_p0419_a006` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ (+A2-4 B-TS T-2 D [B-TS T-3, B-TS T-2] | `work/t3_fp_expected_regressions.jsonl:117` | U-7 委托代裁 (§000), 非 U-5; B-TS T-3: U-7 B (委托代裁 2026-11-27) [A2-5]; B-TS T-2: U-7 B (委托代裁 2026-11-27) [A2-4] | |
+| 158 | `ig34_p0419_a011` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ \| errata: t3_ato | `work/t3_fp_expected_regressions.jsonl:118` | U-7 委托代裁 (§000), 非 U-5; B-TS T-3: U-7 B (委托代裁 2026-11-27) [A2-5] | |
+| 159 | `ig34_p0419_a013` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ \| errata: t3_ato | `work/t3_fp_expected_regressions.jsonl:119` | U-7 委托代裁 (§000), 非 U-5; B-TS T-3: U-7 B (委托代裁 2026-11-27) [A2-5] | |
+| 160 | `ig34_p0419_a017` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-6 B-TS T-4 OUTMSPR→OUTMSPRI \| errata: t3_a | `work/t3_fp_expected_regressions.jsonl:120` | U-7 委托代裁 (§000), 非 U-5; B-TS T-4: U-7 B (委托代裁 2026-11-27) [A2-6] | |
+| 161 | `ig34_p0425_a024` | 425 | §7.4.2.1 Use of Null Flavor | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-7 B-TS T-6 MAXAGE→AGEMAX \| errata: t3_atom | `work/t3_fp_expected_regressions.jsonl:121` | U-7 委托代裁 (§000), 非 U-5; B-TS T-6: U-7 B (委托代裁 2026-11-27) [A2-7] | |
+| 162 | `ig34_p0427_a011` | 427 | §8 [REPRESENTING RELATIONSHIPS AND DATA] | K3b-registry | B-ch08 T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 163 | `ig34_p0428_a006` | 428 | §8.1.1 --GRPID Example | K3b-registry | B-ch08 T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 164 | `ig34_p0428_a008` | 428 | §8.1.1 --GRPID Example | K3b-registry | B-ch08 T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 165 | `ig34_p0433_a017` | 433 | §8.4.2 Submitting Supplemental Qualifiers in Separ | writer-Tn-registry | B-ch08 T-3 (KB 写正确值) | `work/t2_batches/B-ch08.writer.jsonl:65` | U-5 (整类, 委托代裁) | |
+| 166 | `ig34_p0433_a019` | 433 | §8.4.3 SUPP-- Examples | K3b-registry | B-ch08 T-4 | `-` | U-5 (整类, 委托代裁) | |
+| 167 | `ig34_p0436_a022` | 436 | §8.6.3 Guidelines for Differentiating Between Inte | writer-Tn-registry | B-ch08 T-6 (KB 写正确值) | `work/t2_batches/B-ch08.writer.jsonl:60` | U-5 (整类, 委托代裁) | |
+| 168 | `ig34_p0438_a019` | 438 | RELSUB – Assumptions | K3b-registry | B-REL T-9 (RELSUB 副本), B-ch08 T-9 (ch08 副本) | `-` | U-5 (整类, 委托代裁) | |
+| 169 | `ig34_p0457_a004` | 457 | §10.E Appendix E: Revision History | K3b-registry | S-CH10 T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 170 | `sv20_p0006_a020` | 6 | §1.4 Significant Changes from Prior Versions | writer-Tn-registry | B-model01 T-1 (KB 写正确值) | `work/t2_batches/B-model01.writer.jsonl:82` | U-5 (整类, 委托代裁) | |
 
 ## FIGURE_DEFERRED (11)
 

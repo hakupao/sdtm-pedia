@@ -17,7 +17,9 @@ Allowed set = triage_merged.json atoms ∪ work/t3_t2s_atoms.jsonl ∪ t3_errata
     or writer fix row (INSERTED/REPLACED/TABLE_REBUILT/MOVED/RELOCATE/R3_RESTORED) + review PASS + audit PASS -> EQUIVALENT
     (主控 C3: a review that ended CONDITIONAL with no reviewer re-review PASS is not accepted -> residual-review-CONDITIONAL)
   8 else residual (verdict kept, listed)
-Only rows whose verdict changes are rewritten (every row of a duplicated id). The 4 in-scope triage atoms that have no
+T4 R3L (主人 2026-11-27 问题 A = A1): work/t4_r3l_relabel.json lists atoms whose K3b touch the reviewers rejected; that touch
+(exactly the listed registry ids) is dropped after the K3b scan, the atoms join the allowed set and must end live-hit EXACT.
+Only rows whose verdict changes are rewritten (every row of a duplicated id; T4 R3L rows always). The 4 in-scope triage atoms that have no
 ledger row are appended. Asserts (exit 1): changed/appended ids ⊆ allowed; untouched lines byte-identical to backup;
 every changed row matched_by.phase == 'TB'; IE flips ⊆ t1_ie_final.md (except rule T4-R2L-owner-IE);
 every T4 R2L listed atom ends on its listed label.
@@ -481,6 +483,18 @@ for i, k in KEEP.items():
     if k["pdf"]["token"] not in norm_pdf(pl) or k["kb"]["token"] not in norm(kl):
         KEEP_BAD.append(i)
 K3B_KEEP_A3 = sorted(i for i, k in KEEP.items() if k["action"] == "keep_k3b")
+# T4 问题 A 改台账 R3L (主人 2026-11-27 问题 A = A1): data list work/t4_r3l_relabel.json (scripts/t4/t4_r3l_build.py).
+# The reviewers found the registered deviation is not in these atoms (it is in a neighbour atom / another table): their K3b
+# touch must be exactly the listed registry ids and is dropped; the atoms join the allowed set and are decided by the
+# existing branches (asserted below: live-hit EXACT). Their keep-list entries carry action t4_r3l_drop.
+R3L = json.load(open(f"{W}/t4_r3l_relabel.json"))["relabel"]
+assert set(R3L) <= set(A) and not set(R3L) & (set(ER["atom_err"]) | set(R2L)), sorted(set(R3L) & (set(ER["atom_err"]) | set(R2L)))
+assert {i for i, k in KEEP.items() if k["action"] == "t4_r3l_drop"} == set(R3L), sorted(i for i, k in KEEP.items() if k["action"] == "t4_r3l_drop")
+K3B_R3L = {}
+for i, e in R3L.items():
+    assert sorted(set(K3B.get(i, []))) == e["k3b_drop"], ("T4 R3L K3b touch != listed", i, sorted(set(K3B.get(i, []))), e["k3b_drop"])
+    K3B_R3L[i] = dict(registry=sorted(set(K3B.pop(i))), why=K3B_WHY.pop(i, None))
+ALLOWED |= set(R3L)
 K3B_OUT = {i: K3B.pop(i) for i in [i for i in K3B if (KEEP.get(i, {}).get("action") == "t4_only")
                                      or (not in_scope(i) and i not in ALLOWED and KEEP.get(i, {}).get("action") != "keep_k3b")]}
 K3B_EXTRA = set(K3B) - ALLOWED
@@ -508,13 +522,20 @@ for i, p in R2L_ALL["registry_ptr"].items():
     ev = decided[i][3]
     ev["registry"] = list(ev.get("registry") or []) + [r for r in p["add"] if r not in (ev.get("registry") or [])]
     ev["t4_r2l_registry_ptr"] = dict(add=p["add"], raw=p["raw"], note="T4 R2L §2.3: 只补登记指针, 标签与规则不变")
+# T4 R3L: decision source + reviewer pointer on the evidence; batch T4-R3L (the live-hit fallback would say T3-errata-key)
+for i, e in R3L.items():
+    verdict, rule, batch, ev, extra = decided[i]
+    ev["t4_r3l"] = dict(group=e["group"], decision=e["decision"], raw=e["raw"], before="PDF_TYPO (K3b-registry, keep_k3b)",
+                        k3b_dropped=K3B_R3L[i]["registry"], k3b_why_dropped=K3B_R3L[i]["why"],
+                        spec="subagent_prompts/t4/t4_round3_ledger_spec_v1.0.md §1")
+    decided[i] = (verdict, rule, "T4-R3L", ev, extra)
 decisions, new_rows = {}, {}
 for i in sorted(ALLOWED):
     verdict, rule, batch, ev, extra = decided[i]
     old = led.get(i, {}).get("verdict", "NO_LEDGER_ROW")
     decisions[i] = dict(old=old, new=verdict or old, rule=rule, batch=batch, in_triage=i in T, in_t2s=i in S2S,
                         short_verbatim=len(norm(A[i]["verbatim"])) < 25, evidence=ev)
-    if verdict and verdict != old:
+    if verdict and (verdict != old or i in R3L):  # T4 R3L rows are rewritten as TB rows even when equal to pre_t3 (direct_hit checks TB rows)
         mb = dict(phase="TB", subagent_type="script/t3_writeback", batch_id=batch, rule=rule, prev_verdict=old,
                   evidence=ev, prompt_version="t3_writer_v1.0", ts=a.ts)
         new_rows[i] = (verdict, mb, extra)
@@ -599,6 +620,9 @@ for i, e in ((i, e) for i, e in R2L.items() if i in decided):
         bad.append(f"T4 R2L IE atom decided by another branch: {i} {decided[i][1]}")
     if i not in R2L_IE and decided[i][1] != "S1-R2":
         bad.append(f"T4 R2L PDF_TYPO atom not via S1-R2: {i} {decided[i][1]}")
+for i, e in R3L.items():  # T4 R3L: the listed label must come from the existing live-hit path, not be assigned
+    if final.get(i) != e["to"] or decided[i][1] != "live-hit" or i in K3B or i not in new_rows:
+        bad.append(f"T4 R3L atom not live-hit {e['to']}: {i} {final.get(i)} {decided[i][1]} in_k3b={i in K3B}")
 for i in K3B_ASSERT_HITS:
     bad.append(f"§5.0 EXACT/EQUIVALENT touched by registered deviation (final ledger): {i} {K3B[i]}")
 open(f"{W}/t3_t4_k3b_out_of_scope.txt", "w").write("".join(f"{i}\t{final.get(i)}\t{';'.join(sorted(set(v)))}\n" for i, v in sorted(K3B_OUT.items())))
@@ -615,7 +639,8 @@ res = {i: d for i, d in decisions.items() if d["rule"].startswith("residual") or
 json.dump(dict(K3_extra=sorted(K3_EXTRA), K11=K11, K3b={i: sorted(set(v)) for i, v in sorted(K3B.items())}, K3b_why=K3B_WHY,
                K3b_extra=sorted(K3B_EXTRA), K3b_unusable_registry=K3B_UNUSABLE, K3b_punct_only=PUNCT_ONLY,
                K3b_out_of_scope={i: sorted(set(v)) for i, v in sorted(K3B_OUT.items())}, K3b_manual=sorted(K3B_MANUAL),
-               K3b_keep_list=K3B_KEEP_A3, K3b_a_excluded=dict(count=len(K3B_A_EXCLUDED), pairs=K3B_A_EXCLUDED)),
+               K3b_keep_list=K3B_KEEP_A3, K3b_a_excluded=dict(count=len(K3B_A_EXCLUDED), pairs=K3B_A_EXCLUDED),
+               K3b_t4_r3l_dropped=K3B_R3L),
           open(f"{W}/t3_rules.json", "w"), ensure_ascii=False, indent=1)
 AL = {"atom section has no number", "file numbering is the other PDF", "no governing numbered heading"}
 anchorless = sorted(i for i, d in decisions.items() if d["new"] == "EXACT" and HITWHY.get(i) in AL)
@@ -628,6 +653,8 @@ print("K3b: atoms", len(K3B), "extra (not otherwise allowed)", len(K3B_EXTRA), "
 print("anchorless EXACT (T4 risk list work/t3_t4_risk_anchorless.txt):", len(anchorless))
 print("K3 allowed-set extension (writer T-n atoms not otherwise allowed):", len(K3_EXTRA), sorted(K3_EXTRA))
 print("T4 R2L:", len(R2L), "listed; final label as listed:", sum(final.get(i) == e["to"] for i, e in R2L.items()), "| IE", len(R2L_IE))
+print("T4 R3L:", len(R3L), "listed; K3b touches dropped:", {i: x["registry"] for i, x in K3B_R3L.items()},
+      "| final label as listed via live-hit:", sum(final.get(i) == e["to"] and decided[i][1] == "live-hit" for i, e in R3L.items()))
 print("K11 groups short of occurrences:", json.dumps(K11, ensure_ascii=False))
 print("T1 kb_loc check:", dict(C((d["evidence"].get("t1_kb_loc_check") or {}).get("status") for d in decisions.values() if d["evidence"].get("t1_kb_loc_check"))))
 print("residual (allowed, verdict kept):", len(res), dict(C((d["old"], d["in_triage"]) for d in res.values())))

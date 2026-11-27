@@ -1,7 +1,7 @@
 # T4.1 补检 ("0 抽中" 各类全检) + Q9 扩检 + 第二轮补检 — 汇总
 
 <!-- chain: E (plans) -->
-> 状态: **补检 PRE_EXISTING 层不通过 → 触发 Q9 升级; Q9 扩检与第二轮补检已跑完; 共查出 82 条标签应改; 其中 78 条主人已定 (1A / 2A / 3A / 7b-A) 并已由 R2L 批执行, 4 条多标的 PDF_TYPO 待主人答 (问题 A), 另 1 条判不了的待主人答 (问题 B)** (2026-11-27). KB 未改; 台账已按 R2L 改 (`60729f7b…` → `16024ac0…`; 改前备份 `work/coverage_ledger.wc.pre_r2l.jsonl`; 见 `t4_round2_ledger_W.md` / `t4_round2_ledger_review.md` / `t4_round2_ledger_audit.md`).
+> 状态: **补检 PRE_EXISTING 层不通过 → 触发 Q9 升级; Q9 扩检与第二轮补检已跑完; 共查出 82 条标签应改, 主人都已直接定, 全部已执行: 78 条 (1A / 2A / 3A / 7b-A) 由 R2L 批, 4 条多标的 PDF_TYPO (问题 A = A1) 由 R3L 批; 1 条判不了的 (问题 B = B1) 维持 PDF_TYPO 并写明无法判定** (2026-11-27). KB 未改; 台账 `60729f7b…` → (R2L) `16024ac0…` → (R3L) `43809870…`; 备份 `work/coverage_ledger.wc.pre_r2l.jsonl` / `work/coverage_ledger.wc.pre_r3l.jsonl`; 见 `t4_round2_ledger_W.md` / `t4_round2_ledger_review.md` / `t4_round2_ledger_audit.md` 与 `t4_round3_ledger_W.md` / `t4_round3_ledger_review.md`.
 > 审查: `oh-my-claudecode:tracer` (opus) 独立实例, 只读: 补检 8 + Q9 8 + 第二轮 8. 原始结果由审查者自己写入 `evidence/t4_supp_raw/`、`evidence/t4_q9_raw/`、`evidence/t4_round2_raw/`. 本文件 §1-§6 是主控用 `scripts/t4/t4_supp_report.py` 从原始结果机械汇总的, 不改判 (规则 D); 文末一节是主控手写的 "独立审查 B 的处理".
 > 口径 (派发前写死): `subagent_prompts/t4/t4_supp_fullcheck_v1.0.md`, `t4_q9_extension_v1.0.md`, `t4_supp_round2_v1.0.md`. 规则 B 归档: `evidence/failures/step_T4.SUPP_attempt_1.md`. 对本汇总的独立审查原文: `evidence/t4_gap_review_raw/review_b.md`.
 
@@ -125,7 +125,7 @@ python3 -I $T/scripts/t4/t4_supp_report.py     # 本文件 + t4_relabel_pending.
 ## 5. 后果 (按派发前写死的条款)
 
 - PRE_EXISTING 层 NOT_HOLD ≥ 1 → Q9 升级已触发并执行到 §3 / §4; **主控不自行结案**. 需要主人定的事列在 `t4_owner_decisions_round2.md`.
-- 待改标签共 82 条, 逐条清单与各选法下的闸数字 (在台账副本上算) 见 `t4_relabel_pending.md`. 这些都是闸口径层面的事, 须主人本人定 (总闸 attempt 2 C 项; 协调方指示); PDF_TYPO 每条须用户 ack (G-TB1). **主人 2026-11-27 在主控聊天里直接定了其中 78 条** (原话 `t4_owner_confirmation.md` 第二轮一节), 已由 R2L 批落到台账 (md5 `60729f7b…` → `16024ac0…`; 清单外标签变化 0); 其余 4 条 (多标的 PDF_TYPO) 与 1 条判不了的 (`ig34_p0293_a038`) 主人未答, **没动**.
+- 待改标签共 82 条, 逐条清单与各选法下的闸数字 (在台账副本上算) 见 `t4_relabel_pending.md`. 这些都是闸口径层面的事, 须主人本人定 (总闸 attempt 2 C 项; 协调方指示); PDF_TYPO 每条须用户 ack (G-TB1). **主人 2026-11-27 在主控聊天里直接定了全部 82 条** (原话 `t4_owner_confirmation.md` 第二轮一节): 先定 78 条 (消息 2), 由 R2L 批落到台账 (`60729f7b…` → `16024ac0…`); 那 4 条多标的 PDF_TYPO 第一次问时未答 (消息 3), 总闸 attempt 3 把它判为唯一挡闸项后再问, 主人答 A1 (消息 4), 由 R3L 批改回 EXACT (`16024ac0…` → `43809870…`). 两批清单外标签变化都是 0. 判不了的 1 条 (`ig34_p0293_a038`) 主人答 B1: 维持 PDF_TYPO, 写明 "折行处无法判定有没有空格".
 - 补检其余 9 个非空层 (145 条) 通过: FIG 11、triage ATOM_ERR 74、RELOCATE 3、六条规则类 57.
 
 ## 6. 审查者顺带记录的事项 (都不改 KB; KB 冻结)

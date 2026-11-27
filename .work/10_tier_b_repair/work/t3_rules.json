@@ -266,18 +266,6 @@
   "ig34_p0378_a017": [
    "B-SR T-1 (examples)"
   ],
-  "ig34_p0412_a006": [
-   "S-TDM TD T-1"
-  ],
-  "ig34_p0412_a007": [
-   "S-TDM TD T-1"
-  ],
-  "ig34_p0412_a008": [
-   "S-TDM TD T-1"
-  ],
-  "ig34_p0413_a010": [
-   "S-TDM TD T-4"
-  ],
   "ig34_p0414_a013": [
    "S-TDM TD T-4"
   ],
@@ -551,18 +539,6 @@
   "ig34_p0082_a025": [
    "S-SPREL SE T-1:a:pdf-side:['birthdtc']"
   ],
-  "ig34_p0412_a006": [
-   "S-TDM TD T-1:c'(punctuation-only, on registered line)"
-  ],
-  "ig34_p0412_a007": [
-   "S-TDM TD T-1:c'(punctuation-only, on registered line)"
-  ],
-  "ig34_p0412_a008": [
-   "S-TDM TD T-1:c'(punctuation-only, on registered line)"
-  ],
-  "ig34_p0413_a010": [
-   "S-TDM TD T-4:c:on-registered-line:['tdtgtpai']"
-  ],
   "ig34_p0414_a013": [
    "S-TDM TD T-4:b:kb-side-not-in-window:['tdtgtpai']"
   ],
@@ -611,10 +587,6 @@
   "ig34_p0342_a007",
   "ig34_p0377_a021",
   "ig34_p0378_a017",
-  "ig34_p0412_a006",
-  "ig34_p0412_a007",
-  "ig34_p0412_a008",
-  "ig34_p0413_a010",
   "ig34_p0414_a013",
   "ig34_p0438_a019",
   "ig34_p0457_a004"
@@ -712,10 +684,6 @@
   "ig34_p0342_a007",
   "ig34_p0377_a021",
   "ig34_p0378_a017",
-  "ig34_p0412_a006",
-  "ig34_p0412_a007",
-  "ig34_p0412_a008",
-  "ig34_p0413_a010",
   "ig34_p0414_a013",
   "ig34_p0438_a019",
   "ig34_p0457_a004"
@@ -730,5 +698,39 @@
    "ig34_p0262_a014|B-MS T-3|['mbrefid']",
    "ig34_p0262_a015|B-MS T-3|['mbrefid']"
   ]
+ },
+ "K3b_t4_r3l_dropped": {
+  "ig34_p0412_a006": {
+   "registry": [
+    "S-TDM TD T-1"
+   ],
+   "why": [
+    "S-TDM TD T-1:c'(punctuation-only, on registered line)"
+   ]
+  },
+  "ig34_p0412_a007": {
+   "registry": [
+    "S-TDM TD T-1"
+   ],
+   "why": [
+    "S-TDM TD T-1:c'(punctuation-only, on registered line)"
+   ]
+  },
+  "ig34_p0412_a008": {
+   "registry": [
+    "S-TDM TD T-1"
+   ],
+   "why": [
+    "S-TDM TD T-1:c'(punctuation-only, on registered line)"
+   ]
+  },
+  "ig34_p0413_a010": {
+   "registry": [
+    "S-TDM TD T-4"
+   ],
+   "why": [
+    "S-TDM TD T-4:c:on-registered-line:['tdtgtpai']"
+   ]
+  }
  }
 }
