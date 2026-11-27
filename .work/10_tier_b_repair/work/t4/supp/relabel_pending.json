@@ -412,7 +412,7 @@
   "now": "EQUIVALENT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-ch04 T-3; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-ch04 T-3 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib2_1.md:21"
  },
  {
@@ -420,7 +420,7 @@
   "now": "EXACT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 S-CH4 T-8; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 S-CH4 T-8 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib_1.md:18"
  },
  {
@@ -428,7 +428,7 @@
   "now": "EXACT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 S-CH4 T-9; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 S-CH4 T-9 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib_1.md:21"
  },
  {
@@ -436,7 +436,7 @@
   "now": "EXACT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 S-SPEC1 T-3; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 S-SPEC1 T-3 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib_1.md:22"
  },
  {
@@ -444,7 +444,7 @@
   "now": "EQUIVALENT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-DM T-3; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-DM T-3 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib2_1.md:27"
  },
  {
@@ -452,7 +452,7 @@
   "now": "EXACT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-DM T-1; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-DM T-1 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib_1.md:25"
  },
  {
@@ -460,7 +460,7 @@
   "now": "EQUIVALENT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-EX T-1; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-EX T-1 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib_1.md:31"
  },
  {
@@ -476,7 +476,7 @@
   "now": "EXACT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-BE T-3; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-BE T-3 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib_1.md:35"
  },
  {
@@ -484,7 +484,7 @@
   "now": "EQUIVALENT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 S-SPC1 CP T-20; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 S-SPC1 CP T-20 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib2_1.md:32"
  },
  {
@@ -492,7 +492,7 @@
   "now": "EQUIVALENT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-CP T-5; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-CP T-5 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib2_1.md:34"
  },
  {
@@ -500,7 +500,7 @@
   "now": "EQUIVALENT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-MS T-5; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-MS T-5 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib2_2.md:17"
  },
  {
@@ -524,7 +524,7 @@
   "now": "EQUIVALENT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-PCPP T-1; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-PCPP T-1 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib_3.md:22"
  },
  {
@@ -532,7 +532,7 @@
   "now": "EQUIVALENT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-PCPP T-2 / B-PCPP T-3; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-PCPP T-2 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib_3.md:23"
  },
  {
@@ -540,7 +540,7 @@
   "now": "EQUIVALENT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-PCPP T-2 / B-PCPP T-3; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-PCPP T-3 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib_3.md:24"
  },
  {
@@ -556,7 +556,7 @@
   "now": "EQUIVALENT",
   "to": "PDF_TYPO",
   "group": "registered-typo",
-  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 B-TR T-2; 确切 id 以原始结果为准; KB 写正确值)",
+  "why": "KB 与 PDF 的差异 = 已登记 PDF 笔误 B-TR T-2 (KB 写正确值; 审查者在原始结果该行确认)",
   "raw": "evidence/t4_round2_raw/pack_sib_3.md:28"
  },
  {

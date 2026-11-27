@@ -53,7 +53,7 @@
 | M-4 | `ig34_p0362_a010` ATOM_ERR → PDF_TYPO (K3b(b) 口径; ack 清单记在 U-7 名下, 实为主控决定) | 同上 |
 | M-5 | t3_mutation M3 换靶 (DM/spec.md:219); CE p153 14 原子块级补核 | 同上 |
 | M-6 | 5 条 `> Note:` 行反向溯源豁免 (整行锚定) | 同上 |
-| M-7 | ack 清单 "决定来源" 归属 (U-5 / U-2 / U-8 / U-7) | 同上. 2026-11-27 接手主控更正一处登记错误: `ig34_p0362_a010` 原记在 U-7 名下, 实为 M-4 → `scripts/t4/t4_ack_lists.py` 加 `MAIN_CTRL` 后重生成 (U-7 23 → 22, 主控决定 M-4 1; 其余行不变) |
+| M-7 | ack 清单 "决定来源" 归属 (U-5 / U-2 / U-8 / U-7) | 同上. 2026-11-27 接手主控更正一处登记错误: `ig34_p0362_a010` 原记在 U-7 名下, 实为 M-4 → `scripts/t4/t4_ack_lists.py` 加 `MAIN_CTRL` 后重生成 (U-7 23 → 22, 主控决定 M-4 1; 其余行不变). 注: 这处更正发生在 `t4_owner_confirmation.md` 所记的确认之后, 那次追认是否覆盖它, 留给总闸 attempt 3 判断 |
 | M-8 | (接手主控, **待主人追认**; 不在 `t4_owner_confirmation.md` 所记范围内) T0 变异在现 KB 上重证时 M4a 换靶: 原靶 (MB 第二份 suppbe 副本) 已被 D2 去重删掉 → 改用 PDF p431 relrec Ex1 的两份 KB 副本 (ch08 / RELREC), 只变异 ch08 那份; 现 KB 基线另存 `work/t4/t0_head/`, T0 基线不覆盖 | `t4_t0_refresh.md` §3 |
 
 ## 0. 用法

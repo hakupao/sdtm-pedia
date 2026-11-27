@@ -47,7 +47,7 @@ def parse(raw_dir, samples, need_all=True):
             if v:
                 x = ids[m.group(1)]
                 got[m.group(1)] = dict(num=cells[0], layer=x["layer"].split(":", 1)[1], final=x["verdict_final"], verdict=v,
-                                       raw=f"{os.path.relpath(f, TB)}:{n}", note=cells[-1][:160], reg=x.get("sib_registry"))
+                                       raw=f"{os.path.relpath(f, TB)}:{n}", note=cells[-1][:160], reg=x.get("sib_registry"), line=l)
     miss = [a for a in ids if a not in got]
     if need_all:
         assert not miss, (raw_dir, miss[:5])
@@ -57,7 +57,7 @@ def parse(raw_dir, samples, need_all=True):
 supp, _ = parse(f"{TB}/evidence/t4_supp_raw", [f"{W}/t4/supp/supp_sample.jsonl"])
 q9, _ = parse(f"{TB}/evidence/t4_q9_raw", [f"{W}/t4/q9/q9_sample.jsonl"])
 r2, r2_missing = parse(f"{TB}/evidence/t4_round2_raw", [f"{W}/t4/round2/round2_sample.jsonl", f"{W}/t4/round2/round2b_sample.jsonl"], need_all=False)
-json.dump(dict(supp=supp, q9=q9, round2=r2, round2_missing=r2_missing), open(f"{W}/t4/supp/verdicts.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+json.dump(dict(supp={k: {x: y for x, y in v.items() if x != "line"} for k, v in supp.items()}, q9={k: {x: y for x, y in v.items() if x != "line"} for k, v in q9.items()}, round2={k: {x: y for x, y in v.items() if x != "line"} for k, v in r2.items()}, round2_missing=r2_missing), open(f"{W}/t4/supp/verdicts.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
 
 # ---- pending label changes (not applied)
 A = {x["atom_id"]: x for x in lj(f"{W}/pdf_atoms.jsonl")}
@@ -74,8 +74,10 @@ for d in (supp, q9, r2):
             pend.append(dict(atom_id=a, now=r["final"], to="PDF_TYPO", group="registered-typo",
                              why=f"KB 与 PDF 的差异 = 已登记 PDF 笔误 {TYPO[a]} (KB 写正确值)", raw=r["raw"]))
         elif r["verdict"] == "TYPO_AFFECTED":
+            named = [g_ for g_ in (r.get("reg") or []) if g_ in r["line"]]   # the id(s) the reviewer wrote in that row
+            assert len(named) == 1, (a, r.get("reg"), named)
             pend.append(dict(atom_id=a, now=r["final"], to="PDF_TYPO", group="registered-typo",
-                             why=f"KB 与 PDF 的差异 = 已登记 PDF 笔误 (候选登记 {' / '.join(r.get('reg') or ['见原始结果'])}; 确切 id 以原始结果为准; KB 写正确值)", raw=r["raw"]))
+                             why=f"KB 与 PDF 的差异 = 已登记 PDF 笔误 {named[0]} (KB 写正确值; 审查者在原始结果该行确认)", raw=r["raw"]))
 assert len({p["atom_id"] for p in pend}) == len(pend)
 pend.sort(key=lambda x: (x["group"], x["atom_id"]))
 json.dump(pend, open(f"{W}/t4/supp/relabel_pending.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
@@ -89,6 +91,8 @@ L = {r["pdf_atom_id"]: r for r in rows}
 r2pop = json.load(open(f"{W}/t4/round2/round2_population.json"))
 XOUT = r2pop["xdoc_out_of_scope"]
 P74 = sorted(a for a in XOUT if a.startswith("sv20_p0074_"))
+# out-of-scope atoms hit by a registered typo, confirmed on the text layer by the delta reviewer (review_c.md H4); not reviewed by a tracer
+XTYPO = ["ig34_p0083_a020", "ig34_p0304_a026", "ig34_p0304_a027", "ig34_p0304_a028", "ig34_p0304_a029", "ig34_p0316_a023"]
 grp = lambda *g: {p["atom_id"]: p["to"] for p in pend if p["group"] in g}
 
 
@@ -118,7 +122,8 @@ SCEN = collections.OrderedDict([
     ("变量表行 + 笔误原子", scen("r1_typo", grp("R1-row", "registered-typo"))),
     ("三组都改 (建议)", scen("all", ALL)),
     ("三组都改 + 范围外 p74 的 14 条 → 有意不收", scen("all_p74", {**ALL, **{a: "INTENTIONAL_EXCLUDE" for a in P74}})),
-    ("三组都改 + 范围外跨文档指针 146 条全 → 有意不收 (上限情形)", scen("all_xout", {**ALL, **{a: "INTENTIONAL_EXCLUDE" for a in XOUT}})),
+    ("三组都改 + 范围外跨文档指针 146 条全 → 有意不收 (按都认 IE 计的情形)", scen("all_xout", {**ALL, **{a: "INTENTIONAL_EXCLUDE" for a in XOUT}})),
+    ("三组都改 + 范围外已登记笔误同类 6 条 → PDF 笔误", scen("all_xtypo", {**ALL, **{a: "PDF_TYPO" for a in XTYPO}})),
 ])
 json.dump(SCEN, open(f"{W}/t4/supp/scenarios.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
 assert md5(led) == LEDGER_MD5, md5(led)
@@ -204,7 +209,7 @@ xc, sc_, s2c, tc = vc(r2, "XDOC"), vc(r2, "TYPO_SIB"), vc(r2, "TYPO_SIB2"), vc(r
 n_sib2 = len(lj(f"{W}/t4/round2/round2b_sample.jsonl")) if os.path.exists(f"{W}/t4/round2/round2b_sample.jsonl") else 0
 sib2_state = " (全检)" if n_sib2 and sum(s2c.values()) == n_sib2 else f" / {n_sib2} (**结果未齐**)"
 o += ["| 层 | 取法 | 本次审 | 结果 |", "|---|---|--:|---|",
-      f"| XDOC | 范围内 stock EXACT / EQUIVALENT (含标题类) 且台账 `md_atom_ids` 只指向另一份文档的 KB 文件; 共 {len(r2pop['xdoc_in_scope'])} 条, 其中 {len(r2pop['xdoc_in_scope_already_judged'])} 条已在 Q9 / 补检审过 | {sum(xc.values())} (全检) | HOLDS {xc['HOLDS']} / NOT_HOLD_XDOC {xc['NOT_HOLD_XDOC']} / NOT_HOLD_R1 {xc['NOT_HOLD_R1']} / NOT_HOLD {xc['NOT_HOLD']} / UNVERIFIABLE {xc['UNVERIFIABLE']} |",
+      f"| XDOC | 范围内 stock EXACT / EQUIVALENT (含标题类) 且台账 `md_atom_ids` 只指向另一份文档的 KB 文件; 这一筛法筛出 {len(r2pop['xdoc_in_scope'])} 条 (与第 1 稿的 \"57 条待改\" 只是数字相同, 无关), 其中 {len(r2pop['xdoc_in_scope_already_judged'])} 条已在 Q9 / 补检审过 | {sum(xc.values())} (全检) | HOLDS {xc['HOLDS']} / NOT_HOLD_XDOC {xc['NOT_HOLD_XDOC']} / NOT_HOLD_R1 {xc['NOT_HOLD_R1']} / NOT_HOLD {xc['NOT_HOLD']} / UNVERIFIABLE {xc['UNVERIFIABLE']} |",
       f"| TYPO_SIB | 范围内 EXACT / EQUIVALENT, 与某条 \"KB 写正确值\" 登记同页 (±1), 原子文字含改正值且与登记所在 KB 行重合 ≥ 0.8; 候选 {len(r2pop['typo_sib_candidates'])} 条, 其中 {len(r2pop['typo_sib_already_judged'])} 条已审过 | {sum(sc_.values())} (全检) | TYPO_AFFECTED {sc_['TYPO_AFFECTED']} / NOT_AFFECTED {sc_['NOT_AFFECTED']} / NOT_HOLD {sc_['NOT_HOLD']} / UNVERIFIABLE {sc_['UNVERIFIABLE']} |",
       f"| TYPO_SIB2 | 同上但原子文字**不含**改正值, 只取 EQUIVALENT (EXACT 须逐字命中 KB, 覆盖笔误处的 EXACT 原子必含改正值); 候选 {n_sib2} 条 | {sum(s2c.values())}{sib2_state} | TYPO_AFFECTED {s2c['TYPO_AFFECTED']} / NOT_AFFECTED {s2c['NOT_AFFECTED']} / NOT_HOLD {s2c['NOT_HOLD']} / UNVERIFIABLE {s2c['UNVERIFIABLE']} |",
       f"| PDF_TYPO | 终态 PDF_TYPO {r2pop['pdf_typo_total']} 条里未被任何审查者看过的 {r2pop['pdf_typo_unjudged']} 条, 按判定规则分层各抽 15 (seed {r2pop['seed']}) | {sum(tc.values())} (抽样) | HOLDS {tc['HOLDS']} / NOT_HOLD {tc['NOT_HOLD']} / UNVERIFIABLE {tc['UNVERIFIABLE']} |", "",
@@ -212,6 +217,8 @@ o += ["| 层 | 取法 | 本次审 | 结果 |", "|---|---|--:|---|",
       f"- **TYPO_SIB / TYPO_SIB2**: {sc_['TYPO_AFFECTED'] + s2c['TYPO_AFFECTED']} 条原子所在处 PDF 印的是已登记的笔误、KB 是改正值, 现标签 EXACT / EQUIVALENT 不准 → 进待改清单 (改 PDF_TYPO). 其余候选的笔误实际在同页别处." +
       (f" TYPO_SIB2 另有 NOT_HOLD {s2c['NOT_HOLD']} 条, 见 §6." if s2c["NOT_HOLD"] else ""),
       f"- **PDF_TYPO**: 抽 {sum(tc.values())} 条 0 错 → 错误率 95% 上界约 {ub(max(1, sum(tc.values()))):.1f}% (同样是近似). 连同总闸样本里判过的 5 条共 {sum(tc.values()) + 5} 条看过; PDF_TYPO 类**不是全检**. attempt 1 要求的 \"ATOM_ERR / PDF_TYPO 合计补抽到 ≥ 30\" 现为: ATOM_ERR 侧 C7 38 + triage 74 + K4 2 全检, PDF_TYPO 侧抽 {sum(tc.values())}.",
+      "- **TYPO 筛法的盲区 (delta 复审 M5; 如实)**: ① 只按登记的 `pdf_page` ±1 取原子, 而有些登记实际跨多页 (页段写在 `pdf_value` / `basis` 的文字里); ② 与 KB 行比重合度时只用登记给的行号; ③ TYPO_SIB2 不收 EXACT. delta 复审者另用 \"PDF 笔误写法的 token 在全 KB 不存在\" 做全量反查, **范围内没有找到漏掉的原子**, 但 195 条 \"KB 写正确值\" 登记里有 73 条 (空格 / 标点类笔误) 抽不出可用 token, 测不了. 主控用更宽的筛法 (改正值在 KB 的所有出现行都算) 重筛: 范围内另有 169 条候选、范围外 142 条候选, **都没有审** (宽筛法噪声大; 是否审交主人定).",
+      "- **范围外的已登记笔误同类原子 (delta 复审 H4)**: 第二轮 TYPO 层只取了范围内. delta 复审者在文本层 (未看渲染页) 确认范围外有 6 条同类: `ig34_p0083_a020` (S-SPREL SE T-1, 现 EXACT)、`ig34_p0304_a026` ~ `a029` (B-OE T-2, 现 EQUIVALENT)、`ig34_p0316_a023` (S-FND PE T-1, 现 EQUIVALENT). 上一轮 U-8 把范围外同类的 4 条改成了 PDF_TYPO. 这 6 条未经 tracer 审, 未进待改清单; 交主人定 (一页问题 7).",
       "- 范围外 (只列不审): 台账指针跨文档的旧标签另有 " + str(len(XOUT)) + " 条在 §5.0 范围外 (" + " / ".join(f"{k} {v}" for k, v in collections.Counter(XOUT.values()).most_common()) + f"), 其中 SDTM v2.0 第 74 页 {len(P74)} 条已被 Q9 审查者指认为配到了 SDTMIG 附录 F. 清单 `work/t4/round2/round2_population.json` 的 `xdoc_out_of_scope`.", "",
       "## 5. 后果 (按派发前写死的条款)", "",
       "- PRE_EXISTING 层 NOT_HOLD ≥ 1 → Q9 升级已触发并执行到 §3 / §4; **主控不自行结案**. 需要主人定的事列在 `t4_owner_decisions_round2.md`.",
@@ -222,22 +229,23 @@ o += ["| 层 | 取法 | 本次审 | 结果 |", "|---|---|--:|---|",
       "- 标题后缀: Q9 包 1 的 Q19-Q26 (8 条 v2.0 目录条目) KB 标题带 `(TE)` 等域代码后缀, 审查者按 \"附加信息不改原意\" 判 HOLDS 并提醒 \"若任何附加都算标题文字不同, 这 8 条要改判\" (`evidence/t4_q9_raw/pack_1.md`). 主控依据: U-10① 已定 \"(XX) 后缀为保留的检索导航, 只补登记\" (`t4_user_decisions.md` §000), 维持 HOLDS.",
       "- 域标题不带节号 / DI 自拟标题: 见 §4 XDOC.",
       "- `sv20` §6.4 RELSUB / §6.5 DR 的 KB 表也只有 5 列, PDF 对应表有 C-code 与 Definition 格 (`evidence/t4_supp_raw/pack_2.md` 样本外发现; 审查者写 \"需要 owner 定口径\"). 与 R1 同类; 这两节不在 §5.0 范围内.",
-      "- KB 排版: `knowledge_base/domains/EG/examples.md:62-87` (Ex3 表) 省略列写 `...`, PDF p190-191 是 `…` (U+2026). 这 26 行在 S-TYPO 残余清单里归类 `table_elision` (`work/t2_batches/S-TYPO.residual.jsonl`; 全表 1091 行 = kb_nav 685 / body 235 / heading 144 / table_elision 26 / kb_note 1). U-9(c) 当时说的是 \"残余 230 行\", 与文件行数对不上, **不能确认 U-9(c) 的 \"接受现状\" 覆盖这 26 行**.",
+      "- KB 排版: `knowledge_base/domains/EG/examples.md:62-87` (Ex3 表) 省略列写 `...`, PDF p190-191 是 `…` (U+2026). 这 26 行在 S-TYPO 残余清单里归类 `table_elision` (`work/t2_batches/S-TYPO.residual.jsonl`; 全表 1091 行 = kb_nav 685 / body 235 / heading 144 / table_elision 26 / kb_note 1). 这 26 行 = EG 例 3 表 25 行 (`:62`, `:64-87`; `:63` 是表格分隔线) + `knowledge_base/domains/RE/examples.md:15` 1 行 (同样是表头用 `...` 表示省略列). U-9(c) 当时说的是 \"残余 230 行\", 与文件行数对不上, **不能确认 U-9(c) 的 \"接受现状\" 覆盖这 26 行**. 受影响的 19 条 p191 原子现标签仍是 EXACT (审查者判 HOLDS_AS_EQUIV, 即按定义应为 EQUIVALENT; 归标签级别后续项, 未改).",
       "",
       "PDF 自身不一致 (前两条未登记):",
       "- sv20 p69 SREL 行 Notes 写 \"subject or pool identified in RDEVID\", p50 同句写 \"device\" (`evidence/t4_q9_raw/pack_5.md`).",
       "- ig34 p440 图中 SPC-003 标 \"(Brain)\", 同页表写 TISSUE (`evidence/t4_supp_raw/pack_6.md`).",
-      "- ig34 p278 Method B: 叙述说第 14-26 行 RELID 为 2 / `DY8DRGX`, 表里这些行印 RELID 1, 第 26 行 IDVARVAL 印 `DY1DRGX` (`evidence/t4_round2_raw/pack_sib_3.md`). 这一处**已登记**: `t4_user_decisions.md` A1-20 / `B-PCPP T-4` (照录 + T4), 不是新发现.",
+      "- ig34 p277 叙述 / p278 Method B 表: 叙述说第 14-26 行 RELID 为 2 / `DY8DRGX`, 表里这些行印 RELID 1, 第 26 行 IDVARVAL 印 `DY1DRGX` (`evidence/t4_round2_raw/pack_sib_3.md`). 这一处**已登记**: `t4_user_decisions.md` A1-20 / `B-PCPP T-4` (照录 + T4), 不是新发现.",
       "- 登记页号: `B-CP T-5` 的 `pdf_page` 写 211, 该行实际在 p212 (`pack_sib2_1.md`); `B-IS T-6` 写 241 实为 239 (解冻轮 W1 已发现). 都留到改台账那一批更正.",
       "",
       "台账 / 登记的指针类 (不影响标签):",
       "- 若干 `md_atom_ids` 指向别的域 / 文件 (如 `ig34_p0153_a0009` → DM; `ig34_p0255_a036` → MS examples; XDOC 层 27 条); 原子页号偏一页 (`ig34_p0169_a0025` 等实在 p170; `ig34_p0057_a001` 实在 p56; `ig34_p0442_a001` 实在 p441).",
       "- `ig34_p0355_a027` (PDF_TYPO): 决策表登记指针只列 `B-TR T-3`, 漏 `B-TR T-1` (`evidence/t4_round2_raw/pack_typo_2.md`). `chapters/ch08_relationships.md:228` 也承载了 `B-SUPPQUAL T-1` 的改正值, 登记的位置清单没列这一行 (`pack_sib_3.md`).",
-      "- 登记 `S-CH4 T-10e` (p43 两句之间缺空格) 落在 `ig34_p0043_a022` 与 `a023` 的交界; 仅空白差异, 两条 EXACT 按定义成立 (`pack_sib_1.md` R29).",
+      "- 登记 `S-CH4 T-10e` (p43 两句之间缺空格) 落在 `ig34_p0043_a022` 与 `a023` 的交界; 仅空白差异; 审查者判 `a022` NOT_AFFECTED 并提示 \"若从严, 受影响的可能是下一个原子\"; `a023` 未经审查者看, 主控按 \"EXACT 允许空白归一\" 认为两条都成立 (`pack_sib_1.md` R29; 同页 `S-CH4 T-10d` 的相邻原子同理).",
       "- 样本包里的 KB 指针多处近似, 审查者都自行重新定位.",
       "",
       "标签级别 (内容成立; 记后续, 同 U-10⑤):",
-      "- 旧 EXACT / EQUIVALENT 实为 \"原子抽错 + KB 与 PDF 一致\" (按定义更接近 ATOM_ERR): 补检 PRE_EXISTING 层 #3、#4、#11-#16、#19-#26、#46-#48、#51、#53 (见 `evidence/t4_supp_raw/pack_1.md` / `pack_2.md` 各行说明); Q9 的 `ig34_p0057_a006`、`ig34_p0068_a004` 及包 6 的 Q132-Q135、Q146; 第二轮 `pack_sib_2.md` 附注的 8 条 (R55 / R56 / R59 / R60 / R63 / R64 / R66 / R75).",
+      "- 旧 EXACT / EQUIVALENT 实为 \"原子抽错 + KB 与 PDF 一致\" (按定义更接近 ATOM_ERR): 补检 PRE_EXISTING 层 #3、#4、#11-#16、#19-#26、#46-#48、#51、#53 (见 `evidence/t4_supp_raw/pack_1.md` / `pack_2.md` 各行说明); Q9 的 `ig34_p0057_a006`、`ig34_p0068_a004` 及包 6 的 Q132-Q135、Q146; 第二轮 `pack_sib_2.md` 附注的 8 条 (R55 / R56 / R59 / R60 / R63 / R64 / R66 / R75)、`pack_sib_1.md` 的 R34 / R43 / R50、`pack_sib2_1.md` 的 S8 / S10 / S15 / S17 / S19 (审查者: \"S8 更贴切的标签是 ATOM_ERR, 请定\")、`pack_sib2_2.md` 的 S21 / S22 / S23 / S27 (审查者: \"是否进入标签级别后续项由你决定\")、`pack_sib_3.md` 提到的 `ig34_p0147_a024` / `a025`; delta 复审者另指出 `ig34_p0280_a045` (未审; 原子写 `DYIDRGX_A`, PDF 与 KB 都是 `DY1DRGX_A`). 主控处理: 一律记标签级别后续项, 不在本轮改 (与 U-10⑤ 同).",
+      "- 范围内 sv20 标题类旧 EQUIVALENT 共 5 条: 3 条在 XDOC 层审过 (成立); `sv20_p0052_a010`、`sv20_p0054_a001` 两条没有审 (台账指针不跨文档, 不在任何一层的取法里).",
       "- 原子抽取本身的问题 (只影响台账, KB 对): p69 原子 a023-a032 把两张 se.xpt 的值混在一起、p77 原子 a015-a018 把 dm.xpt 抽成 suppdm (`evidence/t4_supp_raw/pack_3.md`); `sv20_p0053_a018` 把 Notes 文字放进 Definition 格 (`evidence/t4_q9_raw/pack_3.md`).",
       "- KB 附加信息: `CE/spec.md:261,279`、`HO/spec.md:81` 的受控术语格比 PDF 多写了 NCI C-code (`evidence/t4_supp_raw/pack_4.md`; S-CT 批 U5/U6 的做法, 各 spec.md 有统一 KB note, 这三格是否在其覆盖内待核).", ""]
 old = open(f"{CK}/t4_supp_fullcheck.md", encoding="utf-8").read() if os.path.exists(f"{CK}/t4_supp_fullcheck.md") else ""
@@ -262,7 +270,8 @@ for k, v in SCEN.items():
 o += ["", "- G-TB2 的过闸口径是 \"范围内\" (U-3 A): 174/174; 表里最后一列是 `t3_recompute.py` 打印的字面口径值 (17 个结构父节仅因范围外子节不满), 两者在各选法下都不变.",
       "- U-1 B 口径在所有选法下都高于闸线; strict 在所有选法下都低于 (与 attempt 2 相同的性质).",
       "- 改成 \"有意不收\" 的原子同时离开分子和分母; 改成 PDF_TYPO 的在 U-1 B 口径下仍算覆盖, 在 strict / mapped / 内容指标里不算.",
-      "- 范围外的两行不在 G-TB1 / G-TB2 的范围内, 但 G-TB3 按整本台账算, 所以会动 G-TB3 的分子分母. \"146 条全改\" 是上限情形 (那 146 条里只有 p74 的 14 条被审查者看过).",
+      "- 范围外的三行不在 G-TB1 / G-TB2 的范围内, 但 G-TB3 按整本台账算, 所以会动 G-TB3 的分子分母. \"146 条全改\" 是**假设配错的都认 IE** 的情形 (那 146 条里只有 p74 的 14 条被审查者看过; 其中 113 条现标 PARTIAL): 若有的内容自己文档的 KB 里也没有、又不认 IE, 应记未覆盖, 数字会比这一行更低; 若内容其实在 `model/` 里只是指针错, 标签不变. 所以这一行不是严格的下限.",
+      "- \"范围外已登记笔误同类 6 条\" 是 delta 复审者在文本层确认的, 未经 tracer 审, 不在下面 §3 的清单里.",
       "- 改标只动标签, 不动 KB. 执行时走 writer (`oh-my-claudecode:executor`) → reviewer, 并在同一次回写里处理 registry `B-IS T-6` 页号 p241 → p239 (页号参与登记匹配 `t3_errata_build.py:150` / `t3_writeback.py:404`, 单独改有改变台账的风险) 与 `t4_supp_fullcheck.md` §6 所列的登记指针补全.", "",
       "## 3. 逐条", "", "| # | atom_id | 页 | 节 | 现标签 | 建议 | 组 | 理由 | 原始结果 |", "|--:|---|--:|---|---|---|---|---|---|"]
 for n_, p in enumerate(pend, 1):

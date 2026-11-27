@@ -3,7 +3,7 @@
 <!-- chain: E (plans) -->
 > 状态: **写作者稿: ALL MATCH (exit 0), 2026-11-27**; 独立审查结论见文末. KB 未改 (只在 `work/scratch/t0_head/` 的临时副本上变异).
 > 关闭的缺口: 总闸 attempt 2 G-TB9 "t0_mutation 在现 KB MISMATCH → table_census / fp_match 在现 KB 无 '变红再复原' 证明".
-> 写作者 = 主控 (脚本 + 本文); 其中 **M4a 换靶是主控决定 M-8, 待主人追认** (见 §3; 提问在 `t4_owner_decisions_round2.md` 问题 4).
+> 写作者 = 主控 (脚本 + 本文); 其中 **M4a 换靶是主控决定 M-8, 待主人追认** (见 §3; 提问在 `t4_owner_decisions_round2.md` 问题 5).
 
 ## 1. 查清的原因: 不只是基线过期
 

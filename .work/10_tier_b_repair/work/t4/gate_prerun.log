@@ -1,0 +1,155 @@
+# gate pre-run 2026-11-27T06:14:19Z  HEAD 1b30197  KB tree 63f857774a42cfaa71798705ad40ab51bc5e378a
+# ledger md5 60729f7b64b7c1dfaf2174e394f6dd9c  registry rows 272
+
+$ git status --short
+ M .work/10_tier_b_repair/HANDOFF.md
+ M .work/10_tier_b_repair/audit_matrix.md
+ M .work/10_tier_b_repair/evidence/checkpoints/t4_coordinator_note_20261127.md
+ M .work/10_tier_b_repair/evidence/checkpoints/t4_owner_decisions_round2.md
+ M .work/10_tier_b_repair/evidence/checkpoints/t4_relabel_pending.md
+ M .work/10_tier_b_repair/evidence/checkpoints/t4_supp_fullcheck.md
+ M .work/10_tier_b_repair/evidence/checkpoints/t4_t0_refresh.md
+ M .work/10_tier_b_repair/evidence/checkpoints/t4_user_decisions.md
+ M .work/10_tier_b_repair/scripts/t4/t4_supp_report.py
+ M .work/10_tier_b_repair/trace.jsonl
+ M .work/10_tier_b_repair/work/t4/supp/relabel_pending.json
+ M .work/10_tier_b_repair/work/t4/supp/scenarios.json
+?? .work/10_tier_b_repair/evidence/t4_gap_review_raw/review_c.md
+?? .work/10_tier_b_repair/work/t4/gate_prerun.log
+[exit=0]
+
+$ git status --short knowledge_base archive releases
+[exit=0]
+
+## G-TB7 links
+$ python3 tools/check_links.py 2>&1 | grep "live docs"
+broken relative links: 18668 (live docs: 42)
+
+## G-TB1 / G-TB2 (section recompute -> scratch)
+$ python3 -I .work/10_tier_b_repair/scripts/t3_recompute.py --out .work/10_tier_b_repair/work/scratch/t4/gate_prerun/sc.jsonl | grep TB:
+TB: current Tier B sections=101 residual_gap=82
+TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
+
+## G-TB3 coverage
+
+$ python3 -I .work/10_tier_b_repair/scripts/t4/t4_coverage_decomp.py
+pre-T3 (06 formula): 10298/10400 = 99.0192%
+final strict       : 9567/9986 = 95.8041%
+final mapped       : 9567/9629 = 99.3561%
+final U-1 B        : 9913/9986 = 99.2690%  (ATOM_ERR+PDF_TYPO covered, FIGURE_DEFERRED uncovered)
+content EXACT+EQUIV: 8733/9629 = 90.6948%  (mapped denominator)
+group transitions (cov=EXACT/EQUIV/PARTIAL/MISPLACED, unc=MISSING/ERROR, new=ATOM_ERR/PDF_TYPO/FIG):
+         cov -> ie   493
+         cov -> new  346
+          ie -> cov  72
+         unc -> cov  32
+         unc -> new  8
+  (appended) -> cov  4
+          ie -> new  2
+  (appended) -> new  1
+counterfactual strict if the 346 cov->new rows had stayed covered: 9913/9986 = 99.2690%
+still-counted-as-covered under 06 formula in final ledger: {'PARTIAL': 637, 'MISPLACED': 197} | uncovered: {'ERROR': 62}
+[exit=0]
+
+## final verdict counts
+{'INTENTIONAL_EXCLUDE': 2506, 'EQUIVALENT': 4015, 'EXACT': 4718, 'ATOM_ERR': 197, 'PDF_TYPO': 149, 'PARTIAL': 637, 'MISPLACED': 197, 'ERROR': 62, 'FIGURE_DEFERRED': 11} rows 12492
+
+## direct-hit recheck (stock EXACT in scope + TB EXACT)
+
+$ python3 -I .work/10_tier_b_repair/scripts/t3/t3_direct_hit.py --out .work/10_tier_b_repair/work/scratch/t4/gate_prerun/direct_hit.json
+kb_root=/Volumes/DevSSD/Project/sdtm-pedia/knowledge_base
+EXACT checked (independent targets): TB(all)=1030 stock(§5.0 scope)=1758; anchor-checked non-EXACT rows=421
+  tb_exact_miss: 0 []
+  k11_short: 0 []
+  anchor_lost: 0 []
+  expected_regression: 0 []
+  errata: 0 []
+  pre_existing: 58 ['ig34_p0032_a013', 'ig34_p0073_a001', 'ig34_p0076_a002', 'ig34_p0101_a030', 'ig34_p0123_a009', 'ig34_p0123_a010', 'ig34_p0123_a011', 'ig34_p0123_a016']
+  unexplained: 0 []
+RESULT: GREEN
+[exit=0]
+
+## G-TB4 full census on HEAD (-> scratch)
+$ python3 -I .work/10_tier_b_repair/scripts/table_census.py --manifest .work/10_tier_b_repair/work/census_full_manifest.json --out .work/10_tier_b_repair/work/scratch/t4/gate_prerun/census_head.json | tail -2
+PDF tables parsed: 339 (+2 unparsed); KB tables: 497; status: {'UNPARSEABLE': 146, 'OK': 309, 'DIFF': 38, 'NO_PDF': 4}; PDF_ONLY: 0; cells compared: 35065; diffs: 148
+RESULT: RED
+
+## G-TB9 t3 mutation
+$ bash .work/10_tier_b_repair/scripts/t3/t3_mutation.sh | grep -E 'RESULT|real KB md5|unchanged|^== '
+real KB md5 before: b71a466d6e618f995c493a82de3e3eb7
+== M0 copy as-is
+RESULT: GREEN
+== M1 sentence deleted
+RESULT: RED
+== M1 fp_match regression on the same copy (blind check)
+== M2 restored
+RESULT: GREEN
+== M3 DM/spec ARMCD CDISC Notes sentence deleted (T1-two-agent kb_loc ig34_p0064_a001; was CE [ ] Surgery)
+RESULT: RED
+== M4 EX/EC ec.xpt renamed
+RESULT: RED
+== M5 NV/spec '### VISITNUM' block deleted
+RESULT: RED
+== M6 M3+M4+M5
+RESULT: RED
+== M7 fresh copy (restored)
+RESULT: GREEN
+real KB md5 after:  b71a466d6e618f995c493a82de3e3eb7
+real KB unchanged: OK
+
+## G-TB9 t0 mutation on the current KB
+$ bash .work/10_tier_b_repair/scripts/t4/t0_mutation_head.sh | sed -n '/^real KB md5 (after)/,$p'
+real KB md5 (after): e2d862e25f04a3757a5ba5436092c416; KB tree 63f857774a42cfaa71798705ad40ab51bc5e378a
+git status knowledge_base/ archive/ releases/:
+(end)
+==== MUTATIONS APPLIED (a case whose mutation was not applied is a MISMATCH)
+M1     mutation applied: yes
+M2     mutation applied: yes
+M2b    mutation applied: yes
+M2c    mutation applied: yes
+M2d    mutation applied: yes
+M3     mutation applied: yes
+M4a    mutation applied: yes
+M4b    mutation applied: yes
+M4b2   mutation applied: yes
+M4c    mutation applied: yes
+M4c2   mutation applied: yes
+M4e    mutation applied: yes
+M4d    mutation applied: yes
+==== EXPECT TABLE (fp census t3)
+M0       expect=[0 0 0] got=[0 0 0] OK
+M1       expect=[1 0 1] got=[1 0 1] OK
+M2       expect=[0 1 0] got=[0 1 0] OK
+M2b      expect=[0 1 0] got=[0 1 0] OK
+M2c      expect=[0 1 0] got=[0 1 0] OK
+M2d      expect=[0 1 0] got=[0 1 0] OK
+M3       expect=[1 0 1] got=[1 0 1] OK
+RESTORE  expect=[0 0 0] got=[0 0 0] OK
+==== M4 TABLE (census v2 RED + targeted assert; v1 logged)
+M4a    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4b    v2=1(expect 1) assert=0(expect 0) v1=GREEN-blind OK
+M4b2   v2=1(expect 1) assert=0(expect 0) v1=GREEN-blind OK
+M4c    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4c2   v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4e    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+M4d    v2=1(expect 1) assert=0(expect 0) v1=RED OK
+---- RESTORE census v2 MB/EG/REL vs baselines (must be GREEN)
+RESULT: GREEN
+RESULT: GREEN
+RESULT: GREEN
+MUTATION RESULT: ALL MATCH (exit 0)
+
+## sample files
+
+$ md5 -r .work/10_tier_b_repair/work/t4/gate_sample.jsonl .work/10_tier_b_repair/work/t4/human_sample.jsonl .work/10_tier_b_repair/work/t4/supp/supp_sample.jsonl .work/10_tier_b_repair/work/t4/q9/q9_sample.jsonl
+67b1013f496096df483eb300a66150d6 .work/10_tier_b_repair/work/t4/gate_sample.jsonl
+5b4212ee6b5deb873ab29d7f13e17232 .work/10_tier_b_repair/work/t4/human_sample.jsonl
+0fb5799b821c5a4dc900b39fbf86bf86 .work/10_tier_b_repair/work/t4/supp/supp_sample.jsonl
+5ad82bea9a68db72616a19f414afd5de .work/10_tier_b_repair/work/t4/q9/q9_sample.jsonl
+[exit=0]
+
+## after
+KB tree 63f857774a42cfaa71798705ad40ab51bc5e378a; ledger md5 60729f7b64b7c1dfaf2174e394f6dd9c
+
+$ git status --short knowledge_base archive releases
+[exit=0]

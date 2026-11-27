@@ -39,7 +39,7 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - 汇报文件: `evidence/checkpoints/t4_attempt2_report.md`.
 - **2026-11-27 主人本人确认** U-1 口径 / T4.2 方案 / 追认 M-1..M-7 / §000 委托代裁全部 → `evidence/checkpoints/t4_owner_confirmation.md`; PLAN 升 v1.4 (T4.2 行改口径, FIG 12→11). 仍开: C3 逐表结案清单、t0 baseline 刷新、pre_existing 58 / FIG 11 / 规则 0 抽中类、audit_matrix 行 → 然后 T4.1 attempt 3.
 ## T4 接手主控 (2026-11-27 下午, 新 session): attempt 2 缺口已补做; **等主人第二轮回答**, 之后改台账 → 总闸 attempt 3
-- 入口: `evidence/checkpoints/t4_owner_decisions_round2.md` (给主人的一页, 第 2 稿, 问题 1-9). **不按委托代裁处理; 主人答复前不改台账.** 主人会在主控聊天里直接回答 → 原话逐字追加到 `t4_owner_confirmation.md` 新增一节, 并填该页末尾的 "主人选" 栏.
+- 入口: `evidence/checkpoints/t4_owner_decisions_round2.md` (给主人的一页, 第 3 稿, 问题 1-9, 含 4a-4d / 7a-7b). **不按委托代裁处理; 主人答复前不改台账.** 主人会在主控聊天里直接回答 → 原话逐字追加到 `t4_owner_confirmation.md` 新增一节, 并填该页末尾的 "主人选" 栏.
 - 上一轮四件事 (U-1 口径 / T4.2 方案及 6 条 / M-1..M-7 / 委托本身): 以 `t4_owner_confirmation.md` (`c555bd8`, 上一任主控会话记录的主人直接确认) 为准往下走 (协调方 2026-11-27 指示, 原文留档 `t4_coordinator_note_20261127.md`); 局限照其自述保留, 由总闸 attempt 3 判断.
 - 三轮独立核查 (都是 `oh-my-claudecode:tracer`, 原始结果在 `evidence/t4_supp_raw/`、`t4_q9_raw/`、`t4_round2_raw/`; 汇总 `t4_supp_fullcheck.md`):
   - 补检 203 全检: **PRE_EXISTING 层 2 条 NOT_HOLD → 触发 Q9**; 其余 9 个非空层通过. 归档 `evidence/failures/step_T4.SUPP_attempt_1.md`.
@@ -48,7 +48,7 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - 待改标签 **72 条** (`t4_relabel_pending.md`; 51 变量表行 + 2 目录条目 → IE, 19 → PDF_TYPO). 台账副本预演: U-1 B 99.2690 → 99.2651, strict 95.8041 → 95.5905 (`work/t4/supp/scenarios.json`). **台账未改** (md5 `60729f7b…`).
 - G-TB4: `t4_c3_closeout.md` = census 三时点逐表比对 (50c3958 / 00a2e93 / HEAD: KB 表 501 / 500 / 497) + C3 60 张逐表结案. 脚本 `scripts/t4/t4_census_tablediff.py` → `t4_c3_closeout.py` → `t4_c3_report.py`.
 - G-TB9: `t4_t0_refresh.md` — 现 KB 上重证 ALL MATCH (`scripts/t4/t0_mutation_head.sh`; 基线 `work/t4/t0_head/`, **T0 基线不覆盖**; M4a 换靶 = M-8 待追认). 基线绑定当前 KB + 台账: **改台账后必须重跑 `--make-baseline` 再跑变异**.
-- 对主控这一轮产出的独立审查: `evidence/t4_gap_review_raw/review_a.md` (verifier: T0 + C3, CONDITIONAL, HIGH 0) / `review_b.md` (code-reviewer: 汇总 + 一页 + 文档, CONDITIONAL, HIGH 4 → 已按意见追加第二轮并重写); 处理记录在各文档文末.
+- 对主控这一轮产出的独立审查: `evidence/t4_gap_review_raw/review_a.md` (verifier: T0 + C3, CONDITIONAL, HIGH 0) / `review_b.md` (code-reviewer: 汇总 + 一页 + 文档, CONDITIONAL, HIGH 4 → 已按意见追加第二轮并重写) / `review_c.md` (code-reviewer 新实例 delta 复审: CONDITIONAL, HIGH 4 → 已照改; **第 3 稿未再送审**); 处理记录在各文档文末. 已知未做: 范围外笔误同类 6 条未经 tracer 确认、TYPO 宽筛候选 (范围内 169 / 范围外 142) 未审、标题类 305 条未审 — 都列在一页里等主人定.
 - 文档更正: ack 清单 p0362_a010 归 M-4 (`t4_ack_lists.py` MAIN_CTRL); `t4_user_decisions.md` 状态行按确认层级重写 + §000b 加 M-8; PLAN v1.4.1 (闸表下加口径注, Q9 已触发); `audit_matrix.md` 补 T3 / U-5 / U-7 / U-6 / T4.2 / 解冻轮 / attempt 2 / 补检 / Q9 / 第二轮 / C3 行.
 - **未做 (留到改台账那一批)**: registry 页号 `B-IS T-6` 241 → 239、`B-CP T-5` 211 → 212 (页号参与登记匹配 `t3_errata_build.py:150` / `t3_writeback.py:404`, 单改有改变台账的风险); 登记指针补全 (`t4_supp_fullcheck.md` §6). trace 里上一任会话的整点时间戳 (06:00Z / 12:00Z) 无法还原, 保持原样; 本会话追加行用真实 `date -u`.
 - 总闸 attempt 3 用的预跑脚本已备: `scripts/t4/t4_gate_prerun.sh` (审查角色 `feature-dev:code-reviewer` 没有 Bash, 需要的复跑输出事先跑好). **不要与别的变异脚本同时跑** (共用 `work/scratch/` 下的 KB 副本).
