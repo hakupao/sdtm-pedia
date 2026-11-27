@@ -278,3 +278,30 @@ attempt 3 指出的 5 处都已改 (其中两处改得不彻底 → 并入下面
 - **台账没改** (md5 `438098704becc84eda01a925b80defaa`), KB 没改. 改不改 = 问题 C / 问题 D, 等主人直接定. 按写死条款本轮记 "不通过", 归档 `evidence/failures/step_T4.AE_attempt_1.md`.
 - 这一项的现状事实: ATOM_ERR 197 条与 PDF_TYPO 170 条现在每一条在各轮独立审查的原始结果里都有自己的判定行 (`scripts/t4/t4_atomerr_coverage.py` 扫结果表: 197 / 197、170 / 170); ATOM_ERR 里有 1 条已判不成立而标签未改. **"部分关" 改成什么状态由总闸角色 (`feature-dev:code-reviewer` 新实例) 或协调方判, 主控不判** (规则 D). 主人选 C1 并改完后, 可与那一处的 delta 闸审一并判.
 - 对已通过的 T4.1 总闸的影响, 主控只陈述事实不下结论: 这 1 条与 attempt 3 当时挡闸的 4 条多标 PDF_TYPO 是同一种情况 (已证实不成立的标签留在台账里), 方向同样是改回 EXACT、同样不影响过闸口径数字. 是否影响 PASS 的有效性, 同样由总闸角色 / 协调方判.
+
+---
+
+# 加查与 R4L 之后的 delta 闸审 (2026-11-27 夜; 誊录; 原文 `evidence/t4_gate_raw/attempt3_delta2_report.md`)
+
+> 审查者 `feature-dev:code-reviewer` (opus) **另一个新实例**, 只读, 无 Bash; brief `subagent_prompts/t4_gate_reviewer_v3.2.md` (判定口径派发前写死); 对象 HEAD `6d89fb9` (预跑日志 `work/t4/gate_prerun.log` 在 `2c61ea5` 上生成). 下面是主控的誊录与计数, 结论以原文为准; 主控不改判.
+
+## 结论: PASS (仅指 T4.1 总闸; attempt 3 + delta + 本次合并看)
+- A (`ig34_p0124_a001`): 主人消息 5 足以作为改标依据; 审查者按列对齐重判 = HOLDS (原子没抽错, KB `ML/examples.md:42` 逐字承载, EXACT 成立); 标签由现有 `live-hit` 路径判出, 是带断言的成因层撤销, 不是事后覆盖.
+- B: R4L 清单外变化 0 (恰好 1 条改标 + 4 行只改 `registry`); 4 条补的登记指针在登记表里都存在且对得上; writer / reviewer 类型不同; reviewer 的 LOW 与主控的处理判 "合理".
+- C: 没有哪条 G-TB 变成 NOT_MET. G-TB3 现值 U-1 B 99.2651% (不变) / strict 95.5804% (上升). **G-TB8**: R3L 那一批的字面条件已由 M-10 追认关闭; R4L 这一批 trace 里只有 executor / code-reviewer 两种类型, 第三种由本次审查充当 (须补 trace 行), 且 R4L 的机制选择尚未登记 → 按 R3L 先例判不挡闸.
+- **D ("ATOM_ERR / PDF_TYPO 补抽", attempt 3 判 "部分关"): 现状态 = 已关 (带局限)**. 筛法与 157 = 74 + 6 + 77 对账成立; 口径确在派发之前提交; 审查者类型独立; 盲复检 6 条一致; 审查者自己抽核 12 条 (含 `B-CE T-2` 2 条、涉登记 2 条、表格行与非表格行) + 另 4 条, 与加查审查者**全部一致**. 局限: 渲染页没看; S1-R1 以外各条的 "判成立" 采信前几轮记录; 加查汇总没有送独立审查; "每条都有判定行" 证明的是每条都被看过, 不等于每条都判成立.
+- E (问题 D 的处理): 足够. D1 口径与标签定义、与登记 `B-CE T-2`、与两位审查者当时的判定自洽; 登记位置与写法够用. 两处缺口 (不挡闸): 上级 brief `t4_supp_fullcheck_v1.0.md` 那两句话仍没写先后 (LOW-7); D1 没说 "值内空格恰好落在折行处" 时哪条优先 (建议主人以后补一句).
+- F (M-10): 主人的追认足以关掉 delta 报告里 G-TB8 的字面条件 (对 R3L); 不覆盖 R4L.
+- H / I: 各未审项都判 "不挡闸, 记已知局限"; 前两份报告判 "不挡闸" 的各项同意, 现状未变.
+- **push 之前须处理的事项** (原文): ① 在最终 HEAD 上重跑 `scripts/t4/t4_prepush_check.sh` 并补 `t4_prepush_check.md` "§3 最终一次"; ② 把本报告原样存档并在 trace 补 `subagent_done` 行 (兼作 R4L 批第三个不同类型的独立核验记录); ③ 在 `t4_user_decisions.md` §000b 登记 M-11 (R4L 的机制选择). 都是文字 / 记录类.
+- 需主人但不挡闸: M-11 追认 (可事后告知); D1 的折行边界.
+- LOW 9 处 (过期 / 小矛盾), 见下.
+
+## 主控对这次审查的处理 (不改判)
+- ② 报告已原样存档 (`evidence/t4_gate_raw/attempt3_delta2_report.md`); `trace.jsonl` 已补 `T4.1` attempt `3-delta2` 的 `subagent_done` 行, 注明兼作 R4L 批第三个不同 subagent_type 的独立核验.
+- ③ M-11 已登记在 `t4_user_decisions.md` §000b (待主人追认; 不挡闸; 在聊天里告知主人, 记录在 `t4_owner_confirmation.md`).
+- ① 推送前检查在最终 HEAD 上重跑, 输出记在 `t4_prepush_check.md` §3 "最终一次".
+- LOW-1 (`_progress.json` G-TB8 / G-TB9)、LOW-2 (`audit_matrix.md:7` 补 §8)、LOW-3 (`HANDOFF.md` 上一节标题改标 "历史")、LOW-4 (`t4_user_decisions.md` §000c 引言补消息 5)、LOW-5 (`t4_atomerr_fullcheck.md` 补 "有判定行 ≠ 判成立; 现 196 是那 197 的子集")、LOW-7 (`subagent_prompts/t4/t4_supp_fullcheck_v1.0.md` 文末加指向 D1 的补注, 正文不改)、LOW-9 (`PLAN.md` 状态行压短): 已改.
+- LOW-6 (`evidence/t4_atomerr_raw/second_look.md:21` 把 su.xpt 写成 19 列, 实际 18 列): 那是审查者原文, 不改; 在这里更正, 不影响判定.
+- LOW-8 (消息 5 的收到时间与提交 `cd24cc2` 只差约 1 秒): 事实是 — 收到消息后的第一条命令先取时钟, 同一条命令接着写记录并提交, 所以两个时间挨着; 本环境里时钟走得比实际耗时慢 (同一会话里审查者耗时十几分钟的调用, 前后 `date -u` 只差一两分钟). 记录里 "收到后立即取的时钟" 指的就是这个取法. 记为记录形式的已知局限, 不改原记录.
+- D1 的折行边界: 记为后续项 (`HANDOFF.md` 最后一节), 等主人以后补一句; 现有台账里只有 `ig34_p0293_a038` 一条碰到这个边界, 它已按主人 B1 单独处理.

@@ -3,9 +3,9 @@
  "tier": 3,
  "plan": "PLAN.md",
  "plan_version": "v1.4.4",
- "status": "T4.1 总闸 PASS (attempt 3 + delta) 之后: 加查 83 条 → 主人 C1 / D1 / 追认 M-10 → R4L 改 1 条 (reviewer PASS + delta PASS) → T0 基线重建 ALL MATCH → 等总闸角色对这一处的 delta 判断; KB 冻结 (树 63f85777…), 本地未 push",
- "current_step": "R4L 已提交 (65d6a0f); 总闸角色 delta 判断 (brief t4_gate_reviewer_v3.2.md) → 通过则 T4.3",
- "next_step": "总闸角色判通过 → T4.3 (Chain D / RETROSPECTIVE / 推送前检查 / push / kb tag / 确认网站); 主人已同意 \"这 1 条改完并复审通过后直接发版\" (经协调方转达); 判不通过 → 停下汇报",
+ "status": "T4.1 总闸 PASS (attempt 3 + delta + 加查 / R4L 之后的 delta); T4.2 已按主人口径关闭; T4.3 进行中; KB 树 63f85777… 自解冻轮后未变",
+ "current_step": "T4.3 (Chain D / RETROSPECTIVE / 推送前检查 / push / kb tag / 确认网站)",
+ "next_step": "T4.3 完成后: 协调方另派 sdtm-rag 的 \"KB 更新\"; 待主人 (不挡): M-11 追认, D1 的折行边界",
  "baseline": {
   "tier_b_p4b_orig": {
    "SIBLING_DROPPED": 56,
@@ -229,7 +229,7 @@
   },
   "T3.1": "PASS (attempt 4)",
   "T3.2": "PASS (attempt 4)",
-  "T4.1": "PASS (2026-11-27): attempt 3 CONDITIONAL (唯一挡闸项 = 问题 A) → 主人答 A1 → R3L 改 4 条 → delta 闸审 PASS. 历史: attempt 1 CONDITIONAL → attempt 2 CONDITIONAL → attempt 3 CONDITIONAL → attempt 3 delta PASS. 其后: M-10 主人已追认 (消息 5); ATOM_ERR 加查 → 问题 C = C1 → R4L (见 T4.AE / T4.R4L); 对这一处的 delta 闸审见 t4_gate_review.md 文末",
+  "T4.1": "PASS (2026-11-27): attempt 3 CONDITIONAL (唯一挡闸项 = 问题 A) → 主人答 A1 → R3L 改 4 条 → delta 闸审 PASS. 历史: attempt 1 CONDITIONAL → attempt 2 CONDITIONAL → attempt 3 CONDITIONAL → attempt 3 delta PASS. 其后: M-10 主人已追认 (消息 5); ATOM_ERR 加查 → 问题 C = C1 → R4L (见 T4.AE / T4.R4L); 加查与 R4L 之后的 delta 闸审 = PASS (feature-dev:code-reviewer 另一新实例; \"ATOM_ERR / PDF_TYPO 补抽\" 一项判 已关 (带局限); 需主人但不挡闸: M-11 追认)",
   "T4.2": "按主人改定的口径关闭: AI 预筛 42 + 主人抽查 6/6 (t4_human_verdicts.md; 确认记录 t4_owner_confirmation.md 第一节; 总闸 attempt 3 判 '足够, 带已公开的局限')",
   "T4.3": "pending",
   "T4.AE": "attempt 1 不通过 (2026-11-27): S1-R1 157 = 已逐条判过 80 + 从未逐条判过 77; 全检 83 (77 + 6 盲复检; oh-my-claudecode:tracer ×4) = HOLDS 82 / NOT_HOLD 1 (ig34_p0124_a001, 应为 EXACT; general-purpose 盲复看相同) / UNVERIFIABLE 0; 台账未改; evidence/checkpoints/t4_atomerr_fullcheck.md; 归档 evidence/failures/step_T4.AE_attempt_1.md; 另 8 条 (B-CE T-2) 判 HOLDS 但取决于口径 (问题 D, 未裁); 汇总未送独立审查; 后续: 主人 C1 / D1 → R4L (steps.T4.R4L)",
@@ -243,8 +243,8 @@
   "G-TB5": "MET (attempt 2); audit_matrix 已补 T3 / T4 行",
   "G-TB6": "未溯源 0, NOTE_EXEMPT 5 (M-6); C 层抽样 (U-4)",
   "G-TB7": "live docs 42 (2026-11-27 接手主控收尾复跑: python3 tools/check_links.py 2>&1 | grep \"live docs\")",
-  "G-TB8": "MET 字面 (attempt 2); 本会话 trace 行用真实时间",
-  "G-TB9": "R3L 后基线再次重建, 现 KB + 现台账重证 ALL MATCH (t4_t0_refresh.md §7; M-8 已追认); t3_mutation M0/2/7 绿 M1/3-6 红 (work/t4/t4_mutation_r3l.log)"
+  "G-TB8": "每批三个不同 subagent_type: T2 / T2S 各批字面满足; R2L 三类角色 (executor / code-reviewer / verifier); R3L 与 R4L 两批只有执行者 + 结构审查者, 语义由前序独立审查者与总闸 delta 审查者核验 (R3L = M-10, 主人已追认; R4L = M-11, 待主人追认, 总闸 delta 审查者判不挡闸); 本会话 trace 行用真实时间",
+  "G-TB9": "R4L 后基线第三次重建, 现 KB + 现台账重证 ALL MATCH (t4_t0_refresh.md §8; M-8 已追认); t3_mutation M0/2/7 绿 M1/3-6 红 (work/t4/t4_mutation_r4l.log)"
  },
  "open_decisions": [
   "Q1",

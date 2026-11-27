@@ -44,7 +44,7 @@
 | 追加 Q2 | A2-16 按审查者值执行 | 登记写明草拟候选值有误、由审查者更正 | `t4_u7_rowcheck.md` |
 | 追加 Q3 | B-MK T-1 MK 表范围 en dash 本次不改, 记后续 | — | — |
 
-### 000b. 主控决定 (实施层, **不在委托代裁内**; 总闸 attempt 2 要求单列. M-1 ~ M-7: 按 `t4_owner_confirmation.md` 的记录已由主人追认; M-8: 主人第二轮问题 5 已追认 (见 §000c); M-9: 主人 2026-11-27 消息 4 已追认 (见 §000c); M-10: 主人 2026-11-27 消息 5 「C1、D1、追认 M-10」已追认 (见 §000c))
+### 000b. 主控决定 (实施层, **不在委托代裁内**; 总闸 attempt 2 要求单列. M-1 ~ M-7: 按 `t4_owner_confirmation.md` 的记录已由主人追认; M-8: 主人第二轮问题 5 已追认 (见 §000c); M-9: 主人 2026-11-27 消息 4 已追认 (见 §000c); M-10: 主人 2026-11-27 消息 5 「C1、D1、追认 M-10」已追认 (见 §000c); **M-11 待主人追认** (不挡闸))
 | # | 决定 | 出处 |
 |---|---|---|
 | M-1 | 解冻门禁替代证明: `typo_assert --plan` / `ct_assert` 结构性 FAIL, 以 W1 拆分验证 + reviewer 逐条归因代替; S-TYPO.fixed 追加 58 行 CRF 放行 | `t4_thaw_review.md` 主控追认 |
@@ -57,10 +57,11 @@
 | M-8 | (接手主控; 不在 `t4_owner_confirmation.md` 第一节所记范围内; **主人 2026-11-27 第二轮问题 5 已追认**, 见 §000c) T0 变异在现 KB 上重证时 M4a 换靶: 原靶 (MB 第二份 suppbe 副本) 已被 D2 去重删掉 → 改用 PDF p431 relrec Ex1 的两份 KB 副本 (ch08 / RELREC), 只变异 ch08 那份; 现 KB 基线另存 `work/t4/t0_head/`, T0 基线不覆盖 | `t4_t0_refresh.md` §3 |
 | M-9 | (接手主控; **主人 2026-11-27 消息 4 「A1、B1、追认 M-9」已追认**; 主人第二轮定的是 "改哪些标签", 下面这些是落地时的机制选择, 不是他定的) 第二轮改台账 (R2L) 的实施做法: ① 范围外 6 条笔误同类没照规格字面 "比照 U-8 keep 清单", 而是走 errata R2 + 运行时 pdf / kb 行 token 断言 (原因: 这 6 条没被 K3b 触及, 写进 keep 清单会撞断言, 且 ack 清单会把来源误归 U-8); ② IE 53 条用新规则 `T4-R2L-owner-IE`, `IE flip not in t1_ie_final` 断言只对它放行, `t1_ie_final.md` 不加这 53 条; ③ 范围内 19 条不走 `s0_classify` 条目, 做成 errata 里的逐原子登记绑定; ④ 登记表新字段 `other_kb_lines` (B-SUPPQUAL T-1) 与 `t4_r2l_fix` (记更正前后); 9 行登记文字 / 页号更正 + 2 行新登记 (后者 = 问题 9 = A); 5 条原子补登记指针 (不改标签); ⑤ 新写行沿用固定 `ts` 2026-11-26T12:00:00Z / `prompt_version` t3_writer_v1.0 (为了让没改判的行逐字节不变), 决定日期写在 `evidence.t4_r2l` 里. 标签结果: 78 条恰按主人选的清单, 清单外 0 条 | `t4_round2_ledger_W.md` §1 / §2 / §5; reviewer `t4_round2_ledger_review.md`; auditor `t4_round2_ledger_audit.md` |
 | M-10 | (接手主控; **主人 2026-11-27 消息 5 「C1、D1、追认 M-10」已追认**; 主人定的是 "这 4 条改回 EXACT" (A1), 下面是落地时的机制选择, 不是他定的; 产生于他追认 M-9 之后) R3L 的实施做法: ① 数据清单新建 `work/t4_r3l_relabel.json`, 不并入 R2L 的清单; ② keep 清单里这 4 条的 action 由 `keep_k3b` 改为新值 `t4_r3l_drop` (条目不删, 记 before → after); ③ `t3_writeback.py` 在 K3b 登记扫描之后先断言 "这 4 条当前的触及恰好等于清单声明的登记 id", 再把触及拿掉, 之后走现有判定 (结果 = live-hit EXACT), 不新增判定分支; K3b 规则本身不改; ④ 这 4 条强制重写为 TB 行、`batch_id` = T4-R3L (其中 2 条与 T3 前基线同为 EXACT, 不强制重写就没有决定来源); ⑤ `t3_rules.json` 新键 `K3b_t4_r3l_dropped`; 沿用固定 `ts`; ⑥ 本批不另设语义 auditor (语义依据 = 第三轮审查者与总闸 attempt 3 审查者两次独立复核). 标签结果: 恰好这 4 条, 清单外 0 条 | `t4_round3_ledger_W.md` §2 / §6; reviewer `t4_round3_ledger_review.md` |
+| M-11 | (加查会话主控, **待主人追认**; 不挡闸 — 总闸 delta 审查者 2026-11-27 指出须登记; 主人定的是 "这 1 条改回 EXACT" (C1), 下面是落地时的机制选择, 不是他定的) R4L 的实施做法: ① 数据清单新建 `work/t4_r4l_relabel.json` (由一次性脚本 `scripts/t4/t4_r4l_build.py` 生成), 不并入前两批的清单; ② 在 `scripts/t3/t3_errata_build.py` 里**撤销**这条原子的 t1 原子抽错登记 (`work/t1_errata.json` 不改; 原条目原样存进 `work/t3_errata.json` 的 `r4l_revoked`), 之后由原有判定路径 `live-hit` 判出 EXACT, 不是事后改标签; ③ 这一行在台账里重写为本项目的行并标批号 `T4-R4L`; ④ 新行的 `ts` 沿用固定值 (早于决定日, 决定日期记在 `evidence.t4_r4l.decision`); ⑤ **没有另设语义抽检**, trace 里这一批只有 "执行者 + 结构审查者" 两类角色 — 这 1 条的语义由加查的两位互不知情的审查者与总闸 delta 审查者共三次独立核验, 后者兼作第三个不同类型的独立核验; ⑥ 清单用 `work/t4/atomerr/verdicts.json` 里 NOT_HOLD 的集合做交叉断言 (整链从此读这份审查者判定文件); ⑦ 同批给 4 条 ATOM_ERR 行补登记指针 (只改 `evidence.registry`), 规格里把其中一个登记号写得不全, 执行者用了登记表里的全名 `B-RS T-6 (RS 副本)` | `t4_round4_ledger_W.md`; `t4_round4_ledger_review.md`; `evidence/t4_gate_raw/attempt3_delta2_report.md` C / H 项 |
 
 ### 000c. 第二轮: 主人本人裁定 (2026-11-27, 在接手主控聊天里直接回答; **不是委托代裁**)
 
-> 原话与收到时间: `t4_owner_confirmation.md` 第二轮一节 (消息 1 「可以没问题」→ 主控追问并逐项列出建议选项 → 消息 2 「是，都按建议」→ 第三轮结果出来后主控再问问题 A / B → 消息 3 「继续」, 未答 A / B → 总闸 attempt 3 判问题 A 为唯一挡闸项, 主控第三次提问 → 消息 4 「A1、B1、追认 M-9」). 提问页 `t4_owner_decisions_round2.md` (第 3 稿). 依据的核查: `t4_supp_fullcheck.md`.
+> 原话与收到时间: `t4_owner_confirmation.md` 第二轮一节 (消息 1 「可以没问题」→ 主控追问并逐项列出建议选项 → 消息 2 「是，都按建议」→ 第三轮结果出来后主控再问问题 A / B → 消息 3 「继续」, 未答 A / B → 总闸 attempt 3 判问题 A 为唯一挡闸项, 主控第三次提问 → 消息 4 「A1、B1、追认 M-9」 → 总闸 PASS 之后加查查出问题 C / D, 主控提问 → 消息 5 「C1、D1、追认 M-10」, 在同一文件 "第三个会话" 一节). 提问页 `t4_owner_decisions_round2.md` (第 3 稿). 依据的核查: `t4_supp_fullcheck.md`.
 
 | 问题 | 主人选 | 执行 | 状态 |
 |---|---|---|---|

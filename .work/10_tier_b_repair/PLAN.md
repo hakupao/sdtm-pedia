@@ -1,7 +1,7 @@
 # 10 Tier B 内容修复 — Plan (Tier 3)
 
 <!-- chain: E (plans) ; KB 改动走 Chain D -->
-> 状态: **v1.4.4** (2026-11-27) — **T4.1 总闸 = PASS** (attempt 3 CONDITIONAL + delta 闸审 PASS; `evidence/checkpoints/t4_gate_review.md` "§attempt 3 delta"); 其后做了 ATOM_ERR 加查 (`evidence/checkpoints/t4_atomerr_fullcheck.md`: 83 条全检, 1 条多标) → 主人直接回答 C1 / D1 / 追认 M-10 → 1 条改回 EXACT (R4L) → 对这一处再做 delta 闸审 (结论见 `t4_gate_review.md` 文末 "加查与 R4L 之后的 delta 闸审"); T4.3 / push / kb tag 见 `HANDOFF.md` 最后一节. — T4.2 口径与 G-TB3 口径: 按上一任主控会话的记录, 主人在该会话直接确认 (`evidence/checkpoints/t4_owner_confirmation.md`; 一个词加多选勾选, 无截图; 是否足够由 T4.1 总闸 attempt 3 判断); 执行中 (T4.1 attempt 2 CONDITIONAL 后; Q9 已触发; 第二轮主人已在主控聊天直接回答 (原话同一文件第二轮一节; 问题 A / B 未答) → 78 条改标已执行 (R2L) → **T4.1 attempt 3 = CONDITIONAL** (G-TB1-9 无 NOT_MET; 唯一挡闸项 = 问题 A, 4 条多标 PDF_TYPO; `evidence/checkpoints/t4_gate_review.md` §attempt 3) → 主人直接回答 A1 / B1 / 追认 M-9 → 4 条已改回 EXACT (R3L) → 对这一处做 delta 闸审 (同文件 "§attempt 3 delta"))
+> 状态: **v1.4.4** (2026-11-27) — **T4.1 总闸 = PASS**: attempt 1 / 2 / 3 = CONDITIONAL → attempt 3 的 delta 闸审 PASS (主人 A1 → R3L 改 4 条) → 加查 (ATOM_ERR 83 条全检, 1 条多标) → 主人 C1 / D1 / 追认 M-10 → R4L 改 1 条 → 再次 delta 闸审 PASS (`evidence/checkpoints/t4_gate_review.md` 文末; 原文 `evidence/t4_gate_raw/`). T4.2 口径与 G-TB3 口径由主人确认 (`evidence/checkpoints/t4_owner_confirmation.md`; 记录形式的局限见该文件). T4.3 / push / kb tag 的状态见 `HANDOFF.md` 最后一节. 详细时间线见本文件 Changelog 与 `trace.jsonl`.
 > 模板: `~/.claude/templates/workflow-tier3.md` (+ tier2 基础)
 > 前序: `archive/deep_verification/` (06 深审, 已冻结只读) RETRO 缺口 3 / 决策 2; `issues_found.md` Issue 5
 
