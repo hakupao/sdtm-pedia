@@ -1,4 +1,4 @@
-<!-- 原样誊录: feature-dev:code-reviewer (opus) T4.1 闸门证据层审查回复, 2026-11-27. 主控未改动内容 ($T = .work/10_tier_b_repair). -->
+<!-- 原样誊录: feature-dev:code-reviewer (opus) T4.1 闸门证据层审查回复, 2026-11-27. 主控未改动内容 (仅把 HTML 转义 (&gt; &amp;) 还原为原字符; $T = .work/10_tier_b_repair). -->
 
 # T4.1 总闸证据层审查 (feature-dev:code-reviewer, 只读)
 

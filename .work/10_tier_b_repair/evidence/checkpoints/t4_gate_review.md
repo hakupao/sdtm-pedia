@@ -5,6 +5,7 @@
 > 审查角色: `feature-dev:code-reviewer` (opus) × 5 个独立实例, 本项目其它环节未用过 (trace.jsonl 0 次; 证据层审查 §4 核过). 4 个审 84 条样本, 1 个审闸门证据层.
 > 主控只做三件事: 抽样 (脚本)、派发、誊录 + 机械计数. 审查回复原样存于 `evidence/t4_gate_raw/pack{1,2,3,4}.md` 与 `evidence/t4_gate_raw/evidence_layer.md`; 本文件不改判 (规则 D).
 > brief: `subagent_prompts/t4_gate_reviewer_v1.0.md`. 判定口径派发前已定: 任一样本 NOT_HOLD → 不 PASS; UNVERIFIABLE 不算 PASS.
+> 规则 B: 本次是 CONDITIONAL (等用户裁定), 不是证据不成立的失败, 不按失败归档; 指针 `evidence/failures/step_T4.1_attempt_1.md`.
 > KB 未改: 审查期间 KB = 00a2e93 内容, 真 KB md5 `b3a040150c53a4256ea0dde645bd7d07` (t3 口径) 前后一致.
 
 ## 0. 结论
@@ -19,7 +20,7 @@
 python3 -I .work/10_tier_b_repair/scripts/t4/t4_sample.py   # -> work/t4/{gate,human}_sample.jsonl
 python3 -I .work/10_tier_b_repair/scripts/t4/t4_render.py   # -> work/t4/gate_pack_{1..4}.md + evidence/checkpoints/t4_human_sample.md
 ```
-- seed 20261127; 每个总体先排序再 `random.Random(seed).sample`, 连跑两次结果一致. md5: gate_sample `67b1013f496096df483eb300a66150d6` / human_sample `206d6eabd58c96eb66e7cc3a7bc64fc7`.
+- seed 20261127; 每个总体先排序再 `random.Random(seed).sample`. 连跑两次 md5 一致 (命令: 上面两行连跑两遍后 `md5 -q .work/10_tier_b_repair/work/t4/gate_sample.jsonl .work/10_tier_b_repair/work/t4/human_sample.jsonl`): gate_sample `67b1013f496096df483eb300a66150d6` (= 审查者所看版本; 之后只改了人工层, `git diff` 总闸包为空) / human_sample `5b4212ee6b5deb873ab29d7f13e17232` (人工层按总闸指针偏移教训补了定位: 多处命中全列、近似定位加警告、IE 按变量名定位、PDF_TYPO 登记内联).
 - 正式 72 = triage `final_class` PRESENT / REWRITE_OK / REAL_GAP / VALUE_DIFF / IE 各 12 (按 triage 类抽, 不按终态过滤) + 对照层 12 (§5.0 SCOPE 内、非 HEADING、T3 前后都是 EXACT/EQUIV、不在 `t3_writeback_decisions.json`; 总体 4119).
 - 补充层 12 (PLAN 外, 主控加): T3 允许集中不在 triage 的 480 个原子 (T2S / 勘误新定终态, ATOM_ERR / PDF_TYPO 主要来源), 终态 ATOM_ERR / PDF_TYPO / EXACT 各 4.
 - 总体排除: `MANUAL_01/02` (无 ledger 行)、残留 `ig34_p0056_a006` (另交用户).
@@ -64,10 +65,11 @@ python3 tools/check_links.py 2>&1 | grep "live docs"
 # broken relative links: 18668 (live docs: 42)          → G-TB7 ≤ 42 成立 (含本次新增 T4 文件)
 bash .work/10_tier_b_repair/scripts/t3/t3_mutation.sh > .work/10_tier_b_repair/work/t4/t4_mutation_head.log 2>&1
 # M0 GREEN / M1 RED / M2 GREEN / M3 RED / M4 RED / M5 RED / M6 RED / M7 GREEN; real KB md5 after b3a040150c53a4256ea0dde645bd7d07, unchanged OK  → 与 T3 一致
+# 注: 跑的是 T3 变异脚本 (覆盖 fp_match + t3 直接命中); 审查者建议的 T0 变异脚本 t0_mutation.sh 本次未在 HEAD 重跑
 python3 -I .work/10_tier_b_repair/scripts/table_census.py --manifest .work/10_tier_b_repair/work/census_full_manifest.json --out .work/10_tier_b_repair/work/t4/census_full_head.json
 # KB tables 500; {'UNPARSEABLE': 148, 'OK': 311, 'DIFF': 37, 'NO_PDF': 4}; PDF_ONLY 0; cells compared 35129; diffs 144
 ```
-- census: 与 T2 收尾 (`50c3958`, `evidence/t2_census_global_triage.md` §1: OK 311 / DIFF 37 / diffs 144 / UNPARSEABLE 149 / PDF_ONLY 1) 相比, OK / DIFF / diffs 不变, 即 S-CT / S-TYPO 没有引入新的表格差异. 逐条 diff 未与旧结果逐项对比 (旧 json 在 scratch 已清). KB 表 501→500、UNPARSEABLE 149→148、PDF_ONLY 1→0 的原因未查. C3 逐表结案清单仍缺 (G-TB4 条件未关).
+- census: 与 T2 收尾 (`50c3958`, 即 60 批 T2 之后、22 个 T2S 批之前; `evidence/t2_census_global_triage.md` §1: KB 表 501 / OK 311 / DIFF 37 / diffs 144 / UNPARSEABLE 149 / PDF_ONLY 1) 相比, 汇总计数 OK / DIFF / diffs 相同, 但 KB 表 501→500、UNPARSEABLE 149→148、PDF_ONLY 1→0 有变. **合计相同不等于差异集相同**: 未逐表比对 (旧 json 已清; 可用 `git archive 50c3958 knowledge_base` + `--kb-root` 重跑后逐表比), 所以不能据此断言 T2S 各批没有引入表格差异. C3 逐表结案清单仍缺 (G-TB4 条件未关).
 
 ## 4. 覆盖率: 两个口径并排
 

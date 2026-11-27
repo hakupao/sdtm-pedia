@@ -152,6 +152,60 @@ def row(i, layer):
                 pdf=pdf_block(i), kb=kb_block(i))
 
 
+def refine_human(x):
+    """Human-pack only (gate rows stay byte-identical to what the T4.1 reviewers saw): show every hit line,
+    flag approximate KB pointers, locate IE spec rows by variable name, inline PDF_TYPO registry rows."""
+    i, d = x["atom_id"], D.get(x["atom_id"], {})
+    ev = d.get("evidence") or {}
+    k = x["kb"]
+    if k["src"] == "decision.evidence.hit":
+        hl = ev["hit_lines"]
+        k["n_hits"] = len(hl)
+        k["text"] = kb_text(ev["hit_file"], hl[:8])
+        if len(hl) > 1:
+            k["note"] = f"同一文件共 {len(hl)} 处逐字命中 (行 {', '.join(map(str, hl))}); 请按 PDF 所在例/表判断对应的是哪一处" + \
+                        (" (只显示前 8 处)" if len(hl) > 8 else "")
+    if x["verdict_final"] == "INTENTIONAL_EXCLUDE":
+        cells = [c.strip() for c in A[i]["verbatim"].strip().strip("|").split("|")]
+        var = next((c for c in cells if re.fullmatch(r"[A-Z][A-Z0-9]{1,7}", c)), None)
+        kl = ((T.get(i) or {}).get("kb_loc") or "").rsplit(":", 1)[0]
+        hit = None
+        if var and kl and os.path.exists(f"{ROOT}/{kl}"):
+            raw = open(f"{ROOT}/{kl}", encoding="utf-8").read().splitlines()
+            sec = set(toks(A[i]["parent_section"])) - {"and", "the", "of"}
+            cand, head = [], ""
+            for n, l in enumerate(raw, 1):
+                if re.match(r"^#+\s+§?\d", l):  # numbered section heading only ('### Variables' etc. do not reset)
+                    head = l
+                if re.match(rf"^#+\s+{var}\s*$", l) or re.search(rf"\|\s*{var}\s*\|", l):
+                    cand.append((len(sec & set(toks(head))), -n, n))
+            hit = max(cand)[2] if cand else None  # the occurrence under the heading closest to the atom's section
+        if hit:
+            raw = open(f"{ROOT}/{kl}", encoding="utf-8").read().splitlines()
+            end = hit
+            if raw[hit - 1].startswith("#"):
+                while end < len(raw) and not raw[end].startswith("#"):
+                    end += 1
+            k.update(src=f"按变量名 {var} 定位 (IE 行: KB 以 spec/model 表另一格式承载)", loc=f"{kl}:{hit}-{end}",
+                     text=kb_text(kl, range(hit, min(end, hit + 9) + 1)), approx=False)
+        else:
+            k.update(src="IE 不进 KB, 不显示", loc=None, text="", approx=False)
+    elif k["src"].startswith(("near triage", "fuzzy", "triage kb_loc")):
+        k["approx"] = True
+    if x["pdf"]["score"] < 0.9 or x["pdf"].get("page_used", x["page"]) != x["page"]:
+        x["pdf"]["approx"] = True
+    regs = list(dict.fromkeys((ev.get("registry") or []) + ((ER["atom_err"].get(i) or {}).get("registry") or []) + x["registry"]))
+    rows = []
+    for g in regs:
+        r = REG.get(g) or next((v for kk, v in REG.items() if kk.startswith(g + " ")), None)
+        if r:
+            rows.append(dict(id=r["id"], pdf_value=r.get("pdf_value"), kb_value=r.get("kb_value"), handling=r.get("handling"),
+                             kb=f"{r['kb_file']}:{r.get('kb_line_now')}", basis=r.get("basis")))
+    if rows:
+        x["registry_rows"] = rows
+    return x
+
+
 def pick(pool, n, seed):
     pool = sorted(pool)
     return sorted(random.Random(seed).sample(pool, min(n, len(pool))))
@@ -177,6 +231,7 @@ used |= {h["atom_id"] for h in human}
 for reason, n in [("no governing numbered heading", 8), ("atom section has no number", 4)]:
     pool = [a for a, why, *_ in RISK if why == reason and a not in used and a in L]
     human += [row(i, f"human:RISK_ANCHORLESS") for i in pick(pool, n, RISK_SEED)]
+human = [refine_human(x) for x in human]
 for name, rows in (("gate", gate), ("human", human)):
     with open(f"{OUT}/{name}_sample.jsonl", "w", encoding="utf-8") as fh:
         for x in rows:

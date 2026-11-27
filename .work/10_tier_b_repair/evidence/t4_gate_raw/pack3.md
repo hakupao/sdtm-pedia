@@ -1,4 +1,4 @@
-<!-- 原样誊录: feature-dev:code-reviewer (opus) 对 `work/t4/gate_pack_3.md` 的回复, 2026-11-27. 主控未改动内容. -->
+<!-- 原样誊录: feature-dev:code-reviewer (opus) 对 `work/t4/gate_pack_3.md` 的回复, 2026-11-27. 主控未改动内容 (仅把绝对路径缩成仓库相对路径). -->
 
 # T4.1 总闸独立审查：样本包 3（第 43-63 条，共 21 条）
 

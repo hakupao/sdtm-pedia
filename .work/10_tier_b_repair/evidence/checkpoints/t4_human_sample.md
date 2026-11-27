@@ -43,7 +43,7 @@
 - PDF 页 10 · 原子类型 LIST_ITEM · 所在节 `§1.4.1 [How to Read a Domain Specification]`
 - triage 类 **REWRITE_OK** · 终态 **PDF_TYPO** (T3 前 PARTIAL) · 判定规则 `S1-R2` · 批 `B-ch01`
 - 原子抽错登记: R2 → PDF_TYPO; 依据: B-ch01 T-1: PDF 缺 has, KB 补; 出处 `.work/10_tier_b_repair/evidence/checkpoints/t2_B-ch01.md:98`
-- PDF 笔误登记: `B-ch01 T-1` (见 `work/t2_pdf_typo_registry.jsonl`)
+- 登记 `B-ch01 T-1`: PDF 写 "a codelist not yet been developed" → KB 写 "has not yet been" (处理: KB 写正确值; 依据: p49 同短语旁证; KB `knowledge_base/chapters/ch01_introduction.md:85`)
 
 原子 verbatim (抽取物, 可能抽错, 仅供对照):
 
@@ -208,7 +208,7 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0152.txt` 第 8-8 行 (
   9| Vomit            o Yes        _ _ / _ _ _ / _ _ _ _ _ _ / _ _ _ / _ _ _ _ o Mild
 ~~~~
 
-KB 现文: `knowledge_base/domains/CE/examples.md:43-43` (来源: near triage kb_loc knowledge_base/domains/CE/examples.md:43 (score 0.5)):
+KB 现文: `knowledge_base/domains/CE/examples.md:43-43` (来源: near triage kb_loc knowledge_base/domains/CE/examples.md:43 (score 0.5)) ⚠ **近似定位, 可能不是对应那一处, 请在该文件附近自行核对**:
 
 ~~~~
   43| | Nausea | ( ) Yes  ( ) No | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
@@ -237,7 +237,7 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0152.txt` 第 8-8 行 (
   9| Vomit            o Yes        _ _ / _ _ _ / _ _ _ _ _ _ / _ _ _ / _ _ _ _ o Mild
 ~~~~
 
-KB 现文: `knowledge_base/domains/CE/examples.md:43-43` (来源: near triage kb_loc knowledge_base/domains/CE/examples.md:44 (score 0.5)):
+KB 现文: `knowledge_base/domains/CE/examples.md:43-43` (来源: near triage kb_loc knowledge_base/domains/CE/examples.md:44 (score 0.5)) ⚠ **近似定位, 可能不是对应那一处, 请在该文件附近自行核对**:
 
 ~~~~
   43| | Nausea | ( ) Yes  ( ) No | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
@@ -266,7 +266,7 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0152.txt` 第 12-12 行
  13|                  o No           (dd/mmm/yyyy)         (dd/mmm/yyyy)        o Moderate
 ~~~~
 
-KB 现文: `knowledge_base/domains/CE/examples.md:45-45` (来源: near triage kb_loc knowledge_base/domains/CE/examples.md:45 (score 0.75)):
+KB 现文: `knowledge_base/domains/CE/examples.md:45-45` (来源: near triage kb_loc knowledge_base/domains/CE/examples.md:45 (score 0.75)) ⚠ **近似定位, 可能不是对应那一处, 请在该文件附近自行核对**:
 
 ~~~~
   45| | Diarrhea | ( ) Yes  ( ) No | __/___/____ (dd/mmm/yyyy) | __/___/____ (dd/mmm/yyyy) | ( ) Mild  ( ) Moderate  ( ) Severe |
@@ -287,7 +287,7 @@ KB 现文: `knowledge_base/domains/CE/examples.md:45-45` (来源: near triage kb
 | | o Other trauma |
 ~~~~
 
-PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0153.txt` 第 8-8 行 (自动定位, 词覆盖 0.667; 版式以原 PDF 为准):
+PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0153.txt` 第 8-8 行 (自动定位, 词覆盖 0.667; 版式以原 PDF 为准) ⚠ **定位不完整或在相邻页, 请直接看原 PDF 该页**:
 
 ~~~~
   7|                                                               ○ Fall
@@ -295,7 +295,7 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0153.txt` 第 8-8 行 (
   9|                                                               ○ Unknown
 ~~~~
 
-KB 现文: `knowledge_base/domains/CE/examples.md:77-77` (来源: near triage kb_loc knowledge_base/domains/CE/examples.md:77 (score 0.667)):
+KB 现文: `knowledge_base/domains/CE/examples.md:77-77` (来源: near triage kb_loc knowledge_base/domains/CE/examples.md:77 (score 0.667)) ⚠ **近似定位, 可能不是对应那一处, 请在该文件附近自行核对**:
 
 ~~~~
   77| | How did fracture occur? | ( ) Pathologic  ( ) Fall  ( ) Other trauma  ( ) Unknown |
@@ -329,6 +329,8 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0367.txt` 第 18-22 行
 ~~~~
 
 KB 现文: `knowledge_base/domains/FA/examples.md:20,17,14` (来源: decision.evidence.hit):
+
+> 同一文件共 3 处逐字命中 (行 20, 17, 14); 请按 PDF 所在例/表判断对应的是哪一处
 
 ~~~~
   14| | Associated symptoms: Sensitivity to light Sensitivity to sound Nausea Aura | ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes |
@@ -677,6 +679,8 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0055.txt` 第 43-43 行
 
 KB 现文: `knowledge_base/chapters/ch04_general_assumptions.md:1428,1445` (来源: decision.evidence.hit):
 
+> 同一文件共 2 处逐字命中 (行 1428, 1445); 请按 PDF 所在例/表判断对应的是哪一处
+
 ~~~~
 1428| | Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL |
 1445| | Row | STUDYID | RDOMAIN | USUBJID | IDVAR | IDVARVAL | QNAM | QLABEL | QVAL | QORIG | QEVAL |
@@ -690,7 +694,7 @@ KB 现文: `knowledge_base/chapters/ch04_general_assumptions.md:1428,1445` (来�
 
 - PDF 页 169 · 原子类型 TABLE_ROW · 所在节 `§6.2.5 Healthcare Encounters (HO)`
 - triage 类 **VALUE_DIFF** · 终态 **PDF_TYPO** (T3 前 PARTIAL) · 判定规则 `writer-Tn-registry` · 批 `B-HO`
-- PDF 笔误登记: `B-HO T-1` (见 `work/t2_pdf_typo_registry.jsonl`)
+- 登记 `B-HO T-1`: PDF 写 "REHABILIATION FACILITY" → KB 写 "REHABILITATION FACILITY" (处理: KB 写正确值; 依据: Ex2 r3 / 叙述 / Assumption 1; KB `knowledge_base/domains/HO/examples.md:25`)
 
 原子 verbatim (抽取物, 可能抽错, 仅供对照):
 
@@ -698,7 +702,7 @@ KB 现文: `knowledge_base/chapters/ch04_general_assumptions.md:1428,1445` (来�
 | 5 | ABC | HO | ABC123105 | 1 | GENERAL WARD | | TREATMENT | 2011-09-09 | 2011-09-11 | |
 ~~~~
 
-PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0170.txt` 第 6-12 行 (自动定位, 词覆盖 1.0; 版式以原 PDF 为准):
+PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0170.txt` 第 6-12 行 (自动定位, 词覆盖 1.0; 版式以原 PDF 为准) ⚠ **定位不完整或在相邻页, 请直接看原 PDF 该页**:
 
 ~~~~
   5| 2        ABC        HO         ABC123101     2          NURSING HOME                                      TREATMENT                                   P6D
@@ -743,7 +747,7 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0190.txt` 第 19-20 行
  21| 10    XYZ       EG       XYZ-US-   10      334PT89   CHYPTENL    Chamber Hypertrophy   FINDING         SUPINE   LEFT VENTRICULAR                  LEFT VENTRICULAR                             PQW436789-   Test                                     1          Screening   2003-04-    -36
 ~~~~
 
-KB 现文: `knowledge_base/domains/EG/examples.md:33-33` (来源: near triage kb_loc knowledge_base/domains/EG/examples.md:33 (score 0.967)):
+KB 现文: `knowledge_base/domains/EG/examples.md:33-33` (来源: near triage kb_loc knowledge_base/domains/EG/examples.md:33 (score 0.967)) ⚠ **近似定位, 可能不是对应那一处, 请在该文件附近自行核对**:
 
 ~~~~
   33| | 9 | XYZ | EG | XYZ-US-701-002 | 9 | 334PT89 | STSTWUW | ST Segment, T wave, and U wave | FINDING | SUPINE | PROLONGED QT | | PROLONGED QT | | | PQW436789-07.xml | Test Lab | | | | 1 | Screening 1 | 2003-04-15T11:58 | -36 |
@@ -839,15 +843,18 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0122.txt` 第 19-21 行
  22| MLTPTREF        Time Point Reference            Char                           Timing         Description of the fixed reference point referred to by MLELTM, MLTPTNUM, and MLTPT.               Perm
 ~~~~
 
-KB 现文: `knowledge_base/domains/ML/spec.md:286-291` (来源: near triage kb_loc knowledge_base/domains/ML/spec.md:284 (score 0.921)):
+KB 现文: `knowledge_base/domains/ML/spec.md:284-292` (来源: 按变量名 MLELTM 定位 (IE 行: KB 以 spec/model 表另一格式承载)):
 
 ~~~~
+ 284| ### MLELTM
+ 285| - **Order:** 32
  286| - **Label:** Planned Elapsed Time from Time Point Ref
  287| - **Type:** Char
  288| - **Controlled Terms:** ISO 8601 duration
  289| - **Role:** Timing
  290| - **Core:** Perm
  291| - **CDISC Notes:** Planned elapsed time (in ISO 8601) relative to the planned fixed reference (MLTPTREF). This variable is useful when there are repetitive measures. Not a clock time or a date/time variable. Represented as an ISO 8601 duration.
+ 292| 
 ~~~~
 
 **用户判定**: ☐ 内容正确　☐ 内容错误　☐ 看不出 / 需查原 PDF
@@ -875,15 +882,18 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0188.txt` 第 8-9 行 (
  10|  EGRFTDTC Date/Time of                 Char ISO 8601 datetime or interval                    Timing  Date/time for a fixed reference time point defined by EGTPTREF.                    Perm
 ~~~~
 
-KB 现文: `knowledge_base/domains/EG/spec.md:385-390` (来源: near triage kb_loc knowledge_base/domains/EG/spec.md:383 (score 0.955)):
+KB 现文: `knowledge_base/domains/EG/spec.md:383-391` (来源: 按变量名 EGTPTREF 定位 (IE 行: KB 以 spec/model 表另一格式承载)):
 
 ~~~~
+ 383| ### EGTPTREF
+ 384| - **Order:** 43
  385| - **Label:** Time Point Reference
  386| - **Type:** Char
  387| - **Controlled Terms:** 
  388| - **Role:** Timing
  389| - **Core:** Perm
  390| - **CDISC Notes:** Name of the fixed reference point referred to by EGELTM, EGTPTNUM, and EGTPT. Examples: "PREVIOUS DOSE", "PREVIOUS MEAL".
+ 391| 
 ~~~~
 
 **用户判定**: ☐ 内容正确　☐ 内容错误　☐ 看不出 / 需查原 PDF
@@ -910,15 +920,18 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0295.txt` 第 42-42 行
  43| VISITDY        Planned Study Day of Visit      Num                         Timing      Planned study day of the visit based upon RFSTDTC in Demographics.                                                                                                    Perm
 ~~~~
 
-KB 现文: `knowledge_base/domains/NV/spec.md:286-291` (来源: near triage kb_loc knowledge_base/domains/NV/spec.md:284 (score 1.0)):
+KB 现文: `knowledge_base/domains/NV/spec.md:284-292` (来源: 按变量名 VISIT 定位 (IE 行: KB 以 spec/model 表另一格式承载)):
 
 ~~~~
+ 284| ### VISIT
+ 285| - **Order:** 32
  286| - **Label:** Visit Name
  287| - **Type:** Char
  288| - **Controlled Terms:** 
  289| - **Role:** Timing
  290| - **Core:** Perm
  291| - **CDISC Notes:** Protocol-defined description of clinical encounter. May be used in addition to VISITNUM and/or VISITDY.
+ 292| 
 ~~~~
 
 **用户判定**: ☐ 内容正确　☐ 内容错误　☐ 看不出 / 需查原 PDF
@@ -946,15 +959,18 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0309.txt` 第 33-34 行
  35| REREPNUM       Repetition Number         Num                       Record         The instance number of a test that is repeated within a given time frame for the same test. The level     Perm
 ~~~~
 
-KB 现文: `knowledge_base/domains/RE/spec.md:304-309` (来源: near triage kb_loc knowledge_base/domains/RE/spec.md:302 (score 0.957)):
+KB 现文: `knowledge_base/domains/RE/spec.md:302-310` (来源: 按变量名 REEVALID 定位 (IE 行: KB 以 spec/model 表另一格式承载)):
 
 ~~~~
+ 302| ### REEVALID
+ 303| - **Order:** 34
  304| - **Label:** Evaluator Identifier
  305| - **Type:** Char
  306| - **Controlled Terms:** (MEDEVAL) C96777
  307| - **Role:** Variable Qualifier
  308| - **Core:** Perm
  309| - **CDISC Notes:** Used to distinguish multiple evaluators with the same role recorded in REEVAL. Examples: "RADIOLOGIST1", "RADIOLOGIST2".
+ 310| 
 ~~~~
 
 **用户判定**: ☐ 内容正确　☐ 内容错误　☐ 看不出 / 需查原 PDF
@@ -985,14 +1001,10 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/sv20_p0046.txt` 第 14-18 行
  19| 4   SESEQ       Sequence           Num                Identifier                                                                              Sequence number to ensure uniqueness within
 ~~~~
 
-KB 现文: `knowledge_base/model/03_special_purpose_domains.md:109` (来源: triage kb_loc knowledge_base/model/03_special_purpose_domains.md:109 (T1 行号, 未定位, 显示 ±2 行)):
+KB 现文: `knowledge_base/model/03_special_purpose_domains.md:131-131` (来源: 按变量名 USUBJID 定位 (IE 行: KB 以 spec/model 表另一格式承载)):
 
 ~~~~
- 107| | 15 | CODY | Study Day of Comment | Num | Timing |
- 108| 
- 109| ## 3.2.3 Subject Summary Domains
- 110| 
- 111| Several special-purpose domains are designed to provide summaries of a subject's progress over time. Each dataset is based on a study-level dataset in Section 5.1, The Trial Design Model.
+ 131| | 3 | USUBJID | Unique Subject Identifier | Char | Identifier | |
 ~~~~
 
 **用户判定**: ☐ 内容正确　☐ 内容错误　☐ 看不出 / 需查原 PDF
@@ -1041,7 +1053,7 @@ KB 现文: `knowledge_base/domains/DM/assumptions.md:25` (来源: decision.evide
 For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value.
 ~~~~
 
-PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0072.txt` 第 52-60 行 (自动定位, 词覆盖 0.833; 版式以原 PDF 为准):
+PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0072.txt` 第 52-60 行 (自动定位, 词覆盖 0.833; 版式以原 PDF 为准) ⚠ **定位不完整或在相邻页, 请直接看原 PDF 该页**:
 
 ~~~~
  51|                        (More than one              report race, with
@@ -1059,10 +1071,15 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0072.txt` 第 52-60 行
 
 KB 现文: `knowledge_base/domains/DM/examples.md:188,190,192,194,340,342` (来源: decision.evidence.hit):
 
+> 同一文件共 6 处逐字命中 (行 188, 190, 192, 194, 340, 342); 请按 PDF 所在例/表判断对应的是哪一处
+
 ~~~~
  188| | CRACE01-CRACE04 | 10 | Which of the following racial designations best describes you? | Race | Select each value that applies if the subject answered "AMERICAN INDIAN OR ALASKA NATIVE". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | ALASKA NATIVE; AMERICAN INDIAN; CARIBBEAN INDIAN; CENTRAL AMERICAN INDIAN; | | | checkbox | |
  190| | CRACE05-CRACE10 | 11 | Which of the following racial designations best describes you? | Race | Select each value that applies if the subject answered "ASIAN". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | ASIAN AMERICAN; ASIAN INDIAN; BANGLADESHI; CHINESE; JAPANESE; KOREAN; | | | checkbox | CRACE05-CRACE10 |
  192| | CRACE11-CRACE17 | 12 | Which of the following racial designations best describes you? | Race | Select each value that applies if the subject answered "BLACK OR AFRICAN AMERICAN". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | AFRICAN; AFRICAN AMERICAN; AFRICAN CARIBBEAN; BAHAMIAN; BARBADIAN; BLACK; BLACK CENTRAL AMERICAN; | | | checkbox | |
+ 194| | CRACE18-CRACE21 | 13 | Which of the following racial designations best describes you? | Race | Select each value that applies if the subject answered "WHITE". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | ARAB; EUROPEAN; MIDDLE EASTERN; RUSSIAN; | | | checkbox | |
+ 340| | CRACE05-CRACE10 | 11 | Which of the following racial designations best describes you? | Race | Select each value that applies if the subject answered "ASIAN". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | ASIAN AMERICAN; ASIAN INDIAN; BANGLADESHI; CHINESE; JAPANESE; KOREAN; | | | checkbox | |
+ 342| | CRACE11-CRACE17 | 12 | Which of the following racial designations best describes you? | Race | Select each value that applies if the subject answered "BLACK OR AFRICAN AMERICAN". Check all that apply. | Text | SUPPDM.QVAL | For each value that applies, SUPPDM.QVAL where SUPPDM.QNAM ="CRACEn" and SUPPDM.QLABEL = "Collected Race n" where n is the choice value. | (RACEC) | AFRICAN; AFRICAN AMERICAN; AFRICAN CARIBBEAN; BAHAMIAN; BARBADIAN; BLACK; BLACK CENTRAL AMERICAN; | | | checkbox | |
 ~~~~
 
 **用户判定**: ☐ 内容正确　☐ 内容错误　☐ 看不出 / 需查原 PDF
@@ -1340,6 +1357,8 @@ PDF 原文: `.work/10_tier_b_repair/work/pdf_pages/ig34_p0367.txt` 第 18-22 行
 ~~~~
 
 KB 现文: `knowledge_base/domains/FA/examples.md:14,17,20` (来源: decision.evidence.hit):
+
+> 同一文件共 3 处逐字命中 (行 14, 17, 20); 请按 PDF 所在例/表判断对应的是哪一处
 
 ~~~~
   14| | Associated symptoms: Sensitivity to light Sensitivity to sound Nausea Aura | ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes ○ No   ○ Yes |
