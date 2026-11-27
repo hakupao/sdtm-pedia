@@ -26,7 +26,7 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - 复跑: `python3 -I $T/scripts/t4/t4_sample.py && python3 -I $T/scripts/t4/t4_render.py` (注意: render 会整体重写 t4_human_sample.md, 有用户判定后不要再跑或先誊出); `t4_ack_lists.py`; `t4_coverage_decomp.py`. HEAD 复跑结果 (live docs 42 / t3_mutation 同 T3 / census OK311 DIFF37 diffs144) 见 gate_review §3.
 - 用户裁定回来后: ① 按 U-2/U-8 改 ledger (走 writer→reviewer, 主控不写); ② KB 解冻后按 U-7/U-9/U-10 改 KB (正常批流程); ③ 证据层审查者建议的补强 (pre_existing 58 条单独核、C7 38 条 ATOM_ERR 全检、FIG 11 条、C3 表结案清单、文档状态行过期) 视用户 U-5 选择做; ④ T4.1 attempt 2 (同角色 feature-dev:code-reviewer, 新实例) → T4.3 (Chain D + RETROSPECTIVE + push + kb tag + 提醒 sdtm-rag).
 - 风险提示: 下一个会话若重跑 `t4_render.py` 会覆盖用户在 t4_human_sample.md 的勾选.
-## T4 现状 (2026-11-27 晚, 新 session 主控): **T4.1 attempt 2 = 不通过 (CONDITIONAL)**; KB 已解冻改完一次 (本地, 未 push)
+## (历史; 现状见最后一节) T4 attempt 2 阶段 (2026-11-27, 上一任主控会话): T4.1 attempt 2 = 不通过 (CONDITIONAL); KB 已解冻改完一次 (本地, 未 push)
 - 裁定 = 协调 bot「sdtm开发」委托代裁 (非主人逐条), `evidence/checkpoints/t4_user_decisions.md` §000; 主控实施决定 M-1..M-7 单列 §000b (不在委托内, 待追认).
 - 提交: `3a24a1c` 解冻前只读核查 (U-5 38/38、U-6 预筛 42/42、U-7 复核 21 B / 5 回 A / B 组 15 维持, Mermaid 42/42); `a59c2d3` 解冻轮 (KB 25 文件 +118/−179; W1/W2/W3 executor → reviewer ×2 code-reviewer → auditor verifier 全 PASS; 证据 `t4_thaw_*.md`); `d3f2ea9` 下游说明 + 状态行; 其后 attempt 2 誊录提交.
 - 终值: ledger md5 `60729f7b64b7c1dfaf2174e394f6dd9c`; 残留 0; G-TB2 174/174 [严格 157]; G-TB3 strict 95.8041 / mapped 99.3561 / U-1 B 99.2690 / 内容 90.6948; live docs 42; t3_mutation M0/2/7 绿 M1/3-6 红; t0_mutation MISMATCH (既有, T0 baseline 过期).
