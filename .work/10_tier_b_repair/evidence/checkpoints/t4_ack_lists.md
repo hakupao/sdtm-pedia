@@ -1,7 +1,7 @@
 # T4 用户确认清单: ATOM_ERR / PDF_TYPO / FIGURE_DEFERRED
 
 <!-- chain: E (plans) -->
-> 状态: **委托代裁整类确认 (U-5=B, C7 38 全检成立), 见 t4_user_decisions.md §000; 非主人逐条确认** (2026-11-27 T4 解冻轮 W3 重生成). U-5 裁定时 (ledger @3a24a1c) 为 ATOM_ERR 197 / PDF_TYPO 122 / FIG 11; 之后进入这三类的原子按 "决定来源" 列标注 (U-2 / U-8 / U-7 委托代裁, 见 t4_user_decisions.md §000), 不归入 U-5; 明细见 `evidence/checkpoints/t4_thaw_W3.md`. 生成: `python3 -I .work/10_tier_b_repair/scripts/t4/t4_ack_lists.py`.
+> 状态: **委托代裁整类确认 (U-5=B, C7 38 全检成立), 见 t4_user_decisions.md §000; 非主人逐条确认** (2026-11-27 T4 第二轮改台账 R2L 重生成; 上一次为解冻轮 W3). U-5 裁定时 (ledger @3a24a1c) 为 ATOM_ERR 197 / PDF_TYPO 122 / FIG 11; 之后进入这三类的原子按 "决定来源" 列标注 (U-2 / U-8 / U-7 委托代裁, 见 t4_user_decisions.md §000; 第二轮改台账 25 条 = 主人 2026-11-27 问题 3 = A / 7b = A, 见 t4_owner_confirmation.md 第二轮), 不归入 U-5; 明细见 `evidence/checkpoints/t4_thaw_W3.md`、`evidence/checkpoints/t4_round2_ledger_W.md`. 生成: `python3 -I .work/10_tier_b_repair/scripts/t4/t4_ack_lists.py`.
 > 单位 = PDF 原子 (不是登记行; 一条登记行可覆盖多个原子, 一个原子也可挂多条登记). 数据源: 最终 ledger `work/coverage_ledger.wc.jsonl` + `work/t3_writeback_decisions.json` + `work/t3_errata.json`.
 > G-TB1 要求这三类 "每条有登记 + 用户 ack". 这三类在 G-TB3 mapped 口径中从分母去掉, 在 strict 口径中算未覆盖.
 
@@ -10,7 +10,7 @@
 | 终态 | 原子数 | 按判定规则 | 决定来源 | 用户确认 |
 |---|--:|---|---|---|
 | ATOM_ERR | 197 | S1-R1 157, C7-atom-not-in-PDF 38, C7-K4-rereview 2 | U-5 196, U-2 委托代裁 1 | ☐ 整类确认　☐ 有异议 (在下表备注) |
-| PDF_TYPO | 149 | K3b-registry 61, S1-R2 53, writer-Tn-registry 35 | U-5 122, U-7 委托代裁 22, U-8 委托代裁 4, 主控决定 M-4 1 | ☐ 整类确认　☐ 有异议 (在下表备注) |
+| PDF_TYPO | 174 | S1-R2 78, K3b-registry 61, writer-Tn-registry 35 | U-5 122, U-7 委托代裁 22, 主人 2026-11-27 第二轮 问题 3 = A 19, 主人 2026-11-27 第二轮 问题 7b = A 6, U-8 委托代裁 4, 主控决定 M-4 1 | ☐ 整类确认　☐ 有异议 (在下表备注) |
 | FIGURE_DEFERRED | 11 | FIGURE 11 | U-5 11 | ☐ 整类确认　☐ 有异议 (在下表备注) |
 
 规则含义: `S1-R1` = 原子 verbatim 与 PDF 不符 (原子抽错, KB 按 PDF); `S1-R2` = PDF 自身笔误且已登记; `C7-atom-not-in-PDF` = 原子文本在 PDF 页中不存在; `K3b-registry` / `writer-Tn-registry` = 由 PDF 笔误登记 (T-n) 触及; `FIGURE` = 图, 暂缓.
@@ -217,7 +217,7 @@
 | 196 | `ig34_p0396_a009` | 396 | §7.2.1 Trial Arms (TA) – Example 4 | S1-R1 | T2 global fp audit R1: 原子 `represents`; PDF p396 为 `represented this rule`, KB 同 (B-TA #31 | `evidence/t2_fp_expected_regressions.md:53` | U-5 (整类, 委托代裁) | |
 | 197 | `ig34_p0419_a004` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R1 | B-TS writer: 原子抽取错, KB 正确 | `evidence/checkpoints/t2_B-TS.md:86` | U-5 (整类, 委托代裁) | |
 
-## PDF_TYPO (149)
+## PDF_TYPO (174)
 
 | # | atom_id | 页 | 节 | 规则 | 依据 / 登记 | 出处 | 决定来源 | 异议 |
 |--:|---|--:|---|---|---|---|---|---|
@@ -227,149 +227,174 @@
 | 4 | `ig34_p0018_a012` | 18 | §3.2.1 Dataset-level Metadata | K3b-registry | B-ch03 T-1 | `-` | U-5 (整类, 委托代裁) | |
 | 5 | `ig34_p0018_a036` | 18 | §3.2.1 Dataset-level Metadata | K3b-registry | B-ch03 T-2 | `-` | U-5 (整类, 委托代裁) | |
 | 6 | `ig34_p0026_a037` | 26 | §4.1.9 [Assigning Natural Keys in the Metadata] | K3b-registry | B-ch04 T-7 | `-` | U-8 委托代裁 (§000), 非 U-5 | |
-| 7 | `ig34_p0041_a038` | 41 | §4.4.3.2 [Interval with Uncertainty] | K3b-registry | B-ch04 N-1 | `-` | U-7 委托代裁 (§000), 非 U-5; B-ch04 N-1: U-7 B (委托代裁 2026-11-27) [A3-34] | |
-| 8 | `ig34_p0049_a008` | 49 | §4.4.11 [Disease Milestones and Disease Milestone  | K3b-registry | B-ch04 T-4 | `-` | U-5 (整类, 委托代裁) | |
-| 9 | `ig34_p0063_a023` | 63 | §5.2 [Demographics (DM)] | K3b-registry | S-SPEC1 T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 10 | `ig34_p0068_a010` | 68 | §5.2 [DM – Examples] | K3b-registry | B-DM T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 11 | `ig34_p0082_a025` | 82 | §5.3 [Subject Elements (SE)] | K3b-registry | S-SPREL SE T-1 | `-` | U-8 委托代裁 (§000), 非 U-5 | |
-| 12 | `ig34_p0085_a010` | 85 | §5.4 [Subject Disease Milestones (SM)] | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-8 B-SM O32 SMDY→SMSTDY \| errata: t3_atom_e | `work/t3_fp_expected_regressions.jsonl:6` | U-7 委托代裁 (§000), 非 U-5; B-SM O32: U-7 B (委托代裁 2026-11-27) [A2-8] | |
-| 13 | `ig34_p0085_a019` | 85 | §5.4 [Subject Disease Milestones (SM)] | K3b-registry | B-SM T-3 | `-` | U-5 (整类, 委托代裁) | |
-| 14 | `ig34_p0089_a026` | 89 | §5.5 [Subject Visits (SV)] | K3b-registry | B-SV T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 15 | `ig34_p0107_a002` | 107 | §6.1.3.1 [Exposure (EX)] | K3b-registry | S-INT EX T-7 | `-` | U-5 (整类, 委托代裁) | |
-| 16 | `ig34_p0113_a011` | 113 | §6.1.3.3 [Exposure/Exposure as Collected Examples] | K3b-registry | B-EX T-3 | `-` | U-5 (整类, 委托代裁) | |
-| 17 | `ig34_p0115_a009` | 115 | §6.1.3.3 [Exposure/Exposure as Collected Examples] | K3b-registry | B-EX T-4 | `-` | U-5 (整类, 委托代裁) | |
-| 18 | `ig34_p0118_a017` | 118 | §6.1.3.3 [Exposure/Exposure as Collected Examples] | S1-R2 | B-EX T-6: verbatim mg/mL 为 PDF 笔误, KB 改 mg/kg | `evidence/checkpoints/t2_B-EX.md:133` | U-5 (整类, 委托代裁) | |
-| 19 | `ig34_p0119_a011` | 119 | §6.1.3.3 [Exposure/Exposure as Collected Examples] | writer-Tn-registry | B-EX T-2 (KB 写正确值) | `work/t2_batches/B-EX.writer.jsonl:37` | U-5 (整类, 委托代裁) | |
-| 20 | `ig34_p0123_a005` | 123 | §6.1.4 [Meal Data (ML)] | writer-Tn-registry | B-ML T-2 (KB 写正确值) | `work/t2_batches/B-ML.writer.jsonl:8` | U-5 (整类, 委托代裁) | |
-| 21 | `ig34_p0124_a017` | 124 | §6.1.4 [Meal Data (ML)] | K3b-registry | B-ML T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 22 | `ig34_p0132_a014` | 132 | §6.1.6 [Substance Use (SU)] | K3b-registry | B-SU T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 23 | `ig34_p0142_a012` | 142 | §6.2.1 [Adverse Events (AE)] | writer-Tn-registry | B-AE T-3 (KB 写正确值) | `work/t2_batches/B-AE.writer.jsonl:5` | U-5 (整类, 委托代裁) | |
-| 24 | `ig34_p0142_a014` | 142 | §6.2.1 [Adverse Events (AE)] | K3b-registry | B-AE T-4 | `-` | U-5 (整类, 委托代裁) | |
-| 25 | `ig34_p0142_a015` | 142 | §6.2.1 [Adverse Events (AE)] | K3b-registry | B-AE T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 26 | `ig34_p0142_a016` | 142 | §6.2.1 [Adverse Events (AE)] | K3b-registry | B-AE T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 27 | `ig34_p0146_a005` | 146 | §6.2.2 [Biospecimen Events (BE)] | K3b-registry | B-BE T-1, B-BE T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 28 | `ig34_p0152_a0019` | 152 | §6.2.3 [Clinical Events] | writer-Tn-registry | B-CE T-1 (KB 写正确值) | `work/t2_batches/B-CE.writer.jsonl:9` | U-5 (整类, 委托代裁) | |
-| 29 | `ig34_p0160_a0026` | 160 | §6.2.4 Disposition (DS) | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-2 B-DS U-4 删 in \| errata: t3_atom_err \| n | `work/t3_fp_expected_regressions.jsonl:17` | U-7 委托代裁 (§000), 非 U-5; B-DS U-4: U-7 B (委托代裁 2026-11-27) [A3-2] | |
-| 30 | `ig34_p0160_a0028` | 160 | §6.2.4 Disposition (DS) | S1-R2 | B-DS T-3 PDF_TYPO (DSDTDTC)→(DSSTDTC) (t2_B-DS.md:35) \| errata: t3_atom_err \| new_target | `work/t3_fp_expected_regressions.jsonl:18` | U-5 (整类, 委托代裁) | |
-| 31 | `ig34_p0165_a0007` | 165 | §6.2.4 Disposition (DS) | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A1-9 B-DS U-1 se ETCD SCREEN→SCRN \| errata: t | `work/t3_fp_expected_regressions.jsonl:19` | U-7 委托代裁 (§000), 非 U-5; B-DS U-1: U-7 B (委托代裁 2026-11-27) [A1-9] | |
-| 32 | `ig34_p0166_a0035` | 166 | §6.2.4 Disposition (DS) | K3b-registry | B-DS T-5 | `-` | U-5 (整类, 委托代裁) | |
-| 33 | `ig34_p0169_a0024` | 169 | §6.2.5 Healthcare Encounters (HO) | writer-Tn-registry | B-HO T-1 (KB 写正确值) | `work/t2_batches/B-HO.writer.jsonl:1` | U-5 (整类, 委托代裁) | |
-| 34 | `ig34_p0173_a0007` | 173 | §6.2.6 Medical History (MH) | writer-Tn-registry | B-MH T-3 (KB 写正确值) | `work/t2_batches/B-MH.writer.jsonl:11` | U-5 (整类, 委托代裁) | |
-| 35 | `ig34_p0174_a0012` | 174 | §6.2.6 Medical History (MH) | S1-R2 | T2 global fp audit R2: B-MH T-1 PDF_TYPO 第二处 MHENDTYP→MHEVDTYP (原子=PDF) \| errata: t3_atom | `evidence/t2_fp_expected_regressions.md:53` | U-5 (整类, 委托代裁) | |
-| 36 | `ig34_p0190_a017` | 190 | §6.3.3 ECG Test Results (EG) | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-5 B-EG T-3 investigation→investigator \| er | `work/t3_fp_expected_regressions.jsonl:22` | U-7 委托代裁 (§000), 非 U-5; B-EG T-3: U-7 B (委托代裁 2026-11-27) [A3-5] | |
-| 37 | `ig34_p0198_a012` | 198 | §6.3.5.2 Biospecimen Findings (BS) | S1-R2 | B-BS review: PDF 'part the' (PDF_TYPO) 被抽成 'part of the'; KB 正确拼写 [B-BS T-2] | `evidence/checkpoints/t2_B-BS_review.md:54 (页级行; 该批以范围/页号记这组原子)` | U-5 (整类, 委托代裁) | |
-| 38 | `ig34_p0198_a014` | 198 | §6.3.5.2 Biospecimen Findings (BS) | K3b-registry | B-BS T-3 | `-` | U-5 (整类, 委托代裁) | |
-| 39 | `ig34_p0198_a020` | 198 | §6.3.5.2 Biospecimen Findings (BS) | K3b-registry | B-BS T-1a, B-BS T-1b | `-` | U-5 (整类, 委托代裁) | |
-| 40 | `ig34_p0199_a020` | 199 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | S-SPC1 CP T-21 PDF_TYPO --BNDAGT/--GATEDEF→--BDAGNT/--GATDEF (spec 变量名) \| errata: t3_atom | `work/t3_fp_expected_regressions.jsonl:23` | U-5 (整类, 委托代裁) | |
-| 41 | `ig34_p0200_a006` | 200 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | S-SPC1 CP T-17 PDF_TYPO sting→string \| errata: t3_atom_err \| new_target: domains/CP/assu | `work/t3_fp_expected_regressions.jsonl:24` | U-5 (整类, 委托代裁) | |
-| 42 | `ig34_p0200_a007` | 200 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | S-SPC1 CP T-21 PDF_TYPO --GATEDEF→--GATDEF \| errata: t3_atom_err \| new_target: domains/C | `work/t3_fp_expected_regressions.jsonl:25` | U-5 (整类, 委托代裁) | |
-| 43 | `ig34_p0205_a005` | 205 | §6.3.5.3 Cell Phenotype Findings (CP) | K3b-registry | S-SPC1 CP T-16b | `-` | U-5 (整类, 委托代裁) | |
-| 44 | `ig34_p0206_a001` | 206 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | S-SPC1 CP T-21 PDF_TYPO CPBNDAGT→CPBDAGNT \| errata: t3_atom_err \| new_target: domains/CP | `work/t3_fp_expected_regressions.jsonl:26` | U-5 (整类, 委托代裁) | |
-| 45 | `ig34_p0206_a003` | 206 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | S-SPC1 CP T-18 PDF_TYPO CSMRKS→CPCSMRKS \| errata: t3_atom_err \| new_target: domains/CP/a | `work/t3_fp_expected_regressions.jsonl:27` | U-5 (整类, 委托代裁) | |
-| 46 | `ig34_p0206_a009` | 206 | §6.3.5.3 Cell Phenotype Findings (CP) | K3b-registry | S-SPC1 CP T-19 | `-` | U-5 (整类, 委托代裁) | |
-| 47 | `ig34_p0211_a004` | 211 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec) | `evidence/checkpoints/t2_B-CP.md:80` | U-5 (整类, 委托代裁) | |
-| 48 | `ig34_p0212_a012` | 212 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec) | `evidence/checkpoints/t2_B-CP.md:83` | U-5 (整类, 委托代裁) | |
-| 49 | `ig34_p0213_a002` | 213 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec) | `evidence/checkpoints/t2_B-CP.md:30` | U-5 (整类, 委托代裁) | |
-| 50 | `ig34_p0213_a009` | 213 | §6.3.5.3 Cell Phenotype Findings (CP) | K3b-registry | B-CP T-6 | `-` | U-5 (整类, 委托代裁) | |
-| 51 | `ig34_p0215_a017` | 215 | §6.3.5.3 Cell Phenotype Findings (CP) | writer-Tn-registry | B-CP T-3 (KB 写正确值) | `work/t2_batches/B-CP.writer.jsonl:34` | U-5 (整类, 委托代裁) | |
-| 52 | `ig34_p0215_a018` | 215 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-2: verbatim CPCSMRKR 为 PDF 笔误, KB 改 CPCSMRKS 后不命中 (预期) | `evidence/checkpoints/t2_B-CP.md:199` | U-5 (整类, 委托代裁) | |
-| 53 | `ig34_p0217_a015` | 217 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec) | `evidence/checkpoints/t2_B-CP.md:85` | U-5 (整类, 委托代裁) | |
-| 54 | `ig34_p0218_a014` | 218 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec) | `evidence/checkpoints/t2_B-CP.md:308` | U-5 (整类, 委托代裁) | |
-| 55 | `ig34_p0218_a017` | 218 | §6.3.5.3 Cell Phenotype Findings (CP) | writer-Tn-registry | B-CP T-4 (KB 写正确值) | `work/t2_batches/B-CP.writer.jsonl:79` | U-5 (整类, 委托代裁) | |
-| 56 | `ig34_p0220_a001` | 220 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec) | `evidence/checkpoints/t2_B-CP.md:95` | U-5 (整类, 委托代裁) | |
-| 57 | `ig34_p0224_a010` | 224 | §6.3.5.4 Genomics Findings (GF) | writer-Tn-registry | B-GF T-6 (KB 写正确值) | `work/t2_batches/B-GF.writer.jsonl:367` | U-5 (整类, 委托代裁) | |
-| 58 | `ig34_p0224_a013` | 224 | §6.3.5.4 Genomics Findings (GF) | K3b-registry | B-GF T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 59 | `ig34_p0225_a019` | 225 | §6.3.5.4 Genomics Findings (GF) | writer-Tn-registry | B-GF T-3 (KB 写正确值) | `work/t2_batches/B-GF.writer.jsonl:361` | U-5 (整类, 委托代裁) | |
-| 60 | `ig34_p0227_a018` | 227 | §6.3.5.4 Genomics Findings (GF) | K3b-registry | B-GF T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 61 | `ig34_p0228_a002` | 228 | §6.3.5.4 Genomics Findings (GF) | K3b-registry | B-GF T-5 | `-` | U-5 (整类, 委托代裁) | |
-| 62 | `ig34_p0228_a009` | 228 | §6.3.5.4 Genomics Findings (GF) | K3b-registry | B-GF T-4 | `-` | U-5 (整类, 委托代裁) | |
-| 63 | `ig34_p0236_a005` | 236 | §6.3.5.5 Immunogenicity Specimen Assessments (IS) | K3b-registry | B-IS T-3 | `-` | U-5 (整类, 委托代裁) | |
-| 64 | `ig34_p0236_a014` | 236 | §6.3.5.5 Immunogenicity Specimen Assessments (IS) | K3b-registry | B-IS T-1, B-IS T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 65 | `ig34_p0236_a015` | 236 | §6.3.5.5 Immunogenicity Specimen Assessments (IS) | K3b-registry | B-IS T-1, B-IS T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 66 | `ig34_p0237_a018` | 237 | §6.3.5.5 Immunogenicity Specimen Assessments (IS) | writer-Tn-registry | B-IS T-5 (KB 写正确值) | `work/t2_batches/B-IS.writer.jsonl:118` | U-5 (整类, 委托代裁) | |
-| 67 | `ig34_p0240_a004` | 240 | §6.3.5.5 Immunogenicity Specimen Assessments (IS) | S1-R2 | B-IS T-4 PDF_TYPO nucleoar→nucleolar; S-SPC1 D2 删 IS/assumptions 附录副本, 现在 IS/examples.md:2 | `work/t3_fp_expected_regressions.jsonl:30` | U-5 (整类, 委托代裁) | |
-| 68 | `ig34_p0247_a020` | 247 | §6.3.5.6 Laboratory Test Results (LB) | K3b-registry | B-LB T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 69 | `ig34_p0257_a016` | 257 | §6.3.5.7.3 Microbiology Specimen/Microbiology Susc | S1-R2 | B-MS T-1: MSSTRESC PDF 空, KB 保留 25 | `evidence/checkpoints/t2_B-MS.md:115` | U-5 (整类, 委托代裁) | |
-| 70 | `ig34_p0262_a020` | 262 | §6.3.5.7 Microbiology Domains | K3b-registry | B-MS T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 71 | `ig34_p0262_a029` | 262 | §6.3.5.7 Microbiology Domains | S1-R2 | B-MS T-3: verbatim IDVAR=MBREFID 为 PDF 笔误, KB 改 MSREFID | `evidence/checkpoints/t2_B-MS.md:133` | U-5 (整类, 委托代裁) | |
-| 72 | `ig34_p0262_a030` | 262 | §6.3.5.7 Microbiology Domains | S1-R2 | B-MS T-3: verbatim IDVAR=MBREFID 为 PDF 笔误, KB 改 MSREFID | `evidence/checkpoints/t2_B-MS.md:62 (T-n 行; 原子 id 未出现在该文件)` | U-5 (整类, 委托代裁) | |
-| 73 | `ig34_p0263_a020` | 263 | §6.3.5.7.3 Microbiology Specimen/Microbiology Susc | S1-R2 | B-MB T-3: verbatim MBTRESN 为 PDF 印刷错, KB 改 MBSTRESN 后不命中 (预期) | `evidence/checkpoints/t2_B-MB.md:145` | U-5 (整类, 委托代裁) | |
-| 74 | `ig34_p0267_a006` | 267 | §6.3.5.8 Microscopic Findings (MI) | K3b-registry | B-MI T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 75 | `ig34_p0273_a037` | 273 | §6.3.5.9.2 Pharmacokinetics Parameters (PP) | K3b-registry | B-PCPP T-9 | `-` | U-5 (整类, 委托代裁) | |
-| 76 | `ig34_p0274_a009` | 274 | §6.3.5.9.2 Pharmacokinetics Parameters (PP) | K3b-registry | B-PCPP T-5 | `-` | U-5 (整类, 委托代裁) | |
-| 77 | `ig34_p0280_a036` | 280 | §6.3.5.9.3 Relating PP Records to PC Records | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-3 B-PCPP T-8b DYDRGX_HALF→DY1DRGX_HALF \| e | `work/t3_fp_expected_regressions.jsonl:66` | U-7 委托代裁 (§000), 非 U-5; B-PCPP T-8b: U-7 B (委托代裁 2026-11-27) [A2-3] | |
-| 78 | `ig34_p0280_a039` | 280 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-2 B-PCPP T-8 DYIDRGX_A→DY1DRGX_A \| errata: | `work/t3_fp_expected_regressions.jsonl:67` | U-7 委托代裁 (§000), 非 U-5; B-PCPP T-8: U-7 B (委托代裁 2026-11-27) [A2-2] | |
-| 79 | `ig34_p0280_a040` | 280 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-2 B-PCPP T-8 DYIDRGX_HALF→DY1DRGX_HALF \| e | `work/t3_fp_expected_regressions.jsonl:68` | U-7 委托代裁 (§000), 非 U-5; B-PCPP T-8: U-7 B (委托代裁 2026-11-27) [A2-2] | |
-| 80 | `ig34_p0281_a002` | 281 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-15 S-SPC2 N-1 PP→PC records with PCSEQ \| e | `work/t3_fp_expected_regressions.jsonl:69` | U-7 委托代裁 (§000), 非 U-5; S-SPC2 N-1: U-7 B (委托代裁 2026-11-27) [A2-15] | |
-| 81 | `ig34_p0281_a003` | 281 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-15 S-SPC2 N-1 PP→PC records with PCSEQ \| e | `work/t3_fp_expected_regressions.jsonl:70` | U-7 委托代裁 (§000), 非 U-5; S-SPC2 N-1: U-7 B (委托代裁 2026-11-27) [A2-15] | |
-| 82 | `ig34_p0281_a031` | 281 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-16 S-SPC2 N-2 PP/PGRPID→PC/PCGRPID \| errat | `work/t3_fp_expected_regressions.jsonl:71` | U-7 委托代裁 (§000), 非 U-5; S-SPC2 N-2: U-7 B (委托代裁 2026-11-27) [A2-16] | |
-| 83 | `ig34_p0281_a032` | 281 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-16 S-SPC2 N-2 PP/PGRPID→PC/PCGRPID \| errat | `work/t3_fp_expected_regressions.jsonl:72` | U-7 委托代裁 (§000), 非 U-5; S-SPC2 N-2: U-7 B (委托代裁 2026-11-27) [A2-16] | |
-| 84 | `ig34_p0285_a015` | 285 | §6.3.7.1 Generic Morphology/Physiology Specificati | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-14 B-NV N-1 may included→include \| errata: | `work/t3_fp_expected_regressions.jsonl:77` | U-7 委托代裁 (§000), 非 U-5; B-NV N-1: U-7 B (委托代裁 2026-11-27) [A3-14] | |
-| 85 | `ig34_p0293_a038` | 293 | §6.3.7.3 Musculoskeletal System Findings (MK) | K3b-registry | B-MK T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 86 | `ig34_p0296_a019` | 296 | §6.3.7.4 Nervous System Findings (NV) | writer-Tn-registry | B-NV T-1 (KB 写正确值) | `work/t2_batches/B-NV.writer.jsonl:11` | U-5 (整类, 委托代裁) | |
-| 87 | `ig34_p0298_a001` | 298 | §6.3.7.4 Nervous System Findings (NV) | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-15 B-NV N-2 删 the \| errata: t3_atom_err \| | `work/t3_fp_expected_regressions.jsonl:80` | U-7 委托代裁 (§000), 非 U-5; B-NV N-2: U-7 B (委托代裁 2026-11-27) [A3-15] | |
-| 88 | `ig34_p0304_a012` | 304 | §6.3.7.5 Ophthalmic Examinations (OE) | K3b-registry | B-OE T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 89 | `ig34_p0311_a035` | 311 | §6.3.7.7 Respiratory System Findings (RE) | S1-R2 | B-RE T-1: PDF 叙述 IREEA2 印刷错, KB 改 IRREA2 后不命中 (预期) | `evidence/checkpoints/t2_B-RE_review.md:83` | U-5 (整类, 委托代裁) | |
-| 90 | `ig34_p0323_a006` | 323 | §6.3.9.1 Functional Tests (FT) — FT-Assumptions —  | K3b-registry | B-RS T-6 (FT 副本) | `-` | U-5 (整类, 委托代裁) | |
-| 91 | `ig34_p0328_a007` | 328 | §6.3.9.2 Questionnaires (QS) — QS-Assumptions — QR | K3b-registry | B-RS T-6 (QS 副本) | `-` | U-5 (整类, 委托代裁) | |
-| 92 | `ig34_p0332_a009` | 332 | §6.3.9.3.1 Disease Response Use Case | K3b-registry | B-RS T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 93 | `ig34_p0334_a011` | 334 | §6.3.9.3.1 Disease Response Use Case | S1-R2 | B-RS audit: verbatim 与 PDF 页文本不符 Rows 4-7 段被拆; KB 与页文本一致 [B-RS T-8] | `evidence/checkpoints/t2_B-RS_audit.md:17` | U-5 (整类, 委托代裁) | |
-| 94 | `ig34_p0335_a015` | 335 | §6.3.9.3.1 Disease Response Use Case | S1-R2 | B-RS T-7 PDF_TYPO 叙述 RSPLNKGRP→RSLNKGRP \| errata: t3_atom_err \| new_target: domains/RS/e | `work/t3_fp_expected_regressions.jsonl:83` | U-5 (整类, 委托代裁) | |
-| 95 | `ig34_p0335_a016` | 335 | §6.3.9.3.1 Disease Response Use Case | S1-R2 | B-RS T-7 PDF_TYPO 叙述 RSPLNKGRP→RSLNKGRP \| errata: t3_atom_err \| new_target: domains/RS/e | `work/t3_fp_expected_regressions.jsonl:84` | U-5 (整类, 委托代裁) | |
-| 96 | `ig34_p0335_a017` | 335 | §6.3.9.3.1 Disease Response Use Case | S1-R2 | B-RS T-7 PDF_TYPO 叙述 RSPLNKGRP→RSLNKGRP \| errata: t3_atom_err \| new_target: domains/RS/e | `work/t3_fp_expected_regressions.jsonl:85` | U-5 (整类, 委托代裁) | |
-| 97 | `ig34_p0335_a018` | 335 | §6.3.9.3.1 Disease Response Use Case | S1-R2 | B-RS T-7 PDF_TYPO 叙述 RSPLNKGRP→RSLNKGRP \| errata: t3_atom_err \| new_target: domains/RS/e | `work/t3_fp_expected_regressions.jsonl:86` | U-5 (整类, 委托代裁) | |
-| 98 | `ig34_p0336_a005` | 336 | §6.3.9.3.1 Disease Response Use Case | K3b-registry | B-RS T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 99 | `ig34_p0338_a006` | 338 | §6.3.9.3.2 Clinical Classifications Use Case | S1-R2 | [K4 改判] 原子 = PDF (norm ⊂ p337-339); KB 有登记偏离 B-RS T-5 (RS 副本): PDF 'providing an resolutio | `evidence/checkpoints/t2_B-RS_audit.md:14 (页级行; 该批以范围/页号记这组原子)` | U-5 (整类, 委托代裁) | |
-| 100 | `ig34_p0342_a006` | 342 | SC – Examples | K3b-registry | B-SC T-1 | `-` | U-8 委托代裁 (§000), 非 U-5 | |
-| 101 | `ig34_p0342_a007` | 342 | SC – Examples | K3b-registry | B-SC T-1 | `-` | U-8 委托代裁 (§000), 非 U-5 | |
-| 102 | `ig34_p0353_a009` | 353 | §6.3.12.3 Tumor Identification/Tumor Results Examp | K3b-registry | B-TU T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 103 | `ig34_p0355_a014` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:4` | U-5 (整类, 委托代裁) | |
-| 104 | `ig34_p0355_a015` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:5` | U-5 (整类, 委托代裁) | |
-| 105 | `ig34_p0355_a016` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:6` | U-5 (整类, 委托代裁) | |
-| 106 | `ig34_p0355_a017` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:7` | U-5 (整类, 委托代裁) | |
-| 107 | `ig34_p0355_a018` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:8` | U-5 (整类, 委托代裁) | |
-| 108 | `ig34_p0355_a019` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:9` | U-5 (整类, 委托代裁) | |
-| 109 | `ig34_p0355_a020` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:10` | U-5 (整类, 委托代裁) | |
-| 110 | `ig34_p0355_a021` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:11` | U-5 (整类, 委托代裁) | |
-| 111 | `ig34_p0355_a022` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:12` | U-5 (整类, 委托代裁) | |
-| 112 | `ig34_p0355_a023` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:13` | U-5 (整类, 委托代裁) | |
-| 113 | `ig34_p0355_a024` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:14` | U-5 (整类, 委托代裁) | |
-| 114 | `ig34_p0355_a025` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:15` | U-5 (整类, 委托代裁) | |
-| 115 | `ig34_p0355_a026` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:16` | U-5 (整类, 委托代裁) | |
-| 116 | `ig34_p0355_a027` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-3 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:17` | U-5 (整类, 委托代裁) | |
-| 117 | `ig34_p0356_a001` | 356 | §6.3.12.3 Tumor Identification/Tumor Results Examp | K3b-registry | B-TR T-3 | `-` | U-5 (整类, 委托代裁) | |
-| 118 | `ig34_p0356_a002` | 356 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:19` | U-5 (整类, 委托代裁) | |
-| 119 | `ig34_p0362_a010` | 362 | §6.4.1 When to Use Findings About Events or Interv | S1-R2 | T4 U-7 后依据变更: KB 按 U-7 A3-7 写正确值 'thought to be related' (= 原子), PDF p362 'thought be rela [B-FA T-4] | `evidence/checkpoints/t2_B-FA_audit.md:36` | 主控决定 M-4 (§000b; 非委托代裁; 按 t4_owner_confirmation.md 的记录已追认); 登记 B-FA T-4 本身 = U-7 A3-7 | |
-| 120 | `ig34_p0363_a008` | 363 | §6.4.1 When to Use Findings About Events or Interv | writer-Tn-registry | B-FA T-5 (KB 写正确值) | `work/t2_batches/B-FA.writer.jsonl:22` | U-5 (整类, 委托代裁) | |
-| 121 | `ig34_p0363_a009` | 363 | §6.4.1 When to Use Findings About Events or Interv | K3b-registry | B-FA T-6 | `-` | U-7 委托代裁 (§000), 非 U-5; B-FA T-6: U-7 B (委托代裁 2026-11-27) [A3-8] | |
-| 122 | `ig34_p0370_a021` | 370 | FA – Examples | S1-R2 | B-FA T-7: PDF parent CE record → KB AE | `evidence/checkpoints/t2_B-FA.md:129` | U-5 (整类, 委托代裁) | |
-| 123 | `ig34_p0372_a013` | 372 | FA – Examples | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-9 B-FA T-8 populated→populate \| errata: t3 | `work/t3_fp_expected_regressions.jsonl:113` | U-7 委托代裁 (§000), 非 U-5; B-FA T-8: U-7 B (委托代裁 2026-11-27) [A3-9] | |
-| 124 | `ig34_p0373_a013` | 373 | FA – Examples | S1-R2 | B-FA T-9: FAEVINTX → FAEVLINT | `evidence/checkpoints/t2_B-FA.md:129` | U-5 (整类, 委托代裁) | |
-| 125 | `ig34_p0377_a015` | 377 | SR – Specification | S1-R2 | B-SR T-4: verbatim EGTPTREF 为 PDF 笔误, KB 改 SRTPTREF | `evidence/checkpoints/t2_B-SR.md:116` | U-5 (整类, 委托代裁) | |
-| 126 | `ig34_p0377_a021` | 377 | SR – Assumptions | K3b-registry | B-SR T-3 | `-` | U-5 (整类, 委托代裁) | |
-| 127 | `ig34_p0378_a017` | 378 | SR – Examples | K3b-registry | B-SR T-1 (examples) | `-` | U-5 (整类, 委托代裁) | |
-| 128 | `ig34_p0412_a006` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 129 | `ig34_p0412_a007` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 130 | `ig34_p0412_a008` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 131 | `ig34_p0412_a009` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | writer-Tn-registry | S-TDM TD T-1 (KB 写正确值) | `work/t2_batches/S-TDM.writer.jsonl:18` | U-5 (整类, 委托代裁) | |
-| 132 | `ig34_p0413_a010` | 413 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-4 | `-` | U-5 (整类, 委托代裁) | |
-| 133 | `ig34_p0414_a006` | 414 | §7.3.2 Trial Disease Assessments (TD) – Examples | writer-Tn-registry | S-TDM TD T-2 (KB 写正确值) | `work/t2_batches/S-TDM.writer.jsonl:25` | U-5 (整类, 委托代裁) | |
-| 134 | `ig34_p0414_a008` | 414 | §7.3.2 Trial Disease Assessments (TD) – Examples | writer-Tn-registry | S-TDM TD T-3 (KB 写正确值) | `work/t2_batches/S-TDM.writer.jsonl:26` | U-5 (整类, 委托代裁) | |
-| 135 | `ig34_p0414_a013` | 414 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-4 | `-` | U-5 (整类, 委托代裁) | |
-| 136 | `ig34_p0419_a006` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ (+A2-4 B-TS T-2 D [B-TS T-3, B-TS T-2] | `work/t3_fp_expected_regressions.jsonl:117` | U-7 委托代裁 (§000), 非 U-5; B-TS T-3: U-7 B (委托代裁 2026-11-27) [A2-5]; B-TS T-2: U-7 B (委托代裁 2026-11-27) [A2-4] | |
-| 137 | `ig34_p0419_a011` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ \| errata: t3_ato | `work/t3_fp_expected_regressions.jsonl:118` | U-7 委托代裁 (§000), 非 U-5; B-TS T-3: U-7 B (委托代裁 2026-11-27) [A2-5] | |
-| 138 | `ig34_p0419_a013` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ \| errata: t3_ato | `work/t3_fp_expected_regressions.jsonl:119` | U-7 委托代裁 (§000), 非 U-5; B-TS T-3: U-7 B (委托代裁 2026-11-27) [A2-5] | |
-| 139 | `ig34_p0419_a017` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-6 B-TS T-4 OUTMSPR→OUTMSPRI \| errata: t3_a | `work/t3_fp_expected_regressions.jsonl:120` | U-7 委托代裁 (§000), 非 U-5; B-TS T-4: U-7 B (委托代裁 2026-11-27) [A2-6] | |
-| 140 | `ig34_p0425_a024` | 425 | §7.4.2.1 Use of Null Flavor | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-7 B-TS T-6 MAXAGE→AGEMAX \| errata: t3_atom | `work/t3_fp_expected_regressions.jsonl:121` | U-7 委托代裁 (§000), 非 U-5; B-TS T-6: U-7 B (委托代裁 2026-11-27) [A2-7] | |
-| 141 | `ig34_p0427_a011` | 427 | §8 [REPRESENTING RELATIONSHIPS AND DATA] | K3b-registry | B-ch08 T-1 | `-` | U-5 (整类, 委托代裁) | |
-| 142 | `ig34_p0428_a006` | 428 | §8.1.1 --GRPID Example | K3b-registry | B-ch08 T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 143 | `ig34_p0428_a008` | 428 | §8.1.1 --GRPID Example | K3b-registry | B-ch08 T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 144 | `ig34_p0433_a017` | 433 | §8.4.2 Submitting Supplemental Qualifiers in Separ | writer-Tn-registry | B-ch08 T-3 (KB 写正确值) | `work/t2_batches/B-ch08.writer.jsonl:65` | U-5 (整类, 委托代裁) | |
-| 145 | `ig34_p0433_a019` | 433 | §8.4.3 SUPP-- Examples | K3b-registry | B-ch08 T-4 | `-` | U-5 (整类, 委托代裁) | |
-| 146 | `ig34_p0436_a022` | 436 | §8.6.3 Guidelines for Differentiating Between Inte | writer-Tn-registry | B-ch08 T-6 (KB 写正确值) | `work/t2_batches/B-ch08.writer.jsonl:60` | U-5 (整类, 委托代裁) | |
-| 147 | `ig34_p0438_a019` | 438 | RELSUB – Assumptions | K3b-registry | B-REL T-9 (RELSUB 副本), B-ch08 T-9 (ch08 副本) | `-` | U-5 (整类, 委托代裁) | |
-| 148 | `ig34_p0457_a004` | 457 | §10.E Appendix E: Revision History | K3b-registry | S-CH10 T-2 | `-` | U-5 (整类, 委托代裁) | |
-| 149 | `sv20_p0006_a020` | 6 | §1.4 Significant Changes from Prior Versions | writer-Tn-registry | B-model01 T-1 (KB 写正确值) | `work/t2_batches/B-model01.writer.jsonl:82` | U-5 (整类, 委托代裁) | |
+| 7 | `ig34_p0037_a002` | 37 | §4.3.2 Controlled Terminology Text Case | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib2_1.md:21` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-ch04 T-3 | |
+| 8 | `ig34_p0041_a038` | 41 | §4.4.3.2 [Interval with Uncertainty] | K3b-registry | B-ch04 N-1 | `-` | U-7 委托代裁 (§000), 非 U-5; B-ch04 N-1: U-7 B (委托代裁 2026-11-27) [A3-34] | |
+| 9 | `ig34_p0043_a010` | 43 | §4.4.7 [Use of Relative Timing Variables] | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib_1.md:18` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 S-CH4 T-8 | |
+| 10 | `ig34_p0047_a009` | 47 | §4.4.10 [Representing Time Points] | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib_1.md:21` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 S-CH4 T-9 | |
+| 11 | `ig34_p0049_a008` | 49 | §4.4.11 [Disease Milestones and Disease Milestone  | K3b-registry | B-ch04 T-4 | `-` | U-5 (整类, 委托代裁) | |
+| 12 | `ig34_p0063_a023` | 63 | §5.2 [Demographics (DM)] | K3b-registry | S-SPEC1 T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 13 | `ig34_p0064_a012` | 64 | §5.2 [Demographics (DM)] | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib_1.md:22` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 S-SPEC1 T-3 | |
+| 14 | `ig34_p0068_a010` | 68 | §5.2 [DM – Examples] | K3b-registry | B-DM T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 15 | `ig34_p0069_a004` | 69 | §5.2 [DM – Examples] | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib2_1.md:27` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-DM T-3 | |
+| 16 | `ig34_p0078_a022` | 78 | §5.2 [Demographics (DM)] | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib_1.md:25` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-DM T-1 | |
+| 17 | `ig34_p0082_a025` | 82 | §5.3 [Subject Elements (SE)] | K3b-registry | S-SPREL SE T-1 | `-` | U-8 委托代裁 (§000), 非 U-5 | |
+| 18 | `ig34_p0083_a020` | 83 | §5.3 [Subject Elements (SE)] | S1-R2 | T4 R2L owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB  | `evidence/t4_round3_raw/pack_13_14.md:36` | 主人 2026-11-27 第二轮 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 S-SPREL SE T-1 | |
+| 19 | `ig34_p0085_a010` | 85 | §5.4 [Subject Disease Milestones (SM)] | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-8 B-SM O32 SMDY→SMSTDY \| errata: t3_atom_e | `work/t3_fp_expected_regressions.jsonl:6` | U-7 委托代裁 (§000), 非 U-5; B-SM O32: U-7 B (委托代裁 2026-11-27) [A2-8] | |
+| 20 | `ig34_p0085_a019` | 85 | §5.4 [Subject Disease Milestones (SM)] | K3b-registry | B-SM T-3 | `-` | U-5 (整类, 委托代裁) | |
+| 21 | `ig34_p0089_a026` | 89 | §5.5 [Subject Visits (SV)] | K3b-registry | B-SV T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 22 | `ig34_p0107_a002` | 107 | §6.1.3.1 [Exposure (EX)] | K3b-registry | S-INT EX T-7 | `-` | U-5 (整类, 委托代裁) | |
+| 23 | `ig34_p0113_a011` | 113 | §6.1.3.3 [Exposure/Exposure as Collected Examples] | K3b-registry | B-EX T-3 | `-` | U-5 (整类, 委托代裁) | |
+| 24 | `ig34_p0115_a009` | 115 | §6.1.3.3 [Exposure/Exposure as Collected Examples] | K3b-registry | B-EX T-4 | `-` | U-5 (整类, 委托代裁) | |
+| 25 | `ig34_p0118_a017` | 118 | §6.1.3.3 [Exposure/Exposure as Collected Examples] | S1-R2 | B-EX T-6: verbatim mg/mL 为 PDF 笔误, KB 改 mg/kg | `evidence/checkpoints/t2_B-EX.md:133` | U-5 (整类, 委托代裁) | |
+| 26 | `ig34_p0119_a011` | 119 | §6.1.3.3 [Exposure/Exposure as Collected Examples] | writer-Tn-registry | B-EX T-2 (KB 写正确值) | `work/t2_batches/B-EX.writer.jsonl:37` | U-5 (整类, 委托代裁) | |
+| 27 | `ig34_p0119_a017` | 119 | §6.1.3.3 [Exposure/Exposure as Collected Examples] | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib_1.md:31` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-EX T-1 | |
+| 28 | `ig34_p0123_a005` | 123 | §6.1.4 [Meal Data (ML)] | writer-Tn-registry | B-ML T-2 (KB 写正确值) | `work/t2_batches/B-ML.writer.jsonl:8` | U-5 (整类, 委托代裁) | |
+| 29 | `ig34_p0124_a017` | 124 | §6.1.4 [Meal Data (ML)] | K3b-registry | B-ML T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 30 | `ig34_p0132_a014` | 132 | §6.1.6 [Substance Use (SU)] | K3b-registry | B-SU T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 31 | `ig34_p0142_a012` | 142 | §6.2.1 [Adverse Events (AE)] | writer-Tn-registry | B-AE T-3 (KB 写正确值) | `work/t2_batches/B-AE.writer.jsonl:5` | U-5 (整类, 委托代裁) | |
+| 32 | `ig34_p0142_a014` | 142 | §6.2.1 [Adverse Events (AE)] | K3b-registry | B-AE T-4 | `-` | U-5 (整类, 委托代裁) | |
+| 33 | `ig34_p0142_a015` | 142 | §6.2.1 [Adverse Events (AE)] | K3b-registry | B-AE T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 34 | `ig34_p0142_a016` | 142 | §6.2.1 [Adverse Events (AE)] | K3b-registry | B-AE T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 35 | `ig34_p0146_a005` | 146 | §6.2.2 [Biospecimen Events (BE)] | K3b-registry | B-BE T-1, B-BE T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 36 | `ig34_p0147_a025` | 147 | §6.2.2 [Biospecimen Events (BE)] | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_supp_raw/pack_1.md:35` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-BE T-3 | |
+| 37 | `ig34_p0147_a026` | 147 | §6.2.2 [Biospecimen Events (BE)] | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib_1.md:35` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-BE T-3 | |
+| 38 | `ig34_p0152_a0019` | 152 | §6.2.3 [Clinical Events] | writer-Tn-registry | B-CE T-1 (KB 写正确值) | `work/t2_batches/B-CE.writer.jsonl:9` | U-5 (整类, 委托代裁) | |
+| 39 | `ig34_p0160_a0026` | 160 | §6.2.4 Disposition (DS) | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-2 B-DS U-4 删 in \| errata: t3_atom_err \| n | `work/t3_fp_expected_regressions.jsonl:17` | U-7 委托代裁 (§000), 非 U-5; B-DS U-4: U-7 B (委托代裁 2026-11-27) [A3-2] | |
+| 40 | `ig34_p0160_a0028` | 160 | §6.2.4 Disposition (DS) | S1-R2 | B-DS T-3 PDF_TYPO (DSDTDTC)→(DSSTDTC) (t2_B-DS.md:35) \| errata: t3_atom_err \| new_target | `work/t3_fp_expected_regressions.jsonl:18` | U-5 (整类, 委托代裁) | |
+| 41 | `ig34_p0165_a0007` | 165 | §6.2.4 Disposition (DS) | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A1-9 B-DS U-1 se ETCD SCREEN→SCRN \| errata: t | `work/t3_fp_expected_regressions.jsonl:19` | U-7 委托代裁 (§000), 非 U-5; B-DS U-1: U-7 B (委托代裁 2026-11-27) [A1-9] | |
+| 42 | `ig34_p0166_a0035` | 166 | §6.2.4 Disposition (DS) | K3b-registry | B-DS T-5 | `-` | U-5 (整类, 委托代裁) | |
+| 43 | `ig34_p0169_a0024` | 169 | §6.2.5 Healthcare Encounters (HO) | writer-Tn-registry | B-HO T-1 (KB 写正确值) | `work/t2_batches/B-HO.writer.jsonl:1` | U-5 (整类, 委托代裁) | |
+| 44 | `ig34_p0173_a0007` | 173 | §6.2.6 Medical History (MH) | writer-Tn-registry | B-MH T-3 (KB 写正确值) | `work/t2_batches/B-MH.writer.jsonl:11` | U-5 (整类, 委托代裁) | |
+| 45 | `ig34_p0174_a0012` | 174 | §6.2.6 Medical History (MH) | S1-R2 | T2 global fp audit R2: B-MH T-1 PDF_TYPO 第二处 MHENDTYP→MHEVDTYP (原子=PDF) \| errata: t3_atom | `evidence/t2_fp_expected_regressions.md:53` | U-5 (整类, 委托代裁) | |
+| 46 | `ig34_p0190_a017` | 190 | §6.3.3 ECG Test Results (EG) | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-5 B-EG T-3 investigation→investigator \| er | `work/t3_fp_expected_regressions.jsonl:22` | U-7 委托代裁 (§000), 非 U-5; B-EG T-3: U-7 B (委托代裁 2026-11-27) [A3-5] | |
+| 47 | `ig34_p0198_a012` | 198 | §6.3.5.2 Biospecimen Findings (BS) | S1-R2 | B-BS review: PDF 'part the' (PDF_TYPO) 被抽成 'part of the'; KB 正确拼写 [B-BS T-2] | `evidence/checkpoints/t2_B-BS_review.md:54 (页级行; 该批以范围/页号记这组原子)` | U-5 (整类, 委托代裁) | |
+| 48 | `ig34_p0198_a014` | 198 | §6.3.5.2 Biospecimen Findings (BS) | K3b-registry | B-BS T-3, REG BS N-1 | `-` | U-5 (整类, 委托代裁) | |
+| 49 | `ig34_p0198_a020` | 198 | §6.3.5.2 Biospecimen Findings (BS) | K3b-registry | B-BS T-1a, B-BS T-1b | `-` | U-5 (整类, 委托代裁) | |
+| 50 | `ig34_p0199_a020` | 199 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | S-SPC1 CP T-21 PDF_TYPO --BNDAGT/--GATEDEF→--BDAGNT/--GATDEF (spec 变量名) \| errata: t3_atom | `work/t3_fp_expected_regressions.jsonl:23` | U-5 (整类, 委托代裁) | |
+| 51 | `ig34_p0200_a006` | 200 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | S-SPC1 CP T-17 PDF_TYPO sting→string \| errata: t3_atom_err \| new_target: domains/CP/assu | `work/t3_fp_expected_regressions.jsonl:24` | U-5 (整类, 委托代裁) | |
+| 52 | `ig34_p0200_a007` | 200 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | S-SPC1 CP T-21 PDF_TYPO --GATEDEF→--GATDEF \| errata: t3_atom_err \| new_target: domains/C | `work/t3_fp_expected_regressions.jsonl:25` | U-5 (整类, 委托代裁) | |
+| 53 | `ig34_p0201_a005` | 201 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib2_1.md:32` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 S-SPC1 CP T-20 | |
+| 54 | `ig34_p0205_a005` | 205 | §6.3.5.3 Cell Phenotype Findings (CP) | K3b-registry | S-SPC1 CP T-16b | `-` | U-5 (整类, 委托代裁) | |
+| 55 | `ig34_p0206_a001` | 206 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | S-SPC1 CP T-21 PDF_TYPO CPBNDAGT→CPBDAGNT \| errata: t3_atom_err \| new_target: domains/CP | `work/t3_fp_expected_regressions.jsonl:26` | U-5 (整类, 委托代裁) | |
+| 56 | `ig34_p0206_a003` | 206 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | S-SPC1 CP T-18 PDF_TYPO CSMRKS→CPCSMRKS \| errata: t3_atom_err \| new_target: domains/CP/a | `work/t3_fp_expected_regressions.jsonl:27` | U-5 (整类, 委托代裁) | |
+| 57 | `ig34_p0206_a009` | 206 | §6.3.5.3 Cell Phenotype Findings (CP) | K3b-registry | S-SPC1 CP T-19, S-SPC1 CP T-16a | `-` | U-5 (整类, 委托代裁) | |
+| 58 | `ig34_p0211_a004` | 211 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec) | `evidence/checkpoints/t2_B-CP.md:80` | U-5 (整类, 委托代裁) | |
+| 59 | `ig34_p0212_a001` | 212 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib2_1.md:34` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-CP T-5 | |
+| 60 | `ig34_p0212_a012` | 212 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec) | `evidence/checkpoints/t2_B-CP.md:83` | U-5 (整类, 委托代裁) | |
+| 61 | `ig34_p0213_a002` | 213 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec) | `evidence/checkpoints/t2_B-CP.md:30` | U-5 (整类, 委托代裁) | |
+| 62 | `ig34_p0213_a009` | 213 | §6.3.5.3 Cell Phenotype Findings (CP) | K3b-registry | B-CP T-6 | `-` | U-5 (整类, 委托代裁) | |
+| 63 | `ig34_p0215_a017` | 215 | §6.3.5.3 Cell Phenotype Findings (CP) | writer-Tn-registry | B-CP T-3 (KB 写正确值) | `work/t2_batches/B-CP.writer.jsonl:34` | U-5 (整类, 委托代裁) | |
+| 64 | `ig34_p0215_a018` | 215 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-2: verbatim CPCSMRKR 为 PDF 笔误, KB 改 CPCSMRKS 后不命中 (预期) | `evidence/checkpoints/t2_B-CP.md:199` | U-5 (整类, 委托代裁) | |
+| 65 | `ig34_p0217_a015` | 217 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec) | `evidence/checkpoints/t2_B-CP.md:85` | U-5 (整类, 委托代裁) | |
+| 66 | `ig34_p0218_a014` | 218 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec) | `evidence/checkpoints/t2_B-CP.md:308` | U-5 (整类, 委托代裁) | |
+| 67 | `ig34_p0218_a017` | 218 | §6.3.5.3 Cell Phenotype Findings (CP) | writer-Tn-registry | B-CP T-4 (KB 写正确值) | `work/t2_batches/B-CP.writer.jsonl:79` | U-5 (整类, 委托代裁) | |
+| 68 | `ig34_p0220_a001` | 220 | §6.3.5.3 Cell Phenotype Findings (CP) | S1-R2 | B-CP T-15: verbatim CPGATEDEF 为 PDF 叙述笔误, KB 改 CPGATDEF (p202 spec) | `evidence/checkpoints/t2_B-CP.md:95` | U-5 (整类, 委托代裁) | |
+| 69 | `ig34_p0224_a010` | 224 | §6.3.5.4 Genomics Findings (GF) | writer-Tn-registry | B-GF T-6 (KB 写正确值) | `work/t2_batches/B-GF.writer.jsonl:367` | U-5 (整类, 委托代裁) | |
+| 70 | `ig34_p0224_a013` | 224 | §6.3.5.4 Genomics Findings (GF) | K3b-registry | B-GF T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 71 | `ig34_p0225_a019` | 225 | §6.3.5.4 Genomics Findings (GF) | writer-Tn-registry | B-GF T-3 (KB 写正确值) | `work/t2_batches/B-GF.writer.jsonl:361` | U-5 (整类, 委托代裁) | |
+| 72 | `ig34_p0227_a018` | 227 | §6.3.5.4 Genomics Findings (GF) | K3b-registry | B-GF T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 73 | `ig34_p0228_a002` | 228 | §6.3.5.4 Genomics Findings (GF) | K3b-registry | B-GF T-5 | `-` | U-5 (整类, 委托代裁) | |
+| 74 | `ig34_p0228_a009` | 228 | §6.3.5.4 Genomics Findings (GF) | K3b-registry | B-GF T-4 | `-` | U-5 (整类, 委托代裁) | |
+| 75 | `ig34_p0236_a005` | 236 | §6.3.5.5 Immunogenicity Specimen Assessments (IS) | K3b-registry | B-IS T-3 | `-` | U-5 (整类, 委托代裁) | |
+| 76 | `ig34_p0236_a014` | 236 | §6.3.5.5 Immunogenicity Specimen Assessments (IS) | K3b-registry | B-IS T-1, B-IS T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 77 | `ig34_p0236_a015` | 236 | §6.3.5.5 Immunogenicity Specimen Assessments (IS) | K3b-registry | B-IS T-1, B-IS T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 78 | `ig34_p0237_a018` | 237 | §6.3.5.5 Immunogenicity Specimen Assessments (IS) | writer-Tn-registry | B-IS T-5 (KB 写正确值) | `work/t2_batches/B-IS.writer.jsonl:118` | U-5 (整类, 委托代裁) | |
+| 79 | `ig34_p0240_a004` | 240 | §6.3.5.5 Immunogenicity Specimen Assessments (IS) | S1-R2 | B-IS T-4 PDF_TYPO nucleoar→nucleolar; S-SPC1 D2 删 IS/assumptions 附录副本, 现在 IS/examples.md:2 | `work/t3_fp_expected_regressions.jsonl:30` | U-5 (整类, 委托代裁) | |
+| 80 | `ig34_p0247_a020` | 247 | §6.3.5.6 Laboratory Test Results (LB) | K3b-registry | B-LB T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 81 | `ig34_p0256_a007` | 256 | §6.3.5.7.2 Microbiology Susceptibility (MS) | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib2_2.md:17` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-MS T-5 | |
+| 82 | `ig34_p0257_a016` | 257 | §6.3.5.7.3 Microbiology Specimen/Microbiology Susc | S1-R2 | B-MS T-1: MSSTRESC PDF 空, KB 保留 25 | `evidence/checkpoints/t2_B-MS.md:115` | U-5 (整类, 委托代裁) | |
+| 83 | `ig34_p0262_a016` | 262 | §6.3.5.7 Microbiology Domains | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_supp_raw/pack_2.md:42` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-MB T-1 | |
+| 84 | `ig34_p0262_a017` | 262 | §6.3.5.7 Microbiology Domains | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_supp_raw/pack_2.md:43` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-MB T-1 | |
+| 85 | `ig34_p0262_a020` | 262 | §6.3.5.7 Microbiology Domains | K3b-registry | B-MS T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 86 | `ig34_p0262_a029` | 262 | §6.3.5.7 Microbiology Domains | S1-R2 | B-MS T-3: verbatim IDVAR=MBREFID 为 PDF 笔误, KB 改 MSREFID | `evidence/checkpoints/t2_B-MS.md:133` | U-5 (整类, 委托代裁) | |
+| 87 | `ig34_p0262_a030` | 262 | §6.3.5.7 Microbiology Domains | S1-R2 | B-MS T-3: verbatim IDVAR=MBREFID 为 PDF 笔误, KB 改 MSREFID | `evidence/checkpoints/t2_B-MS.md:62 (T-n 行; 原子 id 未出现在该文件)` | U-5 (整类, 委托代裁) | |
+| 88 | `ig34_p0263_a020` | 263 | §6.3.5.7.3 Microbiology Specimen/Microbiology Susc | S1-R2 | B-MB T-3: verbatim MBTRESN 为 PDF 印刷错, KB 改 MBSTRESN 后不命中 (预期) [B-MB T-3, B-MB T-2] | `evidence/checkpoints/t2_B-MB.md:145` | U-5 (整类, 委托代裁) | |
+| 89 | `ig34_p0267_a006` | 267 | §6.3.5.8 Microscopic Findings (MI) | K3b-registry | B-MI T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 90 | `ig34_p0273_a037` | 273 | §6.3.5.9.2 Pharmacokinetics Parameters (PP) | K3b-registry | B-PCPP T-9 | `-` | U-5 (整类, 委托代裁) | |
+| 91 | `ig34_p0274_a009` | 274 | §6.3.5.9.2 Pharmacokinetics Parameters (PP) | K3b-registry | B-PCPP T-5 | `-` | U-5 (整类, 委托代裁) | |
+| 92 | `ig34_p0277_a026` | 277 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib_3.md:22` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-PCPP T-1 | |
+| 93 | `ig34_p0278_a015` | 278 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib_3.md:23` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-PCPP T-2 | |
+| 94 | `ig34_p0278_a028` | 278 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib_3.md:24` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-PCPP T-3 | |
+| 95 | `ig34_p0280_a036` | 280 | §6.3.5.9.3 Relating PP Records to PC Records | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-3 B-PCPP T-8b DYDRGX_HALF→DY1DRGX_HALF \| e | `work/t3_fp_expected_regressions.jsonl:66` | U-7 委托代裁 (§000), 非 U-5; B-PCPP T-8b: U-7 B (委托代裁 2026-11-27) [A2-3] | |
+| 96 | `ig34_p0280_a039` | 280 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-2 B-PCPP T-8 DYIDRGX_A→DY1DRGX_A \| errata: | `work/t3_fp_expected_regressions.jsonl:67` | U-7 委托代裁 (§000), 非 U-5; B-PCPP T-8: U-7 B (委托代裁 2026-11-27) [A2-2] | |
+| 97 | `ig34_p0280_a040` | 280 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-2 B-PCPP T-8 DYIDRGX_HALF→DY1DRGX_HALF \| e | `work/t3_fp_expected_regressions.jsonl:68` | U-7 委托代裁 (§000), 非 U-5; B-PCPP T-8: U-7 B (委托代裁 2026-11-27) [A2-2] | |
+| 98 | `ig34_p0281_a002` | 281 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-15 S-SPC2 N-1 PP→PC records with PCSEQ \| e | `work/t3_fp_expected_regressions.jsonl:69` | U-7 委托代裁 (§000), 非 U-5; S-SPC2 N-1: U-7 B (委托代裁 2026-11-27) [A2-15] | |
+| 99 | `ig34_p0281_a003` | 281 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-15 S-SPC2 N-1 PP→PC records with PCSEQ \| e | `work/t3_fp_expected_regressions.jsonl:70` | U-7 委托代裁 (§000), 非 U-5; S-SPC2 N-1: U-7 B (委托代裁 2026-11-27) [A2-15] | |
+| 100 | `ig34_p0281_a031` | 281 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-16 S-SPC2 N-2 PP/PGRPID→PC/PCGRPID \| errat | `work/t3_fp_expected_regressions.jsonl:71` | U-7 委托代裁 (§000), 非 U-5; S-SPC2 N-2: U-7 B (委托代裁 2026-11-27) [A2-16] | |
+| 101 | `ig34_p0281_a032` | 281 | §6.3.5.9.3 Relating PP Records to PC Records — Exa | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-16 S-SPC2 N-2 PP/PGRPID→PC/PCGRPID \| errat | `work/t3_fp_expected_regressions.jsonl:72` | U-7 委托代裁 (§000), 非 U-5; S-SPC2 N-2: U-7 B (委托代裁 2026-11-27) [A2-16] | |
+| 102 | `ig34_p0285_a015` | 285 | §6.3.7.1 Generic Morphology/Physiology Specificati | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-14 B-NV N-1 may included→include \| errata: | `work/t3_fp_expected_regressions.jsonl:77` | U-7 委托代裁 (§000), 非 U-5; B-NV N-1: U-7 B (委托代裁 2026-11-27) [A3-14] | |
+| 103 | `ig34_p0293_a038` | 293 | §6.3.7.3 Musculoskeletal System Findings (MK) | K3b-registry | B-MK T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 104 | `ig34_p0296_a019` | 296 | §6.3.7.4 Nervous System Findings (NV) | writer-Tn-registry | B-NV T-1 (KB 写正确值) | `work/t2_batches/B-NV.writer.jsonl:11` | U-5 (整类, 委托代裁) | |
+| 105 | `ig34_p0296_a023` | 296 | §6.3.7.4 Nervous System Findings (NV) | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_supp_raw/pack_2.md:47` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-NV T-2 | |
+| 106 | `ig34_p0298_a001` | 298 | §6.3.7.4 Nervous System Findings (NV) | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-15 B-NV N-2 删 the \| errata: t3_atom_err \| | `work/t3_fp_expected_regressions.jsonl:80` | U-7 委托代裁 (§000), 非 U-5; B-NV N-2: U-7 B (委托代裁 2026-11-27) [A3-15] | |
+| 107 | `ig34_p0304_a012` | 304 | §6.3.7.5 Ophthalmic Examinations (OE) | K3b-registry | B-OE T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 108 | `ig34_p0304_a026` | 304 | §6.3.7.5 Ophthalmic Examinations (OE) | S1-R2 | T4 R2L owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB  | `evidence/t4_round3_raw/pack_13_14.md:37` | 主人 2026-11-27 第二轮 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-OE T-2 | |
+| 109 | `ig34_p0304_a027` | 304 | §6.3.7.5 Ophthalmic Examinations (OE) | S1-R2 | T4 R2L owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB  | `evidence/t4_round3_raw/pack_13_14.md:38` | 主人 2026-11-27 第二轮 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-OE T-2 | |
+| 110 | `ig34_p0304_a028` | 304 | §6.3.7.5 Ophthalmic Examinations (OE) | S1-R2 | T4 R2L owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB  | `evidence/t4_round3_raw/pack_13_14.md:39` | 主人 2026-11-27 第二轮 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-OE T-2 | |
+| 111 | `ig34_p0304_a029` | 304 | §6.3.7.5 Ophthalmic Examinations (OE) | S1-R2 | T4 R2L owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB  | `evidence/t4_round3_raw/pack_13_14.md:40` | 主人 2026-11-27 第二轮 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-OE T-2 | |
+| 112 | `ig34_p0311_a035` | 311 | §6.3.7.7 Respiratory System Findings (RE) | S1-R2 | B-RE T-1: PDF 叙述 IREEA2 印刷错, KB 改 IRREA2 后不命中 (预期) | `evidence/checkpoints/t2_B-RE_review.md:83` | U-5 (整类, 委托代裁) | |
+| 113 | `ig34_p0316_a023` | 316 | §6.3.8 Physical Examination (PE) | S1-R2 | T4 R2L owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB  | `evidence/t4_round3_raw/pack_13_14.md:41` | 主人 2026-11-27 第二轮 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 S-FND PE T-1 | |
+| 114 | `ig34_p0323_a006` | 323 | §6.3.9.1 Functional Tests (FT) — FT-Assumptions —  | K3b-registry | B-RS T-6 (FT 副本) | `-` | U-5 (整类, 委托代裁) | |
+| 115 | `ig34_p0328_a007` | 328 | §6.3.9.2 Questionnaires (QS) — QS-Assumptions — QR | K3b-registry | B-RS T-6 (QS 副本) | `-` | U-5 (整类, 委托代裁) | |
+| 116 | `ig34_p0332_a009` | 332 | §6.3.9.3.1 Disease Response Use Case | K3b-registry | B-RS T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 117 | `ig34_p0334_a011` | 334 | §6.3.9.3.1 Disease Response Use Case | S1-R2 | B-RS audit: verbatim 与 PDF 页文本不符 Rows 4-7 段被拆; KB 与页文本一致 [B-RS T-8] | `evidence/checkpoints/t2_B-RS_audit.md:17` | U-5 (整类, 委托代裁) | |
+| 118 | `ig34_p0335_a015` | 335 | §6.3.9.3.1 Disease Response Use Case | S1-R2 | B-RS T-7 PDF_TYPO 叙述 RSPLNKGRP→RSLNKGRP \| errata: t3_atom_err \| new_target: domains/RS/e | `work/t3_fp_expected_regressions.jsonl:83` | U-5 (整类, 委托代裁) | |
+| 119 | `ig34_p0335_a016` | 335 | §6.3.9.3.1 Disease Response Use Case | S1-R2 | B-RS T-7 PDF_TYPO 叙述 RSPLNKGRP→RSLNKGRP \| errata: t3_atom_err \| new_target: domains/RS/e | `work/t3_fp_expected_regressions.jsonl:84` | U-5 (整类, 委托代裁) | |
+| 120 | `ig34_p0335_a017` | 335 | §6.3.9.3.1 Disease Response Use Case | S1-R2 | B-RS T-7 PDF_TYPO 叙述 RSPLNKGRP→RSLNKGRP \| errata: t3_atom_err \| new_target: domains/RS/e | `work/t3_fp_expected_regressions.jsonl:85` | U-5 (整类, 委托代裁) | |
+| 121 | `ig34_p0335_a018` | 335 | §6.3.9.3.1 Disease Response Use Case | S1-R2 | B-RS T-7 PDF_TYPO 叙述 RSPLNKGRP→RSLNKGRP \| errata: t3_atom_err \| new_target: domains/RS/e | `work/t3_fp_expected_regressions.jsonl:86` | U-5 (整类, 委托代裁) | |
+| 122 | `ig34_p0336_a005` | 336 | §6.3.9.3.1 Disease Response Use Case | K3b-registry | B-RS T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 123 | `ig34_p0338_a006` | 338 | §6.3.9.3.2 Clinical Classifications Use Case | S1-R2 | [K4 改判] 原子 = PDF (norm ⊂ p337-339); KB 有登记偏离 B-RS T-5 (RS 副本): PDF 'providing an resolutio | `evidence/checkpoints/t2_B-RS_audit.md:14 (页级行; 该批以范围/页号记这组原子)` | U-5 (整类, 委托代裁) | |
+| 124 | `ig34_p0342_a006` | 342 | SC – Examples | K3b-registry | B-SC T-1 | `-` | U-8 委托代裁 (§000), 非 U-5 | |
+| 125 | `ig34_p0342_a007` | 342 | SC – Examples | K3b-registry | B-SC T-1 | `-` | U-8 委托代裁 (§000), 非 U-5 | |
+| 126 | `ig34_p0353_a009` | 353 | §6.3.12.3 Tumor Identification/Tumor Results Examp | K3b-registry | B-TU T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 127 | `ig34_p0355_a014` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:4` | U-5 (整类, 委托代裁) | |
+| 128 | `ig34_p0355_a015` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:5` | U-5 (整类, 委托代裁) | |
+| 129 | `ig34_p0355_a016` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:6` | U-5 (整类, 委托代裁) | |
+| 130 | `ig34_p0355_a017` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:7` | U-5 (整类, 委托代裁) | |
+| 131 | `ig34_p0355_a018` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:8` | U-5 (整类, 委托代裁) | |
+| 132 | `ig34_p0355_a019` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:9` | U-5 (整类, 委托代裁) | |
+| 133 | `ig34_p0355_a020` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:10` | U-5 (整类, 委托代裁) | |
+| 134 | `ig34_p0355_a021` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:11` | U-5 (整类, 委托代裁) | |
+| 135 | `ig34_p0355_a022` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:12` | U-5 (整类, 委托代裁) | |
+| 136 | `ig34_p0355_a023` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:13` | U-5 (整类, 委托代裁) | |
+| 137 | `ig34_p0355_a024` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:14` | U-5 (整类, 委托代裁) | |
+| 138 | `ig34_p0355_a025` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:15` | U-5 (整类, 委托代裁) | |
+| 139 | `ig34_p0355_a026` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:16` | U-5 (整类, 委托代裁) | |
+| 140 | `ig34_p0355_a027` | 355 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-3, B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:17` | U-5 (整类, 委托代裁) | |
+| 141 | `ig34_p0356_a001` | 356 | §6.3.12.3 Tumor Identification/Tumor Results Examp | K3b-registry | B-TR T-3, B-TR T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 142 | `ig34_p0356_a002` | 356 | §6.3.12.3 Tumor Identification/Tumor Results Examp | writer-Tn-registry | B-TR T-1 (KB 写正确值) | `work/t2_batches/B-TR.writer.jsonl:19` | U-5 (整类, 委托代裁) | |
+| 143 | `ig34_p0357_a014` | 357 | §6.3.12.3 Tumor Identification/Tumor Results Examp | S1-R2 | T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 | `evidence/t4_round2_raw/pack_sib_3.md:28` | 主人 2026-11-27 第二轮 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 B-TR T-2 | |
+| 144 | `ig34_p0362_a010` | 362 | §6.4.1 When to Use Findings About Events or Interv | S1-R2 | T4 U-7 后依据变更: KB 按 U-7 A3-7 写正确值 'thought to be related' (= 原子), PDF p362 'thought be rela [B-FA T-4] | `evidence/checkpoints/t2_B-FA_audit.md:36` | 主控决定 M-4 (§000b; 非委托代裁; 按 t4_owner_confirmation.md 的记录已追认); 登记 B-FA T-4 本身 = U-7 A3-7 | |
+| 145 | `ig34_p0363_a008` | 363 | §6.4.1 When to Use Findings About Events or Interv | writer-Tn-registry | B-FA T-5 (KB 写正确值) | `work/t2_batches/B-FA.writer.jsonl:22` | U-5 (整类, 委托代裁) | |
+| 146 | `ig34_p0363_a009` | 363 | §6.4.1 When to Use Findings About Events or Interv | K3b-registry | B-FA T-6 | `-` | U-7 委托代裁 (§000), 非 U-5; B-FA T-6: U-7 B (委托代裁 2026-11-27) [A3-8] | |
+| 147 | `ig34_p0370_a021` | 370 | FA – Examples | S1-R2 | B-FA T-7: PDF parent CE record → KB AE | `evidence/checkpoints/t2_B-FA.md:129` | U-5 (整类, 委托代裁) | |
+| 148 | `ig34_p0372_a013` | 372 | FA – Examples | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A3-9 B-FA T-8 populated→populate \| errata: t3 | `work/t3_fp_expected_regressions.jsonl:113` | U-7 委托代裁 (§000), 非 U-5; B-FA T-8: U-7 B (委托代裁 2026-11-27) [A3-9] | |
+| 149 | `ig34_p0373_a013` | 373 | FA – Examples | S1-R2 | B-FA T-9: FAEVINTX → FAEVLINT | `evidence/checkpoints/t2_B-FA.md:129` | U-5 (整类, 委托代裁) | |
+| 150 | `ig34_p0377_a015` | 377 | SR – Specification | S1-R2 | B-SR T-4: verbatim EGTPTREF 为 PDF 笔误, KB 改 SRTPTREF | `evidence/checkpoints/t2_B-SR.md:116` | U-5 (整类, 委托代裁) | |
+| 151 | `ig34_p0377_a021` | 377 | SR – Assumptions | K3b-registry | B-SR T-3 | `-` | U-5 (整类, 委托代裁) | |
+| 152 | `ig34_p0378_a017` | 378 | SR – Examples | K3b-registry | B-SR T-1 (examples) | `-` | U-5 (整类, 委托代裁) | |
+| 153 | `ig34_p0412_a006` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 154 | `ig34_p0412_a007` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 155 | `ig34_p0412_a008` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 156 | `ig34_p0412_a009` | 412 | §7.3.2 Trial Disease Assessments (TD) – Examples | writer-Tn-registry | S-TDM TD T-1 (KB 写正确值) | `work/t2_batches/S-TDM.writer.jsonl:18` | U-5 (整类, 委托代裁) | |
+| 157 | `ig34_p0413_a010` | 413 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-4 | `-` | U-5 (整类, 委托代裁) | |
+| 158 | `ig34_p0414_a006` | 414 | §7.3.2 Trial Disease Assessments (TD) – Examples | writer-Tn-registry | S-TDM TD T-2 (KB 写正确值) | `work/t2_batches/S-TDM.writer.jsonl:25` | U-5 (整类, 委托代裁) | |
+| 159 | `ig34_p0414_a008` | 414 | §7.3.2 Trial Disease Assessments (TD) – Examples | writer-Tn-registry | S-TDM TD T-3 (KB 写正确值) | `work/t2_batches/S-TDM.writer.jsonl:26` | U-5 (整类, 委托代裁) | |
+| 160 | `ig34_p0414_a013` | 414 | §7.3.2 Trial Disease Assessments (TD) – Examples | K3b-registry | S-TDM TD T-4 | `-` | U-5 (整类, 委托代裁) | |
+| 161 | `ig34_p0419_a006` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ (+A2-4 B-TS T-2 D [B-TS T-3, B-TS T-2] | `work/t3_fp_expected_regressions.jsonl:117` | U-7 委托代裁 (§000), 非 U-5; B-TS T-3: U-7 B (委托代裁 2026-11-27) [A2-5]; B-TS T-2: U-7 B (委托代裁 2026-11-27) [A2-4] | |
+| 162 | `ig34_p0419_a011` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ \| errata: t3_ato | `work/t3_fp_expected_regressions.jsonl:118` | U-7 委托代裁 (§000), 非 U-5; B-TS T-3: U-7 B (委托代裁 2026-11-27) [A2-5] | |
+| 163 | `ig34_p0419_a013` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-5 B-TS T-3 DOSFREQ→DOSFRQ \| errata: t3_ato | `work/t3_fp_expected_regressions.jsonl:119` | U-7 委托代裁 (§000), 非 U-5; B-TS T-3: U-7 B (委托代裁 2026-11-27) [A2-5] | |
+| 164 | `ig34_p0419_a017` | 419 | §7.4.2 Trial Summary (TS) – Assumptions | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-6 B-TS T-4 OUTMSPR→OUTMSPRI \| errata: t3_a | `work/t3_fp_expected_regressions.jsonl:120` | U-7 委托代裁 (§000), 非 U-5; B-TS T-4: U-7 B (委托代裁 2026-11-27) [A2-6] | |
+| 165 | `ig34_p0425_a024` | 425 | §7.4.2.1 Use of Null Flavor | S1-R2 | T4 U-7 (委托代裁 2026-11-27) KB 写正确值, 原子 = PDF: A2-7 B-TS T-6 MAXAGE→AGEMAX \| errata: t3_atom | `work/t3_fp_expected_regressions.jsonl:121` | U-7 委托代裁 (§000), 非 U-5; B-TS T-6: U-7 B (委托代裁 2026-11-27) [A2-7] | |
+| 166 | `ig34_p0427_a011` | 427 | §8 [REPRESENTING RELATIONSHIPS AND DATA] | K3b-registry | B-ch08 T-1 | `-` | U-5 (整类, 委托代裁) | |
+| 167 | `ig34_p0428_a006` | 428 | §8.1.1 --GRPID Example | K3b-registry | B-ch08 T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 168 | `ig34_p0428_a008` | 428 | §8.1.1 --GRPID Example | K3b-registry | B-ch08 T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 169 | `ig34_p0433_a017` | 433 | §8.4.2 Submitting Supplemental Qualifiers in Separ | writer-Tn-registry | B-ch08 T-3 (KB 写正确值) | `work/t2_batches/B-ch08.writer.jsonl:65` | U-5 (整类, 委托代裁) | |
+| 170 | `ig34_p0433_a019` | 433 | §8.4.3 SUPP-- Examples | K3b-registry | B-ch08 T-4 | `-` | U-5 (整类, 委托代裁) | |
+| 171 | `ig34_p0436_a022` | 436 | §8.6.3 Guidelines for Differentiating Between Inte | writer-Tn-registry | B-ch08 T-6 (KB 写正确值) | `work/t2_batches/B-ch08.writer.jsonl:60` | U-5 (整类, 委托代裁) | |
+| 172 | `ig34_p0438_a019` | 438 | RELSUB – Assumptions | K3b-registry | B-REL T-9 (RELSUB 副本), B-ch08 T-9 (ch08 副本) | `-` | U-5 (整类, 委托代裁) | |
+| 173 | `ig34_p0457_a004` | 457 | §10.E Appendix E: Revision History | K3b-registry | S-CH10 T-2 | `-` | U-5 (整类, 委托代裁) | |
+| 174 | `sv20_p0006_a020` | 6 | §1.4 Significant Changes from Prior Versions | writer-Tn-registry | B-model01 T-1 (KB 写正确值) | `work/t2_batches/B-model01.writer.jsonl:82` | U-5 (整类, 委托代裁) | |
 
 ## FIGURE_DEFERRED (11)
 

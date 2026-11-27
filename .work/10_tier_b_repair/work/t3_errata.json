@@ -55,6 +55,48 @@
    "page": 18,
    "atom_in_pdf": false
   },
+  "ig34_p0037_a002": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-ch04 T-3 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib2_1.md:21",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-ch04 T-3"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib2_1.md:21",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 37
+  },
+  "ig34_p0043_a010": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 S-CH4 T-8 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib_1.md:18",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "S-CH4 T-8"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib_1.md:18",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 43
+  },
+  "ig34_p0047_a009": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 S-CH4 T-9 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib_1.md:21",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "S-CH4 T-9"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib_1.md:21",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 47
+  },
   "ig34_p0056_a001": {
    "cls": "R1",
    "terminal": "ATOM_ERR",
@@ -107,6 +149,20 @@
    "page": 63,
    "atom_in_pdf": false
   },
+  "ig34_p0064_a012": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 S-SPEC1 T-3 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib_1.md:22",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "S-SPEC1 T-3"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib_1.md:22",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "PARTIAL",
+   "triage_class": "REAL_GAP",
+   "page": 64
+  },
   "ig34_p0067_a014": {
    "cls": "R1",
    "terminal": "ATOM_ERR",
@@ -132,6 +188,20 @@
    "triage_class": "ATOM_ERR",
    "page": 68,
    "atom_in_pdf": false
+  },
+  "ig34_p0069_a004": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-DM T-3 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib2_1.md:27",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-DM T-3"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib2_1.md:27",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 69
   },
   "ig34_p0069_a013": {
    "cls": "R1",
@@ -302,6 +372,20 @@
    "page": 78,
    "atom_in_pdf": false
   },
+  "ig34_p0078_a022": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-DM T-1 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib_1.md:25",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-DM T-1"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib_1.md:25",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 78
+  },
   "ig34_p0079_a004": {
    "cls": "R1",
    "terminal": "ATOM_ERR",
@@ -366,6 +450,20 @@
    "triage_class": "ATOM_ERR",
    "page": 80,
    "atom_in_pdf": false
+  },
+  "ig34_p0083_a020": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 S-SPREL SE T-1 (KB 写正确值); 审查者原始结果 evidence/t4_round3_raw/pack_13_14.md:36",
+   "source": "T4 R2L (registered-typo-oos; owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "S-SPREL SE T-1"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round3_raw/pack_13_14.md:36",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 83
   },
   "ig34_p0085_a010": {
    "cls": "R2",
@@ -538,6 +636,20 @@
    "triage_class": "PRESENT",
    "page": 118
   },
+  "ig34_p0119_a017": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-EX T-1 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib_1.md:31",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-EX T-1"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib_1.md:31",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 119
+  },
   "ig34_p0120_a003": {
    "cls": "R1",
    "terminal": "ATOM_ERR",
@@ -654,6 +766,34 @@
    "triage_class": null,
    "page": 133,
    "atom_in_pdf": false
+  },
+  "ig34_p0147_a025": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-BE T-3 (KB 写正确值); 审查者原始结果 evidence/t4_supp_raw/pack_1.md:35",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-BE T-3"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_supp_raw/pack_1.md:35",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 147
+  },
+  "ig34_p0147_a026": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-BE T-3 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib_1.md:35",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-BE T-3"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib_1.md:35",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 147
   },
   "ig34_p0149_a006": {
    "cls": "R1",
@@ -1356,6 +1496,20 @@
    "triage_class": null,
    "page": 200
   },
+  "ig34_p0201_a005": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 S-SPC1 CP T-20 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib2_1.md:32",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "S-SPC1 CP T-20"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib2_1.md:32",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 201
+  },
   "ig34_p0206_a001": {
    "cls": "R2",
    "terminal": "PDF_TYPO",
@@ -1397,6 +1551,20 @@
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
    "page": 211
+  },
+  "ig34_p0212_a001": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-CP T-5 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib2_1.md:34",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-CP T-5"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib2_1.md:34",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 212
   },
   "ig34_p0212_a012": {
    "cls": "R2",
@@ -1769,6 +1937,20 @@
    "page": 241,
    "atom_in_pdf": false
   },
+  "ig34_p0256_a007": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-MS T-5 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib2_2.md:17",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-MS T-5"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib2_2.md:17",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 256
+  },
   "ig34_p0257_a010": {
    "cls": "R1",
    "terminal": "ATOM_ERR",
@@ -1900,6 +2082,34 @@
    "page": 260,
    "atom_in_pdf": false
   },
+  "ig34_p0262_a016": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-MB T-1 (KB 写正确值); 审查者原始结果 evidence/t4_supp_raw/pack_2.md:42",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-MB T-1"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_supp_raw/pack_2.md:42",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 262
+  },
+  "ig34_p0262_a017": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-MB T-1 (KB 写正确值); 审查者原始结果 evidence/t4_supp_raw/pack_2.md:43",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-MB T-1"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_supp_raw/pack_2.md:43",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 262
+  },
   "ig34_p0262_a029": {
    "cls": "R2",
    "terminal": "PDF_TYPO",
@@ -1980,6 +2190,48 @@
    "triage_class": null,
    "page": 274,
    "atom_in_pdf": false
+  },
+  "ig34_p0277_a026": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-PCPP T-1 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib_3.md:22",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-PCPP T-1"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib_3.md:22",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 277
+  },
+  "ig34_p0278_a015": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-PCPP T-2 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib_3.md:23",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-PCPP T-2"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib_3.md:23",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 278
+  },
+  "ig34_p0278_a028": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-PCPP T-3 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib_3.md:24",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-PCPP T-3"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib_3.md:24",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 278
   },
   "ig34_p0278_a051": {
    "cls": "R1",
@@ -2132,6 +2384,20 @@
    "page": 289,
    "atom_in_pdf": false
   },
+  "ig34_p0296_a023": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-NV T-2 (KB 写正确值); 审查者原始结果 evidence/t4_supp_raw/pack_2.md:47",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-NV T-2"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_supp_raw/pack_2.md:47",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EXACT",
+   "triage_class": null,
+   "page": 296
+  },
   "ig34_p0298_a001": {
    "cls": "R2",
    "terminal": "PDF_TYPO",
@@ -2224,6 +2490,62 @@
    "page": 304,
    "atom_in_pdf": false
   },
+  "ig34_p0304_a026": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-OE T-2 (KB 写正确值); 审查者原始结果 evidence/t4_round3_raw/pack_13_14.md:37",
+   "source": "T4 R2L (registered-typo-oos; owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-OE T-2"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round3_raw/pack_13_14.md:37",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 304
+  },
+  "ig34_p0304_a027": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-OE T-2 (KB 写正确值); 审查者原始结果 evidence/t4_round3_raw/pack_13_14.md:38",
+   "source": "T4 R2L (registered-typo-oos; owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-OE T-2"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round3_raw/pack_13_14.md:38",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 304
+  },
+  "ig34_p0304_a028": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-OE T-2 (KB 写正确值); 审查者原始结果 evidence/t4_round3_raw/pack_13_14.md:39",
+   "source": "T4 R2L (registered-typo-oos; owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-OE T-2"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round3_raw/pack_13_14.md:39",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 304
+  },
+  "ig34_p0304_a029": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-OE T-2 (KB 写正确值); 审查者原始结果 evidence/t4_round3_raw/pack_13_14.md:40",
+   "source": "T4 R2L (registered-typo-oos; owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-OE T-2"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round3_raw/pack_13_14.md:40",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 304
+  },
   "ig34_p0307_a008": {
    "cls": "R1",
    "terminal": "ATOM_ERR",
@@ -2250,6 +2572,20 @@
    "ledger_verdict_now": "EQUIVALENT",
    "triage_class": null,
    "page": 311
+  },
+  "ig34_p0316_a023": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 S-FND PE T-1 (KB 写正确值); 审查者原始结果 evidence/t4_round3_raw/pack_13_14.md:41",
+   "source": "T4 R2L (registered-typo-oos; owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "S-FND PE T-1"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round3_raw/pack_13_14.md:41",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 316
   },
   "ig34_p0322_a013": {
    "cls": "R1",
@@ -2517,6 +2853,20 @@
    "triage_class": null,
    "page": 348,
    "atom_in_pdf": false
+  },
+  "ig34_p0357_a014": {
+   "cls": "R2",
+   "terminal": "PDF_TYPO",
+   "basis": "T4 R2L owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮): KB 与 PDF 的差异 = 已登记 PDF 笔误 B-TR T-2 (KB 写正确值); 审查者原始结果 evidence/t4_round2_raw/pack_sib_3.md:28",
+   "source": "T4 R2L (registered-typo; owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮))",
+   "registry": [
+    "B-TR T-2"
+   ],
+   "checkpoint": ".work/10_tier_b_repair/evidence/t4_round2_raw/pack_sib_3.md:28",
+   "in_allowed_set": true,
+   "ledger_verdict_now": "EQUIVALENT",
+   "triage_class": null,
+   "page": 357
   },
   "ig34_p0360_a021": {
    "cls": "R1",

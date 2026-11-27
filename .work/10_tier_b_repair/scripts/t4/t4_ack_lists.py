@@ -29,6 +29,9 @@ def source(i, v):
     if i in MAIN_CTRL:
         return MAIN_CTRL[i]
     e, d = ER.get(i) or {}, D.get(i) or {}
+    if str(e.get("source", "")).startswith("T4 R2L"):  # 第二轮改台账 (before the registry t4_decision -> U-7 branch)
+        q = "问题 7b = A" if "registered-typo-oos" in e["source"] else "问题 3 = A"
+        return f"主人 2026-11-27 第二轮 {q} (evidence/checkpoints/t4_owner_confirmation.md 第二轮), 非 U-5; 登记 {'/'.join(e.get('registry') or [])}"
     if str(e.get("source", "")).startswith("T4 U-2"):
         return "U-2 委托代裁 (§000), 非 U-5"
     if KEEPD.get(i):
@@ -41,7 +44,7 @@ def source(i, v):
 cell = lambda s, n=90: (str(s or "-").replace("|", "\\|").replace("\n", " "))[:n]
 
 out = ["# T4 用户确认清单: ATOM_ERR / PDF_TYPO / FIGURE_DEFERRED", "", "<!-- chain: E (plans) -->",
-       "> 状态: **委托代裁整类确认 (U-5=B, C7 38 全检成立), 见 t4_user_decisions.md §000; 非主人逐条确认** (2026-11-27 T4 解冻轮 W3 重生成). U-5 裁定时 (ledger @3a24a1c) 为 ATOM_ERR 197 / PDF_TYPO 122 / FIG 11; 之后进入这三类的原子按 \"决定来源\" 列标注 (U-2 / U-8 / U-7 委托代裁, 见 t4_user_decisions.md §000), 不归入 U-5; 明细见 `evidence/checkpoints/t4_thaw_W3.md`. 生成: `python3 -I .work/10_tier_b_repair/scripts/t4/t4_ack_lists.py`.",
+       "> 状态: **委托代裁整类确认 (U-5=B, C7 38 全检成立), 见 t4_user_decisions.md §000; 非主人逐条确认** (2026-11-27 T4 第二轮改台账 R2L 重生成; 上一次为解冻轮 W3). U-5 裁定时 (ledger @3a24a1c) 为 ATOM_ERR 197 / PDF_TYPO 122 / FIG 11; 之后进入这三类的原子按 \"决定来源\" 列标注 (U-2 / U-8 / U-7 委托代裁, 见 t4_user_decisions.md §000; 第二轮改台账 25 条 = 主人 2026-11-27 问题 3 = A / 7b = A, 见 t4_owner_confirmation.md 第二轮), 不归入 U-5; 明细见 `evidence/checkpoints/t4_thaw_W3.md`、`evidence/checkpoints/t4_round2_ledger_W.md`. 生成: `python3 -I .work/10_tier_b_repair/scripts/t4/t4_ack_lists.py`.",
        "> 单位 = PDF 原子 (不是登记行; 一条登记行可覆盖多个原子, 一个原子也可挂多条登记). 数据源: 最终 ledger `work/coverage_ledger.wc.jsonl` + `work/t3_writeback_decisions.json` + `work/t3_errata.json`.",
        "> G-TB1 要求这三类 \"每条有登记 + 用户 ack\". 这三类在 G-TB3 mapped 口径中从分母去掉, 在 strict 口径中算未覆盖.", ""]
 ids = {v: sorted(i for i, r in L.items() if r["verdict"] == v) for v in ("ATOM_ERR", "PDF_TYPO", "FIGURE_DEFERRED")}

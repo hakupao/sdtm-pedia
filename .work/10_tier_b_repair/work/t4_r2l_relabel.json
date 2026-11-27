@@ -1,0 +1,706 @@
+{
+ "_note": "T4 第二轮改台账 R2L (主人 2026-11-27 直接决定 1A / 2A / 3A / 7b-A; evidence/checkpoints/t4_owner_confirmation.md 第二轮). relabel: 78 条 (IE 53 → t3_writeback.py 规则 T4-R2L-owner-IE; PDF_TYPO 25 → t3_errata_build.py atom_err R2). registry_ptr: 只补决策表登记指针, 标签不变. typo-overlabel 4 条主人未答, 不在本清单. 生成: scripts/t4/t4_r2l_build.py (一次性).",
+ "relabel": {
+  "ig34_p0037_a002": {
+   "group": "registered-typo",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib2_1.md:21",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-ch04 T-3"
+   ]
+  },
+  "ig34_p0043_a010": {
+   "group": "registered-typo",
+   "now": "EXACT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib_1.md:18",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "S-CH4 T-8"
+   ]
+  },
+  "ig34_p0047_a009": {
+   "group": "registered-typo",
+   "now": "EXACT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib_1.md:21",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "S-CH4 T-9"
+   ]
+  },
+  "ig34_p0064_a012": {
+   "group": "registered-typo",
+   "now": "EXACT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib_1.md:22",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "S-SPEC1 T-3"
+   ]
+  },
+  "ig34_p0069_a004": {
+   "group": "registered-typo",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib2_1.md:27",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-DM T-3"
+   ]
+  },
+  "ig34_p0078_a022": {
+   "group": "registered-typo",
+   "now": "EXACT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib_1.md:25",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-DM T-1"
+   ]
+  },
+  "ig34_p0083_a020": {
+   "group": "registered-typo-oos",
+   "now": "EXACT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:36",
+   "decision": "owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "S-SPREL SE T-1"
+   ],
+   "pdf": {
+    "line": "ig34_p0083:39",
+    "token": "birthdtc"
+   },
+   "kb": {
+    "line": "knowledge_base/domains/SE/examples.md:79",
+    "token": "brthdtc"
+   }
+  },
+  "ig34_p0119_a017": {
+   "group": "registered-typo",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib_1.md:31",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-EX T-1"
+   ]
+  },
+  "ig34_p0147_a025": {
+   "group": "registered-typo",
+   "now": "EXACT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_supp_raw/pack_1.md:35",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-BE T-3"
+   ]
+  },
+  "ig34_p0147_a026": {
+   "group": "registered-typo",
+   "now": "EXACT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib_1.md:35",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-BE T-3"
+   ]
+  },
+  "ig34_p0201_a005": {
+   "group": "registered-typo",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib2_1.md:32",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "S-SPC1 CP T-20"
+   ]
+  },
+  "ig34_p0212_a001": {
+   "group": "registered-typo",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib2_1.md:34",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-CP T-5"
+   ]
+  },
+  "ig34_p0256_a007": {
+   "group": "registered-typo",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib2_2.md:17",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-MS T-5"
+   ]
+  },
+  "ig34_p0262_a016": {
+   "group": "registered-typo",
+   "now": "EXACT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_supp_raw/pack_2.md:42",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-MB T-1"
+   ]
+  },
+  "ig34_p0262_a017": {
+   "group": "registered-typo",
+   "now": "EXACT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_supp_raw/pack_2.md:43",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-MB T-1"
+   ]
+  },
+  "ig34_p0277_a026": {
+   "group": "registered-typo",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib_3.md:22",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-PCPP T-1"
+   ]
+  },
+  "ig34_p0278_a015": {
+   "group": "registered-typo",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib_3.md:23",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-PCPP T-2"
+   ]
+  },
+  "ig34_p0278_a028": {
+   "group": "registered-typo",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib_3.md:24",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-PCPP T-3"
+   ]
+  },
+  "ig34_p0296_a023": {
+   "group": "registered-typo",
+   "now": "EXACT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_supp_raw/pack_2.md:47",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-NV T-2"
+   ]
+  },
+  "ig34_p0304_a026": {
+   "group": "registered-typo-oos",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:37",
+   "decision": "owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-OE T-2"
+   ],
+   "pdf": {
+    "line": "ig34_p0304:29",
+    "token": "occular"
+   },
+   "kb": {
+    "line": "knowledge_base/domains/OE/examples.md:142",
+    "token": "ocular comfort"
+   }
+  },
+  "ig34_p0304_a027": {
+   "group": "registered-typo-oos",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:38",
+   "decision": "owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-OE T-2"
+   ],
+   "pdf": {
+    "line": "ig34_p0304:32",
+    "token": "occular"
+   },
+   "kb": {
+    "line": "knowledge_base/domains/OE/examples.md:143",
+    "token": "ocular comfort"
+   }
+  },
+  "ig34_p0304_a028": {
+   "group": "registered-typo-oos",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:39",
+   "decision": "owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-OE T-2"
+   ],
+   "pdf": {
+    "line": "ig34_p0304:35",
+    "token": "occular"
+   },
+   "kb": {
+    "line": "knowledge_base/domains/OE/examples.md:144",
+    "token": "ocular comfort"
+   }
+  },
+  "ig34_p0304_a029": {
+   "group": "registered-typo-oos",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:40",
+   "decision": "owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-OE T-2"
+   ],
+   "pdf": {
+    "line": "ig34_p0304:38",
+    "token": "occular"
+   },
+   "kb": {
+    "line": "knowledge_base/domains/OE/examples.md:145",
+    "token": "ocular comfort"
+   }
+  },
+  "ig34_p0316_a023": {
+   "group": "registered-typo-oos",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round3_raw/pack_13_14.md:41",
+   "decision": "owner 2026-11-27 问题 7b = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "S-FND PE T-1"
+   ],
+   "pdf": {
+    "line": "ig34_p0316:46",
+    "token": "laterallity"
+   },
+   "kb": {
+    "line": "knowledge_base/domains/PE/spec.md:174",
+    "token": "detailing laterality."
+   }
+  },
+  "ig34_p0357_a014": {
+   "group": "registered-typo",
+   "now": "EQUIVALENT",
+   "to": "PDF_TYPO",
+   "raw": "evidence/t4_round2_raw/pack_sib_3.md:28",
+   "decision": "owner 2026-11-27 问题 3 = A (evidence/checkpoints/t4_owner_confirmation.md 第二轮)",
+   "registry": [
+    "B-TR T-2"
+   ]
+  },
+  "sv20_p0003_a011": {
+   "group": "v2.0-TOC",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_2.md:33",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 2 = A)"
+  },
+  "sv20_p0003_a012": {
+   "group": "v2.0-TOC",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_2.md:34",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 2 = A)"
+  },
+  "sv20_p0046_a002": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:26",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0047_a002": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:28",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0052_a012": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:33",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0052_a013": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:34",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0052_a014": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:35",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0052_a016": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:36",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0052_a017": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:37",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0053_a004": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:38",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0053_a011": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:39",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0053_a012": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:40",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0053_a014": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:41",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0053_a015": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:42",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0053_a016": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:43",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0053_a018": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_3.md:44",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0055_a005": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:20",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0055_a006": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:21",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0055_a007": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:22",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0055_a008": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:23",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0055_a009": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:24",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0055_a010": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:25",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0055_a011": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:26",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0055_a012": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:27",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0056_a012": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:29",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0056_a013": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:30",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0056_a015": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:31",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0056_a016": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:32",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0057_a005": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:34",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0057_a008": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:35",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0057_a009": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:36",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0057_a010": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:37",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0058_a005": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:39",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0058_a006": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:40",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0058_a007": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:41",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0058_a015": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:43",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0058_a017": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_4.md:44",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0058_a018": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:22",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0059_a001": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:23",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0059_a002": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:24",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0059_a010": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:27",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0059_a011": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:28",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0059_a012": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:29",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0059_a014": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:30",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0059_a015": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:31",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0059_a016": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:32",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0059_a017": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:33",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0060_a001": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:34",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0065_a003": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:39",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0069_a001": {
+   "group": "R1-row",
+   "now": "EXACT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_supp_raw/pack_2.md:50",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0069_a002": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:43",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0069_a003": {
+   "group": "R1-row",
+   "now": "EXACT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_supp_raw/pack_2.md:51",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  },
+  "sv20_p0069_a004": {
+   "group": "R1-row",
+   "now": "EQUIVALENT",
+   "to": "INTENTIONAL_EXCLUDE",
+   "raw": "evidence/t4_q9_raw/pack_5.md:44",
+   "decision": "owner 2026-11-27: evidence/checkpoints/t4_owner_confirmation.md 第二轮 (问题 1 = A)"
+  }
+ },
+ "registry_ptr": {
+  "ig34_p0198_a014": {
+   "add": [
+    "REG BS N-1"
+   ],
+   "raw": "evidence/t4_round3_raw/pack_8.md:54"
+  },
+  "ig34_p0206_a009": {
+   "add": [
+    "S-SPC1 CP T-16a"
+   ],
+   "raw": "evidence/t4_round3_raw/pack_8.md:54"
+  },
+  "ig34_p0263_a020": {
+   "add": [
+    "B-MB T-2"
+   ],
+   "raw": "evidence/t4_round3_raw/pack_8.md:54"
+  },
+  "ig34_p0355_a027": {
+   "add": [
+    "B-TR T-1"
+   ],
+   "raw": "evidence/t4_round2_raw/pack_typo_2.md:50"
+  },
+  "ig34_p0356_a001": {
+   "add": [
+    "B-TR T-1"
+   ],
+   "raw": "evidence/t4_round3_raw/pack_10.md:57"
+  }
+ }
+}

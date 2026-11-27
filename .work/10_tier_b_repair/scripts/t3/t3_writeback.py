@@ -4,6 +4,8 @@ Input is always the frozen backup work/coverage_ledger.wc.pre_t3.jsonl (created 
 Allowed set = triage_merged.json atoms ∪ work/t3_t2s_atoms.jsonl ∪ t3_errata keys (主控 C2). Per atom, first rule:
   1 S1 errata (work/t3_errata.json atom_err)           -> ATOM_ERR (R1) / PDF_TYPO (R2)
   2 triage FIGURE                                      -> FIGURE_DEFERRED
+  2b T4 R2L list work/t4_r2l_relabel.json, to = IE    -> INTENTIONAL_EXCLUDE (VERSION_MISMATCH; 主人 2026-11-27 问题 1 / 2 = A;
+     before K3b / live-hit). Its registry_ptr only appends registry ids to the evidence of atoms that stay PDF_TYPO.
   3 pending_user concluded '残留'                       -> residual (verdict kept)
   4 norm(verbatim) ⊂ norm(target KB file) right now    -> EXACT, also over triage IE (主控 C5; original IE ack kept in evidence)
     (targets: fp_match targets ∪ triage kb_loc/target ∪ S1 remap ∪ writer kb_file)
@@ -17,7 +19,8 @@ Allowed set = triage_merged.json atoms ∪ work/t3_t2s_atoms.jsonl ∪ t3_errata
   8 else residual (verdict kept, listed)
 Only rows whose verdict changes are rewritten (every row of a duplicated id). The 4 in-scope triage atoms that have no
 ledger row are appended. Asserts (exit 1): changed/appended ids ⊆ allowed; untouched lines byte-identical to backup;
-every changed row matched_by.phase == 'TB'; IE flips ⊆ t1_ie_final.md.
+every changed row matched_by.phase == 'TB'; IE flips ⊆ t1_ie_final.md (except rule T4-R2L-owner-IE);
+every T4 R2L listed atom ends on its listed label.
 Usage: python3 -I .work/10_tier_b_repair/scripts/t3/t3_writeback.py [--ts 2026-11-26T00:00:00Z]
 """
 import argparse, collections, difflib, hashlib, json, os, re, shutil, subprocess, sys
@@ -51,6 +54,13 @@ for r in rows:
     led[r["pdf_atom_id"]] = r  # last row wins (t3_recompute semantics)
 # 主控 C2: allowed set = triage ∪ T2S ∪ t3_errata per-atom keys (atom_err ∪ target_remap)
 ALLOWED = (set(T) | set(S2S) | set(ER["atom_err"]) | set(ER["target_remap"])) & set(A)
+# T4 第二轮改台账 R2L (主人 2026-11-27 问题 1 = A / 2 = A): data list work/t4_r2l_relabel.json (scripts/t4/t4_r2l_build.py);
+# the 53 INTENTIONAL_EXCLUDE entries join the allowed set (the 25 PDF_TYPO ones come in as t3_errata atom_err R2)
+R2L_ALL = json.load(open(f"{W}/t4_r2l_relabel.json"))
+R2L = R2L_ALL["relabel"]
+R2L_IE = {i: e for i, e in R2L.items() if e["to"] == "INTENTIONAL_EXCLUDE"}
+assert set(R2L_IE) <= set(A) and not set(R2L_IE) & set(ER["atom_err"]), sorted(set(R2L_IE) & set(ER["atom_err"]))
+ALLOWED |= set(R2L_IE)
 C1 = {k: v for k, v in json.load(open(f"{W}/t3_c1_manual.json")).items() if not k.startswith("_")}
 order, idx = atom_order()
 WR = collections.defaultdict(list)
@@ -243,6 +253,12 @@ def decide(i, no_exact=False):
         return x["terminal"], f"S1-{x['cls']}", (x["registry"][0].split(" ")[0] if x["registry"] else "T1/T2-errata"), ev, {}
     if t and t["final_class"] == "FIGURE":
         return "FIGURE_DEFERRED", "FIGURE", f"T1:{t['pack_id']}", ev, {}
+    if i in R2L_IE:  # T4 R2L (主人 2026-11-27 问题 1 = A / 2 = A): before K3b / live-hit (an R1-row / TOC atom may still hit KB)
+        e = R2L_IE[i]
+        why = "R1-row: KB 精简列一致, PDF 其它列未收" if e["group"] == "R1-row" else "v2.0 目录条目, 对应章节 KB 未收"
+        ev.update(t4_r2l=dict(group=e["group"], decision=e["decision"], raw=e["raw"], spec="subagent_prompts/t4/t4_round2_ledger_spec_v1.0.md §1"))
+        return "INTENTIONAL_EXCLUDE", "T4-R2L-owner-IE", "T4-R2L", ev, dict(
+            category="VERSION_MISMATCH", exclusion_reason=f"Tier B T4 round-2 IE (VERSION_MISMATCH; {why})", approved_by=e["decision"])
     if i in K3B:  # attempt 3 / 审计 K3b: registered deviation touches this atom -> PDF_TYPO (before live-hit / IE)
         ev.update(registry=sorted(set(K3B[i])), k3b=K3B_WHY.get(i))
         rb = K3B[i][0].split(" ")[0]
@@ -485,6 +501,13 @@ for k, ids in grp.items():
         K11["|".join(k[1:])[:120]] = dict(atoms=sorted(ids), occurrences=sorted(occ), surplus=surplus)
         for i in surplus:
             decided[i] = decide(i, no_exact=True)
+# T4 R2L §2 item 3 (pointer only): registry ids the reviewers found missing from the evidence of atoms that stay PDF_TYPO
+REG_IDS = {r["id"] for r in REG}
+for i, p in R2L_ALL["registry_ptr"].items():
+    assert i in decided and decided[i][0] == "PDF_TYPO" and all(r in REG_IDS for r in p["add"]), (i, decided.get(i, [None])[0])
+    ev = decided[i][3]
+    ev["registry"] = list(ev.get("registry") or []) + [r for r in p["add"] if r not in (ev.get("registry") or [])]
+    ev["t4_r2l_registry_ptr"] = dict(add=p["add"], raw=p["raw"], note="T4 R2L §2.3: 只补登记指针, 标签与规则不变")
 decisions, new_rows = {}, {}
 for i in sorted(ALLOWED):
     verdict, rule, batch, ev, extra = decided[i]
@@ -538,7 +561,7 @@ for l1 in chk[len(raw):]:
     if r1["pdf_atom_id"] not in ALLOWED or r1["pdf_atom_id"] in led or r1["matched_by"].get("phase") != "TB":
         bad.append(f"bad appended row {r1['pdf_atom_id']}")
 for i, (v, mb, _) in new_rows.items():
-    if v == "INTENTIONAL_EXCLUDE" and i not in IE_FINAL:
+    if v == "INTENTIONAL_EXCLUDE" and i not in IE_FINAL and not (i in R2L_IE and mb["rule"] == "T4-R2L-owner-IE"):
         bad.append(f"IE flip not in t1_ie_final: {i}")
     if mb["rule"] == "C1-manual-PDF+KB" and not mb["evidence"]["c1_check"]:
         bad.append(f"C1 evidence fails: {i}")
@@ -565,6 +588,17 @@ for i, k in KEEP.items():
         bad.append(f"keep_k3b entry not PDF_TYPO in final ledger: {i}")
     if k["action"] == "keep_k3b" and i not in K3B:
         bad.append(f"keep_k3b entry no longer touched by K3b rules: {i}")
+# T4 R2L: every listed atom ends on its listed label; the IE ones are not claimed by an earlier decide() branch
+R2L_UNDECIDED = sorted(set(R2L) - set(decided))  # reviewer (R2L): a listed atom outside the allowed set is reported, not a KeyError
+for i in R2L_UNDECIDED:
+    bad.append(f"T4 R2L atom not in allowed set / not decided: {i}")
+for i, e in ((i, e) for i, e in R2L.items() if i in decided):
+    if final.get(i) != e["to"]:
+        bad.append(f"T4 R2L atom not at listed label: {i} {final.get(i)} != {e['to']}")
+    if i in R2L_IE and (i in K3B or (T.get(i) or {}).get("final_class") == "FIGURE" or decided[i][1] != "T4-R2L-owner-IE"):
+        bad.append(f"T4 R2L IE atom decided by another branch: {i} {decided[i][1]}")
+    if i not in R2L_IE and decided[i][1] != "S1-R2":
+        bad.append(f"T4 R2L PDF_TYPO atom not via S1-R2: {i} {decided[i][1]}")
 for i in K3B_ASSERT_HITS:
     bad.append(f"§5.0 EXACT/EQUIVALENT touched by registered deviation (final ledger): {i} {K3B[i]}")
 open(f"{W}/t3_t4_k3b_out_of_scope.txt", "w").write("".join(f"{i}\t{final.get(i)}\t{';'.join(sorted(set(v)))}\n" for i, v in sorted(K3B_OUT.items())))
@@ -593,6 +627,7 @@ print("K3b extended assertion over final ledger §5.0 EXACT/EQUIVALENT: hits =",
 print("K3b: atoms", len(K3B), "extra (not otherwise allowed)", len(K3B_EXTRA), "| registry rows not machine-usable", len(K3B_UNUSABLE))
 print("anchorless EXACT (T4 risk list work/t3_t4_risk_anchorless.txt):", len(anchorless))
 print("K3 allowed-set extension (writer T-n atoms not otherwise allowed):", len(K3_EXTRA), sorted(K3_EXTRA))
+print("T4 R2L:", len(R2L), "listed; final label as listed:", sum(final.get(i) == e["to"] for i, e in R2L.items()), "| IE", len(R2L_IE))
 print("K11 groups short of occurrences:", json.dumps(K11, ensure_ascii=False))
 print("T1 kb_loc check:", dict(C((d["evidence"].get("t1_kb_loc_check") or {}).get("status") for d in decisions.values() if d["evidence"].get("t1_kb_loc_check"))))
 print("residual (allowed, verdict kept):", len(res), dict(C((d["old"], d["in_triage"]) for d in res.values())))

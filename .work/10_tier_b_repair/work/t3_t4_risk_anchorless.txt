@@ -1,7 +1,6 @@
 ig34_p0060_a024	no governing numbered heading	knowledge_base/domains/CO/spec.md:123
 ig34_p0063_a022	no governing numbered heading	knowledge_base/domains/DM/spec.md:198
 ig34_p0064_a011	no governing numbered heading	knowledge_base/domains/DM/spec.md:294
-ig34_p0064_a012	no governing numbered heading	knowledge_base/domains/DM/spec.md:296
 ig34_p0065_a003	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:13
 ig34_p0065_a004	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:13
 ig34_p0065_a005	no governing numbered heading	knowledge_base/domains/DM/assumptions.md:15

@@ -4,6 +4,8 @@ atom_err: every t1_errata.t3_atom_err key + t3_fp_expected R1/R2 + triage final_
   R1 (atom extraction wrong, KB = PDF)            -> terminal ATOM_ERR
   R2 (atom = PDF, KB deliberately != PDF, T-n)    -> terminal PDF_TYPO (registry id required)
 target_remap: t1 remap keys (the _B-FA group key expanded to its 23 atoms) + R3 entries of t3_fp_expected.
+  + T4 R2L (主人 2026-11-27 问题 3 / 7b = A): the PDF_TYPO entries of work/t4_r2l_relabel.json -> R2 with the listed
+  registry id (asserted to exist; out-of-scope entries re-assert pdf / kb line + token).
 pending_user: 4 disputed atoms with the T2 outcome (live hit on target or not).
 Every entry carries in_allowed_set (triage ∪ t3_t2s_atoms) and ledger_verdict_now; nothing outside the allowed
 set is flipped by t3_writeback (they are reported as 'explained' only).
@@ -131,6 +133,27 @@ for i, t in T.items():
 # KB ch04:1478 read "...split between words to improve readability."; the atom drops "to improve readability" (K4 below re-checks atom ∉ PDF)
 put("ig34_p0056_a006", "R1", "T4 U-2 A (委托代裁): 原子第 2/3 格漏 'to improve readability' 与句点; PDF p56:37-40 与 KB ch04:1478 一致",
     "T4 U-2 (t4_user_decisions.md §000)", [], _find(f"{CK}/t4_user_decisions.md", ["| U-2 | **A**"]))
+# (5) T4 第二轮改台账 R2L (主人 2026-11-27 问题 3 = A / 7b = A): 25 atoms whose KB-vs-PDF difference is a registered PDF typo
+# (KB 写正确值) -> R2 PDF_TYPO bound to the given registry id. Data: work/t4_r2l_relabel.json (scripts/t4/t4_r2l_build.py);
+# out-of-scope ones (7b) re-assert pdf / kb line + token like the U-8 keep list.
+R2L = json.load(open(f"{W}/t4_r2l_relabel.json"))["relabel"]
+R2L_BAD = []
+for i, e in R2L.items():
+    # reviewer (R2L): the pdf / kb re-check is mandatory for group registered-typo-oos and forbidden for every other group
+    assert ("pdf" in e) == ("kb" in e) == (e["group"] == "registered-typo-oos"), (i, e["group"], sorted(e))
+    if e["to"] != "PDF_TYPO":
+        continue
+    assert i not in atom_err and i in A, i
+    assert all(r in {x["id"] for x in REG} for r in e["registry"]), (i, e["registry"])
+    if e["group"] == "registered-typo-oos":
+        pg, ln = e["pdf"]["line"].split(":")
+        kf, kn = e["kb"]["line"].rsplit(":", 1)
+        if e["pdf"]["token"] not in norm_pdf(open(f"{W}/pdf_pages/{pg}.txt", encoding="utf-8").read().splitlines()[int(ln) - 1]) or \
+                e["kb"]["token"] not in norm(open(f"{ROOT}/{kf}", encoding="utf-8").read().splitlines()[int(kn) - 1]):
+            R2L_BAD.append(i)
+    put(i, "R2", f"T4 R2L {e['decision']}: KB 与 PDF 的差异 = 已登记 PDF 笔误 {'/'.join(e['registry'])} (KB 写正确值); 审查者原始结果 {e['raw']}",
+        f"T4 R2L ({e['group']}; {e['decision']})", list(e["registry"]), f"{os.path.relpath(W, ROOT)[:-len('work')]}{e['raw']}")
+assert not R2L_BAD, R2L_BAD
 
 # ── attempt 2 / 审计 K4: an R1 (ATOM_ERR) needs norm(atom) ∉ norm_pdf(p-1..p+1). If the atom IS on the PDF page and the
 # batch registered a KB deviation for it (registry row on p-1..p+1 whose pdf_value ⊂ atom) -> R2 PDF_TYPO; else drop it.
