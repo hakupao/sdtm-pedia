@@ -81,6 +81,20 @@ real KB md5 before = after e2d862e25f04a3757a5ba5436092c416; git status knowledg
 - fp_match 的 `--sections` 仍用 T0 的 `section_coverage.wc.baseline.jsonl` (只取其中 "节 → 目标文件" 的映射), 所以现基线的取靶范围同样绑定在 T0 的节划分上.
 - 脚本里的 `kbsum` 只算 `*.md` (真 KB 目录下另有一个未跟踪的 `.omc`); 独立审查另用全文件 md5 清单 + `cmp` 证明运行前后 KB 无变化.
 
+## 6. 改台账 (R2L) 之后的重建 (2026-11-27; 主控执行, 对象 HEAD `5d7e4cb` 的台账 md5 `16024ac09721cb3f8519cd68fa455196`, KB 树不变)
+
+§5 第一条的限制到期: R2L 批改了 78 条标签, 基线须重建. 做法与 §3 / §4 完全相同, 脚本没有改:
+
+```bash
+bash .work/10_tier_b_repair/scripts/t4/t0_mutation_head.sh --make-baseline
+bash .work/10_tier_b_repair/scripts/t4/t0_mutation_head.sh > .work/10_tier_b_repair/evidence/checkpoints/t0_mutation_head.log 2>&1; echo $?   # 0
+```
+
+- 新基线 md5: fp `1d6b241339284abbced5dc5f022e824c` / section_coverage `3657fe9ac1bce6d40cbb5886ab9ef142` (这两个随台账变; 上一版 `5126f4bd…` / `ad9a6dad…` 在提交 `5d7e4cb` 及之前的历史里) / BPCPP `9ea5a2c9f49ddbbfe985f3f6d10d0d66` / MB `f3a24f55889750ab07f213fff9d8c662` / EG `2d54e7858455b3bb1e6c50c5d1b70e38` / REL `c367be79a975880f11eafd0312c81382` (这四个只随 KB 变, 与 §4 相同).
+- 结果: exit 0; 13 / 13 mutation applied; EXPECT 8 / 8 OK; M4 7 / 7 OK; RESTORE 三个 GREEN; `MUTATION RESULT: ALL MATCH`; real KB md5 before = after `e2d862e25f04a3757a5ba5436092c416`; `git status knowledge_base/ archive/ releases/` 空.
+- 新日志与 §4 那一版日志逐行 diff: 只有 9 处 `TB: current Tier B sections=` 的计数 (101 → 98; M2d 那一例 102 → 99) 与旧日志末行多出的 `exit=0`; 节数变化是 R2L 把 3 节改出了 "current Tier B" 口径 (见 `t4_round2_ledger_W.md` §4), 各用例的 expect / got 没有变化.
+- 这次重建**没有再送独立审查** (脚本与用例未改, 只是基线文件随台账重生成); 下面的独立审查针对的是 §1-§5 那一版. 总闸 attempt 3 的预跑日志 `work/t4/gate_prerun.log` 里有同一命令在提交后的输出.
+
 <!-- REVIEW -->
 ## 独立审查 (誊录; 审查者 `oh-my-claudecode:verifier` opus, 只读, 2026-11-27; 对象 HEAD `1df9f60`; 主控不改判)
 

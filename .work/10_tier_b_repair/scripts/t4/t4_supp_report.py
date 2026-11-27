@@ -94,8 +94,9 @@ json.dump(pend, open(f"{W}/t4/supp/relabel_pending.json", "w", encoding="utf-8")
 
 # ---- gate numbers per option, on scratch copies of the ledger
 os.makedirs(SC, exist_ok=True)
-led = f"{W}/coverage_ledger.wc.jsonl"
+led = f"{W}/coverage_ledger.wc.pre_r2l.jsonl"   # frozen pre-R2L ledger (rule-B backup): the baseline every scenario is rehearsed on
 LEDGER_MD5 = "60729f7b64b7c1dfaf2174e394f6dd9c"   # value cited in t4_attempt2_report.md; asserted unchanged below
+LIVE = f"{W}/coverage_ledger.wc.jsonl"          # working ledger after the R2L batch (read-only here)
 rows = lj(led)
 L = {r["pdf_atom_id"]: r for r in rows}
 r2pop = json.load(open(f"{W}/t4/round2/round2_population.json"))
@@ -114,11 +115,15 @@ def scen(name, to):
             if r2_["pdf_atom_id"] in to:
                 r2_["verdict"] = to[r2_["pdf_atom_id"]]
             fh.write(json.dumps(r2_, ensure_ascii=False) + "\n")
+    return dict(n=len(to), **nums(f, name))
+
+
+def nums(f, name):
     out = subprocess.run(["python3", "-I", f"{TB}/scripts/t4/t4_coverage_decomp.py", f], capture_output=True, text=True, cwd=ROOT).stdout
     d = {l.split(":")[0].strip(): l.split(":", 1)[1].split("(")[0].strip() for l in out.splitlines() if l.startswith(("final", "content"))}
     tb = subprocess.run(["python3", "-I", f"{TB}/scripts/t3_recompute.py", "--ledger", f, "--out", f"{SC}/sc_{name}.jsonl"], capture_output=True, text=True, cwd=ROOT).stdout
     g = next(l for l in tb.splitlines() if "§5.0 scope" in l)
-    return dict(n=len(to), u1b=d["final U-1 B"], strict=d["final strict"], mapped=d["final mapped"], content=d["content EXACT+EQUIV"],
+    return dict(u1b=d["final U-1 B"], strict=d["final strict"], mapped=d["final mapped"], content=d["content EXACT+EQUIV"],
                 g1=re.search(r"G-TB1 pass=(\S+)", g).group(1), g2_literal=re.search(r"G-TB2 pass=(\S+)", g).group(1), residual=re.search(r"residual_gap=(\d+)", g).group(1))
 
 
@@ -140,6 +145,21 @@ SCEN = collections.OrderedDict([
 ])
 json.dump(SCEN, open(f"{W}/t4/supp/scenarios.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
 assert md5(led) == LEDGER_MD5, md5(led)
+# ---- what the R2L batch actually did to the working ledger, checked against the list
+LIVE_MD5 = md5(LIVE)
+LV = collections.defaultdict(set)
+for r in lj(LIVE):
+    LV[r["pdf_atom_id"]].add(r["verdict"])
+APPLIED = [p["atom_id"] for p in pend if LV[p["atom_id"]] == {p["to"]}]
+NOT_APPLIED = [p["atom_id"] for p in pend if LV[p["atom_id"]] == {p["now"]}]
+assert len(APPLIED) + len(NOT_APPLIED) == len(pend), "a listed atom is in neither its old nor its proposed label"
+assert set(APPLIED) == set(DECIDED), "applied set differs from what the owner decided (1A / 2A / 3A / 7b-A)"
+assert set(NOT_APPLIED) == set(grp("typo-overlabel")), NOT_APPLIED
+changed_live = sum(1 for a, b in zip(rows, lj(LIVE)) if a["verdict"] != b["verdict"])
+assert len(rows) == len(lj(LIVE)) and changed_live == len(APPLIED), changed_live
+LIVE_NUMS = nums(LIVE, "live")
+DEC_KEY = next(k for k in SCEN if "主人已定的全部: 1A" in k)
+assert LIVE_NUMS == {k: v for k, v in SCEN[DEC_KEY].items() if k != "n"}, (LIVE_NUMS, SCEN[DEC_KEY])
 
 # ---- reconcile the rule counts quoted by the attempt-1 reviewer with today's
 dec_now = json.load(open(f"{W}/t3_writeback_decisions.json"))
@@ -155,7 +175,7 @@ vc = lambda d, layer=None: collections.Counter(r["verdict"] for r in d.values() 
 pop = json.load(open(f"{W}/t4/supp/supp_population.json"))
 qp = json.load(open(f"{W}/t4/q9/q9_population.json"))
 o = ["# T4.1 补检 (\"0 抽中\" 各类全检) + Q9 扩检 + 第二轮补检 — 汇总", "", "<!-- chain: E (plans) -->",
-     f"> 状态: **补检 PRE_EXISTING 层不通过 → 触发 Q9 升级; Q9 扩检与第二轮补检已跑完; 共 {len(pend)} 条标签待改, 待主人裁定** (2026-11-27). KB 未改; 台账未改.",
+     f"> 状态: **补检 PRE_EXISTING 层不通过 → 触发 Q9 升级; Q9 扩检与第二轮补检已跑完; 共查出 {len(pend)} 条标签应改; 其中 {len(APPLIED)} 条主人已定 (1A / 2A / 3A / 7b-A) 并已由 R2L 批执行, {len(NOT_APPLIED)} 条多标的 PDF_TYPO 待主人答 (问题 A), 另 1 条判不了的待主人答 (问题 B)** (2026-11-27). KB 未改; 台账已按 R2L 改 (`{LEDGER_MD5[:8]}…` → `{LIVE_MD5[:8]}…`; 改前备份 `work/coverage_ledger.wc.pre_r2l.jsonl`; 见 `t4_round2_ledger_W.md` / `t4_round2_ledger_review.md` / `t4_round2_ledger_audit.md`).",
      "> 审查: `oh-my-claudecode:tracer` (opus) 独立实例, 只读: 补检 8 + Q9 8 + 第二轮 8. 原始结果由审查者自己写入 `evidence/t4_supp_raw/`、`evidence/t4_q9_raw/`、`evidence/t4_round2_raw/`. 本文件 §1-§6 是主控用 `scripts/t4/t4_supp_report.py` 从原始结果机械汇总的, 不改判 (规则 D); 文末一节是主控手写的 \"独立审查 B 的处理\".",
      "> 口径 (派发前写死): `subagent_prompts/t4/t4_supp_fullcheck_v1.0.md`, `t4_q9_extension_v1.0.md`, `t4_supp_round2_v1.0.md`. 规则 B 归档: `evidence/failures/step_T4.SUPP_attempt_1.md`. 对本汇总的独立审查原文: `evidence/t4_gap_review_raw/review_b.md`.", "",
      "## 1. 复跑", "", "```bash", "T=.work/10_tier_b_repair",
@@ -164,7 +184,7 @@ o = ["# T4.1 补检 (\"0 抽中\" 各类全检) + Q9 扩检 + 第二轮补检 �
      "python3 -I $T/scripts/t4/t4_q9_sample.py       # Q9 192 条 / 8 包 (seed 20261131)",
      "python3 -I $T/scripts/t4/t4_round2_sample.py   # 第二轮 135 条 / 7 包 (seed 20261132)",
      "python3 -I $T/scripts/t4/t4_round2b_sample.py  # 第二轮补充 40 条 / 2 包",
-     "python3 -I $T/scripts/t4/t4_supp_report.py     # 本文件 + t4_relabel_pending.md (台账只读)", "```",
+     "python3 -I $T/scripts/t4/t4_supp_report.py     # 本文件 + t4_relabel_pending.md (台账只读; 各选法在改前备份台账的副本上预演)", "```",
      "- 这些抽样脚本不触碰总闸 / 人工样本文件 (`gate_sample.jsonl` `" + md5(f"{W}/t4/gate_sample.jsonl") + "`, `human_sample.jsonl` `" + md5(f"{W}/t4/human_sample.jsonl") + "`); 它们只 exec `t4_sample.py` / `t4_render.py` 的定义段.",
      "- 样本 md5: supp `" + md5(f"{W}/t4/supp/supp_sample.jsonl") + "`; q9 `" + md5(f"{W}/t4/q9/q9_sample.jsonl") + "`; round2 `" + md5(f"{W}/t4/round2/round2_sample.jsonl") + "`" +
      ("; round2b `" + md5(f"{W}/t4/round2/round2b_sample.jsonl") + "`" if os.path.exists(f"{W}/t4/round2/round2b_sample.jsonl") else "") + ".", "",
@@ -231,7 +251,7 @@ o += ["| 层 | 取法 | 本次审 | 结果 |", "|---|---|--:|---|",
       (f" TYPO_SIB2 另有 NOT_HOLD {s2c['NOT_HOLD']} 条, 见 §6." if s2c["NOT_HOLD"] else ""),
       f"- **PDF_TYPO**: 抽 {sum(tc.values())} 条 0 错 → 错误率 95% 上界约 {ub(max(1, sum(tc.values()))):.1f}% (同样是近似). 连同总闸样本里判过的 5 条共 {sum(tc.values()) + 5} 条看过; PDF_TYPO 类**不是全检**. attempt 1 要求的 \"ATOM_ERR / PDF_TYPO 合计补抽到 ≥ 30\" 现为: ATOM_ERR 侧 C7 38 + triage 74 + K4 2 全检, PDF_TYPO 侧抽 {sum(tc.values())}.",
       "- **TYPO 筛法的盲区 (delta 复审 M5; 如实)**: ① 只按登记的 `pdf_page` ±1 取原子, 而有些登记实际跨多页 (页段写在 `pdf_value` / `basis` 的文字里); ② 与 KB 行比重合度时只用登记给的行号; ③ TYPO_SIB2 不收 EXACT. delta 复审者另用 \"PDF 笔误写法的 token 在全 KB 不存在\" 做全量反查, **范围内没有找到漏掉的原子**, 但 195 条 \"KB 写正确值\" 登记里有 73 条 (空格 / 标点类笔误) 抽不出可用 token, 测不了. 主控用更宽的筛法 (改正值在 KB 的所有出现行都算) 重筛: 范围内另有 169 条候选、范围外 142 条候选, **都没有审** (宽筛法噪声大; 是否审交主人定).",
-      "- **范围外的已登记笔误同类原子 (delta 复审 H4)**: 第二轮 TYPO 层只取了范围内. delta 复审者在文本层 (未看渲染页) 确认范围外有 6 条同类: `ig34_p0083_a020` (S-SPREL SE T-1, 现 EXACT)、`ig34_p0304_a026` ~ `a029` (B-OE T-2, 现 EQUIVALENT)、`ig34_p0316_a023` (S-FND PE T-1, 现 EQUIVALENT). 上一轮 U-8 把范围外同类的 4 条改成了 PDF_TYPO. 这 6 条未经 tracer 审, 未进待改清单; 交主人定 (一页问题 7).",
+      "- **范围外的已登记笔误同类原子 (delta 复审 H4)**: 第二轮 TYPO 层只取了范围内. delta 复审者在文本层 (未看渲染页) 确认范围外有 6 条同类: `ig34_p0083_a020` (S-SPREL SE T-1, 现 EXACT)、`ig34_p0304_a026` ~ `a029` (B-OE T-2, 现 EQUIVALENT)、`ig34_p0316_a023` (S-FND PE T-1, 现 EQUIVALENT). 上一轮 U-8 把范围外同类的 4 条改成了 PDF_TYPO. 这 6 条在第二轮时未经 tracer 审, 未进待改清单, 交主人定 (一页问题 7); 后续: 主人选 7b = A, 第三轮审查者对渲染页逐条确认, 已并入清单 (见下一节).",
       "- 范围外 (只列不审): 台账指针跨文档的旧标签另有 " + str(len(XOUT)) + " 条在 §5.0 范围外 (" + " / ".join(f"{k} {v}" for k, v in collections.Counter(XOUT.values()).most_common()) + f"), 其中 SDTM v2.0 第 74 页 {len(P74)} 条已被 Q9 审查者指认为配到了 SDTMIG 附录 F. 清单 `work/t4/round2/round2_population.json` 的 `xdoc_out_of_scope`.", "",
       "## 4b. 第三轮补检 (主人 2026-11-27 选定的追加审查: 4a = B / 4b = B / 4c = B / 7b = A)", "",
       "口径 `subagent_prompts/t4/t4_supp_round3_v1.0.md`; 样本 `work/t4/round3/round3_sample.jsonl` (md5 `" + md5(f"{W}/t4/round3/round3_sample.jsonl") + "`; seed 20261133); 原始结果 `evidence/t4_round3_raw/` (tracer ×13).", "",
@@ -251,7 +271,7 @@ o += [f"| R3_IG34_EQUIV | SDTMIG 旧 EQUIVALENT (范围内, 非标题) 未审的
       "- 第三轮审查者顺带记的事项: p220 \"at runtime to for measuring\" 疑似 PDF 多一个词, 未登记, KB 照录 (`CP/examples.md:305`; `pack_2.md`); `TS/assumptions.md` NullFlavor 表与 `TA/assumptions.md:94` 有 KB 自拟的表头 / 标题 (`pack_6.md` / `pack_12.md`); 登记文字不准或前后矛盾: `B-CP T-3`、`S-SPC1 CP T-16a` (漏记一处未闭合引号)、`S-SPC2 N-1` / `N-2`、`B-NV N-1` / `N-2` 的 `basis` 写 \"照录\" 而 `handling` 是 \"KB 写正确值\" (`pack_8.md` / `pack_9.md`); 决策表登记指针应补: `ig34_p0355_a027` 与 p356 第 27 行原子补 `B-TR T-1`, 另有 3 条漏列第二个登记 id (`pack_8.md`); `MH/assumptions.md:27` 闭引号方向 (U-9(b) 已定照录; `pack_7.md`). `pack_4.md` 说 `CP/spec.md` 缺规格表脚注 — 主控核实为误报 (脚注在 `CP/spec.md:564`, 原子 `ig34_p0204_a013` 标 EXACT 成立).", "",
       "## 5. 后果 (按派发前写死的条款)", "",
       "- PRE_EXISTING 层 NOT_HOLD ≥ 1 → Q9 升级已触发并执行到 §3 / §4; **主控不自行结案**. 需要主人定的事列在 `t4_owner_decisions_round2.md`.",
-      f"- 待改标签共 {len(pend)} 条, 逐条清单与各选法下的闸数字 (在台账副本上算) 见 `t4_relabel_pending.md`. **台账现在没改** (md5 仍 `{LEDGER_MD5[:8]}…`): 这些都是闸口径层面的事, 须主人本人定 (总闸 attempt 2 C 项; 协调方指示); PDF_TYPO 每条须用户 ack (G-TB1).",
+      f"- 待改标签共 {len(pend)} 条, 逐条清单与各选法下的闸数字 (在台账副本上算) 见 `t4_relabel_pending.md`. 这些都是闸口径层面的事, 须主人本人定 (总闸 attempt 2 C 项; 协调方指示); PDF_TYPO 每条须用户 ack (G-TB1). **主人 2026-11-27 在主控聊天里直接定了其中 {len(APPLIED)} 条** (原话 `t4_owner_confirmation.md` 第二轮一节), 已由 R2L 批落到台账 (md5 `{LEDGER_MD5[:8]}…` → `{LIVE_MD5[:8]}…`; 清单外标签变化 0); 其余 {len(NOT_APPLIED)} 条 (多标的 PDF_TYPO) 与 1 条判不了的 (`ig34_p0293_a038`) 主人未答, **没动**.",
       "- 补检其余 9 个非空层 (145 条) 通过: FIG 11、triage ATOM_ERR 74、RELOCATE 3、六条规则类 57.", "",
       "## 6. 审查者顺带记录的事项 (都不改 KB; KB 冻结)", "",
       "需要定口径的 (已并入给主人的一页):",
@@ -284,16 +304,16 @@ open(f"{CK}/t4_supp_fullcheck.md", "w", encoding="utf-8").write("\n".join(o) + "
 # ---- pending relabel md
 g = collections.Counter((p["group"], p["now"], p["to"]) for p in pend)
 gn = collections.Counter(p["group"] for p in pend)
-o = ["# 待改标签清单 (补检 + Q9 扩检 + 第二轮补检查出; **未执行, 待主人裁定**)", "", "<!-- chain: E (plans) -->",
-     f"> 状态: **待主人裁定** (2026-11-27). 共 {len(pend)} 条. 台账 `work/coverage_ledger.wc.jsonl` 未改 (md5 `{md5(led)}`). 本文件由 `scripts/t4/t4_supp_report.py` 生成; 依据是独立审查者的原始结果 (\"原始结果\" 列), 主控未改判.",
-     "> 为什么不直接改: 这些是闸口径层面的事, 须主人本人定 (总闸 attempt 2 C 项; 协调方 2026-11-27 指示, `t4_coordinator_note_20261127.md`); PDF_TYPO 每条须用户 ack (G-TB1); 主人已确认的 U-1 口径数字建立在当前台账上. (Q9 brief 原写 \"NOT_HOLD_R1 → 改 IE\", 这里收紧为先问主人.)", "",
+o = ["# 待改标签清单 (补检 + Q9 扩检 + 第二轮 / 第三轮补检查出; **78 条已执行, 4 条待主人裁定**)", "", "<!-- chain: E (plans) -->",
+     f"> 状态: **{len(APPLIED)} 条已执行 (R2L 批; 主人 2026-11-27 直接定的 1A / 2A / 3A / 7b-A), {len(NOT_APPLIED)} 条 (`typo-overlabel` 组) 待主人裁定, 没动** (2026-11-27). 共 {len(pend)} 条. 台账 `work/coverage_ledger.wc.jsonl` md5 `{LEDGER_MD5}` → `{LIVE_MD5}` (本脚本逐条核过: 已执行的 {len(APPLIED)} 条现标签 = \"建议\" 列, 未执行的 {len(NOT_APPLIED)} 条现标签 = \"现标签\" 列, 全台账标签有变化的行数 = {changed_live}; 改后台账实算的四个数与下表 \"主人已定的全部\" 一行逐字相同). \"现标签\" 列一律指**改前**. 本文件由 `scripts/t4/t4_supp_report.py` 生成; 依据是独立审查者的原始结果 (\"原始结果\" 列), 主控未改判.",
+     "> 当初为什么不直接改 (历史说明): 这些是闸口径层面的事, 须主人本人定 (总闸 attempt 2 C 项; 协调方 2026-11-27 指示, `t4_coordinator_note_20261127.md`); PDF_TYPO 每条须用户 ack (G-TB1); 主人已确认的 U-1 口径数字建立在当前台账上. (Q9 brief 原写 \"NOT_HOLD_R1 → 改 IE\", 这里收紧为先问主人.)", "",
      "## 1. 三组 (提问与选项以 `t4_owner_decisions_round2.md` 为准, 这里只列组)", "",
      "| 组 | 条数 | 现标签 → 建议 | 对应给主人一页的 |", "|---|--:|---|---|"]
 QN = {"R1-row": "问题 1 (主人选 A)", "v2.0-TOC": "问题 2 (主人选 A)", "registered-typo": "问题 3 (主人选 A)",
       "registered-typo-oos": "问题 7b (主人选 A; 第三轮审查者已对渲染页确认)", "typo-overlabel": "第三轮新发现, **待主人定** (问题 A; 主人消息 3 「继续」未答 → 维持 PDF_TYPO 不动)"}
 for (grp_, now, to_), n in sorted(g.items()):
     o.append(f"| {grp_} | {n} | {now} → {to_} | {QN[grp_]} |")
-o += ["", "## 2. 各选法下的闸数字 (在台账**副本**上实算; 工作台账 md5 断言不变)", "",
+o += ["", "## 2. 各选法下的闸数字 (在**改前备份台账** `work/coverage_ledger.wc.pre_r2l.jsonl` 的副本上实算; \"现状\" = 改前; 实际执行的是 \"主人已定的全部\" 那一行)", "",
       "| 选法 | 改几条 | G-TB3 U-1 B 口径 (过闸用; 闸线 99.0192%) | strict (并列报) | mapped | 内容指标 (EXACT+EQUIV) | G-TB1 范围内节 / 残留 | G-TB2 字面口径 |", "|---|--:|---|---|---|---|---|---|"]
 for k, v in SCEN.items():
     o.append(f"| {k} | {v['n']} | {v['u1b']} | {v['strict']} | {v['mapped']} | {v['content']} | {v['g1']} / {v['residual']} | {v['g2_literal']} |")
@@ -301,12 +321,12 @@ o += ["", "- G-TB2 的过闸口径是 \"范围内\" (U-3 A): 174/174; 表里最�
       "- U-1 B 口径在所有选法下都高于闸线; strict 在所有选法下都低于 (与 attempt 2 相同的性质).",
       "- 改成 \"有意不收\" 的原子同时离开分子和分母; 改成 PDF_TYPO 的在 U-1 B 口径下仍算覆盖, 在 strict / mapped / 内容指标里不算.",
       "- 范围外的三行不在 G-TB1 / G-TB2 的范围内, 但 G-TB3 按整本台账算, 所以会动 G-TB3 的分子分母. \"146 条全改\" 是**假设配错的都认 IE** 的情形 (那 146 条里只有 p74 的 14 条被审查者看过; 其中 113 条现标 PARTIAL): 若有的内容自己文档的 KB 里也没有、又不认 IE, 应记未覆盖, 数字会比这一行更低; 若内容其实在 `model/` 里只是指针错, 标签不变. 所以这一行不是严格的下限.",
-      "- \"范围外已登记笔误同类 6 条\" 是 delta 复审者在文本层确认的, 未经 tracer 审, 不在下面 §3 的清单里.",
-      "- 改标只动标签, 不动 KB. 执行时走 writer (`oh-my-claudecode:executor`) → reviewer, 并在同一次回写里处理 registry `B-IS T-6` 页号 p241 → p239 (页号参与登记匹配 `t3_errata_build.py:150` / `t3_writeback.py:404`, 单独改有改变台账的风险) 与 `t4_supp_fullcheck.md` §6 所列的登记指针补全.", "",
-      "## 3. 逐条", "", "| # | atom_id | 页 | 节 | 现标签 | 建议 | 组 | 理由 | 原始结果 |", "|--:|---|--:|---|---|---|---|---|---|"]
+      "- \"范围外已登记笔误同类 6 条\" 先由 delta 复审者在文本层确认, 后经第三轮 tracer 对渲染页逐条确认, 在下面 §3 的清单里 (组 `registered-typo-oos`).",
+      "- 改标只动标签, 不动 KB. 已执行: writer (`oh-my-claudecode:executor`) → reviewer (`oh-my-claudecode:code-reviewer`, PASS + delta PASS) → auditor (`oh-my-claudecode:verifier`, 33 / 33), 并在同一次回写里处理了 registry `B-IS T-6` 页号 p241 → p239 (页号参与登记匹配 `t3_errata_build.py:150` / `t3_writeback.py:404`, 单独改有改变台账的风险) 与 `t4_supp_fullcheck.md` §6 所列的登记指针补全.", "",
+      "## 3. 逐条", "", "| # | atom_id | 页 | 节 | 现标签 (改前) | 建议 | 组 | 执行 | 理由 | 原始结果 |", "|--:|---|--:|---|---|---|---|---|---|---|"]
 for n_, p in enumerate(pend, 1):
     a = A[p["atom_id"]]
-    o.append(f"| {n_} | `{p['atom_id']}` | {a['page']} | {a['parent_section'][:44].replace('|', '¦')} | {p['now']} | {p['to']} | {p['group']} | {p['why']} | `{p['raw']}` |")
+    o.append(f"| {n_} | `{p['atom_id']}` | {a['page']} | {a['parent_section'][:44].replace('|', '¦')} | {p['now']} | {p['to']} | {p['group']} | {'已执行' if p['atom_id'] in APPLIED else '**未动 (待主人)**'} | {p['why']} | `{p['raw']}` |")
 o += ["", "## 4. 复跑", "", "```bash", "python3 -I .work/10_tier_b_repair/scripts/t4/t4_supp_report.py",
       "# 各选法的台账副本: work/scratch/t4/relabel_preview/ledger_<name>.jsonl (gitignored); 数字另存 work/t4/supp/scenarios.json", "```", ""]
 open(f"{CK}/t4_relabel_pending.md", "w", encoding="utf-8").write("\n".join(o) + "\n")

@@ -1,7 +1,7 @@
 # T4.1 补检 ("0 抽中" 各类全检) + Q9 扩检 + 第二轮补检 — 汇总
 
 <!-- chain: E (plans) -->
-> 状态: **补检 PRE_EXISTING 层不通过 → 触发 Q9 升级; Q9 扩检与第二轮补检已跑完; 共 82 条标签待改, 待主人裁定** (2026-11-27). KB 未改; 台账未改.
+> 状态: **补检 PRE_EXISTING 层不通过 → 触发 Q9 升级; Q9 扩检与第二轮补检已跑完; 共查出 82 条标签应改; 其中 78 条主人已定 (1A / 2A / 3A / 7b-A) 并已由 R2L 批执行, 4 条多标的 PDF_TYPO 待主人答 (问题 A), 另 1 条判不了的待主人答 (问题 B)** (2026-11-27). KB 未改; 台账已按 R2L 改 (`60729f7b…` → `16024ac0…`; 改前备份 `work/coverage_ledger.wc.pre_r2l.jsonl`; 见 `t4_round2_ledger_W.md` / `t4_round2_ledger_review.md` / `t4_round2_ledger_audit.md`).
 > 审查: `oh-my-claudecode:tracer` (opus) 独立实例, 只读: 补检 8 + Q9 8 + 第二轮 8. 原始结果由审查者自己写入 `evidence/t4_supp_raw/`、`evidence/t4_q9_raw/`、`evidence/t4_round2_raw/`. 本文件 §1-§6 是主控用 `scripts/t4/t4_supp_report.py` 从原始结果机械汇总的, 不改判 (规则 D); 文末一节是主控手写的 "独立审查 B 的处理".
 > 口径 (派发前写死): `subagent_prompts/t4/t4_supp_fullcheck_v1.0.md`, `t4_q9_extension_v1.0.md`, `t4_supp_round2_v1.0.md`. 规则 B 归档: `evidence/failures/step_T4.SUPP_attempt_1.md`. 对本汇总的独立审查原文: `evidence/t4_gap_review_raw/review_b.md`.
 
@@ -14,7 +14,7 @@ python3 -I $T/scripts/t4/t4_supp_sample.py     # 补检 203 条 / 8 包
 python3 -I $T/scripts/t4/t4_q9_sample.py       # Q9 192 条 / 8 包 (seed 20261131)
 python3 -I $T/scripts/t4/t4_round2_sample.py   # 第二轮 135 条 / 7 包 (seed 20261132)
 python3 -I $T/scripts/t4/t4_round2b_sample.py  # 第二轮补充 40 条 / 2 包
-python3 -I $T/scripts/t4/t4_supp_report.py     # 本文件 + t4_relabel_pending.md (台账只读)
+python3 -I $T/scripts/t4/t4_supp_report.py     # 本文件 + t4_relabel_pending.md (台账只读; 各选法在改前备份台账的副本上预演)
 ```
 - 这些抽样脚本不触碰总闸 / 人工样本文件 (`gate_sample.jsonl` `67b1013f496096df483eb300a66150d6`, `human_sample.jsonl` `5b4212ee6b5deb873ab29d7f13e17232`); 它们只 exec `t4_sample.py` / `t4_render.py` 的定义段.
 - 样本 md5: supp `0fb5799b821c5a4dc900b39fbf86bf86`; q9 `5ad82bea9a68db72616a19f414afd5de`; round2 `f212fc3c7e8aacf10c1b94c1534de3bc`; round2b `6f9a13b8bbfa2dbe74b5361accd04f2f`.
@@ -101,7 +101,7 @@ python3 -I $T/scripts/t4/t4_supp_report.py     # 本文件 + t4_relabel_pending.
 - **TYPO_SIB / TYPO_SIB2**: 15 条原子所在处 PDF 印的是已登记的笔误、KB 是改正值, 现标签 EXACT / EQUIVALENT 不准 → 进待改清单 (改 PDF_TYPO). 其余候选的笔误实际在同页别处.
 - **PDF_TYPO**: 抽 45 条 0 错 → 错误率 95% 上界约 6.4% (同样是近似). 连同总闸样本里判过的 5 条共 50 条看过; PDF_TYPO 类**不是全检**. attempt 1 要求的 "ATOM_ERR / PDF_TYPO 合计补抽到 ≥ 30" 现为: ATOM_ERR 侧 C7 38 + triage 74 + K4 2 全检, PDF_TYPO 侧抽 45.
 - **TYPO 筛法的盲区 (delta 复审 M5; 如实)**: ① 只按登记的 `pdf_page` ±1 取原子, 而有些登记实际跨多页 (页段写在 `pdf_value` / `basis` 的文字里); ② 与 KB 行比重合度时只用登记给的行号; ③ TYPO_SIB2 不收 EXACT. delta 复审者另用 "PDF 笔误写法的 token 在全 KB 不存在" 做全量反查, **范围内没有找到漏掉的原子**, 但 195 条 "KB 写正确值" 登记里有 73 条 (空格 / 标点类笔误) 抽不出可用 token, 测不了. 主控用更宽的筛法 (改正值在 KB 的所有出现行都算) 重筛: 范围内另有 169 条候选、范围外 142 条候选, **都没有审** (宽筛法噪声大; 是否审交主人定).
-- **范围外的已登记笔误同类原子 (delta 复审 H4)**: 第二轮 TYPO 层只取了范围内. delta 复审者在文本层 (未看渲染页) 确认范围外有 6 条同类: `ig34_p0083_a020` (S-SPREL SE T-1, 现 EXACT)、`ig34_p0304_a026` ~ `a029` (B-OE T-2, 现 EQUIVALENT)、`ig34_p0316_a023` (S-FND PE T-1, 现 EQUIVALENT). 上一轮 U-8 把范围外同类的 4 条改成了 PDF_TYPO. 这 6 条未经 tracer 审, 未进待改清单; 交主人定 (一页问题 7).
+- **范围外的已登记笔误同类原子 (delta 复审 H4)**: 第二轮 TYPO 层只取了范围内. delta 复审者在文本层 (未看渲染页) 确认范围外有 6 条同类: `ig34_p0083_a020` (S-SPREL SE T-1, 现 EXACT)、`ig34_p0304_a026` ~ `a029` (B-OE T-2, 现 EQUIVALENT)、`ig34_p0316_a023` (S-FND PE T-1, 现 EQUIVALENT). 上一轮 U-8 把范围外同类的 4 条改成了 PDF_TYPO. 这 6 条在第二轮时未经 tracer 审, 未进待改清单, 交主人定 (一页问题 7); 后续: 主人选 7b = A, 第三轮审查者对渲染页逐条确认, 已并入清单 (见下一节).
 - 范围外 (只列不审): 台账指针跨文档的旧标签另有 146 条在 §5.0 范围外 (PARTIAL 113 / EQUIVALENT 21 / EXACT 12), 其中 SDTM v2.0 第 74 页 14 条已被 Q9 审查者指认为配到了 SDTMIG 附录 F. 清单 `work/t4/round2/round2_population.json` 的 `xdoc_out_of_scope`.
 
 ## 4b. 第三轮补检 (主人 2026-11-27 选定的追加审查: 4a = B / 4b = B / 4c = B / 7b = A)
@@ -125,7 +125,7 @@ python3 -I $T/scripts/t4/t4_supp_report.py     # 本文件 + t4_relabel_pending.
 ## 5. 后果 (按派发前写死的条款)
 
 - PRE_EXISTING 层 NOT_HOLD ≥ 1 → Q9 升级已触发并执行到 §3 / §4; **主控不自行结案**. 需要主人定的事列在 `t4_owner_decisions_round2.md`.
-- 待改标签共 82 条, 逐条清单与各选法下的闸数字 (在台账副本上算) 见 `t4_relabel_pending.md`. **台账现在没改** (md5 仍 `60729f7b…`): 这些都是闸口径层面的事, 须主人本人定 (总闸 attempt 2 C 项; 协调方指示); PDF_TYPO 每条须用户 ack (G-TB1).
+- 待改标签共 82 条, 逐条清单与各选法下的闸数字 (在台账副本上算) 见 `t4_relabel_pending.md`. 这些都是闸口径层面的事, 须主人本人定 (总闸 attempt 2 C 项; 协调方指示); PDF_TYPO 每条须用户 ack (G-TB1). **主人 2026-11-27 在主控聊天里直接定了其中 78 条** (原话 `t4_owner_confirmation.md` 第二轮一节), 已由 R2L 批落到台账 (md5 `60729f7b…` → `16024ac0…`; 清单外标签变化 0); 其余 4 条 (多标的 PDF_TYPO) 与 1 条判不了的 (`ig34_p0293_a038`) 主人未答, **没动**.
 - 补检其余 9 个非空层 (145 条) 通过: FIG 11、triage ATOM_ERR 74、RELOCATE 3、六条规则类 57.
 
 ## 6. 审查者顺带记录的事项 (都不改 KB; KB 冻结)
