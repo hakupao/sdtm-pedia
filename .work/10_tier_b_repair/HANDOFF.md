@@ -37,3 +37,4 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - 门禁说明: HEAD 上 `typo_assert --plan` (86 violations) 与 `ct_assert` (期望计数写死于 S-CT 前) **按设计 FAIL**, 不是回归; 拆分证明与逐条归因见 `evidence/checkpoints/t4_thaw_W1.md` / `t4_thaw_review.md` §7.
 - 已知未修 (记后续): trace 中本 session 追加行的时间戳为事后取整回填 (06:00Z / 12:00Z, 总闸 attempt 2 已指出); `t4_ack_lists.md` 把 p0362_a010 记在 U-7 名下 (实为主控决定 M-4); registry B-IS T-6 页号写 p241 应为 p239 (W1 发现); audit_matrix 缺 U-5 / 解冻轮 / attempt 2 行; MK 表 en dash (代裁 Q3); O63-O67; TT/TP DOMAIN 格 (M-2).
 - 汇报文件: `evidence/checkpoints/t4_attempt2_report.md`.
+- **2026-11-27 主人本人确认** U-1 口径 / T4.2 方案 / 追认 M-1..M-7 / §000 委托代裁全部 → `evidence/checkpoints/t4_owner_confirmation.md`; PLAN 升 v1.4 (T4.2 行改口径, FIG 12→11). 仍开: C3 逐表结案清单、t0 baseline 刷新、pre_existing 58 / FIG 11 / 规则 0 抽中类、audit_matrix 行 → 然后 T4.1 attempt 3.

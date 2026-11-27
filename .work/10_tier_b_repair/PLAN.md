@@ -1,7 +1,7 @@
 # 10 Tier B 内容修复 — Plan (Tier 3)
 
 <!-- chain: E (plans) ; KB 改动走 Chain D -->
-> 状态: **v1.2** (2026-11-26) — T1.4 用户 ack (R1-R4, 见 `evidence/checkpoints/t1_user_ack.md`); T2 范围扩为全 KB census; 执行中
+> 状态: **v1.4** (2026-11-27) — T4.2 口径与 G-TB3 口径经主人本人确认 (`evidence/checkpoints/t4_owner_confirmation.md`); 执行中 (T4.1 attempt 2 CONDITIONAL 后)
 > 模板: `~/.claude/templates/workflow-tier3.md` (+ tier2 基础)
 > 前序: `archive/deep_verification/` (06 深审, 已冻结只读) RETRO 缺口 3 / 决策 2; `issues_found.md` Issue 5
 
@@ -79,7 +79,7 @@ Checkpoint: **hard** = 停等用户 ack (不可预授权跳过); soft = 汇报�
 | T3.1 | ledger 回写 (工作副本) | triage + 各批证据 | `work/coverage_ledger.wc.jsonl` 更新 | 改动集 ⊆ 分诊集; 每条带 `matched_by.phase="TB"` | none | — |
 | T3.2 | 重算 + 反向溯源 | wc ledger + KB git diff; 先用 fp_match 对**所有**靠指纹定的 EXACT/EQUIVALENT 在现 KB 上复验一遍 | `evidence/checkpoints/t3_recompute.md` | §5 G-TB1/2/3/7 | soft | — |
 | T4.1 | 总闸独立审 | 全部证据 | `evidence/checkpoints/t4_gate_review.md` | 第四个 subagent_type 判 PASS | soft | — |
-| T4.2 | 人工抽样 | 分层 N=30 (§5.3) | `evidence/checkpoints/t4_human_sample.md` | 用户判内容错误 0 | **hard** | — |
+| T4.2 | 人工抽样 | AI 预筛 42 (分层) + 主人抽查 6 (v1.4 改定; 原 "分层 N=30") | `evidence/checkpoints/t4_human_verdicts.md` (包 `t4_human_sample.md`) | 主人抽查内容错误 0 且预筛内容错误 0 | **hard** | — |
 | T4.3 | 收尾 | — | Chain D 三件 + worklog + PROGRESS + RETROSPECTIVE.md + commit/push + 提醒 sdtm-rag | links live docs ≤ 42 | soft | — |
 
 ## 5. 验证
@@ -90,7 +90,7 @@ Checkpoint: **hard** = 停等用户 ack (不可预授权跳过); soft = 汇报�
 已升级的 31 节只剩 57 gap, 一并处理, 避免闸范围与分诊范围不一致.
 
 终态类 (每个原子必落其一): EXACT / EQUIVALENT (含 REWRITE_OK, RELOCATE 移位后) / INTENTIONAL_EXCLUDE (已 ack) / ATOM_ERR (登记) /
-PDF_TYPO (PDF 疑似笔误, 登记 + 用户 ack) / FIGURE_DEFERRED (图, 12 条, 登记; 06 已有同类先例).
+PDF_TYPO (PDF 疑似笔误, 登记 + 用户 ack) / FIGURE_DEFERRED (图, 终态 11 条 [原写 12, T4 更正], 登记; 06 已有同类先例).
 
 ### 5.1 闸定义 (G-TB, 全部量化)
 
@@ -124,7 +124,7 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 - **表格 / 数据值**: 不抽样, G-TB4 全检.
 - **T1 分诊复核**: 高风险类 100%, PRESENT / IE_CAND 20%.
 - **T4.1 总闸**: 跨批分层 N=72 (PRESENT / REWRITE_OK / REAL_GAP / VALUE_DIFF / IE 五类各 12, 外加**对照层 12 条**: 本范围内原本就标 EXACT/EQUIVALENT、本项目没碰过的原子 — 验 P4a 匹配器的旧标签, 见 Q9), 总闸 reviewer 与各批 auditor 不同 agent.
-- **T4.2 人工**: 分层 N=30 交用户 (REWRITE_OK 10 / REAL_GAP 10 / VALUE_DIFF+IE 10). 判据: 内容错误 0 (P7 用 <5%, 这里按接近 100% 的标准收紧).
+- **T4.2 人工** (v1.4, 主人 2026-11-27 改定并本人确认, `evidence/checkpoints/t4_owner_confirmation.md`): AI 预筛 42 条 (正式 30 = REWRITE_OK 10 / REAL_GAP 10 / VALUE_DIFF 5 + IE 5, 外加风险层 12) + 主人本人分层抽查 6 条 (seed 20261130). 判据: 内容错误 0. 原定 "分层 N=30 交用户" 作废; 已知代价: 6/6 零错的 95% 上界约 39% (30/30 约 9.5%), 由 AI 预筛 42/42 补强 (非人工证据).
 - 结果统一进 `audit_matrix.md`; 失败条目不删 (规则 B).
 
 ## 6. 批次 (按 KB 文件切, 避免冲突)
@@ -190,6 +190,7 @@ stock p4b verdict 只做**参考列**, 不当闸: 它的密度分母含 IE, PART
 | Version | Date | Change |
 |---|---|---|
 | v0.1 | 2026-11-25 | 初稿: T0 基线已出, 其余待 §9 拍板 |
+| v1.4 | 2026-11-27 | T4.2 口径改为 "AI 预筛 42 + 主人抽查 6" (主人本人确认, `evidence/checkpoints/t4_owner_confirmation.md`); G-TB3 按 U-1 B 口径 (主人确认), 并列 strict; FIGURE 12→11 更正 |
 | v1.3 | 2026-11-26 | 加 T2S 扫描批步 (覆盖矩阵 §7 分组; 新 brief `t2s_scan_writer_v1.0.md` / `t2s_scan_review_audit_v1.0.md`; U3 宿主按 PDF 标题序定首域; 排版字符统一归 S-TYPO) |
 | v1.2 | 2026-11-26 | T1.4 补充 D1-D5: 59 批; 去重 + 删扩写 (RELOCATE 外新增允许的删除: 重复副本去重 / 超出 PDF 的扩写); 成本 18-24 sessions |
 | v1.1 | 2026-11-26 | T1.4 ack: R1 v2.0 表行 IE / §1 引言补; R2 丢短语即 REAL_GAP (B4 收紧); R3 T2 纳入全 KB census (Q9 升级触发); R4 IE 587 ack, 44→PRESENT; 成本 10-12 sessions |

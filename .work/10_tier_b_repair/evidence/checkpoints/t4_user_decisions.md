@@ -1,5 +1,5 @@
 # T4 用户裁定汇总 (O25)
-> 状态: **已代裁 (委托代裁, 非主人逐条裁定)** 2026-11-27 — 见下方 §000; §00 表 "用户选" 列保持空白 (那一列留给主人本人). 原稿: 主控 T4 整理 2026-11-27; T2S.REG executor 草拟 2026-11-26.
+> 状态: **已代裁 (委托代裁, 非主人逐条裁定)** 2026-11-27 — 见下方 §000; §00 表 "用户选" 列保持空白 (那一列留给主人本人). 原稿: 主控 T4 整理 2026-11-27; T2S.REG executor 草拟 2026-11-26. **2026-11-27 主人本人确认 §000 全部与 §000b M-1..M-7: `evidence/checkpoints/t4_owner_confirmation.md`.**
 > 来源: `evidence/checkpoints/t2_B-*.md` / `t2_S-*.md` (含 _review / _audit 改判)、`work/out_of_scope_findings.md` O1-O61、`evidence/checkpoints/t2_post_user_ack.md`、`evidence/checkpoints/t1_lane_notes.md` "T4 汇总须列" 条、`work/t1_errata.json` (pending_user 4 条为 T1 REAL_GAP 争议, 非 typo, 不入本表)。
 > 机读登记: `work/t2_pdf_typo_registry.jsonl` (269 行; 位置按 HEAD b982581 内容重定位)。引文 ≤ 25 词/处。
 
