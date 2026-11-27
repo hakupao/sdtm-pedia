@@ -13,7 +13,7 @@ RESULT: GREEN
 table_census exit=0
 ---- [M0] t3_recompute (--downgrade fp regressions)
   downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
-TB: current Tier B sections=98 residual_gap=82
+TB: current Tier B sections=96 residual_gap=81
 TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
 BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=0
 RESULT: GREEN
@@ -34,7 +34,7 @@ RESULT: GREEN
 table_census exit=0
 ---- [M1] t3_recompute (--downgrade fp regressions)
   downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 1
-TB: current Tier B sections=98 residual_gap=82
+TB: current Tier B sections=96 residual_gap=81
 TB: §5.0 scope sections=174 residual_gap=1 G-TB1 pass=173/174 G-TB2 pass=155/174
 BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=2
   DIFF ('ig34', '§1 [Introduction]') {'tb_g2_pass': (True, False)}
@@ -57,7 +57,7 @@ RESULT: RED
 table_census exit=1
 ---- [M2] t3_recompute (--downgrade fp regressions)
   downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
-TB: current Tier B sections=98 residual_gap=82
+TB: current Tier B sections=96 residual_gap=81
 TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
 BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=0
 RESULT: GREEN
@@ -78,7 +78,7 @@ RESULT: RED
 table_census exit=1
 ---- [M2b] t3_recompute (--downgrade fp regressions)
   downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
-TB: current Tier B sections=98 residual_gap=82
+TB: current Tier B sections=96 residual_gap=81
 TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
 BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=0
 RESULT: GREEN
@@ -99,7 +99,7 @@ RESULT: RED
 table_census exit=1
 ---- [M2c] t3_recompute (--downgrade fp regressions)
   downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
-TB: current Tier B sections=98 residual_gap=82
+TB: current Tier B sections=96 residual_gap=81
 TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
 BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=0
 RESULT: GREEN
@@ -130,7 +130,7 @@ RESULT: RED
 table_census exit=1
 ---- [M2d] t3_recompute (--downgrade fp regressions)
   downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
-TB: current Tier B sections=98 residual_gap=82
+TB: current Tier B sections=96 residual_gap=81
 TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
 BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=0
 RESULT: GREEN
@@ -159,7 +159,7 @@ RESULT: GREEN
 table_census exit=0
 ---- [M3] t3_recompute (--downgrade fp regressions)
   downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 23
-TB: current Tier B sections=99 residual_gap=82
+TB: current Tier B sections=97 residual_gap=81
 TB: §5.0 scope sections=174 residual_gap=23 G-TB1 pass=173/174 G-TB2 pass=156/174
 BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=2
   DIFF ('ig34', '§4.5.1 [Original and Standardized Results of Findings and Tests Not Done]') {'aggregate_verdict': ('FULL_COVERAGE', 'SIBLING_DROPPED')}
@@ -307,7 +307,7 @@ RESULT: GREEN
 table_census exit=0
 ---- [RESTORE] t3_recompute (--downgrade fp regressions)
   downgraded EXACT/EQUIVALENT -> MISSING (fp regression): 0
-TB: current Tier B sections=98 residual_gap=82
+TB: current Tier B sections=96 residual_gap=81
 TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/174
 BASELINE vs /Volumes/DevSSD/Project/sdtm-pedia/.work/10_tier_b_repair/work/t4/t0_head/section_coverage.wc.head.jsonl: differing sections=0
 RESULT: GREEN

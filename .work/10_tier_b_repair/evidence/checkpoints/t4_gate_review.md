@@ -1,7 +1,7 @@
 # T4.1 总闸独立审 — attempt 1 / 2 / 3 (本文件按 attempt 追加; 正文开头是 attempt 1)
 
 <!-- chain: E (plans) -->
-> **最新状态 (2026-11-27 晚): attempt 3 = 不通过 (CONDITIONAL), 唯一挡闸项 = 问题 A (4 条多标 PDF_TYPO 待主人选) — 见文末 "§attempt 3"**. attempt 2 = CONDITIONAL 见 "§attempt 2". 以下到 "§attempt 2" 之前是 attempt 1 的原文 (历史, 不改).
+> **最新状态见文末 "§attempt 3 delta"** (attempt 3 = CONDITIONAL, 唯一挡闸项 = 问题 A → 主人答 A1 → R3L 改 4 条 → delta 闸审). attempt 2 = CONDITIONAL 见 "§attempt 2". 以下到 "§attempt 2" 之前是 attempt 1 的原文 (历史, 不改).
 > attempt 1 状态: **不通过 — CONDITIONAL (证据层齐, 等用户裁定)** (2026-11-27).
 > 审查角色: `feature-dev:code-reviewer` (opus) × 5 个独立实例, 本项目其它环节未用过 (trace.jsonl 0 次; 证据层审查 §4 核过). 4 个审 84 条样本, 1 个审闸门证据层.
 > 主控只做三件事: 抽样 (脚本)、派发、誊录 + 机械计数. 审查回复原样存于 `evidence/t4_gate_raw/pack{1,2,3,4}.md` 与 `evidence/t4_gate_raw/evidence_layer.md`; 本文件不改判 (规则 D).
@@ -220,3 +220,4 @@ git status --short   # 补跑后仅本节新增文件 (日志 + brief v2.0), 无
 - 挡闸项 (问题 A) 是主人的决定, 主控**没有替他定, 台账没有再动**; 2026-11-27T09:57:27Z 在聊天里再次向主人提问 (说明这是总闸唯一的挡闸项; 提问要点记在 `t4_owner_confirmation.md` "主控的第三次提问"), 回答将逐字记入同一文件; 同时向协调方报了阻塞.
 - G-TB5 的 "N 没写在规格里": 属实 — 主控是在派发 auditor 的消息里定的 N=33 与 seed, 没有写进 `subagent_prompts/t4/t4_round2_ledger_spec_v1.0.md`; 记为已知不足.
 - 审查者指出的 "ATOM_ERR S1-R1 约 83 条没被单独看过" 不是本轮新开的缺口 (U-5 整类确认 + C7 38 全检 + triage 74 全检的既有状态), 记为已知局限, 留给主人 / 协调方决定是否再加一轮.
+- (后续, 同日) 主人直接回答 「A1、B1、追认 M-9」 (`t4_owner_confirmation.md` 消息 4) → R3L 批把这 4 条改回 EXACT (提交 `d794fb6`; `t4_round3_ledger_W.md` / `t4_round3_ledger_review.md`) → T0 基线重建 (`t4_t0_refresh.md` §7) → 对这一处的 delta 闸审见下一节.

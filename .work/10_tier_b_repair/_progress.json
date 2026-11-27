@@ -2,10 +2,10 @@
  "project": "10_tier_b_repair",
  "tier": 3,
  "plan": "PLAN.md",
- "plan_version": "v1.4.2",
- "status": "EXECUTING — T4.1 总闸 attempt 3 = CONDITIONAL (唯一挡闸项: 问题 A, 4 条多标 PDF_TYPO 待主人选); 改台账 R2L 78 条已完成 (5d7e4cb); KB 冻结 (树 63f85777…), 本地未 push",
- "current_step": "等主人回答问题 A (ig34_p0412_a006 / a007 / a008、ig34_p0413_a010 改回 EXACT 与否); 顺带问题 B 与 M-9 追认 (不挡闸)",
- "next_step": "主人选 A1 → writer (oh-my-claudecode:executor) 按 work/t4/supp/relabel_pending.json 的 typo-overlabel 组改 4 条 → reviewer (oh-my-claudecode:code-reviewer) → 改 t4_supp_report.py 的 DECIDED / NOT_APPLIED 断言并重生成 → t0_mutation_head.sh --make-baseline + 变异 → t4_gate_prerun.sh → 对这一处做 delta 闸审 (feature-dev:code-reviewer). T4.3 / push / kb tag 不在主控任务内, 等协调方",
+ "plan_version": "v1.4.3",
+ "status": "EXECUTING — 主人答 A1 / B1 / 追认 M-9; R3L 4 条改回 EXACT 完成 (d794fb6; reviewer PASS); T0 基线重建 ALL MATCH; 做 attempt 3 的 delta 闸审; KB 冻结 (树 63f85777…), 本地未 push",
+ "current_step": "T4.1 attempt 3 delta 闸审 (feature-dev:code-reviewer 新实例; brief subagent_prompts/t4_gate_reviewer_v3.1.md; 预跑日志 work/t4/gate_prerun.log)",
+ "next_step": "delta 结果誊入 evidence/checkpoints/t4_gate_review.md §attempt 3 delta → 向协调方 worker_done. T4.3 / push / kb tag 不在主控任务内. 仍待主人: M-10 追认; ATOM_ERR 约 83 条是否加一轮",
  "baseline": {
   "tier_b_p4b_orig": {
    "SIBLING_DROPPED": 56,
@@ -234,15 +234,15 @@
   "T4.3": "pending"
  },
  "gates": {
-  "G-TB1": "残留 0 (174/174 节); ATOM_ERR 197 / PDF_TYPO 174 / FIG 11; ack 来源: U-5 329 / U-7 22 / U-8 4 / U-2 1 / 主控 M-4 1 / 主人第二轮 3=A 19 / 7b=A 6 (t4_ack_lists.md); 已知 4 条多标 PDF_TYPO + 1 条判不了, 主人未答, 未动",
+  "G-TB1": "残留 0 (174/174 节); ATOM_ERR 197 / PDF_TYPO 170 / FIG 11; ack 来源见 t4_ack_lists.md (PDF_TYPO: U-5 118 / U-7 22 / 主人第二轮 3=A 19 / 7b=A 6 / U-8 4 / M-4 1); 4 条多标已按主人 A1 改回 EXACT (R3L); ig34_p0293_a038 按主人 B1 维持并写明无法判定",
   "G-TB2": "174/174 (U-3 范围内口径; 字面 157/174)",
-  "G-TB3": "U-1 B 99.2651% (9860/9933); strict 95.5301% (9489/9933); mapped 99.3509% (9489/9551); 内容 90.6188% (8655/9551) — R2L 后实算 = 预演值 (work/t4/supp/scenarios.json); 改前 99.2690% / 95.8041%",
+  "G-TB3": "U-1 B 99.2651% (9860/9933); strict 95.5703% (9493/9933); mapped 99.3511% (9493/9555); 内容 90.6227% (8659/9555) — R3L 后实算 = 预演值 (work/t4/supp/scenarios.json 最后一项); 历史: attempt 2 时 99.2690% / 95.8041%, R2L 后 99.2651% / 95.5301%",
   "G-TB4": "census HEAD: KB 表 497 / OK 309 / DIFF 38 / diffs 148 / UNPARSEABLE 146; 逐表变化与 C3 60 张结案见 t4_c3_closeout.md",
   "G-TB5": "MET (attempt 2); audit_matrix 已补 T3 / T4 行",
   "G-TB6": "未溯源 0, NOTE_EXEMPT 5 (M-6); C 层抽样 (U-4)",
   "G-TB7": "live docs 42 (2026-11-27 接手主控收尾复跑: python3 tools/check_links.py 2>&1 | grep \"live docs\")",
   "G-TB8": "MET 字面 (attempt 2); 本会话 trace 行用真实时间",
-  "G-TB9": "R2L 后基线重建, 现 KB + 现台账重证 ALL MATCH (t4_t0_refresh.md §6; M4a 换靶 M-8 主人第二轮问题 5 已追认); t3_mutation M0/2/7 绿 M1/3-6 红 (work/t4/t4_mutation_r2l.log)"
+  "G-TB9": "R3L 后基线再次重建, 现 KB + 现台账重证 ALL MATCH (t4_t0_refresh.md §7; M-8 已追认); t3_mutation M0/2/7 绿 M1/3-6 红 (work/t4/t4_mutation_r3l.log)"
  },
  "open_decisions": [
   "Q1",
@@ -302,9 +302,10 @@
   "t4_human_sample": "5b4212ee6b5deb873ab29d7f13e17232",
   "work/coverage_ledger.wc.jsonl (T4 解冻轮后, 2026-11-27)": "60729f7b64b7c1dfaf2174e394f6dd9c",
   "work/t4/t0_head/* (现 KB 基线)": "见 evidence/checkpoints/t4_t0_refresh.md §4",
-  "work/coverage_ledger.wc.jsonl (R2L 后, 2026-11-27)": "16024ac09721cb3f8519cd68fa455196",
   "work/coverage_ledger.wc.pre_r2l.jsonl (R2L 前备份 = attempt 2 时的台账)": "60729f7b64b7c1dfaf2174e394f6dd9c",
-  "work/t2_pdf_typo_registry.jsonl (274 行)": "e6f86b49f7daac2bad76625f243a1683"
+  "work/t2_pdf_typo_registry.jsonl (274 行)": "e6f86b49f7daac2bad76625f243a1683",
+  "work/coverage_ledger.wc.jsonl (R3L 后, 2026-11-27)": "438098704becc84eda01a925b80defaa",
+  "work/coverage_ledger.wc.pre_r3l.jsonl (= R2L 后的台账)": "16024ac09721cb3f8519cd68fa455196"
  },
  "t2s": {
   "committed": [

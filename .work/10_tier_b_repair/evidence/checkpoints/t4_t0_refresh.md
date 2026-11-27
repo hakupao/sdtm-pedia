@@ -95,6 +95,15 @@ bash .work/10_tier_b_repair/scripts/t4/t0_mutation_head.sh > .work/10_tier_b_rep
 - 新日志与 §4 那一版日志逐行 diff: 只有 9 处 `TB: current Tier B sections=` 的计数 (101 → 98; M2d 那一例 102 → 99) 与旧日志末行多出的 `exit=0`; 节数变化是 R2L 把 3 节改出了 "current Tier B" 口径 (见 `t4_round2_ledger_W.md` §4), 各用例的 expect / got 没有变化.
 - 这次重建**没有再送独立审查** (脚本与用例未改, 只是基线文件随台账重生成); 下面的独立审查针对的是 §1-§5 那一版. 总闸 attempt 3 的预跑日志 `work/t4/gate_prerun.log` 里有同一命令在提交后的输出.
 
+## 7. R3L (4 条改回 EXACT) 之后的再次重建 (2026-11-27; 主控执行, 对象 HEAD `d794fb6` 的台账 md5 `438098704becc84eda01a925b80defaa`, KB 树不变)
+
+命令与 §6 相同, 脚本没有改.
+
+- 新基线 md5: fp `1d6b241339284abbced5dc5f022e824c` (与 §6 相同) / section_coverage `d69dc6e3d9b4e7a47f54f564c424eac8` (随台账变) / BPCPP、MB、EG、REL 四个与 §4 相同.
+- 结果: exit 0; 13 / 13 mutation applied; `MUTATION RESULT: ALL MATCH`; `git status knowledge_base/ archive/ releases/` 空.
+- 与 §6 那一版日志逐行 diff: 只有 `TB: current Tier B sections=` 一行的计数 (98 → 96, residual_gap 82 → 81; M2d 那一例相应变化) — R3L 让范围外的 TD 两节 (§7.3、§7.3.2) 的汇总判定变了 (见 `t4_round3_ledger_W.md`); §5.0 范围内 174 节残留仍为 0; 各用例的 expect / got 没有变化.
+- 同样没有再送独立审查; 预跑日志 `work/t4/gate_prerun.log` 里有同一命令在提交后的输出.
+
 <!-- REVIEW -->
 ## 独立审查 (誊录; 审查者 `oh-my-claudecode:verifier` opus, 只读, 2026-11-27; 对象 HEAD `1df9f60`; 主控不改判)
 
