@@ -3,9 +3,9 @@
  "tier": 3,
  "plan": "PLAN.md",
  "plan_version": "v1.4.4",
- "status": "T4.1 总闸 PASS (attempt 3 + delta + 加查 / R4L 之后的 delta); T4.2 已按主人口径关闭; T4.3 进行中; KB 树 63f85777… 自解冻轮后未变",
- "current_step": "T4.3 (Chain D / RETROSPECTIVE / 推送前检查 / push / kb tag / 确认网站)",
- "next_step": "T4.3 完成后: 协调方另派 sdtm-rag 的 \"KB 更新\"; 待主人 (不挡): M-11 追认, D1 的折行边界",
+ "status": "完成 (2026-11-28 本地): T4.1 总闸 PASS (attempt 3 + 两次 delta); T4.2 已按主人口径关闭; T4.3 收尾 + 标签 kb-2026.11.28; KB 树 63f85777…",
+ "current_step": "完成",
+ "next_step": "无 (项目关闭). 下游 sdtm-rag 的 \"KB 更新\" 由协调方另派; 待主人 (不挡): M-11 追认, D1 的折行边界; 后续项见 RETROSPECTIVE.md 文末",
  "baseline": {
   "tier_b_p4b_orig": {
    "SIBLING_DROPPED": 56,
@@ -231,7 +231,7 @@
   "T3.2": "PASS (attempt 4)",
   "T4.1": "PASS (2026-11-27): attempt 3 CONDITIONAL (唯一挡闸项 = 问题 A) → 主人答 A1 → R3L 改 4 条 → delta 闸审 PASS. 历史: attempt 1 CONDITIONAL → attempt 2 CONDITIONAL → attempt 3 CONDITIONAL → attempt 3 delta PASS. 其后: M-10 主人已追认 (消息 5); ATOM_ERR 加查 → 问题 C = C1 → R4L (见 T4.AE / T4.R4L); 加查与 R4L 之后的 delta 闸审 = PASS (feature-dev:code-reviewer 另一新实例; \"ATOM_ERR / PDF_TYPO 补抽\" 一项判 已关 (带局限); 需主人但不挡闸: M-11 追认)",
   "T4.2": "按主人改定的口径关闭: AI 预筛 42 + 主人抽查 6/6 (t4_human_verdicts.md; 确认记录 t4_owner_confirmation.md 第一节; 总闸 attempt 3 判 '足够, 带已公开的局限')",
-  "T4.3": "pending",
+  "T4.3": "完成 (2026-11-28 本地): Chain D (.work/meta/mapping.md / docs/TRACEABILITY.md §7 / worklog) + RETROSPECTIVE.md + PROGRESS / HANDOFF / AGENT_GUIDE / issues_found / CLAUDE.md Key Paths; 推送前检查 evidence/checkpoints/t4_prepush_check.md; push + 标签 kb-2026.11.28; 结果 evidence/checkpoints/t4_release.md",
   "T4.AE": "attempt 1 不通过 (2026-11-27): S1-R1 157 = 已逐条判过 80 + 从未逐条判过 77; 全检 83 (77 + 6 盲复检; oh-my-claudecode:tracer ×4) = HOLDS 82 / NOT_HOLD 1 (ig34_p0124_a001, 应为 EXACT; general-purpose 盲复看相同) / UNVERIFIABLE 0; 台账未改; evidence/checkpoints/t4_atomerr_fullcheck.md; 归档 evidence/failures/step_T4.AE_attempt_1.md; 另 8 条 (B-CE T-2) 判 HOLDS 但取决于口径 (问题 D, 未裁); 汇总未送独立审查; 后续: 主人 C1 / D1 → R4L (steps.T4.R4L)",
   "T4.R4L": "PASS (2026-11-27): ig34_p0124_a001 ATOM_ERR → EXACT (主人 C1; 由 live-hit 判出); 4 条补登记指针; writer oh-my-claudecode:executor → reviewer oh-my-claudecode:code-reviewer PASS (MEDIUM 1 / LOW 5) → 小修 → delta PASS (LOW 3); 台账 43809870… → eef9bb14e5afab7e68a231ddd18cfa1c; 清单外标签变化 0; evidence/checkpoints/t4_round4_ledger_W.md / t4_round4_ledger_review.md"
  },

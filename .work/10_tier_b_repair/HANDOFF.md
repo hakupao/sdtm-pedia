@@ -1,5 +1,5 @@
 # 10_tier_b_repair — 主控 handoff (压缩/换 session 时先读)
-> 更新: 2026-11-27 下午 (接手主控: attempt 2 缺口补做后; **最新状态看文末最后一节**, 上面各节是历史). 本文件只记"在途状态 + 主控规程", 规则本体见 PLAN.md / subagent_prompts/t2_dispatch_notes.md / evidence/checkpoints/t1_user_ack.md (R1-R4, D1-D7).
+> 更新: 2026-11-27 下午 (接手主控: attempt 2 缺口补做后; **最新状态看文末 "终态" 一节**, 上面各节是历史). 本文件只记"在途状态 + 主控规程", 规则本体见 PLAN.md / subagent_prompts/t2_dispatch_notes.md / evidence/checkpoints/t1_user_ack.md (R1-R4, D1-D7).
 
 ## 每批流程 (主控只派发/裁定/提交, 不写 KB)
 writer (oh-my-claudecode:executor, opus) → reviewer (oh-my-claudecode:code-reviewer) → auditor (oh-my-claudecode:verifier).
@@ -85,7 +85,7 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - "ATOM_ERR / PDF_TYPO 补抽 = 部分关" 改成什么、以及这 1 条对已 PASS 的总闸有无影响: 都由总闸角色 / 协调方判, 主控没判 (`t4_gate_review.md` 文末).
 - 禁止仍有效: 不 push、不打 kb tag、不做 T4.3; KB 冻结 (树 `63f857774a42cfaa71798705ad40ab51bc5e378a`); 台账 md5 `438098704becc84eda01a925b80defaa`.
 
-## 最新 (2026-11-27 夜, 续; 任务 `task_015df04443e6`): 主人答 C1 / D1 / 追认 M-10 → R4L 改 1 条 → 等总闸角色的 delta 判断 → 通过则 T4.3 发版
+## (历史; 状态已被最后一节取代, 其中 "坑" 与 "仍开 / 已知局限" 两条仍有效) (2026-11-27 夜, 续; 任务 `task_015df04443e6`): 主人答 C1 / D1 / 追认 M-10 → R4L 改 1 条 → 等总闸角色的 delta 判断
 - **主人消息 5** (直接在主控聊天里发; 逐字在 `evidence/checkpoints/t4_owner_confirmation.md`): 「C1、D1、追认 M-10」. 登记 `t4_user_decisions.md` §000b / §000c. D1 的口径 (代码值内部的空格算真实差异, 不属于空白归一) 写在 §000c 问题 D 行与加查 brief 文末.
 - **主人对发版的同意** (经协调方待办项转达, 不是直接发的; 同一文件): 「直接发版，不用再问我」, 只覆盖 "这 1 条改完并复审通过" 这条路.
 - **R4L** (提交 `65d6a0f`): `ig34_p0124_a001` ATOM_ERR → EXACT (撤掉原子抽错登记后由 `live-hit` 判出); 4 条 ATOM_ERR 行补登记指针. 台账 md5 `43809870…` → **`eef9bb14e5afab7e68a231ddd18cfa1c`**; 清单外标签变化 0; 备份 `work/coverage_ledger.wc.pre_r4l.jsonl`. writer `oh-my-claudecode:executor` (`t4_round4_ledger_W.md`; 规格 `subagent_prompts/t4/t4_round4_ledger_spec_v1.0.md`) → reviewer `oh-my-claudecode:code-reviewer` PASS → 小修 → delta PASS (`t4_round4_ledger_review.md`). 没有另设语义 auditor (语义依据 = 加查的两位审查者).
@@ -93,3 +93,11 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 - **坑 (新增)**: ① 整链现在读 `work/t4/atomerr/verdicts.json` (R4L 清单必须等于其中 NOT_HOLD 的集合); 重跑 `scripts/t4/t4_atomerr_report.py` 若让 NOT_HOLD 集合变化, `t3_errata_build.py` / `t3_writeback.py` 会报错, 须先更新 `work/t4_r4l_relabel.json`. ② `scripts/t4/t4_atomerr_sample.py` 断言加查当时的台账, 现在按设计失败. ③ `t4_supp_report.py` 现在以 `coverage_ledger.wc.pre_r4l.jsonl` 为 "R3L 之后的台账", 并断言工作台账 = 它 + R4L 清单; 以后再改台账要同样处理. ④ 重跑整链顺序: `work/scratch/t4/r3l/run_chain.sh` (先 `scripts/t4/t4_r3l_build.py`、`t4_r4l_build.py`; 不要重跑 `t3_build_keep.py`). ⑤ 推送前检查 `scripts/t4/t4_prepush_check.sh` 的个人模式用环境变量传, 不写进仓库.
 - **仍开 / 已知局限** (如实): 抽样而非全检 — SDTMIG 旧 EQUIVALENT 2207 抽 215 (0 错, 95% 上界约 1.4%)、标题类 71 / 316、TYPO 宽筛候选 (范围内 169 / 范围外 142) 未审、范围外跨文档指针 146 条不动; 约 80 条标签级别后续项; KB 观察项 O68-O71 只记录不修; T4.2 人工闸是 "AI 预筛 42 + 主人抽查 6" (6 / 6 零错的 95% 上界约 39%); 主人确认记录的形式局限 (短句 + 选项清单, 无截图); 加查汇总、R4L 后的 T0 基线重建、主控改的几份脚本没有送独立审查; R4L 清单与审查者判定文件耦合 (reviewer DL-1).
 - 禁止: 不改 `knowledge_base/`、`archive/`、`releases/`、`web/`; 不写 sdtm-rag 仓; 不 force push. KB 树 `63f857774a42cfaa71798705ad40ab51bc5e378a`.
+
+## 终态 (2026-11-28 本地 / UTC 2026-11-27): 项目完成 — 总闸 PASS, T4.3 收尾, 标签 `kb-2026.11.28`
+- **总闸**: 加查与 R4L 之后的 delta 闸审 = PASS (`evidence/t4_gate_raw/attempt3_delta2_report.md`; 誊录 `evidence/checkpoints/t4_gate_review.md` 文末). "ATOM_ERR / PDF_TYPO 补抽" 一项 = 已关 (带局限).
+- **发版**: 主人同意 "这 1 条改完并复审通过后直接发版" (经协调方待办项转达, `evidence/checkpoints/t4_owner_confirmation.md`). 推送前检查 `evidence/checkpoints/t4_prepush_check.md`; 推送 / 标签 / 网站核对的结果 `evidence/checkpoints/t4_release.md`. 标签 `kb-2026.11.28` 打在收尾提交上; KB 树 `63f857774a42cfaa71798705ad40ab51bc5e378a`.
+- **现数字**: U-1 B 9860/9933 = 99.2651%; strict 9494/9933 = 95.5804%; mapped 9494/9556 = 99.3512%; 内容 8660/9556 = 90.6237%. 终态 EXACT 4711 / EQUIVALENT 3949 / IE 2559 / PDF_TYPO 170 / ATOM_ERR 196 / FIG 11. 台账 md5 `eef9bb14e5afab7e68a231ddd18cfa1c`.
+- **复盘**: `RETROSPECTIVE.md` (保留的做法 / 缺口 / 决策复盘 / 终态数字 / 已知局限). 溯源: `docs/TRACEABILITY.md` §7、`.work/meta/mapping.md` 末节.
+- **留给以后的** (都不挡这次发版): ① M-11 (R4L 的机制选择) 待主人追认; ② D1 口径的折行边界 (值内空格恰好落在折行处时哪条优先) 待主人补一句; ③ 抽样而非全检的几类、约 80 条标签级别项、KB 观察项 O63-O71、MK 表 en dash、TT / TP 的 DOMAIN 格 — 清单见 `RETROSPECTIVE.md` 文末与上一节 "仍开 / 已知局限"; ④ 下游 sdtm-rag 的 "KB 更新" 由协调方另派, 给它的变更要点在 `evidence/checkpoints/t4_downstream_notes.md` 与 `work/t4/kb_heading_diff_kb-2026.11.25_HEAD.txt` / `kb_heading_diff_00a2e93_HEAD.txt`.
+- 以后若再改台账或 KB: 先读上一节的 "坑"; KB 改动走正常批流程与 Chain D, 标签级改动走 writer → reviewer, 之后重建 T0 基线.

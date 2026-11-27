@@ -61,6 +61,8 @@ Full chain definitions are in `.work/MANIFEST.md`.
 | 新旧路径对照 (2026-11-25 重组) | `docs/PATH_MAP.md` |
 | 已收口工作线 (只读) | `archive/` (deep_verification / ai_platforms / jp_delivery / legacy) |
 | 06 深审入口 + 终态数字 | `archive/deep_verification/{PLAN,RETROSPECTIVE}.md` |
+| Tier B 补修入口 + 复盘 | `.work/10_tier_b_repair/{PLAN,RETROSPECTIVE,HANDOFF}.md` |
+| PDF 笔误登记 (KB≠PDF 先查) | `.work/10_tier_b_repair/work/t2_pdf_typo_registry.jsonl` |
 | METHODOLOGY 公开声明 | `METHODOLOGY.md` + `releases/v1.{0,1}/METHODOLOGY.{en,zh,ja}.md` |
 | RAG 问答服务 | 独立公开仓 `hakupao/sdtm-rag` |
 | Agent 进入指引 | `.work/AGENT_GUIDE.md` |

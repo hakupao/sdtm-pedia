@@ -1,7 +1,7 @@
 # 验证过程中发现的问题
 
 > 创建日期: 2026-04-15
-> 状态: Issue 1-16 全部已修复 (1-4: 2026-04-16; 5-16: 2026-05-12, 来自 06 Deep Verification P6 Triage). 唯一遗留: 06 Tier B (MEDIUM) 修复, 含 Issue 5 的 143 TABLE_ROW 数值差异 → `.work/10_tier_b_repair/PLAN.md`
+> 状态: Issue 1-16 全部已修复 (1-4: 2026-04-16; 5-16: 2026-05-12, 来自 06 Deep Verification P6 Triage). 06 Tier B (MEDIUM) 修复 (含 Issue 5 的 PP-PC 表值差异, 批 B-PCPP) 已于 2026-11-28 完成 (标签 `kb-2026.11.28`) → `.work/10_tier_b_repair/RETROSPECTIVE.md`; 已知局限与后续项见该文件文末
 
 ---
 
@@ -144,7 +144,7 @@ ch08_relationships.md 缺失 3 个子节：
 
 ## Issue 5: §6.3.5.9.3 PP-PC Records 关联 — STRUCTURE_DRIFTED（4 子节 215 atoms）
 
-**状态**: **已修复 (结构层)** (2026-05-12) — PC/examples.md: 添加 §6.3.5.9.3 顶层 anchor header + 重命名子节至 PDF verbatim + 修正 "rows 1,3,5,7,9" factual drift + 添加 conclusions 结论段. 注: 143 TABLE_ROW data-value 差异为 Tier-B MEDIUM repair (需单独 Rule A sign-off).
+**状态**: **已修复 (结构层)** (2026-05-12) — PC/examples.md: 添加 §6.3.5.9.3 顶层 anchor header + 重命名子节至 PDF verbatim + 修正 "rows 1,3,5,7,9" factual drift + 添加 conclusions 结论段. 注: 143 TABLE_ROW data-value 差异为 Tier-B MEDIUM repair (需单独 Rule A sign-off). **值层后续 (2026-11-26)**: 由 10 旁枝批 B-PCPP 整表逐格核对并修复 (writer / reviewer / auditor 三角色 PASS, 用户 ack), 见 `.work/10_tier_b_repair/evidence/checkpoints/t2_B-PCPP.md` / `t2_B-PCPP_review.md` / `t2_B-PCPP_audit.md` / `t2_B-PCPP_user_ack.md`.
 
 **发现方式**: 06 Deep Verification P4b section_coverage.jsonl; 4 个子节 aggregate_verdict = STRUCTURE_DRIFTED
 

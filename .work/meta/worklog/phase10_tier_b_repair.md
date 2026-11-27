@@ -52,3 +52,10 @@
 - R4L (`65d6a0f`): `ig34_p0124_a001` ATOM_ERR → EXACT (由 live-hit 判出), 4 条补登记指针; executor → code-reviewer PASS → 小修 → delta PASS。台账 `eef9bb14…`; 现值 U-1 B 99.2651% / strict 95.5804%; ATOM_ERR 196 / EXACT 4711。
 - D1: `B-CE T-2` 那 8 条维持 ATOM_ERR, 口径 (值内空格算真实差异) 登记在 `t4_user_decisions.md` §000c。M-10 已追认。
 - T0 变异基线第三次重建 ALL MATCH; 推送前检查脚本 `scripts/t4/t4_prepush_check.sh` 预跑无拦截项 (不含用户名的机器路径由协调方裁定放行)。
+
+## 2026-11-28 (本地; UTC 2026-11-27) T4.3 收尾 + 发版
+- 总闸: 加查与 R4L 之后的 delta 闸审 = **PASS** (`feature-dev:code-reviewer` 又一新实例; `evidence/t4_gate_raw/attempt3_delta2_report.md`); "ATOM_ERR / PDF_TYPO 补抽" 一项判 已关 (带局限)。需主人但不挡: M-11 追认、D1 的折行边界。
+- Chain D: `.work/meta/mapping.md` 加 "Tier B 内容补修" 一节 → `docs/TRACEABILITY.md` 加 §7 → 本条。`RETROSPECTIVE.md` (三段 + 终态数字 + 已知局限)。
+- 终值: KB 相对 `kb-2026.11.25` 改 193 文件; U-1 B 9860/9933 = 99.2651%; strict 9494/9933 = 95.5804%; mapped 9494/9556 = 99.3512%; 内容 8660/9556 = 90.6237%; 范围内 174 节残留 0; live docs 42。
+- 推送前检查 (`scripts/t4/t4_prepush_check.sh`; 口径与输出 `evidence/checkpoints/t4_prepush_check.md`) → `git push origin main` → 标签 `kb-2026.11.28`。推送结果与网站核对记在 `evidence/checkpoints/t4_release.md`。
+- 下游: sdtm-rag 的 "KB 更新" 由协调方另派, 变更要点 `evidence/checkpoints/t4_downstream_notes.md`。
