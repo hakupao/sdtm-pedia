@@ -2,6 +2,7 @@
 
 <!-- chain: E (plans) -->
 > 状态: **已完成** (2026-11-27). 主控只读核对后写的答复, 没有改 `knowledge_base/`、ledger、`archive/`、`releases/`, 也没有写 sdtm-rag 仓.
+> **2026-11-27 更新: KB 已解冻改过一次 (本地 `a59c2d3`). 下文 §1-§7 描述的是解冻前 (= `00a2e93`) 的 KB; 解冻轮的增量 (rag 映射 +3、标题变动 8 文件、§6 计数更新为 79 / 104 / 239) 见文末 "T4 解冻轮" 节, 以该节为准. §5 表中 `model/05:NN` / `model/06:NN` 行号可能已偏移, 以变量名 Grep 为准.**
 > 对象: 本地 KB 内容 = `00a2e93` (本仓 HEAD 的 KB 与之相同, `git diff --stat 00a2e93..HEAD -- knowledge_base` 为空). 对比基线 = tag `kb-2026.11.25` (sdtm-rag 现钉的版本).
 > 来问: `/Volumes/DevSSD/Project/sdtm-rag/.work/10_split_and_public/evidence/checkpoints/kb_rehearsal_bf33bab.md` 的 "给 pedia 的反馈" 和 "新 KB 下的 pytest". 下文对该报告的说法逐条按本仓证据核对; 有出入的地方注明.
 > 页码: `p` = SDTMIG v3.4 PDF 页 (`work/pdf_pages/ig34_pNNNN.txt`), `sv20 p` = SDTM v2.0 PDF 页.
@@ -215,6 +216,12 @@ git diff --stat 00a2e93..HEAD -- knowledge_base | wc -l                         
 /Volumes/DevSSD/Project/sdtm-rag/.venv/bin/python -I /Volumes/DevSSD/Project/sdtm-rag/.work/10_split_and_public/evidence/probes/defhome_rules.py <git archive 3a24a1c knowledge_base 展开> knowledge_base
 # R0: old 64 new 67 / R4: old 72 new 75 / R4n: old 107 new 116      → 输出全文 work/t4/defhome_pre_vs_thaw.txt
 # kb-2026.11.25 vs 解冻后: R0 59→67 / R4 62→75 / R4n 98→116        → work/t4/defhome_tag_vs_thaw.txt
+```
+- 逐变量集合差 (本仓只读脚本, 与 rag probe 同规则):
+```bash
+python3 -I .work/10_tier_b_repair/scripts/t4/t4_defhome_setdiff.py <git archive 3a24a1c knowledge_base 展开> knowledge_base
+# R0: old 64 new 67 | added {'TSVALCD': '05', 'TSVCDREF': '05', 'TSVCDVER': '05'} | removed [] | changed {}
+# R4: old 72 new 75 | added {'TSVALCD': '05', 'TSVCDREF': '05', 'TSVCDVER': '05'} | removed [] | changed {}
 ```
 - **R4 相对解冻前只新增 `TSVALCD` / `TSVCDREF` / `TSVCDVER` → model/05, 删除 0、改动 0** (KB reviewer 与 auditor 各自用集合差独立核过). A5-2 (列名) 与 A5-4 (Role 列括注统一, 如 QLABEL "Synonym Qualifier (QNAM)") 没有让别的变量进出映射.
 - **R4n 提醒**: R4n (不要求第 6 格非空) 下, TS 表另 6 行 (TSSEQ / TSGRPID / TSPARMCD / TSPARM / TSVAL / TSVALNF) 因升为 6 格也被计入; rag 现用的 R4 不受影响, **请勿改用 R4n**.
