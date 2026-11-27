@@ -3,7 +3,7 @@
 <!-- chain: E (plans) -->
 > 状态: **写作者稿: ALL MATCH (exit 0), 2026-11-27**; 独立审查结论见文末. KB 未改 (只在 `work/scratch/t0_head/` 的临时副本上变异).
 > 关闭的缺口: 总闸 attempt 2 G-TB9 "t0_mutation 在现 KB MISMATCH → table_census / fp_match 在现 KB 无 '变红再复原' 证明".
-> 写作者 = 主控 (脚本 + 本文); 其中 **M4a 换靶是主控决定 M-8, 待主人追认** (见 §3; 提问在 `t4_owner_decisions_round2.md` 问题 5).
+> 写作者 = 主控 (脚本 + 本文); 其中 **M4a 换靶是主控决定 M-8** (见 §3; 提问在 `t4_owner_decisions_round2.md` 问题 5; 主人 2026-11-27 第二轮已追认, 原话 `t4_owner_confirmation.md` 第二轮一节). R2L 改台账后基线已重建并重跑, 见 §6.
 
 ## 1. 查清的原因: 不只是基线过期
 
@@ -75,7 +75,7 @@ real KB md5 before = after e2d862e25f04a3757a5ba5436092c416; git status knowledg
 
 ## 5. 限制 (如实)
 
-- 基线绑定当前 KB 与当前台账 (`coverage_ledger.wc.jsonl` md5 `60729f7b…`). KB 或台账再改 (例如 `t4_relabel_pending.md` 的改标执行后) 须重跑 `--make-baseline` 再跑一遍变异.
+- 基线绑定当前 KB 与当前台账 (`coverage_ledger.wc.jsonl` md5 `60729f7b…`). KB 或台账再改 (例如 `t4_relabel_pending.md` 的改标执行后) 须重跑 `--make-baseline` 再跑一遍变异. (R2L 执行后已照做, 见 §6.)
 - fp_match 仍只能检出 "基线里命中、现在没命中" 的原子 (`t0_mutation.md` §3 限制 2 未变); t3 侧的直接命中与锚点变异由 `scripts/t3/t3_mutation.sh` 负责 (HEAD 上 M0/M2/M7 绿、M1/M3-M6 红, 见 `t4_gate_review.md` §attempt 2 主控补跑).
 - M4a 换了靶; 原靶 (同一文件内的第二份副本) 这种形态在现 KB 的 MB / EG 单元里已不存在, 新靶是跨文件的两份副本.
 - fp_match 的 `--sections` 仍用 T0 的 `section_coverage.wc.baseline.jsonl` (只取其中 "节 → 目标文件" 的映射), 所以现基线的取靶范围同样绑定在 T0 的节划分上.

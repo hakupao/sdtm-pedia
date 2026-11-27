@@ -34,8 +34,18 @@ c=collections.Counter(json.loads(l)['verdict'] for l in open('$T/work/coverage_l
   echo "\$ bash $T/scripts/t3/t3_mutation.sh | grep -E 'RESULT|real KB md5|unchanged|^== '"; bash $T/scripts/t3/t3_mutation.sh 2>&1 | grep -E "RESULT|real KB md5|unchanged|^== "
   echo; echo "## G-TB9 t0 mutation on the current KB"
   echo "\$ bash $T/scripts/t4/t0_mutation_head.sh | sed -n '/^real KB md5 (after)/,\$p'"; bash $T/scripts/t4/t0_mutation_head.sh 2>&1 | sed -n '/^real KB md5 (after)/,$p'
+  echo; echo "## G-TB6 reverse trace on the working tree (-> scratch)"
+  echo "\$ python3 -I $T/scripts/t3/t3_reverse_trace.py --rev WORKTREE --out $S/reverse_trace.json | tail -25"
+  python3 -I $T/scripts/t3/t3_reverse_trace.py --rev WORKTREE --out "$S/reverse_trace.json" 2>&1 | tail -25
+  echo; echo "## R2L change set (pre-R2L backup vs working ledger) and overlap with every judged sample"
+  run python3 -I $T/scripts/t4/t4_r2l_sample_overlap.py
+  echo; echo "## ack list: PDF_TYPO / ATOM_ERR / FIG by decision source (regenerated to scratch, compared with the committed file)"
+  echo "\$ grep -c '(未归因)' $T/evidence/checkpoints/t4_ack_lists.md"; grep -c '(未归因)' $T/evidence/checkpoints/t4_ack_lists.md
+  echo "\$ sed -n '1,12p' $T/evidence/checkpoints/t4_ack_lists.md"; sed -n '1,12p' $T/evidence/checkpoints/t4_ack_lists.md
   echo; echo "## sample files"
-  run md5 -r $T/work/t4/gate_sample.jsonl $T/work/t4/human_sample.jsonl $T/work/t4/supp/supp_sample.jsonl $T/work/t4/q9/q9_sample.jsonl
+  run md5 -r $T/work/t4/gate_sample.jsonl $T/work/t4/human_sample.jsonl $T/work/t4/supp/supp_sample.jsonl $T/work/t4/q9/q9_sample.jsonl $T/work/t4/round2/round2_sample.jsonl $T/work/t4/round2/round2b_sample.jsonl $T/work/t4/round3/round3_sample.jsonl
+  echo; echo "## working-ledger backups / derived data md5"
+  run md5 -r $T/work/coverage_ledger.wc.jsonl $T/work/coverage_ledger.wc.pre_r2l.jsonl $T/work/t2_pdf_typo_registry.jsonl $T/work/t4_r2l_relabel.json $T/work/t3_errata.json $T/work/t3_rules.json $T/work/t3_writeback_decisions.json $T/work/t4/supp/scenarios.json $T/work/t4/supp/relabel_pending.json
   echo; echo "## after"
   echo "KB tree $(git rev-parse HEAD:knowledge_base); ledger md5 $(md5 -q $T/work/coverage_ledger.wc.jsonl)"
   run git status --short knowledge_base archive releases
