@@ -1,7 +1,7 @@
 # T3 回写独立审计 (规则 A / 规则 D)
 
 <!-- chain: E (plans) -->
-> 状态: **FAIL** (2026-11-26). 审计者: `oh-my-claudecode:verifier`, 与 writer (`oh-my-claudecode:executor`) 不是同一个 agent.
+> 状态: **终审 PASS (attempt 4, 见本文件 §attempt 4 终审, 约 :479)**; attempt 1-3 FAIL 已归档 `evidence/failures/step_T3_attempt_*.md`. (T4 主控 2026-11-27 改状态行; 原状态行: **FAIL** (2026-11-26).) 审计者: `oh-my-claudecode:verifier`, 与 writer (`oh-my-claudecode:executor`) 不是同一个 agent.
 > 审计范围: T3.1 回写和 T3.2 重算, 以 `evidence/checkpoints/t3_recompute.md` 的 §主控裁定 C1-C6 (v2) 为准.
 > 本次只读. 改动只有两处: 本文件, 以及临时目录 `work/scratch/t3_audit/` (已被 gitignore). 没有改 KB、ledger、脚本, 也没有 commit.
 > 审计时 ledger md5 = `634aedcfeccd820ee182a930ec39352c`, pre_t3 备份 = `620c4a19…`, 真 KB 全部 .md 拼接后 md5 = `b3a040150c53a4256ea0dde645bd7d07` (前后不变).

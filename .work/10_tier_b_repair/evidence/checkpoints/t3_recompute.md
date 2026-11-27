@@ -1,7 +1,7 @@
 # T3 回写 + 重算 (T3.1 / T3.2) — writer checkpoint
 
 <!-- chain: E (plans) -->
-> 状态: writer 已完成 (2026-11-26), 等待主控和 reviewer 独立复核. writer 为 `oh-my-claudecode:executor`, 依据 brief `subagent_prompts/t3_writer_v1.0.md`.
+> 状态: **完成, 最终有效 = attempt 4 (审计终审 PASS, `evidence/step_T3_audit.md`)**; T4 解冻轮在新 KB 上按 §A4.5 重跑, 结果见 `evidence/checkpoints/t4_thaw_W3.md`. (T4 主控 2026-11-27 改状态行; 原: writer 已完成 (2026-11-26), 等待主控和 reviewer 独立复核.) writer 为 `oh-my-claudecode:executor`, 依据 brief `subagent_prompts/t3_writer_v1.0.md`.
 > 写入范围: 只改了 `.work/10_tier_b_repair/{scripts/t3,work,evidence}`.
 > 未动: `knowledge_base/` `archive/` `releases/`. KB 在 S3.5 前后的 md5 一致.
 > 未 commit. `_progress.json` 的 md5 字段不在 writer 的写入范围内, 未填, 请主控用下表的值填.

@@ -199,3 +199,40 @@ grep -l "asterisk (\*) indicates that the variable may be subject" knowledge_bas
 grep -rn "DateTime" knowledge_base/domains/*/spec.md | wc -l                                                  # 0
 git diff --stat 00a2e93..HEAD -- knowledge_base | wc -l                                                       # 0
 ```
+
+---
+
+## T4 解冻轮 (本地 `a59c2d3`, 2026-11-27) 给 sdtm-rag 的增量说明
+
+> 背景: T4 用户裁定 (委托代裁, `evidence/checkpoints/t4_user_decisions.md` §000) 需要改 KB 的部分在这一轮一次改完; KB 只变这一次, rag 需在新指纹上重跑入库预演. 未 push、未打 `kb-*` tag.
+> 不变的接口: spec.md 的 `- **Controlled Terms:**` 单元格 0 改动 (本文件前面的格式约定继续有效); model 文件变量表 `#` 编号 0 改动 (auditor 逐行核: model/05 110 行、model/06 47 行与解冻前相同). U-10⑥ (model/06 RELSPEC REFID/SPEC 的 Notes 列为空、model/03 SE 表 TAETORD/EPOCH Notes 放 C-code) **本次不处理**, 将来改之前先通知 rag.
+
+### 1. 定义出处映射 (`_model_defhome`) 的实际影响
+- 原因: A5-3 给 `model/05` TS 表 (原 5 列) 加第 6 列 `Usage Restrictions`, TSVALCD / TSVCDREF / TSVCDVER 三行填 PDF 的 "Not in nonclinical trials" (sv20 p59-60), 与 TT/TP 表同一承载方式; 同时 A5-2 把 TT/TP 表第 6 列列名 `Notes` 改为 `Usage Restrictions` (格内容不变).
+- 实算 (rag 只读脚本 `defhome_rules.py`, 本仓未写 rag):
+```bash
+# 解冻前 (= 00a2e93 内容) vs 解冻后
+/Volumes/DevSSD/Project/sdtm-rag/.venv/bin/python -I /Volumes/DevSSD/Project/sdtm-rag/.work/10_split_and_public/evidence/probes/defhome_rules.py <git archive 3a24a1c knowledge_base 展开> knowledge_base
+# R0: old 64 new 67 / R4: old 72 new 75 / R4n: old 107 new 116      → 输出全文 work/t4/defhome_pre_vs_thaw.txt
+# kb-2026.11.25 vs 解冻后: R0 59→67 / R4 62→75 / R4n 98→116        → work/t4/defhome_tag_vs_thaw.txt
+```
+- **R4 相对解冻前只新增 `TSVALCD` / `TSVCDREF` / `TSVCDVER` → model/05, 删除 0、改动 0** (KB reviewer 与 auditor 各自用集合差独立核过). A5-2 (列名) 与 A5-4 (Role 列括注统一, 如 QLABEL "Synonym Qualifier (QNAM)") 没有让别的变量进出映射.
+- **R4n 提醒**: R4n (不要求第 6 格非空) 下, TS 表另 6 行 (TSSEQ / TSGRPID / TSPARMCD / TSPARM / TSVAL / TSVALNF) 因升为 6 格也被计入; rag 现用的 R4 不受影响, **请勿改用 R4n**.
+- TT/TP 表 DOMAIN 行第 6 格仍是 `"TT"` / `"TP"` (现挂在 `Usage Restrictions` 列下, 表上 KB note 写明是例外); 本次不清空, 因为清空会改变 rag 读到的内容 (记后续).
+
+### 2. 标题 / 节变动 (解冻轮本身)
+复跑: `python3 -I .work/10_tier_b_repair/scripts/t4/t4_heading_diff.py 00a2e93 HEAD` → `work/t4/kb_heading_diff_00a2e93_HEAD.txt` (8 个文件; 删 28 / 增 22). 相对 rag 现钉版本: `t4_heading_diff.py kb-2026.11.25 HEAD` → `work/t4/kb_heading_diff_kb-2026.11.25_HEAD.txt` (文件增删 0; 79 个文件标题有变, 删 104 / 增 239; 替代本文件 §6 的 77 / 85 / 226).
+
+| 文件 | 变动 | 裁定 |
+|---|---|---|
+| `domains/FA/assumptions.md` | `## §6.4.4 FA – Description/Overview` 拆成 `## §6.4.4 Findings About Events or Interventions (FA)` + `## FA – Description/Overview` (PDF p364 两行标题) | A5-11 |
+| `domains/MB/examples.md` | `## §6.3.5.7.3 Microbiology Specimen and Microbiology Susceptibility Examples` → `…Specimen/Microbiology Susceptibility Examples` | A5-11 |
+| `domains/PP/examples.md` | **删除整节** `## RELREC Method Quick Reference (PP-side view)` 及 5 个 `###` 子节 (KB 自写摘要), 换成一行交叉引用到 `PC/examples.md` 的 worked examples (内容在 PC/examples.md Example 1 Method A-D); PP 文件标题 11 → 5 | A5-10 |
+| `domains/SS/examples.md` | `##### Example 1` → `## Example 1` | A5-11 |
+| `domains/TA/assumptions.md` | `## Trial Design Model Overview (§7.1)` → `## §7.1 Introduction to Trial Design Model Datasets`; `## Trial Arms and Trial Elements (§7.2)` → `## §7.2 Experimental Design (TA and TE)` | A5-11 |
+| `domains/TI/assumptions.md` | `## §7.4 Trial Eligibility and Summary (TI, TS) — Introduction` → `## §7.4 Trial Eligibility and Summary (TI and TS)` | A5-9 |
+| `model/05_study_level_data.md` | 5.1.1.1-2 / 5.1.3.1-2 / 5.1.4.1-3 七个标题 `###` → `####` (文字不变, "(XX)" 域代码后缀保留) | A5-1 |
+| `model/06_relationship_datasets.md` | `## Overview` → `## 6 Datasets for Representing Relationships`; 6.1-6.7 改 PDF 原标题 (多数加 "Dataset", 6.6 → "Associated Persons Relationships (APRELSUB)"); 删 `### RELTYPE Combinations` (KB 自写表, 换成指向 ch08 §8.3.1 的交叉引用) | A5-5 / A5-8 |
+
+- 所有改 / 删标题在 knowledge_base / web/src / tools / docs 中入站链接 0 (auditor 按 slug 复核).
+- 非标题但影响 chunk 文本的: CE/examples.md:39 自拟粗体 CRF 标题改为 `**CRF**` (U-10②); CRF 选项符号 CE 39 + ch04 19 处 `( )`/`[ ]` → ○ / □ (U-9a, 按 PDF 渲染外观; ML 的 `[X]`/`[ ]` 不变); 5 条 `> KB note (not in SDTMIG):` 改为 `> Note:` (EX/examples:5、MS/examples:3、PC/examples:3、PP/examples:3、RELREC/assumptions:5; 只说明来源/位置的 note, A5-14). 其余 165 条 KB note 前缀不变 (C-code note 59 条不变). 值改动 21 行 (U-7) + en dash 2 处 (A6), 清单 `evidence/checkpoints/t4_thaw_W1.md`.
