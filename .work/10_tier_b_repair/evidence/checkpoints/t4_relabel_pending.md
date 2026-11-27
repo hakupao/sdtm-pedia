@@ -14,7 +14,7 @@
 | registered-typo | 9 | EXACT → PDF_TYPO | 问题 3 (主人选 A) |
 | registered-typo-oos | 5 | EQUIVALENT → PDF_TYPO | 问题 7b (主人选 A; 第三轮审查者已对渲染页确认) |
 | registered-typo-oos | 1 | EXACT → PDF_TYPO | 问题 7b (主人选 A; 第三轮审查者已对渲染页确认) |
-| typo-overlabel | 4 | PDF_TYPO → EXACT | 第三轮新发现, **待主人定** |
+| typo-overlabel | 4 | PDF_TYPO → EXACT | 第三轮新发现, **待主人定** (问题 A; 主人消息 3 「继续」未答 → 维持 PDF_TYPO 不动) |
 | v2.0-TOC | 2 | EQUIVALENT → INTENTIONAL_EXCLUDE | 问题 2 (主人选 A) |
 
 ## 2. 各选法下的闸数字 (在台账**副本**上实算; 工作台账 md5 断言不变)

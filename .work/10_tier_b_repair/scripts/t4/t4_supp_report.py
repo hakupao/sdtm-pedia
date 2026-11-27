@@ -73,18 +73,18 @@ for d in (supp, q9, r2):
                              why="SDTM v2.0 目录条目, 对应章节 KB 未收 (同页 a009 / a010 已是 IE VERSION_MISMATCH)", raw=r["raw"]))
         elif a in TYPO:
             pend.append(dict(atom_id=a, now=r["final"], to="PDF_TYPO", group="registered-typo",
-                             why=f"KB 与 PDF 的差异 = 已登记 PDF 笔误 {TYPO[a]} (KB 写正确值)", raw=r["raw"]))
+                             why=f"KB 与 PDF 的差异 = 已登记 PDF 笔误 {TYPO[a]} (KB 写正确值)", raw=r["raw"], registry=TYPO[a]))
         elif r["verdict"] == "TYPO_AFFECTED":
             named = [g_ for g_ in (r.get("reg") or []) if g_ in r["line"]]   # the id(s) the reviewer wrote in that row
             assert len(named) == 1, (a, r.get("reg"), named)
             pend.append(dict(atom_id=a, now=r["final"], to="PDF_TYPO", group="registered-typo",
-                             why=f"KB 与 PDF 的差异 = 已登记 PDF 笔误 {named[0]} (KB 写正确值; 审查者在原始结果该行确认)", raw=r["raw"]))
+                             why=f"KB 与 PDF 的差异 = 已登记 PDF 笔误 {named[0]} (KB 写正确值; 审查者在原始结果该行确认)", raw=r["raw"], registry=named[0]))
 for a, r in r3.items():
     if r["verdict"] == "TYPO_AFFECTED":
         named = [g_ for g_ in (r.get("reg") or []) if g_ in r["line"]]
         assert len(named) == 1 and r["layer"] == "R3_XTYPO", (a, named)
         pend.append(dict(atom_id=a, now=r["final"], to="PDF_TYPO", group="registered-typo-oos",
-                         why=f"范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 {named[0]} (KB 写正确值; 审查者对渲染页确认)", raw=r["raw"]))
+                         why=f"范围外; KB 与 PDF 的差异 = 已登记 PDF 笔误 {named[0]} (KB 写正确值; 审查者对渲染页确认)", raw=r["raw"], registry=named[0]))
     elif r["verdict"] == "NOT_HOLD" and r["layer"] == "R3_PDF_TYPO":
         pend.append(dict(atom_id=a, now=r["final"], to="EXACT", group="typo-overlabel",
                          why="登记的笔误不在这条原子里 (在相邻原子 / 另一张表); 这条 KB 与 PDF 逐字一致, 现标 PDF_TYPO 多标了", raw=r["raw"]))
@@ -290,7 +290,7 @@ o = ["# 待改标签清单 (补检 + Q9 扩检 + 第二轮补检查出; **未执
      "## 1. 三组 (提问与选项以 `t4_owner_decisions_round2.md` 为准, 这里只列组)", "",
      "| 组 | 条数 | 现标签 → 建议 | 对应给主人一页的 |", "|---|--:|---|---|"]
 QN = {"R1-row": "问题 1 (主人选 A)", "v2.0-TOC": "问题 2 (主人选 A)", "registered-typo": "问题 3 (主人选 A)",
-      "registered-typo-oos": "问题 7b (主人选 A; 第三轮审查者已对渲染页确认)", "typo-overlabel": "第三轮新发现, **待主人定**"}
+      "registered-typo-oos": "问题 7b (主人选 A; 第三轮审查者已对渲染页确认)", "typo-overlabel": "第三轮新发现, **待主人定** (问题 A; 主人消息 3 「继续」未答 → 维持 PDF_TYPO 不动)"}
 for (grp_, now, to_), n in sorted(g.items()):
     o.append(f"| {grp_} | {n} | {now} → {to_} | {QN[grp_]} |")
 o += ["", "## 2. 各选法下的闸数字 (在台账**副本**上实算; 工作台账 md5 断言不变)", "",
