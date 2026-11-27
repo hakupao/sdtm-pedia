@@ -1,7 +1,7 @@
 # T4.1 补检 ("0 抽中" 各类全检) + Q9 扩检 + 第二轮补检 — 汇总
 
 <!-- chain: E (plans) -->
-> 状态: **补检 PRE_EXISTING 层不通过 → 触发 Q9 升级; Q9 扩检与第二轮补检已跑完; 共查出 82 条标签应改, 主人都已直接定, 全部已执行: 78 条 (1A / 2A / 3A / 7b-A) 由 R2L 批, 4 条多标的 PDF_TYPO (问题 A = A1) 由 R3L 批; 1 条判不了的 (问题 B = B1) 维持 PDF_TYPO 并写明无法判定** (2026-11-27). KB 未改; 台账 `60729f7b…` → (R2L) `16024ac0…` → (R3L) `43809870…`; 备份 `work/coverage_ledger.wc.pre_r2l.jsonl` / `work/coverage_ledger.wc.pre_r3l.jsonl`; 见 `t4_round2_ledger_W.md` / `t4_round2_ledger_review.md` / `t4_round2_ledger_audit.md` 与 `t4_round3_ledger_W.md` / `t4_round3_ledger_review.md`.
+> 状态: **补检 PRE_EXISTING 层不通过 → 触发 Q9 升级; Q9 扩检与第二轮补检已跑完; 共查出 82 条标签应改, 主人都已直接定, 全部已执行: 78 条 (1A / 2A / 3A / 7b-A) 由 R2L 批, 4 条多标的 PDF_TYPO (问题 A = A1) 由 R3L 批; 1 条判不了的 (问题 B = B1) 维持 PDF_TYPO 并写明无法判定** (2026-11-27). KB 未改; 台账 `60729f7b…` → (R2L) `16024ac0…` → (R3L) `43809870…`; 备份 `work/coverage_ledger.wc.pre_r2l.jsonl` / `work/coverage_ledger.wc.pre_r3l.jsonl`; 见 `t4_round2_ledger_W.md` / `t4_round2_ledger_review.md` / `t4_round2_ledger_audit.md` 与 `t4_round3_ledger_W.md` / `t4_round3_ledger_review.md`. **之后 (加查批 R4L, 主人 C1)** 又有 1 条 ATOM_ERR 改回 EXACT (`ig34_p0124_a001`), 不在本清单内; 本文件的数字停在 R3L 之后, R4L 之后的现值见 `t4_atomerr_fullcheck.md` §8.
 > 审查: `oh-my-claudecode:tracer` (opus) 独立实例, 只读: 补检 8 + Q9 8 + 第二轮 8. 原始结果由审查者自己写入 `evidence/t4_supp_raw/`、`evidence/t4_q9_raw/`、`evidence/t4_round2_raw/`. 本文件 §1-§6 是主控用 `scripts/t4/t4_supp_report.py` 从原始结果机械汇总的, 不改判 (规则 D); 文末一节是主控手写的 "独立审查 B 的处理".
 > 口径 (派发前写死): `subagent_prompts/t4/t4_supp_fullcheck_v1.0.md`, `t4_q9_extension_v1.0.md`, `t4_supp_round2_v1.0.md`. 规则 B 归档: `evidence/failures/step_T4.SUPP_attempt_1.md`. 对本汇总的独立审查原文: `evidence/t4_gap_review_raw/review_b.md`.
 

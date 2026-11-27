@@ -2,12 +2,14 @@
 """Read-only: does every final ATOM_ERR / PDF_TYPO atom have its own verdict row in the raw output of an independent
 T4 review? Scans the reviewers' result tables (a row whose first cells hold the atom id and a verdict word).
 Also prints the coverage numbers for the scenarios of the add-on check on in-memory copies of the ledger
-(the working ledger is never written). Usage (repo root): python3 -I .work/10_tier_b_repair/scripts/t4/t4_atomerr_coverage.py
+(no ledger is written). Since the R4L batch the scenarios are computed on the pre-R4L backup
+(the ledger the check was done on) and the working ledger is printed as it is now. Usage (repo root): python3 -I .work/10_tier_b_repair/scripts/t4/t4_atomerr_coverage.py
 """
 import collections, glob, hashlib, json, os
 
 TB = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-LED = f"{TB}/work/coverage_ledger.wc.jsonl"
+LED = f"{TB}/work/coverage_ledger.wc.pre_r4l.jsonl"   # the ledger the add-on check was done on (before the R4L batch)
+WORK = f"{TB}/work/coverage_ledger.wc.jsonl"
 rows = [json.loads(l) for l in open(LED, encoding="utf-8") if l.strip()]
 L = {r["pdf_atom_id"]: r for r in rows}
 RAW = ["evidence/t4_gate_raw/pack[1-4].md", "evidence/t4_supp_raw/pack_*.md", "evidence/t4_q9_raw/pack_*.md",
@@ -52,10 +54,13 @@ def nums(flip, to):
 
 
 assert len(CE) == 8 and all(L[i]["verdict"] == "ATOM_ERR" for i in C1)
-print("now                       :", nums(set(), None))
+print("before R4L (checked ledger):", nums(set(), None))
 print("C1 (1 -> EXACT)           :", nums(set(C1), "EXACT"))
 print("B-CE 8 -> EXACT           :", nums(set(CE), "EXACT"))
 print("B-CE 8 -> PDF_TYPO        :", nums(set(CE), "PDF_TYPO"))
 print("C1 + B-CE 8 -> EXACT      :", nums(set(C1) | set(CE), "EXACT"))
 print("B-CE atoms:", sorted(CE))
-print("ledger md5 (unchanged):", hashlib.md5(open(LED, "rb").read()).hexdigest())
+rows = [json.loads(l) for l in open(WORK, encoding="utf-8") if l.strip()]
+print("working ledger now        :", nums(set(), None))
+print("B-CE 8 in the working ledger:", sorted({r["verdict"] for r in rows if r["pdf_atom_id"] in set(CE)}), "| C1 atom:", [r["verdict"] for r in rows if r["pdf_atom_id"] in C1])
+print("md5: checked ledger", hashlib.md5(open(LED, "rb").read()).hexdigest(), "| working ledger", hashlib.md5(open(WORK, "rb").read()).hexdigest())

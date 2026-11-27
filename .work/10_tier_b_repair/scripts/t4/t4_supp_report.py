@@ -96,7 +96,15 @@ json.dump(pend, open(f"{W}/t4/supp/relabel_pending.json", "w", encoding="utf-8")
 os.makedirs(SC, exist_ok=True)
 led = f"{W}/coverage_ledger.wc.pre_r2l.jsonl"   # frozen pre-R2L ledger (rule-B backup): the baseline every scenario is rehearsed on
 LEDGER_MD5 = "60729f7b64b7c1dfaf2174e394f6dd9c"   # value cited in t4_attempt2_report.md; asserted unchanged below
-LIVE = f"{W}/coverage_ledger.wc.jsonl"          # working ledger after the R2L batch (read-only here)
+LIVE = f"{W}/coverage_ledger.wc.pre_r4l.jsonl"  # the ledger after R2L + R3L (= what this report is about; read-only here).
+# The working ledger has moved on by the R4L batch (add-on check of ATOM_ERR S1-R1, owner's C1): checked just below.
+WORK_LEDGER = f"{W}/coverage_ledger.wc.jsonl"
+_r4l = set(json.load(open(f"{W}/t4_r4l_relabel.json", encoding="utf-8"))["relabel"])
+_a = [json.loads(l) for l in open(LIVE, encoding="utf-8") if l.strip()]
+_b = [json.loads(l) for l in open(WORK_LEDGER, encoding="utf-8") if l.strip()]
+assert len(_a) == len(_b) and {x["pdf_atom_id"] for x, y in zip(_a, _b) if x["verdict"] != y["verdict"]} == _r4l, "working ledger != pre-R4L ledger + R4L list"
+R4L_NOTE = (f" **之后 (加查批 R4L, 主人 C1)** 又有 {len(_r4l)} 条 ATOM_ERR 改回 EXACT ({', '.join('`' + i + '`' for i in sorted(_r4l))}), 不在本清单内; "
+            "本文件的数字停在 R3L 之后, R4L 之后的现值见 `t4_atomerr_fullcheck.md` §8.")
 rows = lj(led)
 L = {r["pdf_atom_id"]: r for r in rows}
 r2pop = json.load(open(f"{W}/t4/round2/round2_population.json"))
@@ -179,7 +187,7 @@ vc = lambda d, layer=None: collections.Counter(r["verdict"] for r in d.values() 
 pop = json.load(open(f"{W}/t4/supp/supp_population.json"))
 qp = json.load(open(f"{W}/t4/q9/q9_population.json"))
 o = ["# T4.1 补检 (\"0 抽中\" 各类全检) + Q9 扩检 + 第二轮补检 — 汇总", "", "<!-- chain: E (plans) -->",
-     f"> 状态: **补检 PRE_EXISTING 层不通过 → 触发 Q9 升级; Q9 扩检与第二轮补检已跑完; 共查出 {len(pend)} 条标签应改, 主人都已直接定, 全部已执行: {N_R2L} 条 (1A / 2A / 3A / 7b-A) 由 R2L 批, {N_R3L} 条多标的 PDF_TYPO (问题 A = A1) 由 R3L 批; 1 条判不了的 (问题 B = B1) 维持 PDF_TYPO 并写明无法判定** (2026-11-27). KB 未改; 台账 `{LEDGER_MD5[:8]}…` → (R2L) `{R2L_MD5[:8]}…` → (R3L) `{LIVE_MD5[:8]}…`; 备份 `work/coverage_ledger.wc.pre_r2l.jsonl` / `work/coverage_ledger.wc.pre_r3l.jsonl`; 见 `t4_round2_ledger_W.md` / `t4_round2_ledger_review.md` / `t4_round2_ledger_audit.md` 与 `t4_round3_ledger_W.md` / `t4_round3_ledger_review.md`.",
+     f"> 状态: **补检 PRE_EXISTING 层不通过 → 触发 Q9 升级; Q9 扩检与第二轮补检已跑完; 共查出 {len(pend)} 条标签应改, 主人都已直接定, 全部已执行: {N_R2L} 条 (1A / 2A / 3A / 7b-A) 由 R2L 批, {N_R3L} 条多标的 PDF_TYPO (问题 A = A1) 由 R3L 批; 1 条判不了的 (问题 B = B1) 维持 PDF_TYPO 并写明无法判定** (2026-11-27). KB 未改; 台账 `{LEDGER_MD5[:8]}…` → (R2L) `{R2L_MD5[:8]}…` → (R3L) `{LIVE_MD5[:8]}…`; 备份 `work/coverage_ledger.wc.pre_r2l.jsonl` / `work/coverage_ledger.wc.pre_r3l.jsonl`; 见 `t4_round2_ledger_W.md` / `t4_round2_ledger_review.md` / `t4_round2_ledger_audit.md` 与 `t4_round3_ledger_W.md` / `t4_round3_ledger_review.md`.{R4L_NOTE}",
      "> 审查: `oh-my-claudecode:tracer` (opus) 独立实例, 只读: 补检 8 + Q9 8 + 第二轮 8. 原始结果由审查者自己写入 `evidence/t4_supp_raw/`、`evidence/t4_q9_raw/`、`evidence/t4_round2_raw/`. 本文件 §1-§6 是主控用 `scripts/t4/t4_supp_report.py` 从原始结果机械汇总的, 不改判 (规则 D); 文末一节是主控手写的 \"独立审查 B 的处理\".",
      "> 口径 (派发前写死): `subagent_prompts/t4/t4_supp_fullcheck_v1.0.md`, `t4_q9_extension_v1.0.md`, `t4_supp_round2_v1.0.md`. 规则 B 归档: `evidence/failures/step_T4.SUPP_attempt_1.md`. 对本汇总的独立审查原文: `evidence/t4_gap_review_raw/review_b.md`.", "",
      "## 1. 复跑", "", "```bash", "T=.work/10_tier_b_repair",
@@ -309,7 +317,7 @@ open(f"{CK}/t4_supp_fullcheck.md", "w", encoding="utf-8").write("\n".join(o) + "
 g = collections.Counter((p["group"], p["now"], p["to"]) for p in pend)
 gn = collections.Counter(p["group"] for p in pend)
 o = ["# 待改标签清单 (补检 + Q9 扩检 + 第二轮 / 第三轮补检查出; **82 条全部已执行**)", "", "<!-- chain: E (plans) -->",
-     f"> 状态: **{len(APPLIED)} 条全部已执行** (2026-11-27): {N_R2L} 条 = R2L 批 (主人直接定的 1A / 2A / 3A / 7b-A), {N_R3L} 条 (`typo-overlabel` 组) = R3L 批 (主人直接定的 A1). 共 {len(pend)} 条. 台账 `work/coverage_ledger.wc.jsonl` md5 `{LEDGER_MD5}` → (R2L) `{R2L_MD5}` → (R3L) `{LIVE_MD5}` (本脚本逐条核过: {len(APPLIED)} 条现标签都 = \"建议\" 列, 全台账相对最初备份标签有变化的行数 = {changed_live}; 现台账实算的四个数与下表最后一行逐字相同). \"现标签\" 列一律指**改前**. 本文件由 `scripts/t4/t4_supp_report.py` 生成; 依据是独立审查者的原始结果 (\"原始结果\" 列), 主控未改判.",
+     f"> 状态: **{len(APPLIED)} 条全部已执行** (2026-11-27): {N_R2L} 条 = R2L 批 (主人直接定的 1A / 2A / 3A / 7b-A), {N_R3L} 条 (`typo-overlabel` 组) = R3L 批 (主人直接定的 A1). 共 {len(pend)} 条. 台账 `work/coverage_ledger.wc.jsonl` md5 `{LEDGER_MD5}` → (R2L) `{R2L_MD5}` → (R3L) `{LIVE_MD5}` (本脚本逐条核过: {len(APPLIED)} 条现标签都 = \"建议\" 列, 全台账相对最初备份标签有变化的行数 = {changed_live}; 现台账实算的四个数与下表最后一行逐字相同). \"现标签\" 列一律指**改前**. 本文件由 `scripts/t4/t4_supp_report.py` 生成; 依据是独立审查者的原始结果 (\"原始结果\" 列), 主控未改判.{R4L_NOTE}",
      "> 当初为什么不直接改 (历史说明): 这些是闸口径层面的事, 须主人本人定 (总闸 attempt 2 C 项; 协调方 2026-11-27 指示, `t4_coordinator_note_20261127.md`); PDF_TYPO 每条须用户 ack (G-TB1); 主人已确认的 U-1 口径数字建立在当前台账上. (Q9 brief 原写 \"NOT_HOLD_R1 → 改 IE\", 这里收紧为先问主人.)", "",
      "## 1. 三组 (提问与选项以 `t4_owner_decisions_round2.md` 为准, 这里只列组)", "",
      "| 组 | 条数 | 现标签 → 建议 | 对应给主人一页的 |", "|---|--:|---|---|"]

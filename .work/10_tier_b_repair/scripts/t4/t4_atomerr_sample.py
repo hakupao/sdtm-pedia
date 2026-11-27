@@ -32,7 +32,9 @@ RAW = ["evidence/t4_gate_raw/pack[1-4].md", "evidence/t4_supp_raw/pack_*.md", "e
 VERDICTS = ("HOLDS_AS_EQUIV", "NOT_HOLD", "HOLDS", "UNVERIFIABLE", "内容正确", "内容错误", "看不出")
 os.makedirs(OUT, exist_ok=True)
 md5 = lambda p: hashlib.md5(open(p, "rb").read()).hexdigest()
-assert md5(f"{TB}/work/coverage_ledger.wc.jsonl") == LEDGER_MD5, "ledger changed: re-derive the population on purpose"
+# After the R4L batch (2026-11-27) the working ledger is eef9bb14…, so this assert fails by design: the population is
+# frozen in work/t4/atomerr/atomerr_population.json; to re-derive it, restore work/coverage_ledger.wc.pre_r4l.jsonl in a copy.
+assert md5(f"{TB}/work/coverage_ledger.wc.jsonl") == LEDGER_MD5, "ledger changed (R4L or later): population is frozen in atomerr_population.json"
 
 
 def defs_only(path, marker):

@@ -1,7 +1,8 @@
 # T4 加查: "原子抽错" (ATOM_ERR, S1-R1 类) 里没被单独逐条看过的那批 — 全检汇总
 
 <!-- chain: E (plans) -->
-> 状态: **本轮不通过 (按派发前写死的条款: NOT_HOLD 0 且 UNVERIFIABLE 0 才算通过)** — 83 条全检 = 成立 82 / **不成立 1** / 判不了 0. 不成立的 1 条是台账标签多标 (原子其实没抽错), 不是 KB 内容错. **另有 8 条 (登记 `B-CE T-2` 那一组) 判的是成立, 但成立与否取决于一条口径 (代码值内部的一个空格算不算空白归一), 审查者点名要上面定, 主控没有裁** (§5 "问题 D"). **台账没改, KB 没改; 改不改等主人直接定 (问题 C / 问题 D)**. 2026-11-27.
+> **后续 (2026-11-27 夜; 见文末 §8)**: 主人直接回答 「C1、D1、追认 M-10」 → 那 1 条已由 R4L 批改回 EXACT, 8 条按 D1 维持并登记了口径. 下面 §1-§7 是加查当时的记录 (台账 md5 `43809870…`), 数字与 "现在" 都指改台账之前, 没有回改.
+> 状态 (加查当时): **本轮不通过 (按派发前写死的条款: NOT_HOLD 0 且 UNVERIFIABLE 0 才算通过)** — 83 条全检 = 成立 82 / **不成立 1** / 判不了 0. 不成立的 1 条是台账标签多标 (原子其实没抽错), 不是 KB 内容错. **另有 8 条 (登记 `B-CE T-2` 那一组) 判的是成立, 但成立与否取决于一条口径 (代码值内部的一个空格算不算空白归一), 审查者点名要上面定, 主控没有裁** (§5 "问题 D"). **台账没改, KB 没改; 改不改等主人直接定 (问题 C / 问题 D)**. 2026-11-27.
 > 本汇总是主控写的, **没有送独立审查**.
 > 写作者 = 主控 (任务 `task_5b6b27f6c68d`, 新会话). 判定全部出自独立审查者, 主控没有改判任何一条. 路径省略前缀 `.work/10_tier_b_repair/`.
 > 来由: 总闸 attempt 3 把 "ATOM_ERR / PDF_TYPO 补抽" 判为部分关 (`evidence/t4_gate_raw/attempt3_report.md` D 项); 主人 2026-11-27 选了 "加查" (协调方在任务里转述的两句: 「先加查那 83 条再说」「加查，但不挡这次发版」; 不是在本主控聊天里直接发的).
@@ -147,3 +148,12 @@ E3 → `ch04:1478`; E19-E21 → `CE/examples.md:102` / `:123` / `:124`; E46 / E4
 - KB 树 `63f857774a42cfaa71798705ad40ab51bc5e378a` 不变; 台账 md5 `438098704becc84eda01a925b80defaa` 不变; 没 push, 没打 tag, 没做 T4.3.
 - 总闸报告那一项 ("ATOM_ERR / PDF_TYPO 补抽 = 部分关") 现在的事实: ATOM_ERR 与 PDF_TYPO 两类每一条都已有独立审查者的逐条判定; ATOM_ERR 里查出 1 条多标 (问题 C), 另 8 条取决于口径 (问题 D), 都待主人定. **这一项由 "部分关" 改判成什么, 不由主控判** (规则 D) — 由总闸角色 (`feature-dev:code-reviewer` 新实例) 或协调方判; 主人选了 C1 并改完之后, 可以和那一处的 delta 闸审一起判.
 - 规则 B 归档: `evidence/failures/step_T4.AE_attempt_1.md`.
+
+## 8. 后续: 主人的回答与 R4L (2026-11-27 夜)
+
+- 主人在主控聊天里直接回答 (逐字): 「C1、D1、追认 M-10」 (`evidence/checkpoints/t4_owner_confirmation.md` 消息 5).
+- **问题 C = C1**: `ig34_p0124_a001` 由 R4L 批改回 EXACT (提交 `65d6a0f`). 做法: 撤掉它的原子抽错登记 (原条目存进 `work/t3_errata.json` 的 `r4l_revoked`), 由现有的逐字命中规则 `live-hit` 判出 EXACT, 不是硬写标签. 执行者 `oh-my-claudecode:executor` (`evidence/checkpoints/t4_round4_ledger_W.md`) → 结构审查 `oh-my-claudecode:code-reviewer` PASS, 小修后 delta PASS (`evidence/checkpoints/t4_round4_ledger_review.md`). 清单外标签变化 0. 同批给 §5b 那 4 条补了登记指针 (只改 `evidence.registry`; 第三条的登记号全名是 `B-RS T-6 (RS 副本)`).
+- **问题 D = D1**: `B-CE T-2` 那 8 条维持 ATOM_ERR. 口径登记在 `evidence/checkpoints/t4_user_decisions.md` §000c 问题 D 行: 代码值 / 标识符内部的空格是值的一部分, 差一个空格算真实差异, 不属于 "空白归一"; 加查 brief 文末已补这两句话的先后说明.
+- **现值** (R4L 后; 台账 md5 `eef9bb14e5afab7e68a231ddd18cfa1c`; `python3 -I .work/10_tier_b_repair/scripts/t4/t4_coverage_decomp.py`): U-1 B 9860/9933 = 99.2651%; strict 9494/9933 = 95.5804%; mapped 9494/9556 = 99.3512%; 内容 8660/9556 = 90.6237%. 终态 EXACT 4711 / EQUIVALENT 3949 / IE 2559 / PDF_TYPO 170 / ATOM_ERR 196 / FIG 11. 与 §4 的预演值 (C1 那一列) 相同.
+- 复跑说明: `scripts/t4/t4_atomerr_sample.py` 断言的是加查当时的台账, R4L 之后按设计会失败 (人群已固定在 `work/t4/atomerr/atomerr_population.json`); `t4_atomerr_report.py` 与 `t4_atomerr_coverage.py` 已改为对照改前备份 `work/coverage_ledger.wc.pre_r4l.jsonl`, 仍可复跑, 后者同时打印工作台账的现值.
+- "ATOM_ERR / PDF_TYPO 补抽" 那一项的状态与问题 D 的处理是否足够: 交总闸角色判 (brief `subagent_prompts/t4_gate_reviewer_v3.2.md`), 结论见 `evidence/checkpoints/t4_gate_review.md` 文末.

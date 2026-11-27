@@ -13,7 +13,8 @@ pop = json.load(open(f"{OUT}/atomerr_population.json", encoding="utf-8"))
 checked, new, rechk = pop["checked"], set(pop["new"]), set(pop["recheck"])
 num = {i: f"E{n}" for n, i in enumerate(checked, 1)}
 pack_of = {i: (n - 1) // 21 + 1 for n, i in enumerate(checked, 1)}
-ledger = {json.loads(l)["pdf_atom_id"]: json.loads(l) for l in open(f"{TB}/work/coverage_ledger.wc.jsonl", encoding="utf-8")}
+# the ledger the check was done on (md5 43809870…); after the R4L batch the working ledger has the NOT_HOLD atom as EXACT
+ledger = {json.loads(l)["pdf_atom_id"]: json.loads(l) for l in open(f"{TB}/work/coverage_ledger.wc.pre_r4l.jsonl", encoding="utf-8")}
 
 got = {}
 for f in sorted(glob.glob(f"{TB}/evidence/t4_atomerr_raw/pack_*.md")):

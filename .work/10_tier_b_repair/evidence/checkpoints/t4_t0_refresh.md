@@ -104,6 +104,15 @@ bash .work/10_tier_b_repair/scripts/t4/t0_mutation_head.sh > .work/10_tier_b_rep
 - 与 §6 那一版日志逐行 diff: 只有 `TB: current Tier B sections=` 一行的计数 (98 → 96, residual_gap 82 → 81; M2d 那一例相应变化) — R3L 让范围外的 TD 两节 (§7.3、§7.3.2) 的汇总判定变了 (见 `t4_round3_ledger_W.md`); §5.0 范围内 174 节残留仍为 0; 各用例的 expect / got 没有变化.
 - 同样没有再送独立审查; 预跑日志 `work/t4/gate_prerun.log` 里有同一命令在提交后的输出.
 
+## 8. R4L (1 条 ATOM_ERR 改回 EXACT) 之后的第三次重建 (2026-11-27; 主控执行, 对象 HEAD `65d6a0f` 的台账 md5 `eef9bb14e5afab7e68a231ddd18cfa1c`, KB 树不变)
+
+命令与 §6 相同, 脚本没有改.
+
+- 新基线 md5: fp `e7191ace44abc7622021f7b5a01c33a9` / section_coverage `e028b1e66be72e5cebdd163367bea9dc` (这两个随台账变) / BPCPP、MB、EG、REL 四个与 §4 相同.
+- 结果: exit 0; 13 / 13 mutation applied; `MUTATION RESULT: ALL MATCH`; real KB md5 before = after `e2d862e25f04a3757a5ba5436092c416`; `git status knowledge_base/ archive/ releases/ web/` 空.
+- 与 §7 那一版日志逐行 diff: **空** (`evidence/checkpoints/t0_mutation_head.log` 逐字节未变) — R4L 改的 `ig34_p0124_a001` 在 §5.0 范围内的 §6.1.4, 该节改前改后都是残留 0, 不影响 "current Tier B" 口径的节数, 各用例的 expect / got 也没有变化.
+- 同样没有再送独立审查; 预跑日志 `work/t4/gate_prerun.log` 里有同一命令在提交后的输出.
+
 <!-- REVIEW -->
 ## 独立审查 (誊录; 审查者 `oh-my-claudecode:verifier` opus, 只读, 2026-11-27; 对象 HEAD `1df9f60`; 主控不改判)
 

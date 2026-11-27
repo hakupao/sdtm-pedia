@@ -46,3 +46,9 @@
 - 全检 83 条 (77 + 6 盲复检), `oh-my-claudecode:tracer` ×4: 成立 82 / 不成立 1 / 判不了 0。不成立 = `ig34_p0124_a001` (标 ATOM_ERR, 实为 EXACT); `general-purpose` 盲复看相同。汇总 `.work/10_tier_b_repair/evidence/checkpoints/t4_atomerr_fullcheck.md`; 归档 `evidence/failures/step_T4.AE_attempt_1.md`。
 - 台账未改 (md5 `43809870…`); 问题 C (改回 EXACT / 维持) 与 M-10 追认都等主人直接答 — 本会话两项都问了, 未答。
 - 未 push, 未打 kb tag, 未做 T4.3; KB 树 `63f857774a42cfaa71798705ad40ab51bc5e378a` 不变。
+
+## 2026-11-27 夜 (续) 主人答 C1 / D1 / 追认 M-10 → 改台账 R4L (KB 没动)
+- 主人在主控聊天里直接回答 「C1、D1、追认 M-10」 (逐字在 `.work/10_tier_b_repair/evidence/checkpoints/t4_owner_confirmation.md` 消息 5); 对发版的同意经协调方待办项转达 (同一文件)。
+- R4L (`65d6a0f`): `ig34_p0124_a001` ATOM_ERR → EXACT (由 live-hit 判出), 4 条补登记指针; executor → code-reviewer PASS → 小修 → delta PASS。台账 `eef9bb14…`; 现值 U-1 B 99.2651% / strict 95.5804%; ATOM_ERR 196 / EXACT 4711。
+- D1: `B-CE T-2` 那 8 条维持 ATOM_ERR, 口径 (值内空格算真实差异) 登记在 `t4_user_decisions.md` §000c。M-10 已追认。
+- T0 变异基线第三次重建 ALL MATCH; 推送前检查脚本 `scripts/t4/t4_prepush_check.sh` 预跑无拦截项 (不含用户名的机器路径由协调方裁定放行)。

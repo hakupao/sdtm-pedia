@@ -37,15 +37,18 @@ c=collections.Counter(json.loads(l)['verdict'] for l in open('$T/work/coverage_l
   echo; echo "## G-TB6 reverse trace on the working tree (-> scratch)"
   echo "\$ python3 -I $T/scripts/t3/t3_reverse_trace.py --rev WORKTREE --out $S/reverse_trace.json | tail -25"
   python3 -I $T/scripts/t3/t3_reverse_trace.py --rev WORKTREE --out "$S/reverse_trace.json" 2>&1 | tail -25
-  echo; echo "## R2L + R3L change set (pre-R2L backup vs working ledger; R3L alone vs pre-R3L backup) and overlap with every judged sample"
+  echo; echo "## R2L + R3L + R4L change set (pre-R2L backup vs working ledger; R3L alone = pre-R3L vs pre-R4L backup; R4L alone = pre-R4L backup vs working ledger) and overlap with every judged sample"
   run python3 -I $T/scripts/t4/t4_r2l_sample_overlap.py
   echo; echo "## ack list: PDF_TYPO / ATOM_ERR / FIG by decision source (regenerated to scratch, compared with the committed file)"
   echo "\$ grep -c '(未归因)' $T/evidence/checkpoints/t4_ack_lists.md"; grep -c '(未归因)' $T/evidence/checkpoints/t4_ack_lists.md
   echo "\$ sed -n '1,12p' $T/evidence/checkpoints/t4_ack_lists.md"; sed -n '1,12p' $T/evidence/checkpoints/t4_ack_lists.md
+  echo; echo "## ATOM_ERR add-on check (S1-R1): parsed verdicts of the 83 atoms; per-atom verdict rows for every ATOM_ERR / PDF_TYPO; scenario numbers"
+  echo "\$ python3 -I $T/scripts/t4/t4_atomerr_report.py | grep -v 'second-look pack'"; python3 -I $T/scripts/t4/t4_atomerr_report.py 2>&1 | grep -v 'second-look pack'
+  run python3 -I $T/scripts/t4/t4_atomerr_coverage.py
   echo; echo "## sample files"
-  run md5 -r $T/work/t4/gate_sample.jsonl $T/work/t4/human_sample.jsonl $T/work/t4/supp/supp_sample.jsonl $T/work/t4/q9/q9_sample.jsonl $T/work/t4/round2/round2_sample.jsonl $T/work/t4/round2/round2b_sample.jsonl $T/work/t4/round3/round3_sample.jsonl
+  run md5 -r $T/work/t4/gate_sample.jsonl $T/work/t4/human_sample.jsonl $T/work/t4/supp/supp_sample.jsonl $T/work/t4/q9/q9_sample.jsonl $T/work/t4/round2/round2_sample.jsonl $T/work/t4/round2/round2b_sample.jsonl $T/work/t4/round3/round3_sample.jsonl $T/work/t4/atomerr/atomerr_sample.jsonl $T/work/t4/atomerr/atomerr_population.json $T/work/t4/atomerr/verdicts.json
   echo; echo "## working-ledger backups / derived data md5"
-  run md5 -r $T/work/coverage_ledger.wc.jsonl $T/work/coverage_ledger.wc.pre_r2l.jsonl $T/work/coverage_ledger.wc.pre_r3l.jsonl $T/work/t2_pdf_typo_registry.jsonl $T/work/t4_r2l_relabel.json $T/work/t4_r3l_relabel.json $T/work/t3_k3b_out_of_scope_keep.json $T/work/t3_errata.json $T/work/t3_rules.json $T/work/t3_writeback_decisions.json $T/work/t4/supp/scenarios.json $T/work/t4/supp/relabel_pending.json
+  run md5 -r $T/work/coverage_ledger.wc.jsonl $T/work/coverage_ledger.wc.pre_r2l.jsonl $T/work/coverage_ledger.wc.pre_r3l.jsonl $T/work/coverage_ledger.wc.pre_r4l.jsonl $T/work/t2_pdf_typo_registry.jsonl $T/work/t4_r2l_relabel.json $T/work/t4_r3l_relabel.json $T/work/t4_r4l_relabel.json $T/work/t3_k3b_out_of_scope_keep.json $T/work/t3_errata.json $T/work/t3_rules.json $T/work/t3_writeback_decisions.json $T/work/t4/supp/scenarios.json $T/work/t4/supp/relabel_pending.json
   echo; echo "## after"
   echo "KB tree $(git rev-parse HEAD:knowledge_base); ledger md5 $(md5 -q $T/work/coverage_ledger.wc.jsonl)"
   run git status --short knowledge_base archive releases
