@@ -78,7 +78,9 @@ check_links live docs 基线 42 (汇总行走 stderr: `2>&1 | grep "live docs"`)
 ## 最新 (2026-11-27 夜, 加查会话; 任务 `task_5b6b27f6c68d`): ATOM_ERR 加查做完 — 1 条不成立, **等主人定问题 C; 台账没改**
 - 汇总: `evidence/checkpoints/t4_atomerr_fullcheck.md`. S1-R1 157 条 = 此前逐条判过 80 + 从未逐条判过 **77** (总闸估的 83 = 157 − 74). 全检 83 (77 + 6 盲复检), `oh-my-claudecode:tracer` ×4: 成立 82 / **不成立 1** / 判不了 0; 盲复检 6 / 6 一致. 原始结果 `evidence/t4_atomerr_raw/`.
 - 不成立 = `ig34_p0124_a001` (标 ATOM_ERR, 实际原子没抽错, KB 逐字承载, 应为 EXACT); `general-purpose` 盲复看结论相同. 归档 `evidence/failures/step_T4.AE_attempt_1.md`.
-- **问题 C 待主人直接答**: C1 改回 EXACT (建议; U-1 B 不变 99.2651%, strict → 95.5804%) / C2 维持并说明理由. 已在聊天里问, 未答. 主人答 C1 → 比照 R3L (executor → code-reviewer → 重建 T0 基线 → 总闸角色 delta 判断); 做法与要顺带补的 4 条登记指针见归档文件 "下一 attempt 输入". 注意 `t4_supp_report.py` 的硬断言 (已执行集合) 届时不受影响 (这条不在那 82 条里), 但 `t4_ack_lists.py` / `t4_coverage_decomp.py` / T0 基线要重跑.
+- **问题 C 待主人直接答**: C1 改回 EXACT (建议; U-1 B 不变 99.2651%, strict → 95.5804%) / C2 维持并说明理由. 在本会话最后一条汇报里问的, 未答.
+- **问题 D 待主人直接答 (口径, 主控没裁)**: `B-CE T-2` 那 8 条原子与 PDF 只差代码值里的一个空格; 两位审查者判成立, 一位写明若算空白归一则不成立. D1 维持 (建议) / D2 改 EXACT (strict +8) / D3 改 PDF_TYPO. 详 `t4_atomerr_fullcheck.md` §5a. 数字复跑 `python3 -I .work/10_tier_b_repair/scripts/t4/t4_atomerr_coverage.py` (也核 "ATOM_ERR 197 / PDF_TYPO 170 每条都有判定行").
+- 主控写的汇总没有送独立审查. 主人答 C1 → 比照 R3L (executor → code-reviewer → 重建 T0 基线 → 总闸角色 delta 判断); 做法与要顺带补的 4 条登记指针见归档文件 "下一 attempt 输入". 注意 `t4_supp_report.py` 的硬断言 (已执行集合) 届时不受影响 (这条不在那 82 条里), 但 `t4_ack_lists.py` / `t4_coverage_decomp.py` / T0 基线要重跑.
 - **M-10 仍未答** (本会话开头又问了一次; `t4_owner_confirmation.md` "第三个会话" 一节).
 - "ATOM_ERR / PDF_TYPO 补抽 = 部分关" 改成什么、以及这 1 条对已 PASS 的总闸有无影响: 都由总闸角色 / 协调方判, 主控没判 (`t4_gate_review.md` 文末).
 - 禁止仍有效: 不 push、不打 kb tag、不做 T4.3; KB 冻结 (树 `63f857774a42cfaa71798705ad40ab51bc5e378a`); 台账 md5 `438098704becc84eda01a925b80defaa`.
