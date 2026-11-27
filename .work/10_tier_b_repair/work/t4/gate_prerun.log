@@ -1,5 +1,5 @@
-# gate pre-run 2026-11-27T13:31:08Z  HEAD b97b1da  KB tree 63f857774a42cfaa71798705ad40ab51bc5e378a
-# ledger md5 438098704becc84eda01a925b80defaa  registry rows 274
+# gate pre-run 2026-11-27T15:27:04Z  HEAD 2c61ea5  KB tree 63f857774a42cfaa71798705ad40ab51bc5e378a
+# ledger md5 eef9bb14e5afab7e68a231ddd18cfa1c  registry rows 274
 
 $ git status --short
  M .work/10_tier_b_repair/work/t4/gate_prerun.log
@@ -21,31 +21,31 @@ TB: §5.0 scope sections=174 residual_gap=0 G-TB1 pass=174/174 G-TB2 pass=157/17
 
 $ python3 -I .work/10_tier_b_repair/scripts/t4/t4_coverage_decomp.py
 pre-T3 (06 formula): 10298/10400 = 99.0192%
-final strict       : 9493/9933 = 95.5703%
-final mapped       : 9493/9555 = 99.3511%
+final strict       : 9494/9933 = 95.5804%
+final mapped       : 9494/9556 = 99.3512%
 final U-1 B        : 9860/9933 = 99.2651%  (ATOM_ERR+PDF_TYPO covered, FIGURE_DEFERRED uncovered)
-content EXACT+EQUIV: 8659/9555 = 90.6227%  (mapped denominator)
+content EXACT+EQUIV: 8660/9556 = 90.6237%  (mapped denominator)
 group transitions (cov=EXACT/EQUIV/PARTIAL/MISPLACED, unc=MISSING/ERROR, new=ATOM_ERR/PDF_TYPO/FIG):
          cov -> ie   546
-         cov -> new  367
+         cov -> new  366
           ie -> cov  72
          unc -> cov  32
          unc -> new  8
   (appended) -> cov  4
           ie -> new  2
   (appended) -> new  1
-counterfactual strict if the 367 cov->new rows had stayed covered: 9860/9933 = 99.2651%
+counterfactual strict if the 366 cov->new rows had stayed covered: 9860/9933 = 99.2651%
 still-counted-as-covered under 06 formula in final ledger: {'PARTIAL': 637, 'MISPLACED': 197} | uncovered: {'ERROR': 62}
 [exit=0]
 
 ## final verdict counts
-{'INTENTIONAL_EXCLUDE': 2559, 'EQUIVALENT': 3949, 'EXACT': 4710, 'ATOM_ERR': 197, 'PDF_TYPO': 170, 'PARTIAL': 637, 'MISPLACED': 197, 'ERROR': 62, 'FIGURE_DEFERRED': 11} rows 12492
+{'INTENTIONAL_EXCLUDE': 2559, 'EQUIVALENT': 3949, 'EXACT': 4711, 'ATOM_ERR': 196, 'PDF_TYPO': 170, 'PARTIAL': 637, 'MISPLACED': 197, 'ERROR': 62, 'FIGURE_DEFERRED': 11} rows 12492
 
 ## direct-hit recheck (stock EXACT in scope + TB EXACT)
 
 $ python3 -I .work/10_tier_b_repair/scripts/t3/t3_direct_hit.py --out .work/10_tier_b_repair/work/scratch/t4/gate_prerun/direct_hit.json
 kb_root=/Volumes/DevSSD/Project/sdtm-pedia/knowledge_base
-EXACT checked (independent targets): TB(all)=1033 stock(§5.0 scope)=1748; anchor-checked non-EXACT rows=421
+EXACT checked (independent targets): TB(all)=1034 stock(§5.0 scope)=1748; anchor-checked non-EXACT rows=421
   tb_exact_miss: 0 []
   k11_short: 0 []
   anchor_lost: 0 []
@@ -137,18 +137,20 @@ by class: {'PDF_SUBSTR': 1880, 'BLANK': 816, 'TABLE_TOKENS': 710, 'U_RULE': 699,
 NOT traced: PDF_NEAR 0 UNEXPLAINED 0 -> details .work/10_tier_b_repair/work/scratch/t4/gate_prerun/reverse_trace.json
 NOTE_EXEMPT list: 5 entries, hits 5 | entries not hit exactly once: []
 
-## R2L + R3L change set (pre-R2L backup vs working ledger; R3L alone vs pre-R3L backup) and overlap with every judged sample
+## R2L + R3L + R4L change set (pre-R2L backup vs working ledger; R3L alone = pre-R3L vs pre-R4L backup; R4L alone = pre-R4L backup vs working ledger) and overlap with every judged sample
 
 $ python3 -I .work/10_tier_b_repair/scripts/t4/t4_r2l_sample_overlap.py
-rows 12492 | label changed 82 | other fields only 5 ['ig34_p0198_a014', 'ig34_p0206_a009', 'ig34_p0263_a020', 'ig34_p0355_a027', 'ig34_p0356_a001']
+rows 12492 | label changed 83 | other fields only 9 ['ig34_p0161_a0012', 'ig34_p0198_a014', 'ig34_p0206_a009', 'ig34_p0263_a020', 'ig34_p0337_a003', 'ig34_p0339_a001', 'ig34_p0355_a027', 'ig34_p0356_a001', 'ig34_p0361_a016']
+  ATOM_ERR -> EXACT: 1
   EQUIVALENT -> INTENTIONAL_EXCLUDE: 51
   EQUIVALENT -> PDF_TYPO: 15
   EXACT -> INTENTIONAL_EXCLUDE: 2
   EXACT -> PDF_TYPO: 10
   PDF_TYPO -> EXACT: 4
-changed set == work/t4_r2l_relabel.json + work/t4_r3l_relabel.json 'relabel' lists: True (78 + 4 listed); direction as listed: True
-R3L batch alone (pre_r3l backup vs working ledger): label changed 4 {'ig34_p0412_a006': ('PDF_TYPO', 'EXACT'), 'ig34_p0412_a007': ('PDF_TYPO', 'EXACT'), 'ig34_p0412_a008': ('PDF_TYPO', 'EXACT'), 'ig34_p0413_a010': ('PDF_TYPO', 'EXACT')} | other rows byte-identical: True | == R3L list: True
-other-fields-only set == 'registry_ptr' list: True
+changed set == work/t4_r2l_relabel.json + t4_r3l_relabel.json + t4_r4l_relabel.json 'relabel' lists: True (78 + 4 + 1 listed); direction as listed: True
+R3L batch alone (pre_r3l backup vs pre_r4l backup): label changed 4 {'ig34_p0412_a006': ('PDF_TYPO', 'EXACT'), 'ig34_p0412_a007': ('PDF_TYPO', 'EXACT'), 'ig34_p0412_a008': ('PDF_TYPO', 'EXACT'), 'ig34_p0413_a010': ('PDF_TYPO', 'EXACT')} | other rows byte-identical: True | == R3L list: True
+R4L batch alone (pre_r4l backup vs working ledger): label changed 1 {'ig34_p0124_a001': ('ATOM_ERR', 'EXACT')} | == R4L list: True | other-fields-only ['ig34_p0161_a0012', 'ig34_p0337_a003', 'ig34_p0339_a001', 'ig34_p0361_a016'] == R4L registry_ptr list: True | all other rows byte-identical: True
+other-fields-only set == R2L + R4L 'registry_ptr' lists: True
 
 sample | n | label-changed in it | other-fields-only in it
 gate sample (attempt 1 / 2; 84) | 84 | 0 | 0
@@ -245,11 +247,18 @@ round 3 (315) | 315 | 10 | 4
     ig34_p0206_a009: (pointer fields only)
     ig34_p0263_a020: (pointer fields only)
     ig34_p0356_a001: (pointer fields only)
+ATOM_ERR add-on check (83) | 83 | 1 | 4
+    ig34_p0124_a001: ATOM_ERR -> EXACT
+    ig34_p0161_a0012: (pointer fields only)
+    ig34_p0337_a003: (pointer fields only)
+    ig34_p0339_a001: (pointer fields only)
+    ig34_p0361_a016: (pointer fields only)
 owner's 6 (t4_human_verdicts.md) | label-changed: [] | other-fields-only: []
 
 t4_ack_lists.md: '(未归因)' occurrences = 0
-final: {'EXACT': 4710, 'EQUIVALENT': 3949, 'INTENTIONAL_EXCLUDE': 2559, 'ATOM_ERR': 197, 'PDF_TYPO': 170, 'FIGURE_DEFERRED': 11, 'PARTIAL': 637, 'MISPLACED': 197, 'ERROR': 62}
+final: {'EXACT': 4711, 'EQUIVALENT': 3949, 'INTENTIONAL_EXCLUDE': 2559, 'ATOM_ERR': 196, 'PDF_TYPO': 170, 'FIGURE_DEFERRED': 11, 'PARTIAL': 637, 'MISPLACED': 197, 'ERROR': 62}
 registry rows 274 | handling: {'KB 写正确值': 195, '照录+T4': 75, '照录': 4}
+question C x1 (owner: C1 -> EXACT) now: {'ig34_p0124_a001': ['EXACT']} | question D (owner: D1 -> the B-CE T-2 atoms stay ATOM_ERR): still ATOM_ERR 8
 question A x4 (owner: A1 -> EXACT) and question B x1 (owner: B1 -> stays PDF_TYPO) now: {'ig34_p0412_a006': ['EXACT'], 'ig34_p0412_a007': ['EXACT'], 'ig34_p0412_a008': ['EXACT'], 'ig34_p0413_a010': ['EXACT'], 'ig34_p0293_a038': ['PDF_TYPO']}
 [exit=0]
 
@@ -260,7 +269,7 @@ $ sed -n '1,12p' .work/10_tier_b_repair/evidence/checkpoints/t4_ack_lists.md
 # T4 用户确认清单: ATOM_ERR / PDF_TYPO / FIGURE_DEFERRED
 
 <!-- chain: E (plans) -->
-> 状态: **委托代裁整类确认 (U-5=B, C7 38 全检成立), 见 t4_user_decisions.md §000; 非主人逐条确认** (2026-11-27 T4 问题 A 改台账 R3L 重生成: 主人 A1, 4 条 PDF_TYPO → EXACT, 见 `evidence/checkpoints/t4_round3_ledger_W.md`; 上一次为 R2L). U-5 裁定时 (ledger @3a24a1c) 为 ATOM_ERR 197 / PDF_TYPO 122 / FIG 11; 之后进入这三类的原子按 "决定来源" 列标注 (U-2 / U-8 / U-7 委托代裁, 见 t4_user_decisions.md §000; 第二轮改台账 25 条 = 主人 2026-11-27 问题 3 = A / 7b = A, 见 t4_owner_confirmation.md 第二轮), 不归入 U-5; 明细见 `evidence/checkpoints/t4_thaw_W3.md`、`evidence/checkpoints/t4_round2_ledger_W.md`. 生成: `python3 -I .work/10_tier_b_repair/scripts/t4/t4_ack_lists.py`.
+> 状态: **委托代裁整类确认 (U-5=B, C7 38 全检成立), 见 t4_user_decisions.md §000; 非主人逐条确认** (2026-11-27 T4 问题 C 改台账 R4L 重生成: 主人 C1, 1 条 ATOM_ERR → EXACT, 另 4 条 ATOM_ERR 只补登记指针, 见 `evidence/checkpoints/t4_round4_ledger_W.md`; 上一次为 R3L). U-5 裁定时 (ledger @3a24a1c) 为 ATOM_ERR 197 / PDF_TYPO 122 / FIG 11; 之后进入这三类的原子按 "决定来源" 列标注 (U-2 / U-8 / U-7 委托代裁, 见 t4_user_decisions.md §000; 第二轮改台账 25 条 = 主人 2026-11-27 问题 3 = A / 7b = A, 见 t4_owner_confirmation.md 第二轮), 不归入 U-5; 明细见 `evidence/checkpoints/t4_thaw_W3.md`、`evidence/checkpoints/t4_round2_ledger_W.md`. 生成: `python3 -I .work/10_tier_b_repair/scripts/t4/t4_ack_lists.py`.
 > 单位 = PDF 原子 (不是登记行; 一条登记行可覆盖多个原子, 一个原子也可挂多条登记). 数据源: 最终 ledger `work/coverage_ledger.wc.jsonl` + `work/t3_writeback_decisions.json` + `work/t3_errata.json`.
 > G-TB1 要求这三类 "每条有登记 + 用户 ack". 这三类在 G-TB3 mapped 口径中从分母去掉, 在 strict 口径中算未覆盖.
 
@@ -268,11 +277,35 @@ $ sed -n '1,12p' .work/10_tier_b_repair/evidence/checkpoints/t4_ack_lists.md
 
 | 终态 | 原子数 | 按判定规则 | 决定来源 | 用户确认 |
 |---|--:|---|---|---|
-| ATOM_ERR | 197 | S1-R1 157, C7-atom-not-in-PDF 38, C7-K4-rereview 2 | U-5 196, U-2 委托代裁 1 | ☐ 整类确认　☐ 有异议 (在下表备注) |
+| ATOM_ERR | 196 | S1-R1 156, C7-atom-not-in-PDF 38, C7-K4-rereview 2 | U-5 195, U-2 委托代裁 1 | ☐ 整类确认　☐ 有异议 (在下表备注) |
+
+## ATOM_ERR add-on check (S1-R1): parsed verdicts of the 83 atoms; per-atom verdict rows for every ATOM_ERR / PDF_TYPO; scenario numbers
+$ python3 -I .work/10_tier_b_repair/scripts/t4/t4_atomerr_report.py | grep -v 'second-look pack'
+rows 83 (= checked 83); by pack {1: 21, 2: 21, 3: 21, 4: 20}
+NEW      77: {'HOLDS': 76, 'NOT_HOLD': 1}
+RECHECK   6: {'HOLDS': 6}  (prior verdicts: all HOLDS / 内容正确)
+ALL      83: {'HOLDS': 82, 'NOT_HOLD': 1}
+  NOT_HOLD E12 ig34_p0124_a001 [new] evidence/t4_atomerr_raw/pack_1.md:29
+rows mentioning 涉登记: 8 ['E18 ig34_p0153_a0034', 'E19 ig34_p0154_a0002', 'E20 ig34_p0154_a0013', 'E21 ig34_p0154_a0014', 'E26 ig34_p0161_a0012', 'E64 ig34_p0337_a003', 'E71 ig34_p0339_a001', 'E79 ig34_p0361_a016']
+verdicts.json md5 7f1f5e3e257f197032dc3d3eea44aac8
+
+$ python3 -I .work/10_tier_b_repair/scripts/t4/t4_atomerr_coverage.py
+ATOM_ERR 197: with a verdict row 197, without 0 []; first source {'t4_atomerr_raw': 77, 't4_supp_raw': 76, 't4_gate_raw': 7, 'checkpoints': 37}
+PDF_TYPO 170: with a verdict row 170, without 0 []; first source {'t4_round2_raw': 60, 't4_round3_raw': 101, 't4_gate_raw': 5, 't4_supp_raw': 4}
+before R4L (checked ledger): U-1 B 9860/9933 = 99.2651% | strict 9493/9933 = 95.5703% | mapped 9493/9555 = 99.3511% | content 8659/9555 = 90.6227% | EXACT 4710 ATOM_ERR 197 PDF_TYPO 170
+C1 (1 -> EXACT)           : U-1 B 9860/9933 = 99.2651% | strict 9494/9933 = 95.5804% | mapped 9494/9556 = 99.3512% | content 8660/9556 = 90.6237% | EXACT 4711 ATOM_ERR 196 PDF_TYPO 170
+B-CE 8 -> EXACT           : U-1 B 9860/9933 = 99.2651% | strict 9501/9933 = 95.6509% | mapped 9501/9563 = 99.3517% | content 8667/9563 = 90.6306% | EXACT 4718 ATOM_ERR 189 PDF_TYPO 170
+B-CE 8 -> PDF_TYPO        : U-1 B 9860/9933 = 99.2651% | strict 9493/9933 = 95.5703% | mapped 9493/9555 = 99.3511% | content 8659/9555 = 90.6227% | EXACT 4710 ATOM_ERR 189 PDF_TYPO 178
+C1 + B-CE 8 -> EXACT      : U-1 B 9860/9933 = 99.2651% | strict 9502/9933 = 95.6609% | mapped 9502/9564 = 99.3517% | content 8668/9564 = 90.6315% | EXACT 4719 ATOM_ERR 188 PDF_TYPO 170
+B-CE atoms: ['ig34_p0153_a0034', 'ig34_p0154_a0002', 'ig34_p0154_a0013', 'ig34_p0154_a0014', 'ig34_p0154_a0015', 'ig34_p0154_a0029', 'ig34_p0154_a0030', 'ig34_p0155_a0002']
+working ledger now        : U-1 B 9860/9933 = 99.2651% | strict 9494/9933 = 95.5804% | mapped 9494/9556 = 99.3512% | content 8660/9556 = 90.6237% | EXACT 4711 ATOM_ERR 196 PDF_TYPO 170
+B-CE 8 in the working ledger: ['ATOM_ERR'] | C1 atom: ['EXACT']
+md5: checked ledger 438098704becc84eda01a925b80defaa | working ledger eef9bb14e5afab7e68a231ddd18cfa1c
+[exit=0]
 
 ## sample files
 
-$ md5 -r .work/10_tier_b_repair/work/t4/gate_sample.jsonl .work/10_tier_b_repair/work/t4/human_sample.jsonl .work/10_tier_b_repair/work/t4/supp/supp_sample.jsonl .work/10_tier_b_repair/work/t4/q9/q9_sample.jsonl .work/10_tier_b_repair/work/t4/round2/round2_sample.jsonl .work/10_tier_b_repair/work/t4/round2/round2b_sample.jsonl .work/10_tier_b_repair/work/t4/round3/round3_sample.jsonl
+$ md5 -r .work/10_tier_b_repair/work/t4/gate_sample.jsonl .work/10_tier_b_repair/work/t4/human_sample.jsonl .work/10_tier_b_repair/work/t4/supp/supp_sample.jsonl .work/10_tier_b_repair/work/t4/q9/q9_sample.jsonl .work/10_tier_b_repair/work/t4/round2/round2_sample.jsonl .work/10_tier_b_repair/work/t4/round2/round2b_sample.jsonl .work/10_tier_b_repair/work/t4/round3/round3_sample.jsonl .work/10_tier_b_repair/work/t4/atomerr/atomerr_sample.jsonl .work/10_tier_b_repair/work/t4/atomerr/atomerr_population.json .work/10_tier_b_repair/work/t4/atomerr/verdicts.json
 67b1013f496096df483eb300a66150d6 .work/10_tier_b_repair/work/t4/gate_sample.jsonl
 5b4212ee6b5deb873ab29d7f13e17232 .work/10_tier_b_repair/work/t4/human_sample.jsonl
 0fb5799b821c5a4dc900b39fbf86bf86 .work/10_tier_b_repair/work/t4/supp/supp_sample.jsonl
@@ -280,27 +313,32 @@ $ md5 -r .work/10_tier_b_repair/work/t4/gate_sample.jsonl .work/10_tier_b_repair
 f212fc3c7e8aacf10c1b94c1534de3bc .work/10_tier_b_repair/work/t4/round2/round2_sample.jsonl
 6f9a13b8bbfa2dbe74b5361accd04f2f .work/10_tier_b_repair/work/t4/round2/round2b_sample.jsonl
 9eeb5b78863e2caf34da34c6c90a5528 .work/10_tier_b_repair/work/t4/round3/round3_sample.jsonl
+b1c4c2cfbc316849989cd92771ca5af3 .work/10_tier_b_repair/work/t4/atomerr/atomerr_sample.jsonl
+819bae280a3aad22664b2aa0f91d2518 .work/10_tier_b_repair/work/t4/atomerr/atomerr_population.json
+7f1f5e3e257f197032dc3d3eea44aac8 .work/10_tier_b_repair/work/t4/atomerr/verdicts.json
 [exit=0]
 
 ## working-ledger backups / derived data md5
 
-$ md5 -r .work/10_tier_b_repair/work/coverage_ledger.wc.jsonl .work/10_tier_b_repair/work/coverage_ledger.wc.pre_r2l.jsonl .work/10_tier_b_repair/work/coverage_ledger.wc.pre_r3l.jsonl .work/10_tier_b_repair/work/t2_pdf_typo_registry.jsonl .work/10_tier_b_repair/work/t4_r2l_relabel.json .work/10_tier_b_repair/work/t4_r3l_relabel.json .work/10_tier_b_repair/work/t3_k3b_out_of_scope_keep.json .work/10_tier_b_repair/work/t3_errata.json .work/10_tier_b_repair/work/t3_rules.json .work/10_tier_b_repair/work/t3_writeback_decisions.json .work/10_tier_b_repair/work/t4/supp/scenarios.json .work/10_tier_b_repair/work/t4/supp/relabel_pending.json
-438098704becc84eda01a925b80defaa .work/10_tier_b_repair/work/coverage_ledger.wc.jsonl
+$ md5 -r .work/10_tier_b_repair/work/coverage_ledger.wc.jsonl .work/10_tier_b_repair/work/coverage_ledger.wc.pre_r2l.jsonl .work/10_tier_b_repair/work/coverage_ledger.wc.pre_r3l.jsonl .work/10_tier_b_repair/work/coverage_ledger.wc.pre_r4l.jsonl .work/10_tier_b_repair/work/t2_pdf_typo_registry.jsonl .work/10_tier_b_repair/work/t4_r2l_relabel.json .work/10_tier_b_repair/work/t4_r3l_relabel.json .work/10_tier_b_repair/work/t4_r4l_relabel.json .work/10_tier_b_repair/work/t3_k3b_out_of_scope_keep.json .work/10_tier_b_repair/work/t3_errata.json .work/10_tier_b_repair/work/t3_rules.json .work/10_tier_b_repair/work/t3_writeback_decisions.json .work/10_tier_b_repair/work/t4/supp/scenarios.json .work/10_tier_b_repair/work/t4/supp/relabel_pending.json
+eef9bb14e5afab7e68a231ddd18cfa1c .work/10_tier_b_repair/work/coverage_ledger.wc.jsonl
 60729f7b64b7c1dfaf2174e394f6dd9c .work/10_tier_b_repair/work/coverage_ledger.wc.pre_r2l.jsonl
 16024ac09721cb3f8519cd68fa455196 .work/10_tier_b_repair/work/coverage_ledger.wc.pre_r3l.jsonl
+438098704becc84eda01a925b80defaa .work/10_tier_b_repair/work/coverage_ledger.wc.pre_r4l.jsonl
 e6f86b49f7daac2bad76625f243a1683 .work/10_tier_b_repair/work/t2_pdf_typo_registry.jsonl
 3e7e6eba4b2d311b7601b54d7f007248 .work/10_tier_b_repair/work/t4_r2l_relabel.json
 1dcefad3463c4814f42fb68eb6343e0c .work/10_tier_b_repair/work/t4_r3l_relabel.json
+c33abbe7893160a020044b0d27d60d51 .work/10_tier_b_repair/work/t4_r4l_relabel.json
 1e99f1010ff402f738fc57b2884d1954 .work/10_tier_b_repair/work/t3_k3b_out_of_scope_keep.json
-b606520637bc3c13b0f8f79dea6c81f6 .work/10_tier_b_repair/work/t3_errata.json
+765355300d3c473fad601dd44b1492a5 .work/10_tier_b_repair/work/t3_errata.json
 1096bec29fa25711b250d70711093002 .work/10_tier_b_repair/work/t3_rules.json
-10a925c9e44c75c6d2ce9551d56156d1 .work/10_tier_b_repair/work/t3_writeback_decisions.json
+8aa949c10f0aaa51178b1d372cecbc5f .work/10_tier_b_repair/work/t3_writeback_decisions.json
 cd00c340ce394ba153332b82c2310c52 .work/10_tier_b_repair/work/t4/supp/scenarios.json
 2805c0eded32d808639fffa4d8f50424 .work/10_tier_b_repair/work/t4/supp/relabel_pending.json
 [exit=0]
 
 ## after
-KB tree 63f857774a42cfaa71798705ad40ab51bc5e378a; ledger md5 438098704becc84eda01a925b80defaa
+KB tree 63f857774a42cfaa71798705ad40ab51bc5e378a; ledger md5 eef9bb14e5afab7e68a231ddd18cfa1c
 
 $ git status --short knowledge_base archive releases
 [exit=0]
